@@ -20,5 +20,5 @@ Webrat.configure do |config|
   config.mode = :rails
 end
 
-require 'cucumber/rails/rspec'
+# require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'

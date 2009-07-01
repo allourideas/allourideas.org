@@ -1,0 +1,97 @@
+This is Heroku Suspenders, the thoughtbot rails template modified to be used for deployment to Heroku. To create a new project, checkout this
+repository and run:
+
+  ./script/create_project projectname
+
+This will create a project in ../projectname.  You should then follow the
+instructions on Github to upload that project there.  This script creates an
+entirely new git repository, and is not meant to be used against an existing
+repo.
+
+When making a change to a project that was created via this template, consider
+whether it's a change that should be made across all projects.  If so, then
+make the change in this template, and pull it into your project via:
+
+  git pull suspenders master
+
+About Suspenders
+----------------
+
+Suspenders was created for use at thoughtbot, inc. (http://thoughtbot.com) as a
+baseline application setup, with reasonable default plugins that the majority (if not all)
+of our applications used, as well as best-practice configuration options.
+
+Suspenders currently includes Rails 2.3.2
+
+Gems (unpacked in vendor/gems):
+-------------------------------
+
+For record pagination:
+
+  will_paginate
+
+For text formatting:
+
+  RedCloth
+
+For testing:
+
+  mocha
+  factory_girl
+  shoulda
+
+Plugins (in vendor/plugins):
+----------------------------
+
+  hoptoad_notifier
+  limerick_rake
+
+Initializers (in config/initializers)
+-------------------------------------
+
+  action_mailer_configs.rb
+  We use SMTP by default in all applications.
+
+  hoptoad.rb
+  Get your API key at http://hoptoadapp.com
+
+  requires.rb
+  Automatically requires everything in
+    lib/
+    lib/extensions
+    test/mocks/RAILS_ENV (Removed in Rails 2, we decided to keep it)
+  Add other things you need to require in here.
+
+  time_formats.rb
+  Two time formats are available by default, :short_date and :long_date.
+  Add other time formats here.
+
+Rake Tasks
+----------
+
+Rake tasks are contained in the limerick_rake gem.
+
+  bootstrap
+  Provides rake tasks for loading data into the database.  These are used for an initial application dataset needed for production.
+
+Testing
+-------
+
+Testing is done utilizing Test::Unit, Shoulda, factory_girl, and mocha.
+
+factory_girl is a fixture replacement library, following the factory pattern.  Place your
+factories in test/factories.rb.  The fixture directory has been removed, as fixtures are not
+used.
+
+Shoulda is a pragmatic testing framework for TDD and BDD built on top of Test::Unit.
+
+jferris-mocha --version '0.9.5.0.1241126838' --source gems.github.com
+thoughtbot-factory_girl --version '>= 1.2.0' --source gems.github.com
+thoughtbot-shoulda --version '>= 2.10.1' --source gems.github.com
+
+Mascot
+------
+
+The official Suspenders mascot is Suspenders Boy:
+
+  http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png

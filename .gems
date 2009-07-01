@@ -1,0 +1,4 @@
+thoughtbot-clearance --version '>= 0.6.8' --source gems.github.com
+RedCloth --version '= 3.0.4'
+mislav-will_paginate --version '~> 2.3.11' --source gems.github.com
+

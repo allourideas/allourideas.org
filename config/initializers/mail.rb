@@ -4,3 +4,5 @@ ActionMailer::Base.smtp_settings = {
     :domain  => "thoughtbot.com"
 }
 
+DO_NOT_REPLY = "donotreply@example.com"
+

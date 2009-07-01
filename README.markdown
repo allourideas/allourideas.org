@@ -12,7 +12,7 @@ When making a change to a project that was created via this template, consider
 whether it's a change that should be made across all projects.  If so, then
 make the change in this template, and pull it into your project via:
 
-  git pull suspenders master
+  git pull heroku_suspenders master
 
 About Suspenders
 ----------------

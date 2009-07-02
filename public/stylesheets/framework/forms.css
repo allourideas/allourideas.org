@@ -1,0 +1,83 @@
+/* fieldsets */
+
+form fieldset.inputs, form fieldset.buttons {
+  margin: 1em 0; }
+
+/* labels */
+
+form fieldset div label {
+  display: block;
+  font-size: 1.4em; }
+
+/* instruction */
+
+form fieldset p.instruction {
+  font-size: 1em; }
+
+form fieldset .hidden {
+  display: none; }
+
+/* inputs */
+
+form fieldset div.string,
+form fieldset div.numeric,
+form fieldset div.password {
+  margin: 0 0 2em 0; }
+
+form fieldset div.string input,
+form fieldset div.numeric input,
+form fieldset div.text textarea {
+  padding: 0.4em; }
+
+form fieldset div.password input {
+  font-weight: bold; }
+
+form fieldset div.boolean label,
+form fieldset div.boolean input {
+  display: inline; }
+
+form fieldset div.boolean label {
+  margin: 0 0.5em 0 0.2em; }
+
+/* radio buttons and check boxes */
+
+form fieldset div.radio_buttons fieldset ol,
+form fieldset div.check_boxes fieldset ol, {
+  margin-bottom: -0.6em; }
+form fieldset div.radio_buttons fieldset ol li,
+form fieldset div.check_boxes fieldset ol li, {
+  margin: 0.1em 0 0.5em 0; }
+form fieldset div.radio_buttons fieldset ol li label,
+form fieldset div.check_boxes fieldset ol li label {
+  float: none; }
+form fieldset div.radio_buttons fieldset ol li label input,
+form fieldset div.check_boxes fieldset ol li label input, {
+  margin-right: 0.2em; }
+
+/* dates, times, and datetimes */
+
+form fieldset div.date fieldset ol li,
+form fieldset div.time fieldset ol li,
+form fieldset div.datetime fieldset ol li {
+  float: left;
+  width: auto;
+  margin: 0 .3em 0 0; }
+
+form fieldset div.date fieldset ol li label,
+form fieldset div.time fieldset ol li label,
+form fieldset div.datetime fieldset ol li label {
+  display: none; }
+
+form fieldset div.date fieldset ol li label input, 
+form fieldset div.time fieldset ol li label input, 
+form fieldset div.datetime fieldset ol li label input {
+  display: inline;
+  margin: 0;
+  padding: 0; }
+
+/* buttons */
+
+form fieldset.buttons input {
+  font-size: 1.2em;
+  padding: 1em; }
+

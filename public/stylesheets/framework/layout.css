@@ -1,0 +1,70 @@
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+* html .clearfix { height: 1%; }
+*:first-child+html .clearfix { min-height: 1px; }
+
+.half,
+.quarter,
+.three_quarters {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.middle {
+  margin: 0 auto;
+}
+
+.center {
+  text-align: center;
+}
+
+/* grid 960 { 480 240 120 60 30 15 5 } */
+
+/*.grid_960 */ 
+.grid_960 .row{
+  width: 96em;
+  margin: 0 auto;
+}
+
+.grid_960 .half {
+  width: 48em;
+}
+
+.grid_960 .quarter {
+  width: 24em;
+}
+
+.grid_960 .three_quarters {
+  width: 72em;
+}
+
+/* testing framework */
+.test {
+  -moz-opacity: .7;
+  background: #000;
+  color: #FFF;
+}
+.test h1 {
+  background: #0F0;
+}
+.test h2 {
+  background: #0C0;
+}
+.test h3 {
+  background: #090;
+}
+.test h4 {
+  background: #060;
+}
+.test ul {
+  background: #c00;
+}
+.test p {
+  background: #c00;
+}
+

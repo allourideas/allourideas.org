@@ -1,0 +1,18 @@
+# has_attached_file :avatar,
+#   :styles         => { :thumbnail => "150x150" },
+#   :path           => ":attachment/:id/:style.:extension",
+#   :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+
+development: &default
+  access_key_id: CHANGEME
+  secret_access_key: CHANGEME
+  bucket: CHANGME_development
+
+test:
+  <<: *default
+  bucket: CHANGME_test
+
+production:
+  <<: *default
+  bucket: CHANGME_production
+

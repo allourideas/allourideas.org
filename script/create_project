@@ -53,7 +53,19 @@ Dir.glob("#{project_directory}/**/session_store.rb").each do |file|
 end
 
 run("git commit -a -m 'Initial commit'")
+run("rake db:migrate")
+run("rake db:test:prepare")
+run("rake")
 
 puts
-puts "Now login to github and add a new project named '#{project_name.humanize.titleize}'"
+puts "If you want email, edit config/initializers/mail.rb"
+puts "If you want file uploads, edit config/s3.yml"
+puts
+puts "When you're ready to deploy, run these commands:"
+puts
+puts "heroku create (or heroku create #{project_name})"
+puts "git push heroku master"
+puts "heroku rake db:migrate"
+puts "heroku open"
+
 

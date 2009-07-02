@@ -9,13 +9,14 @@ thoughtbot's Suspenders modified for Heroku.
 
 This will create a Rails 2.3.2 app with:
 
+* Paperclip for file uploads, set for Amazon S3
 * Clearance for authentication
 * Gmail SMTP for email
 * Cucumber, Shoulda, Factory Girl, & Mocha for testing
-* Hoptoad Notifier for exception notification
-* Paperclip for file uploads, set for Amazon S3
-* Coulda for model, controller, & helper generators
 * Delayed Job for background processing
+* Hoptoad Notifier for exception notification
+* Google Analytics for usage analytics
+* Coulda for model, controller, & helper generators
 
 Get the latest & greatest at anytime with:
 

@@ -10,7 +10,7 @@ A Rails app with intelligent defaults from thoughtbot.
 * Will Paginate for pagination
 * RedCloth for Textile formatting
 * Hoptoad Notifier for exception notification
-* Email defaults configured for Heroku
+* Email defaults (Gmail SMTP) configured for Heroku
 
 Get the latest & greatest at anytime with:
 
@@ -24,3 +24,5 @@ Mascot
 The official Suspenders mascot is Suspenders Boy:
 
     http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png
+
+![Suspenders Boy](http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png)

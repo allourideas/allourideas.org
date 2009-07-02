@@ -91,15 +91,20 @@ Testing
 
 Testing is done utilizing Test::Unit, Shoulda, factory_girl, and mocha.
 
+Shoulda is a pragmatic testing framework for TDD built on top of Test::Unit.
+
+    thoughtbot-shoulda --version '>= 2.10.1' --source gems.github.com
+
 factory_girl is a fixture replacement library, following the factory pattern.
 Place your factories in test/factories.rb. The fixture directory has been
 removed, as fixtures are not used.
 
-Shoulda is a pragmatic testing framework for TDD built on top of Test::Unit.
+    thoughtbot-factory_girl --version '>= 1.2.0' --source gems.github.com
+
+Mocha is a widely-used mocking library, including by Rails itself. We use a fork
+from Joe Ferris that adds test spies (assert_received) to Mocha.
 
     jferris-mocha --version '0.9.5.0.1241126838' --source gems.github.com
-    thoughtbot-factory_girl --version '>= 1.2.0' --source gems.github.com
-    thoughtbot-shoulda --version '>= 2.10.1' --source gems.github.com
 
 Mascot
 ------

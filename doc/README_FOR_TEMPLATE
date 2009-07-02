@@ -1,10 +1,10 @@
-This is Heroku Suspenders, the thoughtbot rails template modified to be used for deployment to Heroku. To create a new project, checkout this
-repository and run:
+This is Heroku Suspenders, the thoughtbot Rails template modified to be used for 
+deployment to Heroku. To create a new project, checkout this repository and run:
 
     ./script/create_project projectname
 
 This will create a project in ../projectname.  You should then follow the
-instructions on Github to upload that project there.  This script creates an
+instructions to deploy to Heroku.  This script creates an
 entirely new git repository, and is not meant to be used against an existing
 repo.
 
@@ -18,65 +18,84 @@ About Suspenders
 ----------------
 
 Suspenders was created for use at thoughtbot, inc. (http://thoughtbot.com) as a
-baseline application setup, with reasonable default plugins that the majority (if not all) of our applications used, as well as best-practice configuration options.
+baseline application setup, with intelligent defaults.
 
-Suspenders currently includes Rails 2.3.2
+Suspenders currently runs on Rails 2.3.2.
 
-Gems (unpacked in vendor/gems):
--------------------------------
-
-For record pagination:
-
-    will_paginate
-
-For text formatting:
-
-    RedCloth
+Gems (in .gems):
+----------------
 
 For testing:
 
     mocha
-    factory_girl
-    shoulda
+    thoughtbot-factory_girl
+    thoughtbot-shoulda
+
+For file uploads:
+
+    thoughtbot-paperclip
+    right_aws
+
+For email through SMTP (particularly Gmail):
+
+    ambethia-smtp-tls
+
+For background processing:
+
+    tobi-delayed_job
 
 Plugins (in vendor/plugins):
 ----------------------------
 
+For authentication:
+
+    thoughtbot-clearance
+
+For exception notification:
+
     hoptoad_notifier
+
+For models, controllers, helpers, & features generators:
+
+    coulda
+
+For rake tasks:
+
     limerick_rake
 
 Initializers (in config/initializers)
 -------------------------------------
 
-We use SMTP by default in all applications.
+For email through SMTP (particularly Gmail):
 
-    action_mailer_configs.rb
+    mail.rb
 
 Get your API key at http://hoptoadapp.com
 
     hoptoad.rb
 
+Get your free Google Analytics account at http://www.google.com/analytics
+
+    google_anayltics.rb
+
+For Delayed Job settings:
+
+    delayed_job.rb
+
 Two time formats are available by default, :short_date and :long_date. Add other time formats here.
 
     time_formats.rb
-
-Rake Tasks
-----------
-
-Rake tasks are contained in the limerick_rake gem. Provides rake tasks for loading data into the database.  These are used for an initial application dataset needed for production.
-
-    bootstrap
 
 Testing
 -------
 
 Testing is done utilizing Test::Unit, Shoulda, factory_girl, and mocha.
 
-factory_girl is a fixture replacement library, following the factory pattern.  Place your
-factories in test/factories.rb.  The fixture directory has been removed, as fixtures are not
-used.
+factory_girl is a fixture replacement library, following the factory pattern.
+Place your factories in test/factories.rb. The fixture directory has been
+removed, as fixtures are not used.
 
-Shoulda is a pragmatic testing framework for TDD and BDD built on top of Test::Unit.
+Shoulda is a pragmatic testing framework for TDD built on top of Test::Unit.
 
     jferris-mocha --version '0.9.5.0.1241126838' --source gems.github.com
     thoughtbot-factory_girl --version '>= 1.2.0' --source gems.github.com
@@ -88,3 +107,4 @@ Mascot
 The official Suspenders mascot is Suspenders Boy:
 
     http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png
+

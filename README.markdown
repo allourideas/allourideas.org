@@ -1,16 +1,21 @@
 Heroku's Suspenders
 -------------------
 
-A Rails app with intelligent defaults from thoughtbot.
+thoughtbot's Suspenders modified for Heroku.
 
-* Rails 2.3.2
+    git clone git://github.com/dancroak/heroku_suspenders.git
+    cd heroku_suspenders
+    ./script/create_project project_name
+
+This will create a Rails 2.3.2 app with:
+
 * Clearance for authentication
-* Paperclip for file uploads, set for Amazon S3
+* Gmail SMTP for email
 * Cucumber, Shoulda, Factory Girl, & Mocha for testing
+* Hoptoad Notifier for exception notification
+* Paperclip for file uploads, set for Amazon S3
 * Will Paginate for pagination
 * RedCloth for Textile formatting
-* Hoptoad Notifier for exception notification
-* Email defaults (Gmail SMTP) configured for Heroku
 
 Get the latest & greatest at anytime with:
 
@@ -23,6 +28,5 @@ Mascot
 
 The official Suspenders mascot is Suspenders Boy:
 
-    http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png
-
 ![Suspenders Boy](http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png)
+

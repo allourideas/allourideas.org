@@ -16,8 +16,6 @@ This will create a Rails 2.3.2 app with:
 * Paperclip for file uploads, set for Amazon S3
 * Coulda for model, controller, & helper generators
 * Delayed Job for background processing
-* Will Paginate for pagination
-* RedCloth for Textile formatting
 
 Get the latest & greatest at anytime with:
 

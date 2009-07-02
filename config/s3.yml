@@ -1,8 +1,14 @@
-# Use Heroku's config vars to get your S3 account keys into the cloud:
+# Use config vars to get your S3 credentials onto Heroku.
+# They will be automatically picked up by this file in production.
 
 # heroku config:add S3_KEY=8N029N81 S3_SECRET=9s83109d3+583493190
 
-# They are then automatically picked up by this file.
+# Use the following example as your guide for S3 with Paperclip.
+
+# has_attached_file :avatar,
+#   :styles         => { :thumbnail => "150x150" },
+#   :path           => ":attachment/:id/:style.:extension",
+#   :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
 
 development: &default
   access_key_id: <%= ENV['S3_KEY'] %>
@@ -16,11 +22,4 @@ test:
 production:
   <<: *default
   bucket: CHANGME_production
-
-# Use S3 with Paperclip using the following example as your guide.
-
-# has_attached_file :avatar,
-#   :styles         => { :thumbnail => "150x150" },
-#   :path           => ":attachment/:id/:style.:extension",
-#   :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
 

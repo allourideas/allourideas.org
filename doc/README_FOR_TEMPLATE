@@ -106,6 +106,26 @@ from Joe Ferris that adds test spies (assert_received) to Mocha.
 
     jferris-mocha --version '0.9.5.0.1241126838' --source gems.github.com
 
+Javascript
+----------
+
+jQuery and jRails are included.
+
+Styles
+------
+
+Heroku's Suspenders includes a lightweight CSS framework called Stylus.
+
+public/stylesheets/screen.css is included in the application layout.
+It imports the Stylus framework:
+
+    @import url("framework/reset.css");
+    @import url("framework/typography.css");
+    @import url("framework/layout.css");
+    @import url("framework/forms.css");
+
+Add another import for your own styles, by convention named after your app.
+
 Mascot
 ------
 

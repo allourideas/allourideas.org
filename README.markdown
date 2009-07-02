@@ -7,16 +7,21 @@ thoughtbot's Suspenders modified for Heroku.
     cd heroku_suspenders
     ./script/create_project project_name
 
-This will create a Rails 2.3.2 app with:
+This will create a Rails 2.3.2 app with Heroku-recommended code:
 
 * Paperclip for file uploads, set for Amazon S3
-* Clearance for authentication
 * Gmail SMTP for email
-* Cucumber, Shoulda, Factory Girl, & Mocha for testing
 * Delayed Job for background processing
 * Hoptoad Notifier for exception notification
 * Google Analytics for usage analytics
-* Coulda for model, controller, & helper generators
+
+... and some other opinions:
+
+* jQuery for Javascript
+* Clearance for authentication
+* Cucumber, Shoulda, Factory Girl, & Mocha for testing
+* Stylus for CSS framework
+* Coulda for features, model, controller, & helper generators
 
 Get the latest & greatest at anytime with:
 

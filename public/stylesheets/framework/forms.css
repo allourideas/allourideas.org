@@ -1,0 +1,90 @@
+/* heavily inspired by Justin French's formtastic styles */
+
+/* fieldsets */
+
+fieldset.inputs, fieldset.buttons {
+  margin: 1em 0; }
+
+/* labels */
+
+label {
+  display: block;
+  font-size: 1.4em; }
+
+/* instruction */
+
+fieldset p.instruction {
+  font-size: 1em; }
+
+/* hidden field */
+
+fieldset div.hidden {
+  display: none; }
+
+/* inputs */
+
+input {
+  vertical-align: middle; }
+
+fieldset div.string,
+fieldset div.numeric,
+fieldset div.password {
+  margin: 0 0 2em 0; }
+
+fieldset div.string input,
+fieldset div.numeric input,
+fieldset div.text textarea {
+  padding: 0.4em; }
+
+fieldset div.password input {
+  font-weight: bold; }
+
+fieldset div.boolean label,
+fieldset div.boolean input {
+  display: inline; }
+
+fieldset div.boolean label {
+  margin: 0 0.5em 0 0.2em; }
+
+/* radio buttons and check boxes */
+
+fieldset div.radios fieldset ol,
+fieldset div.checks fieldset ol, {
+  margin-bottom: -0.6em; }
+fieldset div.radios fieldset ol li,
+fieldset div.checks fieldset ol li, {
+  margin: 0.1em 0 0.5em 0; }
+fieldset div.radios fieldset ol li label,
+fieldset div.checks fieldset ol li label {
+  float: none; }
+fieldset div.radios fieldset ol li label input,
+fieldset div.checks fieldset ol li label input, {
+  margin-right: 0.2em; }
+
+/* dates, times, and datetimes */
+
+fieldset div.date fieldset ol li,
+fieldset div.time fieldset ol li,
+fieldset div.datetime fieldset ol li {
+  float: left;
+  width: auto;
+  margin: 0 .3em 0 0; }
+
+fieldset div.date fieldset ol li label,
+fieldset div.time fieldset ol li label,
+fieldset div.datetime fieldset ol li label {
+  display: none; }
+
+fieldset div.date fieldset ol li label input, 
+fieldset div.time fieldset ol li label input, 
+fieldset div.datetime fieldset ol li label input {
+  display: inline;
+  margin: 0;
+  padding: 0; }
+
+/* buttons */
+
+fieldset.buttons input {
+  font-size: 1.2em;
+  padding: 1em; }
+

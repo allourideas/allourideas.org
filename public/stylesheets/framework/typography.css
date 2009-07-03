@@ -1,0 +1,73 @@
+/*
+  Formula:
+  base line-height / font-size = element line-height
+
+  Example:
+  base line-height: 1.8 (18px)
+
+  1.8 / 7.2em = .25
+
+  2.1 lineheight
+*/
+
+body {
+  background-position: top left;
+  font-size: .625em; /* 62.5% of browser default (16px) is 10px */
+  font-family: Lucida Sans, Arial, Helvetica,sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: normal; }
+
+p {
+  font-size: 1.4em;
+  line-height: 1.5;
+  margin: 0 1.5em 1.5em 0; }
+
+h1 {
+  font-size: 4.2em;
+  line-height: 1;
+  margin: 0 .5em .5em 0; }
+
+h2 {
+  font-size: 3.5em;
+  line-height: 1.2;
+  margin: 0 .6em .6em 0; }
+
+h3 {
+  font-size: 2.8em;
+  line-height: .75em;
+  margin: 0 .75em .75em 0 }
+
+ul {
+  list-style-type: square;
+  margin: 0 1.5em 1.5em 1em; }
+
+ul,
+dl,
+th,
+td,
+legend {
+  font-size: 1.4em;
+  line-height: 1.5; }
+
+#flash_notice, #flash_success, #flash_failure {
+  letter-spacing: .15em;
+  padding: .5em 0;
+  border-top: 1px dashed;
+  border-bottom: 1px dashed; }
+
+#flash {
+  font-size: 2.4em;
+  width: 100%; }
+
+p, li {
+  font-weight: lighter;
+  font-family: Gotham, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+a {
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+

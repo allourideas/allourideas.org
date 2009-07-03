@@ -1,0 +1,35 @@
+/* body */
+
+body {
+  background-color: white; }
+
+/* links */
+
+a {
+  color: white; }
+a:visited {
+  color: dimgray; }
+a:hover {
+  color: white;
+  background-color: black; }
+
+/* flash */
+
+#flash_success {
+  background: seagreen; }
+#flash_failure {
+  background: tomato; }
+
+/* errors */
+
+.fieldWithErrors {
+  background-color: tomato; }
+#errorExplanation {
+  border-color: tomato;
+  background-color: snow; }
+#errorExplanation h2 {
+  background-color: firebrick;
+  color: white; }
+#errorExplanation p {
+  color: darkgray; }
+

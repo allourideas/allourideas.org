@@ -54,11 +54,13 @@ end
 
 run("git commit -a -m 'Initial commit'")
 run("rake db:migrate")
-run("rake db:test:prepare")
+run("rake db:migrate RAILS_ENV=test")
+run("rake db:migrate RAILS_ENV=cucumber")
 run("rake")
 
 puts
 puts "If you want email, edit config/initializers/mail.rb"
+puts "If you want error notifications, edit config/initializers/hoptoad.rb"
 puts "If you want file uploads, edit config/s3.yml"
 puts
 puts "When you're ready to deploy, run these commands:"

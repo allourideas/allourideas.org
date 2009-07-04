@@ -27,6 +27,11 @@ Get the latest & greatest at anytime with:
 
     git pull heroku_suspenders master
 
+A helper rake task will prompt you for all your production config vars (S3
+keys, GMail account, Hoptoad API key...) and set them on your Heroku app:
+
+    rake heroku:setup
+
 More details available in doc/README_FOR_TEMPLATE.
 
 Mascot

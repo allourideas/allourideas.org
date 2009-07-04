@@ -27,6 +27,14 @@ Feature: Rails controller generator
     And a "create" controller action for "posts" should be generated
     And only a "create" action for RESTful "posts" route should be generated
 
+  Scenario: Controller generator for create action when Cucumber is installed
+    Given a Rails app with Cucumber
+    And the coulda plugin is installed
+    When I generate a "Posts" controller with "create" action
+    Then a standard "create" functional test for "posts" should be generated
+    And a "create" controller action for "posts" should be generated
+    And only a "create" action for RESTful "posts" route should be generated
+
   Scenario: Controller generator for show action
     Given a Rails app
     And the coulda plugin is installed

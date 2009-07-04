@@ -35,7 +35,6 @@ Then /^a standard "create" functional test for "posts" should be generated$/ do
                "    setup do\n" <<
                "      post :create, :post => Factory.attributes_for(:post)\n" <<
                "    end\n\n" <<
-               "    should_create :post\n" <<
                "    should_set_the_flash_to /created/i\n" <<
                "    should_redirect_to('posts index') { posts_path }\n" <<
                "  end"

@@ -1,2 +1,1 @@
-# Insert your own tracker id
-# Rubaidh::GoogleAnalytics.tracker_id = 'UA-12345-67'
+Rubaidh::GoogleAnalytics.tracker_id = ENV['GOOGLE_ANALYTICS_TRACKER_ID'] if ENV['GOOGLE_ANALYTICS_TRACKER_ID']

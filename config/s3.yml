@@ -13,13 +13,11 @@
 development: &default
   access_key_id: <%= ENV['S3_KEY'] %>
   secret_access_key: <%= ENV['S3_SECRET'] %>
-  bucket: CHANGME_development
+  bucket: <%= ENV['S3_BUCKET'] %>
 
 test:
   <<: *default
-  bucket: CHANGME_test
 
 production:
   <<: *default
-  bucket: CHANGME_production
 

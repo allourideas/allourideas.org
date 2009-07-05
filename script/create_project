@@ -58,6 +58,8 @@ run("rake db:migrate RAILS_ENV=development")
 run("rake db:migrate RAILS_ENV=test")
 run("rake db:migrate RAILS_ENV=cucumber")
 
+puts
 puts "Next: run the tests, configure Heroku, deploy!"
+puts
 puts "cd ../#{project_name} && rake && rake heroku:setup"
 

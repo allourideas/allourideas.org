@@ -41,11 +41,11 @@ namespace :heroku do
     end
 
     puts "Deploying..."
-    run "git push heroku master"
-    run "heroku rake db:migrate"
+    `git push heroku master`
+    `heroku rake db:migrate`
 
     puts "Opening app..."
-    run "heroku open"
+    `heroku open`
 
     puts "Rename your app at any time with..."
     puts "heroku rename newname"

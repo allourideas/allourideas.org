@@ -16,6 +16,7 @@ namespace :heroku do
     if ask_yn("Use Amazon S3 for Paperclip uploads?")
       vars[:S3_KEY]    = ask_value('S3 key')
       vars[:S3_SECRET] = ask_value('S3 secret key')
+      vars[:S3_BUCKET] = ask_value('S3 bucket')
     end
 
     if ask_yn("Use Google Analytics to track web traffic?")

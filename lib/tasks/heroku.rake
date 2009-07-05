@@ -14,9 +14,8 @@ namespace :heroku do
     vars = {}
 
     if ask_yn("Use Amazon S3 for Paperclip uploads?")
-      vars[:S3_KEY] = ask_value('S3 key')
+      vars[:S3_KEY]    = ask_value('S3 key')
       vars[:S3_SECRET] = ask_value('S3 secret key')
-      vars[:S3_BUCKET] = ask_value('Name of S3 bucket to store assets in')
     end
 
     if ask_yn("Use Google Analytics to track web traffic?")
@@ -28,13 +27,9 @@ namespace :heroku do
     end
 
     if ask_yn("Use GMail to send outgoing emails?")
-      vars[:GMAIL_EMAIL] = ask_value('GMail email address')
+      vars[:GMAIL_EMAIL]    = ask_value('GMail email address')
       vars[:GMAIL_PASSWORD] = ask_value('GMail password')
     end
-
-    puts "Generating a session key and session secret"
-    vars[:SESSION_KEY] = "_#{ActiveSupport::SecureRandom.hex(6)}_session"
-    vars[:SESSION_SECRET] = ActiveSupport::SecureRandom.hex(64)
 
     puts "Setting all config vars on Heroku app"
     vars_string = vars.map { |k,v| "#{k}='#{v}'" }.join(' ')

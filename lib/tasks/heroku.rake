@@ -25,7 +25,7 @@ namespace :heroku do
       vars[:GOOGLE_ANALYTICS_TRACKER_ID] = ask_value('Google Analytics tracker id')
     end
 
-    if ask_yn("Use Hoptoad to store production execptions?")
+    if ask_yn("Use Hoptoad for exception notifications?")
       vars[:HOPTOAD_API_KEY] = ask_value('Hoptoad API key')
     end
 
@@ -35,8 +35,20 @@ namespace :heroku do
     end
 
     puts "Setting all config vars on Heroku app"
-    vars_string = vars.map { |k,v| "#{k}='#{v}'" }.join(' ')
-    `heroku config:add #{vars_string}`
+    if vars.any?
+      vars_string = vars.map { |k,v| "#{k}='#{v}'" }.join(' ')
+      `heroku config:add #{vars_string}`
+    end
+
+    puts "Deploying..."
+    run "git push heroku master"
+    run "heroku rake db:migrate"
+
+    puts "Opening app..."
+    run "heroku open"
+
+    puts "Rename your app at any time with..."
+    puts "heroku rename newname"
   end
 
   desc "Create a new app"

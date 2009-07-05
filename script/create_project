@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/boot'
-require File.join(File.dirname(__FILE__), "..", "lib", "tasks", "heroku.rake")
 require 'rubygems'
 require 'activesupport'
 require 'pathname'
@@ -55,20 +54,10 @@ end
 
 run("git commit -a -m 'New Heroku Suspenders app'")
 
-run "rake heroku:setup"
-
-puts "Deploying..."
-run "git push heroku master"
-run "heroku rake db:migrate"
-
-puts "Opening app..."
-run "heroku open"
-
 run("rake db:migrate RAILS_ENV=development")
 run("rake db:migrate RAILS_ENV=test")
 run("rake db:migrate RAILS_ENV=cucumber")
-run("rake")
 
-puts "Rename your app at any time with:"
-puts "heroku rename newname"
+puts "Next: run the tests, configure Heroku, deploy!"
+puts "cd ../#{project_name} && rake && rake heroku:setup"
 

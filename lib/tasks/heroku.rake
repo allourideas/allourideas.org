@@ -1,3 +1,5 @@
+require 'rake'
+
 namespace :heroku do
   def ask_yn(q)
     print "#{q} (y/n) "
@@ -6,7 +8,7 @@ namespace :heroku do
 
   def ask_value(q)
     print "  #{q}: "
-    STDIN.gets.strip.downcase
+    STDIN.gets.strip
   end
 
   desc "Prompt for all the config vars and set them on the Heroku app"
@@ -34,7 +36,7 @@ namespace :heroku do
 
     puts "Setting all config vars on Heroku app"
     vars_string = vars.map { |k,v| "#{k}='#{v}'" }.join(' ')
-    sh "heroku config:add #{vars_string}"
+    `heroku config:add #{vars_string}`
   end
 
   desc "Create a new app"
@@ -43,7 +45,7 @@ namespace :heroku do
     unless $?.success?
       puts "It doesn't look like this is a Heroku app (no git remote)."
       exit 1 unless ask_yn("Would you like to create a Heroku app now?")
-      sh "heroku create"
+      `heroku create`
     end
   end
 

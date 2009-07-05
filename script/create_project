@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/boot'
+require File.join(File.dirname(__FILE__), "..", "lib", "tasks", "heroku.rake")
 require 'rubygems'
 require 'activesupport'
 require 'pathname'
@@ -52,22 +53,22 @@ Dir.glob("#{project_directory}/**/session_store.rb").each do |file|
   search_and_replace(file, changesession, Digest::MD5.hexdigest("#{project_name} #{datestring}"))
 end
 
-run("git commit -a -m 'Initial commit'")
-run("rake db:migrate")
+run("git commit -a -m 'New Heroku Suspenders app'")
+
+run "rake heroku:setup"
+
+puts "Deploying..."
+run "git push heroku master"
+run "heroku rake db:migrate"
+
+puts "Opening app..."
+run "heroku open"
+
+run("rake db:migrate RAILS_ENV=development")
 run("rake db:migrate RAILS_ENV=test")
 run("rake db:migrate RAILS_ENV=cucumber")
 run("rake")
 
-puts
-puts "If you want email, edit config/initializers/mail.rb"
-puts "If you want error notifications, edit config/initializers/hoptoad.rb"
-puts "If you want file uploads, edit config/s3.yml"
-puts
-puts "When you're ready to deploy, run these commands:"
-puts
-puts "heroku create (or heroku create #{project_name})"
-puts "git push heroku master"
-puts "heroku rake db:migrate"
-puts "heroku open"
-
+puts "Rename your app at any time with:"
+puts "heroku rename newname"
 

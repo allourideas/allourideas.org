@@ -1,8 +1,4 @@
 class <%= class_name %>Controller < ApplicationController
-<% resource       = file_name.singularize -%>
-<% resources      = file_name.pluralize -%>
-<% resource_class = class_name.singularize -%>
-
 <% if actions.include?("index") -%>
   def index
   end

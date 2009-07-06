@@ -1,15 +1,57 @@
 h1. Coulda generators
 
-A plugin that overrides Rails' model, controller, & helper generators. It also adds a view generator. It uses Shoulda & Factory Girl for tests.
+A Rails plugin for feature, view, controller, model, & helper generators. It is meant to be used as part of an "Outside-In" Test-Driven Development cycle.
 
 h2. Requirements
 
+* "Cucumber":http://github.com/aslakhellesoy/cucumber
 * "Shoulda":http://github.com/thoughtbot/shoulda
 * "Factory Girl":http://github.com/thoughtbot/factory_girl
+* "Mocha":http://github.com/jferris/mocha
 
 h2. Installation
 
     $ script/plugin install git://github.com/dancroak/coulda.git
+
+h2. Feature generator
+
+    $ script/generate feature Posts new create
+
+generates...
+
+<pre><code>  Scenario: Create a new post
+    Given I am on the new post page
+    When I create a 'post' named 'A new post'
+    Then I should see 'A new post'</code></pre>
+
+Now run it:
+
+    $ cucumber features/posts.feature
+
+The failure will be:
+
+    undefined method `new_post_path'
+
+To get past this error, we'll create just the route we need:
+
+    map.resources :posts, :only => [:new]
+
+Running the test again, we have a new failure:
+
+    uninitialized constant PostsController
+
+h2. Controller test generator
+
+We've reached a point in our Outside-In cycle where we want to spiral down into a tighter feedback loop to unit test the non-existant controller.
+
+    $ script/generate controller_test Posts new create
+
+h2. Controller generator
+
+    $ script/generate controller Posts new create
+
+generates...
+
 
 h2. Model generator
 
@@ -19,14 +61,6 @@ h2. Model generator
 * unit test (Shoulda)
 * migration
 * model
-
-h2. Controller generator
-
-    $ script/generate controller Users new
-
-* functional test (Shoulda & Factory Girl), only test RESTful new action
-* controller, only RESTful new action
-* no helper file
 
 h2. Helper generator
 
@@ -39,16 +73,11 @@ h2. View generator
 
     $ script/generate view Posts new
 
-* We're not sure we like this one yet. Let us know what you think.
-
 h2. Model generator: belongs_to
 
     $ script/generate model post user:belongs_to
 
-* "add_index" in the migration
-* "belongs_to" in the model
-* "should_belong_to" in unit test
-* association in the factory
+generates...
 
 <pre><code>class CreatePosts < ActiveRecord::Migration
   def self.up

@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), "..", "support", "generator_helper")
+
 class ModelGenerator < Rails::Generator::NamedBase
   default_options :skip_timestamps => false, 
                   :skip_migration  => false, 

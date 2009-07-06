@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), "..", "support", "generator_helper")
+
 class HelperGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|

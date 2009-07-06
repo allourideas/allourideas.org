@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class <%= class_name %>ControllerTest < ActionController::TestCase
-<% resource       = file_name.singularize -%>
-<% resources      = file_name.pluralize -%>
-<% resource_class = class_name.singularize -%>
-
 <% if actions.include?("index") -%>
   context 'GET to index' do
     setup { get :index }

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class <%= class_name %>Test < ActiveSupport::TestCase
   should "be valid with factory" do
@@ -12,5 +12,5 @@ class <%= class_name %>Test < ActiveSupport::TestCase
 <% if attribute.type == :paperclip -%>
   should_have_attached_file :<%= attribute.name %>
 <% end -%>
-<% end -%> 
+<% end -%>
 end

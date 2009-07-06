@@ -2,52 +2,15 @@ require 'test/unit'
 
 module Test::Unit::Assertions
 
-  def assert_generated_controller_for(name)
-    assert_generated_file "app/controllers/#{name}_controller.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
-  def assert_generated_model_for(name)
-    assert_generated_file "app/models/#{name}.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
-  def assert_generated_helper_for(name)
-    assert_generated_file "app/helpers/#{name}_helper.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
-  def assert_generated_factory_for(name)
-    assert_generated_file "test/factories/#{name}.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
-  def assert_generated_functional_test_for(name)
-    assert_generated_file "test/functional/#{name}_controller_test.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
-  def assert_generated_unit_test_for(name)
-    assert_generated_file "test/unit/#{name}_test.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
-  def assert_generated_helper_test_for(name)
-    assert_generated_file "test/unit/helpers/#{name}_helper_test.rb" do |body|
-      yield body if block_given?
-    end
-  end
-
   def assert_generated_file(path)
     assert_file_exists(path)
-    File.open(File.join(@rails_root, path)) do |file|
-      yield file.read if block_given?
+    if block_given?
+      File.open(File.join(@rails_root, path)) do |file|
+        expected = yield
+        body     = file.read
+        assert body.include?(expected),
+          "expected #{expected} but was #{body.inspect}"
+      end
     end
   end
 
@@ -60,8 +23,8 @@ module Test::Unit::Assertions
 
   def assert_generated_views_for(name, *actions)
     actions.each do |action|
-      assert_generated_file("app/views/#{name}/#{action}.html.erb") do |body|
-        yield body if block_given?
+      assert_generated_file("app/views/#{name}/#{action}.html.erb") do
+        yield if block_given?
       end
     end
   end
@@ -69,18 +32,14 @@ module Test::Unit::Assertions
   def assert_generated_migration(name)
     file = Dir.glob("#{@rails_root}/db/migrate/*_#{name}.rb").first
     file = file.match(/db\/migrate\/[0-9]+_\w+/).to_s << ".rb"
-    assert_generated_file file do |body|
-      assert_match /timestamps/, body, "should have timestamps defined"
-      yield body if block_given?
-    end
+    assert_generated_file(file) { "timestamps" }
+    assert_generated_file(file) { yield if block_given? }
   end
 
   def assert_generated_route_for(name, *actions)
-    assert_generated_file("config/routes.rb") do |body|
-      routeable_actions = actions.collect { |action| ":#{action}" }.join(", ")
-      expected = "  map.resources :#{name.to_s}, :only => [#{routeable_actions}]"
-      assert body.include?(expected),
-        "expected #{expected} but was #{body.inspect}"
+    routeable_actions = actions.collect { |action| ":#{action}" }.join(", ")
+    assert_generated_file("config/routes.rb") do
+      "  map.resources :#{name.to_s}, :only => [#{routeable_actions}]"
     end
   end
 

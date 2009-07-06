@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "..", "support", "insert_commands")
+require File.join(File.dirname(__FILE__), "..", "support", "generator_helper")
 
 class ControllerGenerator < Rails::Generator::NamedBase
   def manifest
@@ -17,9 +17,6 @@ class ControllerGenerator < Rails::Generator::NamedBase
                   File.join('test/functional',
                             class_path,
                             "#{file_name}_controller_test.rb")
-
-      m.insert_into "config/routes.rb",
-                    "map.resources :#{file_name}, :only => [#{routeable_actions}]"
     end
   end
 

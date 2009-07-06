@@ -1,0 +1,46 @@
+/*
+  grid
+
+  Every column can be divided into two, three, four and five parts.
+  Idea from http://code.google.com/p/malo
+*/
+
+.main {
+  margin: 0 auto;
+  width: 96em; }
+
+.grid {
+  float: left;
+  display: inline;
+  *margin-left: -0.04em; } /* IE margin hack */
+
+.grid .whole {
+  width: 100%; }
+
+.grid .one_fifth {
+  width: 20% }
+
+.grid .one_fourth {
+  width: 25%; }
+
+.grid .one_third {
+  width: 33.33% }
+
+.grid .two_fifths {
+  width: 40%; }
+
+.grid .one_half {
+  width: 50%; }
+
+.grid .three_fifths {
+  width: 60% }
+
+.grid .two_thirds {
+  width: 66.66%; }
+
+.grid .three_quarters {
+  width: 75%; }
+
+.grid .four_fifths {
+  width: 80%; }
+

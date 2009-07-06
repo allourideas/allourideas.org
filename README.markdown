@@ -20,7 +20,7 @@ This will create a Rails 2.3.2 app with Heroku-recommended code:
 * jQuery for Javascript
 * Clearance for authentication
 * Cucumber, Shoulda, Factory Girl, & Mocha for testing
-* Stylus for CSS framework
+* Evergreen for CSS framework
 * Coulda for features, model, controller, & helper generators
 
 Get the latest & greatest at anytime with:

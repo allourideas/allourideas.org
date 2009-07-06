@@ -1,4 +1,10 @@
-/* heavily inspired by Justin French's formtastic styles */
+p {
+  padding: 0.4em 0; }
+
+/* flashes & errors */
+
+#flash_notice, #flash_success, #flash_failure, #errorExplanation ul li {
+  padding: 0.6em; }
 
 /* fieldsets */
 
@@ -10,11 +16,6 @@ fieldset.inputs, fieldset.buttons {
 label {
   display: block;
   font-size: 1.4em; }
-
-/* instruction */
-
-fieldset p.instruction {
-  font-size: 1em; }
 
 /* hidden field */
 
@@ -28,23 +29,30 @@ input {
 
 fieldset div.string,
 fieldset div.numeric,
-fieldset div.password {
-  margin: 0 0 2em 0; }
+fieldset div.password,
+fieldset div.text,
+fieldset div.boolean {
+  margin: 0 0 1em 0; }
+
+fieldset div.string label,
+fieldset div.numeric label,
+fieldset div.password label,
+fieldset div.text label {
+  padding: 0.2em 0; }
 
 fieldset div.string input,
 fieldset div.numeric input,
+fieldset div.password input,
 fieldset div.text textarea {
   padding: 0.4em; }
 
-fieldset div.password input {
-  font-weight: bold; }
-
-fieldset div.boolean label,
-fieldset div.boolean input {
-  display: inline; }
-
 fieldset div.boolean label {
-  margin: 0 0.5em 0 0.2em; }
+  display: inline;
+  margin: 0.2em; }
+
+fieldset div.boolean input {
+  margin: 0;
+  vertical-align: top; }
 
 /* radio buttons and check boxes */
 
@@ -85,6 +93,5 @@ fieldset div.datetime fieldset ol li label input {
 /* buttons */
 
 fieldset.buttons input {
-  font-size: 1.2em;
   padding: 1em; }
 

@@ -1,24 +1,33 @@
+/*
+  We use CSS color names by default for readability.
+  http://www.w3schools.com/css/css_colorsfull.asp
+
+  It is expected the designer(s) will pick a scheme that may include hex colors.
+  http://colors.napcsweb.com/colorschemer
+
+  We prefer off-white & off-black because computer screens
+  have high black/white contrast.
+*/
+
 /* body */
 
 body {
-  background-color: white; }
+  background-color: snow; }
 
 /* links */
 
 a {
-  color: white; }
+  color: midgnightblue; }
 a:visited {
   color: dimgray; }
-a:hover {
-  color: white;
-  background-color: black; }
 
 /* flash */
 
 #flash_success {
   background: seagreen; }
 #flash_failure {
-  background: tomato; }
+  color: beige;
+  background: firebrick; }
 
 /* errors */
 
@@ -29,7 +38,7 @@ a:hover {
   background-color: snow; }
 #errorExplanation h2 {
   background-color: firebrick;
-  color: white; }
+  color: floralwhite; }
 #errorExplanation p {
   color: darkgray; }
 

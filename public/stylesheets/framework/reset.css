@@ -1,4 +1,4 @@
-/* global defaults from http://meyerweb.com/tools/css/reset */
+/* http://meyerweb.com/eric/tools/css/reset */
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -25,7 +25,6 @@ ol, ul {
 
 blockquote, q {
   quotes: none; }
-
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';

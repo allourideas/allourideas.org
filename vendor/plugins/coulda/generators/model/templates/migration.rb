@@ -3,10 +3,12 @@ class <%= migration_name %> < ActiveRecord::Migration
     create_table :<%= table_name %> do |table|
 <% attributes.each do |attribute| -%>
 <% if attribute.type == :paperclip -%>
-      table.string :<%= attribute.name %>_file_name
-      table.string :<%= attribute.name %>_content_type
+      table.string :<%= attribute.name %>_file_name, :default => ""
+      table.string :<%= attribute.name %>_content_type, :default => ""
       table.integer :<%= attribute.name %>_file_size
       table.datetime :<%= attribute.name %>_updated_at
+<% elsif attribute.type == :string -%>
+      table.string :<%= attribute.name %>, :default => ""
 <% else -%>
       table.<%= attribute.type %> :<%= attribute.name %>
 <% end -%>

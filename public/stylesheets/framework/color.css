@@ -28,6 +28,9 @@ a:visited {
 #flash_failure {
   color: beige;
   background: firebrick; }
+#flash_notice {
+  color: snow;
+  background: dimgray; }
 
 /* errors */
 

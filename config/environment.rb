@@ -14,6 +14,7 @@ Rails::Initializer.run do |config|
   config.action_mailer.delivery_method = :smtp
 
   config.gem "ambethia-smtp-tls",
+    :lib     => "smtp-tls",
     :version => "1.1.2",
     :source  => "http://gems.github.com"
   config.gem "tobi-delayed_job",
@@ -25,9 +26,11 @@ Rails::Initializer.run do |config|
   config.gem "right_aws",
     :version => "1.10.0"
   config.gem "rubaidh-google_analytics",
+    :lib     => "rubaidh/google_analytics",
     :version => "1.1.4",
     :source  => "http://gems.github.com"
   config.gem "yfactorial-utility_scopes",
+    :lib     => "utility_scopes",
     :version => "0.2.2",
     :source  => "http://gems.github.com"
 end

@@ -65,15 +65,18 @@ end
 
 run("sudo rake gems:install RAILS_ENV=development")
 run("sudo rake gems:install RAILS_ENV=test")
-run("sudo rake gems:install RAILS_ENV=production")
 run("sudo rake gems:install RAILS_ENV=cucumber")
 
+# can't install cucumber via rake gems:install because
+# it is considered a "framework" gem
 if not_installed?("cucumber")
   run "sudo gem install cucumber --version='0.3.11'"
 end
 
-if not_installed?("webrat")
-  run "sudo gem install webrat --version='0.4.4'"
+# can't install rubaidh-google_analytics via rake gems:install because
+# it is a production gem and we don't have a production database
+if not_installed?("rubaidh-google_analytics")
+  run "sudo gem install rubaidh-google_analytics --version='1.1.4'"
 end
 
 run("sudo touch log/development.log")

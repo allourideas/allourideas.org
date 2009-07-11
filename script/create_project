@@ -60,9 +60,9 @@ run("sudo rake gems:install RAILS_ENV=cucumber")
 
 run("sudo touch log/development.log")
 run("sudo chmod 0666 log/development.log")
-run("sudo log/test.log")
+run("sudo touch log/test.log")
 run("sudo chmod 0666 log/test.log")
-run("sudo log/cucumber.log")
+run("sudo touch log/cucumber.log")
 run("sudo chmod 0666 log/cucumber.log")
 
 run("rake db:migrate RAILS_ENV=development")

@@ -10,14 +10,17 @@ Rails::Generator::Commands::Create.class_eval do
   def insert_into(file, line)
     logger.insert "#{line} into #{file}"
     unless file_contains?(file, line)
-      if file =~ /^module NavigationHelpers/
-        gsub_file file, /#{Coulda::Insertable.cucumber_paths}/ do |match|
-          "#{match}\n#{line}"
-        end
-      else
-        gsub_file file, /^(class|module|#{Coulda::Insertable.routes}) .+$/ do |match|
-          "#{match}\n  #{line}"
-        end
+      gsub_file file, /^(class|module|#{Coulda::Insertable.routes}) .+$/ do |match|
+        "#{match}\n  #{line}"
+      end
+    end
+  end
+
+  def insert_cucumber_path(file, line)
+    logger.insert "#{line} into #{file}"
+    unless file_contains?(file, line)
+      gsub_file file, /#{Coulda::Insertable.cucumber_paths}/ do |match|
+        "#{match}\n#{line}"
       end
     end
   end

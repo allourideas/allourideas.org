@@ -37,6 +37,11 @@ def search_and_replace(file, search, replace)
   end
 end
 
+def not_installed?(gem_name)
+  gems = Gem.source_index.find_name(gem_name)
+  gems.detect { |gem| gem.name == gem_name }.nil?
+end
+
 run("mkdir #{project_directory}")
 Dir.chdir(project_directory) or fail("Couldn't change to #{project_directory}")
 run("git init")
@@ -54,9 +59,21 @@ end
 
 run("git commit -a -m 'New Heroku Suspenders app'")
 
+if not_installed?("rails")
+  run "sudo gem install rails"
+end
+
 run("sudo rake gems:install RAILS_ENV=development")
 run("sudo rake gems:install RAILS_ENV=test")
 run("sudo rake gems:install RAILS_ENV=cucumber")
+
+if not_installed?("cucumber")
+  run "sudo gem install cucumber --version='0.3.11'"
+end
+
+if not_installed?("webrat")
+  run "sudo gem install webrat --version='0.4.4'"
+end
 
 run("sudo touch log/development.log")
 run("sudo chmod 0666 log/development.log")

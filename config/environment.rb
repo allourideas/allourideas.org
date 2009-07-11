@@ -18,7 +18,7 @@ Rails::Initializer.run do |config|
     :version => "1.1.2",
     :source  => "http://gems.github.com"
   config.gem "tobi-delayed_job",
-    :lib     => "delayed_jobs",
+    :lib     => "delayed_job",
     :version => "1.7.0",
     :source  => "http://gems.github.com"
   config.gem "thoughtbot-paperclip",

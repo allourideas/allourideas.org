@@ -12,5 +12,23 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
 
   config.action_mailer.delivery_method = :smtp
+
+  config.gem "ambethia-smtp-tls",
+    :version => "1.1.2",
+    :source  => "http://gems.github.com"
+  config.gem "tobi-delayed_job",
+    :version => "1.7.0",
+    :source  => "http://gems.github.com"
+  config.gem "thoughtbot-paperclip",
+    :version => "2.2.9.2",
+    :source  => "http://gems.github.com"
+  config.gem "right_aws",
+    :version => "1.10.0"
+  config.gem "rubaidh-google_analytics",
+    :version => "1.1.4",
+    :source  => "http://gems.github.com"
+  config.gem "yfactorial-utility_scopes",
+    :version => "0.2.2",
+    :source  => "http://gems.github.com"
 end
 

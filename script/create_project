@@ -54,6 +54,10 @@ end
 
 run("git commit -a -m 'New Heroku Suspenders app'")
 
+run("rake gems:install RAILS_ENV=development")
+run("rake gems:install RAILS_ENV=test")
+run("rake gems:install RAILS_ENV=cucumber")
+
 run("rake db:migrate RAILS_ENV=development")
 run("rake db:migrate RAILS_ENV=test")
 run("rake db:migrate RAILS_ENV=cucumber")

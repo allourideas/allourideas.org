@@ -15,11 +15,14 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem "cucumber", :lib => false, :version => ">=0.3.11"
-config.gem "webrat",   :lib => false, :version => ">=0.4.4"
+# rake gems:install RAILS_ENV=cucumber
 
-# config.gem "rspec",       :lib => false,        :version => ">=1.2.6"
-# config.gem "rspec-rails", :lib => 'spec/rails', :version => ">=1.2.6"
+config.gem "cucumber",
+  :lib     => false,
+  :version => ">=0.3.11"
+config.gem "webrat",
+  :lib     => false,
+  :version => ">=0.4.4"
 
 require 'rubygems'
 require 'factory_girl'

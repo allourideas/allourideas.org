@@ -21,6 +21,21 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+# rake gems:install RAILS_ENV=test
+
+config.gem 'jferris-mocha', 
+  :version => '0.9.5.0.1241126838',
+  :source  => 'http://gems.github.com', 
+  :lib     => 'mocha'
+config.gem 'thoughtbot-factory_girl', 
+  :lib     => 'factory_girl', 
+  :source  => 'http://gems.github.com', 
+  :version => '>= 1.2.0'
+config.gem 'thoughtbot-shoulda', 
+  :lib     => 'shoulda', 
+  :source  => 'http://gems.github.com', 
+  :version => '>= 2.10.1'
+
 HOST = 'localhost'
 
 require 'shoulda'

@@ -25,7 +25,7 @@ This will create a Rails 2.3.2 app with Heroku-recommended code:
 
 Get the latest & greatest at anytime with:
 
-    git pull heroku_suspenders master
+    rake suspenders:pull
 
 A helper rake task will prompt you for all your production config vars (S3
 keys, GMail account, Hoptoad API key...) and set them on your Heroku app:

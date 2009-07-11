@@ -58,6 +58,10 @@ run("sudo rake gems:install RAILS_ENV=development")
 run("sudo rake gems:install RAILS_ENV=test")
 run("sudo rake gems:install RAILS_ENV=cucumber")
 
+run("touch log/development.log")
+run("touch log/test.log")
+run("touch log/cucumber.log")
+
 run("rake db:migrate RAILS_ENV=development")
 run("rake db:migrate RAILS_ENV=test")
 run("rake db:migrate RAILS_ENV=cucumber")

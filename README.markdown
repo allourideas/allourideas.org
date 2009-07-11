@@ -23,6 +23,8 @@ This will create a Rails 2.3.2 app with Heroku-recommended code:
 * Evergreen for CSS framework
 * Coulda for features, model, controller, & helper generators
 
+If you don't have all the necessary gems, they will be installed.
+
 Get the latest & greatest at anytime with:
 
     rake suspenders:pull

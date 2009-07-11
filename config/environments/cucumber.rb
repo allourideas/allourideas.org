@@ -19,10 +19,10 @@ config.action_mailer.delivery_method = :test
 
 config.gem "cucumber",
   :lib     => false,
-  :version => "0.3.11"
+  :version => "= 0.3.11"
 config.gem "webrat",
   :lib     => false,
-  :version => "0.4.4"
+  :version => "= 0.4.4"
 
 require 'rubygems'
 require 'factory_girl'

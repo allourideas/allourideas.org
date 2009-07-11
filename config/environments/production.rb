@@ -17,5 +17,10 @@ config.action_controller.perform_caching             = true
 # Disable delivery errors, bad email addresses will be ignored
 config.action_mailer.raise_delivery_errors = false
 
+config.gem "rubaidh-google_analytics",
+  :lib     => "rubaidh/google_analytics",
+  :version => "1.1.4",
+  :source  => "http://gems.github.com"
+
 HOST = "CHANGEME.heroku.com"
 

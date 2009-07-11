@@ -27,10 +27,6 @@ Rails::Initializer.run do |config|
     :source  => "http://gems.github.com"
   config.gem "right_aws",
     :version => "1.10.0"
-  config.gem "rubaidh-google_analytics",
-    :lib     => "rubaidh/google_analytics",
-    :version => "1.1.4",
-    :source  => "http://gems.github.com"
   config.gem "yfactorial-utility_scopes",
     :lib     => "utility_scopes",
     :version => "0.2.2",

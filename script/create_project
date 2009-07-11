@@ -65,6 +65,7 @@ end
 
 run("sudo rake gems:install RAILS_ENV=development")
 run("sudo rake gems:install RAILS_ENV=test")
+run("sudo rake gems:install RAILS_ENV=production")
 run("sudo rake gems:install RAILS_ENV=cucumber")
 
 if not_installed?("cucumber")

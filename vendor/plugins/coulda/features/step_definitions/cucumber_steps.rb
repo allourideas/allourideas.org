@@ -19,10 +19,17 @@ Then /^a "posts" feature for the "([^\"]*)" scenario should be generated$/ do |a
       "    When I create a post named \"A new post\"\n" <<
       "    Then I should see \"A new post\""
     end
+  elsif %w(edit update).include?(action)
+    assert_generated_file("features/posts.feature") do
+      "  Scenario: Update a post\n"                                 <<
+      "    Given I am on the edit \"An existing post\" post page\n" <<
+      "    When I update the post\n"                                <<
+      "    Then I should see \"Post updated\""
+    end
   end
 end
 
-Then /^a "posts" step definition should be generated$/ do
+Then /^a "create posts" step definition should be generated$/ do
   assert_generated_file("features/step_definitions/posts_steps.rb") do
     "When /^I create a post named \"([^\\\"]*)\"$/ do |name|\n" <<
     "  fills_in :name, :with => name\n"                         <<
@@ -35,6 +42,23 @@ Then /^a new post page path should be generated$/ do
   assert_generated_file("features/support/paths.rb") do
     "    when /the new post page/i\n" <<
     "      new_post_path"
+  end
+end
+
+Then /^a "update posts" step definition should be generated$/ do
+  assert_generated_file("features/step_definitions/posts_steps.rb") do
+    "When /^I update a post named \"([^\\\"]*)\"$/ do |name|\n" <<
+    "  fills_in :name, :with => name\n"                         <<
+    "  click_button 'Update'\n"
+    "end"
+  end
+end
+
+Then /^a edit post page path should be generated$/ do
+  assert_generated_file("features/support/paths.rb") do
+    "    when /the edit \"([^\\\"]*)\" post page/i do |name|\n" <<
+    "      post = Post.find_by_name(name)\n"
+    "      edit_post_path(post)"
   end
 end
 

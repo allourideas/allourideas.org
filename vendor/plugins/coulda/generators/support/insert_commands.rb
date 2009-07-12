@@ -1,4 +1,4 @@
-# Mostly pinched from http://github.com/ryanb/nifty-generators/tree/master
+# Pinched some from http://github.com/ryanb/nifty-generators
 
 Rails::Generator::Commands::Base.class_eval do
   def file_contains?(relative_destination, line)

@@ -22,6 +22,10 @@ class FeatureGenerator < Rails::Generator::NamedBase
    if %w(new create).any? { |action| actions.include?(action) }
      "    when /the new #{resource} page/i\n" <<
      "      new_#{resource}_path\n"
+   elsif %w(edit update).any? { |action| actions.include?(action) }
+     "    when /the edit \"([^\\\"]*)\" #{resource} page/i do |name|\n" <<
+     "      post = #{resource_class}.find_by_name(name)\n"
+     "      edit_#{resource}_path(#{resource})"
    end
   end
 end

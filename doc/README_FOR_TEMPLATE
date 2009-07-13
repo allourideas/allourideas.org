@@ -57,7 +57,7 @@ For exception notification:
 
 For models, controllers, helpers, & features generators:
 
-    coulda
+    blitz
 
 For rake tasks:
 
@@ -89,7 +89,7 @@ Two time formats are available by default, :short_date and :long_date. Add other
 Testing
 -------
 
-Testing is done utilizing Test::Unit, Shoulda, factory_girl, and mocha.
+Testing is done utilizing Cucumber, Test::Unit, Shoulda, Factory Girl, and Mocha.
 
 Shoulda is a pragmatic testing framework for TDD built on top of Test::Unit.
 
@@ -121,8 +121,8 @@ It imports the Stylus framework:
 
     @import url("framework/reset.css");
     @import url("framework/typography.css");
-    @import url("framework/layout.css");
-    @import url("framework/forms.css");
+    @import url("framework/grid.css");
+    @import url("framework/spacing.css");
 
 Add another import for your own styles, by convention named after your app.
 

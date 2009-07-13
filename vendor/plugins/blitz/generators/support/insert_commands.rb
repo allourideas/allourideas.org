@@ -10,7 +10,7 @@ Rails::Generator::Commands::Create.class_eval do
   def insert_into(file, line)
     logger.insert "#{line} into #{file}"
     unless file_contains?(file, line)
-      gsub_file file, /^(class|module|#{Coulda::Insertable.routes}) .+$/ do |match|
+      gsub_file file, /^(class|module|#{Blitz::Insertable.routes}) .+$/ do |match|
         "#{match}\n  #{line}"
       end
     end
@@ -19,7 +19,7 @@ Rails::Generator::Commands::Create.class_eval do
   def insert_cucumber_path(file, line)
     logger.insert "#{line} into #{file}"
     unless file_contains?(file, line)
-      gsub_file file, /#{Coulda::Insertable.cucumber_paths}/ do |match|
+      gsub_file file, /#{Blitz::Insertable.cucumber_paths}/ do |match|
         "#{match}\n#{line}"
       end
     end
@@ -39,7 +39,7 @@ Rails::Generator::Commands::List.class_eval do
   end
 end
 
-module Coulda
+module Blitz
   module Insertable
     def self.routes
       "ActionController::Routing::Routes.draw"

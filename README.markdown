@@ -21,7 +21,7 @@ This will create a Rails 2.3.2 app with Heroku-recommended code:
 * Clearance for authentication
 * Cucumber, Shoulda, Factory Girl, & Mocha for testing
 * Evergreen for CSS framework
-* Coulda for features, model, controller, & helper generators
+* Blitz for features, model, controller, & helper generators
 
 If you don't have all the necessary gems, they will be installed.
 

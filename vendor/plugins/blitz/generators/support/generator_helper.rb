@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "insert_commands")
 
-module Coulda
+module Blitz
   module GeneratorHelper
     REMOVABLE_COLUMNS = ["created_at", "updated_at", "email_confirmed",
       "encrypted_password", "salt", "token", "token_expires_at"]
@@ -38,6 +38,6 @@ module Coulda
 end
 
 class Rails::Generator::NamedBase
-  include Coulda::GeneratorHelper
+  include Blitz::GeneratorHelper
 end
 

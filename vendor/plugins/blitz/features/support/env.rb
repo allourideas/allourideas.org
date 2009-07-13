@@ -53,11 +53,11 @@ module Test::Unit::Assertions
 
 end
 
-class CouldaWorld
+class BlitzWorld
   include Test::Unit::Assertions
 end
 
 World do
-  CouldaWorld.new
+  BlitzWorld.new
 end
 

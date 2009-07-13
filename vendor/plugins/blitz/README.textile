@@ -1,8 +1,8 @@
-h1. Coulda generators
+h1. Blitz generators
 
 A Rails plugin for feature, view, controller, model, & helper generators. It is meant to be used as part of an "Outside-In" Test-Driven Development cycle.
 
-h2. Requirements
+h2. Generated code may contain
 
 * "Cucumber":http://github.com/aslakhellesoy/cucumber
 * "Shoulda":http://github.com/thoughtbot/shoulda
@@ -11,7 +11,7 @@ h2. Requirements
 
 h2. Installation
 
-    $ script/plugin install git://github.com/dancroak/coulda.git
+    $ script/plugin install git://github.com/dancroak/blitz.git
 
 h2. Feature generator
 
@@ -145,7 +145,7 @@ end</code></pre>
 
 h2. Attribution
 
-"Mike Breen":http://github.com/hardbap and "Dan Croak":http://github.com/dancroak
+"Dan Croak":http://github.com/dancroak and "Mike Breen":http://github.com/hardbap
 
 Inspired by "shoulda_generator":http://github.com/technicalpickles/shoulda_generator, "model_generator_with_factories":http://github.com/vigetlabs/model_generator_with_factories, and "nifty_generators":http://github.com/ryanb/nifty-generators
 
@@ -153,7 +153,7 @@ h2. License
 
 The MIT License
 
-Copyright (c) 2008, 2009 Mike Breen
+Copyright (c) 2008, 2009 Dan Croak
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

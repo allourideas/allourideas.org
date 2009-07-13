@@ -26,6 +26,13 @@ When /^I generate a model "(.*)" with file "(.*)"$/ do |model, file|
          "cd .."
 end
 
+When /^I generate a Post model with title, body, and User$/ do
+  system "cd #{@rails_root} && " <<
+    "script/generate model Post title:string body:text user:belongs_to && " <<
+    "rake db:migrate " <<
+    "cd .."
+end
+
 # MODEL
 
 Then /^the "(.*)" model should have "(.*)" macro$/ do |model, macro|

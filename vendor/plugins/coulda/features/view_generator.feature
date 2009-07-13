@@ -7,5 +7,12 @@ Feature: Rails view generator
     Given a Rails app
     And the coulda plugin is installed
     When I generate a "new" view for "Posts"
-    Then a standard "new" view for "posts" should be generated
+    Then a SemiFormal "new" view for "posts" should be generated
+
+  Scenario: View generator for new action
+    Given a Rails app
+    And the coulda plugin is installed
+    When I generate a Post model with title, body, and User
+    And I generate a "new" view for "Posts"
+    Then a SemiFormal "new" view for "posts" should be generated with fields
 

@@ -18,9 +18,21 @@ module Coulda
     end
 
     def columns_for_form
-      resource_class.content_columns.
+      resource_class.constantize.content_columns.
         collect   { |column| [column.name, column.type] }.
-        delete_if { |column| REMOVABLE_COLUMNS.include?(column.first) }
+        delete_if { |column| remove_column?(column.first) }
+    end
+
+    def active_record_defined?
+      models = Dir.glob(File.join( RAILS_ROOT, 'app', 'models', '*.rb')).
+                   collect { |path| path[/.+\/(.+).rb/,1] }.
+                   collect {|model| model.classify }
+      models.include?(resource_class)
+    end
+
+    def remove_column?(column)
+      REMOVABLE_COLUMNS.include?(column) ||
+        !(column =~ /_id$/).nil?
     end
   end
 end

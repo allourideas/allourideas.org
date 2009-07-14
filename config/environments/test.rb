@@ -38,9 +38,5 @@ config.gem 'thoughtbot-shoulda',
 
 HOST = 'localhost'
 
-require 'shoulda'
-require 'factory_girl'
-require 'mocha'
-
 begin require 'redgreen'; rescue LoadError; end
 

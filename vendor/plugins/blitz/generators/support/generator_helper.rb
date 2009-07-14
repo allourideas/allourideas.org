@@ -36,7 +36,7 @@ module Blitz
 
     def name_and_type(column)
       if belongs_to_column?(column.name)
-        [column.name.gsub("_id", ""), :collection]
+        [column.name.gsub("_id", ""), :belongs_to]
       else
         [column.name, column.type]
       end

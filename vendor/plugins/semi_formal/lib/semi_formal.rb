@@ -42,25 +42,27 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div>"
   end
 
-  def collection(field, *args)
+  def belongs_to(field, *args)
     options = args.extract_options!
 
     reflection = @object.class.reflect_on_association(field)
-    collection = reflection.class.all.collect {|each| [each.name, each.id] }
+    collection = reflection.klass.all.collect {|each| [each.to_s, each.id] }
 
-    html_options = {}
-    options[:include_blank] = true
+    options[:select] ||= {}
+    options[:select][:include_blank] = true
 
-    if [:has_many, :has_and_belongs_to_many].include?(reflection.macro)
-      html_options[:multiple] ||= true
-      html_options[:size]     ||= 5
-    end
-
-    "<div class=\"collection\">" +
+    "<div class=\"belongs_to\">" +
       label(field, options[:label] || {}) +
-      select(field, collection, options, html_options)
+      select(field, collection, options[:select] || {})
     "<div>"
   end
+
+  # has_many?
+  # if [:has_many, :has_and_belongs_to_many].include?(reflection.macro)
+  #   html_options[:multiple] ||= true
+  #   html_options[:size]     ||= 5
+  # end
+
 end
 
 ActionView::Base.default_form_builder = SemiFormal

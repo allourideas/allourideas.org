@@ -32,7 +32,7 @@ Then /^a SemiFormal "new" view for "posts" should be generated with fields$/ do
     "  <fieldset class=\"inputs\">\n"                                      <<
     "    <%= form.string :title %>\n"                                      <<
     "    <%= form.text :body %>\n"                                         <<
-    "    <%= form.collection :user %>\n"                                   <<
+    "    <%= form.belongs_to :user %>\n"                                   <<
     "  </fieldset>\n"                                                      <<
     "  <fieldset class=\"buttons\">\n"                                     <<
     "    <%= form.submit 'Create', :disable_with => 'Please wait...' %>\n" <<

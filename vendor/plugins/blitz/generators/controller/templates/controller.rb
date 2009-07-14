@@ -15,7 +15,7 @@ class <%= class_name %>Controller < ApplicationController
     @<%= resource %> = <%= resource_class %>.new(params[:<%= resource %>])
     @<%= resource %>.save
     flash[:success] = '<%= resource_class %> created.'
-    redirect_to <%= resources %>_path
+    redirect_to root_path
   end
 
 <% end -%>
@@ -36,7 +36,7 @@ class <%= class_name %>Controller < ApplicationController
     @<%= resource %> = <%= resource_class %>.find(params[:id])
     @<%= resource %>.update_attributes(params[:<%= resource %>])
     flash[:success] = '<%= resource_class %> updated.'
-    redirect_to <%= resources %>_path
+    redirect_to root_path
   end
 
 <% end -%>
@@ -45,7 +45,7 @@ class <%= class_name %>Controller < ApplicationController
     @<%= resource %> = <%= resource_class %>.find(params[:id])
     @<%= resource %>.destroy
     flash[:success] = '<%= resource_class %> deleted.'
-    redirect_to <%= resources %>_path
+    redirect_to root_path
   end
 
 <% end -%>

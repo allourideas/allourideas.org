@@ -1,7 +1,7 @@
 SemiFormal
 ==========
 
-A FormBuilder meant to play well with [Coulda](http://github.com/dancroak/coulda) and [Evergreen](http://github.com/dancroak/evergreen).
+A FormBuilder meant to play well with [Blitz](http://github.com/dancroak/blitz) and [Evergreen](http://github.com/dancroak/evergreen).
 
 Examples
 --------

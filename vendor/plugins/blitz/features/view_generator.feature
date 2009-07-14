@@ -5,14 +5,21 @@ Feature: Rails view generator
 
   Scenario: View generator for new action
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a "new" view for "Posts"
     Then a SemiFormal "new" view for "posts" should be generated
 
   Scenario: View generator for new action
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a Post model with title, body, and User
     And I generate a "new" view for "Posts"
     Then a SemiFormal "new" view for "posts" should be generated with fields
+
+  Scenario: View generator for new action
+    Given a Rails app
+    And the blitz plugin is installed
+    When I generate a Post model with title, body, and User
+    When I generate a "new" view for "Posts" with the empty option
+    Then an empty "new" view for "posts" should be generated
 

@@ -5,21 +5,21 @@ Feature: Rails model generator
 
   Scenario: Model generator without attributes
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a model named "User"
     Then a factory should be generated for "User"
     And a unit test should be generated for "User"
 
   Scenario: Model generator with attributes
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a model "User" with a string "email"
     Then a factory for "User" should have an "email" string
     And a unit test should be generated for "User"
 
   Scenario: Model generator with association
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a model "Post" that belongs to a "User"
     Then a factory for "Post" should have an association to "User"
     And the "Post" unit test should have "should_belong_to     :user" macro
@@ -29,7 +29,7 @@ Feature: Rails model generator
 
   Scenario: Model generator with Paperclip
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a model "Design" with file "Image"
     Then the "Design" model should have "has_attached_file :image" macro
     And the "Design" unit test should have "should_have_attached_file :image" macro

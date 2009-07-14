@@ -18,7 +18,7 @@ Then /^a "create" controller action for "posts" should be generated$/ do
     "    @post = Post.new(params[:post])\n"   <<
     "    @post.save\n"                        <<
     "    flash[:success] = 'Post created.'\n" <<
-    "    redirect_to posts_path\n"            <<
+    "    redirect_to root_path\n"             <<
     "  end"
   end
 end
@@ -45,7 +45,7 @@ Then /^a "update" controller action for "posts" should be generated$/ do
     "    @post = Post.find(params[:id])\n"         <<
     "    @post.update_attributes(params[:post])\n" <<
     "    flash[:success] = 'Post updated.'\n"      <<
-    "    redirect_to posts_path\n"                 <<
+    "    redirect_to root_path\n"                  <<
     "  end"
   end
 end
@@ -56,7 +56,7 @@ Then /^a "destroy" controller action for "posts" should be generated$/ do
     "    @post = Post.find(params[:id])\n"    <<
     "    @post.destroy\n"                     <<
     "    flash[:success] = 'Post deleted.'\n" <<
-    "    redirect_to posts_path\n"            <<
+    "    redirect_to root_path\n"             <<
     "  end"
   end
 end

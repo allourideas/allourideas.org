@@ -5,7 +5,7 @@ Feature: Rails helper generator
 
   Scenario: Helper
     Given a Rails app
-    And the coulda plugin is installed
+    And the blitz plugin is installed
     When I generate a helper named "Navigation"
     Then a helper should be generated for "Navigation"
     And a helper test should be generated for "Navigation"

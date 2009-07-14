@@ -1,3 +1,5 @@
+Feature: <%= resource_class.pluralize %>
+
 <% if %w(new create).any? { |action| actions.include?(action) } -%>
   Scenario: Create a new <%= resource %>
     Given I am on the new <%= resource %> page

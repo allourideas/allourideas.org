@@ -14,6 +14,15 @@ module Test::Unit::Assertions
     end
   end
 
+  def assert_generated_empty_file(path)
+    assert_file_exists(path)
+    File.open(File.join(@rails_root, path)) do |file|
+      body     = file.read
+      assert body.empty?,
+        "expected body to be empty but was #{body.inspect}"
+    end
+  end
+
   def assert_file_exists(path)
     file = File.join(@rails_root, path)
 

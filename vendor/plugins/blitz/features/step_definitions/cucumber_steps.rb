@@ -14,6 +14,7 @@ end
 Then /^a "posts" feature for the "([^\"]*)" scenario should be generated$/ do |action|
   if %w(new create).include?(action)
     assert_generated_file("features/posts.feature") do
+      "Feature: Posts\n\n"                              <<
       "  Scenario: Create a new post\n"                 <<
       "    Given I am on the new post page\n"           <<
       "    When I create a post named \"A new post\"\n" <<
@@ -21,6 +22,7 @@ Then /^a "posts" feature for the "([^\"]*)" scenario should be generated$/ do |a
     end
   elsif %w(edit update).include?(action)
     assert_generated_file("features/posts.feature") do
+      "Feature: Posts\n\n"                                          <<
       "  Scenario: Update a post\n"                                 <<
       "    Given I am on the edit \"An existing post\" post page\n" <<
       "    When I update the post\n"                                <<
@@ -32,8 +34,8 @@ end
 Then /^a "create posts" step definition should be generated$/ do
   assert_generated_file("features/step_definitions/posts_steps.rb") do
     "When /^I create a post named \"([^\\\"]*)\"$/ do |name|\n" <<
-    "  fills_in :name, :with => name\n"                         <<
-    "  click_button 'Create'\n"
+    "  fill_in :name, :with => name\n"                          <<
+    "  click_button 'Create'\n"                                 <<
     "end"
   end
 end
@@ -48,8 +50,8 @@ end
 Then /^a "update posts" step definition should be generated$/ do
   assert_generated_file("features/step_definitions/posts_steps.rb") do
     "When /^I update a post named \"([^\\\"]*)\"$/ do |name|\n" <<
-    "  fills_in :name, :with => name\n"                         <<
-    "  click_button 'Update'\n"
+    "  fill_in :name, :with => name\n"                          <<
+    "  click_button 'Update'\n"                                 <<
     "end"
   end
 end

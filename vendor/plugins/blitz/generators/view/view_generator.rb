@@ -14,12 +14,10 @@ class ViewGenerator < Rails::Generator::NamedBase
         else
           m.template 'new.html.erb', path
         end
-      elsif %w(index show).any? { |action| actions.include?(action) }
-        actions.each do |action|
-          path = File.join('app/views', class_path, file_name,
-                           "#{action}.html.erb")
-          m.file 'empty.html.erb', path
-        end
+      elsif actions.include?("index")
+        path = File.join('app/views', class_path, file_name,
+                         "index.html.erb")
+        m.template "index.html.erb", path
       end
     end
   end

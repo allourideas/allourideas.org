@@ -45,3 +45,21 @@ Then /^an empty "(.*)" view for "posts" should be generated$/ do |view|
   assert_generated_empty_file("app/views/posts/#{view}.html.erb")
 end
 
+Then /^a model\-reflected "index" view for "posts" should be generated$/ do
+  assert_generated_file("app/views/posts/index.html.erb") do
+    "<h1>Posts</h1>\n\n" <<
+    "<ul>\n" <<
+    "  <% @posts.each do |post| -%>\n" <<
+    "    <li><%= link_to post.to_s, post_path(post) %></li>\n" <<
+    "  <% end -%>\n" <<
+    "</ul>\n"
+  end
+end
+
+Then /^a non\-model\-reflected "index" view for "posts" should be generated$/ do
+  assert_generated_file("app/views/posts/index.html.erb") do
+    "<h1>Posts</h1>"
+  end
+end
+
+

@@ -41,7 +41,7 @@ Then /^a SemiFormal "new" view for "posts" should be generated with fields$/ do
   end
 end
 
-Then /^an empty "new" view for "posts" should be generated$/ do
-  assert_generated_empty_file("app/views/posts/new.html.erb")
+Then /^an empty "(.*)" view for "posts" should be generated$/ do |view|
+  assert_generated_empty_file("app/views/posts/#{view}.html.erb")
 end
 

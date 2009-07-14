@@ -23,3 +23,15 @@ Feature: Rails view generator
     When I generate a "new" view for "Posts" with the empty option
     Then an empty "new" view for "posts" should be generated
 
+  Scenario: View generator for show action
+    Given a Rails app
+    And the blitz plugin is installed
+    When I generate a "show" view for "Posts" with the empty option
+    Then an empty "show" view for "posts" should be generated
+
+  Scenario: View generator for index action
+    Given a Rails app
+    And the blitz plugin is installed
+    When I generate a "index" view for "Posts" with the empty option
+    Then an empty "index" view for "posts" should be generated
+

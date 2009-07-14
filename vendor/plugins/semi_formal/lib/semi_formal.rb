@@ -47,14 +47,16 @@ class SemiFormal < ActionView::Helpers::FormBuilder
   # returns a drop-down with value of User#id, text of User#to_s
   # includes blank
   #
-  def belongs_to(field, *args)
+  def belongs_to(association, *args)
     options = args.extract_options!
 
-    reflection = @object.class.reflect_on_association(field)
+    reflection = @object.class.reflect_on_association(association)
     collection = reflection.klass.all.collect {|each| [each.to_s, each.id] }
 
     options[:select] ||= {}
     options[:select][:include_blank] = true
+
+    field = "#{association}_id"
 
     "<div class=\"belongs_to\">" +
       label(field, options[:label] || {}) +

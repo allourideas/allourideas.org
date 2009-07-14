@@ -42,6 +42,11 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div>"
   end
 
+  # form.belongs_to :user
+  #
+  # returns a drop-down with value of User#id, text of User#to_s
+  # includes blank
+  #
   def belongs_to(field, *args)
     options = args.extract_options!
 
@@ -53,7 +58,7 @@ class SemiFormal < ActionView::Helpers::FormBuilder
 
     "<div class=\"belongs_to\">" +
       label(field, options[:label] || {}) +
-      select(field, collection, options[:select] || {})
+      select(field, collection, options[:select] || {}) +
     "<div>"
   end
 
@@ -62,7 +67,6 @@ class SemiFormal < ActionView::Helpers::FormBuilder
   #   html_options[:multiple] ||= true
   #   html_options[:size]     ||= 5
   # end
-
 end
 
 ActionView::Base.default_form_builder = SemiFormal

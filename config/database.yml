@@ -7,11 +7,10 @@ development: &default
   pool: 5
   timeout: 5000
 
-test:
+test: &test
   <<: *default
   database: db/test.sqlite3
 
 cucumber:
-  <<: *default
-  database: db/cucumber.sqlite3
+  <<: *test
 

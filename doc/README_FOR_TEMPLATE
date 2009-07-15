@@ -126,6 +126,13 @@ It imports the Stylus framework:
 
 Add another import for your own styles, by convention named after your app.
 
+Hoptoad
+-------
+
+After you git push heroku, tell Hoptoad about the deploy:
+
+    heroku rake hoptoad:deploy TO=staging
+
 Mascot
 ------
 

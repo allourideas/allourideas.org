@@ -6,8 +6,8 @@ class <%= class_name %>Test < ActiveSupport::TestCase
   end
 <% attributes.each do |attribute| -%>
 <% if attribute.reference? -%>
-  should_belong_to     :<%= attribute.name %>
-  should_have_db_index :<%= attribute.name %>_id
+  should_belong_to  :<%= attribute.name %>
+  should_have_index :<%= attribute.name %>_id
 <% end -%>
 <% if attribute.type == :paperclip -%>
   should_have_attached_file :<%= attribute.name %>

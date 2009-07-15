@@ -22,8 +22,8 @@ Feature: Rails model generator
     And the blitz plugin is installed
     When I generate a model "Post" that belongs to a "User"
     Then a factory for "Post" should have an association to "User"
-    And the "Post" unit test should have "should_belong_to     :user" macro
-    And the "Post" unit test should have "should_have_db_index :user_id" macro
+    And the "Post" unit test should have "should_belong_to  :user" macro
+    And the "Post" unit test should have "should_have_index :user_id" macro
     And the "posts" table should have db index on "user_id"
     And the "Post" model should have "belongs_to :user" macro
 

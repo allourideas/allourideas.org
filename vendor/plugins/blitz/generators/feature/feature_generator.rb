@@ -13,8 +13,10 @@ class FeatureGenerator < Rails::Generator::NamedBase
       path = File.join('features', 'step_definitions', "#{resources}_steps.rb")
       m.template 'step_definition.rb', path
 
-      path = File.join('features', 'support', "paths.rb")
-      m.insert_cucumber_path path, insertable_path
+      if actions.any?
+        path = File.join('features', 'support', "paths.rb")
+        m.insert_cucumber_path path, insertable_path
+      end
     end
   end
 

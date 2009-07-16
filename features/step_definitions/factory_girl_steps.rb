@@ -11,6 +11,10 @@ Factory.factories.each do |name, factory|
       Given %{^an? #{name.to_s.humanize.downcase} exists with an? #{column.name.humanize.downcase} of "([^"]*)"$} do |value|
         Factory(name, column.name => value)
       end
+
+      Given %{^an? #{name.to_s.humanize.downcase} exists with an? #{column.name.humanize.downcase} of "([^"]*)" and a "([^"]*)" of "([^"]*)"$} do |first_value, second_column, second_value|
+        Factory(name, column.name => value, second_column.downcase.to_sym => second_value)
+      end
     end
   end
 

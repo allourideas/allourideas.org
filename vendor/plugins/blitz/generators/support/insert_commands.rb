@@ -31,6 +31,11 @@ Rails::Generator::Commands::Destroy.class_eval do
     logger.remove "#{line} from #{file}"
     gsub_file file, "\n  #{line}", ''
   end
+
+  def insert_cucumber_path(file, line)
+    logger.remove "#{line} from #{file}"
+    gsub_file file, "\n  #{line}", ''
+  end
 end
 
 Rails::Generator::Commands::List.class_eval do

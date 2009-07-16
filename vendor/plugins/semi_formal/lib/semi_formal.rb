@@ -4,7 +4,7 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div class=\"string\">" +
       label(field, options[:label] || {}) +
       text_field(field, options[:text_field] || {}) +
-    "<div>"
+    "</div>"
   end
 
   def password(field, *args)
@@ -12,7 +12,7 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div class=\"password\">" +
       label(field, options[:label] || {}) +
       password_field(field, options[:password_field] || {}) +
-    "<div>"
+    "</div>"
   end
 
   def boolean(field, *args)
@@ -20,7 +20,7 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div class=\"boolean\">" +
       check_box(field, options[:check_box] || {}) +
       label(field, options[:label] || {}) +
-    "<div>"
+    "</div>"
   end
 
   def numeric(field, *args)
@@ -28,7 +28,7 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div class=\"numeric\">" +
       label(field, options[:label] || {}) +
       text_field(field, options[:text_field] || {}) +
-    "<div>"
+    "</div>"
   end
   alias :integer :numeric
   alias :float   :numeric
@@ -39,7 +39,7 @@ class SemiFormal < ActionView::Helpers::FormBuilder
     "<div class=\"text\">" +
       label(field, options[:label] || {}) +
       text_area(field, options[:text_area] || {}) +
-    "<div>"
+    "</div>"
   end
 
   # form.belongs_to :user

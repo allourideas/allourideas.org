@@ -1,0 +1,19 @@
+<h2>Change your password</h2>
+
+<p>
+  Your password has been reset. Choose a new password below.
+</p>
+
+<% form_for(:user,
+            :url  => user_password_path(@user, :token => @user.token),
+            :html => { :method => :put }) do |form| %>
+  <fieldset class="inputs">
+    <%= form.error_messages %>
+    <%= form.password :password %>
+    <%= form.password :password_confirmation %>
+  </fieldset>
+  <fieldset class="buttons">
+    <%= form.submit "Save this password", :disable_with => "Please wait..." %>
+  </fieldset>
+<% end %>
+

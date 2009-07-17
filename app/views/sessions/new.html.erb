@@ -1,0 +1,22 @@
+<h2>Sign in</h2>
+
+<% form_for :session, :url => session_path do |form| %>
+  <fieldset class="inputs">
+    <%= form.string :email %>
+    <%= form.password :password %>
+    <%= form.password :password_confirmation %>
+  </fieldset>
+  <fieldset class="buttons">
+    <%= form.submit "Sign in", :disable_with => "Please wait..." %>
+  </fieldset>
+<% end %>
+
+<ul>
+  <li>
+    <%= link_to "Sign up", new_user_path %>
+  </li>
+  <li>
+    <%= link_to "Forgot password?", new_password_path %>
+  </li>
+</ul>
+

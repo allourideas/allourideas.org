@@ -92,12 +92,12 @@ end
 
 Then /^I should see "([^\"]*)"$/ do |text|
   # response.should contain(text)
-  assert_match /#{text}/m, @response.body  
+  assert_contain text
 end
 
 Then /^I should not see "([^\"]*)"$/ do |text|
   # response.should_not contain(text)
-  assert_no_match /#{text}/m, @response.body
+  assert_not_contain text
 end
 
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|

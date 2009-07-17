@@ -2,7 +2,7 @@
 
 <% form_for @user do |form| %>
   <%= form.error_messages %>
-  <%= render :partial => 'inputs', :object => form %>
+  <%= render :partial => '/users/inputs', :locals => { :form => form } %>
   <fieldset class="buttons">
     <%= form.submit 'Sign up', :disable_with => 'Please wait...' %>
   </fieldset>

@@ -94,7 +94,7 @@ end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
   When %{I go to the password reset request page}
-  And %{I fill in "Email address" with "#{email}"}
+  And %{I fill in "Email" with "#{email}"}
   And %{I press "Reset password"}
 end
 

@@ -2,9 +2,9 @@
 
 <% form_for :session, :url => session_path do |form| %>
   <fieldset class="inputs">
-    <%= form.string :email %>
+    <%= form.string   :email %>
     <%= form.password :password %>
-    <%= form.password :password_confirmation %>
+    <%= form.boolean  :remember_me %>
   </fieldset>
   <fieldset class="buttons">
     <%= form.submit "Sign in", :disable_with => "Please wait..." %>

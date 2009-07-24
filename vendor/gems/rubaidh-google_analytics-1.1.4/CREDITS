@@ -1,0 +1,14 @@
+This plugin was initially release by Graeme Mathieson, of Rubaidh Ltd.
+However, since it appeared on github, it has benefited from the contributions
+of many, including:
+
+* Mike Gunderloy (ffmike)
+* Mark Catley (markcatley)
+* Kenneth Kalmer (kennethkalmer)
+* Daniel Morrison (danielmorrison)
+
+Thank you to all these folks for their contributions, and thank you also to
+Github for facilitating their contribution without having to wait for me to
+accept patches!
+
+If I've missed anybody out, please fork, patch and send me a pull request. :-)

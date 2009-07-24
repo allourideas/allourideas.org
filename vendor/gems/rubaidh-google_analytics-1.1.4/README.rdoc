@@ -1,0 +1,124 @@
+= GoogleAnalytics
+
+This plugin enables Google Analytics support in your application. By default
+it will output the analytics code for every single page automatically, if it
+is configured correctly. This is done by adding:
+
+    Rubaidh::GoogleAnalytics.tracker_id = 'UA-12345-67'
+
+to your <tt>config/environment.rb</tt>, inserting your own tracker id. This
+can be discovered by looking at the value assigned to +_uacct+ in the
+Javascript code.
+
+If you want to disable the code insertion for particular pages, add the
+following to controllers that don't want it:
+
+    skip_after_filter :add_google_analytics_code
+
+If you are running rails 2.1 or above add install this by adding:
+
+    config.gem 'rubaidh-google_analytics', :lib => 'rubaidh/google_analytics', :source => 'http://gems.github.com'
+
+and run:
+
+    rake gems:install
+
+Simple. :-)
+
+
+== Note
+
+This version of the plugin uses the new Google Analytics code (ga.js) by
+default. To use the legacy tracking code add the following line to your
+<tt>config/environment.rb</tt>:
+
+    Rubaidh::GoogleAnalytics.legacy_mode = true
+
+== Tracking outbound Links
+
+Google Analytics only tracks intra-site links by default. To create an
+outbound link that is tracked use the link_to_tracked helper:
+
+    link_to_tracked(name, track_path = "/", options = {}, html_options = {})
+
+You can use the track_path parameter to group your outbound links into logical
+folders inside of Google Analytics.
+
+The other forms of link_to are also supported:
+
+    link_to_tracked_if(condition, name, track_path = "/", options = {}, html_options = {}, &block)
+    link_to_tracked_unless(condition, name, track_path = "/", options = {}, html_options = {}, &block)
+    link_to_tracked_unless_current(name, track_path = "/", options = {}, html_options = {}, &block)
+
+To track outbound links, you should set
+
+    Rubaidh::GoogleAnalytics.defer_load = false
+
+This will move the tracking javascript to the top of your page.
+(see http://www.google.com/support/googleanalytics/bin/answer.py?answer=55527&topic=11006)
+
+Tracked links respect the legacy_mode flag.
+
+Note: Link-tracking works by inserting onclick() code in the HTML. Because of
+this, it will overwrite any onclick that you insert in the html_options hash.
+
+== Using local copies of the Analytics Javascript files
+
+Under certain circumstances you might find it valuable to serve a copy of the
+Analytics JavaScript directly from your server to your visitors, and not
+directly from Google. If your visitors are geograhically very far from Google,
+or if they have low quality international bandwidth, the loading time for the
+Analytics JS might kill the user experience and force you to remove the
+valuable tracking code from your site.
+
+This plugin now supports local copies of the legacy and new Analytics
+JavaScript files, updated via a rake task and served courtesy of the Rails
+AssetTagHelper methods. So even if you use asset hosts, the JS will be served
+from the correct source and under the correct protocol (HTTP/HTTPS).
+
+To enable cached copies and the following to your initialization code:
+
+    Rubaidh::GoogleAnalytics.local_javascript = true
+
+Use the following rake task to update the local copy of the JavaScript file:
+
+    rake google_analytics:updates
+
+To keep the file updated you can add the following to your Capistrano
+configuration:
+
+    after "deploy:symlink", "deploy:google_analytics"
+
+    namespace :deploy do
+      desc "Update local Google Analytics files"
+      task :google_analytics, :role => :web do
+        run "cd #{current_path} && rake google_analytics:update RAILS_ENV=#{ENV['RAILS_ENV']}"
+      end
+    end
+
+The above Capistrano recipe will almost certainly need some adjustments based
+on how you run your deployments, but you should get the idea.
+
+== Overriding application-default values
+
+If you're using one Rails application to serve pages across multiple domains,
+you may wish to override the domain and tracker ID values on a
+controller-by-controller or view-by-view basis. You can do this by setting the
+override_domain_name and override_tracker_id properties. These properties are
+automatically reset after each use, so the values you set for domain_name and
+tracker_id (usually in an initializer) will apply to all other requests.
+
+    before_filter :local_analytics
+
+    def local_analytics
+      Rubaidh::GoogleAnalytics.override_domain_name  = 'foo.com'
+      Rubaidh::GoogleAnalytics.override_tracker_id  = 'UA-123456-7'
+    end
+
+See the documentation for the GoogleAnalytics class for other configuration
+options.
+
+Note: You will need to have the mocha gem installed to run the tests for this
+plugin.
+
+Copyright (c) 2006-2008 Rubaidh Ltd, released under the MIT license.

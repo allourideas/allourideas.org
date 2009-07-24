@@ -1,0 +1,2 @@
+module Rubaidh #:nodoc:
+end

@@ -1,14 +1,14 @@
 <h2>Sign in</h2>
 
-<% form_for :session, :url => session_path do |form| %>
-  <fieldset class="inputs">
-    <%= form.string   :email %>
-    <%= form.password :password %>
-    <%= form.boolean  :remember_me %>
-  </fieldset>
-  <fieldset class="buttons">
-    <%= form.submit "Sign in", :disable_with => "Please wait..." %>
-  </fieldset>
+<% semantic_form_for :session, :url => session_path do |form| %>
+  <% form.inputs do %>
+    <%= form.input :email %>
+    <%= form.input :password, :as => :password %>
+    <%= form.input :remember_me, :as => :boolean %>
+  <% end %>
+  <% form.buttons do %>
+    <%= form.commit_button "Sign In" %>
+  <% end %>
 <% end %>
 
 <ul>

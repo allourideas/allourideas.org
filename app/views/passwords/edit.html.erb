@@ -4,16 +4,16 @@
   Your password has been reset. Choose a new password below.
 </p>
 
-<% form_for(:user,
+<% semantic_form_for(:user,
             :url  => user_password_path(@user, :token => @user.token),
             :html => { :method => :put }) do |form| %>
-  <fieldset class="inputs">
-    <%= form.error_messages %>
-    <%= form.password :password %>
-    <%= form.password :password_confirmation %>
-  </fieldset>
-  <fieldset class="buttons">
-    <%= form.submit "Save this password", :disable_with => "Please wait..." %>
-  </fieldset>
+  <%= form.error_messages %>
+  <% form.inputs do -%>
+    <%= form.input :password, :as => :password %>
+    <%= form.input :password_confirmation, :as => :password %>
+  <% end -%>
+  <% form.buttons do -%>
+    <%= form.commit_button "Save this password" %>
+  <% end -%>
 <% end %>
 

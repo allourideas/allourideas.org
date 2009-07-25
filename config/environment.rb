@@ -31,5 +31,9 @@ Rails::Initializer.run do |config|
     :lib     => "utility_scopes",
     :version => "0.2.2",
     :source  => "http://gems.github.com"
+  config.gem "justinfrench-formtastic", 
+    :lib     => 'formtastic', 
+    :source  => 'http://gems.github.com',
+    :version => '0.2.1'
 end
 

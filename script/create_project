@@ -67,10 +67,19 @@ run("sudo rake gems:install RAILS_ENV=development")
 run("sudo rake gems:install RAILS_ENV=test")
 run("sudo rake gems:install RAILS_ENV=cucumber")
 
-# can't install cucumber via rake gems:install because
-# it is considered a "framework" gem
-if not_installed?("cucumber")
-  run "sudo gem install cucumber --version='0.3.11'"
+# can't vendor nokogiri because it has native extensions
+if not_installed?("nokogiri")
+  run "sudo gem install nokogiri --version='1.3.2'"
+end
+
+# need to install tpope-pickler for the 'pickler' command
+if not_installed?("tpope-pickler")
+  run "sudo gem install tpope-pickler"
+end
+
+# need to install heroku gem for the 'heroku' commands
+if not_installed?("heroku")
+  run "sudo gem install heroku"
 end
 
 # can't install rubaidh-google_analytics via rake gems:install because

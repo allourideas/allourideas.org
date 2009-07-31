@@ -61,6 +61,13 @@ namespace :heroku do
     end
   end
 
+  desc "Deploy to heroku"
+  task :deploy => :dependencies do
+    `git push heroku`
+    `heroku rake db:migrate`
+    `heroku rake hoptoad:deploy TO=#{RAILS_ENV}`
+  end
+
   task :dependencies do
     `heroku`
     unless $?.success?

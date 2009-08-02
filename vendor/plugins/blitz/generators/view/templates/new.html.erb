@@ -1,15 +1,17 @@
 <h1>New <%= resource %></h1>
 
-<%% form_for(@<%= resource %>) do |form| %>
-  <%%= form.error_messages %>
-  <fieldset class="inputs">
+<%% semantic_form_for(@<%= resource %>) do |form| %>
 <% if active_record_defined? -%>
+  <%% form.inputs do %>
 <% columns_for_form.each do |attribute_name, attribute_type| -%>
-    <%%= form.<%= attribute_type %> :<%= attribute_name %> %>
+    <%%= form.input :<%= attribute_name %> %>
 <% end -%>
+  <%% end %>
+<% else -%>
+  <%%= form.inputs %>
 <% end -%>
-  </fieldset>
-  <fieldset class="buttons">
-    <%%= form.submit 'Create', :disable_with => 'Please wait...' %>
-  </fieldset>
+  <%% form.buttons do %>
+    <%%= form.commit_button 'Create',
+          :button_html => { :disable_with => 'Please wait...' } %>
+  <%% end %>
 <%% end %>

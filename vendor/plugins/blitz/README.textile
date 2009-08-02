@@ -8,6 +8,7 @@ h2. Generated code may contain
 * "Shoulda":http://github.com/thoughtbot/shoulda
 * "Factory Girl":http://github.com/thoughtbot/factory_girl
 * "Mocha":http://github.com/jferris/mocha
+* "Formtastic":http://github.com/justinfrench/formtastic
 
 h2. Installation
 
@@ -72,6 +73,34 @@ h2. Helper generator
 h2. View generator
 
     $ script/generate view Posts new
+
+generates a Formtastic view which reflects on your current schema...
+
+<pre><code><h1>New post</h1>
+
+<% semantic_form_for(@post) do |form| %>
+  <% form.inputs do %>
+    <%= form.input :title %>
+    <%= form.input :body %>
+    <%= form.input :user %>
+  <% end %>
+  <% form.buttons do %>
+    <%= form.commit_button 'Create',
+          :button_html => { :disable_with => 'Please wait...' } %>
+  <% end %>
+<% end %></code></pre>
+
+If no ActiveRecord is defined named Post, it will generate...
+
+<pre><code><h1>New post</h1>
+
+<% semantic_form_for(@post) do |form| %>
+  <% form.inputs %>
+  <% form.buttons do %>
+    <%= form.commit_button 'Create',
+          :button_html => { :disable_with => 'Please wait...' } %>
+  <% end %>
+<% end %></code></pre>
 
 h2. Model generator: belongs_to
 

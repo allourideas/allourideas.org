@@ -9,7 +9,7 @@ module Test::Unit::Assertions
         expected = yield
         body     = file.read
         assert body.include?(expected),
-          "expected #{expected} but was #{body.inspect}"
+          "expected #{expected} but was #{body}"
       end
     end
   end

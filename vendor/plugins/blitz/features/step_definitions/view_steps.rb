@@ -13,13 +13,12 @@ end
 When /^a SemiFormal "new" view for "posts" should be generated$/ do
   assert_generated_file("app/views/posts/new.html.erb") do
     "<h1>New post</h1>\n\n"                                                <<
-    "<% form_for(@post) do |form| %>\n"                                    <<
-    "  <%= form.error_messages %>\n"                                       <<
-    "  <fieldset class=\"inputs\">\n"                                      <<
-    "  </fieldset>\n"                                                      <<
-    "  <fieldset class=\"buttons\">\n"                                     <<
-    "    <%= form.submit 'Create', :disable_with => 'Please wait...' %>\n" <<
-    "  </fieldset>\n"                                                      <<
+    "<% semantic_form_for(@post) do |form| %>\n"                           <<
+    "  <%= form.inputs %>\n"                                               <<
+    "  <% form.buttons do %>\n"                                            <<
+    "    <%= form.commit_button 'Create',\n"                               <<
+    "          :button_html => { :disable_with => 'Please wait...' } %>\n" <<
+    "  <% end %>\n"                                                        <<
     "<% end %>"
   end
 end
@@ -27,16 +26,16 @@ end
 Then /^a SemiFormal "new" view for "posts" should be generated with fields$/ do
   assert_generated_file("app/views/posts/new.html.erb") do
     "<h1>New post</h1>\n\n"                                                <<
-    "<% form_for(@post) do |form| %>\n"                                    <<
-    "  <%= form.error_messages %>\n"                                       <<
-    "  <fieldset class=\"inputs\">\n"                                      <<
-    "    <%= form.string :title %>\n"                                      <<
-    "    <%= form.text :body %>\n"                                         <<
-    "    <%= form.belongs_to :user %>\n"                                   <<
-    "  </fieldset>\n"                                                      <<
-    "  <fieldset class=\"buttons\">\n"                                     <<
-    "    <%= form.submit 'Create', :disable_with => 'Please wait...' %>\n" <<
-    "  </fieldset>\n"                                                      <<
+    "<% semantic_form_for(@post) do |form| %>\n"                           <<
+    "  <% form.inputs do %>\n"                                             <<
+    "    <%= form.input :title %>\n"                                       <<
+    "    <%= form.input :body %>\n"                                        <<
+    "    <%= form.input :user %>\n"                                        <<
+    "  <% end %>\n"                                                        <<
+    "  <% form.buttons do %>\n"                                            <<
+    "    <%= form.commit_button 'Create',\n"                               <<
+    "          :button_html => { :disable_with => 'Please wait...' } %>\n" <<
+    "  <% end %>\n"                                                        <<
     "<% end %>"
   end
 end

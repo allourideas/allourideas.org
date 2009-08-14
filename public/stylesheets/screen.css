@@ -9,3 +9,32 @@ body {
   -moz-border-radius: 24px;
   -webkit-border-radius: 24px; }
 
+/* flash color */
+
+#flash_success {
+  background: seagreen; }
+#flash_failure {
+  color: beige;
+  background: firebrick; }
+#flash_notice {
+  color: snow;
+  background: dimgray; }
+
+/* flashes spacing */
+
+#flash {
+  margin-bottom: 0.6em; }
+
+#flash_notice, #flash_success, #flash_failure, #errorExplanation ul li {
+  padding: 0.6em; }
+
+/* flash scale */
+
+#flash_notice, #flash_success, #flash_failure, #errorExplanation ul li {
+  font-size: 1.6em; }
+
+/* flash weighting */
+
+#flash_notice, #flash_success, #flash_failure, #errorExplanation ul li {
+  font-weight: bold; }
+

@@ -25,16 +25,24 @@ Suspenders currently runs on Rails 2.3.2.
 Gems (in .gems):
 ----------------
 
+For file uploads:
+
+    thoughtbot-paperclip
+    aws-s3
+
+For authentication:
+
+    thoughtbot-clearance
+
 For testing:
 
     mocha
     thoughtbot-factory_girl
     thoughtbot-shoulda
 
-For file uploads:
+For form builders:
 
-    thoughtbot-paperclip
-    right_aws
+    justinfrench-formtastic
 
 For email through SMTP (particularly Gmail):
 
@@ -47,13 +55,17 @@ For background processing:
 Plugins (in vendor/plugins):
 ----------------------------
 
-For authentication:
+For Javascript and Ajax:
 
-    thoughtbot-clearance
+    jQuery
 
 For exception notification:
 
     hoptoad_notifier
+
+For CSS framework:
+
+    flutie
 
 For models, controllers, helpers, & features generators:
 
@@ -106,25 +118,18 @@ from Joe Ferris that adds test spies (assert_received) to Mocha.
 
     jferris-mocha --version '0.9.5.0.1241126838' --source gems.github.com
 
-Javascript
-----------
-
-jQuery and jRails are included.
-
 Styles
 ------
 
-Heroku's Suspenders includes a lightweight CSS framework called Stylus.
+Heroku's Suspenders includes a lightweight CSS framework called Flutie.
 
-public/stylesheets/screen.css is included in the application layout.
-It imports the Stylus framework:
+Flutie CSS and an empty project_name.css are included in the application layout.
 
-    @import url("framework/reset.css");
-    @import url("framework/typography.css");
-    @import url("framework/grid.css");
-    @import url("framework/spacing.css");
+Use project_name.css for your custom styles.
 
-Add another import for your own styles, by convention named after your app.
+Browse to the following path in development for Style Guide:
+
+    http://localhost:3000/styleguide
 
 Hoptoad
 -------

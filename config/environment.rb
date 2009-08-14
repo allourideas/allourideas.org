@@ -25,15 +25,15 @@ Rails::Initializer.run do |config|
     :lib     => "paperclip",
     :version => "2.3.1",
     :source  => "http://gems.github.com"
+  config.gem "aws-s3",
+    :lib     => "aws/s3",
+    :version => "0.6.2"
   config.gem "mime-types",
     :lib     => "mime/types",
     :version => "1.16"
   config.gem "xml-simple",
     :lib     => "xmlsimple",
     :version => "1.0.12"
-  config.gem "aws-s3",
-    :lib     => "aws/s3",
-    :version => "0.6.2"
   config.gem "yfactorial-utility_scopes",
     :lib     => "utility_scopes",
     :version => "0.2.2",

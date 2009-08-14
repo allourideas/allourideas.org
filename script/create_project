@@ -63,6 +63,7 @@ Dir.glob("#{project_directory}/**/session_store.rb").each do |file|
 end
 
 run("sudo mv public/stylesheets/screen.css public/stylesheets/#{project_name}.css")
+run("sudo chmod 0666 public/stylesheets/#{project_name}.css")
 
 run("git commit -a -m 'New Heroku Suspenders app'")
 

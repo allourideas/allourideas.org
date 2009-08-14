@@ -88,6 +88,8 @@ if not_installed?("rubaidh-google_analytics")
   run "sudo gem install rubaidh-google_analytics --version='1.1.4'"
 end
 
+run("sudo touch public/stylesheets/#{project_name}.css")
+
 run("sudo touch log/development.log")
 run("sudo chmod 0666 log/development.log")
 run("sudo touch log/test.log")

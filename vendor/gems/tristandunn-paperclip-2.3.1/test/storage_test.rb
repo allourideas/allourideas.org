@@ -3,6 +3,7 @@ require 'test/helper'
 class StorageTest < Test::Unit::TestCase
   context "Parsing S3 credentials" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :bucket => "testing",
                     :s3_credentials => {:not => :important}
@@ -39,6 +40,7 @@ class StorageTest < Test::Unit::TestCase
 
   context "" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :s3_credentials => {},
                     :bucket => "bucket",
@@ -54,6 +56,7 @@ class StorageTest < Test::Unit::TestCase
   end
   context "" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :s3_credentials => {},
                     :bucket => "bucket",
@@ -69,6 +72,7 @@ class StorageTest < Test::Unit::TestCase
   end
   context "" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :s3_credentials => {
                       :production   => { :bucket => "prod_bucket" },
@@ -88,6 +92,7 @@ class StorageTest < Test::Unit::TestCase
 
   context "Parsing S3 credentials with a bucket in them" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :s3_credentials => {
                       :production   => { :bucket => "prod_bucket" },
@@ -146,14 +151,7 @@ class StorageTest < Test::Unit::TestCase
 
       context "and saved" do
         setup do
-          @s3_mock     = stub
-          @bucket_mock = stub
-          RightAws::S3.expects(:new).with("12345", "54321", {}).returns(@s3_mock)
-          @s3_mock.expects(:bucket).with("testing", true, "public-read").returns(@bucket_mock)
-          @key_mock = stub
-          @bucket_mock.expects(:key).returns(@key_mock)
-          @key_mock.expects(:data=)
-          @key_mock.expects(:put).with(nil, 'public-read', 'Content-type' => 'image/png')
+          AWS::S3::S3Object.stubs(:store).with(@dummy.avatar.path, anything, 'testing', :content_type => 'image/png', :access => :public_read)
           @dummy.save
         end
 
@@ -164,13 +162,8 @@ class StorageTest < Test::Unit::TestCase
       
       context "and remove" do
         setup do
-          @s3_mock     = stub
-          @bucket_mock = stub
-          RightAws::S3.expects(:new).with("12345", "54321", {}).returns(@s3_mock)
-          @s3_mock.expects(:bucket).with("testing", true, "public-read").returns(@bucket_mock)
-          @key_mock = stub
-          @bucket_mock.expects(:key).at_least(2).returns(@key_mock)
-          @key_mock.expects(:delete)
+          AWS::S3::S3Object.stubs(:exists?).returns(true)
+          AWS::S3::S3Object.stubs(:delete)
           @dummy.destroy_attached_files
         end
 
@@ -183,6 +176,7 @@ class StorageTest < Test::Unit::TestCase
   
   context "An attachment with S3 storage and bucket defined as a Proc" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :bucket => lambda { |attachment| "bucket_#{attachment.instance.other}" },
                     :s3_credentials => {:not => :important}
@@ -196,6 +190,7 @@ class StorageTest < Test::Unit::TestCase
 
   context "An attachment with S3 storage and specific s3 headers set" do
     setup do
+      AWS::S3::Base.stubs(:establish_connection!)
       rebuild_model :storage => :s3,
                     :bucket => "testing",
                     :path => ":attachment/:style/:basename.:extension",
@@ -217,17 +212,13 @@ class StorageTest < Test::Unit::TestCase
 
       context "and saved" do
         setup do
-          @s3_mock     = stub
-          @bucket_mock = stub
-          RightAws::S3.expects(:new).with("12345", "54321", {}).returns(@s3_mock)
-          @s3_mock.expects(:bucket).with("testing", true, "public-read").returns(@bucket_mock)
-          @key_mock = stub
-          @bucket_mock.expects(:key).returns(@key_mock)
-          @key_mock.expects(:data=)
-          @key_mock.expects(:put).with(nil,
-                                       'public-read',
-                                       'Content-type' => 'image/png',
-                                       'Cache-Control' => 'max-age=31557600')
+          AWS::S3::Base.stubs(:establish_connection!)
+          AWS::S3::S3Object.stubs(:store).with(@dummy.avatar.path,
+                                               anything,
+                                               'testing',
+                                               :content_type => 'image/png',
+                                               :access => :public_read,
+                                               'Cache-Control' => 'max-age=31557600')
           @dummy.save
         end
 
@@ -263,8 +254,8 @@ class StorageTest < Test::Unit::TestCase
 
         teardown { @file.close }
 
-        should "still return a Tempfile when sent #to_io" do
-          assert_equal Tempfile, @dummy.avatar.to_io.class
+        should "still return a Tempfile when sent #to_file" do
+          assert_equal Tempfile, @dummy.avatar.to_file.class
         end
 
         context "and saved" do

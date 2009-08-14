@@ -56,7 +56,7 @@ run("git pull heroku_suspenders master")
 
 Dir.glob("#{project_directory}/**/*").each do |file|
   search_and_replace(file, changeme,    project_name)
-  search_and_replace(file, changetitle, project_name.humanize)
+  search_and_replace(file, changetitle, project_name.titleize)
 end
 
 Dir.glob("#{project_directory}/**/session_store.rb").each do |file|

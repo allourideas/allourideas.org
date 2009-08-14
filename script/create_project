@@ -62,7 +62,7 @@ Dir.glob("#{project_directory}/**/session_store.rb").each do |file|
   search_and_replace(file, changesession, Digest::MD5.hexdigest("#{project_name} #{datestring}"))
 end
 
-run("sudo touch public/stylesheets/#{project_name}.css")
+run("sudo mv public/stylesheets/screen.css public/stylesheets/#{project_name}.css")
 
 run("git commit -a -m 'New Heroku Suspenders app'")
 

@@ -1,8 +1,9 @@
 ambethia-smtp-tls --version '1.1.2' --source gems.github.com
 tobi-delayed_job --version '1.7.0' --source gems.github.com
-thoughtbot-paperclip --version '2.2.9.2' --source gems.github.com
-right_aws --version '1.10.0'
+tristandunn-paperclip --version '2.3.1' --source gems.github.com
+aws-s3 --version '0.6.2'
 rubaidh-google_analytics --version '1.1.4' --source gems.github.com
 yfactorial-utility_scopes --version '0.2.2' --source gems.github.com
 justinfrench-formtastic --version '0.2.1' --source gems.github.com
+thoughtbot-clearance --version '0.7.0' --source gems.github.com
 

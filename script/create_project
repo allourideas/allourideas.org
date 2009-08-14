@@ -65,7 +65,8 @@ end
 run("sudo mv public/stylesheets/screen.css public/stylesheets/#{project_name}.css")
 run("sudo chmod 0666 public/stylesheets/#{project_name}.css")
 
-run("git commit -a -m 'New Heroku Suspenders app'")
+run("git add .")
+run("git commit -m 'New Heroku Suspenders app'")
 
 unless installed?("rails")
   run "sudo gem install rails"

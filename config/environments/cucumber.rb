@@ -35,6 +35,8 @@ config.gem 'builder',
   :lib     => false
 config.gem 'cucumber',
   :version => '0.3.11'
+config.gem 'fakeweb',
+  :version => '>= 1.2.5'
 
 # Webrat and dependencies
 # NOTE: don't vendor nokogiri - it's a binary Gem
@@ -47,6 +49,7 @@ config.gem 'webrat',
 require 'rubygems'
 require 'factory_girl'
 require 'shoulda'
+require 'fakeweb'
 
 HOST = "localhost"
 

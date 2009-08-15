@@ -1,4 +1,4 @@
-When /^I attach an? "([^\"]*)" file to an? "([^\"]*)" on S3$/ do |filename, klass|
+When /^I attach an? "([^\"]*)" "([^\"]*)" file to an? "([^\"]*)" on S3$/ do |filename, extension, klass|
   filename   = filename.to_sym
   definition = klass.gsub(" ", "_").classify.constantize.attachment_definitions[filename]
 
@@ -10,6 +10,6 @@ When /^I attach an? "([^\"]*)" file to an? "([^\"]*)" on S3$/ do |filename, klas
   FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
 
   attach_file filename,
-              "features/support/paperclip/#{klass.gsub(" ", "_").underscore}/#{filename}.png"
+              "features/support/paperclip/#{klass.gsub(" ", "_").underscore}/#{filename}.#{extension}"
 end
 

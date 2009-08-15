@@ -51,7 +51,7 @@ class <%= class_name %>ControllerTest < ActionController::TestCase
       get :edit, :id => @<%= resource %>.to_param
     end
 
-    should_assign_to       :<%= resource %>, :equals => '@<%= resource %>'
+    should_assign_to(:<%= resource %>( { @<%= resource %> }
     should_render_template :edit
     should_respond_with    :success
   end

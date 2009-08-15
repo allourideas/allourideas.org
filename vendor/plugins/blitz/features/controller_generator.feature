@@ -7,7 +7,7 @@ Feature: Rails controller generator
     Given a Rails app
     And the blitz plugin is installed
     When I generate a "Posts" controller with "index" action
-    And an empty "index" controller action for "posts" should be generated
+    And a "index" controller action for "posts" should be generated
 
   Scenario: Controller generator for new action
     Given a Rails app

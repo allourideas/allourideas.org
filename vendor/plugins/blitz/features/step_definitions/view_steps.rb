@@ -10,7 +10,7 @@ When /^I generate a "([^\"]*)" view for "([^\"]*)" with the empty option$/ do |v
          "cd .."
 end
 
-When /^a SemiFormal "new" view for "posts" should be generated$/ do
+When /^a Formtastic "new" view for "posts" should be generated$/ do
   assert_generated_file("app/views/posts/new.html.erb") do
     "<h1>New post</h1>\n\n"                                                <<
     "<% semantic_form_for(@post) do |form| %>\n"                           <<
@@ -23,7 +23,7 @@ When /^a SemiFormal "new" view for "posts" should be generated$/ do
   end
 end
 
-Then /^a SemiFormal "new" view for "posts" should be generated with fields$/ do
+Then /^a Formtastic "new" view for "posts" should be generated with fields$/ do
   assert_generated_file("app/views/posts/new.html.erb") do
     "<h1>New post</h1>\n\n"                                                <<
     "<% semantic_form_for(@post) do |form| %>\n"                           <<

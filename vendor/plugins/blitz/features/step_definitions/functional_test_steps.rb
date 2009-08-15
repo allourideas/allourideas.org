@@ -65,7 +65,7 @@ Then /^a standard "edit" functional test for "posts" should be generated$/ do
     "      @post = Factory(:post)\n"                         <<
     "      get :edit, :id => @post.to_param\n"               <<
     "    end\n\n"                                            <<
-    "    should_assign_to       :post, :equals => '@post'\n" <<
+    "    should_assign_to(:post) { '@post' }\n" <<
     "    should_render_template :edit\n"                     <<
     "    should_respond_with    :success\n"                  <<
     "  end"

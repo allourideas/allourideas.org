@@ -52,6 +52,10 @@ For background processing:
 
     tobi-delayed_job
 
+For payment processing:
+
+    activemerchant
+
 Plugins (in vendor/plugins):
 ----------------------------
 

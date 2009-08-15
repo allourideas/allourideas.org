@@ -19,10 +19,11 @@ This will create a Rails 2.3.2 app with Heroku-recommended code:
 
 * jQuery for Javascript and Ajax
 * Clearance for authentication
+* Active Merchant for payment processing
 * Cucumber, Shoulda, Factory Girl, & Mocha for testing
-* Flutie for CSS framework
-* Formtastic for form builders
 * Inherited Resources for RESTful controllers
+* Formtastic for form builders
+* Flutie for CSS framework
 * Blitz for features, model, controller, & helper generators
 
 If you don't have all the necessary gems, they will be installed.

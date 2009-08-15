@@ -10,6 +10,6 @@ When /^I attach an? "([^\"]*)" file to an? "([^\"]*)" on S3$/ do |filename, klas
   FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
 
   attach_file filename,
-              "features/support/paperclip/#{klass.underscore}/#{filename}.png"
+              "features/support/paperclip/#{klass.gsub(" ", "_").underscore}/#{filename}.png"
 end
 

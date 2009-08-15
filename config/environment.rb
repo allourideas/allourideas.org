@@ -50,5 +50,8 @@ Rails::Initializer.run do |config|
     :lib     => 'clearance', 
     :source  => 'http://gems.github.com', 
     :version => '0.7.0'
+  config.gem "activemerchant",
+    :lib     => 'active_merchant',
+    :version => '1.4.2'
 end
 

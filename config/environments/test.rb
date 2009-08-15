@@ -35,12 +35,19 @@ config.gem 'thoughtbot-shoulda',
   :lib     => 'shoulda',
   :source  => 'http://gems.github.com',
   :version => '>= 2.10.1'
+config.gem 'jtrupiano-timecop',
+  :lib     => 'timecop',
+  :source  => 'http://gems.github.com',
+  :version => '0.2.1'
+config.gem 'fakeweb',
+  :version => '>= 1.2.5'
 
 HOST = 'localhost'
 
 begin
   require 'factory_girl'
   require 'redgreen'
+  require 'fakeweb'
 rescue LoadError
 end
 

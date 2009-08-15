@@ -39,6 +39,8 @@ For testing:
     mocha
     thoughtbot-factory_girl
     thoughtbot-shoulda
+    fakeweb
+    jtrupiano-timecop
 
 For form builders:
 

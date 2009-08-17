@@ -46,28 +46,38 @@ end
 
 Then /^a standard "show" functional test for "posts" should be generated$/ do
   assert_generated_file("test/functional/posts_controller_test.rb") do
-    "  context 'GET to show for existing post' do\n"         <<
-    "    setup do\n"                                         <<
-    "      @post = Factory(:post)\n"                         <<
-    "      get :show, :id => @post.to_param\n"               <<
-    "    end\n\n"                                            <<
-    "    should_assign_to       :post, :equals => '@post'\n" <<
-    "    should_render_template :show\n"                     <<
-    "    should_respond_with    :success\n"                  <<
+    "  context 'GET to show for existing post' do\n"    <<
+    "    setup do\n"                                    <<
+    "      @post = Factory(:post)\n"                    <<
+    "      Post.stubs(:find).returns(@post)\n"          <<
+    "      get :show, :id => @post.to_param\n"          <<
+    "    end\n\n"                                       <<
+    "    should 'find post' do\n"                       <<
+    "      assert_received(Post, :find) do |expects|\n" <<
+    "        expects.with(@post.id)\n"                  <<
+    "      end\n"                                       <<
+    "    end\n\n"                                       <<
+    "    should_render_template :show\n"                <<
+    "    should_respond_with    :success\n"             <<
     "  end"
   end
 end
 
 Then /^a standard "edit" functional test for "posts" should be generated$/ do
   assert_generated_file("test/functional/posts_controller_test.rb") do
-    "  context 'GET to edit for existing post' do\n"         <<
-    "    setup do\n"                                         <<
-    "      @post = Factory(:post)\n"                         <<
-    "      get :edit, :id => @post.to_param\n"               <<
-    "    end\n\n"                                            <<
-    "    should_assign_to(:post) { '@post' }\n" <<
-    "    should_render_template :edit\n"                     <<
-    "    should_respond_with    :success\n"                  <<
+    "  context 'GET to edit for existing post' do\n"    <<
+    "    setup do\n"                                    <<
+    "      @post = Factory(:post)\n"                    <<
+    "      Post.stubs(:find).returns(@post)\n"          <<
+    "      get :edit, :id => @post.to_param\n"          <<
+    "    end\n\n"                                       <<
+    "    should 'find post' do\n"                       <<
+    "      assert_received(Post, :find) do |expects|\n" <<
+    "        expects.with(@post.id)\n"                  <<
+    "      end\n"                                       <<
+    "    end\n\n"                                       <<
+    "    should_render_template :edit\n"                <<
+    "    should_respond_with    :success\n"             <<
     "  end"
   end
 end

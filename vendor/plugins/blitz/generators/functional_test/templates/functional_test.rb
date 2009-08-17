@@ -35,10 +35,16 @@ class <%= class_name %>ControllerTest < ActionController::TestCase
   context 'GET to show for existing <%= resource %>' do
     setup do
       @<%= resource %> = Factory(:<%= resource %>)
+      <%= resource_class %>.stubs(:find).returns(@<%= resource %>)
       get :show, :id => @<%= resource %>.to_param
     end
 
-    should_assign_to       :<%= resource %>, :equals => '@<%= resource %>'
+    should 'find <%= resource %>' do
+      assert_received(<%= resource_class %>, :find) do |expects|
+        expects.with(@<%= resource %>.id)
+      end
+    end
+
     should_render_template :show
     should_respond_with    :success
   end
@@ -48,10 +54,16 @@ class <%= class_name %>ControllerTest < ActionController::TestCase
   context 'GET to edit for existing <%= resource %>' do
     setup do
       @<%= resource %> = Factory(:<%= resource %>)
+      <%= resource_class %>.stubs(:find).returns(@<%= resource %>)
       get :edit, :id => @<%= resource %>.to_param
     end
 
-    should_assign_to(:<%= resource %>( { @<%= resource %> }
+    should 'find <%= resource %>' do
+      assert_received(<%= resource_class %>, :find) do |expects|
+        expects.with(@<%= resource %>.id)
+      end
+    end
+
     should_render_template :edit
     should_respond_with    :success
   end

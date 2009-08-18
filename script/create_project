@@ -48,11 +48,10 @@ def installed?(gem_name)
   installed_gems.any?
 end
 
-run("mkdir #{project_directory}")
+run("cp -r . #{project_directory}")
 Dir.chdir(project_directory) or fail("Couldn't change to #{project_directory}")
 run("git init")
 run("git remote add heroku_suspenders #{template_url}")
-run("git pull heroku_suspenders master")
 
 Dir.glob("#{project_directory}/**/*").each do |file|
   search_and_replace(file, changeme,    project_name)
@@ -73,10 +72,6 @@ run("git commit -m 'New Heroku Suspenders app'")
 unless installed?("rails")
   run "sudo gem install rails"
 end
-
-run("sudo rake gems:install RAILS_ENV=development")
-run("sudo rake gems:install RAILS_ENV=test")
-run("sudo rake gems:install RAILS_ENV=cucumber")
 
 # can't vendor nokogiri because it has native extensions
 unless installed?("nokogiri")

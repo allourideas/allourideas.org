@@ -7,7 +7,7 @@ class InterpolationsTest < Test::Unit::TestCase
     assert ! methods.include?(:[]=)
     assert ! methods.include?(:all)
     methods.each do |m|
-      assert Paperclip::Interpolations.respond_to? m
+      assert Paperclip::Interpolations.respond_to?(m)
     end
   end
 
@@ -17,6 +17,10 @@ class InterpolationsTest < Test::Unit::TestCase
 
   should "return the RAILS_ENV" do
     assert_equal RAILS_ENV, Paperclip::Interpolations.rails_env(:attachment, :style)
+  end
+
+  should "return the class of the Interpolations module when called with no params" do
+    assert_equal Module, Paperclip::Interpolations.class
   end
 
   should "return the class of the instance" do

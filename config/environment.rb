@@ -21,7 +21,7 @@ Rails::Initializer.run do |config|
     :lib     => "delayed_job",
     :version => "1.7.0",
     :source  => "http://gems.github.com"
-  config.gem "tristandunn-paperclip",
+  config.gem "thoughtbot-paperclip",
     :lib     => "paperclip",
     :version => "2.3.1",
     :source  => "http://gems.github.com"

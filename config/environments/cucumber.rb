@@ -19,7 +19,7 @@ config.action_mailer.delivery_method = :test
 
 # Cucumber and dependencies
 config.gem 'polyglot',
-  :version => '0.2.6',
+  :version => '0.2.8',
   :lib     => false
 config.gem 'treetop',
   :version => '1.2.6',
@@ -34,17 +34,17 @@ config.gem 'builder',
   :version => '2.1.2',
   :lib     => false
 config.gem 'cucumber',
-  :version => '0.3.11'
+  :version => '0.3.98'
 config.gem 'fakeweb',
   :version => '>= 1.2.5'
 
 # Webrat and dependencies
 # NOTE: don't vendor nokogiri - it's a binary Gem
 config.gem 'nokogiri',
-  :version => '1.3.2',
+  :version => '1.3.3',
   :lib     => false
 config.gem 'webrat',
-  :version => '0.4.4'
+  :version => '0.5.3'
 
 require 'rubygems'
 require 'factory_girl'

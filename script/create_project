@@ -75,7 +75,7 @@ end
 
 # can't vendor nokogiri because it has native extensions
 unless installed?("nokogiri")
-  run "sudo gem install nokogiri --version='1.3.2'"
+  run "sudo gem install nokogiri --version='1.3.3'"
 end
 
 # need to install tpope-pickler for the 'pickler' command

@@ -41,7 +41,7 @@ Rails::Initializer.run do |config|
   config.gem "justinfrench-formtastic", 
     :lib     => 'formtastic', 
     :source  => 'http://gems.github.com',
-    :version => '0.2.1'
+    :version => '0.2.2'
   config.gem "josevalim-inherited_resources", 
     :lib     => 'inherited_resources', 
     :source  => 'http://gems.github.com',

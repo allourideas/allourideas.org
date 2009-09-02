@@ -10,13 +10,15 @@ module InheritedResources
   #  new_resource_url      # => /posts/1/comments/new
   #  edit_resource_url     # => /posts/1/comments/#{@comment.to_param}/edit
   #  collection_url        # => /posts/1/comments
+  #  parent_url            # => /posts/1
   #
   #  # /projects/1/tasks
-  #  resource_url          # => /products/1/tasks/#{@task.to_param}
-  #  resource_url(task)    # => /products/1/tasks/#{task.to_param}
-  #  new_resource_url      # => /products/1/tasks/new
-  #  edit_resource_url     # => /products/1/tasks/#{@task.to_param}/edit
-  #  collection_url        # => /products/1/tasks
+  #  resource_url          # => /projects/1/tasks/#{@task.to_param}
+  #  resource_url(task)    # => /projects/1/tasks/#{task.to_param}
+  #  new_resource_url      # => /projects/1/tasks/new
+  #  edit_resource_url     # => /projects/1/tasks/#{@task.to_param}/edit
+  #  collection_url        # => /projects/1/tasks
+  #  parent_url            # => /projects/1
   #
   #  # /users
   #  resource_url          # => /users/#{@user.to_param}
@@ -24,6 +26,7 @@ module InheritedResources
   #  new_resource_url      # => /users/new
   #  edit_resource_url     # => /users/#{@user.to_param}/edit
   #  collection_url        # => /users
+  #  parent_url            # => /
   #
   # The nice thing is that those urls are not guessed during runtime. They are
   # all created when you inherit.
@@ -71,6 +74,9 @@ module InheritedResources
 
       collection_ivars    = resource_ivars.dup
       collection_segments = resource_segments.dup
+
+      # Generate parent url before we add resource instances.
+      generate_url_and_path_helpers nil, :parent, resource_segments, resource_ivars
 
       # This is the default route configuration, later we have to deal with
       # exception from polymorphic and singleton cases.
@@ -126,7 +132,7 @@ module InheritedResources
       # If it's not a singleton, ivars are not empty, not a collection or
       # not a "new" named route, we can pass a resource as argument.
       #
-      unless singleton || ivars.empty? || name == :collection || prefix == :new
+      unless (singleton && name != :parent) || ivars.empty? || name == :collection || prefix == :new
         ivars.push "(given_args.first || #{ivars.pop})"
       end
 

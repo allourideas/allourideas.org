@@ -45,7 +45,7 @@ Rails::Initializer.run do |config|
   config.gem "josevalim-inherited_resources", 
     :lib     => 'inherited_resources', 
     :source  => 'http://gems.github.com',
-    :version => '0.8.5'
+    :version => '0.9.1'
   config.gem "thoughtbot-clearance", 
     :lib     => 'clearance', 
     :source  => 'http://gems.github.com', 

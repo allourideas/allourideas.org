@@ -46,7 +46,7 @@ module InheritedResources
       # instance variable.
       #
       def build_resource
-        get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, params[resource_instance_name]))
+        get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, params[resource_instance_name] || {}))
       end
 
       # This class allows you to set a instance variable to begin your
@@ -82,6 +82,16 @@ module InheritedResources
         false
       end
 
+      # Returns the association chain, with all parents (does not include the
+      # current resource).
+      #
+      def association_chain
+        @association_chain ||=
+          symbols_for_association_chain.inject([begin_of_association_chain]) do |chain, symbol|
+            chain << evaluate_parent(symbol, resources_configuration[symbol], chain.last)
+          end.compact.freeze
+      end
+
       # Overwrite this method to provide other interpolation options when
       # the flash message is going to be set.
       #
@@ -107,11 +117,7 @@ module InheritedResources
       # parents chain and returns the scoped association.
       #
       def end_of_association_chain #:nodoc:
-        chain = symbols_for_association_chain.inject(begin_of_association_chain) do |chain, symbol|
-          evaluate_parent(symbol, resources_configuration[symbol], chain)
-        end
-
-        if chain
+        if chain = association_chain.last
           if method_for_association_chain
             apply_scope_to(chain.send(method_for_association_chain))
           else
@@ -271,26 +277,34 @@ module InheritedResources
       #     end
       #   end
       #
-      def respond_to_with_dual_blocks(success, dual_block, options={}, &block) #:nodoc:
-        responder = ActionController::MimeResponds::Responder.new(self)
-
-        if dual_block
-          if dual_block.arity == 2
-            dumb_responder = InheritedResources::DumbResponder.new
-            if success
-              dual_block.call(responder, dumb_responder)
+      # It also calculates the response url in case a block without arity is
+      # given and returns it. Otherwise returns nil.
+      #
+      def respond_with_dual_blocks(object, options, success, given_block, &block) #:nodoc:
+        case given_block.try(:arity)
+          when 2
+            respond_with(object, options) do |responder|
+              dumb_responder = InheritedResources::DumbResponder.new
+              if success
+                given_block.call(responder, dumb_responder)
+              else
+                given_block.call(dumb_responder, responder)
+              end
+              block.try(:call, responder)
+            end
+          when 1
+            if block
+              respond_with(object, options) do |responder|
+                given_block.call(responder)
+                block.call(responder)
+              end
             else
-              dual_block.call(dumb_responder, responder)
+              respond_with(object, options, &given_block)
             end
           else
-            dual_block.call(responder)
-          end
-
-          # Try to respond with the block given
-          responder.respond_except_any
+            options[:location] = given_block.call if given_block
+            respond_with(object, options, &block)
         end
-
-        respond_to(options.merge!(:responder => responder, :prioritize => :html), &block) unless performed?
       end
 
       # Hook to apply scopes. By default returns only the target_object given.
@@ -305,24 +319,6 @@ module InheritedResources
       #
       def symbols_for_association_chain #:nodoc:
         []
-      end
-
-      # Holds InheritedResources block structure. It returns two blocks: the first
-      # is used in respond_to blocks and the second is the redirect_to url.
-      #
-      def select_block_by_arity(block) #:nodoc
-        if block
-          case block.arity
-            when 2, 1
-              [block, nil]
-            when 0, -1
-              [nil, block]
-            else
-              raise ScriptError, "InheritedResources does not know how to handle blocks with arity #{block.arity}"
-          end
-        else
-          [nil, nil]
-        end
       end
 
   end

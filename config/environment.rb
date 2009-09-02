@@ -49,7 +49,7 @@ Rails::Initializer.run do |config|
   config.gem "thoughtbot-clearance", 
     :lib     => 'clearance', 
     :source  => 'http://gems.github.com', 
-    :version => '0.7.0'
+    :version => '0.8.2'
   config.gem "activemerchant",
     :lib     => 'active_merchant',
     :version => '1.4.2'

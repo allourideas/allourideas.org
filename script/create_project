@@ -88,6 +88,10 @@ unless installed?("heroku")
   run "sudo gem install heroku"
 end
 
+unless installed?("sqlite3-ruby")
+  run "sudo gem install sqlite3-ruby"
+end
+
 # can't install rubaidh-google_analytics via rake gems:install because
 # it is a production gem and we don't have a production database
 unless installed?("rubaidh-google_analytics")

@@ -14,9 +14,9 @@ project_directory = base_directory + project_name
 fail("Project directory (#{project_directory}) already exists") if project_directory.exist?
 
 template_url  = "git://github.com/dancroak/heroku_suspenders.git"
-changeme      = "CHANGEME"
+changeme      = "oct_blog"
 changesession = "CHANGESESSION"
-changetitle   = "CHANGETITLE"
+changetitle   = "Oct Blog"
 
 def run(cmd)
   puts "Running '#{cmd}'"

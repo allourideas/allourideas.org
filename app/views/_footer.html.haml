@@ -1,0 +1,22 @@
+.footer
+  .triple-left
+    = link_to(image_tag('logo-citp.jpg', :id => 'logo-citp'), 'http://citp.princeton.edu/')
+    = link_to(image_tag('logo-princeton.jpg', :id => 'logo-princeton'), 'http://www.princeton.edu/')
+    %p= t('footer.support')
+  .triple-center
+    = link_to(image_tag('logo-open.jpg', :id => 'logo-open'), 'http://github.com/pld/all_our_ideas')
+    %p= t('footer.open_source')
+  .triple-right
+    = link_to(image_tag('logo-check.jpg', :id => 'logo-check'), login_or_users_path)
+    -if logged_in?
+      %p
+        == #{t('footer.logged_in')}: #{link_to(@login, users_path)}
+        %br
+        == #{link_to(t('footer.my_questions'), users_path)} &nbsp;//&nbsp; #{link_to(t('user.logout'), logout_path)}
+    -else
+      %p
+        = link_to t('user.login'), login_path
+        %br
+        = link_to t('nav.make_your_own'), new_user_path
+        %br
+        = link_to t('nav.about'), about_path

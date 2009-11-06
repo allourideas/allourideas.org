@@ -1,0 +1,10 @@
+.header
+  .fleft= link_to(image_tag("logo#{'-small' if @question_id}.jpg"), root_path, :class => 'logo')
+  .fright
+    -if !@question_id
+      %ul
+        %li= link_to(t('nav.home'), root_path, class_for_nav(params, 'index'))
+        /= link_to(t('nav.tour'), tour_path, class_for_nav(params, 'tour'))
+        %li= link_to(t('nav.create'), log_or_new_path, class_for_nav(params, 'new', 'questions'))
+        %li= link_to(t('nav.about'), about_path, class_for_nav(params, 'about'))
+  .clear

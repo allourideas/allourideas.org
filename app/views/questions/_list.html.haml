@@ -1,0 +1,14 @@
+%h2= link_to t('questions.create_a_question'), new_question_path
+%h3== #{t('questions.existing_questions')} (#{@questions.length})
+-if @questions.length > 0
+  %table.left
+    %tr
+      %th= t('items.list.content')
+      %th= t('items.list.status')
+      %th= t('items.list.change_status')
+    -alt = false
+    -for pair_id, question, status, id in @questions
+      %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
+        %td= link_to question, question_path(id)
+        %td= status(status)
+        %td= status_link(id, status)

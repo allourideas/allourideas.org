@@ -1,0 +1,22 @@
+!!! 1.0
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
+  %head
+    %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    %link{:rel => "shortcut icon", :href => "/favicon.ico"}
+    %title= t('common.title')
+    = stylesheet_link_tag 'screen'
+    = javascript_include_tag :defaults
+  %body
+    .content
+      = render :partial => "shared/header"
+      .body
+        -if flash[:notice]
+          %p.notice#notice= flash[:notice]
+        -if flash[:error]
+          %p.error#error= flash[:error]
+        = yield
+        .clear
+      = render :partial => "shared/footer"
+      -if RAILS_ENV['PRODUCTION']
+        %script{:type =>"text/javascript"}
+          / Google.gaSSDSLoad("UA-8796271-2");

@@ -1,0 +1,4 @@
+%p
+  = link_to(t('nav.feedback'), feedback_vote_path(:question_id => @question_id))
+  == #{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')}
+

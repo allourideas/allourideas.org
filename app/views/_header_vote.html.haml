@@ -1,0 +1,14 @@
+.vote-nav
+  .fleft
+    .bread-crumb
+      /= link_to(@question_internal.name, vote_quick_link(vote_path(@question_id)))
+      /%span.grey &raquo;
+      /= link_to(@current_page, (@third_page && quick_link('items', items_path(:question_id => @question_id))) || '')
+      /-if @third_page
+      /  %span.grey &raquo;
+      /  = link_to(@third_page, '')
+  .fright
+    = loc_based_style(link_to(t('vote.cast_votes'), vote_quick_link(vote_path(@question_id))), t('vote.cast_votes'))
+    %span.grey &nbsp;|&nbsp;
+    = loc_based_style(link_to(t('nav.view_results'), quick_link('items', items_path(:question_id => @question_id))), t('nav.view_results'))
+  .clear

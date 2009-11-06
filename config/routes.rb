@@ -1,5 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => "clearance/sessions", :action => "new"
+  #map.root :controller => "clearance/sessions", :action => "new"
+  map.resources :questions
+  
+  map.about '/about', :controller => 'home', :action => 'about'
+  map.privacy '/privacy', :controller => 'home', :action => 'privacy'
+  map.tour '/tour', :controller => 'home', :action => 'tour'
+  map.root :controller => 'home', :action => 'index'
 
   # rake routes
   # http://guides.rubyonrails.org/routing.html

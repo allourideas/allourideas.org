@@ -1,0 +1,10 @@
+%h2== #{t('questions.question')}: "#{@question}", #{@votes_count} #{t('questions.votes')}, #{@items_count} #{t('questions.active_items')}
+
+%h3= link_to(t('questions.voting_page'), @named_url)
+%h3= link_to t('questions.export_item_votes'), "export_question_path(@id)"
+%p
+  == #{t('questions.current_short_url')}: #{link_to(@question_internal.name, @named_url)}
+  == (#{link_to(t('questions.edit'), edit_question_path(@question_internal.id))})
+= render :partial => 'items/list' if (@items)
+%h3= link_to t('questions.list_questions'), questions_path
+= render :partial => 'shared/vote_map'

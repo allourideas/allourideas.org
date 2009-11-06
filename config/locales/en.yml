@@ -1,7 +1,261 @@
-# Sample localization file for English.
-# Add more files in this directory for other locales.
-# http://guides.rubyonrails.org/i18n.html
-
 en:
-  hello: "Hello world"
-
+  common:
+   no_: 'No '
+   yes_: 'Yes '
+   activate: activate
+   deactivate: deactivate
+   and: and
+   votes_on: votes on
+   items: ideas
+   ideas: ideas
+   salutation: Sincerely
+   active: active
+   inactive: inactive
+   status: status
+   title: All Our Ideas - A Suggestion Box for the Digital Age
+   characters: characters
+   about: about
+   our: our
+  form:
+    signup: Sign Up
+    create: Create
+    content: Content
+    search: Search
+    submit: Submit
+    add: Add
+    save: Save
+  error:
+    pairwise_error: There was an error creating your account.  You this email address may already be registered for an account with the Pairwise API.
+    missing_value: Missing Value
+    permission_question: You do not have permission to view this question.
+    not_enough_items: Not enough ideas.
+    please_login_to_access_this_resource: Please login or create an account to access this page.
+    you_already_have_an_account: You already have an account.
+  nav:
+    privacy_policy: Privacy Policy
+    all_ideas: All Ideas
+    search_for_an_idea: Search
+    home: Home
+    tour: Tour
+    back: Back
+    about: About
+    create: Create
+    results: Results
+    view_results: View Results
+    vote: Vote
+    view_ideas: View Ideas
+    recent_winners: Recent Votes
+    newest_ideas: Newest Ideas
+    add_an_idea: Add an Idea
+    search_for_an_idea: Search for an Idea
+    see_all_ideas: See more...
+    map_of_voters: Map of Voters
+    feedback: Feedback
+    make_your_own: Create Your Own Question
+    view_idea: View Idea
+    signup: sign up
+  home:
+    whats_this: What is this?
+    whats_this_txt:   All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.
+    how_does: How does it work?
+    how_does_txt: You can use All Our Ideas to create a website where visitors can vote on ideas and upload new ones. The intuitive and fun voting process yields powerful results.
+    get_started: Get started!
+    get_started_txt: Click on the link below to get started with All Our Ideas. It is free, easy, and built on open source technology. Create your own interactive suggestion box and start discovering.
+    take_a_tour: Take a tour
+    create_a_question: Create a question
+    dont_have_a: Don't have an account?
+    let_others_vote: Let others vote on you're questions?
+    try_it_out: Try it out with a test question
+    signup: Signup!
+    intro_1: All Our Ideas empowers you to create a platform to discover the best ideas in your group or organization through a democratic, transparent, and bottom-up process. It's a suggestion box for the digital age.
+    tag_line: 'Suggestion Box + Voting + The Web = All Our Ideas: a suggestion box for the digital age'
+    intro_2: For example, the Princeton Undergraduate Student Government used a site like this to learn about the best ways to improve campus life. The student government seeded the site with about 200 ideas, and in a matter of weeks, more than 2,000 students contributed more than 40,000 votes and uploaded more 100 new suggestions. You can read more about the process in this
+    intro_2_link: Daily Princetonian article
+    intro_3: Here are some examples of how this would be used by
+    intro_4: Now you can make a site like this yourself for free. Want to try? You'll need to
+    intro_4_sign_up: sign up
+    for_more_info: For more information check out our
+    about_page: about page
+    see_an_example: See an example
+    sign_up: Sign up
+    learn_more: Learn more
+  items:
+    new:
+      added_successfully: Idea added successfully
+      success_activate: Great. Now you need to activate your question.
+      too_long: Idea text too long. Max length is
+      missing_value: There seems to be a problem. Please add your idea again.
+      activated: You have succesfully activated the idea
+    list:
+      content: displayed text
+      status: status
+      change_status: change status
+    email:
+      someone_has_uploaded: Someone has uploaded the idea
+      to_your_question: to your question
+      if_you_want: If you want others to vote on this idea, click on the link below
+      explain: In order to prevent inappropriate or malicious ideas, you will need to activate this idea before others can vote on it.
+      explain2: If you do not want others to vote on this idea, no action is required.
+    items: Ideas
+    idea: Idea
+    win_p: Win %
+    score: Score
+    list_items: List Ideas
+    listing_items_for: Listing ideas for
+    results_for: Results for
+    new_item: New Item
+    new_items: New Ideas
+    create_new_items: Create New Ideas
+    add_to_question: Add to Question
+    added_on: Added on
+    item: Item
+    elo_score: Elo Score
+    score: Score
+    win_percentage: Win Percentage
+    win_percent_chart: Win Percent Chart
+    wins: Wins
+    losses: Losses
+    item_added_to_question: idea added to question
+    search_for_an_idea: Search for an Idea
+    search_results_for: Search Results for
+    no_items_match: No ideas match you query
+    map_explanation: The win percentages in this graph are for this item and question in the indicated location.
+    add_item_instructions: Enter the text for each item on a separate line
+    total: Total
+    someone_has_added_an_item: Someone has added an item
+    number_of_votes: Number of Votes
+    score_explain: The score is an estimate of the fraction of comparisons an item is expected to win.
+  session:
+    logged_in_successfully: Logged in successfully
+    no_account: We could not find your account or your email and password do not match.
+  user:
+    new:
+      exp: You are about to create your own website where your visitors can vote on existing ideas and upload new ones. You can either
+      see_an: see an example
+      exp2: or create an account.  After you've created an account you can create a question in three easy steps.
+      explain: Great! We are glad that you want to use All Our Ideas to discover the best ideas in your group or organization.
+      explain_2: First you'll need to create an account so that you can manage your project.
+      or_if: or if you already have an account
+      header: Sign up for an account
+      no_spam: All Our Ideas is an academic research project.  We will respect your privacy.  To learn more you can read
+    open: Open
+    close: Close
+    email: Email
+    login: Log In
+    manage: manage my questions
+    password: Password
+    password_confirmation: Password Confirmation
+    logged_in_as: Logged in as
+    logout: Logout
+    forgot_password: Forgot your password?
+    retrieve_password: Retrieve your password
+    retrieve_password_explain: If you have an account, please enter your account email address below and we will send your password to that address.
+    no_email: No user with that Email Address was found.
+    retrieve_success: We have sent your password to the email address entered. Please check your email.
+    send_pass_explanation: We have received a request to email you your password.
+    map_explanation: This plot show the number of votes from all users on all questions.
+    your_password_is: Your password is
+  questions:
+    new:
+      error:
+        header: errors prohibited this website from being created.
+      missing: Missing question text
+      too_long: Question text too long. Max length is
+      success: Great. We are almost finished. Now you need to seed your website with some ideas. These should be things that you think people in your group might want to vote on. Try including everything that you can think of. There can't be too many ideas, and the voting process will help to find the best. We recommend at least 30 ideas.
+      header: Create your website and get ready to discover the best ideas...
+      step1: "Step 1: Create your website"
+      step1_exp:   "For example, \"Which do you want more from the student government?\""
+      step2: "Step 2: Choose your URL"
+      step2_exp: studentgovernment
+      step3: "Step 3: Upload lots of ideas to seed the site"
+      step3_ist: Upload lots of ideas here. You should put one per line.
+      step3_ist2: You can copy and paste from a list that you've already created.
+      step3_ist3: The maximum length of an idea is
+      step3_exp: "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores"
+      p1: "To create a site the first thing you'll need to do is pick a question. This question is what visitors to your site will see. For example, your question could be \"Which is the best way to improve campus life?\" or \"Which do you think is more important for us to do?\""
+      p2: Now you'll need to pick the url ending that is associated with your question; this is how you'll spread the word about your question. For example, if you pick "Union" then people can visit your site by going to http://www.allourideas.org/union. You'll want to pick something that is related to your question.
+      display_text: Text of question for your visitors
+      url_ending: URL ending
+      success_flash: Congratulations. You are about to discover some great ideas.
+      success_flash2: "Send out your URL:"
+      success_flash3: and watch what happens.
+      exp: You are about to create your own website where your visitors can vote on existing ideas and upload new ones. You can either
+      see_an: see an example
+      exp2: or get started using the three steps below.
+    activate_message: Great. Now you are ready to go. Just spread your url
+    activate_message_2: to everyone in your group or organization and watch the best ideas appear.
+    enter_a_new_short_url: Enter a new short URL
+    edit: edit
+    short_url_success: Short URL updated succesfully.
+    current_short_url: current short URL
+    export_complete: Export complete!
+    export_item_votes: Export votes
+    votes: votes
+    voting_page: Voting Page
+    question: Question
+    questions: Questions
+    new_question: New Question
+    create_a_question: Create a question
+    existing_questions: Existing questions
+    list_questions: List My Other Questions
+    map_explanation: This plot shows the number of votes from all user on this question.
+    active_items: active ideas
+  vote:
+    add_your_idea: Add your own idea here...
+    cast_votes: Cast Votes
+    add_a_suggestion: Add an idea
+    you_chose: You chose
+    you_skipped_both: You skipped
+    skip: skip
+    over: over
+    others_thought: Click to see what others thought.
+    recent_winners_for: Recent winners for
+    skipped: skipped
+    example_text: This example is based on a site that the Undergraduate Student Government at Princeton University used to discover the best ideas for improving campus. In just a few weeks, more than 2,000 students contributed more than 40,000 votes and 100 new ideas. You can
+    create_a_question: create a question
+    example_text2: like this to discover the best ideas in your group or organization.
+  about:
+    about: About this project
+    p1: All Our Ideas is a research project to develop a new form of social data collection that combines the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups.
+    p2: "The All Our Ideas team is lead by Matthew Salganik from the Department of Sociology at Princeton University. Current and former team members include: Peter Lubell-Doughtie, Nadia Heninger, Bill Zeller, Josh Weinstein, Dhwani Shah, Bambi Tsui, and Adam Sanders."
+    p3: Because All Our Ideas is a research project, we will be analyzing the data that you create. However, we will respect your privacy, and we will never sell your data to anyone. These issues are described more fully in our privacy policy.
+    contact: Contact Us
+    copy_1: All Our Ideas is an attempt to create a new form of social data collection that combines the best features of quantitative and qualitative research methods. That is, we try to create a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, focus groups, and participant observation.
+    team: "The All Our Ideas team is lead by Matthew Salganik. Current and former team members include: Peter Lubell-Doughtie, Nadia Heninger, Bill Zeller, Josh Weinstein, Dhwani Shah, Bambi Tsui, and Adam Sanders."
+    contributors: Contributors
+    you_can_add: "You can add your own ideas about All Our Ideas using our site"
+    or_send_us: or send us an email with any questions that you have
+    oss_1: All Our Ideas is powered by
+    oss_link: open source
+    oss_2: software. Feel free to review, remix, or redesign. Also, you can use our
+    oss_api: API
+    oss_3: to create your own pairwise comparison site.
+  feedback:
+    explain: Send feedback to the owner of this question
+    your_email: Enter your email address
+    your_comment: Enter your comment
+    successfully_sent: Your feedback has been submitted successfully.
+    someone_has_sent_feedback_on: Someone has sent feedback on your question
+    submitted_feedback: submitted feedback
+  footer:
+    support: This project is supported by a grant from the Center for Information Technology Policy at Princeton University.
+    open_source: All Our Ideas is open source software. Feel free to review, remix, or redesign. Also, you can use our API to create your own site.
+    logged_in: Logged in
+    my_questions: My Questions
+  tour:
+    collect: Collect and sort suggestions effectively
+    p1: Just as Wikipedia is a platform that allows groups to collaboratively write an encyclopedia, All Our Ideas is a platform that allows groups to collect and prioritize ideas in a transparent, democratic, and bottom-up process. It’s a suggestion box for the digital age.
+    p2: To see how All Our Ideas works, we’ll walk through a specific example. Imagine that you are the president of the Undergraduate Student Government at Princeton and you need to find the issues of greatest concern to the student body. Everyone is telling you what they want, but nobody fills out surveys so you don’t know how widespread the support for any of these ideas really is. Plus, how do you even know if your student priority survey includes all the important ideas?
+    p3: This is a natural problem for All Our Ideas system of voting and soliciting suggestions. Once the platform for collaboration was created, more than 2,000 students contributed more than 40,000 votes and uploaded more than 100 new suggestions.
+    p4: "You can create such a platform for collaboration for your group in a few easy steps. In the end we are going to help you create something that looks like this:"
+    step1: "Step 1: Create a website"
+    step1_txt: 'Pick a question that voters see. For example, "Which do you want more?"'
+    step2: "Step 2: Pick a URL"
+    step2_txt: 'Pick a "quick url" that will take visitors to your site. For example, if the undergraduate student government wanted people to go to www.allourideas.org/usg they would have picked the quick url "usg".'
+    step3: "Step 3: Upload Ideas"
+    step3_txt: Upload some ideas. For example, the student government started about 200 with ideas such as lower textbook prices, extend library hours, and outdoor hammocks. The more ideas the better because the voting process will help you find the best ones.
+    step4: "Step 4: Spread your URL"
+    step4_txt: "Spread your url and watch what happens. You can get an idea of what the final product looks like by trying it below:"
+    see_an_example: See an example
+  login:
+    header: Log in to your account

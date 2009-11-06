@@ -1,0 +1,31 @@
+%h1= t('questions.new.header')
+%br
+%h2
+  = t('questions.new.exp')
+  = link_to(t('questions.new.see_an'), @url1, :method => :post)
+  = t('questions.new.exp2')
+%left.create-question
+  -form_for :question, :url => questions_path do |f|
+    %p= f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
+    %h2= t('questions.new.step1')
+    %p
+      == #{t('questions.new.display_text')}:
+      = f.text_field 'name', :size => 60, :maxlength => Const::MAX_QUESTION_LENGTH
+      = hidden_field_tag 'default_text', t('questions.new.step1_exp')
+    %h2= t('questions.new.step2')
+    %p
+      http://www.allourideas.org/
+      = f.text_field 'name', :value => (@question && @question.name) || t('questions.new.step2_exp'), :size => 25
+      = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
+    %h2= t('questions.new.step3')
+    %p.ideas
+      = t('questions.new.step3_ist')
+      %br
+      = t('questions.new.step3_ist2')
+      %br
+      == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
+      %br
+      %br
+      = f.text_area 'question_ideas', :cols => 50, :rows => 12
+      = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
+    %p= submit_tag t('form.create'), :class => 'form-btn'

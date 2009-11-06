@@ -1,0 +1,13 @@
+%h2== #{t('questions.question')}: "#{@question}"
+
+%p
+  == #{t('questions.current_short_url')}: #{@question_internal.name}
+
+-form_for @question_internal do |f|
+  %p= f.error_messages
+  %p
+    = f.label "#{t('questions.enter_a_new_short_url')}:"
+    = f.text_field 'name'
+  %p
+    = submit_tag t('form.save')
+    = link_to t('nav.back'), question_path(@question_internal.id)

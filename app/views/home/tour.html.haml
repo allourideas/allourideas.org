@@ -1,0 +1,25 @@
+%h2= t('tour.collect')
+%p= t('tour.p1')
+%p= t('tour.p2')
+%p= t('tour.p3')
+%p= t('tour.p4')
+%br
+.double-left
+  %h2= t('tour.step1')
+  %p= t('tour.step1_txt')
+  %br
+  %h2= t('tour.step2')
+  %p= t('tour.step2_txt')
+  %br
+  %h2= t('tour.step3')
+  %p= t('tour.step3_txt')
+  %br
+  %h2= t('tour.step4')
+  %p= t('tour.step4_txt')
+  %br
+  .button= link_to(t('tour.see_an_example'), @url1, :class => 'button-link')
+.triple-right
+  .h2 &nbsp;
+  = image_tag('create.png', :class => 'image-example')
+  = image_tag('vote.png', :class => 'image-example')
+  = image_tag('results.png', :class => 'image-example')

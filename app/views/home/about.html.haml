@@ -1,0 +1,56 @@
+.double-left
+  %h1= t('about.about')
+  %p= t('about.p1')
+  %p= t('about.p2')
+  %p= t('about.p3')
+  %p
+    = t('about.you_can_add')
+    == "#{link_to(@question, @url1)}"
+    = t('about.or_send_us')
+    == #{link_to('info@allourideas.org', 'mailto:info@allourideas.org')}.
+  %p
+    = t('about.oss_1')
+    = link_to(t('about.oss_link'), 'http://github.com/pld/all_our_ideas/')
+    = t('about.oss_2')
+    = link_to(t('about.oss_api'), 'http://api.allourideas.org/')
+    = t('about.oss_3')
+  %p
+    = link_to(t('nav.privacy_policy'), privacy_path)
+.triple-right
+  %h1= t('about.contributors')
+  %p
+    %strong= link_to('Matthew Salganik', 'http://sociology.princeton.edu/Faculty/Salganik/')
+    %br
+    Department of Sociology, Princeton University
+  %p
+    %strong= link_to('Pius Uzamere', 'http://pius.me')
+    %br
+    WildThinkers
+  %p
+    %strong= link_to('Peter Lubell-Doughtie', 'http://blog.helioid.com')
+    %br
+    Helioid LLC
+  %p
+    %strong= link_to('Nadia Heninger', 'http://www.cs.princeton.edu/~nadiah/')
+    %br
+    Department of Computer Science, Princeton
+  %p
+    %strong= link_to('Bill Zeller', 'http://www.from.bz/')
+    %br
+    Department of Computer Science, Princeton
+  %p
+    %strong Josh Weinstein
+    %br
+    Princeton Class of 2009
+  %p
+    %strong Dhwani Shah
+    %br
+    Princeton Class of 2009
+  %p
+    %strong Bambi Tsui
+    %br
+    Princeton Class of 2009
+  %p
+    %strong Adam Sanders
+    %br
+    Princeton Class of 2009

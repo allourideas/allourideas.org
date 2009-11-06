@@ -1,0 +1,19 @@
+%h1= t('login.header')
+%br
+-form_tag login_path do
+  %table.left
+    %tr
+      %td= t('user.email')
+      %td= text_field_tag 'email'
+    %tr
+      %td= t('user.password')
+      %td= password_field_tag 'password'
+    %tr
+      %td
+      %td
+        = submit_tag t('user.login'), :class => 'form-btn'
+        or
+        = link_to(t('nav.signup'), new_user_path)
+    %tr
+      %td
+      %td= link_to(t('user.forgot_password'), forgot_password_path)

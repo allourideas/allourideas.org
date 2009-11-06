@@ -1,0 +1,15 @@
+.center= image_tag('start.jpg')
+%hr
+.triple-left
+  %h2.noborder= t('home.whats_this')
+  %p= t('home.whats_this_txt')
+  .button= link_to(t('home.learn_more'), about_path, :class => 'button-link')
+.triple-center
+  %h2.noborder= t('home.how_does')
+  %p= t('home.how_does_txt')
+  .button= link_to(t('home.see_an_example'), @url1, :method => :post, :class => 'button-link')
+.triple-right
+  %h2.noborder= t('home.get_started')
+  %p= t('home.get_started_txt')
+  .button= link_to(t('home.create_a_question'), log_or_new_path, :class => 'button-link')
+  .clear

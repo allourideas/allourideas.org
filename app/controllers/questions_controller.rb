@@ -43,6 +43,27 @@ class QuestionsController < ApplicationController
     #   redirect_to login_path
     # end
   end
+  
+  def vote_left
+    respond_to do |format|
+        flash[:notice] = 'Vote was successfully counted.'
+        format.xml  { head :ok }
+        format.js  { 
+          render :json => '{"votes" : "20"}'
+          }
+        end
+      end
+
+      def vote_right
+        respond_to do |format|
+            flash[:notice] = 'Vote was successfully counted.'
+            format.xml  { head :ok }
+            format.js  { 
+              render :json => '{"votes" : "20"}'
+              }
+            end
+          end
+
 
   # GET /questions/new
   # GET /questions/new.xml

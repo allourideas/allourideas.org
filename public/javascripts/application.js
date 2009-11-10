@@ -16,7 +16,6 @@ jQuery(document).ready(function() {
 	});
 
 	$('.vote_right').bind('click',function(event){
-		alert('hello')
 		//var quote_id = $(this).attr("rel");
 		$.post('/questions/1/vote_left',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),

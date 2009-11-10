@@ -1,0 +1,7 @@
+-form_tag "items_path" do
+  .add-box
+    = rounded(text_area_tag('item', t('vote.add_your_idea'), :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH), 'border-thick')
+    = hidden_field_tag 'default_text', t('vote.add_your_idea')
+    = hidden_field_tag 'question_id', @question_id
+  %p
+    = image_submit_tag 'submit.jpg', :id => 'submit_btn'

@@ -23,8 +23,10 @@ class QuestionsController < ApplicationController
   
   def show
     #if user_owns_id?(id)
-      @question_internal = Question.find(params[:id])
-      @items = @question_internal.items
+      @question = Question.find(params[:id])
+      @items = @question.items
+      @right_choice_text = @question.right_choice_text
+      @left_choice_text = @question.left_choice_text
       #id = @question_internal.pairwise_id
       # set_pairwise_from_question_id(id)
       # @id, @question, @items_count, @votes_count, all_items = Pairwise.get_question(id)

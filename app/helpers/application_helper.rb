@@ -26,14 +26,14 @@ module ApplicationHelper
   end
 
   def vote_quick_link(default)
-    q = Question.first(:conditions => { :pairwise_id => @question_id } )
-    q && !q.name.empty? ? @controller.named_url_for_question(q) : default
+    q = Question.find(1)
+    q && q.name && !q.name.empty? ? @controller.named_url_for_question(q) : default
   end
 
   def quick_link(uri, default)
     unless @name
-      q = Question.first(:conditions => { :pairwise_id => @question_id } )
-      @name = q && !q.name.empty? ? q.name : true
+      q = Question.find(1)
+      @name = q && q.name && !q.name.empty? ? q.name : true
     end
     @name == true ? default : "/#{@name}/#{uri}"
   end

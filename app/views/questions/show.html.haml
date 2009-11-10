@@ -1,10 +1,46 @@
-%h2== #{t('questions.question')}: "#{@question}", #{@votes_count} #{t('questions.votes')}, #{@items_count} #{t('questions.active_items')}
+/ %h2== #{t('questions.question')}: "#{@question}", #{@votes_count} #{t('questions.votes')}, #{@items_count} #{t('questions.active_items')}
+/ 
+/ %h3= link_to(t('questions.voting_page'), @named_url)
+/ %h3= link_to t('questions.export_item_votes'), "export_question_path(@id)"
+/ %p
+/   == #{t('questions.current_short_url')}: #{link_to(@question_internal.name, @named_url)}
+/   == (#{link_to(t('questions.edit'), edit_question_path(@question_internal.id))})
+/ = render :partial => 'items/list' if (@items)
+/ %h3= link_to t('questions.list_questions'), questions_path
+/ = render :partial => 'shared/vote_map'
 
-%h3= link_to(t('questions.voting_page'), @named_url)
-%h3= link_to t('questions.export_item_votes'), "export_question_path(@id)"
-%p
-  == #{t('questions.current_short_url')}: #{link_to(@question_internal.name, @named_url)}
-  == (#{link_to(t('questions.edit'), edit_question_path(@question_internal.id))})
-= render :partial => 'items/list' if (@items)
-%h3= link_to t('questions.list_questions'), questions_path
-= render :partial => 'shared/vote_map'
+-@item_data, @item_ids = [], []
+
+= render :partial => 'shared/header_vote'
+.votebox
+  %table.full
+    %tr
+      %td{:colspan => 3}
+        = rounded(@question.attributes['name'], 'border')
+    %tr.prompt
+      %td.half.idea.left.vote_left= rounded(render(:partial => 'idea', :locals => {:data => @left_choice_text}), 'round-filled')
+      %td
+      %td.idea.right.vote_right= rounded(render(:partial => 'idea', :locals => {:data => @right_choice_text}), 'round-filled')
+  %table.vote-footer
+    %tr
+      %td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
+      %td.skip= link_to(t('vote.skip'), "#")
+      %td= #{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.ideas')}
+  .clear
+  %center
+    = render :partial => 'items/form'
+    %br
+    %p
+      &nbsp;
+      -if @winner
+        -if @skip
+          == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
+        -else
+          == #{t('vote.you_chose')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('vote.over')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}.
+      -elsif flash[:v_notice]
+        %p.vote-notice#v_notice= flash[:v_notice]
+        = javascript_tag "setTimeout(function() { $('#v_notice').fadeOut(1000); }, 3000);"
+      -elsif flash[:v_error]
+        %p.error#v_error= flash[:v_error]
+        = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
+      %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.

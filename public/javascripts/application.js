@@ -65,9 +65,9 @@ jQuery(document).ready(function() {
 		return false;
 	});
 
-	$('.vote_left').bind('click',function(event){
+	$('.vote_right').bind('click',function(event){
 		var question_id = $(this).attr("rel");
-		$.post('/questions/' + question_id + '/vote_left.js',
+		$.post('/questions/' + question_id + '/vote_right.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
 			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);

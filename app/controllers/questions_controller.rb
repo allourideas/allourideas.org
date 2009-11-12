@@ -23,25 +23,12 @@ class QuestionsController < ApplicationController
   
   def show
     #if user_owns_id?(id)
-      @question = Question.find(params[:id])
+     @question = Question.find(params[:id]) #the question has a prompt id with it
+      logger.info Question.find(params[:id]).inspect
+      @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => params[:id]})
       @items = @question.items
-      @right_choice_text = @question.right_choice_text
-      @left_choice_text = @question.left_choice_text
-      #id = @question_internal.pairwise_id
-      # set_pairwise_from_question_id(id)
-      # @id, @question, @items_count, @votes_count, all_items = Pairwise.get_question(id)
-      # @items = all_items.to_i > 0 ? Pairwise.list_items(@id, nil, true) : []
-      # @items = @items.sort_by { |el| el[2] }.reverse
-      # votes = Pairwise.list_votes(id, nil, 100)
-      # @ip_percents = ip_percents(votes, false)
-      # @label = t('items.total')
-      # @explain = t('questions.map_explanation')
-      # @named_url = named_url_for_question(@question_internal)
-    # else
-    #   reset_user
-    #   flash[:error] = t('error.permission_question')
-    #   redirect_to login_path
-    # end
+      @right_choice_text = @prompt.right_choice_text
+      @left_choice_text = @prompt.left_choice_text
   end
   
   def vote_left

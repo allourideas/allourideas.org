@@ -6,6 +6,7 @@
 jQuery(document).ready(function() {
 	
 	humanMsg.setup();
+	$("#tabs").tabs();
 	
 	$('.vote_left').bind('click',function(event){
 		//var quote_id = $(this).attr("rel");

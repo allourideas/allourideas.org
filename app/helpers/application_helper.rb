@@ -37,9 +37,17 @@ module ApplicationHelper
     end
     @name == true ? default : "/#{@name}/#{uri}"
   end
+  
+  def user_set?
+     @current_user ||= auto_create_user!
+  end
+  
+  def auto_create_user!
+    @autouser ||= User.auto_create_user_object_from_sid(request.session_options[:id])
+  end
 
   def log_or_new_path
-    signed_in? ? new_question_path : new_user_path
+    user_set? ? new_question_path : new_user_path
   end
 
   def class_for_nav(params, action, controller = 'home')

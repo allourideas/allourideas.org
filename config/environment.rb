@@ -53,5 +53,7 @@ Rails::Initializer.run do |config|
   config.gem "activemerchant",
     :lib     => 'active_merchant',
     :version => '1.4.2'
+    
+  config.gem 'crack'
 end
 

@@ -65,13 +65,20 @@ jQuery(document).ready(function() {
 		return false;
 	});
 
-	$('.vote_right').bind('click',function(event){
+	$('.vote_left').bind('click',function(event){
 		var question_id = $(this).attr("rel");
-		$.post('/questions/' + question_id + '/vote_right.js',
+		$.post('/questions/' + question_id + '/vote_left.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
+			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
+			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
 			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have succesfully voted.</span>');
-		}
+			//$('a.prompt').html('Click here!');
+			$('.prompter').effect("highlight", {}, 1500);
+			//alert('Bueller?');
+			
+		},
+		"json"
 		);
 		return false;
 	});

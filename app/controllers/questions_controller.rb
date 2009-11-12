@@ -43,6 +43,7 @@ class QuestionsController < ApplicationController
             render :json => '{"votes" : "20"}'
           else
             render :json => '{"error" : "Vote failed"}'
+          end
           }
         end
       end

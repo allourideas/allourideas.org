@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
         flash[:notice] = 'Vote was successfully counted.'
         format.xml  { head :ok }
         format.js  { 
-          if @prompt.post(:vote_left, :params => {:question_id => question_id)
+          if @prompt.post(:vote_left, :params => {:question_id => question_id})
             render :json => '{"votes" : "20"}'
           else
             render :json => '{"error" : "Vote failed"}'

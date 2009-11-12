@@ -10,9 +10,9 @@
     = link_to(image_tag('logo-check.jpg', :id => 'logo-check'), 'login_or_users_path')
     -if user_set?
       %p
-        == #{t('footer.logged_in')}: #{link_to(@login, users_path)}
+        = "#{t('footer.logged_in')} at this computer"
         %br
-        == #{link_to(t('footer.my_questions'), users_path)} &nbsp;//&nbsp; #{link_to(t('user.logout'), sign_out_path)}
+        =# #{link_to(t('footer.my_questions'), users_path)} &nbsp;//&nbsp; #{link_to(t('user.logout'), sign_out_path)}
     -else
       %p
         = link_to t('user.login'), sign_in_path

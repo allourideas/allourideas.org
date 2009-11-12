@@ -33,6 +33,11 @@ class QuestionsController < ApplicationController
       @left_choice_text = @prompt.left_choice_text
   end
   
+  def results
+    @question = Question.find(params[:id])
+    @items = Item.find(:all, :params => {:question_id => params[:id]})
+  end
+  
   def vote_left
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"

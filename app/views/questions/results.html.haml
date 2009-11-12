@@ -1,0 +1,27 @@
+= render :partial => 'shared/header_vote'
+.ninety
+  %table.full
+    %tr.row0
+      %th
+        = @question.attributes['name']
+        /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
+      %th.score= (@header_text = "Votes") + link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
+      %th &nbsp;
+    -alt=false
+    -for item in @items
+      %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
+        %td.title= item.data #link_to "item, item_path(id, :question_id => @question_id)"
+        %td.votes= item.attributes['votes_count']
+        -#%td= rank
+        -#%td= added
+        %td
+          .bar-chart
+            %div{:style => "width:#{(item.attributes['votes_count'].to_f / @items.collect {|i| i.attributes['votes_count'].to_f}.sum)*100}%"}
+            =#df
+    -unless @items_all || @items_newest
+      %tr.row1
+        %td{:colspan => 3}
+          /%strong= link_to(t('nav.see_all_ideas'), quick_link('items/all', "items_path(:question_id => @question_id)"))
+    %tr.row0.thin
+      %td{:colspan => 3}
+  %br

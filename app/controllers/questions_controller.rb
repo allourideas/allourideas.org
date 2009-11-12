@@ -32,11 +32,17 @@ class QuestionsController < ApplicationController
   end
   
   def vote_left
+    prompt_id = "1"
+    question_id = "1"
+    @prompt = Prompt.find(prompt_id)
     respond_to do |format|
         flash[:notice] = 'Vote was successfully counted.'
         format.xml  { head :ok }
         format.js  { 
-          render :json => '{"votes" : "20"}'
+          if @prompt.post(:vote_left, :params => {:question_id => question_id)
+            render :json => '{"votes" : "20"}'
+          else
+            render :json => '{"error" : "Vote failed"}'
           }
         end
       end

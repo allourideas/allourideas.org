@@ -145,10 +145,10 @@ class QuestionsController < ApplicationController
     @question = Question.new(params[:question].except('url').merge({'auto' => request.session_options[:id]}))
     respond_to do |format|
       if @question.save
-        Earl.create(:question_id => @question.id, :name => params[:question]['url'])
+        earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])
         logger.info "Question was successfully created."
         flash[:notice] = 'Question was successfully created.'
-        format.html { redirect_to(@question) }
+        format.html { redirect_to(earl) }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
       else
         logger.info "Question was not successfully created."

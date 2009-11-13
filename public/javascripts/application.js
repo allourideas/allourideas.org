@@ -36,9 +36,7 @@ jQuery(document).ready(function() {
 			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
 			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
 			humanMsg.displayMsg('<strong>Skipped.</strong> <span class="indent">You just skipped the last prompt.</span>');
-			//$('a.prompt').html('Click here!');
 			$('.prompter').effect("highlight", {}, 1500);
-			//alert('Bueller?');
 			
 		},
 		"json"
@@ -54,11 +52,8 @@ jQuery(document).ready(function() {
 		function(data){
 			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
 			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
-			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have succesfully voted.</span>');
-			//$('a.prompt').html('Click here!');
+			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
 			$('.prompter').effect("highlight", {}, 1500);
-			//alert('Bueller?');
-			
 		},
 		"json"
 		);
@@ -72,10 +67,8 @@ jQuery(document).ready(function() {
 		function(data){
 			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
 			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
-			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have succesfully voted.</span>');
-			//$('a.prompt').html('Click here!');
+			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
 			$('.prompter').effect("highlight", {}, 1500);
-			//alert('Bueller?');
 			
 		},
 		"json"
@@ -83,8 +76,4 @@ jQuery(document).ready(function() {
 		return false;
 	});
 
-	jQuery('a.showmessage:last').click(function() {
-		humanMsg.displayMsg('"Your <strong>Earth</strong> will be reduced to a burned-out cinder."');
-		return false;
-	})
 });

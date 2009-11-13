@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
       logger.info "inside questions#show " + Question.find(params[:id]).inspect
       @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => params[:id]})
       session[:current_prompt_id] = @question.attributes['picked_prompt_id']
-      @items = @question.items
+      #@items = @question.items
       @right_choice_text = @prompt.right_choice_text
       @left_choice_text = @prompt.left_choice_text
       @item_count = @question.attributes['item_count']

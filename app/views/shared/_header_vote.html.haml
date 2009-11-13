@@ -8,7 +8,7 @@
       /  %span.grey &raquo;
       /  = link_to(@third_page, '')
   .fright
-    = loc_based_style(link_to(t('vote.cast_votes'), vote_quick_link("/questions/#{@question.id}")), t('vote.cast_votes'))
+    = loc_based_style(link_to(t('vote.cast_votes'), vote_quick_link("#{@question.earl}")), t('vote.cast_votes'))
     %span.grey &nbsp;|&nbsp;
     = loc_based_style(link_to(t('nav.view_results'), quick_link('items', "/questions/#{@question.id}/results")), t('nav.view_results'))
   .clear

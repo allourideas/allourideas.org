@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 	
 	
 	$('.new_idea_submit').bind('click',function(event){
-		$(this).empty().val('');
+		$('#new_idea_field').empty().val('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var new_idea = $('#new_idea_field').val();
@@ -23,8 +23,6 @@ jQuery(document).ready(function() {
 			$('.prompter').effect("highlight", {}, 1500);
 
 			$('.indicator').hide();
-			$('.new_idea_submit').empty();
-			$('.new_idea_submit').val('');
 		},
 		"json"
 		);

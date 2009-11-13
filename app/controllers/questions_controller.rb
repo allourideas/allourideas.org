@@ -59,15 +59,38 @@ class QuestionsController < ApplicationController
             newprompt = Crack::XML.parse(p.body)['prompt']
             @newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
-                             :newright => newprompt['right_choice_text'],
-                             :winner => winner, 
-                             :loser => loser}.to_json
+                             :newright => newprompt['right_choice_text']
+                             }.to_json
           else
             render :json => '{"error" : "Vote failed"}'
           end
           }
       end
     end
+    
+    def vote_right
+      prompt_id = session[:current_prompt_id]
+      logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
+       #@question = Question.find_by_name(params[:id])
+      @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
+      #raise Prompt.find(:all).inspect
+      loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
+      respond_to do |format|
+          flash[:notice] = 'Vote was successfully counted.'
+          format.xml  {  head :ok }
+          format.js  { 
+            if p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+              newprompt = Crack::XML.parse(p.body)['prompt']
+              @newprompt = Question.find(params[:id])
+              render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
+                               :newright => newprompt['right_choice_text']
+                               }.to_json
+            else
+              render :json => '{"error" : "Vote failed"}'
+            end
+            }
+        end
+      end
     
     def skip
       prompt_id = session[:current_prompt_id]
@@ -108,25 +131,6 @@ class QuestionsController < ApplicationController
                                  :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
               else
                 render :json => '{"error" : "Addition of new idea failed"}'
-              end
-              }
-          end
-        end
-
-      def vote_right
-        prompt_id = session[:current_prompt_id]
-        logger.info "Getting ready to vote right on Prompt #{prompt_id}, Question #{params[:id]}"
-        @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-        respond_to do |format|
-            flash[:notice] = 'Vote was successfully counted.'
-            format.xml  {  head :ok }
-            format.js  { 
-              if p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id]})
-                newprompt = Crack::XML.parse(p.body)['prompt']
-                @newprompt = Question.find(params[:id])
-                render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text']}.to_json
-              else
-                render :json => '{"error" : "Vote failed"}'
               end
               }
           end

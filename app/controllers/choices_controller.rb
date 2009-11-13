@@ -4,7 +4,7 @@ class ChoicesController < ApplicationController
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     if @choice
       @data = @choice.attributes['data']
-      @score = @choice.attributes['score']
+      @score = @choice.attributes['score'].round
       logger.info "the score is #{@score.inspect}"
       @created_at = @choice.attributes['created_at']
       @votes_count = @choice.attributes['votes_count']

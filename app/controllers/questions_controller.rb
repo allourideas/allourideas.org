@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   require 'crack'
+  caches_page :results
   # GET /questions
   # GET /questions.xml
   def index
@@ -23,7 +24,11 @@ class QuestionsController < ApplicationController
   # end
   def results
     @question = Question.find_by_name(params[:id])
-    @choices = Choice.find(:all, :params => {:question_id => @question.id})
+    if params[:all]
+      @choices = Choice.find(:all, :params => {:question_id => @question.id})
+    else
+      @choices = Choice.find(:all, :params => {:question_id => @question.id})
+    end
     logger.info "First choice is #{@choices.first.inspect}"
   end
   
@@ -34,7 +39,7 @@ class QuestionsController < ApplicationController
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
     #raise Prompt.find(:all).inspect
     winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
-    logger.info "winnder was #{winner}, loser is #{loser}"
+    logger.info "winnder [sic] was #{winner}, loser is #{loser}"
     logger.info "prompt was #{@prompt.inspect}"
     respond_to do |format|
         flash[:notice] = 'Vote was successfully counted.'

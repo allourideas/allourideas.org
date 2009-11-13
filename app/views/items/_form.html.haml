@@ -5,4 +5,4 @@
     = hidden_field_tag 'question_id', @question_id #this is a new item to vote on :)
   %p
     =# image_submit_tag 'submit.jpg', :id => 'submit_btn'
-    = image_tag 'submit.jpg', :id => 'submit_btn', :class => "new_idea_submit", :rel => @question.id
+    = link_to image_tag('submit.jpg', :id => 'submit_btn', :class => "new_idea_submit", :rel => @question.id), '#'

@@ -29,7 +29,7 @@
     %tr
       //%td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
       %td.skip= link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
-      %td= "#{@votes_count} #{t('common.votes_on')} #{@item_count} #{t('common.ideas')}"
+      %td= "<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
   .clear
   %center
     = render :partial => 'items/form'

@@ -7,8 +7,10 @@ class Choice < ActiveResource::Base
   end
   
   def path
-    "/questions/#{question_id}/choices/#{id}"
+    @earl = Earl.find_by_question_id(question_id)
+    "/questions/#{@earl.name}/choices/#{id}"
   end
+  
   def data
     attributes['data']
   end

@@ -44,6 +44,9 @@ class QuestionsController < ApplicationController
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
     #raise Prompt.find(:all).inspect
+    winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
+    logger.info "winnder was #{winner}, loser is #{loser}"
+    logger.info "prompt was #{@prompt.inspect}"
     respond_to do |format|
         flash[:notice] = 'Vote was successfully counted.'
         format.xml  {  head :ok }
@@ -51,7 +54,10 @@ class QuestionsController < ApplicationController
           if p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
             newprompt = Crack::XML.parse(p.body)['prompt']
             @newprompt = Question.find(params[:id])
-            render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text']}.to_json
+            render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
+                             :newright => newprompt['right_choice_text'],
+                             :winner => winner, 
+                             :loser => loser}.to_json
           else
             render :json => '{"error" : "Vote failed"}'
           end

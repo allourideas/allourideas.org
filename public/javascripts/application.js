@@ -46,11 +46,14 @@ jQuery(document).ready(function() {
 	
 	$('.vote_left').bind('click',function(event){
 		var question_id = $(this).attr("rel");
+		var winner = $('a#leftside').html();
+		var loser = $('a#rightside').html();
 		$.post('/questions/' + question_id + '/vote_left.js',
-		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),//+'&winner='+winner+'&loser='+loser,
 		function(data){
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
+			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
 			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
 			//$('.prompter').effect("highlight", {}, 1500);
 		},
@@ -61,11 +64,14 @@ jQuery(document).ready(function() {
 
 	$('.vote_right').bind('click',function(event){
 		var question_id = $(this).attr("rel");
+		var loser = $('a#leftside').html();
+		var winner = $('a#rightside').html();
 		$.post('/questions/' + question_id + '/vote_right.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
+			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
 			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
 			//$('.prompter').effect("highlight", {}, 1500);
 			

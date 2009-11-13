@@ -31,11 +31,15 @@ label {
   color: #919191; }
 
 .round-filledfg table tbody tr td:hover {
-background-color: 'blue'; 
+background-color: 'red'; 
+}
+
+.round-filledfg {
+	background-color: 'orange';
 }
 
 .prompter td:hover {
-background-color: 'blue'; 
+background-color: 'red'; 
 }
 
 body {

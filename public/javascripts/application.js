@@ -89,6 +89,12 @@ jQuery(document).ready(function() {
 	
 	
 	$('.vote_left').bind('click',function(event){
+				$(".votebox tr.prompt td.idea").each(function(el) {
+			    $(this).css("background", "#3198c1");
+					$(this).css("border-left", "1px solid #3198c1");
+		      $(this).css("border-right", "1px solid #3198c1");
+		});
+		
 		$('.tellmearea').html('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
@@ -110,6 +116,13 @@ jQuery(document).ready(function() {
 	});
 
 	$('.vote_right').bind('click',function(event){
+		
+				$(".votebox tr.prompt td.idea").each(function(el) {
+			    $(this).css("background", "#3198c1");
+					$(this).css("border-left", "1px solid #3198c1");
+		      $(this).css("border-right", "1px solid #3198c1");
+		});
+		
 		$('.tellmearea').html('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");

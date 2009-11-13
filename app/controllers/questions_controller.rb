@@ -32,6 +32,8 @@ class QuestionsController < ApplicationController
       @items = @question.items
       @right_choice_text = @prompt.right_choice_text
       @left_choice_text = @prompt.left_choice_text
+      @item_count = @question.attributes['item_count']
+      @votes_count = @question.attributes['votes_count']
   end
   
   def results

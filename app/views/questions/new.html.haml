@@ -2,7 +2,7 @@
 %br
 %h2
   = t('questions.new.exp')
-  = link_to(t('questions.new.see_an'), @url1, :method => :post)
+  = link_to(t('questions.new.see_an'), "/studentgovernment")
   = t('questions.new.exp2')
 %left.create-question
   -form_for :question, @question, :url => questions_path do |f|

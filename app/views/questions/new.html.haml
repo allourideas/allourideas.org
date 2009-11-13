@@ -10,12 +10,12 @@
     %h2= t('questions.new.step1')
     %p
       == #{t('questions.new.display_text')}:
-      = f.text_field 'name', :value => ((@question && @question.name) || "Which one do you prefer?"), :size => 60, :maxlength => Const::MAX_QUESTION_LENGTH
+      = f.text_field 'name', :size => 60, :title => 'For example, "Which do you want more from the student government?"', :maxlength => Const::MAX_QUESTION_LENGTH
       = hidden_field_tag 'default_text', t('questions.new.step1_exp')
     %h2= t('questions.new.step2')
     %p
       http://www.allourideas.org/
-      = f.text_field 'url', :value => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25
+      = f.text_field 'url', :title => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25
       = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
     %h2= t('questions.new.step3')
     %p.ideas
@@ -26,6 +26,8 @@
       == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
       %br
       %br
-      = f.text_area 'question_ideas', :cols => 50, :rows => 12
+      = f.text_area 'question_ideas', :cols => 50, :rows => 12, :title => t('questions.new.step3_exp')
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
     %p= submit_tag t('form.create'), :class => 'form-btn'
+    
+    %p=#:value => ((@question && @question.name) || 'For example, "Which do you want more from the student government?"')

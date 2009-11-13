@@ -43,6 +43,9 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
+	$('input[title!=""]').hint();
+	$('textarea[title!=""]').hint();
+	
 	
 	$('.vote_left').bind('click',function(event){
 		var question_id = $(this).attr("rel");

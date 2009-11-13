@@ -327,6 +327,10 @@ input, textarea {
 .vote-notice {
   background-color: #0B0; }
 
+.border:hover {
+	background-color: red;
+}
+
 .border *, .border-thick *, .round-filled * {
   font-size: 0.01px;
   line-height: 0.01px;

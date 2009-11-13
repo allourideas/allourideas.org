@@ -8,6 +8,10 @@ class Question < ActiveResource::Base
   # end
   attr_accessor :name, :question_text, :question_ideas, :url
   
+  def self.find_by_name(name)
+    Earl.find(name).question rescue nil
+  end
+  
   def the_name
     attributes['name']
   end

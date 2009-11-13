@@ -103,7 +103,11 @@ jQuery(document).ready(function() {
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 
-			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);;
+			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
+			$(".votebox tr.prompt td.idea").each(function(el) { $(el).css("background", "#3198c1");
+      $(el).css("border-left", "1px solid #3198c1");
+      $(el).css("border-right", "1px solid #3198c1");
+});
 
 		},
 		"json"
@@ -126,6 +130,11 @@ jQuery(document).ready(function() {
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
+			
+						$(".votebox tr.prompt td.idea").each(function(el) { $(el).css("background", "#3198c1");
+			      $(el).css("border-left", "1px solid #3198c1");
+			      $(el).css("border-right", "1px solid #3198c1");
+			});
 
 			
 		},

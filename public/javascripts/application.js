@@ -23,6 +23,7 @@ jQuery(document).ready(function() {
 
 			$('.indicator').hide();
 			$('.new_idea_submit').empty();
+			$('.new_idea_submit').val('');
 		},
 		"json"
 		);

@@ -30,7 +30,7 @@ a {
 label {
   color: #919191; }
 
-.round-filledfg:hover {
+.round-filledfg table tbody tr:hover {
 background-color: 'blue'; 
 }
 

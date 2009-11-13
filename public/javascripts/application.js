@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
 	
 	
 	$('.new_idea_submit').bind('click',function(event){
+		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var new_idea = $('#new_idea_field').val();
 		$.post('/questions/' + question_id + '/add_idea.js',
@@ -20,7 +21,7 @@ jQuery(document).ready(function() {
 			//humanMsg.displayMsg(data["message"]);
 			$('.prompter').effect("highlight", {}, 1500);
 
-			
+			$('.indicator').hide();
 		},
 		"json"
 		);

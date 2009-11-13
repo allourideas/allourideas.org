@@ -52,6 +52,7 @@ jQuery(document).ready(function() {
 	
 	
 	$('.vote_left').bind('click',function(event){
+		$('.tellmearea').html('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var winner = $('a#leftside').html();
@@ -63,7 +64,7 @@ jQuery(document).ready(function() {
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 
-			$('.tellmearea').html("You chose " + winner + " over " + loser);
+			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);;
 
 		},
 		"json"
@@ -72,6 +73,7 @@ jQuery(document).ready(function() {
 	});
 
 	$('.vote_right').bind('click',function(event){
+		$('.tellmearea').html('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var loser = $('a#leftside').html();

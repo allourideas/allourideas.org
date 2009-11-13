@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
 	
 	
 	$('.new_idea_submit').bind('click',function(event){
+		$(this).empty().val('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var new_idea = $('#new_idea_field').val();

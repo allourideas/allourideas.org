@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'home', :action => 'index'
   
   map.connect '/:id', :controller => 'earls', :action => 'show'
-  map.connect '/:id/:action', :controller => 'earls'
+  map.connect '/:id/:action', :controller => 'questions'
 
   # rake routes
   # http://guides.rubyonrails.org/routing.html

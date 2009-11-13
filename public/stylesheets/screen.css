@@ -7,8 +7,8 @@ a {
   color: #54afe2; }
   a img {
     border: none; }
-  a:hover {
-    border-bottom: 1px dotted #54afe2; }
+/*  a:hover {
+    border-bottom: 1px dotted #54afe2; }*/
   a:active {
     border: none; }
 

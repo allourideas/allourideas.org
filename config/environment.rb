@@ -55,5 +55,6 @@ Rails::Initializer.run do |config|
     :version => '1.4.2'
     
   config.gem 'crack'
+  config.gem 'friendly_id'
 end
 

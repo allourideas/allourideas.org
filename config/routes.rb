@@ -6,6 +6,8 @@ ActionController::Routing::Routes.draw do |map|
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'
   map.tour '/tour', :controller => 'home', :action => 'tour'
   map.root :controller => 'home', :action => 'index'
+  
+  map.connect '/:id', :controller => 'earls', :action => 'show'
 
   # rake routes
   # http://guides.rubyonrails.org/routing.html

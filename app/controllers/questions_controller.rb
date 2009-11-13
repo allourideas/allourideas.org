@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   require 'crack'
-  caches_page :results, :show
+  caches_page :results, :new
   # GET /questions
   # GET /questions.xml
   def index

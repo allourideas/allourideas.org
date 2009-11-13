@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
   def show
     #if user_owns_id?(id)
     #raise Question.find(:all).collect(&:id).inspect
-     @question = Question.find(params[:id]) #the question has a prompt id with it
+     @question = Question.find_by_name(params[:id]) #the question has a prompt id with it
       logger.info "inside questions#show " + Question.find(params[:id]).inspect
       @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => params[:id]})
       session[:current_prompt_id] = @question.attributes['picked_prompt_id']
@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
   end
   
   def results
-    @question = Question.find(params[:id])
+    @question = Question.find_by_name(params[:id])
     @choices = Choice.find(:all, :params => {:question_id => params[:id]})
     logger.info "First choice is #{@choices.first.inspect}"
   end
@@ -45,6 +45,7 @@ class QuestionsController < ApplicationController
   def vote_left
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
+     #@question = Question.find_by_name(params[:id])
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
     #raise Prompt.find(:all).inspect
     winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
@@ -145,7 +146,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    @question = Question.find(params[:id])
+    #@question = Question.find(params[:id])
   end
 
   # POST /questions
@@ -170,7 +171,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.xml
   def update
-    @question = Question.find(params[:id])
+    @question = Question.find_by_name(params[:id])
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -187,7 +188,7 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.xml
   def destroy
-    @question = Question.find(params[:id])
+     @question = Question.find_by_name(params[:id])
     @question.destroy
 
     respond_to do |format|

@@ -26,8 +26,8 @@ class QuestionsController < ApplicationController
     #if user_owns_id?(id)
     #raise Question.find(:all).collect(&:id).inspect
      @question = Question.find_by_name(params[:id]) #the question has a prompt id with it
-      logger.info "inside questions#show " + Question.find(params[:id]).inspect
-      @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => params[:id]})
+      #logger.info "inside questions#show " + Question.find(@question.id).inspect
+      @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
       session[:current_prompt_id] = @question.attributes['picked_prompt_id']
       #@items = @question.items
       @right_choice_text = @prompt.right_choice_text
@@ -38,7 +38,7 @@ class QuestionsController < ApplicationController
   
   def results
     @question = Question.find_by_name(params[:id])
-    @choices = Choice.find(:all, :params => {:question_id => params[:id]})
+    @choices = Choice.find(:all, :params => {:question_id => @question.id})
     logger.info "First choice is #{@choices.first.inspect}"
   end
   
@@ -168,32 +168,32 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # PUT /questions/1
-  # PUT /questions/1.xml
-  def update
-    @question = Question.find_by_name(params[:id])
-
-    respond_to do |format|
-      if @question.update_attributes(params[:question])
-        flash[:notice] = 'Question was successfully updated.'
-        format.html { redirect_to(@question) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /questions/1
-  # DELETE /questions/1.xml
-  def destroy
-     @question = Question.find_by_name(params[:id])
-    @question.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(questions_url) }
-      format.xml  { head :ok }
-    end
-  end
+  # # PUT /questions/1
+  # # PUT /questions/1.xml
+  # def update
+  #   @question = Question.find_by_name(params[:id])
+  # 
+  #   respond_to do |format|
+  #     if @question.update_attributes(params[:question])
+  #       flash[:notice] = 'Question was successfully updated.'
+  #       format.html { redirect_to(@question) }
+  #       format.xml  { head :ok }
+  #     else
+  #       format.html { render :action => "edit" }
+  #       format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+  #     end
+  #   end
+  # end
+  # 
+  # # DELETE /questions/1
+  # # DELETE /questions/1.xml
+  # def destroy
+  #    @question = Question.find_by_name(params[:id])
+  #   @question.destroy
+  # 
+  #   respond_to do |format|
+  #     format.html { redirect_to(questions_url) }
+  #     format.xml  { head :ok }
+  #   end
+  # end
 end

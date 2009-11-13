@@ -15,12 +15,11 @@ jQuery(document).ready(function() {
 		$.post('/questions/' + question_id + '/add_idea.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
 		function(data){
-			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
-			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
-			humanMsg.displayMsg(data["message"]);
-			//$('a.prompt').html('Click here!');
+			$('.leftside').html(data["newleft"]);
+			$('.rightside').html(data["newright"]);
+			//humanMsg.displayMsg(data["message"]);
 			$('.prompter').effect("highlight", {}, 1500);
-			//alert('Bueller?');
+
 			
 		},
 		"json"
@@ -33,10 +32,10 @@ jQuery(document).ready(function() {
 		$.post('/questions/' + question_id + '/skip.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
-			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
-			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
-			humanMsg.displayMsg('<strong>Skipped.</strong> <span class="indent">You just skipped the last prompt.</span>');
-			$('.prompter').effect("highlight", {}, 1500);
+			$('.leftside').html(data["newleft"]);
+			$('.rightside').html(data["newright"]);
+			//humanMsg.displayMsg('<strong>Skipped.</strong> <span class="indent">You just skipped the last prompt.</span>');
+			//$('.prompter').effect("highlight", {}, 1500);
 			
 		},
 		"json"
@@ -50,10 +49,10 @@ jQuery(document).ready(function() {
 		$.post('/questions/' + question_id + '/vote_left.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
-			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
-			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
-			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
-			$('.prompter').effect("highlight", {}, 1500);
+			$('.leftside').html(data["newleft"]);
+			$('.rightside').html(data["newright"]);
+			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
+			//$('.prompter').effect("highlight", {}, 1500);
 		},
 		"json"
 		);
@@ -65,10 +64,10 @@ jQuery(document).ready(function() {
 		$.post('/questions/' + question_id + '/vote_right.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
-			$('.leftside').effect("highlight", {}, 1500).html(data["newleft"]);
-			$('.rightside').effect("highlight", {}, 1500).html(data["newright"]);
-			humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
-			$('.prompter').effect("highlight", {}, 1500);
+			$('.leftside').html(data["newleft"]);
+			$('.rightside').html(data["newright"]);
+			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
+			//$('.prompter').effect("highlight", {}, 1500);
 			
 		},
 		"json"

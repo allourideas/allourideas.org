@@ -22,6 +22,7 @@ jQuery(document).ready(function() {
 			$('.prompter').effect("highlight", {}, 1500);
 
 			$('.indicator').hide();
+			$('.new_idea_submit').empty();
 		},
 		"json"
 		);

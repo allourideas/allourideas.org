@@ -26,7 +26,7 @@
       %td.idea.right.vote_right{:rel => @question.id}= rounded(render(:partial => 'idea', :locals => {:data => @right_choice_text, :side => "rightside"}), 'round-filled')
   %table.vote-footer
     %tr
-      %td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
+      //%td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
       %td.skip= link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
       %td= "#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.ideas')}"
   .clear

@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '/:id', :controller => 'earls', :action => 'show'
   map.connect '/:id/:action', :controller => 'questions'
+  map.connect '/:question_id/choices/:id', :controller => 'choices', :action => 'show'
 
   # rake routes
   # http://guides.rubyonrails.org/routing.html

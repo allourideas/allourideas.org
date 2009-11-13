@@ -18,9 +18,9 @@ jQuery(document).ready(function() {
   $(".votebox tr.prompt td.idea").each(function(el) {
     $(this).bind("click", function() {
       $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-        $(this).css("background", "#0B0");
-        $(this).css("border-left", "1px solid #0B0");
-        $(this).css("border-right", "1px solid #0B0");
+        // $(this).css("background", "#0B0");
+        // $(this).css("border-left", "1px solid #0B0");
+        // $(this).css("border-right", "1px solid #0B0");
       });
       $(this).unbind("mouseover")
       $(this).unbind("mouseout")

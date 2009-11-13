@@ -15,7 +15,7 @@
 /%h1 Hi, ur loggez in!!!
 
 = render :partial => 'shared/header_vote'
-.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+
 .votebox
   %table.full
     %tr
@@ -34,6 +34,7 @@
   %center
     = render :partial => 'items/form'
     %br
+    #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
     %p.tellmearea
       &nbsp;
       -if @winner

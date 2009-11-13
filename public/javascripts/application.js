@@ -29,10 +29,12 @@ jQuery(document).ready(function() {
 	});
 	
 	$('.skiplink').bind('click',function(event){
+		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		$.post('/questions/' + question_id + '/skip.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
+			$('.indicator').hide();
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 			//humanMsg.displayMsg('<strong>Skipped.</strong> <span class="indent">You just skipped the last prompt.</span>');
@@ -49,20 +51,19 @@ jQuery(document).ready(function() {
 	
 	
 	$('.vote_left').bind('click',function(event){
+		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var winner = $('a#leftside').html();
 		var loser = $('a#rightside').html();
 		$.post('/questions/' + question_id + '/vote_left.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),//+'&winner='+winner+'&loser='+loser,
 		function(data){
-
+			$('.indicator').hide();
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 
 			$('.tellmearea').html("You chose " + winner + " over " + loser);
-			//.effect("highlight", {}, 1500);
-			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
-			//$('.prompter').effect("highlight", {}, 1500);
+
 		},
 		"json"
 		);
@@ -70,17 +71,18 @@ jQuery(document).ready(function() {
 	});
 
 	$('.vote_right').bind('click',function(event){
+		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var loser = $('a#leftside').html();
 		var winner = $('a#rightside').html();
 		$.post('/questions/' + question_id + '/vote_right.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
+			$('.indicator').hide();
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
-			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
-			//$('.prompter').effect("highlight", {}, 1500);
+
 			
 		},
 		"json"

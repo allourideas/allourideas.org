@@ -11,7 +11,7 @@
     -for choice in @choices
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
         %td.title= link_to choice.data, choice.path #link_to "item, item_path(id, :question_id => @question_id)"
-        %td.votes= choice.attributes['score']
+        %td.votes= choice.attributes['score'].to_i
         -#%td= rank
         -#%td= added
         %td

@@ -51,8 +51,10 @@ jQuery(document).ready(function() {
 		$.post('/questions/' + question_id + '/vote_left.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),//+'&winner='+winner+'&loser='+loser,
 		function(data){
+			alert('1');
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
+			alert('2');
 			$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
 			//humanMsg.displayMsg('<strong>Voted.</strong> <span class="indent">You have successfully voted.</span>');
 			//$('.prompter').effect("highlight", {}, 1500);

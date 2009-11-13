@@ -21,21 +21,6 @@ class QuestionsController < ApplicationController
   #     format.xml  { render :xml => @question }
   #   end
   # end
-  
-  def show
-    #if user_owns_id?(id)
-    #raise Question.find(:all).collect(&:id).inspect
-     @question = Question.find_by_name(params[:id]) #the question has a prompt id with it
-      #logger.info "inside questions#show " + Question.find(@question.id).inspect
-      @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
-      session[:current_prompt_id] = @question.attributes['picked_prompt_id']
-      #@items = @question.items
-      @right_choice_text = @prompt.right_choice_text
-      @left_choice_text = @prompt.left_choice_text
-      @item_count = @question.attributes['item_count']
-      @votes_count = @question.attributes['votes_count']
-  end
-  
   def results
     @question = Question.find_by_name(params[:id])
     @choices = Choice.find(:all, :params => {:question_id => @question.id})

@@ -5,16 +5,16 @@
 
 jQuery(document).ready(function() {
 	
-	[$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {
-    $(this).bind("mouseover", function() {
-      var str = $(this).attr("src");
-      $(this).attr('src', str.replace(".jpg", "-down.jpg"));
-    });
-    $(this).bind("mouseout", function() {
-      var str = $(this).attr("src");
-      $(this).attr('src', str.replace("-down.jpg", ".jpg"));
-    });
-  });
+	// [$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {
+	//     $(this).bind("mouseover", function() {
+	//       var str = $(this).attr("src");
+	//       $(this).attr('src', str.replace(".jpg", "-down.jpg"));
+	//     });
+	//     $(this).bind("mouseout", function() {
+	//       var str = $(this).attr("src");
+	//       $(this).attr('src', str.replace("-down.jpg", ".jpg"));
+	//     });
+	//   });
   $(".votebox tr.prompt td.idea").each(function(el) {
     $(this).bind("click", function() {
       $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {

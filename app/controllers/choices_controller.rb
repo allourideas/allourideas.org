@@ -5,6 +5,7 @@ class ChoicesController < ApplicationController
     if @choice
       @data = @choice.attributes['data']
       @score = @choice.attributes['score']
+      logger.info "the score is #{@score.inspect}"
       @created_at = @choice.attributes['created_at']
       @votes_count = @choice.attributes['votes_count']
       respond_to do |format|

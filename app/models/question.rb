@@ -7,6 +7,10 @@ class Question < ActiveResource::Base
   #   item_ids.map {|i| Item.find(i)}
   # end
   attr_accessor :name, :question_text, :question_ideas, :url
+  
+  def the_name
+    attributes['name']
+  end
   # 
   # def items_url
   #   Item.collection_path(:question_id => self.id)

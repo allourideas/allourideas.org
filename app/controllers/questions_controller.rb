@@ -38,7 +38,8 @@ class QuestionsController < ApplicationController
   
   def results
     @question = Question.find(params[:id])
-    @items = Item.find(:all, :params => {:question_id => params[:id]})
+    @choices = Choice.find(:all, :params => {:question_id => params[:id]})
+    logger.info "First choice is #{@choices.first.inspect}"
   end
   
   def vote_left

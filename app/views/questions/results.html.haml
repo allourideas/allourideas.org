@@ -8,15 +8,15 @@
       %th.score= (@header_text = "Score") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
       %th &nbsp;
     -alt=false
-    -for item in @items
+    -for choice in @choices
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-        %td.title= item.data #link_to "item, item_path(id, :question_id => @question_id)"
-        %td.votes= item.attributes['votes_count']
+        %td.title= link_to choice.data, choice.path #link_to "item, item_path(id, :question_id => @question_id)"
+        %td.votes= choice.attributes['score']
         -#%td= rank
         -#%td= added
         %td
           .bar-chart
-            %div{:style => "width:#{(item.attributes['votes_count'].to_f / @items.collect {|i| i.attributes['votes_count'].to_f}.sum)*100}%"}
+            %div{:style => "width:#{choice.attributes['score']}%"}
             =#df
     -unless @items_all || @items_newest
       %tr.row1

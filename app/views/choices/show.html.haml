@@ -1,0 +1,18 @@
+= render :partial => 'shared/header_vote'
+.ninety
+  %table.full.item
+    %tr.row0
+      %th{:colspan => 2}
+        = @question.the_name
+    %tr
+      %td= t('items.idea')
+      %td= @data
+    %tr
+      %td= t('items.added_on')
+      %td= @created_at
+    %tr
+      %td= t('items.score')
+      %td= @score.to_i
+    %tr
+      %td= t('items.number_of_votes')
+      %td= @votes_count

@@ -15,30 +15,30 @@ jQuery(document).ready(function() {
 	//       $(this).attr('src', str.replace("-down.jpg", ".jpg"));
 	//     });
 	//   });
-  $(".votebox tr.prompt td.idea").each(function(el) {
-    $(this).bind("click", function() {
-      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-        // $(this).css("background", "#0B0");
-        // $(this).css("border-left", "1px solid #0B0");
-        // $(this).css("border-right", "1px solid #0B0");
-      });
-      $(this).unbind("mouseover")
-      $(this).unbind("mouseout")
-    });
-    $(this).bind("mouseover", function() {
-      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-        $(this).css("background", "#2b88ad");
-        $(this).css("border-left", "1px solid #2b88ad");
-        $(this).css("border-right", "1px solid #2b88ad");
-      });
-    });
-    $(this).bind("mouseout", function() {
-      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-        $(this).css("background", "#3198c1");
-        $(this).css("border-left", "1px solid #3198c1");
-        $(this).css("border-right", "1px solid #3198c1");
-      });
-    });})
+  // $(".votebox tr.prompt td.idea").each(function(el) {
+  //   $(this).bind("click", function() {
+  //     $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+  //       // $(this).css("background", "#0B0");
+  //       // $(this).css("border-left", "1px solid #0B0");
+  //       // $(this).css("border-right", "1px solid #0B0");
+  //     });
+  //     $(this).unbind("mouseover")
+  //     $(this).unbind("mouseout")
+  //   });
+  //   $(this).bind("mouseover", function() {
+  //     $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+  //       $(this).css("background", "#2b88ad");
+  //       $(this).css("border-left", "1px solid #2b88ad");
+  //       $(this).css("border-right", "1px solid #2b88ad");
+  //     });
+  //   });
+  //   $(this).bind("mouseout", function() {
+  //     $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+  //       $(this).css("background", "#3198c1");
+  //       $(this).css("border-left", "1px solid #3198c1");
+  //       $(this).css("border-right", "1px solid #3198c1");
+  //     });
+  //   });})
   
 	
 	humanMsg.setup();

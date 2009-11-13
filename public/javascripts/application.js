@@ -10,10 +10,10 @@ jQuery(document).ready(function() {
 	
 	
 	$('.new_idea_submit').bind('click',function(event){
-		$('#new_idea_field').empty().val('').hint();
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var new_idea = $('#new_idea_field').val();
+		$('#new_idea_field').empty().val('').hint();
 		$.post('/questions/' + question_id + '/add_idea.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
 		function(data){

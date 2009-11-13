@@ -17,10 +17,10 @@
     .content
       = render :partial => "shared/header"
       .body
-        -if flash[:notice]
-          %p.notice#notice= flash[:notice]
-        -if flash[:error]
-          %p.error#error= flash[:error]
+        / -if flash[:notice]
+        /   %p.notice#notice= flash[:notice]
+        / -if flash[:error]
+        /   %p.error#error= flash[:error]
         = yield
         .clear
       = render :partial => "shared/footer"

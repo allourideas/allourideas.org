@@ -8,7 +8,7 @@ class Choice < ActiveResource::Base
   
   def path
     @earl = Earl.find_by_question_id(question_id)
-    "/questions/#{@earl.name}/choices/#{id}"
+    "/#{@earl.name}/choices/#{id}"
   end
   
   def data

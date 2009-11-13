@@ -5,17 +5,17 @@
   = link_to(t('questions.new.see_an'), @url1, :method => :post)
   = t('questions.new.exp2')
 %left.create-question
-  -form_for :question, :url => questions_path do |f|
+  -form_for :question, @question, :url => questions_path do |f|
     %p= f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
     %h2= t('questions.new.step1')
     %p
       == #{t('questions.new.display_text')}:
-      = f.text_field 'name', :size => 60, :maxlength => Const::MAX_QUESTION_LENGTH
+      = f.text_field 'name', :value => ((@question && @question.name) || "Which one do you prefer?"), :size => 60, :maxlength => Const::MAX_QUESTION_LENGTH
       = hidden_field_tag 'default_text', t('questions.new.step1_exp')
     %h2= t('questions.new.step2')
     %p
       http://www.allourideas.org/
-      = f.text_field 'name', :value => (@question && @question.name) || t('questions.new.step2_exp'), :size => 25
+      = f.text_field 'url', :value => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25
       = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
     %h2= t('questions.new.step3')
     %p.ideas

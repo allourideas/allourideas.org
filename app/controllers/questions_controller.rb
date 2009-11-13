@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.xml
   def index
-    @questions = Question.all
+    @questions = Question.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,8 +24,9 @@ class QuestionsController < ApplicationController
   
   def show
     #if user_owns_id?(id)
+    #raise Question.find(:all).collect(&:id).inspect
      @question = Question.find(params[:id]) #the question has a prompt id with it
-      logger.info Question.find(params[:id]).inspect
+      logger.info "inside questions#show " + Question.find(params[:id]).inspect
       @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => params[:id]})
       session[:current_prompt_id] = @question.attributes['picked_prompt_id']
       @items = @question.items
@@ -141,14 +142,15 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    @question = Question.new(params[:question])
-
+    @question = Question.new(params[:question].except('url').merge({'auto' => request.session_options[:id]}))
     respond_to do |format|
       if @question.save
+        logger.info "Question was successfully created."
         flash[:notice] = 'Question was successfully created.'
         format.html { redirect_to(@question) }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
       else
+        logger.info "Question was not successfully created."
         format.html { render :action => "new" }
         format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
       end

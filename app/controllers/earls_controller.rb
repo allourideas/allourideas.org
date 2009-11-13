@@ -1,6 +1,6 @@
 class EarlsController < ApplicationController
   def show
-    @earl = Earl.find(:first, :conditions => {:name => params[:id]})
+    @earl = Earl.find(params[:id])
     #redirect_to(@earl ? @earl.question : '/' ) and return
     if @earl
       @question = @earl.question#the question has a prompt id with it

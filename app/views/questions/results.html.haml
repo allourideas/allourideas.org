@@ -18,10 +18,10 @@
           .bar-chart
             %div{:style => "width:#{choice.attributes['score']}%"}
             =#df
-    -unless @items_all || @items_newest
+    -unless params[:all]#@items_all || @items_newest
       %tr.row1
         %td{:colspan => 3}
-          /%strong= link_to(t('nav.see_all_ideas'), quick_link('items/all', "items_path(:question_id => @question_id)"))
+          %strong= link_to(t('nav.see_all_ideas'), @all_results_url)#quick_link('items/all', "items_path(:question_id => @question_id)"))
     %tr.row0.thin
       %td{:colspan => 3}
   %br

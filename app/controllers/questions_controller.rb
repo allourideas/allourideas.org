@@ -24,10 +24,12 @@ class QuestionsController < ApplicationController
   # end
   def results
     @question = Question.find_by_name(params[:id])
+    @partial_results_url = "#{@question.earl}/results"
+    @all_results_url = "#{@question.earl}/results?all=true"
     if params[:all]
       @choices = Choice.find(:all, :params => {:question_id => @question.id})
     else
-      @choices = Choice.find(:all, :params => {:question_id => @question.id})
+      @choices = Choice.find(:all, :params => {:question_id => @question.id, :limit => 10, :offset => 0})
     end
     logger.info "First choice is #{@choices.first.inspect}"
   end

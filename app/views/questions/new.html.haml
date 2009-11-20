@@ -42,7 +42,10 @@
         = "Password:"
         = f.password_field 'password', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
 
-    %h2= "Step 5 [Optional]: Help Us Out"
+    -if @registered
+      %h2= "Step 4 [Optional]: Help Us Out"
+    -else
+      %h2= "Step 5 [Optional]: Help Us Out"
     %p
       Please tell us a bit about what you are trying to accomplish with All Our Ideas.
       %br

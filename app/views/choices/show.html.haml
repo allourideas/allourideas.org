@@ -9,7 +9,7 @@
       %td= @data
     %tr
       %td= t('items.added_on')
-      %td= @created_at
+      %td= @created_at.strftime("%m/%d/%Y at %I:%M%p")
     %tr
       %td= t('items.score')
       %td= @score.to_i

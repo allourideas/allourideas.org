@@ -8,10 +8,13 @@
 %p
   = t('items.email.if_you_want') + ':'
   %br
-  %br
-  %br
+  
 %p
   = link_to "Activate", "http://allourideas.heroku.com#{@question.earl}/choices/#{@choice_id}/activate"
+  
+  %br
+  %br
+  %br
 
   = t('items.email.explain2')
 %br

@@ -6,7 +6,7 @@ class Question < ActiveResource::Base
   # def items
   #   item_ids.map {|i| Item.find(i)}
   # end
-  attr_accessor :name, :question_text, :question_ideas, :url, :question_purpose, :email, :password
+  attr_accessor :name, :question_text, :question_ideas, :url, :information, :email, :password
   
   def self.find_by_name(name)
     Earl.find(name).question rescue nil

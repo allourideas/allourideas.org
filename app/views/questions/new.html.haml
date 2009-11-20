@@ -28,6 +28,28 @@
       %br
       = f.text_area 'question_ideas', :cols => 50, :rows => 12, :title => t('questions.new.step3_exp')
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
+    %h2= "Step 4: Give us your e-mail address and pick a password so you can administer your idea marketplace"
+    %p
+      Please give us your e-mail and pick a password so that you can get the results and administer your idea marketplace.
+      %br
+      %br
+      = "E-mail:"
+      = f.text_field 'email', :size => 60, :title => 'Your E-mail Address', :maxlength => Const::MAX_QUESTION_LENGTH
+      %br
+      
+      = "Password:"
+      = f.text_field 'password', :size => 60, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
+
+    %h2= "Step 5: Tell us a bit about what you are trying to accomplish with All Our Ideas (Optional)"
+    %p
+      Please tell us a bit about what you are trying to accomplish with All Our Ideas.
+      %br
+      Also, feel free to let us know anything else we might find interesting (e.g. how you heard about us, how many visitors you're expecting)
+      %br
+      %br
+      = f.text_area 'question_purpose', :cols => 50, :rows => 12#, :title => t('questions.new.step3_exp')
+    
+    
     %p= submit_tag t('form.create'), :class => 'form-btn'
     
     %p=#:value => ((@question && @question.name) || 'For example, "Which do you want more from the student government?"')

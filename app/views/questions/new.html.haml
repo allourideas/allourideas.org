@@ -30,7 +30,7 @@
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
     -if @registered
       
-      %h2= "Step 4. Create an Account"
+      %h2= "Step 4: Create an Account"
       %p
         Please give us your e-mail and pick a password so that you can get the results and administer your idea marketplace.
         %br
@@ -54,20 +54,6 @@
     -if @registered
       %p= submit_tag t('form.create'), :class => 'form-btn'
     -else
-      = link_to image_tag('submit.jpg', :id => 'submit_btn', :class => "create_account"), '#create_account_form', :rel => 'facebox'
-      #create_account_form
-        %h2= "Step 4. Create an Account"
-        %p
-          Please give us your e-mail and pick a password so that you can get the results and administer your idea marketplace.
-          %br
-          %br
-          = "E-mail:"
-          = f.text_field 'email', :size => 30, :title => 'Your E-mail Address', :maxlength => Const::MAX_QUESTION_LENGTH
-          %br
-
-          = "Password:"
-          = f.password_field 'password', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
-
-          %p= submit_tag t('form.create'), :class => 'form-btn'
+      %p= submit_tag t('form.create'), :class => 'form-btn'
     
     %p=#:value => ((@question && @question.name) || 'For example, "Which do you want more from the student government?"')

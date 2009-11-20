@@ -28,8 +28,21 @@
       %br
       = f.text_area 'question_ideas', :cols => 50, :rows => 12, :title => t('questions.new.step3_exp')
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
+    -if @registered
+      
+      %h2= "Step 4. Create an Account"
+      %p
+        Please give us your e-mail and pick a password so that you can get the results and administer your idea marketplace.
+        %br
+        %br
+        = "E-mail:"
+        = f.text_field 'email', :size => 30, :title => 'Your E-mail Address', :maxlength => Const::MAX_QUESTION_LENGTH
+        %br
 
-    %h2= "Step 4: Tell us a bit about what you are trying to accomplish with All Our Ideas (Optional)"
+        = "Password:"
+        = f.password_field 'password', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
+
+    %h2= "Step 5 [Optional]: Help Us Out"
     %p
       Please tell us a bit about what you are trying to accomplish with All Our Ideas.
       %br
@@ -43,7 +56,7 @@
     -else
       = link_to image_tag('submit.jpg', :id => 'submit_btn', :class => "create_account"), '#create_account_form', :rel => 'facebox'
       #create_account_form
-        %h2= "Please give us your e-mail address and pick a password so you can administer your idea marketplace"
+        %h2= "Step 4. Create an Account"
         %p
           Please give us your e-mail and pick a password so that you can get the results and administer your idea marketplace.
           %br

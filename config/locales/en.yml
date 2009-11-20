@@ -181,7 +181,7 @@ en:
       success_flash3: and watch what happens.
       exp: You are about to create your own website where your visitors can vote on existing ideas and upload new ones. You can either
       see_an: see an example
-      exp2: or get started using the three steps below.
+      exp2: or get started using the steps below.
     activate_message: Great. Now you are ready to go. Just spread your url
     activate_message_2: to everyone in your group or organization and watch the best ideas appear.
     enter_a_new_short_url: Enter a new short URL

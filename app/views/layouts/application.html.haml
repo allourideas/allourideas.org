@@ -31,8 +31,8 @@
     .content
       = render :partial => "shared/header"
       .body
-      -if flash[:for_real]
-        %p.notice#notice= flash[:for_real]
+        -if flash[:for_real]
+          %p.notice#notice= flash[:for_real]
         / -if flash[:notice]
         /   %p.notice#notice= flash[:notice]
         / -if flash[:error]

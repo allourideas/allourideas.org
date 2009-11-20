@@ -19,11 +19,21 @@ class ApplicationController < ActionController::Base
     # cookie set to 5 years.., the above uses @current_user set in previous line.
   end
   
-  before_filter :initialize_session, :auto_create_user!
+  before_filter :initialize_session, :auto_create_user!, :record_action
   
   def initialize_session
     puts request.session_options[:id]
     session[:session_id] # this forces load of the session in Rails 2.3.x
     puts request.session_options[:id]
+  end
+  
+  def record_action
+    if signed_in?
+      logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
+      Click.record(request.session_options[:id], "#{controller_name}##{action_name}", current_user)
+    else
+      logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in)"
+      Click.record(request.session_options[:id], "#{controller_name}##{action_name}")
+    end
   end
 end

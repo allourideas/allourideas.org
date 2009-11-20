@@ -16,6 +16,10 @@ class Question < ActiveResource::Base
     "/#{Earl.find_by_question_id(id).name}" rescue nil
   end
   
+  def slug
+    Earl.find_by_question_id(id).name
+  end
+  
   def the_name
     attributes['name']
   end

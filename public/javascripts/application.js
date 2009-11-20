@@ -150,8 +150,13 @@ jQuery(document).ready(function() {
 		$('.tellmearea').html('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
-		var winner = $('a#leftside').html();
-		var loser = $('a#rightside').html();
+		var question_slug = $(this).attr("question_slug");
+		// var winner = $('a#leftside').html();
+		// var loser = $('a#rightside').html();
+		
+		var loser = "<a href='/questions/" + $('a#rightside').attr("question_slug") + "/choices/" + $('a#rightside').attr("choice_id") + "'>" + $('a#rightside').html() + "</a>";
+		var winner = "<a href='/questions/" + $('a#leftside').attr("question_slug") + "/choices/" + $('a#leftside').attr("choice_id") + "'>" + $('a#leftside').html() + "</a>";
+		
 		$.post('/questions/' + question_id + '/vote_left.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),//+'&winner='+winner+'&loser='+loser,
 		function(data){
@@ -196,8 +201,12 @@ jQuery(document).ready(function() {
 		$('.tellmearea').html('');
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
-		var loser = $('a#leftside').html();
-		var winner = "<a href='/foo'>" + $('a#rightside').html() + "</a>";
+		var question_slug = $(this).attr("question_slug");
+		
+
+		var loser = "<a href='/questions/" + $('a#leftside').attr("question_slug") + "/choices/" + $('a#leftside').attr("choice_id") + "'>" + $('a#leftside').html() + "</a>";
+		var winner = "<a href='/questions/" + $('a#rightside').attr("question_slug") + "/choices/" + $('a#rightside').attr("choice_id") + "'>" + $('a#rightside').html() + "</a>";
+		
 		$.post('/questions/' + question_id + '/vote_right.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){

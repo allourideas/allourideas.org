@@ -24,10 +24,10 @@ class ChoicesController < ApplicationController
     logger.info "Found choice: #{@choice.inspect}"
     #@choice.activate! if @choice
     @choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
-    flash[:notice] = "You've just successfully activated the choice."
+    flash[:for_real] = "You have successfully activated the idea <strong>#{@choice.attributes['data']}</strong>"
     logger.info flash[:notice]
-    redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
-    #redirect_to :show, :question_id => 
+    # redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
+    redirect_to("#{@question.earl}") and return
   end
   
   

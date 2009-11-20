@@ -118,9 +118,12 @@ class QuestionsController < ApplicationController
             format.js  { 
               if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]})
                 newprompt = Crack::XML.parse(p.body)['prompt']
+                puts newprompt.inspect
                 @newprompt = Question.find(params[:id])
                 render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text'], 
                                  :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
+                ::IdeaMailer.deliver_notification @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id'] #spike
+                #notification(user, question, question_id, choice, choice_id)
               else
                 render :json => '{"error" : "Addition of new idea failed"}'
               end
@@ -181,14 +184,15 @@ class QuestionsController < ApplicationController
         @user.remote_user(request.session_options[:id])
         ::ClearanceMailer.deliver_confirmation @user
       else
-        render :template => 'users/new'
+        flash[:notice] = "Sorry, we couldn't register you."
+        render :template => 'users/new' and return
       end
     end
     #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
     
     #tell the remote server that the creator is the associated remote user
     # @question = Question.new(params[:question].except('url').merge({'auto' => request.session_options[:id]}))
-    @question = Question.new(params[:question].except('url').merge({'creator_id' => current_user.remote_user_id}))
+    @question = Question.new(params[:question].except('url').merge({'creator_id' => current_user.remote_user(request.session_options[:id]).id}))
     respond_to do |format|
       if @question.save
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])

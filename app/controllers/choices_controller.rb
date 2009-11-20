@@ -15,4 +15,20 @@ class ChoicesController < ApplicationController
       redirect_to('/') and return
     end
   end
+  
+  
+  def activate
+    @question = Question.find_by_name(params[:question_id])
+    logger.info "actual question ID is #{@question.id}"
+    @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
+    logger.info "Found choice: #{@choice.inspect}"
+    #@choice.activate! if @choice
+    @choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
+    flash[:notice] = "You've just successfully activated the choice."
+    logger.info flash[:notice]
+    redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
+    #redirect_to :show, :question_id => 
+  end
+  
+  
 end

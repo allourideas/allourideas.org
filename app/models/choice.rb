@@ -7,11 +7,20 @@ class Choice < ActiveResource::Base
   end
   
   def path
-    @earl = Earl.find_by_question_id(question_id)
+    puts "inside Choice#path"
+    @earl = Earl.find_by_question_id(self.question_id)
     "/#{@earl.name}/choices/#{id}"
   end
   
   def data
     attributes['data']
+  end
+  
+  def activate!
+    puts "about to activate choice, #{self.inspect}"
+    self.active = true
+    puts "about to save"
+    self.save
+    puts "saved"
   end
 end

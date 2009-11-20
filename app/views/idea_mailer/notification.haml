@@ -1,0 +1,16 @@
+%p
+  = t('items.email.someone_has_uploaded')
+  == "<strong>#{@choice}</strong>"
+  = t('items.email.to_your_question')
+  %strong= link_to(@question.the_name, "http://allourideas.heroku.com#{@question.earl}")
+%p
+  = t('items.email.explain')
+%p
+  = t('items.email.if_you_want')
+%p
+  = link_to "Activate", "http://allourideas.heroku.com#{@question.earl}/choices/#{@choice_id}/activate"
+
+  = t('items.email.explain2')
+%br
+%p
+  == #{t('common.salutation')}, #{link_to('All Our Ideas', root_path(:only_path => false, :host => @host))}

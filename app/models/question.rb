@@ -19,6 +19,12 @@ class Question < ActiveResource::Base
   def the_name
     attributes['name']
   end
+  
+  def creator
+    User.find(:first, :conditions => {:remote_user_id => attributes['creator_id']})
+  end
+  
+  
   # 
   # def items_url
   #   Item.collection_path(:question_id => self.id)

@@ -6,7 +6,8 @@ class RemoteUser < ActiveResource::Base
    
   def self.find_by_sid(sid)
      u = RemoteUser.get(:find_by_sid, :params => {:auto => sid})
-     logger.info u.inspect + " is the result of find_by_sid"
+     puts u.inspect + " is the result of find_by_sid"
+     return u
   end
   
   def email_confirmed?

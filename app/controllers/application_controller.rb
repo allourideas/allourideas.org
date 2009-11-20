@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   # Create user object if doesn't already exist.  Set cookie.   
   def auto_create_user!
     #return if signed_in?
-    user = User.auto_create_user_object_from_sid(request.session_options[:id]) # doesn't save to db as handle remember cookie does.
+    user = RemoteUser.auto_create_user_object_from_sid(request.session_options[:id]) # doesn't save to db as handle remember cookie does.
     #user.status = 'verified' if @verified # user passed captcha, prevents showing captcha again
     #sign_in user # !! now logged in (sets session)
     #handle_remember_cookie! true # sets cookie and saves user so they can get back after session is over

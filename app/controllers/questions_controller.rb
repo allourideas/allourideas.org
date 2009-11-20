@@ -132,6 +132,28 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   # GET /questions/new.xml
   def new
+    if signed_in?
+      @registered = true
+    else
+      auto_create_user!
+    end
+    # 
+    # 
+    # 
+    # 
+    # #ok.  we need to query the Pairwise API to find out if the current user is actually registered.
+    # #If so, no need to show username and password fields
+    # #If not, show the fields
+    # auto_create_user!
+    # sid = request.session_options[:id]
+    # begin
+    #   u = RemoteUser.find_by_sid(sid)
+    #   #@registered = u.email_confirmed
+    #   @registered = signed_in?
+    # rescue
+    #   u = RemoteUser.auto_create_user_object_from_sid(sid)
+    # end
+    
     @question = Question.new
 
     respond_to do |format|
@@ -148,7 +170,25 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    @question = Question.new(params[:question].except('url').merge({'auto' => request.session_options[:id]}))
+    unless signed_in?
+      #try to register the user before adding the question
+      @user = ::User.new(:email => params[:question]['email'], 
+                         :password => params[:question]['password'], 
+                         :password_confirmation => params[:question]['password'])
+      if @user.save
+        sign_in(@user)
+        #now create the user in the remote system
+        @user.remote_user(request.session_options[:id])
+        ::ClearanceMailer.deliver_confirmation @user
+      else
+        render :template => 'users/new'
+      end
+    end
+    #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
+    
+    #tell the remote server that the creator is the associated remote user
+    # @question = Question.new(params[:question].except('url').merge({'auto' => request.session_options[:id]}))
+    @question = Question.new(params[:question].except('url').merge({'creator_id' => current_user.remote_user_id}))
     respond_to do |format|
       if @question.save
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])

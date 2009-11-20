@@ -43,7 +43,7 @@ module ApplicationHelper
   end
   
   def auto_create_user!
-    @autouser ||= User.auto_create_user_object_from_sid(request.session_options[:id])
+    @autouser ||= RemoteUser.auto_create_user_object_from_sid(request.session_options[:id])
   end
 
   def log_or_new_path

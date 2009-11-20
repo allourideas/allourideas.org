@@ -110,6 +110,11 @@ jQuery(document).ready(function() {
 			current_item_count = $('#item_count').html();
 			$('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
 			$('.indicator').hide();
+			
+			var str = $("#submit_btn").attr("src");
+			$("#submit_btn").attr('src', str.replace("-down.jpg", ".jpg"));
+			
+			
 		},
 		"json"
 		);
@@ -191,7 +196,7 @@ jQuery(document).ready(function() {
 		$('.indicator').show();
 		var question_id = $(this).attr("rel");
 		var loser = $('a#leftside').html();
-		var winner = $('a#rightside').html();
+		var winner = "<a href='/foo'>" + $('a#rightside').html() + "</a>";
 		$.post('/questions/' + question_id + '/vote_right.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){

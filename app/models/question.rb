@@ -24,8 +24,13 @@ class Question < ActiveResource::Base
     attributes['name']
   end
   
+  def creator_id
+    c = attributes['creator_id']
+    return c.first if c.is_a?(Array)
+  end
+  
   def creator
-    User.find(:first, :conditions => {:remote_user_id => attributes['creator_id']})
+    User.find(:first, :conditions => {:remote_user_id => })
   end
   
   

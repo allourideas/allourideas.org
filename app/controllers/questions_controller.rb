@@ -42,13 +42,12 @@ class QuestionsController < ApplicationController
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
     #raise Prompt.find(:all).inspect
     case direction
-      when :left
-        winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
-        conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
-      when :right
-        loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
-        conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id]})
-      end
+    when :left
+      winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
+      conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+    when :right
+      loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
+      conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id]})
     end
     logger.info "winnder [sic] was #{winner}, loser is #{loser}"
     logger.info "prompt was #{@prompt.inspect}"

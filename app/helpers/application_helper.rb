@@ -30,9 +30,8 @@ module ApplicationHelper
     q && q.name && !q.name.empty? ? @controller.named_url_for_question(q) : default
   end
 
-  def quick_link(uri, default)
+  def quick_link(q, uri, default)
     unless @name
-      q = Question.find(1)
       @name = q && q.name && !q.name.empty? ? q.name : true
     end
     @name == true ? default : "/#{@name}/#{uri}"

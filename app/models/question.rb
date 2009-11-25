@@ -30,7 +30,7 @@ class Question < ActiveResource::Base
   end
   
   def creator
-    User.find(:first, :conditions => {:remote_user_id => })
+    User.find(:first, :conditions => {:remote_user_id => creator_id})
   end
   
   

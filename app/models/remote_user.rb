@@ -10,6 +10,10 @@ class RemoteUser < ActiveResource::Base
      return u
   end
   
+  def latest_question
+    Question.find(attributes['latest_question_id'].to_i) rescue nil
+  end
+  
   def email_confirmed?
     attributes['email_confirmed']
   end

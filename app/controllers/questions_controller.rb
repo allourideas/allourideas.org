@@ -36,20 +36,27 @@ class QuestionsController < ApplicationController
     logger.info "First choice is #{@choices.first.inspect}"
   end
   
-  def vote_left
+  def vote(direction = :left)
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
-     #@question = Question.find_by_name(params[:id])
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
     #raise Prompt.find(:all).inspect
-    winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
+    case direction
+      when :left
+        winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
+        conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+      when :right
+        loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
+        conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id]})
+      end
+    end
     logger.info "winnder [sic] was #{winner}, loser is #{loser}"
     logger.info "prompt was #{@prompt.inspect}"
     respond_to do |format|
         flash[:notice] = 'Vote was successfully counted.'
         format.xml  {  head :ok }
         format.js  { 
-          if p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+          if conditional
             newprompt = Crack::XML.parse(p.body)['prompt']
             @newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
@@ -60,31 +67,65 @@ class QuestionsController < ApplicationController
           end
           }
       end
-    end
-    
-    def vote_right
-      prompt_id = session[:current_prompt_id]
-      logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
-       #@question = Question.find_by_name(params[:id])
-      @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-      #raise Prompt.find(:all).inspect
-      loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
-      respond_to do |format|
-          flash[:notice] = 'Vote was successfully counted.'
-          format.xml  {  head :ok }
-          format.js  { 
-            if p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
-              newprompt = Crack::XML.parse(p.body)['prompt']
-              @newprompt = Question.find(params[:id])
-              render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
-                               :newright => newprompt['right_choice_text']
-                               }.to_json
-            else
-              render :json => '{"error" : "Vote failed"}'
-            end
-            }
-        end
-      end
+  end
+  
+  def vote_left
+    vote(:left)
+  end
+  
+  def vote_right
+    vote(:right)
+  end
+  
+  # def vote_left
+  #   prompt_id = session[:current_prompt_id]
+  #   logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
+  #    #@question = Question.find_by_name(params[:id])
+  #   @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
+  #   #raise Prompt.find(:all).inspect
+  #   winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
+  #   logger.info "winnder [sic] was #{winner}, loser is #{loser}"
+  #   logger.info "prompt was #{@prompt.inspect}"
+  #   respond_to do |format|
+  #       flash[:notice] = 'Vote was successfully counted.'
+  #       format.xml  {  head :ok }
+  #       format.js  { 
+  #         if p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+  #           newprompt = Crack::XML.parse(p.body)['prompt']
+  #           @newprompt = Question.find(params[:id])
+  #           render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
+  #                            :newright => newprompt['right_choice_text']
+  #                            }.to_json
+  #         else
+  #           render :json => '{"error" : "Vote failed"}'
+  #         end
+  #         }
+  #     end
+  #   end
+  #   
+  #   def vote_right
+  #     prompt_id = session[:current_prompt_id]
+  #     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
+  #      #@question = Question.find_by_name(params[:id])
+  #     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
+  #     #raise Prompt.find(:all).inspect
+  #     loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
+  #     respond_to do |format|
+  #         flash[:notice] = 'Vote was successfully counted.'
+  #         format.xml  {  head :ok }
+  #         format.js  { 
+  #           if p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+  #             newprompt = Crack::XML.parse(p.body)['prompt']
+  #             @newprompt = Question.find(params[:id])
+  #             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
+  #                              :newright => newprompt['right_choice_text']
+  #                              }.to_json
+  #           else
+  #             render :json => '{"error" : "Vote failed"}'
+  #           end
+  #           }
+  #       end
+  #     end
     
     def skip
       prompt_id = session[:current_prompt_id]

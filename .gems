@@ -10,4 +10,4 @@ josevalim-inherited_resources --version '0.9.1' --source gems.github.com
 activemerchant --version 1.4.2'
 crack
 friendly_id
-sax_machine
+sax-machine

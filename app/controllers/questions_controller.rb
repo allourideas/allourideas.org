@@ -48,6 +48,8 @@ class QuestionsController < ApplicationController
     when :right
       loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
       conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id]})
+    else
+      raise "unspecified choice"
     end
     logger.info "winnder [sic] was #{winner}, loser is #{loser}"
     logger.info "prompt was #{@prompt.inspect}"

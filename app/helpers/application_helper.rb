@@ -25,8 +25,8 @@ module ApplicationHelper
     active ? t('common.active') : t('common.inactive')
   end
 
-  def vote_quick_link(default)
-    q = Question.find(1)
+  def vote_quick_link(q, default)
+    #q = Question.find(1)
     q && q.name && !q.name.empty? ? @controller.named_url_for_question(q) : default
   end
 

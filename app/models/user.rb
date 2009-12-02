@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   def remote_user(sid = nil)
     puts "inside User#remote_user"
     unless remote_user_id.blank?
-      RemoteUser.find(self.remote_user_id)
+      RemoteUser.find(remote_user_id)
     else
       #create remote user
       return nil if sid.nil?

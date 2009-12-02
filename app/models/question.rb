@@ -1,5 +1,5 @@
 class Question < ActiveResource::Base
-  self.site = "http://pairwise.heroku.com"
+  self.site = HOST
   #self.site = "http://localhost:3001"
   #has_many :items
   

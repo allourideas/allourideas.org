@@ -37,13 +37,13 @@ module ApplicationHelper
     @name == true ? default : "/#{@name}/#{uri}"
   end
   
-  def user_set?
-     @current_user ||= auto_create_user!
-  end
+  # def user_set?
+  #    @current_user ||= auto_create_user!
+  # end
   
-  def auto_create_user!
-    @autouser ||= RemoteUser.auto_create_user_object_from_sid(request.session_options[:id])
-  end
+  # def auto_create_user!
+  #   @autouser ||= RemoteUser.auto_create_user_object_from_sid(request.session_options[:id])
+  # end
 
   def log_or_new_path
     user_set? ? new_question_path : new_user_path
@@ -58,6 +58,6 @@ module ApplicationHelper
   end
 
   def login_or_users_path
-    @controller.user_set? ? users_path : login_path
+    signed_in? ? users_path : login_path
   end
 end

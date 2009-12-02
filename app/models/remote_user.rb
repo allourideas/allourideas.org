@@ -1,5 +1,5 @@
 class RemoteUser < ActiveResource::Base
-   self.site = "http://pairwise.heroku.com/"
+   self.site = "#{HOST}/"
    self.element_name = "user"
    
    #include Clearance::User
@@ -8,6 +8,10 @@ class RemoteUser < ActiveResource::Base
      u = RemoteUser.get(:find_by_sid, :params => {:auto => sid})
      puts u.inspect + " is the result of find_by_sid"
      return u
+  end
+  
+  def set_remote_session_key!(sid)
+    post(:set, :params => {:auto => sid})
   end
   
   def latest_question

@@ -59,3 +59,4 @@ Rails::Initializer.run do |config|
   config.gem 'sax-machine'
 end
 
+HOST = 'http://localhost:3000'#http://pairwise.heroku.com'

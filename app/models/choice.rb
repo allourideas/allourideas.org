@@ -1,5 +1,5 @@
 class Choice < ActiveResource::Base
-  self.site = "http://pairwise.heroku.com/questions/:question_id/"
+  self.site = "#{HOST}/questions/:question_id/"
   attr_accessor :name, :question_text, :question_ideas
 
   def question_id

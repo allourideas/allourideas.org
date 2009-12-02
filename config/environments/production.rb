@@ -22,5 +22,5 @@ config.gem "rubaidh-google_analytics",
   :version => "1.1.4",
   :source  => "http://gems.github.com"
 
-HOST = "http://allourideas.heroku.com"
-
+HOST = "allourideas.heroku.com"
+API_HOST = "http://pairwise.heroku.com"

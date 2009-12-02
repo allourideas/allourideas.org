@@ -1,5 +1,5 @@
 class Question < ActiveResource::Base
-  self.site = HOST
+  self.site = API_HOST
   #self.site = "http://localhost:3001"
   #has_many :items
   

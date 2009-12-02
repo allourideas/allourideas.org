@@ -1,5 +1,5 @@
 class Click < ActiveResource::Base
-  self.site = HOST
+  self.site = API_HOST
 
   attr_accessor :user_id, :what_was_clicked, :additional_info
   

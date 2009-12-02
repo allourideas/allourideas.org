@@ -1,5 +1,5 @@
 class RemoteUser < ActiveResource::Base
-   self.site = "#{HOST}/"
+   self.site = "#{API_HOST}/"
    self.element_name = "user"
    
    #include Clearance::User

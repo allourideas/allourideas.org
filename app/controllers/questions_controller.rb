@@ -97,32 +97,30 @@ class QuestionsController < ApplicationController
       end
     end
 
-      def add_idea
-        prompt_id = session[:current_prompt_id]
-        logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
-        new_idea_data = params[:new_idea]
-        @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-        #:params => {:question_id => params[:id]}
-        @choice = Choice.new(:data => new_idea_data)
-        #raise Prompt.find(:all).inspect
-        respond_to do |format|
-            flash[:notice] = 'You just added an idea for people to vote on.'
-            format.xml  {  head :ok }
-            format.js  { 
-              if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]})
-                newprompt = Crack::XML.parse(p.body)['prompt']
-                puts newprompt.inspect
-                @newprompt = Question.find(params[:id])
-                render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text'], 
-                                 :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
-                ::IdeaMailer.deliver_notification @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id'] #spike
-                #notification(user, question, question_id, choice, choice_id)
-              else
-                render :json => '{"error" : "Addition of new idea failed"}'
-              end
-              }
-          end
+    def add_idea
+      prompt_id = session[:current_prompt_id]
+      logger.info "Getting ready to add an idea while viewing on Prompt #{prompt_id}, Question #{params[:id]}"
+      new_idea_data = params[:new_idea]
+      @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
+      @choice = Choice.new(:data => new_idea_data)
+      respond_to do |format|
+          flash[:notice] = 'You just added an idea for people to vote on.'
+          format.xml  {  head :ok }
+          format.js  { 
+            if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]})
+              newprompt = Crack::XML.parse(p.body)['prompt']
+              puts newprompt.inspect
+              @newprompt = Question.find(params[:id])
+              render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text'], 
+                               :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
+              #::IdeaMailer.deliver_notification @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id'] #spike
+              #notification(user, question, question_id, choice, choice_id)
+            else
+              render :json => '{"error" : "Addition of new idea failed"}'
+            end
+            }
         end
+      end
 
 
   # GET /questions/new

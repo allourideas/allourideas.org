@@ -3,7 +3,7 @@ class ChoicesController < ApplicationController
     @question = Question.find_by_name(params[:question_id])
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     if @choice
-      @data = @choice.attributes['data']
+      @data = @choice.attributes['item_data']
       @score = @choice.attributes['score'].round
       logger.info "the score is #{@score.inspect}"
       @created_at = @choice.attributes['created_at']

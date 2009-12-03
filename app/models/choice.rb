@@ -16,7 +16,7 @@ class Choice < ActiveResource::Base
   end
   
   def data
-    attributes['data']
+    attributes['item_data']
   end
   
   def activate!

@@ -107,7 +107,9 @@ class QuestionsController < ApplicationController
           flash[:notice] = 'You just added an idea for people to vote on.'
           format.xml  {  head :ok }
           format.js  { 
-            if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]})
+            the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}
+            the_params.merge!(:local_identifier => current_user.id) if signed_in?
+            if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => the_params)
               newprompt = Crack::XML.parse(p.body)['prompt']
               puts newprompt.inspect
               @newprompt = Question.find(params[:id])
@@ -174,8 +176,8 @@ class QuestionsController < ApplicationController
         logger.info "just saved the user in Questions#create"
         #now create the user in the remote system
         logger.info "now about to try to create the remote user for local user #{@user.id} based on the current session"
-        @user.remote_user(request.session_options[:id])
-        logger.info "ostensibly just created the remote user based on the current session"
+        #@user.remote_user(request.session_options[:id])
+        #logger.info "ostensibly just created the remote user based on the current session"
         sign_in @user
         ::ClearanceMailer.deliver_confirmation @user
       else
@@ -185,9 +187,7 @@ class QuestionsController < ApplicationController
     end
     #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
     
-    #tell the remote server that the creator is the associated remote user
-    # @question = Question.new(params[:question].except('url').merge({'auto' => request.session_options[:id]}))
-    @question = Question.new(params[:question].except('url').merge({'creator_id' => current_user.remote_user(request.session_options[:id]).id}))
+    @question = Question.new(params[:question].except('url').merge({'local_identifier' => current_user.id, 'visitor_identifier' => request.session_options[:id]}))
     respond_to do |format|
       if @question.save
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])

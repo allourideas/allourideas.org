@@ -1,5 +1,7 @@
 class Question < ActiveResource::Base
   self.site = API_HOST
+  self.user = PAIRWISE_USERNAME
+  self.password = PAIRWISE_PASSWORD
   #self.site = "http://localhost:3001"
   #has_many :items
   

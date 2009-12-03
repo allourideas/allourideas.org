@@ -16,5 +16,8 @@ config.action_view.debug_rjs                         = true
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-HOST = 'localhost:3000'
+HOST = 'localhost'
+API_HOST = "http://localhost:3000"
 
+PAIRWISE_USERNAME = "pius@alum.mit.edu"
+PAIRWISE_PASSWORD = "password"

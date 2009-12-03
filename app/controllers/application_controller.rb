@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     puts request.session_options[:id]
     if signed_in?
       logger.info "current user is #{current_user.inspect}"
-      current_user.set_remote_session_key!(request.session_options[:id])
+      #current_user.set_remote_session_key!(request.session_options[:id])
     end
   end
   

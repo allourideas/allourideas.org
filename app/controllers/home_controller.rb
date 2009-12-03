@@ -37,7 +37,7 @@ class HomeController < ApplicationController
   end
 
   def about
-    about_question = Question.find(1)#Const::ABOUT_QUESTION_ID)
+    #about_question = Question.find(1)#Const::ABOUT_QUESTION_ID)
     # set_pairwise_user(about_question.user.email, about_question.user.decoded_password)
     # @id, @question, @items, @votes = Pairwise.get_question(about_question.pairwise_id)
     # @url1 = named_url_for_question(about_question)

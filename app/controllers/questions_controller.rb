@@ -174,10 +174,6 @@ class QuestionsController < ApplicationController
                          :password_confirmation => params[:question]['password'])
       if @user.save
         logger.info "just saved the user in Questions#create"
-        #now create the user in the remote system
-        logger.info "now about to try to create the remote user for local user #{@user.id} based on the current session"
-        #@user.remote_user(request.session_options[:id])
-        #logger.info "ostensibly just created the remote user based on the current session"
         sign_in @user
         ::ClearanceMailer.deliver_confirmation @user
       else
@@ -187,7 +183,7 @@ class QuestionsController < ApplicationController
     end
     #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
     
-    @question = Question.new(params[:question].except('url').merge({'local_identifier' => current_user.id, 'visitor_identifier' => request.session_options[:id]}))
+    @question = Question.new(params[:question].except('url').merge({'local_identifier' => current_user.id, 'visitor_identifier' => request.session_options[:id], :ideas => params[:question]['question_ideas']}))
     respond_to do |format|
       if @question.save
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])

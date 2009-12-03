@@ -34,7 +34,9 @@ class User < ActiveRecord::Base
       #create remote user
       return nil if sid.nil?
       u = RemoteUser.auto_create_user_object_from_sid(sid)
+      #raise "hell" unless u.errors.empty
       u = RemoteUser.find_by_sid(sid)
+      
       self.remote_user_id = u['id']
       save!
       return u

@@ -166,7 +166,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    just_registered = false
+    just_registered = true
     unless signed_in?
        logger.info "not signed in, getting ready to instantiate a new user from params in Questions#create"
       #try to register the user before adding the question
@@ -190,7 +190,7 @@ class QuestionsController < ApplicationController
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])
         logger.info "Question was successfully created."
         flash[:notice] = 'Question was successfully created.'
-        ::ClearanceMailer.deliver_confirmation(@user, @question.fq_earl) if just_registered
+        ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
         format.html { redirect_to(@question.earl) }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
       else

@@ -27,12 +27,13 @@ class Question < ActiveResource::Base
   end
   
   def creator_id
-    c = attributes['creator_id']
-    return c.first if c.is_a?(Array)
+    c = attributes['local_identifier']
+    c = c.first if c.is_a?(Array)
+    c.to_i
   end
-  
+
   def creator
-    User.find(:first, :conditions => {:remote_user_id => creator_id})
+    User.find(creator_id)
   end
   
   

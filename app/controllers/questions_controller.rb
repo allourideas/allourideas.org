@@ -115,7 +115,7 @@ class QuestionsController < ApplicationController
               @newprompt = Question.find(params[:id])
               render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text'], 
                                :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
-              #::IdeaMailer.deliver_notification @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id'] #spike
+              ::IdeaMailer.deliver_notification @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id'] #spike
               #notification(user, question, question_id, choice, choice_id)
             else
               render :json => '{"error" : "Addition of new idea failed"}'

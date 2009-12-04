@@ -18,11 +18,18 @@ class ChoicesController < ApplicationController
   
   
   def activate
+    authenticate
+    
+    
+    
     @question = Question.find_by_name(params[:question_id])
     logger.info "actual question ID is #{@question.id}"
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     logger.info "Found choice: #{@choice.inspect}"
     #@choice.activate! if @choice
+    
+    redirect_to('/') and return unless current_user == @choice.creator
+    
     @choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
     flash[:for_real] = "You have successfully activated the idea <strong>#{@choice.attributes['data']}</strong>"
     logger.info flash[:notice]

@@ -28,7 +28,7 @@ class ChoicesController < ApplicationController
     logger.info "Found choice: #{@choice.inspect}"
     #@choice.activate! if @choice
     
-    redirect_to('/') and return unless current_user == @choice.creator
+    redirect_to('/') and return unless current_user == @question.creator
     
     @choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
     flash[:for_real] = "You have successfully activated the idea <strong>#{@choice.attributes['data']}</strong>"

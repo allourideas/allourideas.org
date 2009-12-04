@@ -2,12 +2,7 @@ class Question < ActiveResource::Base
   self.site = API_HOST
   self.user = PAIRWISE_USERNAME
   self.password = PAIRWISE_PASSWORD
-  #self.site = "http://localhost:3001"
-  #has_many :items
-  
-  # def items
-  #   item_ids.map {|i| Item.find(i)}
-  # end
+
   attr_accessor :name, :question_text, :question_ideas, :url, :information, :email, :password
   
   def self.find_by_name(name)

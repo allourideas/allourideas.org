@@ -18,7 +18,7 @@ class ClearanceMailer < ActionMailer::Base
                       :scope   => [:clearance, :models, :clearance_mailer],
                       :default => "Account confirmation")
     body      :user => user, :marketplace_url => earl
-    content_type "text/html"
+    #content_type "text/html"
   end
 
 end

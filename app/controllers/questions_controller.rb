@@ -190,7 +190,7 @@ class QuestionsController < ApplicationController
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])
         logger.info "Question was successfully created."
         flash[:notice] = 'Question was successfully created.'
-        ::ClearanceMailer.deliver_confirmation(@user, @question.earl) if just_registered
+        ::ClearanceMailer.deliver_confirmation(@user, @question.fq_earl) if just_registered
         format.html { redirect_to(@question.earl) }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
       else

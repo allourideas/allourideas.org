@@ -24,3 +24,5 @@ config.gem "rubaidh-google_analytics",
 
 HOST = "allourideas.heroku.com"
 API_HOST = "http://pairwise.heroku.com"
+PAIRWISE_USERNAME = ENV['PAIRWISE_USERNAME']
+PAIRWISE_PASSWORD = ENV['PAIRWISE_PASSWORD']

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   caches_page :index, :about, :tour, :privacy
 
   def index
-    demo_vars
+    #demo_vars
   end
 
   def login
@@ -52,7 +52,7 @@ class HomeController < ApplicationController
 
   private
     def demo_vars
-      question = Question.find(4)#Const::TOUR_DEMO_QUESTION_ID)
+      question = Question.find(1)#Const::TOUR_DEMO_QUESTION_ID)
       #set_pairwise_user(question.user.email, question.user.decoded_password)
       #@id, @question, @items, @votes = Pairwise.get_question(question.pairwise_id)
       #@url1 = named_url_for_question(question)

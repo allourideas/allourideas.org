@@ -19,5 +19,5 @@ config.action_mailer.raise_delivery_errors = false
 HOST = 'localhost'
 API_HOST = "http://localhost:3000"
 
-PAIRWISE_USERNAME = "pius@alum.mit.edu"
-PAIRWISE_PASSWORD = "password"
+PAIRWISE_USERNAME = "pius+serious@alum.mit.edu"
+PAIRWISE_PASSWORD = "yabbadabbadoo"

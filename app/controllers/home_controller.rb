@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  caches_page :index, :about, :tour, :privacy
+  #caches_page :about, :tour, :privacy
 
   def index
     #demo_vars

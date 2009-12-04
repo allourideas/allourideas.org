@@ -18,9 +18,7 @@ class ChoicesController < ApplicationController
   
   
   def activate
-    authenticate
-    
-    
+    authenticate and return unless current_user
     
     @question = Question.find_by_name(params[:question_id])
     logger.info "actual question ID is #{@question.id}"

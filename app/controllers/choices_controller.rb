@@ -7,7 +7,7 @@ class ChoicesController < ApplicationController
       @score = @choice.attributes['score'].round rescue (@score = 0)
       logger.info "the score is #{@score.inspect}"
       @created_at = @choice.attributes['created_at']
-      @votes_count = @choice.attributes['votes_count']
+      @votes_count = @choice.attributes['wins_plus_losses']
       respond_to do |format|
         format.html # show.html.erb
       end

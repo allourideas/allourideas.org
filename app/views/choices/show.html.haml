@@ -3,10 +3,10 @@
   %table.full.item
     %tr.row0
       %th{:colspan => 2}
-        = @question.the_name
+        = @question.the_name.strip
     %tr
       %td= t('items.idea')
-      %td= @data
+      %td{:width=>'80%'}= @data.strip
     %tr
       %td= t('items.added_on')
       %td= @created_at.strftime("%m/%d/%Y at %I:%M%p")

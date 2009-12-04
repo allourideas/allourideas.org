@@ -1,5 +1,5 @@
 class EarlsController < ApplicationController
-  caches_page :show
+  #caches_page :show
   
   def show
     @earl = Earl.find(params[:id])

@@ -58,7 +58,14 @@ class QuestionsController < ApplicationController
         format.js  { 
           if conditional
             newprompt = Crack::XML.parse(p.body)['prompt']
-            @newprompt = Question.find(params[:id])
+            begin
+               @newprompt = Question.find(params[:id])
+            rescue
+              logger.info "tried and failed to find question with id #{params[:id]} at #{Time.now}, retrying now ..."
+              retry  # restart from beginning
+            end
+            
+            
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
                              :newright => newprompt['right_choice_text']
                              }.to_json
@@ -130,26 +137,8 @@ class QuestionsController < ApplicationController
   def new
     if signed_in?
       @registered = true
-    # else
-    #   auto_create_user!
     end
-    # 
-    # 
-    # 
-    # 
-    # #ok.  we need to query the Pairwise API to find out if the current user is actually registered.
-    # #If so, no need to show username and password fields
-    # #If not, show the fields
-    # auto_create_user!
-    # sid = request.session_options[:id]
-    # begin
-    #   u = RemoteUser.find_by_sid(sid)
-    #   #@registered = u.email_confirmed
-    #   @registered = signed_in?
-    # rescue
-    #   u = RemoteUser.auto_create_user_object_from_sid(sid)
-    # end
-    
+
     @question = Question.new
 
     respond_to do |format|

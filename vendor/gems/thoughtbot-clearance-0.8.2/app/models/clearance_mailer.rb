@@ -11,13 +11,13 @@ class ClearanceMailer < ActionMailer::Base
     body       :user => user
   end
 
-  def confirmation(user)
+  def confirmation(user, earl = 'http://www.allourideas.org')
     from       DO_NOT_REPLY
     recipients user.email
     subject    I18n.t(:confirmation,
                       :scope   => [:clearance, :models, :clearance_mailer],
                       :default => "Account confirmation")
-    body      :user => user
+    body      :user => user, :marketplace_url => earl
     content_type "text/html"
   end
 

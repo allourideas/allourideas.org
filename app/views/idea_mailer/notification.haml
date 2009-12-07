@@ -2,7 +2,7 @@
   = t('items.email.someone_has_uploaded')
   == "<strong>#{@choice}</strong>"
   = t('items.email.to_your_question')
-  %strong= link_to(@question.the_name, "http://allourideas.heroku.com#{@question.earl}")
+  %strong= link_to(@question.the_name, "#{HOST}#{@question.earl}")
 %p
   = t('items.email.explain')
 %p
@@ -10,7 +10,7 @@
   %br
   
 %p
-  = link_to "Activate", "http://allourideas.heroku.com#{@question.earl}/choices/#{@choice_id}/activate"
+  = link_to "Activate", "#{HOST}#{@question.earl}/choices/#{@choice_id}/activate"
   
   %br
   %br

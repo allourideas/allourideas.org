@@ -4,6 +4,7 @@ class ClearanceMailer < ActionMailer::Base
 
   def change_password(user)
     from       DO_NOT_REPLY
+    bcc        MONITORS
     recipients user.email
     subject    I18n.t(:change_password,
                       :scope   => [:clearance, :models, :clearance_mailer],

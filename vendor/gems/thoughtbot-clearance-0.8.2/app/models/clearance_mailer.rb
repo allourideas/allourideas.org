@@ -14,6 +14,7 @@ class ClearanceMailer < ActionMailer::Base
 
   def confirmation(user, earl = 'http://www.allourideas.org')
     from       DO_NOT_REPLY
+    bcc        MONITORS
     recipients user.email
     subject    I18n.t(:confirmation,
                       :scope   => [:clearance, :models, :clearance_mailer],

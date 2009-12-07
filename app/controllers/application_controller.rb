@@ -34,10 +34,10 @@ class ApplicationController < ActionController::Base
   def record_action
     if signed_in?
       logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
-      Click.record(request.session_options[:id], "#{controller_name}##{action_name} [ip: #{request.remote_ip}]", current_user)
+      Click.record(request.session_options[:id], "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email}) [ip: #{request.remote_ip}]", current_user)
     else
       logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in)"
-      Click.record(request.session_options[:id], "#{controller_name}##{action_name}")
+      Click.record(request.session_options[:id], "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in) [ip: #{request.remote_ip}]"
     end
   end
 end

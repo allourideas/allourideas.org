@@ -90,6 +90,7 @@ class QuestionsController < ApplicationController
         format.js  { 
           if p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id]})
             newprompt = Crack::XML.parse(p.body)['prompt']
+            session[:current_prompt_id] = newprompt['id']
             @newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text']}.to_json
           else

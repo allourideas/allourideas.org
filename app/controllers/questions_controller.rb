@@ -58,6 +58,8 @@ class QuestionsController < ApplicationController
           if conditional
             flash[:notice] = 'Vote was successfully counted.'
             newprompt = Crack::XML.parse(p.body)['prompt']
+            logger.info "newprompt is #{newprompt.inspect}"
+            session[:current_prompt_id] = newprompt['id']
             @newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
                              :newright => newprompt['right_choice_text']

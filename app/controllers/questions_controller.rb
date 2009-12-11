@@ -58,12 +58,12 @@ class QuestionsController < ApplicationController
         format.js  { 
           if conditional
             newprompt = Crack::XML.parse(p.body)['prompt']
-            begin
+            #begin
                @newprompt = Question.find(params[:id])
-            rescue
-              logger.info "tried and failed to find question with id #{params[:id]} at #{Time.now}, retrying now ..."
-              retry  # restart from beginning
-            end
+            # rescue
+            #   logger.info "tried and failed to find question with id #{params[:id]} at #{Time.now}, retrying now ..."
+            #   retry  # restart from beginning
+            # end
             
             
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 

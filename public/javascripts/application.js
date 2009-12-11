@@ -147,7 +147,7 @@ jQuery(document).ready(function() {
 	
 	
 	$('.vote_left').bind('click',function(event){
-		$.setFragment({ "prompt" : $.queryString($('a#leftside').attr("choice_id")) });
+		//$.setFragment({ "prompt" : $.queryString($('a#leftside').attr("choice_id")) });
 		
 		
 		var question_id = $(this).attr("rel");
@@ -224,7 +224,7 @@ jQuery(document).ready(function() {
 
 
 	$('.vote_right').bind('click',function(event){
-		$.setFragment({ "prompt" : $.queryString($('a#leftside').attr("choice_id")) });
+		//$.setFragment({ "prompt" : $.queryString($('a#leftside').attr("choice_id")) });
 
 		var question_id = $(this).attr("rel");
 		var question_slug = $(this).attr("question_slug");

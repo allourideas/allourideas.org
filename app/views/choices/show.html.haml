@@ -12,7 +12,12 @@
       %td= @created_at.strftime("%m/%d/%Y at %I:%M%p")
     %tr
       %td= t('items.score')
-      %td= @score.to_i
+      %td= @score.to_i.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
     %tr
       %td= t('items.number_of_votes')
       %td= @votes_count
+      
+
+#explanation{:style => 'display:none;'}
+  %h2 About the Scoring
+  The scores here are computed as a percentage of votes in which the choice was preferred.

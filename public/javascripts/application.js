@@ -167,14 +167,14 @@ jQuery(document).ready(function() {
 		  $('.tellmearea').html('');
 			$('.indicator').show();
 		 },
-		 timeout: 2000,
+		 timeout: 5000,
 		 error: function(request,error) {
 			$('.indicator').hide();
 		  if (error == "timeout") {
 			$('.tellmearea').html('Sorry, voting is taking too long ... too much traffic!').effect("highlight", {color: '#ff0000'}, 1500);
 		  }
 		  else {
-				$('.tellmearea').html("Sorry, your vote wasn't counted ... too much traffic!").effect("highlight", {color: '#ff0000'}, 1500);
+				$('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
 		  }
 		  },
 		  success: function(data){
@@ -240,14 +240,14 @@ jQuery(document).ready(function() {
 		  $('.tellmearea').html('');
 			$('.indicator').show();
 		 },
-		 timeout: 2000,
+		 timeout: 5000,
 		 error: function(request,error) {
 			$('.indicator').hide();
-		  if (error = "timeout") {
+		  if (error == "timeout") {
 			$('.tellmearea').html('Sorry, voting is taking too long ... too much traffic!').effect("highlight", {color: '#ff0000'}, 1500);
 		  }
 		  else {
-				$('.tellmearea').html("Sorry, your vote wasn't counted ... too much traffic!").effect("highlight", {color: '#ff0000'}, 1500);
+				$('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
 		  }
 		  },
 		  success:  function(data){

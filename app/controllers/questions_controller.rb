@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
     logger.info "First choice is #{@choices.first.inspect}"
   end
   
-  def vote(direction = :left)
+  def vote(direction)
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
@@ -53,19 +53,12 @@ class QuestionsController < ApplicationController
     logger.info "winnder [sic] was #{winner}, loser is #{loser}"
     logger.info "prompt was #{@prompt.inspect}"
     respond_to do |format|
-        flash[:notice] = 'Vote was successfully counted.'
         format.xml  {  head :ok }
         format.js  { 
           if conditional
+            flash[:notice] = 'Vote was successfully counted.'
             newprompt = Crack::XML.parse(p.body)['prompt']
-            #begin
-               @newprompt = Question.find(params[:id])
-            # rescue
-            #   logger.info "tried and failed to find question with id #{params[:id]} at #{Time.now}, retrying now ..."
-            #   retry  # restart from beginning
-            # end
-            
-            
+            @newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
                              :newright => newprompt['right_choice_text']
                              }.to_json

@@ -282,3 +282,4 @@ jQuery(document).ready(function() {
 		}); // End ajax method
 		return false;
 	});
+});

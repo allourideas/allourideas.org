@@ -6,11 +6,12 @@ class Click < ActiveResource::Base
   attr_accessor :user_id, :what_was_clicked, :additional_info
   
   def self.record(sid, clicked_on, user = nil)
-    if user
-      click = Click.new(:sid => sid, :what_was_clicked => clicked_on)
-    else #for now, the same
-      click = Click.new(:sid => sid, :what_was_clicked => clicked_on)
-    end
-    click.save
+    # if user
+    #   click = Click.new(:sid => sid, :what_was_clicked => clicked_on)
+    # else #for now, the same
+    #   click = Click.new(:sid => sid, :what_was_clicked => clicked_on)
+    # end
+    # click.save
+    return true
   end
 end

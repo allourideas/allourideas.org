@@ -180,7 +180,6 @@ jQuery(document).ready(function() {
 			$.unblockUI();
 		  if (error == "timeout") {
 			$('.tellmearea').html('Sorry, voting is taking too long ... too much traffic!').effect("highlight", {color: '#ff0000'}, 1500);
-			$(this).addClass('vote_left').removeAttr('disabled');
 		  }
 		  else {
 				$('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
@@ -194,7 +193,6 @@ jQuery(document).ready(function() {
 				$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
 				current_vote_count = $('#votes_count').html();
 				$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
-				//$(this).addClass('vote_left').removeAttr('disabled');
 				$.unblockUI();
 
 			  $(".votebox tr.prompt td.idea").each(function(el) {
@@ -260,13 +258,12 @@ jQuery(document).ready(function() {
 		 timeout: 5000,
 		 error: function(request,error) {
 			$('.indicator').hide();
+			$.unblockUI();
 		  if (error == "timeout") {
 			$('.tellmearea').html('Sorry, voting is taking too long ... too much traffic!').effect("highlight", {color: '#ff0000'}, 1500);
-			$(this).addClass('vote_right').removeAttr('disabled').unblock();
 		  }
 		  else {
 				$('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
-				$(this).addClass('vote_right').removeAttr('disabled').unblock();
 		  }
 		  },
 		  success:  function(data){

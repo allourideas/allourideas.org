@@ -1,8 +1,15 @@
+-if @question
+  -@cast_votes_url = @question.earl
+  -@results_url = @question.earl + "/results"
+-else
+  -@cast_votes_url = "http://#{HOST}/#{@earl.name}"
+  -@results_url = "http://#{HOST}/#{@earl.name}" + "/results"
+
 .vote-nav
   .fleft
     .bread-crumb
   .fright
-    =loc_based_style(link_to(t('vote.cast_votes'), vote_quick_link(@question, "#{@earl.name}")), t('vote.cast_votes'))
+    =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
     %span.grey &nbsp;|&nbsp;
-    = loc_based_style(link_to(t('nav.view_results'), quick_link(@question, 'items', "#{@earl.name}/results")), t('nav.view_results'))
+    = loc_based_style(link_to(t('nav.view_results'), @results_url), t('nav.view_results'))
   .clear

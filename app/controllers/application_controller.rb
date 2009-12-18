@@ -19,7 +19,11 @@ class ApplicationController < ActionController::Base
   #   # cookie set to 5 years.., the above uses @current_user set in previous line.
   # end
   
-  before_filter :initialize_session, :record_action
+  before_filter :initialize_session, :record_action, :set_urls
+  
+  def set_urls
+
+  end
   
   def initialize_session
     puts request.session_options[:id]

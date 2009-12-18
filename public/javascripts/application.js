@@ -168,7 +168,8 @@ jQuery(document).ready(function() {
 			$('.indicator').show();
 			$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 			        backgroundColor: '#000', 
-			        opacity:         0.0 
+			        opacity:         0.0,
+			cursor:    null
 			    }}); 
 			//$().ajaxStart($.blockUI).ajaxStop($.unblockUI);
 			//$(this).removeClass('vote_left').attr('disabled', 'disabled');
@@ -249,7 +250,8 @@ jQuery(document).ready(function() {
 		 beforeSend: function() {
 			$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 			        backgroundColor: '#000', 
-			        opacity:         0.0 
+			        opacity:         0.0,
+			cursor:    null
 			    }});
 			
 		  $('.tellmearea').html('');

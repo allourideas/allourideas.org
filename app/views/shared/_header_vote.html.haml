@@ -1,6 +1,7 @@
 -if @question
   -@cast_votes_url = @question.earl
   -@results_url = @question.earl + "/results"
+  -@all_results_url = "#{@results_url}?all=true"
 -else
   -@cast_votes_url = "http://#{HOST}/#{@earl.name}"
   -@results_url = "http://#{HOST}/#{@earl.name}" + "/results"

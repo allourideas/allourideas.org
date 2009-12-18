@@ -9,6 +9,10 @@ class Question < ActiveResource::Base
     Earl.find(name).question rescue nil
   end
   
+  def self.find_id_by_name(name)
+    Earl.find(name).question_id rescue nil
+  end
+  
   def earl
     "/#{Earl.find_by_question_id(id).name}" rescue nil
   end

@@ -17,6 +17,7 @@ config.action_view.debug_rjs                         = true
 config.action_mailer.raise_delivery_errors = false
 
 HOST = 'localhost'
+#API_HOST = "http://204.236.224.252"
 API_HOST = "http://localhost:3000"
 
 PAIRWISE_USERNAME = "pius+serious@alum.mit.edu"

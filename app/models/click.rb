@@ -11,7 +11,7 @@ class Click < ActiveResource::Base
     else #for now, the same
       click = Click.new(:sid => sid, :what_was_clicked => clicked_on)
     end
-    click.save
+    #click.save
     return true
   end
 end

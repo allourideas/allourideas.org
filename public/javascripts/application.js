@@ -98,6 +98,11 @@ jQuery(document).ready(function() {
 	$('.new_idea_submit').bind('click',function(event){
 		$.setFragment({ "page" : $.queryString(this.href).page });
 		$('.indicator').show();
+		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:         0.0,
+		cursor:    null
+		    }});
 		var question_id = $(this).attr("rel");
 		var new_idea = $('#new_idea_field').val();
 		$('#new_idea_field').empty().val('').hint();
@@ -112,6 +117,7 @@ jQuery(document).ready(function() {
 			current_item_count = $('#item_count').html();
 			$('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
 			$('.indicator').hide();
+			$.unblockUI();
 			
 			var str = $("#submit_btn").attr("src");
 			$("#submit_btn").attr('src', str.replace("-down.jpg", ".jpg"));
@@ -126,11 +132,17 @@ jQuery(document).ready(function() {
 	$('.skiplink').bind('click',function(event){
 		$.setFragment({ "page" : $.queryString(this.href).page });
 		$('.indicator').show();
+		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:         0.0,
+		cursor:    null
+		    }});
 		var question_id = $(this).attr("rel");
 		$.post('/questions/' + question_id + '/skip.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
 			$('.indicator').hide();
+			$.unblockUI();
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
 			//humanMsg.displayMsg('<strong>Skipped.</strong> <span class="indent">You just skipped the last prompt.</span>');

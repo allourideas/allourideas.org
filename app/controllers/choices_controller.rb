@@ -1,6 +1,7 @@
 class ChoicesController < ApplicationController
   def show
     @question_id = Question.find_id_by_name(params[:question_id])
+    @earl = Earl.find params[:question_id]
     @choice = Choice.find(params[:id], :params => {:question_id => @question_id})
     if @choice
       @question_name = @choice.attributes['question_name']

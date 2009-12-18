@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
   def results
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @question = Question.find_by_name(params[:id])
+    @earl = Earl.find params[:id]
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@question.earl}/results"
     @all_results_url = "#{@question.earl}/results?all=true"

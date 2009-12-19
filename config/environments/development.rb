@@ -16,7 +16,7 @@ config.action_view.debug_rjs                         = true
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-HOST = 'localhost'
+HOST = 'http://localhost:3001'
 API_HOST = "http://204.236.224.252"
 #API_HOST = "http://localhost:3000"
 

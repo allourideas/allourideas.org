@@ -25,7 +25,7 @@ config.gem "rubaidh-google_analytics",
 
 #pains me to do this, but can't seem to get environment variables set in EY
 #will change login after demo
-HOST = 'http://allourideas.net' #"http://www.allourideas.org"
-API_HOST = "http://204.236.224.252"#"#ENV['PAIRWISE_API_HOST']
-PAIRWISE_USERNAME = "pius+serious@alum.mit.edu"#ENV['PAIRWISE_USERNAME']
-PAIRWISE_PASSWORD = "yabbadabbadoo"#ENV['PAIRWISE_PASSWORD']
+HOST = 'http://www.allourideas.org' #"http://www.allourideas.org"
+API_HOST = ENV['PAIRWISE_API_HOST']
+PAIRWISE_USERNAME = ENV['PAIRWISE_USERNAME']
+PAIRWISE_PASSWORD = ENV['PAIRWISE_PASSWORD']

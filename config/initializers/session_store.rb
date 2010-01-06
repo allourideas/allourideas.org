@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :session_key => "_allourideas_ey_session",
+  :session_key => "_allourideas_ey_session_#{RAILS_ENV}",
   :secret      => "6dba8105d5aea328b336942988bcfd80erwe"
 }
 

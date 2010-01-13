@@ -17,7 +17,9 @@
     %tr
       %td{:colspan => 3}= rounded(@question.attributes['name'], 'border')
     %tr.prompt.prompter
-      %td.half.idea.left.vote_left{:rel => @question.id}= rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
+      %td.half.idea.left.vote_left{:rel => @question.id}
+        :escaped
+          = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
       %td
       %td.idea.right.vote_right{:rel => @question.id}= rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
   %table.vote-footer

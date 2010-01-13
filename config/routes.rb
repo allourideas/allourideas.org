@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.resources :choices, :member => {:activate => :get}
   map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   map.activate_choice '/:question_id/choices/:id/activate', :controller => 'choices', :action => 'activate'
+  map.deactivate_choice '/:question_id/choices/:id/deactivate', :controller => 'choices', :action => 'deactivate'
   map.about '/about', :controller => 'home', :action => 'about'
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'
   map.tour '/tour', :controller => 'home', :action => 'tour'

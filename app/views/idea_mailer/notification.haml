@@ -1,22 +1,21 @@
-%p
-  = t('items.email.someone_has_uploaded')
-  == "<strong>#{@choice}</strong>"
-  = t('items.email.to_your_question')
-  %strong= link_to(@question.the_name, "#{HOST}#{@question.earl}")
-%p
-  = t('items.email.explain')
-%p
-  = t('items.email.if_you_want') + ':'
-  %br
-  
-%p
-  = link_to "Activate", "#{HOST}#{@question.earl}/choices/#{@choice_id}/activate"
-  
-  %br
-  %br
-  %br
+Hi,
 
-  = t('items.email.explain2')
-%br
-%p
-  == #{t('common.salutation')}, #{link_to('All Our Ideas', root_path(:only_path => false, :host => @host))}
+= "Someone has uploaded the idea #{@choice} to your question "
+= link_to(@question.the_name, "#{HOST}#{@question.earl}")
+.
+
+In order to prevent inappropriate or malicious ideas, you will need to activate this idea before others can vote on it.
+
+If you want others to vote on this idea, go to the following url:
+
+= "#{HOST}#{@question.earl}/choices/#{@choice_id}/activate"
+
+
+If you do not want others to vote on this idea, no action is required.
+
+
+Thanks,
+All Our Ideas
+145 Wallace Hall
+Princeton, NJ 08544
+questions@allourideas.org

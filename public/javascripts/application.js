@@ -94,9 +94,28 @@ jQuery(document).ready(function() {
 	humanMsg.setup();
 	$("#tabs").tabs();
 	
+	humane_message_to_be_displayed = $('.to_be_humanized').text()
+	
+	if (humane_message_to_be_displayed) {
+		humanMsg.displayMsg(humane_message_to_be_displayed);
+	}
+	
 	
 	$('.new_idea_submit').bind('click',function(event){
+		var new_idea = $('#new_idea_field').val();
+		
+		//if new idea is blank or longer than 140 characters, do not allow it to submit
+		if ((new_idea == 'Add your own idea here...') || (new_idea == '')) {
+			alert('Sorry, blank ideas are not allowed.');
+			return false;
+		}
+		if (new_idea.length == 140) {
+			alert('Sorry, ideas need to be less than 140 characters.');
+			return false;
+		}
+		
 		$.setFragment({ "page" : $.queryString(this.href).page });
+		
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
@@ -104,18 +123,43 @@ jQuery(document).ready(function() {
 		cursor:    null
 		    }});
 		var question_id = $(this).attr("rel");
-		var new_idea = $('#new_idea_field').val();
+		
 		$('#new_idea_field').empty().val('').hint();
 		$.post('/questions/' + question_id + '/add_idea.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
 		function(data){
-			$('.tellmearea').html(data["message"]);
-			$('.leftside').html(data["newleft"]);
-			$('.rightside').html(data["newright"]);
+			// $('.tellmearea').html(data["message"]);
+			// $('.leftside').html(data["newleft"]);
+			// $('.rightside').html(data["newright"]);
+			
 			//humanMsg.displayMsg(data["message"]);
-			$('.prompter').effect("highlight", {}, 1500);
-			current_item_count = $('#item_count').html();
-			$('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
+			//$('.prompter').effect("highlight", {}, 1500);
+			//increment counter if the new idea is active
+			
+			
+			
+			
+			var max = $(this).attr('maxlength');
+			    var val = $(this).attr('value');
+			    var cur = 0;
+			    if(val) // value="", or no value at all will cause an error
+			      cur = val.length;
+			    var left = max-cur;
+			    $(this).after("<div class='counter'>"
+			      + left.toString()+"</div>");
+			    // You can use something like this to align the
+			    // counter to the right of the input field.
+			    var c = $(this).next(".counter");
+			
+			
+			
+			
+			if (data['choice_status'] == 'active') {
+				current_item_count = $('#item_count').html();
+				$('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
+			}
+			
+			
 			$('.indicator').hide();
 			$.unblockUI();
 			

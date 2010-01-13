@@ -58,3 +58,6 @@ Rails::Initializer.run do |config|
   config.gem 'friendly_id'
   config.gem 'sax-machine'
 end
+
+PRODUCTION_API_HOST = "http://allrideas.net"
+STAGING_API_HOST = "http://allrideas.com"

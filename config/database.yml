@@ -11,8 +11,8 @@ test: &TEST
   <<: *default
   database: db/test.sqlite3
 
-cucumber:
-  <<: *test
+staging:
+  <<: *default
 
 
 cucumber:

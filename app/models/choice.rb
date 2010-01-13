@@ -1,12 +1,12 @@
 class Choice < ActiveResource::Base
-  case RAILS_ENV
-  when 'staging'
-    self.site = "#{STAGING_API_HOST}/questions/:question_id/"
-  when 'production'
-    self.site = "#{PRODUCTION_API_HOST}/questions/:question_id/"
-  else
+  # case RAILS_ENV
+  # when 'staging'
+  #   self.site = "#{STAGING_API_HOST}/questions/:question_id/"
+  # when 'production'
+  #   self.site = "#{PRODUCTION_API_HOST}/questions/:question_id/"
+  # else
     self.site = "#{API_HOST}/questions/:question_id/"
-  end
+  #end
   
   self.user = PAIRWISE_USERNAME
   self.password = PAIRWISE_PASSWORD

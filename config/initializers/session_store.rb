@@ -7,7 +7,7 @@
 case RAILS_ENV
 when 'staging'
 ActionController::Base.session = {
-  :session_key => "_allourideas_ey_session_#{RAILS_ENV}_#{Time.now.inspect}",
+  :session_key => "_allourideas_ey_session_#{RAILS_ENV}",
   :secret      => "6dba8105d5aea328b336942988bcfd80erwe"
 }
 else

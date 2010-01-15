@@ -7,7 +7,7 @@
     = link_to(image_tag('logo-open.jpg', :id => 'logo-open'), 'http://github.com/pius/allourideas2')
     %p= t('footer.open_source')
   .triple-right
-    = link_to(image_tag('logo-check.jpg', :id => 'logo-check'), 'login_or_users_path')
+    = link_to(image_tag('logo-check.jpg', :id => 'logo-check'), 'http://www.allourideas.org')
     -if signed_in?
       %p
         = "#{t('footer.logged_in')} as #{current_user.email}"

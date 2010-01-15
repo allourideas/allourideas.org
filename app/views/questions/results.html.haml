@@ -18,7 +18,7 @@
           .bar-chart
             %div{:style => "width:#{choice.attributes['score']}%"}
             =#df
-    -unless params[:all]#@items_all || @items_newest
+    -if !params[:all] and (@question.attributes['choices_count'].to_i > 10)#@items_all || @items_newest
       %tr.row1
         %td{:colspan => 3}
           %strong= link_to(t('nav.see_all_ideas'), @all_results_url)#quick_link('items/all', "items_path(:question_id => @question_id)"))

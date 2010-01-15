@@ -128,7 +128,7 @@ jQuery(document).ready(function() {
 		$.post('/questions/' + question_id + '/add_idea.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
 		function(data){
-			// $('.tellmearea').html(data["message"]);
+			$('.tellmearea').html(data["message"]);
 			// $('.leftside').html(data["newleft"]);
 			// $('.rightside').html(data["newright"]);
 			

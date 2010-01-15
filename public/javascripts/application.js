@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
 			alert('Sorry, blank ideas are not allowed.');
 			return false;
 		}
-		if (new_idea.length == 140) {
+		if (new_idea.length > 140) {
 			alert('Sorry, ideas need to be less than 140 characters.');
 			return false;
 		}

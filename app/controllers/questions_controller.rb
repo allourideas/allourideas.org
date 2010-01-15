@@ -113,8 +113,9 @@ class QuestionsController < ApplicationController
             the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}
             the_params.merge!(:local_identifier => current_user.id) if signed_in?
             if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => the_params)
+              logger.info "just posted to 'create from abroad', response pending"
               newchoice = Crack::XML.parse(p.body)['choice']
-              puts newchoice.inspect
+              logger.info "response is #{newchoice.inspect}"
               @question = Question.find(params[:id])
               render :json => {:votes => 20,
                                :choice_status => newchoice['choice_status'], 

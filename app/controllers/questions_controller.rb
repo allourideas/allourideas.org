@@ -176,6 +176,7 @@ class QuestionsController < ApplicationController
     #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
     
     @question = Question.new(params[:question].except('url').merge({'local_identifier' => current_user.id, 'visitor_identifier' => request.session_options[:id], :ideas => params[:question]['question_ideas']}))
+    logger.info "question pre-save is #{@question.inspect}"
     respond_to do |format|
       if @question.save
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])

@@ -104,7 +104,6 @@ class QuestionsController < ApplicationController
       prompt_id = session[:current_prompt_id]
       logger.info "Getting ready to add an idea while viewing on Prompt #{prompt_id}, Question #{params[:id]}"
       new_idea_data = params[:new_idea]
-      @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
       @choice = Choice.new(:data => new_idea_data)
       respond_to do |format|
           flash[:notice] = 'You just added an idea for people to vote on.'

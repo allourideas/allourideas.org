@@ -113,16 +113,17 @@ class QuestionsController < ApplicationController
             the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}
             the_params.merge!(:local_identifier => current_user.id) if signed_in?
             if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => the_params)
-              newprompt = Crack::XML.parse(p.body)['prompt']
-              puts newprompt.inspect
-              @newprompt = Question.find(params[:id])
-              render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text'], 
-                               :choice_status => newprompt['choice_status'], :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
-              case newprompt['choice_status']
+              newchoice = Crack::XML.parse(p.body)['choice']
+              puts newchoice.inspect
+              @question = Question.find(params[:id])
+              render :json => {:votes => 20,
+                               :choice_status => newchoice['choice_status'], 
+                               :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
+              case newchoice['choice_status']
               when 'active'
-                ::IdeaMailer.deliver_notification @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id'] #spike
+                ::IdeaMailer.deliver_notification @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id'] #spike
               when 'inactive'
-                ::IdeaMailer.deliver_notification_for_active @newprompt.creator, @newprompt, params[:id], new_idea_data, newprompt['saved_choice_id']
+                ::IdeaMailer.deliver_notification_for_active @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id']
               end
               #notification(user, question, question_id, choice, choice_id)
             else

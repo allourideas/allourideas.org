@@ -1,4 +1,5 @@
 class ChoicesController < ApplicationController
+  include ActionView::Helpers::TextHelper
   def show
     @question_id = Question.find_id_by_name(params[:question_id])
     @earl = Earl.find params[:question_id]

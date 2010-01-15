@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  include ActionView::Helpers::TextHelper
   #caches_page :about, :tour, :privacy
 
   def index

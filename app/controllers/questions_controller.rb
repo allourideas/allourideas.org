@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  include ActionView::Helpers::TextHelper
   require 'crack'
   #caches_page :results
   # GET /questions

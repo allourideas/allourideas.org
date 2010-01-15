@@ -1,5 +1,6 @@
 class EarlsController < ApplicationController
   #caches_page :show
+  include ActionView::Helpers::TextHelper
   
   def show
     @earl = Earl.find(params[:id])

@@ -61,8 +61,8 @@ class QuestionsController < ApplicationController
             logger.info "newprompt is #{newprompt.inspect}"
             session[:current_prompt_id] = newprompt['id']
             #@newprompt = Question.find(params[:id])
-            render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], 
-                             :newright => newprompt['right_choice_text']
+            render :json => {:votes => 20, :newleft => truncate(h(newprompt['left_choice_text']), :length => 137), 
+                             :newright => truncate(h(newprompt['right_choice_text']), :length => 137)
                              }.to_json
           else
             render :json => '{"error" : "Vote failed"}'
@@ -92,7 +92,7 @@ class QuestionsController < ApplicationController
             newprompt = Crack::XML.parse(p.body)['prompt']
             session[:current_prompt_id] = newprompt['id']
             @newprompt = Question.find(params[:id])
-            render :json => {:votes => 20, :newleft => newprompt['left_choice_text'], :newright => newprompt['right_choice_text']}.to_json
+            render :json => {:votes => 20, :newleft => truncate(h(newprompt['left_choice_text']), :length => 137), :newright => truncate(h(newprompt['right_choice_text']), :length => 137)}.to_json
           else
             render :json => '{"error" : "Skip failed"}'
           end

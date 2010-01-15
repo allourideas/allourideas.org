@@ -31,7 +31,6 @@ class IdeaMailer < ActionMailer::Base
       @recipients  = user.email
       @from        = "info@allourideas.org"
       @subject     = "[All Our Ideas] "
-      @content_type = "text/html"
       @sent_on     = Time.now
       @body[:user] = user
       @body[:host] = "www.allourideas.org"

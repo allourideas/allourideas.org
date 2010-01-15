@@ -139,20 +139,20 @@ jQuery(document).ready(function() {
 			
 			
 			
-			var max = $(this).attr('maxlength');
-			    var val = $(this).attr('value');
-			    var cur = 0;
-			    if(val) // value="", or no value at all will cause an error
-			      cur = val.length;
-			    var left = max-cur;
-			    $(this).after("<div class='counter'>"
-			      + left.toString()+"</div>");
-			    // You can use something like this to align the
-			    // counter to the right of the input field.
-			    var c = $(this).next(".counter");
-			
-			
-			
+			// var max = $(this).attr('maxlength');
+			//     var val = $(this).attr('value');
+			//     var cur = 0;
+			//     if(val) // value="", or no value at all will cause an error
+			//       cur = val.length;
+			//     var left = max-cur;
+			//     $(this).after("<div class='counter'>"
+			//       + left.toString()+"</div>");
+			//     // You can use something like this to align the
+			//     // counter to the right of the input field.
+			//     var c = $(this).next(".counter");
+			// 
+			// 
+			// 
 			
 			if (data['choice_status'] == 'active') {
 				current_item_count = $('#item_count').html();

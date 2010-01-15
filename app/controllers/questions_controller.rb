@@ -121,9 +121,9 @@ class QuestionsController < ApplicationController
                                :choice_status => newchoice['choice_status'], 
                                :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
               case newchoice['choice_status']
-              when 'active'
-                ::IdeaMailer.deliver_notification @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id'] #spike
               when 'inactive'
+                ::IdeaMailer.deliver_notification @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id'] #spike
+              when 'active'
                 ::IdeaMailer.deliver_notification_for_active @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id']
               end
               #notification(user, question, question_id, choice, choice_id)

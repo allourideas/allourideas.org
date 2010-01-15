@@ -209,8 +209,8 @@ jQuery(document).ready(function() {
 		var question_id = $(this).attr("rel");
 		var question_slug = $(this).attr("question_slug");
 		
-		var loser = "<a href='/questions/" + $('a#rightside').attr("question_slug") + "/choices/" + $('a#rightside').attr("choice_id") + "'>" + $('a#rightside').html() + "</a>";
-		var winner = "<a href='/questions/" + $('a#leftside').attr("question_slug") + "/choices/" + $('a#leftside').attr("choice_id") + "'>" + $('a#leftside').html() + "</a>";
+		var loser = "<a href='/" + $('a#rightside').attr("question_slug") + "/choices/" + $('a#rightside').attr("choice_id") + "'>" + $('a#rightside').html() + "</a>";
+		var winner = "<a href='/" + $('a#leftside').attr("question_slug") + "/choices/" + $('a#leftside').attr("choice_id") + "'>" + $('a#leftside').html() + "</a>";
 		
 		$.ajax({
 		 type: "post",

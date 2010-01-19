@@ -80,16 +80,26 @@ jQuery(document).ready(function() {
 	    $(this).attr('src', str.replace("-over.jpg", ".jpg"));
 	  });
 
-	  $("#submit_btn").bind("mousedown", function() {
-	    var str = $(this).attr("src");
-	    if (str.indexOf("-over") == -1)
-	      $(this).attr('src', str.replace(".jpg", "-down.jpg"));
-	    else if(str.indexOf("-down") == -1)
-	      $(this).attr('src', str.replace("-over.jpg", "-down.jpg"));
-	  });
+	  // $("#submit_btn").bind("mousedown", function() {
+	  //   var str = $(this).attr("src");
+	  //   if (str.indexOf("-over") == -1)
+	  //     $(this).attr('src', str.replace(".jpg", "-down.jpg"));
+	  //   else if(str.indexOf("-down") == -1)
+	  //     $(this).attr('src', str.replace("-over.jpg", "-down.jpg"));
+	  // });
 
 
 	$('a[rel*=facebox]').facebox();
+	
+	// $("#new_question_form").validate(
+	// 	rules: {
+	// 	      question_name: { required: true },
+	// 	      LastNameEdit: { required: true },
+	// 	      EmailEdit: { required: true, email:true }
+	// 	    }
+	// 	);
+	
+	//$(".create-question form").validate();
 	
 	humanMsg.setup();
 	$("#tabs").tabs();
@@ -101,18 +111,26 @@ jQuery(document).ready(function() {
 	}
 	
 	
-	$('.new_idea_submit').bind('click',function(event){
+	$('.new_idea_submit').bind('click',function(event){		
 		var new_idea = $('#new_idea_field').val();
 		
 		//if new idea is blank or longer than 140 characters, do not allow it to submit
 		if ((new_idea == 'Add your own idea here...') || (new_idea == '')) {
+			event.returnValue = false;
 			alert('Sorry, blank ideas are not allowed.');
 			return false;
 		}
 		if (new_idea.length > 140) {
 			alert('Sorry, ideas need to be less than 140 characters.');
+			event.returnValue = false;
 			return false;
 		}
+		
+		var str = $(this).attr("src");
+    if (str.indexOf("-over") == -1)
+      $(this).attr('src', str.replace(".jpg", "-down.jpg"));
+    else if(str.indexOf("-down") == -1)
+      $(this).attr('src', str.replace("-over.jpg", "-down.jpg"));
 		
 		$.setFragment({ "page" : $.queryString(this.href).page });
 		
@@ -158,7 +176,6 @@ jQuery(document).ready(function() {
 				current_item_count = $('#item_count').html();
 				$('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
 			}
-			
 			
 			$('.indicator').hide();
 			$.unblockUI();

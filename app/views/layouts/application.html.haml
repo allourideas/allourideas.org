@@ -40,7 +40,7 @@
         .clear
       = render :partial => "shared/footer"
       = javascript_include_tag 'jquery.ba-url.min.js', 'humanmsg', 'jquery.taconite.js', 'jquery.hint.js', 'jquery.blockUI.js', 'facebox', 'application'
-      -if RAILS_ENV['PRODUCTION']
+      -if RAILS_ENV['production']
         %script{:type =>"text/javascript"}
           / Google.gaSSDSLoad("UA-8796271-2");
         <script type="text/javascript">

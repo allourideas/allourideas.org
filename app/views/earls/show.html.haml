@@ -24,7 +24,7 @@
   %table.vote-footer
     %tr
       //%td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
-      %td.skip= link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
+      %td.skip=# link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
       %td= "<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
   .clear
   %center

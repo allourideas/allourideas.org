@@ -3,6 +3,7 @@ class EarlsController < ApplicationController
   include ActionView::Helpers::TextHelper
   
   def show
+    session[:on_example] = (params[:id] == 'studentgovernment')
     @earl = Earl.find(params[:id])
     if @earl
       @question = @earl.question#the question has a prompt id with it

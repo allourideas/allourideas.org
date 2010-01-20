@@ -51,6 +51,7 @@ class QuestionsController < ApplicationController
     else
       raise "unspecified choice"
     end
+    session[:has_voted] = true
     logger.info "winnder [sic] was #{winner}, loser is #{loser}"
     logger.info "prompt was #{@prompt.inspect}"
     respond_to do |format|

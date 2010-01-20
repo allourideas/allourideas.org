@@ -113,6 +113,7 @@ jQuery(document).ready(function() {
 	
 	$('.new_idea_submit').bind('click',function(event){		
 		var new_idea = $('#new_idea_field').val();
+		$('.example_notice').hide();
 		
 		//if new idea is blank or longer than 140 characters, do not allow it to submit
 		if ((new_idea == 'Add your own idea here...') || (new_idea == '')) {
@@ -191,6 +192,7 @@ jQuery(document).ready(function() {
 	});
 	
 	$('.skiplink').bind('click',function(event){
+		$('.example_notice').hide();
 		$.setFragment({ "page" : $.queryString(this.href).page });
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
@@ -221,7 +223,7 @@ jQuery(document).ready(function() {
 	
 	$('.vote_left').bind('click',function(event){
 		//$.setFragment({ "prompt" : $.queryString($('a#leftside').attr("choice_id")) });
-		
+		$('.example_notice').hide();
 		
 		var question_id = $(this).attr("rel");
 		var question_slug = $(this).attr("question_slug");
@@ -305,7 +307,7 @@ jQuery(document).ready(function() {
 	//$().ajaxStart($.blockUI({message: null})).ajaxStop($.unblockUI);
 	$('.vote_right').bind('click',function(event){
 		//$.setFragment({ "prompt" : $.queryString($('a#leftside').attr("choice_id")) });
-
+		$('.example_notice').hide();
 		var question_id = $(this).attr("rel");
 		var question_slug = $(this).attr("question_slug");
 		var loser = "<a href='/questions/" + $('a#leftside').attr("question_slug") + "/choices/" + $('a#leftside').attr("choice_id") + "'>" + $('a#leftside').html() + "</a>";

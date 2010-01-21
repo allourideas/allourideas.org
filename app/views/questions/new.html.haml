@@ -7,16 +7,26 @@
 %left.create-question
   -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
     %p= f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
+    
     %h2= t('questions.new.step1')
     %p
       == #{t('questions.new.display_text')}:
-      = f.text_field 'name', :size => 60, :title => 'For example, "Which do you want more from the student government?"', :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH
-      = hidden_field_tag 'default_text', t('questions.new.step1_exp')
+      .form_field
+        <label class="pre" for="question_name">For example, "Which do you want more from the student government?"</label> 
+        = f.text_field 'name', :size => 60, :title => 'For example, "Which do you want more from the student government?"', :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH
+        = hidden_field_tag 'default_text', t('questions.new.step1_exp')
+    
+    %br
     %h2= t('questions.new.step2')
     %p
-      http://www.allourideas.org/
-      = f.text_field 'url', :class => 'required', :title => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25
-      = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
+      <span style="float:left;top:5px;">http://www.allourideas.org/</span>
+      .form_field
+        <label class="pre" for="question_url">studentgovernment</label>
+      
+        = f.text_field 'url', :class => 'required', :title => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25,:style => "float:left;"
+        = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
+        
+    %br
     %h2= t('questions.new.step3')
     %p.ideas
       = t('questions.new.step3_ist')
@@ -26,8 +36,19 @@
       == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
       %br
       %br
+
       = f.text_area 'question_ideas', :class => 'required', :cols => 50, :rows => 12, :title => t('questions.new.step3_exp')
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
     -unless @registered
       
       %h2= "Step 4: Create an Account"

@@ -382,3 +382,6 @@ input, textarea {
 .round-filled2, .round-filled3 {
   margin-left: 1px;
   margin-right: 1px; }
+
+div.form_field { position: relative; float: left; }
+label.over-apply { color: #ccc; position: absolute; top: 0px; left: 5px;}

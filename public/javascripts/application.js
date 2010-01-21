@@ -15,6 +15,8 @@ function increment(number)
 
 jQuery(document).ready(function() {
 	
+	$('label').labelOver('over-apply');
+	
 	// [$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {
 	//     $(this).bind("mouseover", function() {
 	//       var str = $(this).attr("src");
@@ -91,13 +93,8 @@ jQuery(document).ready(function() {
 
 	$('a[rel*=facebox]').facebox();
 	
-	// $("#new_question_form").validate(
-	// 	rules: {
-	// 	      question_name: { required: true },
-	// 	      LastNameEdit: { required: true },
-	// 	      EmailEdit: { required: true, email:true }
-	// 	    }
-	// 	);
+	//$("#new_question_form").hide();
+	
 	
 	//$(".create-question form").validate();
 	
@@ -143,7 +140,7 @@ jQuery(document).ready(function() {
 		    }});
 		var question_id = $(this).attr("rel");
 		
-		$('#new_idea_field').empty().val('').hint();
+		//$('#new_idea_field').empty().val('').hint();
 		$.post('/questions/' + question_id + '/add_idea.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
 		function(data){
@@ -217,7 +214,7 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	$('input[title!=""]').hint();
+	//$('input[title!=""]').hint();
 	$('textarea[title!=""]').hint();
 	
 	

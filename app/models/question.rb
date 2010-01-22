@@ -45,6 +45,11 @@ class Question < ActiveResource::Base
     errors.add("URL", "is blank")  if attributes['url'].blank?
     errors.add("URL", "contains spaces")  if attributes['url'].include? ' '
     errors.add("URL", "contains special characters")  if attributes['url'].include? '@'
+    errors.add("URL", "contains special characters")  if attributes['url'].include? '/'
+    errors.add("URL", "contains special characters")  if attributes['url'].include? ':'
+    errors.add("URL", "contains special characters")  if attributes['url'].include? '|'
+    errors.add("URL", "contains special characters")  if attributes['url'].include? '='
+    errors.add("URL", "contains special characters")  if attributes['url'].include? '+'
     begin
       Earl.find(attributes['url'].strip)
       errors.add("URL", "has already been taken")

@@ -39,6 +39,18 @@ class Question < ActiveResource::Base
     User.find(creator_id)
   end
   
+  def validate_me
+    #errors = []
+    #raise attributes.inspect
+    errors.add("URL", "is blank")  if attributes['url'].blank?
+    errors.add("Name", "is blank") if  attributes['name'].blank?
+    errors.add("Ideas", "are blank") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
+    return errors
+    # url
+    # question
+    # ideas
+    # email
+  end
   
   # 
   # def items_url

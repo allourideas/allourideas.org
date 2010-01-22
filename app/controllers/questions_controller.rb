@@ -207,7 +207,7 @@ class QuestionsController < ApplicationController
     logger.info "question pre-save is #{@question.inspect}"
     respond_to do |format|
       if @question.save
-        earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])
+        earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'].strip)
         logger.info "Question was successfully created."
         flash[:notice] = 'Question was successfully created.'
         ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered

@@ -43,7 +43,15 @@ class Question < ActiveResource::Base
     #errors = []
     #raise attributes.inspect
     errors.add("URL", "is blank")  if attributes['url'].blank?
-    errors.add("Name", "is blank") if  attributes['name'].blank?
+    errors.add("URL", "contains spaces")  if attributes['url'].include? ' '
+    errors.add("URL", "contains special characters")  if attributes['url'].include? '@'
+    begin
+      Earl.find(attributes['url'].strip)
+      errors.add("URL", "has already been taken")
+    rescue
+      nil
+    end
+    errors.add("Name", "is blank") if attributes['name'].blank?
     errors.add("Ideas", "are blank") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
     return errors
     # url

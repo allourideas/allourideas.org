@@ -25,8 +25,20 @@ class Question < ActiveResource::Base
     Earl.find_by_question_id(id).name
   end
   
+  def name
+    attributes['name']
+  end
+  
+  def url
+    attributes['url']
+  end
+  
   def the_name
     attributes['name']
+  end
+  
+  def question_ideas
+    attributes['question_ideas']
   end
   
   def creator_id

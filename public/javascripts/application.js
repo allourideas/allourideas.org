@@ -1,6 +1,29 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+function validate_idea_form()
+{
+	var errors = [];
+	var name = $('#question_name').val();
+	var url = $('#question_url').val();
+	var new_ideas = $('#question_question_ideas').val();
+	alert(new_ideas);
+	if ((new_ideas == "Add your own ideas here...&#x000A;&#x000A;For example:&#x000A;More hammocks on campus&#x000A;Improve student advising&#x000A;More outdoor tables and benches&#x000A;Video game tournaments&#x000A;Start late dinner at 8PM&#x000A;Lower textbook prices&#x000A;Bring back parking for sophomores") || (new_ideas == '')) {
+		event.returnValue = false;
+		errors[errors.length] = 'Blank ideas are not allowed.';
+	}
+	if ((name == 'Add your own idea here...') || (name == '')) {
+		event.returnValue = false;
+		errors[errors.length] = 'Blank question names are not allowed.';
+	}
+	
+	if ((url == 'Add your own idea here...') || (url == '')) {
+		event.returnValue = false;
+		errors[errors.length] = 'Blank question urls are not allowed.';
+	}
+	return errors;
+}
+
 function sleep(ms)
 {
 	var dt = new Date();
@@ -27,6 +50,34 @@ jQuery(document).ready(function() {
 	//       $(this).attr('src', str.replace("-down.jpg", ".jpg"));
 	//     });
 	//   });
+	// $('#question_create_button').click(function () { 
+	//       //$(this).slideUp(); 
+	// 			validate_idea_form();
+	// 			alert('k');
+	// 			return false;
+	//     });
+	// 
+    // $("new_question_form").submit(function(e) {
+    // 	
+    // 	
+    //     if (e.originalEvent.explicitOriginalTarget.id == "question_create_button") {
+    // 						var the_status = validate_idea_form();
+    //         if (the_status)
+    // 								alert('the status is ' + validate_idea_form());
+    //             return false;
+    //             //If the status above is false continue to prompt the user if they want to submit or not
+    //         var ok = confirm('Do you really want to save your data?');
+    //         if (ok) {               
+    //             return true;
+    //         }
+    //         else {
+    //             //Prevent the submit event and remain on the screen
+    //             e.preventDefault();
+    //             return false;
+    //         }
+    //     }
+    // });
+	
   $(".votebox tr.prompt td.idea").each(function(el) {
     $(this).bind("click", function() {
       $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
@@ -214,7 +265,7 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	//$('input[title!=""]').hint();
+	$('input[title!=""]').hint();
 	$('textarea[title!=""]').hint();
 	
 	

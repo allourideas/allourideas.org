@@ -14,35 +14,33 @@
     / <script src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js" type="text/javascript"></script>
     <script src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.min.js" type="text/javascript"></script>
     %script
-      $.validator.setDefaults({
-      submitHandler: function() { alert("submitted!"); }
-      });
-      $.validator.addMethod("the_ideas", function(value) {
-      return value != "buga";
-      }, 'Please enter some ideas!');
-      jQuery(document).ready(function() {
-      $("#new_question_form").validate({
-      debug: true,
-      errorElement: "em",
-      errorContainer: $("#warning, #summary"),
-      errorPlacement: function(error, element) {
-      error.appendTo( element.parent("td").next("td") );
-      },
-      success: function(label) {
-      label.text("ok!").addClass("success");
-      },
-      rules: {
-      question_name: {
-      required:true
-      },
-      question_email: {
-      required:true,
-      email:true
-      },
-      question_ideas: "buga"
-      }
-      });
-      });
+      / $.validator.setDefaults({
+      / submitHandler: function() { alert("submitted!"); }
+      / });
+      / $.validator.addMethod("the_ideas", function(value) {
+      / return value != "buga";
+      / }, 'Please enter some ideas!');
+      / jQuery(document).ready(function() {
+      / $("#new_question_form").validate({
+      / debug: true,
+      / errorElement: "em",
+      / //errorContainer: $("#warning, #summary"),
+      / errorLabelContainer: $("#form_error"),
+      / success: function(label) {
+      / label.text("ok!").addClass("success");
+      / },
+      / rules: {
+      / question_name: {
+      / required:true
+      / },
+      / question_email: {
+      / required:true,
+      / email:true
+      / },
+      / question_ideas: "buga"
+      / }
+      / });
+      / });
       
   <style>
   .round-filledfg table tbody tr {
@@ -67,6 +65,7 @@
     .content
       = render :partial => "shared/header"
       .body
+        #form_error
         / -if flash[:notice]
         /   %p.notice#notice= flash[:notice]
         / -if flash[:error]

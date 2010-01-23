@@ -139,6 +139,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   # GET /questions/new.xml
   def new
+    @errors ||= []
     if signed_in?
       @registered = true
     end
@@ -155,10 +156,28 @@ class QuestionsController < ApplicationController
   def edit
     #@question = Question.find(params[:id])
   end
+  
+  def question_creation_validates?(question)
+    # question.errors = []
+    question.validate
+    false unless question.errors.empty?
+    #false
+  end
 
   # POST /questions
   # POST /questions.xml
   def create
+    #raise params[:question].inspect
+    # 
+    # @question = Question.new(params[:question].except('url').merge('visitor_identifier' => request.session_options[:id], 
+    #                                                                 :ideas => params[:question]['question_ideas']))
+    @question = Question.new(params[:question])
+    #raise @question.inspect
+    @question.validate_me
+    unless @question.valid?
+      render :action => "new" and return
+    end
+    
     just_registered = true
     unless signed_in?
        logger.info "not signed in, getting ready to instantiate a new user from params in Questions#create"
@@ -166,13 +185,20 @@ class QuestionsController < ApplicationController
       @user = ::User.new(:email => params[:question]['email'], 
                          :password => params[:question]['password'], 
                          :password_confirmation => params[:question]['password'])
+       unless @user.valid?
+         flash[:registration_error] = "Sorry, we couldn't register you."
+         #redirect_to 'questions/new' and return
+         logger.info "Registration failed, here's the flash: #{flash.inspect}"
+         render :action => "new" and return
+       end
       if @user.save
         logger.info "just saved the user in Questions#create"
         sign_in @user
         just_registered = true
       else
         flash[:notice] = "Sorry, we couldn't register you."
-        render :template => 'users/new' and return
+        render :action => "new" and return
+        #render :template => 'users/new' and return
       end
     end
     #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
@@ -181,7 +207,7 @@ class QuestionsController < ApplicationController
     logger.info "question pre-save is #{@question.inspect}"
     respond_to do |format|
       if @question.save
-        earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'])
+        earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'].strip)
         logger.info "Question was successfully created."
         flash[:notice] = 'Question was successfully created.'
         ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered

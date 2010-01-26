@@ -1,6 +1,7 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
   def show
+    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     @question_id = Question.find_id_by_name(params[:question_id])
     @earl = Earl.find params[:question_id]
     @choice = Choice.find(params[:id], :params => {:question_id => @question_id})

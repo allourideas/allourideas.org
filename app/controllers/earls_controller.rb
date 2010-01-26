@@ -3,6 +3,7 @@ class EarlsController < ApplicationController
   include ActionView::Helpers::TextHelper
   
   def show
+    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     session[:on_example] = (params[:id] == 'studentgovernment')
     @earl = Earl.find(params[:id])
     if @earl

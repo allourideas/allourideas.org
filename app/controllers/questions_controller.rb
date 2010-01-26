@@ -208,18 +208,20 @@ class QuestionsController < ApplicationController
     @question_two = Question.new(params[:question].except('url').merge({'local_identifier' => current_user.id, 'visitor_identifier' => request.session_options[:id], :ideas => params[:question]['question_ideas']}))
     logger.info "question pre-save is #{@question.inspect}"
     respond_to do |format|
-      if @question_two.save
-        @question = @question_two
-        earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'].strip)
-        logger.info "Question was successfully created."
-        session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br/> Send out your URL: #{@question.fq_earl} and watch what happens."
-        ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
-        format.html { redirect_to(@question.earl) }
-        format.xml  { render :xml => @question, :status => :created, :location => @question }
-      else
-        logger.info "Question was not successfully created."
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+      retryable(:tries => 5) do
+        if @question_two.save
+          @question = @question_two
+          earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'].strip)
+          logger.info "Question was successfully created."
+          session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br/> Send out your URL: #{@question.fq_earl} and watch what happens."
+          ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
+          format.html { redirect_to(@question.earl) }
+          format.xml  { render :xml => @question, :status => :created, :location => @question }
+        else
+          logger.info "Question was not successfully created."
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end

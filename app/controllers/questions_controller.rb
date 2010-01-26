@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.xml
   def index
+    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     @questions = Question.find(:all)
 
     respond_to do |format|
@@ -24,6 +25,7 @@ class QuestionsController < ApplicationController
   #   end
   # end
   def results
+    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @question = Question.find_by_name(params[:id])
     @earl = Earl.find params[:id]
@@ -209,7 +211,7 @@ class QuestionsController < ApplicationController
       if @question.save
         earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'].strip)
         logger.info "Question was successfully created."
-        flash[:notice] = 'Question was successfully created.'
+        session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br/> Send out your URL: #{@question.fq_earl} and watch what happens."
         ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
         format.html { redirect_to(@question.earl) }
         format.xml  { render :xml => @question, :status => :created, :location => @question }

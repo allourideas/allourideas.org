@@ -2,6 +2,8 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
   %head
     %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    -if @meta
+      =@meta
     %link{:rel => "shortcut icon", :href => "http://www.allourideas.org/favicon.ico"}
     %title= t('common.title')
     = stylesheet_link_tag 'screen', 'humanmsg', 'facebox', 'wildthunk'
@@ -57,9 +59,13 @@
   </style>
   %body
     =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
+    -if session[:standard_flash]
+      %p.notice.example_notice#notice= session[:standard_flash]
+      -session[:standard_flash] = nil
     -unless session[:has_voted]
       -if session[:on_example]
         %p.notice.example_notice#notice= "This example is based on a site that the Undergraduate Student Government at Princeton University used to discover the best ideas for improving campus. In just a few weeks, more than 2,000 students contributed more than 40,000 votes and 100 new ideas. You can create a question like this to discover the best ideas in your group or organization."
+        -session[:on_example] = nil
     -if flash[:for_real]
       .to_be_humanized{:style => "display:none;"}&= flash[:for_real]
     .content

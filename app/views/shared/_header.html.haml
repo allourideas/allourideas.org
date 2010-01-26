@@ -1,5 +1,8 @@
 .header
-  .fleft= link_to(image_tag("logo#{'-small' if @question_id}.jpg"), root_path, :class => 'logo')
+  .fleft
+    = link_to(image_tag("logo#{'-small' if @question_id}.jpg"), root_path, :class => 'logo')
+    -if @earl && !@earl.logo_url.blank?
+      = link_to(image_tag(@earl.logo_url), root_path, :class => 'logo')
   .fright
     -if !@question_id
       %ul

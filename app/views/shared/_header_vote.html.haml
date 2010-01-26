@@ -8,6 +8,8 @@
 
 .vote-nav
   .fleft
+    -if @earl && !@earl.logo_url.blank?
+      = link_to(image_tag(@earl.logo_url), root_path, :class => 'logo')
     .bread-crumb
   .fright
     =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))

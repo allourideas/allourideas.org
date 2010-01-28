@@ -265,6 +265,55 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
+	$('.toggle_question_status').bind('click',function(event){
+		$('.indicator').show();
+		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:   0.0,
+						cursor:    null
+		    }});
+		var earl_id = $(this).attr("rel");
+		$.post('/questions/' + earl_id + '/toggle.js',
+		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		function(data){
+			$('.indicator').hide();
+			$.unblockUI();
+			humanMsg.displayMsg(data['message']);
+			$('#question_'+earl_id+'_status').text(data['verb']).effect("highlight", {}, 1500);
+			//$('.prompter').effect("highlight", {}, 1500);
+			
+		},
+		"json"
+		);
+		return false;
+	});
+	
+	$('.toggle_choice_status').bind('click',function(event){
+		$('.indicator').show();
+		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:         0.0,
+		cursor:    null
+		    }});
+		var choice_id = $(this).attr("rel");
+		var earl_id = $(this).attr("earl_id");
+		$.post('/questions/' + earl_id + '/choices/' + choice_id + '/toggle.js',
+		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		function(data){
+			$('.indicator').hide();
+			$.unblockUI();
+			humanMsg.displayMsg(data['message']);
+			$('#choice_'+choice_id+'_status').text(data['verb']).effect("highlight", {}, 1500);
+			//$('.prompter').effect("highlight", {}, 1500);
+			
+		},
+		"json"
+		);
+		return false;
+	});
+	
+	
+	
 	$('input[title!=""]').hint();
 	$('textarea[title!=""]').hint();
 	

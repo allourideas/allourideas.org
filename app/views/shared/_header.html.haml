@@ -1,6 +1,9 @@
 .header
-  .fleft
+  .fleft.clear{:style => "clear:right;"}
     = link_to(image_tag("logo#{'-small' if (@earl && !@earl.logo_url.blank?)}.jpg"), root_path, :class => 'logo')
+  %br
+  
+  .fleft{:style => "clear:left;"}
   .fright
     -if !@question_id
       %ul

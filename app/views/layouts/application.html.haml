@@ -68,6 +68,7 @@
         -session[:on_example] = nil
     -if flash[:for_real]
       .to_be_humanized{:style => "display:none;"}&= flash[:for_real]
+      -flash[:for_real] = nil
     .content
       = render :partial => "shared/header"
       .body

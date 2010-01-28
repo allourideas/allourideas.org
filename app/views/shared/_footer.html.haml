@@ -12,6 +12,7 @@
       %p
         = "#{t('footer.logged_in')} as #{current_user.email}"
         %br
+        = link_to "Logout", '/sign_out'
     -elsif signed_in?
       %p
         = "#{t('footer.logged_in')} at this computer but not yet registered"

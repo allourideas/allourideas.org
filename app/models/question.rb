@@ -5,8 +5,8 @@ class Question < ActiveResource::Base
 
   attr_accessor :name, :question_text, :question_ideas, :url, :information, :email, :password
   
-  def self.find_by_name(name)
-    Earl.find(name).question rescue nil
+  def self.find_by_name(name, barebones = false)
+    Earl.find(name).question(barebones) rescue nil
   end
   
   def self.find_id_by_name(name)
@@ -54,22 +54,22 @@ class Question < ActiveResource::Base
   def validate_me
     #errors = []
     #raise attributes.inspect
-    errors.add("URL", "is blank")  if attributes['url'].blank?
-    errors.add("URL", "contains spaces")  if attributes['url'].include? ' '
-    errors.add("URL", "contains special characters")  if attributes['url'].include? '@'
-    errors.add("URL", "contains special characters")  if attributes['url'].include? '/'
-    errors.add("URL", "contains special characters")  if attributes['url'].include? ':'
-    errors.add("URL", "contains special characters")  if attributes['url'].include? '|'
-    errors.add("URL", "contains special characters")  if attributes['url'].include? '='
-    errors.add("URL", "contains special characters")  if attributes['url'].include? '+'
+    errors.add("URL", "is blank (Step 2)")  if attributes['url'].blank?
+    errors.add("URL", "contains spaces (Step 2)")  if attributes['url'].include? ' '
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '@'
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '/'
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? ':'
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '|'
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '='
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '+'
     begin
       Earl.find(attributes['url'].strip)
-      errors.add("URL", "has already been taken")
+      errors.add("URL", "has already been taken (Step 2)")
     rescue
       nil
     end
-    errors.add("Name", "is blank") if attributes['name'].blank?
-    errors.add("Ideas", "are blank") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
+    errors.add("Name", "is blank (Step 1)") if attributes['name'].blank?
+    errors.add("Ideas", "are blank (Step 3)") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
     return errors
     # url
     # question

@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
   include Clearance::User
+  has_many :earls
   attr_accessible :default
+  
+  def owns?(earl)
+    earl.user_id == id
+  end
   
   def set_remote_session_key!(sid)
     puts "inside User.set_remote_session_key"

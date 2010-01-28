@@ -12,7 +12,7 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
 
   config.action_mailer.delivery_method = :sendmail
-
+  config.gem 'hoptoad_notifier'
   config.gem "ambethia-smtp-tls",
     :lib     => "smtp-tls",
     :version => "1.1.2",

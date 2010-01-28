@@ -7,17 +7,17 @@
         /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
       %th.score= (@header_text = "Score") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
       %th &nbsp;
+      %th &nbsp;
     -alt=false
     -for choice in @choices
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-        %td.title= link_to truncate(h(choice.data), :length => 137), choice.path #link_to "item, item_path(id, :question_id => @question_id)"
+        %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
         %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
         -#%td= rank
         -#%td= added
         %td
           .bar-chart
             %div{:style => "width:#{choice.attributes['score']}%"}
-            =#df
     -if !params[:all] and (@question.attributes['choices_count'].to_i > 10)#@items_all || @items_newest
       %tr.row1
         %td{:colspan => 3}

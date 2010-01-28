@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   #caches_page :results
+  
   # GET /questions
   # GET /questions.xml
   def index
@@ -27,19 +28,37 @@ class QuestionsController < ApplicationController
   def results
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-    @question = Question.find_by_name(params[:id])
+    @question = Question.find_by_name(params[:id], true)
+    @question_id = @question.id
     @earl = Earl.find params[:id]
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]
-      @choices = Choice.find(:all, :params => {:question_id => @question.id})
+      @choices = Choice.find(:all, :params => {:question_id => @question_id})
     else
-      @choices = Choice.find(:all, :params => {:question_id => @question.id, :limit => 10, :offset => 0})
+      @choices = Choice.find(:all, :params => {:question_id => @question_id, :limit => 10, :offset => 0})
     end
     logger.info "First choice is #{@choices.first.inspect}"
   end
   
+  def admin
+    authenticate
+    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
+    logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
+    @question = Question.find_by_name(params[:id])
+    @earl = Earl.find params[:id]
+    logger.info "@question is #{@question.inspect}."
+    @partial_results_url = "#{@earl.name}/results"
+    # if params[:all]
+    #   @choices = Choice.find(:all, :params => {:question_id => @question.id})
+    # else
+      @choices = Choice.find(:all, :params => {:question_id => @question.id, :limit => 10, :offset => 0, :include_inactive => true})
+    #end
+    logger.info "First choice is #{@choices.first.inspect}"
+  end
+  
   def vote(direction)
+    expire_page :action => :results
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
@@ -76,14 +95,17 @@ class QuestionsController < ApplicationController
   end
   
   def vote_left
+    expire_page :action => :results
     vote(:left)
   end
   
   def vote_right
+    expire_page :action => :results
     vote(:right)
   end
     
   def skip
+    expire_page :action => :results
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
@@ -133,6 +155,30 @@ class QuestionsController < ApplicationController
             else
               render :json => '{"error" : "Addition of new idea failed"}'
             end
+            }
+        end
+      end
+      
+      def toggle
+        authenticate
+        expire_page :action => :results
+        @earl = Earl.find(params[:id])
+        unless current_user.owns? @earl
+          renderß(:json => {:message => "You've just deactivated your question, #{params[:id]}"}.to_json) and return
+        end
+        logger.info "Getting ready to change active status of Question #{params[:id]} to #{!@earl.active?}"
+        
+        respond_to do |format|
+            format.xml  {  head :ok }
+            format.js  { 
+              @earl.active = !(@earl.active)
+              verb = @earl.active ? 'Activated' : 'Deactivated'
+              if @earl.save!
+                logger.info "just #{verb} question"
+                render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
+              else
+                render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
+              end
             }
         end
       end
@@ -211,7 +257,7 @@ class QuestionsController < ApplicationController
       retryable(:tries => 5) do
         if @question_two.save
           @question = @question_two
-          earl = Earl.create(:question_id => @question.id, :name => params[:question]['url'].strip)
+          earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
           logger.info "Question was successfully created."
           session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br/> Send out your URL: #{@question.fq_earl} and watch what happens."
           ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered

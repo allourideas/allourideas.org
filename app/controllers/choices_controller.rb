@@ -7,7 +7,7 @@ class ChoicesController < ApplicationController
     @choice = Choice.find(params[:id], :params => {:question_id => @question_id})
     if @choice
       @question_name = @choice.attributes['question_name']
-      @data = @choice.attributes['item_data']
+      @data = @choice.attributes['data']
       @score = @choice.attributes['score'].round rescue (@score = 0)
       logger.info "the score is #{@score.inspect}"
       @created_at = @choice.attributes['created_at']
@@ -17,6 +17,32 @@ class ChoicesController < ApplicationController
       end
     else
       redirect_to('/') and return
+    end
+  end
+  
+  def toggle
+    authenticate
+    @earl = Earl.find(params[:earl_id])
+    @question = @earl.question
+    @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
+    unless current_user.owns? @earl
+      render(:json => {:message => "Sorry, we could not change the status of this choice because you do not own the question."}.to_json) and return
+    end
+    @old_status = @choice.attributes['active']
+    logger.info "Getting ready to change active status of Choice #{params[:id]} to #{!@old_status}"
+    
+    respond_to do |format|
+        format.xml  {  head :ok }
+        format.js  { 
+          verb = !@old_status ? 'Activated' : 'Deactivated'
+          remote_function = @old_status ? :deactivate_from_abroad : :update_from_abroad
+          if @choice.put(remote_function, :params => {:question_id => @question.id})
+            logger.info "just #{verb} question"
+            render :json => {:message => "You've just #{verb.downcase} this choice", :verb => verb}.to_json
+          else
+            render :json => {:message => "Sorry, could not toggle status of choice", :verb => verb}.to_json
+          end
+        }
     end
   end
   

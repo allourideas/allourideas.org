@@ -50,6 +50,10 @@ class HomeController < ApplicationController
 
   def privacy
   end
+  
+  def admin
+    authenticate
+  end
 
   private
     def demo_vars

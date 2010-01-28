@@ -1,0 +1,30 @@
+= render :partial => 'shared/header_vote'
+.ninety
+  %table.full
+    %tr.row0
+      %th
+        = @question.attributes['name']
+        /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
+      %th.score= (@header_text = "Score") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
+      %th &nbsp;
+    -alt=false
+    -for choice in @choices.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
+      %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
+        %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
+        %td.votes{:id => "choice_#{choice.id}_status"}= choice.attributes['active'] ? 'Activated' : 'Deactivated'
+        -#%td= rank
+        -#%td= added
+        %td
+          -unless @choices.size < 3
+            =link_to('[Toggle]', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
+    -if !params[:all] and (@question.attributes['choices_count'].to_i > 10)#@items_all || @items_newest
+      %tr.row1
+        %td{:colspan => 3}
+          %strong= link_to(t('nav.see_all_ideas'), @all_results_url)#quick_link('items/all', "items_path(:question_id => @question_id)"))
+    %tr.row0.thin
+      %td{:colspan => 3}
+  %br
+  
+  #explanation{:style => 'display:none;'}
+    %h2 About the Scoring
+    The scores here are computed as a percentage of votes in which the choice was preferred.

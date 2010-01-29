@@ -11,7 +11,7 @@
     -for earl in current_user.earls.sort_by {|x| [(!x.active).to_s, x.name] }
       -q = earl.question(true)
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-        %td.title= link_to truncate(h(q.attributes['name']), :length => 137), q.fq_earl + '/admin'
+        %td.title= link_to truncate(h(q.attributes['name']), :length => 137), q.earl + '/admin'
         
         %td.votes{:id => "question_#{earl.id}_status"}= earl.active? ? 'Activated' : 'Deactivated'
         -#%td= rank

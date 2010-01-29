@@ -303,7 +303,12 @@ jQuery(document).ready(function() {
 			$('.indicator').hide();
 			$.unblockUI();
 			humanMsg.displayMsg(data['message']);
+			if(data['error']) {
+				//no-op
+			}
+			else {
 			$('#choice_'+choice_id+'_status').text(data['verb']).effect("highlight", {}, 1500);
+		}
 			//$('.prompter').effect("highlight", {}, 1500);
 			
 		},

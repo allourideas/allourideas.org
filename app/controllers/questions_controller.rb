@@ -164,7 +164,7 @@ class QuestionsController < ApplicationController
         expire_page :action => :results
         @earl = Earl.find(params[:id])
         unless current_user.owns? @earl
-          renderß(:json => {:message => "You've just deactivated your question, #{params[:id]}"}.to_json) and return
+          render(:json => {:message => "You've just deactivated your question, #{params[:id]}"}.to_json) and return
         end
         logger.info "Getting ready to change active status of Question #{params[:id]} to #{!@earl.active?}"
         

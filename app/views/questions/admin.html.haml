@@ -4,14 +4,13 @@
     %tr.row0
       %th
         = @question.attributes['name']
-        /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
-      %th.score= (@header_text = "Score") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
+      %th.score= (@header_text = "Status")
       %th &nbsp;
     -alt=false
     -for choice in @choices.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
         %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
-        %td.votes{:id => "choice_#{choice.id}_status"}= choice.attributes['active'] ? 'Activated' : 'Deactivated'
+        %td.votes{:id => "choice_#{choice.id}_status"}= choice.active? ? 'Activated' : 'Deactivated'
         -#%td= rank
         -#%td= added
         %td

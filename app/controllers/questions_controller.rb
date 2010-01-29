@@ -49,11 +49,7 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
-    # if params[:all]
-    #   @choices = Choice.find(:all, :params => {:question_id => @question.id})
-    # else
-      @choices = Choice.find(:all, :params => {:question_id => @question.id, :limit => 10, :offset => 0, :include_inactive => true})
-    #end
+    @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
   end
   

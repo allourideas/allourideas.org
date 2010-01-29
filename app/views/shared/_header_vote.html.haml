@@ -7,12 +7,17 @@
   -@results_url = "#{HOST}/#{@earl.name}" + "/results"
 
 .vote-nav
-  .fleft
+  .fleft{:style => "vertical-align: bottom;"}
     -if @earl && !@earl.logo_url.blank?
-      = link_to(image_tag(@earl.logo_url), root_path, :class => 'logo')
+      = link_to(image_tag(@earl.logo_url, :height => '100'), root_path, :class => 'logo')
     .bread-crumb
-  .fright
-    =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
-    %span.grey &nbsp;|&nbsp;
-    = loc_based_style(link_to(t('nav.view_results'), @results_url), t('nav.view_results'))
+  .fright{:style => "vertical-align: bottom;"}
+    %br
+    %br
+    %br
+    %br
+    %div{:style => "position:relative; bottom: 0;"}
+      =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
+      %span.grey &nbsp;|&nbsp;
+      = loc_based_style(link_to(t('nav.view_results'), @results_url), t('nav.view_results'))
   .clear

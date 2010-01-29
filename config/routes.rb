@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.toggle_choice_status '/questions/:earl_id/choices/:id/toggle.:format', :controller => 'choices', :action => 'toggle', :conditions => { :method => :post }
   
   map.about '/about', :controller => 'home', :action => 'about'
-  map.about '/admin', :controller => 'home', :action => 'admin'
+  map.admin '/admin', :controller => 'home', :action => 'admin'
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'
   map.tour '/tour', :controller => 'home', :action => 'tour'
   map.connect '/signup', :controller => 'users', :action => 'new'

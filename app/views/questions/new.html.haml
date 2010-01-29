@@ -5,6 +5,9 @@
   = t('questions.new.exp')
   = link_to(t('questions.new.see_an'), "/studentgovernment")
   = t('questions.new.exp2')
+  %br
+  %br
+  = ("If you already have an account, please login " + link_to('here', sign_in_path) + '.') unless logged_in?
 %left.create-question
   -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
     %p

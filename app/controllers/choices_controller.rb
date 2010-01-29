@@ -28,19 +28,25 @@ class ChoicesController < ApplicationController
     unless current_user.owns? @earl
       render(:json => {:message => "Sorry, we could not change the status of this choice because you do not own the question."}.to_json) and return
     end
-    @old_status = @choice.attributes['active']
+    @old_status = @choice.active?
     logger.info "Getting ready to change active status of Choice #{params[:id]} to #{!@old_status}"
     
     respond_to do |format|
         format.xml  {  head :ok }
         format.js  { 
-          verb = !@old_status ? 'Activated' : 'Deactivated'
-          remote_function = @old_status ? :deactivate_from_abroad : :update_from_abroad
-          if @choice.put(remote_function, :params => {:question_id => @question.id})
-            logger.info "just #{verb} question"
-            render :json => {:message => "You've just #{verb.downcase} this choice", :verb => verb}.to_json
-          else
-            render :json => {:message => "Sorry, could not toggle status of choice", :verb => verb}.to_json
+          verb = @choice.active? ? 'Deactivated' : 'Activated'
+          failed_verb = @choice.active? ? 'Activated' : 'Deactivated'
+          remote_function = @choice.active? ? :deactivate_from_abroad : :update_from_abroad
+          
+          begin
+            if @choice.put(remote_function, :params => {:question_id => @question.id})
+              logger.info "just #{verb} choice"
+              render :json => {:message => "You've just #{verb.downcase} this choice", :verb => verb}.to_json
+            else
+              render :json => {:message => "Sorry, could not toggle status of choice", :verb => verb}.to_json
+            end
+          rescue
+            render :json => {:message => "Sorry, could not toggle status of choice. Remember that you need at least two active choices.", :verb => failed_verb, :error => true}.to_json
           end
         }
     end

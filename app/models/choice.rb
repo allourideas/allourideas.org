@@ -34,4 +34,8 @@ class Choice < ActiveResource::Base
     self.save
     puts "saved"
   end
+  
+  def active?
+    attributes['active']
+  end
 end

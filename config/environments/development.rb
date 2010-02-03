@@ -21,5 +21,5 @@ HOST = 'http://localhost:3001'
 #API_HOST = 'http://allourideas.com'
 API_HOST = "http://localhost:3000"
 
-PAIRWISE_USERNAME = "pius+serious@alum.mit.edu"
-PAIRWISE_PASSWORD = "yabbadabbadoo"
+PAIRWISE_USERNAME = "pairwisetest@dkapadia.com"
+PAIRWISE_PASSWORD = "wheatthins"

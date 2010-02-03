@@ -27,5 +27,5 @@ config.gem "rubaidh-google_analytics",
 #will change login after demo
 HOST = 'http://www.allourideas.org' #"http://www.allourideas.org"
 API_HOST = "http://allrideas.net"#"#ENV['PAIRWISE_API_HOST']
-PAIRWISE_USERNAME = "pius+serious@alum.mit.edu"#ENV['PAIRWISE_USERNAME']
-PAIRWISE_PASSWORD = "yabbadabbadoo"#ENV['PAIRWISE_PASSWORD']
+PAIRWISE_USERNAME = "pairwisetest@dkapadia.com"#ENV['PAIRWISE_USERNAME']
+PAIRWISE_PASSWORD = "wheatthins"#ENV['PAIRWISE_PASSWORD']

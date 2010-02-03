@@ -19,7 +19,23 @@
     %tr.row0.thin
       %td{:colspan => 3}
   %br
-  
+
+  %h2
+    Optional Question Settings:
+  %p
+    Require users to enter the following user/password combination before voting: 
+
+  -form_for :earl, @earl, :url => { :action => "update" } do |f|
+    %p 
+      -# = f.label :name, "Username" - Disappears off screen for some reason
+      = "Username: #{@earl.name}"
+      -# = f.label :pass, "Password" - Disappares off screen for some reason
+      %br
+      Password: 
+      = f.text_field :pass
+    %p
+      = submit_tag "Save"
+
   #explanation{:style => 'display:none;'}
     %h2 About the Scoring
     The scores here are computed as a percentage of votes in which the choice was preferred.

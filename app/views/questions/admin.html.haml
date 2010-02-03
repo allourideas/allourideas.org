@@ -22,17 +22,20 @@
 
   %h2
     Optional Question Settings:
-  %p
-    Require users to enter the following user/password combination before voting: 
-
-  -form_for :earl, @earl, :url => { :action => "update" } do |f|
+  -form_for :earl, @earl, :url => { :action => "update" }, :html => { :multipart => true} do |f|
     %p 
+      Require users to enter the following user/password combination before voting: 
+      %br
       -# = f.label :name, "Username" - Disappears off screen for some reason
       = "Username: #{@earl.name}"
       -# = f.label :pass, "Password" - Disappares off screen for some reason
       %br
       Password: 
       = f.text_field :pass
+    %p 
+      Upload a logo to be displayed on your idea market place page
+      %br
+      = f.file_field :logo
     %p
       = submit_tag "Save"
 

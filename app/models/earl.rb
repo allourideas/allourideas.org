@@ -2,6 +2,8 @@ class Earl < ActiveRecord::Base
   validates_presence_of :question_id, :on => :create, :message => "can't be blank"
   validates_presence_of :name, :on => :create, :message => "can't be blank"
   has_friendly_id :name, :use_slug => true, :reserved => ["questions", "question", 'about', 'privacy', 'tour']
+  has_attached_file :logo, :whiny_thumbnails => true, :styles => { :medium => "150x150>" }
+
   belongs_to :user
   
   def question(barebones = false)

@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
                             :add_idea => :post, 
                             :toggle => :post, 
                             :admin => :get, 
-                            :results => :get}
+                            :results => :get,
+  		            :update => :post }
   #map.resources :choices, :member => {:activate => :get}
   map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   map.activate_choice '/:question_id/choices/:id/activate', :controller => 'choices', :action => 'activate'

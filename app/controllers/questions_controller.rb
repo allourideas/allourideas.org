@@ -47,7 +47,10 @@ class QuestionsController < ApplicationController
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @question = Question.find_by_name(params[:id])
     @earl = Earl.find params[:id]
+
+    
     logger.info "@question is #{@question.inspect}."
+    logger.info "@earl is #{@earl.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
@@ -270,20 +273,27 @@ class QuestionsController < ApplicationController
 
   # # PUT /questions/1
   # # PUT /questions/1.xml
-  # def update
-  #   @question = Question.find_by_name(params[:id])
-  # 
-  #   respond_to do |format|
-  #     if @question.update_attributes(params[:question])
-  #       flash[:notice] = 'Question was successfully updated.'
-  #       format.html { redirect_to(@question) }
-  #       format.xml  { head :ok }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+     authenticate
+     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
+     @question = Question.find_by_name(params[:id])
+     @earl = Earl.find params[:id]
+     
+     @partial_results_url = "#{@earl.name}/results"
+     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+     respond_to do |format|
+        if @earl.update_attributes(params[:earl])
+	    logger.info("Saving new information on earl")
+	    flash[:notice] = 'Question settings saved successfully!'
+	    logger.info("Saved new information on earl")
+	    format.html {redirect_to:action => "admin"}
+  	    # format.xml  { head :ok }
+	else 
+	    format.html { render :action => "admin"}
+  	    #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        end
+     end
+  end
   # 
   # # DELETE /questions/1
   # # DELETE /questions/1.xml

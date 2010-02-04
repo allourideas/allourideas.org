@@ -3,7 +3,7 @@ class Question < ActiveResource::Base
   self.user = PAIRWISE_USERNAME
   self.password = PAIRWISE_PASSWORD
 
-  attr_accessor :name, :question_text, :question_ideas, :url, :information, :email, :password
+  attr_accessor :name, :question_text, :question_ideas, :url, :information, :email, :password, :it_should_autoactivate_ideas
   
   def self.find_by_name(name, barebones = false)
     Earl.find(name).question(barebones) rescue nil
@@ -49,6 +49,10 @@ class Question < ActiveResource::Base
 
   def creator
     User.find(creator_id)
+  end
+
+  def it_should_autoactivate_ideas
+      attributes['it_should_autoactivate_ideas']
   end
   
   def validate_me

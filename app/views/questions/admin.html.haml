@@ -22,7 +22,7 @@
 
   %h2
     Optional Question Settings:
-  -form_for :earl, @earl, :url => { :action => "update" }, :html => { :multipart => true} do |f|
+  -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
     %p 
       Require users to enter the following user/password combination before voting: 
       %br
@@ -36,8 +36,14 @@
       Upload a logo to be displayed on your idea market place page
       %br
       = f.file_field :logo
+
+    - fields_for :question, @question do |question_f|
+      = "Allow ideas by users to be automatically activated, without being approved "
+      = question_f.check_box :it_should_autoactivate_ideas
     %p
       = submit_tag "Save"
+
+    
 
   #explanation{:style => 'display:none;'}
     %h2 About the Scoring

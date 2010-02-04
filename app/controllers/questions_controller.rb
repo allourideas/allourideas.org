@@ -222,6 +222,9 @@ class QuestionsController < ApplicationController
     #raise @question.inspect
     @question.validate_me
     unless @question.valid?
+    	if signed_in?
+      	   @registered = true
+        end
       render :action => "new" and return
     end
     
@@ -283,6 +286,17 @@ class QuestionsController < ApplicationController
      @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
      respond_to do |format|
         if @earl.update_attributes(params[:earl])
+
+	    new_activate_val = (params[:question][:it_should_autoactivate_ideas].to_i == 1)
+	    # Save a network round trip by comparing here
+	    if(@question.it_should_autoactivate_ideas != new_activate_val)
+
+	    	    logger.info("saving question...")
+		    @question.put(:set_autoactivate_ideas_from_abroad, 
+			              :question => { :it_should_autoactivate_ideas => new_activate_val} )
+	    	    logger.info("question saved.")
+	    end
+
 	    logger.info("Saving new information on earl")
 	    flash[:notice] = 'Question settings saved successfully!'
 	    logger.info("Saved new information on earl")

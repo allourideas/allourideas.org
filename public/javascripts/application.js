@@ -318,6 +318,33 @@ jQuery(document).ready(function() {
 	});
 	
 	
+	$('.toggle_autoactivate_status').bind('click',function(event){
+		$('.indicator').show();
+		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:         0.0,
+		cursor:    null
+		    }});
+		var question_id = $(this).attr("question_id");
+		$.post('/questions/' + question_id + '/toggle_autoactivate.js',
+		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		function(data){
+			$('.indicator').hide();
+			$.unblockUI();
+			humanMsg.displayMsg(data['message']);
+			if(data['error']) {
+				//no-op
+			}
+			else {
+			$('#question_'+question_id+'_autoactivate_status').text(data['verb']).effect("highlight", {}, 1500);
+		}
+			//$('.prompter').effect("highlight", {}, 1500);
+			
+		},
+		"json"
+		);
+		return false;
+	});
 	
 	$('input[title!=""]').hint();
 	$('textarea[title!=""]').hint();

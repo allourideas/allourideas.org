@@ -19,9 +19,20 @@
     %tr.row0.thin
       %td{:colspan => 3}
   %br
-
+  
+  %table.full
+    %tr.row0
+      %th
+        = "Optional Question Settings"
+      %th.score= "Status"
+      %th &nbsp;
+    
+    %tr.row1
+      %td.title= "Allow ideas by users to be automatically activated, without prior approval"
+      %td.votes{:id => "question_#{@question.id}_autoactivate_status"}= @question.it_should_autoactivate_ideas? ? 'Enabled' : 'Disabled'
+      %td=link_to('[Toggle]', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
   %h2
-    Optional Question Settings:
+    More Settings:
   -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
     %p 
       Require users to enter the following user/password combination before voting: 
@@ -36,10 +47,6 @@
       Upload a logo to be displayed on your idea market place page
       %br
       = f.file_field :logo
-
-    - fields_for :question, @question do |question_f|
-      = "Allow ideas by users to be automatically activated, without being approved "
-      = question_f.check_box :it_should_autoactivate_ideas
     %p
       = submit_tag "Save"
 

@@ -18,7 +18,7 @@ config.action_mailer.delivery_method = :test
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-HOST = 'http://localhost:3001'
+HOST = 'localhost:3001'
 #API_HOST = "http://204.236.224.252"
 #API_HOST = 'http://allourideas.com'
 API_HOST = "http://localhost:3000"

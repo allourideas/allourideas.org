@@ -323,6 +323,30 @@ class QuestionsController < ApplicationController
         end
      end
   end
+  def delete_logo
+     authenticate
+     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
+     @question = Question.find_by_name(params[:id])
+     @earl = Earl.find params[:id]
+     
+     @earl.logo = nil
+     respond_to do |format|
+        if @earl.save
+
+	    logger.info("Deleting Logo from earl")
+	    flash[:notice] = 'Question settings saved successfully!'
+	    format.html {redirect_to:action => "admin"}
+  	    # format.xml  { head :ok }
+	else 
+	    format.html { render :action => "admin"}
+  	    #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        end
+
+     end
+  end
+
+
+
   # 
   # # DELETE /questions/1
   # # DELETE /questions/1.xml

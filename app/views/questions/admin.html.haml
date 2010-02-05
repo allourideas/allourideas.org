@@ -44,7 +44,12 @@
       Password: 
       = f.text_field :pass
     %p 
-      Upload a logo to be displayed on your idea market place page
+      -if @earl.logo_file_name
+        =link_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
+        %br
+        Replace logo above with another file:
+      -else
+        Upload a logo to be displayed on your idea market place page
       %br
       = f.file_field :logo
     %p

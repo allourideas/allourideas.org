@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
                             :toggle_autoactivate => :post, 
                             :admin => :get, 
                             :results => :get,
+			    :delete_logo => :delete,
   		            :update => :put }
   #map.resources :choices, :member => {:activate => :get}
   map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'

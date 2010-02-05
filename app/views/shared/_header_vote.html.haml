@@ -12,10 +12,11 @@
       = link_to(image_tag(@earl.logo.url(:medium)), root_path, :class => 'logo')
     .bread-crumb
   .fright{:style => "vertical-align: bottom;"}
-    %br
-    %br
-    %br
-    %br
+    -if @earl && !@earl.logo_file_name.nil?
+      %br
+      %br
+      %br
+      %br
     %div{:style => "position:relative; bottom: 0;"}
       =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
       %span.grey &nbsp;|&nbsp;

@@ -38,7 +38,7 @@ function increment(number)
 
 jQuery(document).ready(function() {
 	
-	$('label').labelOver('over-apply');
+	//$('label').labelOver('over-apply');
 	
 	// [$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {
 	//     $(this).bind("mouseover", function() {

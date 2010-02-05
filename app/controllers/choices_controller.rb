@@ -56,7 +56,7 @@ class ChoicesController < ApplicationController
   def activate
     authenticate 
     if !current_user
-    	flash[:for_real] = "You must be logged in to perform this action"
+    	flash[:notice] = "You must be logged in to perform this action"
 	return
     end
     
@@ -70,12 +70,12 @@ class ChoicesController < ApplicationController
     if current_user == @question.creator
     
     	@choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:for_real] = "You have successfully activated the idea <strong>#{@choice.attributes['data']}</strong>"
+    	flash[:notice] = "You have successfully activated the idea '#{@choice.attributes['data']}'"
     	logger.info flash[:notice]
     	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
     	redirect_to("#{@question.earl}") and return
     else
-    	flash[:for_real] = "You do not have permission to modify this question"
+    	flash[:notice] = "You do not have permission to modify this question"
 	redirect_to('/sign_in') and return
     end
   end
@@ -84,7 +84,7 @@ class ChoicesController < ApplicationController
   def deactivate
     authenticate 
     if !current_user
-    	flash[:for_real] = "You must be logged in to perform this action"
+    	flash[:notice] = "You must be logged in to perform this action"
 	return
     end
 
@@ -96,12 +96,12 @@ class ChoicesController < ApplicationController
     # should probably put an error message for those not logged in 
     if current_user == @question.creator
     	@choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:for_real] = "You have successfully deactivated the idea <strong>#{@choice.attributes['data']}</strong>"
+    	flash[:notice] = "You have successfully deactivated the idea '#{@choice.attributes['data']}'"
     	logger.info flash[:notice]
     	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
     	redirect_to("#{@question.earl}") and return
     else
-    	flash[:for_real] = "You do not have permission to modify this question"
+    	flash[:notice] = "You do not have permission to modify this question"
 	redirect_to('/sign_in') and return
     end
   end

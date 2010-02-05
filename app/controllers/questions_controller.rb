@@ -78,7 +78,7 @@ class QuestionsController < ApplicationController
         format.xml  {  head :ok }
         format.js  { 
           if conditional
-            flash[:notice] = 'Vote was successfully counted.'
+            #flash[:notice] = 'Vote was successfully counted.'
             newprompt = Crack::XML.parse(p.body)['prompt']
             logger.info "newprompt is #{newprompt.inspect}"
             session[:current_prompt_id] = newprompt['id']
@@ -131,7 +131,7 @@ class QuestionsController < ApplicationController
       new_idea_data = params[:new_idea]
       @choice = Choice.new(:data => new_idea_data)
       respond_to do |format|
-          flash[:notice] = 'You just added an idea for people to vote on.'
+          #flash[:notice] = 'You just added an idea for people to vote on.'
           format.xml  {  head :ok }
           format.js  { 
             the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}

@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include Clearance::User
   has_many :earls
   attr_accessible :default
+  before_validation_on_create :set_confirmed_email
   
   def owns?(earl)
     earl.user_id == id
@@ -26,6 +27,10 @@ class User < ActiveRecord::Base
       save!
       return u
     end
+  end
+
+  def set_confirmed_email
+      self.email_confirmed = true
   end
   
 end

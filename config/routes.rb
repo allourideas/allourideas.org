@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
                             :vote_right => :post, 
                             :add_idea => :post, 
                             :toggle => :post, 
+                            :toggle_autoactivate => :post, 
                             :admin => :get, 
                             :results => :get,
   		            :update => :put }

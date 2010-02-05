@@ -182,6 +182,31 @@ class QuestionsController < ApplicationController
         end
       end
 
+   def toggle_autoactivate
+        authenticate
+        @earl = Earl.find_by_question_id(params[:id])
+	@question = @earl.question
+        unless current_user.owns? @earl
+          render(:json => {:message => "Succesfully changed settings, #{params[:id]}"}.to_json) and return
+        end
+        logger.info "Getting ready to change idea autoactivate status of Question #{params[:id]} to #{!@question.it_should_autoactivate_ideas?}"
+        
+        respond_to do |format|
+            format.xml  {  head :ok }
+            format.js  { 
+	      logger.info("Question is: #{@question.inspect}")
+              new_activate_val = !(@question.it_should_autoactivate_ideas)
+              verb = new_activate_val ? 'Enabled' : 'Disabled'
+	      logger.info("Question is: #{@question.inspect}")
+              if @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => new_activate_val}) 
+                logger.info "just #{verb} auto_activate ideas for this question"
+                render :json => {:message => "You've just #{verb.downcase} auto idea activation", :verb => verb}.to_json
+              else
+                render :json => {:message => "You've just #{verb.downcase} auto idea activation", :verb => verb}.to_json
+              end
+            }
+        end
+      end
 
   # GET /questions/new
   # GET /questions/new.xml
@@ -286,16 +311,6 @@ class QuestionsController < ApplicationController
      @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
      respond_to do |format|
         if @earl.update_attributes(params[:earl])
-
-	    new_activate_val = (params[:question][:it_should_autoactivate_ideas].to_i == 1)
-	    # Save a network round trip by comparing here
-	    if(@question.it_should_autoactivate_ideas != new_activate_val)
-
-	    	    logger.info("saving question...")
-		    @question.put(:set_autoactivate_ideas_from_abroad, 
-			              :question => { :it_should_autoactivate_ideas => new_activate_val} )
-	    	    logger.info("question saved.")
-	    end
 
 	    logger.info("Saving new information on earl")
 	    flash[:notice] = 'Question settings saved successfully!'

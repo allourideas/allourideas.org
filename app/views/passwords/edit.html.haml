@@ -1,0 +1,16 @@
+%h2= "Change your password"
+
+%p= "Your password has been reset. Choose a new password below."
+
+-form_for :user, :url  => user_password_path(@user, :token => @user.confirmation_token), :html => { :method => :put } do |form|
+  %table.left
+    %tr
+      %td= form.label :password, t('user.password')
+      %td= form.password_field :password, :as => :password 
+    %tr
+      %td= form.label :password_confirmation, t('user.password_confirmation')
+      %td= form.password_field :password_confirmation, :as => :password 
+    %tr
+      %td
+      %td= form.submit t('form.save'), :class => 'form-btn'
+

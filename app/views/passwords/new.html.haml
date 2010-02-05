@@ -1,0 +1,9 @@
+%h2= t('user.reset_password_header')
+
+%p= t('user.reset_password_explain')
+%br
+
+-form_for :password, :url => passwords_path do |form|
+  = form.label :email, "#{t('user.email')}: "
+  = form.text_field :email
+  = form.submit t('user.reset_password_button')

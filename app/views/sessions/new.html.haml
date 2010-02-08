@@ -3,10 +3,10 @@
 -form_for :session, :url => session_path do |form|
   %table.left
     %tr
-      %td= t('user.email')
+      %td= form.label :email, t('user.email')
       %td= form.text_field 'email'
     %tr
-      %td= t('user.password')
+      %td= form.label :password, t('user.password')
       %td= form.password_field 'password'
     %tr
       %td

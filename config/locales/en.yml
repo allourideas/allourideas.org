@@ -152,6 +152,7 @@ en:
     reset_password_header: Reset your password
     reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password. 
     reset_password_button: Reset password
+    save_password_button: Save this password
     no_email: No user with that Email Address was found.
     retrieve_success: We have sent your password to the email address entered. Please check your email.
     send_pass_explanation: We have received a request to email you your password.

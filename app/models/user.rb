@@ -29,8 +29,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def email_activated=(value)
+      self.email_confirmed = value
+  end
+
   def set_confirmed_email
-      self.email_confirmed = true
+      self.email_activated = true
   end
   
 end

@@ -11,6 +11,8 @@ module NavigationHelpers
     when /the password reset request page/i
       new_password_path
 
+    when /the question show page/i
+      question_path
     # Add more page name => path mappings here
 
     else

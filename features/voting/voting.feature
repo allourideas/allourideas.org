@@ -1,10 +1,14 @@
+@focus
 Feature: Voting
   In order to get preferences from visitors
   A user
   Should be able to interact successfully with the voting screen
+  
+  Background: 
+    Given I have a Question named QuestionTest and url questiontest
 
     Scenario: User has two choices and votes for the left one
-      Given I am on the question show page
+      Given I am on the show page for QuestionTest
       And the vote count is 20
       And the idea count is 30
       When I click on the left prompt

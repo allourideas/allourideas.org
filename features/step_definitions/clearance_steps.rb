@@ -52,7 +52,8 @@ Then /^a confirmation message should be sent to "(.*)"$/ do |email|
   assert_equal [user.email], sent.to
   assert_match /confirm/i, sent.subject
   assert !user.confirmation_token.blank?
-  assert_match /#{user.confirmation_token}/, sent.body
+#  assert_match /#{user.confirmation_token}/, sent.body 
+  # We don't include the confirm token
 end
 
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
@@ -91,7 +92,7 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
   When %{I go to the sign in page}
   And %{I fill in "Email" with "#{email}"}
   And %{I fill in "Password" with "#{password}"}
-  And %{I press "Sign In"}
+  And %{I press "Log In"}
 end
 
 When /^I sign out$/ do

@@ -17,7 +17,6 @@
       %td= t('items.number_of_votes')
       %td= @votes_count
       
-
 #explanation{:style => 'display:none;'}
-  %h2 About the Scoring
-  The scores here are computed as a percentage of votes in which the choice was preferred.
+  %h2= t('items.about_scoring')
+  =t('items.score_explain')

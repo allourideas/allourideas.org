@@ -9,7 +9,7 @@
 .vote-nav
   .fleft{:style => "vertical-align: bottom;"}
     -if @earl && !@earl.logo_file_name.nil?
-      = link_to(image_tag(@earl.logo.url(:medium)), root_path, :class => 'logo')
+      = image_tag(@earl.logo.url(:medium))
     .bread-crumb
   .fright{:style => "vertical-align: bottom;"}
     -if @earl && !@earl.logo_file_name.nil?

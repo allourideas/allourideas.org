@@ -20,6 +20,9 @@
       %td{:colspan => 3}
   %br
   
+  %p
+    ="This question created #{time_ago_in_words(@earl.created_at)} ago"
+  
   %table.full
     %tr.row0
       %th
@@ -30,8 +33,6 @@
       %td.title= "Allow ideas by users to be automatically activated, without prior approval"
       %td.votes{:id => "question_#{@question.id}_autoactivate_status"}= @question.it_should_autoactivate_ideas? ? 'Enabled' : 'Disabled'
       %td=link_to('[Toggle]', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
-  %p
-    ="This question created #{time_ago_in_words(@earl.created_at)} ago"
   %h2
     More Settings:
   -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
@@ -57,7 +58,6 @@
       = submit_tag "Save"
 
     
-
   #explanation{:style => 'display:none;'}
-    %h2 About the Scoring
-    The scores here are computed as a percentage of votes in which the choice was preferred.
+    %h2= t('items.about_scoring')
+    =t('items.score_explain')

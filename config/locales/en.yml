@@ -124,7 +124,8 @@ en:
     total: Total
     someone_has_added_an_item: Someone has added an item
     number_of_votes: Number of Votes
-    score_explain: The score is an estimate of the fraction of comparisons an item is expected to win.
+    about_scoring: About the Scoring
+    score_explain: The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
   session:
     logged_in_successfully: Logged in successfully
     no_account: We could not find your account or your email and password do not match.

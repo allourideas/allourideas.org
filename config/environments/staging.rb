@@ -3,6 +3,7 @@
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
+config.time_zone = 'Eastern Time (US & Canada)'
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new

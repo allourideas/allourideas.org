@@ -9,7 +9,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
 
-  config.time_zone = 'UTC'
+  config.time_zone = 'Eastern Time (US & Canada)'
 
   config.action_mailer.delivery_method = :sendmail
   config.gem 'hoptoad_notifier'

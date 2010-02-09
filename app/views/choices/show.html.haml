@@ -9,7 +9,7 @@
       %td{:width=>'80%'}= @data.strip
     %tr
       %td= t('items.added_on')
-      %td= @created_at.strftime("%m/%d/%Y at %I:%M%p")
+      %td= @created_at.getlocal.strftime("%m/%d/%Y at %I:%M%p")
     %tr
       %td= t('items.score')
       %td= @score.round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')

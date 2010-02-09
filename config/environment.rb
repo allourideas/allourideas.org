@@ -59,5 +59,5 @@ Rails::Initializer.run do |config|
   config.gem 'sax-machine'
 end
 
-PRODUCTION_API_HOST = "http://allrideas.net"
-STAGING_API_HOST = "http://allrideas.com"
+PRODUCTION_API_HOST = ENV['API_HOST']
+STAGING_API_HOST = ENV['STAGING_API_HOST']

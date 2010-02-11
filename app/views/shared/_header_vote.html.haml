@@ -6,19 +6,15 @@
   -@cast_votes_url = "http://#{HOST}/#{@earl.name}"
   -@results_url = "http://#{HOST}/#{@earl.name}" + "/results"
 
-.vote-nav
-  .fleft{:style => "vertical-align: bottom;"}
+.vote-nav{:style => "position: relative;"}
+  .fleft
     -if @earl && !@earl.logo_file_name.nil?
       = image_tag(@earl.logo.url(:medium))
-    .bread-crumb
-  .fright{:style => "vertical-align: bottom;"}
-    -if @earl && !@earl.logo_file_name.nil?
-      %br
-      %br
-      %br
-      %br
-    %div{:style => "position:relative; bottom: 0;"}
-      =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
-      %span.grey &nbsp;|&nbsp;
+    -else
+      &nbsp;
+  %div{:style => "position: absolute; bottom: 0px; right: 0px;"}
+    =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
+    %span.grey 
+      &nbsp;|&nbsp;
       = loc_based_style(link_to(t('nav.view_results'), @results_url), t('nav.view_results'))
   .clear

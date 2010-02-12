@@ -18,7 +18,7 @@ class Question < ActiveResource::Base
   end
   
   def fq_earl
-    "#{HOST}/#{Earl.find_by_question_id(id).name}" rescue nil
+    "http://#{HOST}/#{Earl.find_by_question_id(id).name}" rescue nil
   end
   
   def slug

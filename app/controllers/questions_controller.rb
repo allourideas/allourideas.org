@@ -286,7 +286,7 @@ class QuestionsController < ApplicationController
           @question = @question_two
           earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
           logger.info "Question was successfully created."
-          session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br/> Send out your URL: #{@question.fq_earl} and watch what happens."
+          session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br /> Send out your URL: #{@question.fq_earl} and watch what happens. <br /> You can further customize this site by following this link: <a href=\"#{@question.fq_earl}/admin\"> Manage this page </a>"
           ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
           format.html { redirect_to(@question.earl) }
           format.xml  { render :xml => @question, :status => :created, :location => @question }

@@ -45,8 +45,14 @@ class QuestionsController < ApplicationController
     authenticate
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-    @question = Question.find_by_name(params[:id])
     @earl = Earl.find params[:id]
+
+    unless current_user.owns? @earl || current_user.admin?
+	    flash[:notice] = "You are not authorized to view that page"
+	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+    end
+
+    @question = Question.find_by_name(params[:id])
 
     
     logger.info "@question is #{@question.inspect}."
@@ -307,6 +313,11 @@ class QuestionsController < ApplicationController
      @question = Question.find_by_name(params[:id])
      @earl = Earl.find params[:id]
      
+     unless current_user.owns? @earl || current_user.admin?
+	    flash[:notice] = "You are not authorized to view that page"
+	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+     end
+
      @partial_results_url = "#{@earl.name}/results"
      @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
      respond_to do |format|
@@ -315,7 +326,7 @@ class QuestionsController < ApplicationController
 	    logger.info("Saving new information on earl")
 	    flash[:notice] = 'Question settings saved successfully!'
 	    logger.info("Saved new information on earl")
-	    format.html {redirect_to:action => "admin"}
+	    format.html {redirect_to :action => "admin"}
   	    # format.xml  { head :ok }
 	else 
 	    format.html { render :action => "admin"}

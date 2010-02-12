@@ -53,6 +53,13 @@ class HomeController < ApplicationController
   
   def admin
     authenticate
+    if current_user.admin?
+	@earls = Earl.find(:all)
+    else
+    	@earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
+    end
+
+
   end
 
   private

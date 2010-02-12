@@ -1,10 +1,12 @@
 -if @question
   -@cast_votes_url = @question.earl
   -@results_url = @question.earl + "/results"
+  -@manage_url = @question.earl + "/admin"
   -@all_results_url = "#{@results_url}?all=true"
 -else
   -@cast_votes_url = "http://#{HOST}/#{@earl.name}"
   -@results_url = "http://#{HOST}/#{@earl.name}" + "/results"
+  -@manage_url = "http://#{HOST}/#{@earl.name}" + "/admin"
 
 .vote-nav{:style => "position: relative;"}
   .fleft
@@ -17,4 +19,9 @@
     %span.grey 
       &nbsp;|&nbsp;
     = loc_based_style(link_to(t('nav.view_results'), @results_url), t('nav.view_results'))
+    - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
+      %span.grey 
+        &nbsp;|&nbsp;
+      = loc_based_style(link_to(t('nav.manage_question'), @manage_url), t('nav.manage_question'))
+
   .clear

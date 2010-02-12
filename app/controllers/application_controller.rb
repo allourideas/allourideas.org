@@ -68,4 +68,21 @@ class ApplicationController < ActionController::Base
       Click.record(request.session_options[:id], "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in) [ip: #{request.remote_ip}]")
     end
   end
+
+  helper_method :signed_in_as_admin?
+  
+  def signed_in_as_admin?
+    signed_in? && current_user.admin?
+  end
+  
+  def users_only
+    deny_access("Please Login or Create an Account to Access that Feature.") unless signed_in?
+  end
+  
+  def admin_only
+    deny_access("Please Login as an administrator to Access that Feature.") unless signed_in_as_admin?
+  end
+
+	
+
 end

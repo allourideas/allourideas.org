@@ -36,5 +36,9 @@ class User < ActiveRecord::Base
   def set_confirmed_email
       self.email_activated = true
   end
+
+  def admin?
+      self.admin
+  end
   
 end

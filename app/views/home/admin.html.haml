@@ -8,7 +8,7 @@
       %th.score= (@header_text = "Status") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
       %th &nbsp;
     -alt=false
-    -for earl in current_user.earls.sort_by {|x| [(!x.active).to_s, x.name] }
+    -for earl in @earls
       -q = earl.question(true)
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
         %td.title= link_to truncate(h(q.attributes['name']), :length => 137), q.earl + '/admin'

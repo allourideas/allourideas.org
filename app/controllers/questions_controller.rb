@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
 
-    unless ((current_user.owns? @earl) || current_user.admin? )
+    unless ((current_user.owns?(@earl)) || current_user.admin? )
 	    logger.info ("Current user is: #{current_user.inspect}")
 	    flash[:notice] = "You are not authorized to view that page"
 	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return

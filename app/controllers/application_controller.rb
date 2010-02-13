@@ -60,13 +60,17 @@ class ApplicationController < ActionController::Base
   end
   
   def record_action
-    if signed_in?
+    Click.create( :sid => request.session_options[:id], :ip_addr => request.remote_ip, :url => request.url,
+		   :controller => controller_name, :action => action_name, :user => current_user, :referrer => request.referrer,
+		   :user_agent => request.env["HTTP_USER_AGENT"])
+    if current_user 
       logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
-      Click.record(request.session_options[:id], "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email}) [ip: #{request.remote_ip}]", current_user)
     else
       logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in)"
-      Click.record(request.session_options[:id], "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in) [ip: #{request.remote_ip}]")
     end
+   #   Click.create( :sid => request.session_options[:id], :ip_addr => request.remote_ip, :url => request.url,
+#		   :controller => controller_name, :action => action_name, :user => nil, :referrer => request.referrer)
+      
   end
 
   helper_method :signed_in_as_admin?

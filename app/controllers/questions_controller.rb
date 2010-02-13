@@ -47,7 +47,8 @@ class QuestionsController < ApplicationController
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
 
-    unless current_user.owns? @earl || current_user.admin?
+    unless ((current_user.owns? @earl) || current_user.admin? )
+	    logger.info ("Current user is: #{current_user.inspect}")
 	    flash[:notice] = "You are not authorized to view that page"
 	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
     end
@@ -313,7 +314,7 @@ class QuestionsController < ApplicationController
      @question = Question.find_by_name(params[:id])
      @earl = Earl.find params[:id]
      
-     unless current_user.owns? @earl || current_user.admin?
+     unless ( (current_user.owns? @earl) || current_user.admin?)
 	    flash[:notice] = "You are not authorized to view that page"
 	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
      end
@@ -346,7 +347,7 @@ class QuestionsController < ApplicationController
 
 	    logger.info("Deleting Logo from earl")
 	    flash[:notice] = 'Question settings saved successfully!'
-	    format.html {redirect_to:action => "admin"}
+	    format.html {redirect_to :action => "admin"}
   	    # format.xml  { head :ok }
 	else 
 	    format.html { render :action => "admin"}
@@ -355,7 +356,33 @@ class QuestionsController < ApplicationController
 
      end
   end
+  
+  def export
+    authenticate
 
+    @earl = Earl.find params[:id]
+    unless current_user.admin?
+       flash[:notice] = "You are not authorized to export data"
+       redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+    end
+    @question = Question.find_by_name(params[:id])
+
+    case params[:type]
+       when "votes" then 
+	   outfile = "question_#{@question.id}_votes_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+	   post_response = @question.post(:export, :type => :votes)
+	   csv_data = post_response.body
+       when "items"  then 
+	   outfile = "question_#{@question.id}_items_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+	   post_response = @question.post(:export, :type => :items)
+	   csv_data = post_response.body
+    end
+
+    send_data(csv_data,
+        :type => 'text/csv; charset=iso-8859-1; header=present',
+        :disposition => "attachment; filename=#{outfile}")
+
+  end
 
 
   # 

@@ -22,6 +22,23 @@
       %td{:colspan => 3}
   %br
   
+  -if current_user.admin?
+    %table.full
+      %tr.row0
+        %th= "Download Idea Marketplace Data"
+        %th &nbsp;
+        %th &nbsp;
+      %tr.row1
+        %td.title= "List of All Idea Market Places CSV"
+        %td &nbsp;
+        %td
+          = link_to('[Download]', :controller => :earls, :action => :export_list)
+      %tr.row2
+        %td.title= "List of all Clicks CSV"
+        %td &nbsp;
+        %td
+          = link_to('[Download]', :controller => :clicks, :action => :export)
+  
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')

@@ -11,7 +11,8 @@ ActionController::Routing::Routes.draw do |map|
                             :results => :get,
 			    :delete_logo => :delete,
   		            :update => :put }
-  #map.resources :choices, :member => {:activate => :get}
+  map.resources :earls, :collection => {:export_list=> :get}
+  map.resources :clicks, :collection => {:export=> :get}
   map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   map.activate_choice '/:question_id/choices/:id/activate', :controller => 'choices', :action => 'activate'
   map.deactivate_choice '/:question_id/choices/:id/deactivate', :controller => 'choices', :action => 'deactivate'

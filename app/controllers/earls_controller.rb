@@ -1,9 +1,10 @@
 class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
+  require 'fastercsv'
   
   
-  before_filter :dumb_cleartext_authentication
+  before_filter :dumb_cleartext_authentication, :except => :export_list
   
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
@@ -34,6 +35,29 @@ class EarlsController < ApplicationController
     end
   end
   
+  def export_list
+     authenticate
+
+     unless current_user.admin?
+       flash[:notice] = "You are not authorized to export data"
+       redirect_to( {:action => :index, :controller => :home}) and return
+     end
+     @earls= Earl.find(:all)
+     outfile = "question_list_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+     headers = ['Earl ID', 'Name', 'Question ID', 'Creator ID', 'Active', 'Has Logo', 'Has Password',
+                      'Created at', 'Updated at']
+
+     csv_data = FasterCSV.generate do |csv|
+        csv << headers
+        @earls.each do |e|
+           csv << [ e.id, e.name, e.question_id, e.user_id, e.active, !e.logo_file_name.nil?, ! (e.pass.nil? || e.pass.empty?),
+                   e.created_at, e.updated_at]
+  	end
+     end
+    send_data(csv_data,
+        :type => 'text/csv; charset=iso-8859-1; header=present',
+        :disposition => "attachment; filename=#{outfile}")
+  end
   
   
   protected

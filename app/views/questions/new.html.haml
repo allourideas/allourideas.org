@@ -46,7 +46,7 @@
       %br
       %br
 
-      = f.text_area 'question_ideas', :class => 'required', :cols => 50, :rows => 12, :title => t('questions.new.step3_exp')
+      = f.text_area 'question_ideas', :class => 'required', :cols => 85, :rows => 12, :title => t('questions.new.step3_exp')
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
 
     -unless @registered
@@ -73,7 +73,7 @@
       Also, feel free to let us know anything else we might find interesting (e.g. how you heard about us, how many visitors you're expecting)
       %br
       %br
-      = f.text_area 'information', :cols => 50, :rows => 12#, :title => t('questions.new.step3_exp')
+      = f.text_area 'information', :cols => 85, :rows => 12#, :title => t('questions.new.step3_exp')
     
     -if @registered
       %p= submit_tag t('form.create'), :class => 'form-btn'

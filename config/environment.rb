@@ -59,7 +59,6 @@ Rails::Initializer.run do |config|
     
   config.gem 'crack'
   config.gem 'friendly_id'
-  config.gem 'sax-machine'
 end
 
 PRODUCTION_API_HOST = ENV['API_HOST']

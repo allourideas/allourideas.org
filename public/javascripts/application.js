@@ -196,6 +196,10 @@ jQuery(document).ready(function() {
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
 		function(data){
 			$('.tellmearea').html(data["message"]);
+			$('#new_idea_field').val("");
+			$('#new_idea_field').attr('title','Thank you. Your idea has been added. Please add some more ideas.');
+			$('#new_idea_field').unbind('focus').unbind('blur');
+			$('#new_idea_field').hint();
 			// $('.leftside').html(data["newleft"]);
 			// $('.rightside').html(data["newright"]);
 			

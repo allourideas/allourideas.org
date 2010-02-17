@@ -15,13 +15,14 @@
     -else
       &nbsp;
   %div{:style => "position: absolute; bottom: 0px; right: 0px;"}
-    =loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
+    =#loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
+    =link_to_unless_current(t('vote.cast_votes'), @cast_votes_url) do "<strong> #{t('vote.cast_votes')} </strong>" end
     %span.grey 
       &nbsp;|&nbsp;
-    = loc_based_style(link_to(t('nav.view_results'), @results_url), t('nav.view_results'))
+    = link_to_unless_current(t('nav.view_results'), @results_url) do "<strong> #{t('nav.view_results')} </strong>" end
+
     - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
       %span.grey 
         &nbsp;|&nbsp;
-      = loc_based_style(link_to(t('nav.manage_question'), @manage_url), t('nav.manage_question'))
-
+      = link_to_unless_current(t('nav.manage_question'), @manage_url) do "<strong> #{t('nav.manage_question')} </strong>" end
   .clear

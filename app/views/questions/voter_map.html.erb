@@ -1,0 +1,47 @@
+<html>
+<head>
+  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+  <script type='text/javascript'>
+   google.load('visualization', '1', {'packages': ['geomap']});
+   google.setOnLoadCallback(drawMap);
+
+    function drawMap() {
+      var data = new google.visualization.DataTable();
+      data.addRows(<%= @votes_by_geoloc.size %>);
+      data.addColumn('number', 'LATITUDE', 'Latitude');
+      data.addColumn('number', 'LONGITUDE', 'Longitude');
+      data.addColumn('number', 'Votes', 'Votes');
+      data.addColumn('string', 'HOVER', 'City');
+      <% count =0 -%>
+      <%- @votes_by_geoloc.each do |city_state_string, hash| -%>
+        <%- if city_state_string != "Unknown Location" -%>
+         data.setValue(<%=count%>, 0, <%= hash[:location].lat %>);
+         data.setValue(<%=count%>, 1, <%= hash[:location].lng %>);
+         data.setValue(<%=count%>, 2, <%= hash[:num_votes] %> );
+         data.setValue(<%=count%>, 3, "<%= city_state_string %>");
+         <% count = count +1 %>
+        <%- end -%>
+      <%- end -%>
+
+      var options = {};
+      options['region'] = 'world';
+      options['colors'] = [0xFF8747, 0xFFB581, 0xc06000]; //orange colors
+      options['dataMode'] = 'markers';
+      options['width'] = '590px';
+
+      var container = document.getElementById('map_canvas');
+      var geomap = new google.visualization.GeoMap(container);
+      geomap.draw(data, options);
+    };
+  
+  </script>
+</head>
+
+<body>
+    <div id='map_canvas'></div>
+<% if @votes_by_geoloc['Unknown Location'] -%>
+<%= "We were unable to find the location of #{@votes_by_geoloc['Unknown Location'][:num_votes]} votes" %>
+<% end -%>
+</body>
+
+</html>

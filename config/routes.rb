@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
                             :toggle_autoactivate => :post, 
                             :admin => :get, 
                             :results => :get,
+                            :voter_map => :get,
 			    :delete_logo => :delete,
   		            :update => :put }
   map.resources :earls, :collection => {:export_list=> :get}

@@ -257,9 +257,9 @@ class QuestionsController < ApplicationController
 	      logger.info("Question is: #{@question.inspect}")
               if @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => new_activate_val}) 
                 logger.info "just #{verb} auto_activate ideas for this question"
-                render :json => {:message => "You've just #{verb.downcase} auto idea activation", :verb => verb}.to_json
+                render :json => {:message => "You've just #{verb.downcase} idea auto-activation", :verb => verb}.to_json
               else
-                render :json => {:message => "You've just #{verb.downcase} auto idea activation", :verb => verb}.to_json
+                render :json => {:message => "You've just #{verb.downcase} idea auto-activation", :verb => verb}.to_json
               end
             }
         end

@@ -507,4 +507,12 @@ jQuery(document).ready(function() {
 		}); // End ajax method
 		return false;
 	});
+	
+	$('#view_voter_map').bind('click',function(event){		
+			var target = $('#view_voter_map').attr('iframe_url');
+			var iframe_html= "<iframe src='" + target + "' width='600px' height='400px' frameborder=0 scrolling=no></iframe>";
+			$(iframe_html).insertAfter('#view_voter_map_row');
+			});
+
+
 });

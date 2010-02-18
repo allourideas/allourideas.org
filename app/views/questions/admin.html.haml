@@ -19,7 +19,21 @@
     %tr.row0.thin
       %td{:colspan => 3}
   %br
-  
+
+  %table.full
+    %tr.row0
+      %th="Data Visualizations"
+      %th &nbsp;
+      %th &nbsp;
+    %tr.row1#view_voter_map_row
+      %td="World map of votes"
+      %td &nbsp;
+      %td
+        = link_to('[View]', '#', :id => "view_voter_map", :iframe_url=> url_for(:action => :voter_map))
+    -#%tr.row1
+      %td
+        %iframe{:src => "#{url_for(:action => :voter_map)}", :width=> "600px", :height => "400px", :frameborder => "0", :scrolling => "no"}}
+      %td &nbsp;
   %p
     ="This question created #{time_ago_in_words(@earl.created_at)} ago"
   
@@ -75,6 +89,12 @@
         %td &nbsp;
         %td
           = link_to('[Download]', :action => :export, :params => {:type => :votes})
+      %tr.row1
+        %td.title= "Map of user votes"
+        %td &nbsp;
+        %td
+          = link_to('[View]', :action => :voter_map)
+      
     
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')

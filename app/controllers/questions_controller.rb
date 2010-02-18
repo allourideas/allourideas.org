@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
+  require 'geokit'
   #caches_page :results
   
   # GET /questions
@@ -61,6 +62,58 @@ class QuestionsController < ApplicationController
     @partial_results_url = "#{@earl.name}/results"
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
+  end
+
+  def voter_map
+     authenticate 
+     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
+     @earl = Earl.find params[:id]
+
+     unless ((current_user.owns?(@earl)) || current_user.admin? )
+	    logger.info ("Current user is: #{current_user.inspect}")
+	    flash[:notice] = "You are not authorized to view that page"
+	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+     end
+     @question = Question.find_by_name(params[:id])
+
+     votes_by_sids = @question.get(:num_votes_by_visitor_id)
+     
+     @votes_by_geoloc= {}
+     votes_by_sids.each do|sid, num_votes|
+	     c = Click.find_by_sid(sid)
+
+	     if c.nil? || c.ip_addr.nil?
+	        if @votes_by_geoloc["Unknown Location"].nil?
+	          @votes_by_geoloc["Unknown Location"] = {}
+	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
+	        else @votes_by_geoloc["Unknown Location"].nil?
+	          @votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
+		end
+
+		next
+	     end
+	     loc = Geokit::Geocoders::MultiGeocoder.geocode(c.ip_addr)
+	     if loc.success
+	     	city_state_string = loc.city + ", " + loc.state
+	        if @votes_by_geoloc[city_state_string].nil?
+	          @votes_by_geoloc[city_state_string] = {}
+	          @votes_by_geoloc[city_state_string][:location] = loc
+	          @votes_by_geoloc[city_state_string][:num_votes] = num_votes
+	        else
+		  @votes_by_geoloc[city_state_string][:num_votes] += num_votes
+	        end
+	     else
+	        if @votes_by_geoloc["Unknown Location"].nil?
+	          @votes_by_geoloc["Unknown Location"] = {}
+	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
+	        else @votes_by_geoloc["Unknown Location"].nil?
+	          @votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
+		end
+	     end
+     end
+
+     render :layout => false
+	     
   end
   
   def vote(direction)

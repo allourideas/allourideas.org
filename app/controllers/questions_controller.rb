@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   require 'geokit'
+  before_filter :authenticate, :only => [:admin, :voter_map, :toggle, :toggle_autoactivate, :update, :delete_logo, :export]
   #caches_page :results
   
   # GET /questions
@@ -43,7 +44,6 @@ class QuestionsController < ApplicationController
   end
   
   def admin
-    authenticate
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
@@ -51,7 +51,7 @@ class QuestionsController < ApplicationController
     unless ((current_user.owns?(@earl)) || current_user.admin? )
 	    logger.info ("Current user is: #{current_user.inspect}")
 	    flash[:notice] = "You are not authorized to view that page"
-	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+	    redirect_to( "/#{params[:id]}") and return
     end
 
     @question = Question.find_by_name(params[:id])
@@ -65,7 +65,6 @@ class QuestionsController < ApplicationController
   end
 
   def voter_map
-     authenticate 
      logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
      @earl = Earl.find params[:id]
 
@@ -219,7 +218,6 @@ class QuestionsController < ApplicationController
       end
       
       def toggle
-        authenticate
         expire_page :action => :results
         @earl = Earl.find(params[:id])
         unless current_user.owns? @earl
@@ -243,7 +241,6 @@ class QuestionsController < ApplicationController
       end
 
    def toggle_autoactivate
-        authenticate
         @earl = Earl.find_by_question_id(params[:id])
 	@question = @earl.question
         unless current_user.owns? @earl
@@ -362,7 +359,6 @@ class QuestionsController < ApplicationController
   # # PUT /questions/1
   # # PUT /questions/1.xml
   def update
-     authenticate
      @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
      @question = Question.find_by_name(params[:id])
      @earl = Earl.find params[:id]
@@ -389,10 +385,15 @@ class QuestionsController < ApplicationController
      end
   end
   def delete_logo
-     authenticate
      @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
-     @question = Question.find_by_name(params[:id])
      @earl = Earl.find params[:id]
+    
+     unless ((current_user.owns?(@earl)) || current_user.admin? )
+	    logger.info ("Current user is: #{current_user.inspect}")
+	    flash[:notice] = "You are not authorized to view that page"
+	    redirect_to( "/#{params[:id]}") and return
+    end
+     @question = Question.find_by_name(params[:id])
      
      @earl.logo = nil
      respond_to do |format|
@@ -411,7 +412,6 @@ class QuestionsController < ApplicationController
   end
   
   def export
-    authenticate
 
     @earl = Earl.find params[:id]
     unless current_user.admin?

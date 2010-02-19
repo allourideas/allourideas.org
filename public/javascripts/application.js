@@ -509,10 +509,39 @@ jQuery(document).ready(function() {
 	});
 	
 	$('#view_voter_map').bind('click',function(event){		
-			var target = $('#view_voter_map').attr('iframe_url');
-			var iframe_html= "<iframe src='" + target + "' width='600px' height='400px' frameborder=0 scrolling=no></iframe>";
-			$(iframe_html).insertAfter('#view_voter_map_row');
+			event.preventDefault();
+			event.stopPropagation();
+
+			var link= $('#view_voter_map');
+			var target = link.attr('iframe_url');
+
+			var voter_map_row = $('#voter_map_row')
+			
+			var theText = (link.text() == "[View]") ? "[Close]" : "[View]";
+			link.text(theText);
+
+			if(voter_map_row.length>0)
+			{
+			   if($('#voter_map_row:hidden').length>0){
+			       $('#voter_map_row:hidden').slideDown('slow');
+			   }
+			   else{
+			       $('#voter_map_row').slideUp('slow');
+			   }
+
+			}
+				
+			else{
+			  var iframe_html= "<tr id=voter_map_row class='row1' style='display:none'><td class='title'><iframe src='" + target + "' width='540px' height='400px' frameborder=0 scrolling=no></iframe></td><td class='votes'>&nbsp;</td><td class='votes'>&nbsp;</td></tr>";
+			  $('#view_voter_map_row').after(iframe_html);
+			
+			  $('#voter_map_row:hidden').slideDown('slow');
+
+			}
+
+
 			});
 
 
 });
+

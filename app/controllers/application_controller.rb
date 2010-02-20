@@ -60,9 +60,12 @@ class ApplicationController < ActionController::Base
   end
   
   def record_action
-    Click.create( :sid => request.session_options[:id], :ip_addr => request.remote_ip, :url => request.url,
-		   :controller => controller_name, :action => action_name, :user => current_user, :referrer => request.referrer,
-		   :user_agent => request.env["HTTP_USER_AGENT"])
+    session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
+						       :ip_addr => request.remote_ip, 
+						       :user_agent => request.env["HTTP_USER_AGENT"])
+
+    Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
+		 :referrer => request.referrer, :session_info_id => session.id)
     if current_user 
       logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
     else

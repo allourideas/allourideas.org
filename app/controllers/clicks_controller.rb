@@ -2,16 +2,16 @@ class ClicksController < InheritedResources::Base
    require 'fastercsv'
     
    def export
-    @clicks = Click.find(:all)
+    @clicks = Click.find(:all, :include => :session_info)
     outfile = "clicks_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-    headers = ['Click ID', 'Session ID', 'User ID', 'Ip Addr', 'Controller', 'Action', 'URL', 'Referrer', 'User Agent',
-                'Created at', 'Updated at']
+    headers = ['Click ID', 'Session ID', 'User ID', 'Ip Addr', 'Controller', 'Action', 
+	       'URL', 'Referrer', 'User Agent', 'Created at', 'Updated at']
 
     csv_data = FasterCSV.generate do |csv|
        csv << headers
        @clicks.each do |c|
-               csv << [ c.id, c.sid, c.user_id, c.ip_addr, c.controller, c.action, c.url, c.referrer, c.user_agent,
-                       c.created_at, c.updated_at]
+               csv << [ c.id, c.session_info.session_id, c.user_id, c.session_info.ip_addr, c.controller, c.action, 
+		       c.url, c.referrer, c.session_info.user_agent, c.created_at, c.updated_at]
        end
     end
 

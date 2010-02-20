@@ -79,9 +79,9 @@ class QuestionsController < ApplicationController
      
      @votes_by_geoloc= {}
      votes_by_sids.each do|sid, num_votes|
-	     c = Click.find_by_sid(sid)
+	     session = SessionInfo.find_by_session_id(sid)
 
-	     if c.nil? || c.ip_addr.nil?
+	     if session.nil? || session.ip_addr.nil?
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
 	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
@@ -91,12 +91,27 @@ class QuestionsController < ApplicationController
 
 		next
 	     end
-	     loc = Geokit::Geocoders::MultiGeocoder.geocode(c.ip_addr)
-	     if loc.success
-	     	city_state_string = loc.city + ", " + loc.state
+
+	     if session.loc_info.empty?
+	      loc = Geokit::Geocoders::MultiGeocoder.geocode(session.ip_addr)
+	      if loc.success
+		session.loc_info= {}
+		session.loc_info[:city] = loc.city
+		session.loc_info[:state] = loc.state
+		session.loc_info[:country] = loc.country
+		session.loc_info[:lat] = loc.lat
+		session.loc_info[:lng] = loc.lng
+		session.save
+	      end
+	     end
+	     
+	     if !session.loc_info.empty?
+
+	     	city_state_string = session.loc_info[:city] + ", " + session.loc_info[:state]
 	        if @votes_by_geoloc[city_state_string].nil?
 	          @votes_by_geoloc[city_state_string] = {}
-	          @votes_by_geoloc[city_state_string][:location] = loc
+	          @votes_by_geoloc[city_state_string][:lat] = session.loc_info[:lat]
+	          @votes_by_geoloc[city_state_string][:lng] = session.loc_info[:lng]
 	          @votes_by_geoloc[city_state_string][:num_votes] = num_votes
 	        else
 		  @votes_by_geoloc[city_state_string][:num_votes] += num_votes

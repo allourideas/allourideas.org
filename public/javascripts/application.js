@@ -523,19 +523,19 @@ jQuery(document).ready(function() {
 			if(voter_map_row.length>0)
 			{
 			   if($('#voter_map_row:hidden').length>0){
-			       $('#voter_map_row:hidden').slideDown('slow');
+			       $('#voter_map_row:hidden').show()
 			   }
 			   else{
-			       $('#voter_map_row').slideUp('slow');
+			       $('#voter_map_row').hide();
 			   }
 
 			}
 				
 			else{
-			  var iframe_html= "<tr id=voter_map_row class='row1' style='display:none'><td class='title'><iframe src='" + target + "' width='540px' height='400px' frameborder=0 scrolling=no></iframe></td><td class='votes'>&nbsp;</td><td class='votes'>&nbsp;</td></tr>";
+			  var iframe_html= "<tr id=voter_map_row class='row1' style='display:none'><td class='title'><iframe src='" + target + "' width='540px' height='400px' frameborder=0 scrolling=no></iframe></td><td class='votes'>&nbsp;</td></tr>";
 			  $('#view_voter_map_row').after(iframe_html);
 			
-			  $('#voter_map_row:hidden').slideDown('slow');
+			  $('#voter_map_row:hidden').show();
 
 			}
 

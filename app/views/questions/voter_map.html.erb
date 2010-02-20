@@ -15,8 +15,8 @@
       <% count =0 -%>
       <%- @votes_by_geoloc.each do |city_state_string, hash| -%>
         <%- if city_state_string != "Unknown Location" -%>
-         data.setValue(<%=count%>, 0, <%= hash[:location].lat %>);
-         data.setValue(<%=count%>, 1, <%= hash[:location].lng %>);
+         data.setValue(<%=count%>, 0, <%= hash[:lat] %>);
+         data.setValue(<%=count%>, 1, <%= hash[:lng] %>);
          data.setValue(<%=count%>, 2, <%= hash[:num_votes] %> );
          data.setValue(<%=count%>, 3, "<%= city_state_string %>");
          <% count = count +1 %>
@@ -27,7 +27,7 @@
       options['region'] = 'world';
       options['colors'] = [0xFF8747, 0xFFB581, 0xc06000]; //orange colors
       options['dataMode'] = 'markers';
-      options['width'] = '590px';
+      options['width'] = '530px';
 
       var container = document.getElementById('map_canvas');
       var geomap = new google.visualization.GeoMap(container);

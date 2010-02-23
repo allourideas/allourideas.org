@@ -3,6 +3,7 @@
 %p= "Your password has been reset. Choose a new password below."
 
 -form_for :user, :url  => user_password_path(@user, :token => @user.confirmation_token), :html => { :method => :put } do |form|
+  = error_messages_for :user
   %table.left
     %tr
       %td= form.label :password, t('user.password')

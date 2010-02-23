@@ -14,9 +14,11 @@ config.action_controller.perform_caching             = false
 config.action_view.debug_rjs                         = true
 config.action_mailer.delivery_method = :test
 
-
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+require 'redis-store'
+Abingo.cache = ActiveSupport::Cache::RedisStore.new
 
 HOST = 'localhost:3001'
 #API_HOST = "http://204.236.224.252"

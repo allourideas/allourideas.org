@@ -26,6 +26,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/signup', :controller => 'users', :action => 'new'
   map.root :controller => 'home', :action => 'index'
   #map.toggle_question '/questions/:id/toggle', :controller => 'questions'
+  map.abingoTest "/abingo/:action/:id", :controller=> :abingo_dashboard
+   
   
   map.connect '/:id', :controller => 'earls', :action => 'show'
   map.connect '/:id/:action', :controller => 'questions'

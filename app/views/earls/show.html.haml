@@ -12,6 +12,9 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote'
 
+-if ab_test("blah_blah_multiple_test2", [true, false], :options => {:multiple_participation => true})
+  %h1 YOU SHOULD VOTE MORE
+  %br
 .votebox
   %table.full
     %tr

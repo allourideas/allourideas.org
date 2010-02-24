@@ -55,14 +55,66 @@ class QuestionsController < ApplicationController
     end
 
     @question = Question.find_by_name(params[:id])
-
-    
     logger.info "@question is #{@question.inspect}."
     logger.info "@earl is #{@earl.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
+
+    votes_count_hash = @question.get(:object_info_totals_by_date)
+    votes_count_hash = votes_count_hash.sort
+    chart_data =[]
+
+    start_date = nil
+    current_date = nil
+    votes_count_hash.each do |hash_date_string, votes|
+	    
+
+	    logger.info(hash_date_string)
+
+	    hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
+	    if start_date.nil?
+		    logger.info("INSIDE")
+		    start_date = hash_date
+		    current_date= start_date
+
+		    logger.info("INITIALLY: "  +current_date.to_s)
+	    end
+
+	    while current_date != hash_date do
+		    logger.info("The current date:: " + current_date.to_s)
+		    chart_data << 0
+		    current_date = current_date + 1
+	    end
+	    
+	    # We need to add in a blank entry for every day that doesn't exist
+	    #
+	    chart_data  << votes
+	    current_date = current_date + 1
+
+	    
+    end
+
+    tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' votes'; }"
+
+    @votes_chart = Highchart.spline({
+	    :chart => { :renderTo => 'votes-line-chart-container',
+		      },
+            :title => { :text => "Number of votes per day" },
+	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
+	    :y_axis => { :min => '0', :title => {:text => "Number of Votes"}},
+	    :series => [ { :name => "Votes per day",
+			   :type => 'spline',
+	    		   :pointInterval => 86400000,
+			   #:pointStart => 1263859200000,
+		    	   :pointStart => start_date.to_time.to_i * 1000,
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+    })
+
   end
+
 
   def voter_map
      logger.info "@question = Question.find_by_name(#{params[:id]}) ..."

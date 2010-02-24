@@ -28,6 +28,16 @@
       %td.title="World map of votes"
       %td.votes 
         = link_to('[View]', '#', :id => "view_voter_map", :iframe_url=> url_for(:action => :voter_map))
+    %tr.row2
+      %td.title= "Number of votes over time"
+      %td.votes
+        = 'View'
+    %tr.row2
+      %td.title
+        .chart-container#votes-line-chart-container
+      %td.votes
+
+
     -#%tr.row1
       %td
         %iframe{:src => "#{url_for(:action => :voter_map)}", :width=> "600px", :height => "400px", :frameborder => "0", :scrolling => "no"}}
@@ -92,3 +102,7 @@
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')
+
+  - content_for :view_javascript do
+    = @votes_chart
+

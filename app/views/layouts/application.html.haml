@@ -15,8 +15,9 @@
     <script src="http://dev.jquery.com/view/tags/ui/latest/ui/effects.highlight.js" type="text/javascript"></script>
     / <script src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js" type="text/javascript"></script>
     <script src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.min.js" type="text/javascript"></script>
+    = javascript_include_tag 'highcharts' 
     <!--[if IE]>
-    <script src="/highcharts/excanvas-compressed.js" type="text/javascript"></script>
+    = javascript_include_tag 'excanvas.compiled'
     <![endif]-->
     %script
       / $.validator.setDefaults({
@@ -46,7 +47,10 @@
       / }
       / });
       / });
-      
+    %script{:type => "text/javascript"}
+      $(document).ready(function() {
+      = yield :view_javascript    
+      });
   <style>
   .round-filledfg table tbody tr {
   background: 'red'; 

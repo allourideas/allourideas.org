@@ -106,8 +106,16 @@ class QuestionsController < ApplicationController
 	     end
 	     
 	     if !session.loc_info.empty?
+		display_fields = [:city, :state, :country]
 
-	     	city_state_string = session.loc_info[:city] + ", " + session.loc_info[:state]
+		display_text = []
+		display_fields.each do|key|
+			if session.loc_info[key]:
+				display_text << session.loc_info[key] 
+			end
+		end
+
+	     	city_state_string = display_text.join(", ")
 	        if @votes_by_geoloc[city_state_string].nil?
 	          @votes_by_geoloc[city_state_string] = {}
 	          @votes_by_geoloc[city_state_string][:lat] = session.loc_info[:lat]

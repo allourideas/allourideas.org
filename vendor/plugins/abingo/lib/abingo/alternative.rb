@@ -19,6 +19,14 @@ class Abingo::Alternative < ActiveRecord::Base
   def self.score_participation(test_name)
     viewed_alternative = Abingo.find_alternative_for_user(test_name,
       Abingo::Experiment.alternatives_for_test(test_name))
+     
+    logger.info("i'm inside score_participation!!!")
+
+    lookup = self.calculate_lookup(test_name, viewed_alternative)
+    chosen_alt = Abingo::Alternative.find_by_lookup(lookup)
+    Trial.create(:session_info_id => Abingo.identity, :alternative_id => chosen_alt.id)
+    logger.info("i'm inside score_participation 222!!!")
+
     self.update_all("participants = participants + 1", :lookup => self.calculate_lookup(test_name, viewed_alternative))
   end
 

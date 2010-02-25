@@ -53,12 +53,6 @@ class ApplicationController < ActionController::Base
     puts request.session_options[:id]
     session[:session_id] # this forces load of the session in Rails 2.3.x
 
-    if (session[:abingo_identity])
-	    Abingo.identity = session[:abingo_identity]
-    else
-	    session[:abingo_identity] = Abingo.identity = rand(10 ** 10).to_i
-    end
-
     puts request.session_options[:id]
     if signed_in?
       logger.info "current user is #{current_user.inspect}"
@@ -80,6 +74,12 @@ class ApplicationController < ActionController::Base
     end
    #   Click.create( :sid => request.session_options[:id], :ip_addr => request.remote_ip, :url => request.url,
 #		   :controller => controller_name, :action => action_name, :user => nil, :referrer => request.referrer)
+    if (session[:abingo_identity])
+	    Abingo.identity = session[:abingo_identity]
+    else
+	    session[:abingo_identity] = session.id
+	    Abingo.identity = session.id
+    end
       
   end
 

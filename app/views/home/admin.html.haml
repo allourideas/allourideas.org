@@ -1,25 +1,30 @@
 =# render :partial => 'shared/header_vote'
 .ninety
-  %table.full
-    %tr.row0
-      %th
-        = Question
-        /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
-      %th.score= (@header_text = "Status") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
-      %th &nbsp;
-    -alt=false
-    -for earl in @earls
-      -q = earl.question(true)
-      %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-        %td.title= link_to truncate(h(q.attributes['name']), :length => 137), q.earl + '/admin'
+  %table.full.tablesorter
+    %thead
+      %tr.row0
+        %th= "Question"
+        %th= t('admin.num_votes')
+        %th= t('admin.num_votes_today')
+        %th= t('admin.created')
+        %th.score= (@header_text = "Status") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
+    %tbody
+      -alt=false
+      -for earl in @earls
+        -if @questions_hash.empty? #admin
+          -q = earl.question 
+        -else
+          -q = @questions_hash[earl.question_id.to_s]
+        %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
+          %td.title= link_to truncate(h(q.attributes['name']), :length => 137), q.earl + '/admin'
         
-        %td.votes{:id => "question_#{earl.id}_status"}= earl.active? ? 'Activated' : 'Deactivated'
-        -#%td= rank
-        -#%td= added
-        %td
-          =link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
-    %tr.row0.thin
-      %td{:colspan => 3}
+          %td= q.votes_count
+          %td= @recent_votes_by_question_id[q.id.to_s] 
+          %td= "#{earl.created_at.to_date}"
+          %td.votes{:id => "question_#{earl.id}_status"}
+            = earl.active? ? 'Activated' : 'Deactivated'
+            %br
+            =link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
   %br
   
   -if current_user.admin?

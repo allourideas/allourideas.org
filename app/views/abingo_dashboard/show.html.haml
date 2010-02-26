@@ -1,4 +1,5 @@
 %h1= "Results for #{@experiment.test_name.titleize}"
+.chart-container#votes-distribution-chart-container
 -@experiment.alternatives.each do |a|
   %h2
     = "Alternative - #{a.content}"
@@ -11,3 +12,6 @@
           %td= k.to_s
           %td= v.to_s
 
+
+- content_for :view_javascript do
+  = @vote_distribution_chart

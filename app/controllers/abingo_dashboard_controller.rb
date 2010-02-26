@@ -10,6 +10,7 @@ class AbingoDashboardController < ApplicationController
 
 	logger.info(@experiment.inspect)
 
+	# Make a list of sessions we are interested in to get info from the server
 	session_list = []
 	@experiment.alternatives.each do |alt|
 		alt.session_infos.each do |sess|
@@ -17,9 +18,11 @@ class AbingoDashboardController < ApplicationController
 		end
 	end
 
+	# Get the list from the server
 	@votes_by_session_ids = Session.get(:votes_by_session_ids, :session_ids => session_list)
 	@voter_distribution = Hash.new(0)
 
+	# Format our info from the server into a distribution table
 	@experiment.alternatives.each do |a|
 		@voter_distribution[a.id] = Hash.new(0)
 		a.session_infos.each do |s|
@@ -32,6 +35,29 @@ class AbingoDashboardController < ApplicationController
 		        end	
 		end
 	end
+
+ 	#Now that we have the data, format into a pretty graph	
+	series = []
+	@experiment.alternatives.each do |a|
+		series << { :name => "Alternative - #{a.content}",
+			    :type => 'spline',
+			    :data => @voter_distribution[a.id].sort, # creates an array sorted by key
+		}
+	end
+
+
+	tooltipformatter = "function() { return '<b>' + this.series.name + '</b> <br>' + this.y + ' Sessions voted ' + this.x +' times '; }"
+
+        @vote_distribution_chart = Highchart.spline({
+	    :chart => { :renderTo => 'votes-distribution-chart-container',
+		      },
+            :title => { :text => "Vote distribution by alternative" },
+	    :x_axis => { :type => 'linear', :title => {:text => "Number of Votes"}},
+	    :y_axis => { :min => '0', :title => {:text => "# of people who voted this many votes"}},
+	    :series => series,
+	    :tooltip => { :formatter => tooltipformatter }
+
+          })
 
 
 

@@ -68,7 +68,6 @@ class QuestionsController < ApplicationController
     start_date = nil
     current_date = nil
     votes_count_hash.each do |hash_date_string, votes|
-	    
 
 	    logger.info(hash_date_string)
 

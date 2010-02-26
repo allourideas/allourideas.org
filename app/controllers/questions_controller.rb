@@ -445,11 +445,11 @@ class QuestionsController < ApplicationController
 
     case params[:type]
        when "votes" then 
-	   outfile = "question_#{@question.id}_votes_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+	   outfile = "ideamarketplace_#{@question.id}_votes_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 	   post_response = @question.post(:export, :type => :votes)
 	   csv_data = post_response.body
        when "items"  then 
-	   outfile = "question_#{@question.id}_items_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+	   outfile = "ideamarketplace_#{@question.id}_ideas_" + Time.now.strftime("%m-%d-%Y") + ".csv"
 	   post_response = @question.post(:export, :type => :items)
 	   csv_data = post_response.body
     end

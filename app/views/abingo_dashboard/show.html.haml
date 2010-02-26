@@ -1,0 +1,13 @@
+%h1= "Results for #{@experiment.test_name.titleize}"
+-@experiment.alternatives.each do |a|
+  %h2
+    = "Alternative - #{a.content}"
+    %table
+      %tr
+        %th Number of Votes
+        %th Sessions that voted that amount
+      -@voter_distribution[a.id].each do |k,v|
+        %tr  
+          %td= k.to_s
+          %td= v.to_s
+

@@ -3,17 +3,15 @@
 <table class="experiment" style="border: 1px black;">
   <tr class="header_row">
     <th>Name</th>
-    <th>Sessions</th>
-    <th>Total Votes</th>
-    <th>Votes / Session</th>
-    <th>Ideas Uploaded </th>
+    <th>Number of Sessions</th>
+    <th>Voted at least once</th>
     <th>Notes</th>
   </tr>
   <tr class="experiment_row">
     <td>Experiment Total: </td>
     <td><%= experiment.participants %> </td>
     <td><%= experiment.conversions %> (<%= experiment.pretty_conversion_rate %>)</td>
-    <td></td>
+    <td><%= link_to("[View Detailed Stats]", :action => :show, :id => experiment.id) %></td>
   </tr>
   <% experiment.alternatives.each do |alternative| %>
   <tr class="alternative_row">

@@ -193,7 +193,7 @@ class QuestionsController < ApplicationController
   def vote(direction)
     expire_page :action => :results
 
-    bingo!("blah_blah_multiple_test2")
+    bingo!("voted")
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})

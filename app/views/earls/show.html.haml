@@ -12,7 +12,7 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote'
 
--if ab_test("abtest0205-7", [true, false])
+-if ab_test("display-youshouldvotemore", [true, false], :conversion => 'voted')
   %h1 YOU SHOULD VOTE A WHOLE LOT MORE
   %br
 .votebox

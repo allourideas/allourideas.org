@@ -93,14 +93,23 @@ class QuestionsController < ApplicationController
 
       @votes_chart = Highchart.spline({
 	    :chart => { :renderTo => 'votes-line-chart-container',
+		    	:margin => [50, 25, 60, 80],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
 		      },
-            :title => { :text => "Number of votes per day" },
+	    :legend => { :enabled => false },
+            :title => { :text => "Number of votes per day",
+		     	:style => { :color => '#919191' }
+		      },
 	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
-	    :y_axis => { :min => '0', :title => {:text => "Number of Votes"}},
+	    :y_axis => { :min => '0', :title => {:text => "Number of Votes"}, :style => { :color => '#919191'}},
 	    :series => [ { :name => "Votes per day",
 			   :type => 'spline',
 	    		   :pointInterval => 86400000,
 			   #:pointStart => 1263859200000,
+			   :color => '#3198c1',
 		    	   :pointStart => start_date.to_time.to_i * 1000,
 	                   :data => chart_data }],
 	    :tooltip => { :formatter => tooltipformatter }

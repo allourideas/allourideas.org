@@ -25,9 +25,9 @@
 
       var options = {};
       options['region'] = 'world';
-      options['colors'] = [0xFF8747, 0xFFB581, 0xc06000]; //orange colors
+      options['colors'] = [0x83DCFF, 0x258CB5]; //orange colors
       options['dataMode'] = 'markers';
-      options['width'] = '530px';
+      options['width'] = '722px';
 
       var container = document.getElementById('map_canvas');
       var geomap = new google.visualization.GeoMap(container);
@@ -37,8 +37,8 @@
   </script>
 </head>
 
-<body>
-    <div id='map_canvas'></div>
+<body style='margin:0pt; padding:0pt;'>
+    <div id='map_canvas' style='position:relative;' ></div>
 <% if @votes_by_geoloc['Unknown Location'] -%>
 <%= "We were unable to find the location of #{@votes_by_geoloc['Unknown Location'][:num_votes]} votes" %>
 <% end -%>

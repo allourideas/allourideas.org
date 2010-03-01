@@ -12,9 +12,6 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote'
 
--if ab_test("display-youshouldvotemore", [true, false], :conversion => 'voted')
-  %h1 YOU SHOULD VOTE A WHOLE LOT MORE
-  %br
 .votebox
   %table.full
     %tr
@@ -28,7 +25,9 @@
     %tr
       //%td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
       %td.skip=# link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
-      %td= "<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
+      - ab_test("test_size_of_X_votes_on_Y_ideas", %w{sixteen_pixel_font twelve_pixel_font}, :conversion => 'voted') do |theClass|
+        %td{:class => theClass}
+          = "<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
   .clear
   %center
     = render :partial => 'items/form'

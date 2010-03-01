@@ -73,6 +73,9 @@ class HomeController < ApplicationController
     	@earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
 	@recent_votes_by_question_id = Question.get(:recent_votes_by_question_id, :creator_id => current_user.id)
 
+	if @recent_votes_by_question_id == "\n" #no data
+		@recent_votes_by_question_id = {}
+        end
 
 	@earls.each do|e|
 		if !@recent_votes_by_question_id.has_key?(e.question_id.to_s)

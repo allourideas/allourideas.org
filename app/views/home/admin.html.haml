@@ -1,6 +1,6 @@
 =# render :partial => 'shared/header_vote'
 .ninety
-  %table.full.tablesorter
+  %table{:class => current_user.admin? ? "full tablesorter" : "full"}
     %thead
       %tr.row0
         %th= "Question"

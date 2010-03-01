@@ -28,14 +28,15 @@
       %td.title="World map of votes"
       %td.votes 
         = link_to('[View]', '#', :id => "view_voter_map", :iframe_url=> url_for(:action => :voter_map))
-    %tr.row2
-      %td.title= "Number of votes over time"
-      %td.votes
-        = 'View'
-    %tr.row2
-      %td.title
-        .chart-container#votes-line-chart-container
-      %td.votes
+    -if current_user.admin?
+      %tr.row2
+        %td.title= "Number of votes over time"
+        %td.votes
+          = 'View'
+      %tr.row2
+        %td.title
+          .chart-container#votes-line-chart-container
+        %td.votes
 
 
     -#%tr.row1

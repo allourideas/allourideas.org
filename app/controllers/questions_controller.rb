@@ -61,42 +61,37 @@ class QuestionsController < ApplicationController
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
 
-    votes_count_hash = @question.get(:object_info_totals_by_date)
-    votes_count_hash = votes_count_hash.sort
-    chart_data =[]
+    # It would make sense to abstract this into a separate function
+    if current_user.admin?
+      votes_count_hash = @question.get(:object_info_totals_by_date)
+      votes_count_hash = votes_count_hash.sort
+      chart_data =[]
 
-    start_date = nil
-    current_date = nil
-    votes_count_hash.each do |hash_date_string, votes|
+      start_date = nil
+      current_date = nil
+      votes_count_hash.each do |hash_date_string, votes|
 
 	    logger.info(hash_date_string)
 
 	    hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
 	    if start_date.nil?
-		    logger.info("INSIDE")
 		    start_date = hash_date
 		    current_date= start_date
-
-		    logger.info("INITIALLY: "  +current_date.to_s)
 	    end
 
+	    # We need to add in a blank entry for every day that doesn't exist
 	    while current_date != hash_date do
-		    logger.info("The current date:: " + current_date.to_s)
 		    chart_data << 0
 		    current_date = current_date + 1
 	    end
-	    
-	    # We need to add in a blank entry for every day that doesn't exist
-	    #
 	    chart_data  << votes
 	    current_date = current_date + 1
 
 	    
-    end
+      end
+      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' votes'; }"
 
-    tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' votes'; }"
-
-    @votes_chart = Highchart.spline({
+      @votes_chart = Highchart.spline({
 	    :chart => { :renderTo => 'votes-line-chart-container',
 		      },
             :title => { :text => "Number of votes per day" },
@@ -110,7 +105,9 @@ class QuestionsController < ApplicationController
 	                   :data => chart_data }],
 	    :tooltip => { :formatter => tooltipformatter }
 
-    })
+      })
+    end
+
 
   end
 

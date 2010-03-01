@@ -62,17 +62,21 @@ class Abingo::Experiment < ActiveRecord::Base
     conversion_name.gsub!(" ", "_")
     cloned_alternatives_array = alternatives_array.clone
     ActiveRecord::Base.transaction do
-      experiment = Abingo::Experiment.find_or_create_by_test_name(test_name)
-      experiment.alternatives.destroy_all  #Blows away alternatives for pre-existing experiments.
-      while (cloned_alternatives_array.size > 0)
-        alt = cloned_alternatives_array[0]
-        weight = cloned_alternatives_array.size - (cloned_alternatives_array - [alt]).size
-        experiment.alternatives.build(:content => alt, :weight => weight,
-          :lookup => Abingo::Alternative.calculate_lookup(test_name, alt))
-        cloned_alternatives_array -= [alt]
+      experiment = Abingo::Experiment.find_by_test_name(test_name)
+      #adding this because I really don't want to delete a bunch of alternatives
+      if !experiment
+        experiment = Abingo::Experiment.create(:test_name => test_name)
+        experiment.alternatives.destroy_all  #Blows away alternatives for pre-existing experiments.
+        while (cloned_alternatives_array.size > 0)
+          alt = cloned_alternatives_array[0]
+          weight = cloned_alternatives_array.size - (cloned_alternatives_array - [alt]).size
+          experiment.alternatives.build(:content => alt, :weight => weight,
+            :lookup => Abingo::Alternative.calculate_lookup(test_name, alt))
+          cloned_alternatives_array -= [alt]
+        end
+        experiment.status = "Live"
+        experiment.save(false)  #Calling the validation here causes problems b/c of transaction.
       end
-      experiment.status = "Live"
-      experiment.save(false)  #Calling the validation here causes problems b/c of transaction.
       Abingo.cache.write("Abingo::Experiment::exists(#{test_name})".gsub(" ", "_"), 1)
 
       #This might have issues in very, very high concurrency environments...

@@ -234,8 +234,8 @@ en:
     oss_2: software. Feel free to review, remix, or redesign. Also, you can use our
     oss_api: API
     oss_3: to create your own pairwise comparison site.
-    twitter: For more frequent updates on the project you can
-    twitter_link: follow us on Twitter
+    twitter: For more frequent updates on the project, you can
+    twitter_link: follow us on Twitter.
   admin: 
     num_votes: "Votes"
     num_votes_today: "Votes (Today)"

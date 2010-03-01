@@ -532,7 +532,7 @@ jQuery(document).ready(function() {
 			}
 				
 			else{
-			  var iframe_html= "<tr id=voter_map_row class='row1' style='display:none'><td class='title' colspan='2' style='text-align:center'><iframe src='" + target + "' width='722px' height='346px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>";
+			  var iframe_html= "<tr id=voter_map_row class='row1' style='display:none'><td class='title' colspan='2' style='text-align:center'><iframe src='" + target + "' width='722px' height='380px'frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>";
 			  $('#view_voter_map_row').after(iframe_html);
 			
 			  $('#voter_map_row:hidden').show();

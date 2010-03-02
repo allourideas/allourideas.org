@@ -44,6 +44,13 @@
       %tr.row1
         %td{:colspan => '2'}
           .wcdiv#wcdiv
+      %tr.row2
+        %td.title= "Word cloud of ideas weighted by score"
+        %td.votes
+          = link_to('[View]', url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
+      %tr.row2
+        %td{:colspan => '2'}
+          .wcdiv#wcdiv-weight_by_score
 
 
     -#%tr.row1

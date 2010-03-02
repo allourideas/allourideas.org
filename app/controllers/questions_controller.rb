@@ -71,28 +71,56 @@ end
 
   def word_cloud
      @earl = Earl.find params[:id]
-     
+     type = params[:type]
+      
+     ignore_word_list = %w( a an and is or the of for in to with ) 
+     @word_frequency = Hash.new(0)
      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
-     @js_headers = '<link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.css"/>'
-     @js_headers += '<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>'
+     min_val = nil
+     @choices.each do|c|
+	    if c.data
+		 c.data.split(" ").each do|word|
+	           if ignore_word_list.include?(word)
+			   next
+		   end
+		   if type == "weight_by_score"
+		      @word_frequency[word] += c.score.to_i
+		      min_val = c.score if min_val.nil? || c.score < min_val
+		   else
+	              @word_frequency[word] +=1
+		      min_val = 1 if min_val.nil?
+		   end
+		 end
+	    end
+      end
+
+
+      @word_frequency.delete_if { |word, score| score <= min_val}
+
+       target_div = 'wcdiv'
+       if type
+	       target_div+= "-" + type
+       end
 
      @word_cloud_js ="
         var thedata = new google.visualization.DataTable();
-        thedata.addColumn('string', 'Choice Text');
-        thedata.addRows(#{@choices.size});
+        thedata.addColumn('string', 'Label');
+        thedata.addColumn('number', 'Value');
+        //thedata.addColumn('string', 'Link'); //optional link
+        thedata.addRows(#{@word_frequency.size});
 "
-
-
      @word_cloud_end = "
-        var outputDiv = document.getElementById('wcdiv');
-        var wc = new WordCloud(outputDiv);
-        wc.draw(thedata, null);
+        var outputDiv = document.getElementById('#{target_div}');
+        var tc = new TermCloud(outputDiv);
+        tc.draw(thedata, null);
        "
+
+
 	respond_to do |format|
 	format.html
 	format.js
-end
+        end
     end
 
 

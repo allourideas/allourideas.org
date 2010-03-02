@@ -1,7 +1,8 @@
-<%-@choices.each_with_index do |c, index| -%>
-        <%- if c.data -%>
-	   <% @word_cloud_js += "thedata.setCell(#{index}, 0, \"#{escape_javascript(c.data.strip)}\");\n" -%>
-        <% end -%>
-     <% end -%>
+<%-@word_frequency.each_with_index do |(word, count), index| -%>
+        <%- if word -%>
+	   <%- @word_cloud_js += "thedata.setCell(#{index}, 0, \"#{escape_javascript(word)}\");\n" -%>
+	   <%- @word_cloud_js += "thedata.setCell(#{index}, 1, #{count});\n" -%>
+        <%- end -%>
+     <%- end -%>
 	<%- @word_cloud_js += @word_cloud_end -%>
 	<%= @word_cloud_js %>

@@ -1,0 +1,32 @@
+google.load('visualization', '1', {'packages': ['geomap']});
+alert('in the arena?')
+google.setOnLoadCallback( function drawMap() {
+      alert('does it come into here?')
+      var data = new google.visualization.DataTable();
+      data.addRows(<%= @votes_by_geoloc.size %>);
+      data.addColumn('number', 'LATITUDE', 'Latitude');
+      data.addColumn('number', 'LONGITUDE', 'Longitude');
+      data.addColumn('number', 'Votes', 'Votes');
+      data.addColumn('string', 'HOVER', 'City');
+      <% count =0 -%>
+      <%- @votes_by_geoloc.each do |city_state_string, hash| -%>
+        <%- if city_state_string != "Unknown Location" -%>
+         data.setValue(<%=count%>, 0, <%= hash[:lat] %>);
+         data.setValue(<%=count%>, 1, <%= hash[:lng] %>);
+         data.setValue(<%=count%>, 2, <%= hash[:num_votes] %> );
+         data.setValue(<%=count%>, 3, "<%= city_state_string %>");
+         <% count = count +1 %>
+        <%- end -%>
+      <%- end -%>
+
+      var options = {};
+      options['region'] = 'world';
+      options['colors'] = [0x83DCFF, 0x258CB5]; //orange colors
+      options['dataMode'] = 'markers';
+      options['width'] = '722px';
+
+      var container = document.getElementById('geo_map_canvas');
+      var geomap = new google.visualization.GeoMap(container);
+      geomap.draw(data, options);
+    });
+

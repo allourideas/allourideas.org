@@ -62,63 +62,40 @@ class QuestionsController < ApplicationController
     logger.info "First choice is #{@choices.first.inspect}"
 
     # It would make sense to abstract this into a separate function
-    if current_user.admin?
-      votes_count_hash = @question.get(:object_info_totals_by_date)
-      votes_count_hash = votes_count_hash.sort
-      chart_data =[]
+    @available_charts = {}
+    @available_charts['votes'] = { :title => "Number of votes over time"}
+    @available_charts['user_submitted_ideas'] = { :title => "Number of submitted idea over time"}
+    @available_charts['user_sessions'] = { :title => "Number of unique user sessions per day"}
+     
+end
 
-      start_date = nil
-      current_date = nil
-      votes_count_hash.each do |hash_date_string, votes|
+  def word_cloud
+     @earl = Earl.find params[:id]
+     
+     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
-	    logger.info(hash_date_string)
+     @js_headers = '<link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.css"/>'
+     @js_headers += '<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>'
 
-	    hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
-	    if start_date.nil?
-		    start_date = hash_date
-		    current_date= start_date
-	    end
+     @word_cloud_js ="
+      google.load(\"visualization\", \"1\");
+      google.setOnLoadCallback(draw);
+      function draw() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Choice Text');
+        data.addRows(#{@choices.size});
+"
 
-	    # We need to add in a blank entry for every day that doesn't exist
-	    while current_date != hash_date do
-		    chart_data << 0
-		    current_date = current_date + 1
-	    end
-	    chart_data  << votes
-	    current_date = current_date + 1
 
-	    
-      end
-      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' votes'; }"
+     @word_cloud_end = "
+        var outputDiv = document.getElementById('wcdiv');
+        var wc = new WordCloud(outputDiv);
+        wc.draw(data, null);
+      } "
 
-      @votes_chart = Highchart.spline({
-	    :chart => { :renderTo => 'votes-line-chart-container',
-		    	:margin => [50, 25, 60, 80],
-			:borderColor =>  '#919191',
-			:borderWidth =>  '1',
-			:borderRadius => '0',
-			:backgroundColor => '#FFFFFF'
-		      },
-	    :legend => { :enabled => false },
-            :title => { :text => "Number of votes per day",
-		     	:style => { :color => '#919191' }
-		      },
-	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
-	    :y_axis => { :min => '0', :title => {:text => "Number of Votes"}, :style => { :color => '#919191'}},
-	    :series => [ { :name => "Votes per day",
-			   :type => 'spline',
-	    		   :pointInterval => 86400000,
-			   #:pointStart => 1263859200000,
-			   :color => '#3198c1',
-		    	   :pointStart => start_date.to_time.to_i * 1000,
-	                   :data => chart_data }],
-	    :tooltip => { :formatter => tooltipformatter }
-
-      })
+	render :layout => false
     end
 
-
-  end
 
 
   def voter_map
@@ -191,9 +168,85 @@ class QuestionsController < ApplicationController
 	     end
      end
 
-     render :layout => false
-	     
+     respond_to do |format|
+        format.js
+     end 
   end
+
+  def timeline_graph
+      @earl = Earl.find params[:id]
+      @question = @earl.question(true)
+      type = params[:type]
+      
+      if type == 'votes'
+         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
+         chart_title = "Number of Votes per day"
+         y_axis_title = "Number of Votes"
+      elsif type == 'user_sessions'
+         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
+         chart_title = "Number of User sessions per day"
+         y_axis_title = "Number of Sessions"
+      elsif type == 'user_submitted_ideas'
+         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
+         chart_title = "Number of Ideas submitted per day"
+         y_axis_title = "Number of Ideas"
+      end
+
+      if votes_count_hash == "\n"
+	render :text => "$('\##{type}-chart-container').text('Cannot make chart, no data.');" and return
+      end
+
+      votes_count_hash = votes_count_hash.sort
+      chart_data =[]
+      start_date = nil
+      current_date = nil
+      votes_count_hash.each do |hash_date_string, votes|
+
+	    hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
+	    if start_date.nil?
+		    start_date = hash_date
+		    current_date= start_date
+	    end
+
+	    # We need to add in a blank entry for every day that doesn't exist
+	    while current_date != hash_date do
+		    chart_data << 0
+		    current_date = current_date + 1
+	    end
+	    chart_data  << votes
+	    current_date = current_date + 1
+      end
+      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
+
+      @votes_chart = Highchart.spline({
+	    :chart => { :renderTo => "#{type}-chart-container",
+		    	:margin => [50, 25, 60, 80],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => false },
+            :title => { :text => chart_title,
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
+	    :y_axis => { :min => '0', :title => {:text => y_axis_title}, :style => { :color => '#919191'}},
+	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
+			   :type => 'spline',
+	    		   :pointInterval => 86400000,
+			   #:pointStart => 1263859200000,
+			   :color => '#3198c1',
+		    	   :pointStart => start_date.to_time.to_i * 1000,
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+     respond_to do |format|
+	format.js { render :text => @votes_chart }
+     end
+  end
+	
   
   def vote(direction)
     expire_page :action => :results

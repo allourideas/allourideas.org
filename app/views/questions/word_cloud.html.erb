@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.css"/>
+    <script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  </head>
+  <body>
+    <div id="wcdiv"></div>
+    <script type="text/javascript">
+     <%-@choices.each_with_index do |c, index| -%>
+        <%- if c.data -%>
+	   <% @word_cloud_js += "data.setCell(#{index}, 0, \"#{escape_javascript(c.data.strip)}\");\n" -%>
+        <% end -%>
+     <% end -%>
+	<%- @word_cloud_js += @word_cloud_end -%>
+	<%= @word_cloud_js %>
+    </script>
+  </body>
+</html>

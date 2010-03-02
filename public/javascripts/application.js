@@ -36,6 +36,8 @@ function increment(number)
 	return parseInt(number) + 1;
 }
 
+
+
 jQuery(document).ready(function() {
 	
 	//$('label').labelOver('over-apply');
@@ -508,6 +510,7 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
+/*
 	$('#view_voter_map').bind('click',function(event){		
 			event.preventDefault();
 			event.stopPropagation();
@@ -541,6 +544,41 @@ jQuery(document).ready(function() {
 
 
 			});
+	*/
+        $('#view_voter_map').click(function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			$('#view_voter_map_row').after("<tr id=voter_map_row class='row1'><td class='title' height=360px colspan='2' style='text-align:center'><div id='geo_map_canvas'></div></td></tr>")
+			$.get($(this).attr("href")+".js", null, null, "script");
+			return false;
+	});
+        $('.date-chart').click(function(event){
+			event.preventDefault();
+			event.stopPropagation();
+
+			var theText = ($(this).text() == "[View]") ? "[Close]" : "[View]";
+			$(this).text(theText);
+
+			var target_row = $(this).parent().parent().next();
+			var loaded = $(this).attr('isLoaded');
+			if(loaded)
+			{
+				if(theText == "[View]"){
+				  target_row.hide();
+				}
+				else{
+				  target_row.show();
+				}
+
+			}
+			else
+			{
+				$.get($(this).attr("href"), null, null, "script");
+				$(this).attr('isLoaded', true);
+			}
+	});
+		
+		
 
 	$('.tablesorter').tablesorter();
 

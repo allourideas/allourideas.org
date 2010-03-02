@@ -27,15 +27,22 @@
     %tr.row1#view_voter_map_row
       %td.title="World map of votes"
       %td.votes 
-        = link_to('[View]', '#', :id => "view_voter_map", :iframe_url=> url_for(:action => :voter_map))
-    -if current_user.admin?
-      %tr.row2
-        %td.title= "Number of votes over time"
-        %td.votes
-          = 'View'
-      %tr.row2
-        %td.title{:style => 'padding:15px', :colspan => '2'}
-          .chart-container#votes-line-chart-container
+        = link_to('[View]', url_for(:action => :voter_map), :id => "view_voter_map", :iframe_url=> url_for(:action => :voter_map))
+    -if current_user.admin? && @available_charts
+      -@available_charts.each do |type, options|
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= options[:title]
+          %td.votes
+            = link_to('[View]', url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
+        %tr{:class => current_cycle}
+          %td.title{:style => 'padding:15px', :colspan => '2'}
+            .chart-container{:id => "#{type}-chart-container"}
+      %tr.row1
+        %td.title= "Word cloud of ideas"
+        %td.votes='View'
+      %tr.row1
+        %td{:colspan => '2'}
+          .wcdiv
 
 
     -#%tr.row1
@@ -104,5 +111,6 @@
     =t('items.score_explain')
 
   - content_for :view_javascript do
-    = @votes_chart
+    =# @votes_chart
+    =# @word_cloud_js
 

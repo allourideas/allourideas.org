@@ -1,5 +1,6 @@
 <html>
 <head>
+  <%= stylesheet_link_tag 'screen' %>
   <script type='text/javascript' src='http://www.google.com/jsapi'></script>
   <script type='text/javascript'>
    google.load('visualization', '1', {'packages': ['geomap']});
@@ -37,7 +38,7 @@
   </script>
 </head>
 
-<body style='margin:0pt; padding:0pt; text-align:center;'>
+<body style='margin:0pt; padding:0pt;'>
 	<div id='map_canvas' style='position:relative;' ><img src='/images/indicator.gif' /></div>
 <% if @votes_by_geoloc['Unknown Location'] -%>
 <%= "We were unable to find the location of #{@votes_by_geoloc['Unknown Location'][:num_votes]} votes" %>

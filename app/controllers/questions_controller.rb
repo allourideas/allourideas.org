@@ -108,7 +108,7 @@ end
         var thedata = new google.visualization.DataTable();
         thedata.addColumn('string', 'Label');
         thedata.addColumn('number', 'Value');
-        //thedata.addColumn('string', 'Link'); //optional link
+        thedata.addColumn('string', 'Link'); //optional link
         thedata.addRows(#{@word_frequency.size});
 "
      @word_cloud_end = "
@@ -260,7 +260,7 @@ end
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
-	    :y_axis => { :min => '0', :title => {:text => y_axis_title}, :style => { :color => '#919191'}},
+	    :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'spline',
 	    		   :pointInterval => 86400000,

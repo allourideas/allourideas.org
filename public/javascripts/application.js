@@ -548,33 +548,50 @@ jQuery(document).ready(function() {
         $('#view_voter_map').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
-			$('#view_voter_map_row').after("<tr id=voter_map_row class='row1'><td class='title' height=360px colspan='2' style='text-align:center'><div id='geo_map_canvas'></div></td></tr>")
-			$.get($(this).attr("href")+".js", null, null, "script");
-			return false;
-	});
-        $('.date-chart').click(function(event){
-			event.preventDefault();
-			event.stopPropagation();
-
-			var theText = ($(this).text() == "[View]") ? "[Close]" : "[View]";
-			$(this).text(theText);
-
+			
 			var target_row = $(this).parent().parent().next();
-			var loaded = $(this).attr('isLoaded');
+			if(!toggleLinkTextandTargetElement($(this), target_row))
+			{
+				$('#view_voter_map_row').after("<tr id=voter_map_row class='row1'><td class='title' height=360px colspan='2' style='text-align:center'><div id='geo_map_canvas'><img src=/images/indicator.gif /></div></td></tr>")
+				$.get($(this).attr("href")+".js", null, null, "script");
+				$(this).attr('isLoaded', true);
+			}
+	});
+	
+	function toggleLinkTextandTargetElement(link, target){
+			var theText = (link.text() == "[View]") ? "[Close]" : "[View]";
+			link.text(theText);
+
+			var loaded = link.attr('isLoaded');
 			if(loaded)
 			{
 				if(theText == "[View]"){
-				  target_row.hide();
+				  target.hide();
 				}
 				else{
-				  target_row.show();
+				  target.show();
 				}
+				return true;
 
 			}
-			else
+			else{
+				//this hasn't been initialized, punt
+				return false;
+			}
+	}
+
+        $('.date-chart').click(function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			
+			var target_row = $(this).parent().parent().next();
+			var target_div = $(this).parent().parent().next().find('div')
+			if(!toggleLinkTextandTargetElement($(this), target_row))
 			{
+				target_div.html('<img src=/images/indicator.gif />')
 				$.get($(this).attr("href"), null, null, "script");
 				$(this).attr('isLoaded', true);
+				
 			}
 	});
 		

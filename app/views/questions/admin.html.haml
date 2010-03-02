@@ -34,15 +34,16 @@
           %td.title= options[:title]
           %td.votes
             = link_to('[View]', url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
-        %tr{:class => current_cycle}
-          %td.title{:style => 'padding:15px', :colspan => '2'}
+        %tr{:class => current_cycle }
+          %td.title{:colspan => '2'}
             .chart-container{:id => "#{type}-chart-container"}
       %tr.row1
         %td.title= "Word cloud of ideas"
-        %td.votes='View'
+        %td.votes
+          = link_to('[View]', url_for(:action => :word_cloud), :class => 'date-chart')
       %tr.row1
         %td{:colspan => '2'}
-          .wcdiv
+          .wcdiv#wcdiv
 
 
     -#%tr.row1

@@ -78,22 +78,21 @@ end
      @js_headers += '<script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>'
 
      @word_cloud_js ="
-      google.load(\"visualization\", \"1\");
-      google.setOnLoadCallback(draw);
-      function draw() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Choice Text');
-        data.addRows(#{@choices.size});
+        var thedata = new google.visualization.DataTable();
+        thedata.addColumn('string', 'Choice Text');
+        thedata.addRows(#{@choices.size});
 "
 
 
      @word_cloud_end = "
         var outputDiv = document.getElementById('wcdiv');
         var wc = new WordCloud(outputDiv);
-        wc.draw(data, null);
-      } "
-
-	render :layout => false
+        wc.draw(thedata, null);
+       "
+	respond_to do |format|
+	format.html
+	format.js
+end
     end
 
 

@@ -1,7 +1,3 @@
-google.load('visualization', '1', {'packages': ['geomap']});
-alert('in the arena?')
-google.setOnLoadCallback( function drawMap() {
-      alert('does it come into here?')
       var data = new google.visualization.DataTable();
       data.addRows(<%= @votes_by_geoloc.size %>);
       data.addColumn('number', 'LATITUDE', 'Latitude');
@@ -28,5 +24,8 @@ google.setOnLoadCallback( function drawMap() {
       var container = document.getElementById('geo_map_canvas');
       var geomap = new google.visualization.GeoMap(container);
       geomap.draw(data, options);
-    });
 
+<div id='map_canvas' style='position:relative;' ></div>
+<% if @votes_by_geoloc['Unknown Location'] -%>
+<%= "$('#geo_map_canvas').after('We were unable to find the location of #{@votes_by_geoloc['Unknown Location'][:num_votes]} votes')" %>
+<% end -%>

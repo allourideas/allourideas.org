@@ -64,23 +64,22 @@
     =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
     %br
 
-  -if current_user.admin?
-    %table.full
-      %tr.row0
-        %th= "Download Idea Marketplace Data"
-        %th &nbsp;
-        %th &nbsp;
-      %tr.row1
-        %td.title= "List of Ideas CSV"
-        %td &nbsp;
-        %td
-          =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-          = link_to('[Download]', :action => :export, :params => {:type => :items})
-      %tr.row2
-        %td.title= "List of Votes CSV"
-        %td &nbsp;
-        %td
-          = link_to('[Download]', :action => :export, :params => {:type => :votes})
+  %table.full
+    %tr.row0
+      %th= "Download Idea Marketplace Data"
+      %th &nbsp;
+      %th &nbsp;
+    %tr.row1
+      %td.title= "List of Ideas (CSV File)"
+      %td &nbsp;
+      %td
+        =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
+        = link_to('[Download]', :action => :export, :params => {:type => :items})
+    %tr.row2
+      %td.title= "List of Votes (CSV File)"
+      %td &nbsp;
+      %td
+        = link_to('[Download]', :action => :export, :params => {:type => :votes})
       
     
   #explanation{:style => 'display:none;'}

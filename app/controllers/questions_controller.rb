@@ -573,7 +573,7 @@ end
   def export
 
     @earl = Earl.find params[:id]
-    unless current_user.admin?
+    unless ((current_user.owns?(@earl)) || current_user.admin? )
        flash[:notice] = "You are not authorized to export data"
        redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
     end

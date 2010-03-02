@@ -274,7 +274,7 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	$('.toggle_question_status').bind('click',function(event){
+	$('.toggle_question_status').bind('change',function(event){
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
@@ -287,8 +287,6 @@ jQuery(document).ready(function() {
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
-			humanMsg.displayMsg(data['message']);
-			$('#question_'+earl_id+'_status').text(data['verb']).effect("highlight", {}, 1500);
 			//$('.prompter').effect("highlight", {}, 1500);
 			
 		},
@@ -604,6 +602,10 @@ jQuery(document).ready(function() {
 		
 
 	$('.tablesorter').tablesorter();
+      
+	$('.status-toggle').iphoneStyle({ resizeContainer: false, resizeHandle: false, checkedLabel: 'Active', uncheckedLabel: 'Inactive' });
+
+
 
 
 });

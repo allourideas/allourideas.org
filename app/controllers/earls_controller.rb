@@ -12,7 +12,7 @@ class EarlsController < ApplicationController
     
     if @earl
       unless @earl.active?
-        flash[:for_real] = "Sorry, this question is not active."
+        flash[:notice] = "Sorry, that question is not active."
         redirect_to '/' and return
       end
       @question = @earl.question#the question has a prompt id with it

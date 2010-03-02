@@ -22,9 +22,9 @@
           %td= @recent_votes_by_question_id[q.id.to_s] 
           %td= "#{earl.created_at.to_date}"
           %td.votes{:id => "question_#{earl.id}_status"}
-            = earl.active? ? 'Activated' : 'Deactivated'
-            %br
-            =link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
+            =check_box_tag("question_#{earl.id}_status_checkbox", '1', earl.active?, {:rel => earl.id, :class => 'status-toggle toggle_question_status'}) 
+            =#earl.active? ? 'Activated' : 'Deactivated'
+            =#link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
   %br
   
   -if current_user.admin?

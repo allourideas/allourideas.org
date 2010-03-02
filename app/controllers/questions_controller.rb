@@ -383,8 +383,8 @@ end
       def toggle
         expire_page :action => :results
         @earl = Earl.find(params[:id])
-        unless current_user.owns? @earl
-          render(:json => {:message => "You've just deactivated your question, #{params[:id]}"}.to_json) and return
+        unless ((current_user.owns?(@earl)) || current_user.admin? )
+          render(:json => {:message => "You don't have permission to do that for question #{params[:id]}"}.to_json) and return
         end
         logger.info "Getting ready to change active status of Question #{params[:id]} to #{!@earl.active?}"
         

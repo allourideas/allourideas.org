@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   require 'geokit'
-  before_filter :authenticate, :only => [:admin, :voter_map, :toggle, :toggle_autoactivate, :update, :delete_logo, :export]
+  before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export]
   #caches_page :results
   
   # GET /questions
@@ -41,6 +41,11 @@ class QuestionsController < ApplicationController
       @choices = Choice.find(:all, :params => {:question_id => @question_id, :limit => 10, :offset => 0})
     end
     logger.info "First choice is #{@choices.first.inspect}"
+    
+    @available_charts = {}
+    @available_charts['votes'] = { :title => "Number of votes over time"}
+    @available_charts['user_submitted_ideas'] = { :title => "Number of submitted idea over time"}
+    @available_charts['user_sessions'] = { :title => "Number of unique user sessions per day"}
   end
   
   def admin
@@ -61,11 +66,6 @@ class QuestionsController < ApplicationController
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
 
-    # It would make sense to abstract this into a separate function
-    @available_charts = {}
-    @available_charts['votes'] = { :title => "Number of votes over time"}
-    @available_charts['user_submitted_ideas'] = { :title => "Number of submitted idea over time"}
-    @available_charts['user_sessions'] = { :title => "Number of unique user sessions per day"}
      
 end
 
@@ -130,11 +130,6 @@ end
      logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
      @earl = Earl.find params[:id]
 
-     unless ((current_user.owns?(@earl)) || current_user.admin? )
-	    logger.info ("Current user is: #{current_user.inspect}")
-	    flash[:notice] = "You are not authorized to view that page"
-	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
-     end
      @question = Question.find_by_name(params[:id])
 
      votes_by_sids = @question.get(:num_votes_by_visitor_id)

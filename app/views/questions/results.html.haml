@@ -1,4 +1,7 @@
 = render :partial => 'shared/header_vote'
+- ab_test("hopefully_crash_server", %w{winner loser}, :conversion => 'voted') do |theClass|
+  %h1 theClass
+
 .ninety
   %table.full
     %tr.row0

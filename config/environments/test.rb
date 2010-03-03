@@ -43,6 +43,10 @@ config.gem 'jferris-mocha',
   :lib     => 'mocha'
 
 HOST = 'localhost'
+API_HOST = "http://localhost:4000" 
+
+PAIRWISE_USERNAME = "testing@dkapadia.com"
+PAIRWISE_PASSWORD = "wheatthins"
 
 begin
   require 'factory_girl'

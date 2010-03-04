@@ -17,9 +17,20 @@ class AbingoDashboardController < ApplicationController
 			session_list << sess.session_id
 		end
 	end
+	#this is to check for irregularities that I believe will be solved by redis
+	origsize = session_list.size
+
+	session_list.uniq!
+
+	if origsize != session_list.size
+		flash[:notice] = "Warning: Experiment #{@experiment.id} has duplicate session ids"
+	end
 
 	# Get the list from the server
-	@votes_by_session_ids = Session.get(:votes_by_session_ids, :session_ids => session_list)
+	# We're doing this in JSON, because I don't want to have to parse the XML
+	Session.format = :json
+	response = Session.post(:votes_by_session_ids, :session_ids => session_list)
+	@votes_by_session_ids = JSON.parse(response.body) 
 	@voter_distribution = Hash.new(0)
 
 	# Format our info from the server into a distribution table
@@ -27,7 +38,6 @@ class AbingoDashboardController < ApplicationController
 		@voter_distribution[a.id] = Hash.new(0)
 		a.session_infos.each do |s|
 			num_votes = @votes_by_session_ids[s.session_id]
-			logger.info("the num vote is the following: #{num_votes}")
 			if num_votes
 				@voter_distribution[a.id][num_votes] +=1
 			else

@@ -28,7 +28,9 @@ class AbingoDashboardController < ApplicationController
 
 	# Get the list from the server
 	# The Session class uses json for simplicity, we need to do some parsing here
-	response = Session.post(:votes_by_session_ids, :session_ids => session_list)
+	# It's important that we send parameters in the body here, otherwise some undefined behavior occurs
+	# when the URI gets too long
+	blah = Session.post(:votes_by_session_ids, {}, {:session_ids => session_list}.to_json)
 	@votes_by_session_ids = JSON.parse(response.body) 
 	@voter_distribution = Hash.new(0)
 

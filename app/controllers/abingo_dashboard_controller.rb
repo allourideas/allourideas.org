@@ -27,8 +27,7 @@ class AbingoDashboardController < ApplicationController
 	end
 
 	# Get the list from the server
-	# We're doing this in JSON, because I don't want to have to parse the XML
-	Session.format = :json
+	# The Session class uses json for simplicity, we need to do some parsing here
 	response = Session.post(:votes_by_session_ids, :session_ids => session_list)
 	@votes_by_session_ids = JSON.parse(response.body) 
 	@voter_distribution = Hash.new(0)

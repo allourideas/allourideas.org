@@ -58,12 +58,31 @@ class ApplicationController < ActionController::Base
       logger.info "current user is #{current_user.inspect}"
       #current_user.set_remote_session_key!(request.session_options[:id])
     end
+
+    if white_label_request?
+      logger.info "white_label request - no header and footer displayed"
+    end
   end
+
+  helper_method :white_label_request?
+  def white_label_request?
+	  @_white_label ||= session[:white_label]
+	  if @_white_label.nil?
+		  if params[:white_label] == "true"
+			 @_white_label = session[:white_label] = true
+		  else
+			 @_white_label = session[:white_label] = false
+		  end
+	  end
+	  @_white_label
+  end
+
   
   def record_action
     session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
 						       :ip_addr => request.remote_ip, 
-						       :user_agent => request.env["HTTP_USER_AGENT"])
+						       :user_agent => request.env["HTTP_USER_AGENT"],
+						       :white_label_request => white_label_request?)
 
     Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
 		 :referrer => request.referrer, :session_info_id => session.id)

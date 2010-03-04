@@ -74,8 +74,9 @@
       .to_be_humanized{:style => "display:none;"}&= flash[:for_real]
       -flash[:for_real] = nil
     .content
-      = render :partial => "shared/header"
-      .body
+      - unless white_label_request?  
+        =render :partial => "shared/header"
+      .body{:class => white_label_request? ? 'noborder' : ''} 
         = render :partial => "shared/flashes"
         -if session[:standard_flash]
           %p.notice.example_notice#notice= session[:standard_flash]
@@ -85,8 +86,9 @@
             %p.notice.example_notice#notice= "This example is based on a site that the Undergraduate Student Government at Princeton University used to discover the best ideas for improving campus. In just a few weeks, more than 2,000 students contributed more than 40,000 votes and 100 new ideas. You can create a question like this to discover the best ideas in your group or organization."
             -session[:on_example] = nil
         = yield
+      - unless white_label_request?  
         .clear
-      = render :partial => "shared/footer"
+        = render :partial => "shared/footer"
       = javascript_include_tag 'jquery.tablesorter.min.js', 'iphone-style-checkboxes.js', 'jquery.ba-url.min.js', 'humanmsg', 'jquery.taconite.js', 'jquery.hint.js', 'jquery.blockUI.js', 'facebox', 'label_over', 'application'
       -if RAILS_ENV['production']
         %script{:type =>"text/javascript"}

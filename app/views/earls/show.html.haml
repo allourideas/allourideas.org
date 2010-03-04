@@ -25,9 +25,7 @@
     %tr
       //%td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
       %td.skip=# link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
-      - ab_test("test_size_of_X_votes_on_Y_ideas", %w{sixteen_pixel_font twelve_pixel_font}, :conversion => 'voted') do |theClass|
-        %td{:class => theClass}
-          = "<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
+      = "<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
   .clear
   %center
     = render :partial => 'items/form'

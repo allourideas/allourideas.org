@@ -30,8 +30,8 @@ class AbingoDashboardController < ApplicationController
 	# The Session class uses json for simplicity, we need to do some parsing here
 	# It's important that we send parameters in the body here, otherwise some undefined behavior occurs
 	# when the URI gets too long
-	blah = Session.post(:votes_by_session_ids, {}, {:session_ids => session_list}.to_json)
-	@votes_by_session_ids = JSON.parse(response.body) 
+	theresponse = Session.post(:votes_by_session_ids, {}, {:session_ids => session_list}.to_json)
+	@votes_by_session_ids = JSON.parse(theresponse.body) 
 	@voter_distribution = Hash.new(0)
 
 	# Format our info from the server into a distribution table

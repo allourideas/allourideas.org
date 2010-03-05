@@ -50,10 +50,7 @@ class ApplicationController < ActionController::Base
   end
   
   def initialize_session
-    puts request.session_options[:id]
     session[:session_id] # this forces load of the session in Rails 2.3.x
-
-    puts request.session_options[:id]
     if signed_in?
       logger.info "current user is #{current_user.inspect}"
       #current_user.set_remote_session_key!(request.session_options[:id])

@@ -47,6 +47,26 @@ class AbingoDashboardController < ApplicationController
 		end
 	end
 
+	# Calculate some summary stats
+	
+	@summary_stats=Hash.new(0)
+	@experiment.alternatives.each do |a|
+		@summary_stats[a.id] = Hash.new(0)
+		votes_for_median =[]
+		@voter_distribution[a.id].each do |num_votes, num_sessions|
+		     @summary_stats[a.id][:total_votes] += num_votes
+		     @summary_stats[a.id][:total_sessions] += num_sessions
+
+		     num_sessions.times do 
+			     votes_for_median << num_votes
+		     end
+
+		end
+
+		@summary_stats[a.id][:mean_votes] = @summary_stats[a.id][:total_votes].to_f/ @summary_stats[a.id][:total_sessions].to_f
+		@summary_stats[a.id][:median_votes] = median(votes_for_median)
+	end
+
  	#Now that we have the data, format into a pretty graph	
 	series = []
 	@experiment.alternatives.each do |a|
@@ -55,7 +75,6 @@ class AbingoDashboardController < ApplicationController
 			    :data => @voter_distribution[a.id].sort, # creates an array sorted by key
 		}
 	end
-
 
 	tooltipformatter = "function() { return '<b>' + this.series.name + '</b> <br>' + this.y + ' Sessions voted ' + this.x +' times '; }"
 
@@ -71,7 +90,6 @@ class AbingoDashboardController < ApplicationController
           })
 
 
-
       end
       
       def end_experiment
@@ -85,5 +103,16 @@ class AbingoDashboardController < ApplicationController
         end
         redirect_to :action => "index"
       end
+      def mean(array)
+	 array.inject(0) { |sum, x| sum += x } / array.size.to_f
+      end
+      
+      def median(array, already_sorted=false) 
+	  return nil if array.empty?
+	  array = array.sort unless already_sorted
+	  m_pos = array.size / 2
+	  return array.size % 2 == 1 ? array[m_pos] : mean(array[m_pos-1..m_pos])
+      end
+      
 end
 

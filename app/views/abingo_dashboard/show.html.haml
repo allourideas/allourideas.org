@@ -7,10 +7,14 @@
       %tr
         %th Number of Votes
         %th Sessions that voted that amount
-      -@voter_distribution[a.id].each do |k,v|
+      -@voter_distribution[a.id].sort.each do |k,v|
         %tr  
           %td= k.to_s
           %td= v.to_s
+      -@summary_stats[a.id].each do |k,v|
+        %tr
+          %th=k.to_s.humanize
+          %th=v
 
 
 - content_for :view_javascript do

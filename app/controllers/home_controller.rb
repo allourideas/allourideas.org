@@ -2,8 +2,12 @@ class HomeController < ApplicationController
   include ActionView::Helpers::TextHelper
   #caches_page :about, :tour, :privacy
   before_filter :authenticate, :only => [:admin]
+  before_filter :admin_only, :only => [:no_google_tracking]
 
   def index
+  end
+
+  def no_google_tracking
   end
 
  # def login

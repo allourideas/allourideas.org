@@ -2,6 +2,8 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   should_have_many :earls
+  should_have_many :session_infos
+  should_have_many :clicks
 
 
   should "be valid with factories" do

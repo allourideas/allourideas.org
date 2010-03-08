@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Clearance::User
   has_many :earls
+  has_many :session_infos
+  has_many :clicks
   attr_accessible :default
   before_validation_on_create :set_confirmed_email
   

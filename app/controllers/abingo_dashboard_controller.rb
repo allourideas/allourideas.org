@@ -8,13 +8,24 @@ class AbingoDashboardController < ApplicationController
       def show
 	@experiment = Abingo::Experiment.find(params[:id], :include => :alternatives)
 
+	#This is a really convoluted way to do it, but there seems to be problems in rails
+	# when you try to associate a gem class with a model class. 
+	
+	admin_users = User.find(:all, :conditions => {:admin => true})
+
+	admin_user_list = admin_users.inject([]){|list, u| list << u.id}
+
 	logger.info(@experiment.inspect)
 
 	# Make a list of sessions we are interested in to get info from the server
 	session_list = []
 	@experiment.alternatives.each do |alt|
 		alt.session_infos.each do |sess|
-			session_list << sess.session_id
+			if sess.user_id and admin_user_list.include?(sess.user_id)
+				next
+			else
+			 	session_list << sess.session_id
+			end
 		end
 	end
 	#this is to check for irregularities that I believe will be solved by redis
@@ -38,6 +49,10 @@ class AbingoDashboardController < ApplicationController
 	@experiment.alternatives.each do |a|
 		@voter_distribution[a.id] = Hash.new(0)
 		a.session_infos.each do |s|
+			if s.user_id and admin_user_list.include?(s.user_id)
+				next
+			end
+
 			num_votes = @votes_by_session_ids[s.session_id]
 			if num_votes
 				@voter_distribution[a.id][num_votes] +=1
@@ -80,9 +95,10 @@ class AbingoDashboardController < ApplicationController
 
         @vote_distribution_chart = Highchart.spline({
 	    :chart => { :renderTo => 'votes-distribution-chart-container',
+		    	:zoomType => 'x'
 		      },
             :title => { :text => "Vote distribution by alternative" },
-	    :x_axis => { :type => 'linear', :title => {:text => "Number of Votes"}},
+	    :x_axis => { :type => 'linear', :title => {:text => "Number of Votes"}, :maxZoom => 5},
 	    :y_axis => { :min => '0', :title => {:text => "# of people who voted this many votes"}},
 	    :series => series,
 	    :tooltip => { :formatter => tooltipformatter }

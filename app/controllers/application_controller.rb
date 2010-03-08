@@ -98,6 +98,11 @@ class ApplicationController < ActionController::Base
     Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
 		 :referrer => request.referrer, :session_info_id => session.id)
 
+    if current_user && !session.user_id
+	    session.user_id = current_user.id
+	    session.save!
+    end
+
     if current_user 
       logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
     else

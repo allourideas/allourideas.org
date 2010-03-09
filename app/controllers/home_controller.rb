@@ -72,6 +72,10 @@ class HomeController < ApplicationController
 			@recent_votes_by_question_id[q.id.to_s] = 0
 		end
 	end
+        @available_charts = {}
+        @available_charts['votes'] = { :title => "Number of all votes over time"}
+        @available_charts['user_submitted_ideas'] = { :title => "Number of all submitted ideas over time"}
+        @available_charts['user_sessions'] = { :title => "Number of all unique user sessions per day"}
     else
     	@earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
 	@recent_votes_by_question_id = Question.get(:recent_votes_by_question_id, :creator_id => current_user.id)

@@ -30,6 +30,24 @@
   -if current_user.admin?
     %table.full
       %tr.row0
+        %th="Data Visualizations"
+        %th.score &nbsp;
+      %tr.row1#view_voter_map_row
+        %td.title="World map of all votes"
+        %td.votes 
+          = link_to('[View]', url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :id => "view_voter_map")
+      -if @available_charts
+        -@available_charts.each do |type, options|
+          %tr{:class => cycle("row2", "row1")}
+            %td.title= options[:title]
+            %td.votes
+              = link_to('[View]', url_for(:controller=> :questions, :action => :timeline_graph, :id => "fakequestion", :type => type, :totals => true), :class => 'date-chart')
+          %tr{:class => current_cycle , :style => "display:none;"}
+            %td.title{:colspan => '2'}
+              .chart-container{:id => "#{type}-chart-container"}
+
+    %table.full
+      %tr.row0
         %th= "Download Idea Marketplace Data"
         %th &nbsp;
         %th &nbsp;
@@ -43,6 +61,8 @@
         %td &nbsp;
         %td
           = link_to('[Download]', :controller => :clicks, :action => :export)
+  
+
   
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')

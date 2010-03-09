@@ -32,9 +32,9 @@
       %th="Data Visualizations"
       %th.score &nbsp;
     %tr.row1#view_voter_map_row
-      %td.title="World map of votes"
+      %td.title="World map of all votes"
       %td.votes 
-        = link_to('[View]', url_for(:action => :voter_map), :id => "view_voter_map", :iframe_url=> url_for(:action => :voter_map))
+        = link_to('[View]', url_for(:action => :voter_map), :id => "view_voter_map")
     -if @available_charts
       -@available_charts.each do |type, options|
         %tr{:class => cycle("row2", "row1")}

@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
 
-    unless ((current_user.owns?(@earl)) || current_user.admin? )
+    unless ((current_user.owns?(@earl)) || current_user.admin?)
 	    logger.info ("Current user is: #{current_user.inspect}")
 	    flash[:notice] = "You are not authorized to view that page"
 	    redirect_to( "/#{params[:id]}") and return
@@ -128,17 +128,23 @@ end
 
   def voter_map
      logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-     @earl = Earl.find params[:id]
+     type = params[:type]
 
-     @question = Question.find_by_name(params[:id])
-
-     votes_by_sids = @question.get(:num_votes_by_visitor_id)
+     if type == "all"
+	 votes_by_sids = Question.get(:all_num_votes_by_visitor_id)
+     else
+         @earl = Earl.find params[:id]
+         @question = Question.find_by_name(params[:id])
+         votes_by_sids = @question.get(:num_votes_by_visitor_id)
+     end
      
      @votes_by_geoloc= {}
      votes_by_sids.each do|sid, num_votes|
+	     num_votes = num_votes.to_i
 	     session = SessionInfo.find_by_session_id(sid)
 
 	     if session.nil? || session.ip_addr.nil?
+	        logger.info("could not find locally:::SID #{sid} ::::::#{num_votes}\n")
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
 	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
@@ -182,6 +188,7 @@ end
 		  @votes_by_geoloc[city_state_string][:num_votes] += num_votes
 	        end
 	     else
+	        logger.info("could not find locally111:::SID #{sid} ::::::#{num_votes}\n")
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
 	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
@@ -198,20 +205,36 @@ end
   end
 
   def timeline_graph
-      @earl = Earl.find params[:id]
-      @question = @earl.question(true)
+      totals = params[:totals]
       type = params[:type]
+
+      if !totals || totals != "true"
+        @earl = Earl.find params[:id]
+        @question = @earl.question(true)
+      end
       
       if type == 'votes'
-         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
+	 if totals == "true"
+             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'votes')
+	 else
+             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
+	 end
          chart_title = "Number of Votes per day"
          y_axis_title = "Number of Votes"
       elsif type == 'user_sessions'
-         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
+	 if totals == "true"
+             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
+	 else
+             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
+	 end
          chart_title = "Number of User sessions per day"
          y_axis_title = "Number of Sessions"
       elsif type == 'user_submitted_ideas'
-         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
+	 if totals == "true"
+             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')
+	 else
+             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
+	 end
          chart_title = "Number of Ideas submitted per day"
          y_axis_title = "Number of Ideas"
       end

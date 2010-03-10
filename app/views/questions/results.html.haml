@@ -62,3 +62,10 @@
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')
+
+-content_for :head do
+  = render :partial => "shared/highcharts_header"
+  = render :partial => "shared/google_jsapi"
+  = '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
+  = javascript_include_tag 'google-termcloud.js'
+  = stylesheet_link_tag 'google-termcloud'

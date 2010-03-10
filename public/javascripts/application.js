@@ -1,7 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-function validate_idea_form()
+function validate_idea_form() //mark for deletion
 {
 	var errors = [];
 	var name = $('#question_name').val();
@@ -600,9 +600,6 @@ jQuery(document).ready(function() {
 			}
 	});
 		
-	$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } } });
-      
-	$('.status-toggle').iphoneStyle({ resizeContainer: false, resizeHandle: false, checkedLabel: 'Active', uncheckedLabel: 'Inactive' });
 
 
 

@@ -1,3 +1,4 @@
+   google.load('visualization')
 <%-@word_frequency.each_with_index do |(word, count), index| -%>
         <%- if word -%>
 	   <%- @word_cloud_js += "thedata.setCell(#{index}, 0, \"#{escape_javascript(word)}\");\n" -%>

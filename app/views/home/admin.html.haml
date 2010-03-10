@@ -78,5 +78,8 @@
   = javascript_include_tag 'jquery.tablesorter.min.js', 'iphone-style-checkboxes.js'
 
 -content_for :view_javascript do
-  = "$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } } });"
   = "$('.status-toggle').iphoneStyle({ resizeContainer: false, resizeHandle: false, checkedLabel: 'Active', uncheckedLabel: 'Inactive' });"
+  = "$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } } });"
+  $('.tablesorter').bind('sortEnd', function() {
+  $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
+  $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});

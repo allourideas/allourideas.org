@@ -77,7 +77,8 @@ class AbingoDashboardController < ApplicationController
 		     end
 
 		end
-
+		total = @summary_stats[a.id][:total_sessions].to_f
+		@summary_stats[a.id][:percent_of_sessions_greater_than_0_votes] = ((total - @voter_distribution[a.id][0]).to_f / total) * 100
 		@summary_stats[a.id][:mean_votes] = @summary_stats[a.id][:total_votes].to_f/ @summary_stats[a.id][:total_sessions].to_f
 		@summary_stats[a.id][:median_votes] = median(votes_for_median)
 	end

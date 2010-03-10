@@ -265,6 +265,7 @@ end
       end
       tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
 
+      overalltotal = chart_data.inject(0){|total, val| total + val}
       @votes_chart = Highchart.spline({
 	    :chart => { :renderTo => "#{type}-chart-container",
 		    	:margin => [50, 25, 60, 80],
@@ -274,7 +275,7 @@ end
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => chart_title,
+            :title => { :text => chart_title + " - Overall total: #{overalltotal}",
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},

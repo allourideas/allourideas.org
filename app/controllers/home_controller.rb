@@ -61,6 +61,8 @@ class HomeController < ApplicationController
 	@earls = Earl.find(:all)
 	@questions = Question.find(:all, :order => 'votes_count')
 	@recent_votes_by_question_id = Question.get(:recent_votes_by_question_id)
+	@user_submitted_idea_info = Question.get(:object_info_totals_by_question_id)
+
 
 	if @recent_votes_by_question_id == "\n" #no data
 		@recent_votes_by_question_id = {}
@@ -71,7 +73,18 @@ class HomeController < ApplicationController
 		if !@recent_votes_by_question_id.has_key?(q.id.to_s)
 			@recent_votes_by_question_id[q.id.to_s] = 0
 		end
+		if !@user_submitted_idea_info.has_key?(q.id.to_s)
+			@user_submitted_idea_info[q.id.to_s] = {}
+			@user_submitted_idea_info[q.id.to_s]["total_ideas"] = 0
+			@user_submitted_idea_info[q.id.to_s]["active_ideas"] = 0
+		end
+		if !@user_submitted_idea_info[q.id.to_s].has_key?("active_ideas")
+			@user_submitted_idea_info[q.id.to_s]["active_ideas"] = 0
+		end
+
 	end
+
+
         @available_charts = {}
         @available_charts['votes'] = { :title => "Number of all votes over time"}
         @available_charts['user_submitted_ideas'] = { :title => "Number of all submitted ideas over time"}

@@ -600,7 +600,7 @@ jQuery(document).ready(function() {
 			}
 	});
 		
-	$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' } } });
+	$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } } });
       
 	$('.status-toggle').iphoneStyle({ resizeContainer: false, resizeHandle: false, checkedLabel: 'Active', uncheckedLabel: 'Inactive' });
 

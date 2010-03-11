@@ -67,5 +67,8 @@
   = render :partial => "shared/highcharts_header"
   = render :partial => "shared/google_jsapi"
   = '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
-  = javascript_include_tag 'google-termcloud.js'
-  = stylesheet_link_tag 'google-termcloud'
+  = javascript_include_tag 'google-termcloud.js', 'facebox'
+  = stylesheet_link_tag 'google-termcloud', 'facebox'
+
+-content_for :view_javascript do
+  $('a[rel*=facebox]').facebox();

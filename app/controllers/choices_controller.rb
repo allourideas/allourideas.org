@@ -66,7 +66,6 @@ class ChoicesController < ApplicationController
     logger.info "Found choice: #{@choice.inspect}"
     #@choice.activate! if @choice
     
-    redirect_to('/') and return unless current_user == @question.creator
     if current_user == @question.creator
     
     	@choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice

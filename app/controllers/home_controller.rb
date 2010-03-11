@@ -89,7 +89,7 @@ class HomeController < ApplicationController
         @available_charts['votes'] = { :title => "Number of all votes over time"}
         @available_charts['user_submitted_ideas'] = { :title => "Number of all submitted ideas over time"}
         @available_charts['user_sessions'] = { :title => "Number of all user sessions per day"}
-#        @available_charts['unique_users'] = { :title => "Number of all unique users per day"}
+        @available_charts['unique_users'] = { :title => "Number of all unique users per day"}
     else
     	@earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
 	@recent_votes_by_question_id = Question.get(:recent_votes_by_question_id, :creator_id => current_user.id)

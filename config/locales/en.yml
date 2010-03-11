@@ -205,6 +205,7 @@ en:
     list_questions: List My Other Questions
     map_explanation: This plot shows the number of votes from all user on this question.
     active_items: active ideas
+    source: Source
   vote:
     add_your_idea: Add your own idea here...
     cast_votes: Cast Votes

@@ -20,3 +20,11 @@
 #explanation{:style => 'display:none;'}
   %h2= t('items.about_scoring')
   =t('items.score_explain')
+
+
+-content_for :head do
+  = javascript_include_tag 'facebox'
+  = stylesheet_link_tag 'facebox'
+
+-content_for :view_javascript do
+  $('a[rel*=facebox]').facebox();

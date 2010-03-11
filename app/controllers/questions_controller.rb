@@ -237,6 +237,18 @@ end
 	 end
          chart_title = "Number of Ideas submitted per day"
          y_axis_title = "Number of Ideas"
+      elsif type == 'unique_users'
+	 if totals == "true"
+                 chart_title = "Number of Unique Users per day"
+                 y_axis_title = "Number of Users per day"
+		 result = SessionInfo.find(:all, :select => 'date(created_at) as date, visitor_id, count(*) as session_id_count', :group => 'date(created_at), visitor_id')
+		 votes_count_hash = Hash.new(0)
+
+		 result.each do |r|
+			 votes_count_hash[r.date.to_s.gsub('-','_')] +=1
+		 end
+	 end
+
       end
 
       if votes_count_hash == "\n"

@@ -147,13 +147,6 @@ jQuery(document).ready(function() {
 	  // });
 
 
-	$('a[rel*=facebox]').facebox();
-	
-	//$("#new_question_form").hide();
-	
-	
-	//$(".create-question form").validate();
-	
 	humanMsg.setup();
 	$("#tabs").tabs();
 	

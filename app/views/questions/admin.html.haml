@@ -1,23 +1,26 @@
 = render :partial => 'shared/header_vote'
 .ninety
-  %table.full
-    %tr.row0
-      %th
-        = @question.attributes['name']
-      %th.score= (@header_text = "Status")
-      %th &nbsp;
-    -alt=false
-    -for choice in @choices.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
-      %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-        %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
-        %td.votes{:id => "choice_#{choice.id}_status"}= choice.active? ? 'Activated' : 'Deactivated'
-        -#%td= rank
-        -#%td= added
-        %td
-          -unless @choices.size < 3
-            =link_to('[Toggle]', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
-    %tr.row0.thin
-      %td{:colspan => 3}
+  %table.full.tablesorter
+    %thead 
+      %tr.row0
+        %th
+          = @question.attributes['name']
+        %th.score=  t('items.score')
+        %th.score=  t('questions.source')
+        %th.score= "Status"
+        %th &nbsp;
+    %tbody 
+      -for choice in @choices.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
+        %tr{:class => cycle ("row1", "row2")}
+          %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
+          %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+          %td.votes= choice.attributes['user_created'] ? "User" : "Seed"
+          %td.votes{:id => "choice_#{choice.id}_status"}= choice.active? ? 'Activated' : 'Deactivated'
+          -#%td= rank
+          -#%td= added
+          %td
+            -unless @choices.size < 3
+              =link_to('[Toggle]', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
   %br
 
 
@@ -86,7 +89,13 @@
     %h2= t('items.about_scoring')
     =t('items.score_explain')
 
-  - content_for :view_javascript do
-    =# @votes_chart
-    =# @word_cloud_js
+-content_for :head do
+  = javascript_include_tag 'facebox', 'jquery.tablesorter.min.js'
+  = stylesheet_link_tag 'facebox'
 
+- content_for :view_javascript do
+  $('.tablesorter').tablesorter({ headers: { 0: {sorter: 'text'}, 1 : { sorter: 'digit' } , 2 : { sorter: 'text' }, 3 : { sorter: 'text'}, 4 : { sorter: false }, } });
+  $('.tablesorter').bind('sortEnd', function() {
+  $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
+  $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});
+  $('a[rel*=facebox]').facebox();

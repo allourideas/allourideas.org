@@ -38,4 +38,12 @@ class Choice < ActiveResource::Base
   def active?
     attributes['active']
   end
+
+  def score
+	  attributes['score']
+  end
+
+  def user_created
+	  attributes['user_created']
+  end
 end

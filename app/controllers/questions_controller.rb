@@ -204,6 +204,53 @@ end
      end 
   end
 
+  def scatter_plot_user_vs_seed_ideas
+      type = params[:type] # should be scatter_ideas
+      @earl = Earl.find params[:id]
+      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id, :include_inactive => true})
+
+      chart_data = []
+      @choices.each do |c|
+	      point = {}
+	      point[:name] = c.data.strip.gsub("'", "")
+	      point[:x] = c.score
+	      point[:y] = c.attributes['user_created'] ? 1 : 0
+	      chart_data << point
+      end
+      
+      tooltipformatter = "function() { return '<b>' + this.point.name + '</b>: '+ this.x +' '+ this.y ; }"
+      @votes_chart = Highchart.spline({
+	    :chart => { :renderTo => "#{type}-chart-container",
+		    	:margin => [50, 25, 60, 80],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => false },
+            :title => { :text => "Scores of User submitted and Seeded Ideas", 
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :min => '0', :max => '100', :type => 'linear', :title => {:enabled => true, :text => "Score Value"}},
+	    :y_axis => { :categories => ['Seed Ideas', 'User Ideas'], 
+		    	 :title => {:text => "Idea Type" , :style => { :color => '#919191'}}},
+	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
+			   :type => 'scatter',
+			   :color => 'rgba( 145,145,145, .5)',
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+     
+      respond_to do |format|
+	format.js { render :text => @votes_chart }
+     end
+
+  end
+
+
+
+
   def timeline_graph
       totals = params[:totals]
       type = params[:type]
@@ -293,7 +340,7 @@ end
 	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
 	    :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
-			   :type => 'spline',
+			   :type => 'line',
 	    		   :pointInterval => 86400000,
 			   #:pointStart => 1263859200000,
 			   :color => '#3198c1',

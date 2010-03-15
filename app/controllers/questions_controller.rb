@@ -73,7 +73,7 @@ end
      @earl = Earl.find params[:id]
      type = params[:type]
       
-     ignore_word_list = %w( a an and is or the of for in to with on) 
+     ignore_word_list = %w( a an as and is or the of for in to with on / -) 
      @word_frequency = Hash.new(0)
      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 

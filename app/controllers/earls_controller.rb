@@ -27,6 +27,9 @@ class EarlsController < ApplicationController
        
        @item_count = @question.attributes['item_count']
        @votes_count = @question.attributes['votes_count']
+
+       @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
+	       							"test_size_of_X_votes_on_Y_ideas2"
       # # logger.info "redirecting"
       # # 
       render :controller => "Questions", :action => "show"

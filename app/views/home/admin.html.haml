@@ -83,3 +83,4 @@
   $('.tablesorter').bind('sortEnd', function() {
   $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
   $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});
+  $('.tablesorter thead tr th').hover(function() { $(this).addClass("headerOver"); } , function() { $(this).removeClass("headerOver"); });

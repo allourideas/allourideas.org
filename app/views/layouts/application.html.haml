@@ -22,7 +22,7 @@
     -if flash[:for_real]
       .to_be_humanized{:style => "display:none;"}&= flash[:for_real]
       -flash[:for_real] = nil
-    .content
+    .content{:style => white_label_request? ? "overflow:hidden": ""}
       - unless white_label_request?  
         =render :partial => "shared/header"
       .body{:class => white_label_request? ? 'noborder' : ''} 

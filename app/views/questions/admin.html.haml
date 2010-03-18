@@ -10,7 +10,7 @@
         %th.score= "Status"
         %th &nbsp;
     %tbody 
-      -for choice in @choices.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
+      -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
         %tr{:class => cycle ("row1", "row2")}
           %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
           %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')

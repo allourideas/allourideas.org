@@ -1,4 +1,4 @@
-= render :partial => 'shared/header_vote'
+= render :partial => 'shared/header_vote', :locals => {"show_delete" => true}
 .ninety
   %table.full.tablesorter
     %thead 
@@ -42,30 +42,32 @@
       %td.title= "Allow ideas by users to be automatically activated, without prior approval"
       %td.votes{:id => "question_#{@question.id}_autoactivate_status"}= @question.it_should_autoactivate_ideas? ? 'Enabled' : 'Disabled'
       %td=link_to('[Toggle]', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
-  %h2
-    More Settings:
-  -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
-    %p 
-      Require users to enter the following user/password combination before voting: 
-      %br
-      -# = f.label :name, "Username" - Disappears off screen for some reason
-      = "Username: #{@earl.name}"
-      -# = f.label :pass, "Password" - Disappares off screen for some reason
-      %br
-      = f.label :pass, "Password:"
-      = f.text_field :pass
-    %p 
-      -if @earl.logo_file_name
-        Replace logo above with another file:
-      -else
-        Upload a logo to be displayed on your idea market place page
-      %br
-      = f.file_field :logo
-    %p
-      = submit_tag "Save"
-  -if @earl.logo_file_name
-    =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
-    %br
+
+  %br
+
+  %table.full
+    %tr.row0
+      %th{:colspan => 2}="Additional Settings:"
+    %tr.row1
+      %td Require users to enter the following user/password combination before voting: 
+      %td 
+        -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
+          = "Username: #{@earl.name}"
+          %br
+          = f.label :pass, "Password:"
+          = f.text_field :pass
+          %tr.row2
+            %td 
+              -if @earl.logo_file_name
+                Replace logo above with another file:
+              -else
+                Upload a logo to be displayed on your idea market place page
+            %td
+              = f.file_field :logo
+          %tr.row1
+            %td{:colspan => 2}
+              = submit_tag "Save", {:class => "fright", :style => "margin: 0 10px 0px 0"}
+  %br
 
   %table.full
     %tr.row0

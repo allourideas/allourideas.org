@@ -12,6 +12,8 @@
   .fleft
     -if @earl && !@earl.logo_file_name.nil?
       = image_tag(@earl.logo.url(:medium))
+      -if local_assigns.has_key?("show_delete")
+        =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
     -else
       &nbsp;
   %div{:style => "position: absolute; bottom: 0px; right: 0px;"}

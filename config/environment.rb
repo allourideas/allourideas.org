@@ -69,6 +69,8 @@ Rails::Initializer.run do |config|
     :source => 'http://gems.github.com',
     :lib => 'redis-store'
 
+  config.gem 'geokit'
+
   config.gem 'crack'
   config.gem 'friendly_id'
   config.gem 'sax-machine'

@@ -210,15 +210,23 @@ end
       @choices = Choice.find(:all, :params => {:question_id => @earl.question_id, :include_inactive => true})
 
       chart_data = []
+      jitter = {}
+      jitter[0] = Hash.new(0)
+      jitter[1] = Hash.new(0)
       @choices.each do |c|
 	      point = {}
 	      point[:name] = c.data.strip.gsub("'", "")
-	      point[:x] = c.score
+	      point[:x] = c.score.round
 	      point[:y] = c.attributes['user_created'] ? 1 : 0
+	      jitter[point[:y]][point[:x]] += 0.02
+
+	      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
+	      point[:y] += thejitter * rand(2).to_f
+
 	      chart_data << point
       end
       
-      tooltipformatter = "function() { return '<b>' + this.point.name + '</b>: '+ this.x +' '+ this.y ; }"
+      tooltipformatter = "function() { return '<b>' + this.point.name + '</b>: '+ this.x; }"
       @votes_chart = Highchart.spline({
 	    :chart => { :renderTo => "#{type}-chart-container",
 		    	:margin => [50, 25, 60, 80],
@@ -232,11 +240,10 @@ end
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :min => '0', :max => '100', :type => 'linear', :title => {:enabled => true, :text => "Score Value"}},
-	    :y_axis => { :categories => ['Seed Ideas', 'User Ideas'], 
-		    	 :title => {:text => "Idea Type" , :style => { :color => '#919191'}}},
+	    :y_axis => { :categories => ['Seed Ideas', 'User Ideas'], :max => 1},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
-			   :color => 'rgba( 145,145,145, .5)',
+			   :color => 'rgba( 49,152,193, .5)',
 	                   :data => chart_data }],
 	    :tooltip => { :formatter => tooltipformatter }
 

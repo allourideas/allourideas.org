@@ -207,21 +207,26 @@ end
   def scatter_plot_user_vs_seed_ideas
       type = params[:type] # should be scatter_ideas
       @earl = Earl.find params[:id]
-      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id, :include_inactive => true})
+      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
       chart_data = []
       jitter = {}
       jitter[0] = Hash.new(0)
       jitter[1] = Hash.new(0)
-      @choices.each do |c|
+      @choices.each_with_index do |c, i|
 	      point = {}
 	      point[:name] = c.data.strip.gsub("'", "")
 	      point[:x] = c.score.round
 	      point[:y] = c.attributes['user_created'] ? 1 : 0
-	      jitter[point[:y]][point[:x]] += 0.02
-
+	      if i % 2 == 1
+	        jitter[point[:y]][point[:x]] += 0.03
+	      end
 	      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
-	      point[:y] += thejitter * rand(2).to_f
+	      if i % 2 == 0
+	         point[:y] += thejitter 
+	      else
+	         point[:y] -= thejitter
+	      end
 
 	      chart_data << point
       end
@@ -239,8 +244,10 @@ end
             :title => { :text => "Scores of User submitted and Seeded Ideas", 
 		     	:style => { :color => '#919191' }
 		      },
-	    :x_axis => { :min => '0', :max => '100', :type => 'linear', :title => {:enabled => true, :text => "Score Value"}},
-	    :y_axis => { :categories => ['Seed Ideas', 'User Ideas'], :max => 1},
+			      :x_axis => { :min => '0', :max => '100', :endOnTick => true, :showLastLabel => true,
+				      	   :type => 'linear', 
+					   :title => {:enabled => true, :text => "Score"}},
+	    :y_axis => { :categories => ['Seed Ideas', 'User Ideas'], :max => 1, :min => 0},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
 			   :color => 'rgba( 49,152,193, .5)',

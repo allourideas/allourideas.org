@@ -55,7 +55,7 @@
           = "Username: #{@earl.name}"
           %br
           = f.label :pass, "Password:"
-          = f.text_field :pass
+          = f.text_field :pass, :id => "passfield"
           %tr.row2
             %td 
               -if @earl.logo_file_name
@@ -66,7 +66,7 @@
               = f.file_field :logo
           %tr.row1
             %td{:colspan => 2}
-              = submit_tag "Save", {:class => "fright", :style => "margin: 0 10px 0px 0"}
+              = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
   %br
 
   %table.full
@@ -101,5 +101,7 @@
   $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
   $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});
   $('.tablesorter thead tr th').hover(function() { $(this).addClass("headerOver"); } , function() { $(this).removeClass("headerOver"); });
-
   $('a[rel*=facebox]').facebox();
+  $('#passfield').change(function(){ $('#savebutton').addClass("active")});
+  $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
+

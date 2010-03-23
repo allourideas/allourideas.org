@@ -429,6 +429,10 @@ background-color: #8dbdd8;
 	font-size: 12px;
 }
 
+.active {
+	color: #000000;
+}
+
 // Disable text selection outside of IE
 .iPhoneCheckContainer, 
 .iPhoneCheckContainer label {

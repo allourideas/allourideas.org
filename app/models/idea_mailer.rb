@@ -26,6 +26,20 @@ class IdeaMailer < ActionMailer::Base
     @body[:choice_id] = choice_id
   end
   
+  def extra_information(user, question, information)
+    @recipients  = "signups@allourideas.org"
+    @from        = "info@allourideas.org"
+    @subject     = "[All Our Ideas] "
+    @sent_on     = Time.now
+    @body[:user] = user
+    @body[:host] = "www.allourideas.org"
+
+    @subject += "Extra Information included in #{question.the_name}"
+
+    @body[:question] = question
+    @body[:information] = information
+  end
+  
   protected
     def setup_email(user)
       @recipients  = user.email

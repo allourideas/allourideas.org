@@ -601,6 +601,9 @@ end
           logger.info "Question was successfully created."
           session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br /> Send out your URL: #{@question.fq_earl} and watch what happens. <br /> You can further customize this site by following this link: <a href=\"#{@question.fq_earl}/admin\"> Manage this page </a>"
           ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
+	  if params[:question]['information'] != ""
+		  ::IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information'])
+	  end
           format.html { redirect_to(@question.earl + "?just_created=true") }
           format.xml  { render :xml => @question, :status => :created, :location => @question }
         else

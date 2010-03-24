@@ -64,6 +64,11 @@
                 Upload a logo to be displayed on your idea market place page
             %td
               = f.file_field :logo
+          %tr.row1 
+            %td
+              Add a welcome message for new voters
+            %td
+              = f.text_area :welcome_msg, :rows => 8, :cols => 70
           %tr.row1
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}

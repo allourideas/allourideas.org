@@ -34,6 +34,9 @@
           -if session[:on_example]
             %p.notice.example_notice#notice= t('home.student_government_explanation')
             -session[:on_example] = nil
+          -elsif session[:welcome_msg]
+            %p.notice.example_notice#notice= h(session[:welcome_msg])
+            -session[:welcome_msg] = nil
         = yield
         .clear
       - unless white_label_request?  

@@ -144,36 +144,35 @@ end
 	     session = SessionInfo.find_by_session_id(sid)
 
 	     if session.nil? || session.ip_addr.nil?
-	        logger.info("could not find locally:::SID #{sid} ::::::#{num_votes}\n")
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
 	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
-	        else @votes_by_geoloc["Unknown Location"].nil?
+	        else 
 	          @votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
 		end
 
 		next
 	     end
 
-	     if session.loc_info.empty?
-	      loc = Geokit::Geocoders::MultiGeocoder.geocode(session.ip_addr)
-	      if loc.success
-		session.loc_info= {}
-		session.loc_info[:city] = loc.city
-		session.loc_info[:state] = loc.state
-		session.loc_info[:country] = loc.country
-		session.loc_info[:lat] = loc.lat
-		session.loc_info[:lng] = loc.lng
-		session.save
-	      end
-	     end
+	    # if session.loc_info.empty?
+	    #  loc = Geokit::Geocoders::MultiGeocoder.geocode(session.ip_addr)
+	    #  if loc.success
+	#	session.loc_info= {}
+	#	session.loc_info[:city] = loc.city
+	#	session.loc_info[:state] = loc.state
+	#session.loc_info[:country] = loc.country
+	#session.loc_info[:lat] = loc.lat
+	#	session.loc_info[:lng] = loc.lng
+	#	session.save
+	#      end
+	#     end
 	     
 	     if !session.loc_info.empty?
-		display_fields = [:city, :state, :country]
+		display_fields = [:city, :region, :country_code]
 
 		display_text = []
 		display_fields.each do|key|
-			if session.loc_info[key]:
+			if session.loc_info[key] && !(/^[0-9]+$/ =~ session.loc_info[key])
 				display_text << session.loc_info[key] 
 			end
 		end
@@ -181,18 +180,17 @@ end
 	     	city_state_string = display_text.join(", ")
 	        if @votes_by_geoloc[city_state_string].nil?
 	          @votes_by_geoloc[city_state_string] = {}
-	          @votes_by_geoloc[city_state_string][:lat] = session.loc_info[:lat]
-	          @votes_by_geoloc[city_state_string][:lng] = session.loc_info[:lng]
+	          @votes_by_geoloc[city_state_string][:lat] = session.loc_info[:latitude]
+	          @votes_by_geoloc[city_state_string][:lng] = session.loc_info[:longitude]
 	          @votes_by_geoloc[city_state_string][:num_votes] = num_votes
 	        else
 		  @votes_by_geoloc[city_state_string][:num_votes] += num_votes
 	        end
 	     else
-	        logger.info("could not find locally111:::SID #{sid} ::::::#{num_votes}\n")
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
 	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
-	        else @votes_by_geoloc["Unknown Location"].nil?
+	        else 
 	          @votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
 		end
 	     end

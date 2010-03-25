@@ -88,11 +88,13 @@ class ApplicationController < ActionController::Base
 
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
 
-    session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
-						       :ip_addr => request.remote_ip, 
+    session = SessionInfo.find_or_initialize_by_session_id(:session_id => request.session_options[:id], 
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)
+    if session.new_record?
+	    session.geolocate!(request.remote_ip)
+    end
 
     Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
 		 :referrer => request.referrer, :session_info_id => session.id)

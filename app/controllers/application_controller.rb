@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
-  include HoptoadNotifier::Catcher
   
   # Options:
   # * :tries - Number of retries to perform. Defaults to 1.

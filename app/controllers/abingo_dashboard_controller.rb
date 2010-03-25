@@ -81,6 +81,9 @@ class AbingoDashboardController < ApplicationController
 		@summary_stats[a.id][:percent_of_sessions_greater_than_0_votes] = ((total - @voter_distribution[a.id][0]).to_f / total) * 100
 		@summary_stats[a.id][:mean_votes] = @summary_stats[a.id][:total_votes].to_f/ @summary_stats[a.id][:total_sessions].to_f
 		@summary_stats[a.id][:median_votes] = median(votes_for_median)
+
+		@summary_stats[a.id][:mean_votes_of_voters] = @summary_stats[a.id][:total_votes].to_f/ (@summary_stats[a.id][:total_sessions] - @voter_distribution[a.id][0]).to_f
+		@summary_stats[a.id][:median_votes_of_voters] = median(votes_for_median-[0])
 	end
 
  	#Now that we have the data, format into a pretty graph	

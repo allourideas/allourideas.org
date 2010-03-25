@@ -75,6 +75,10 @@ class Question < ActiveResource::Base
     rescue
       nil
     end
+    if Earl.reserved_names.include?(attributes['url'].strip)
+      errors.add("URL", "has already been taken (Step 2)")
+    end
+
     errors.add("Name", "is blank (Step 1)") if attributes['name'].blank?
     errors.add("Ideas", "are blank (Step 3)") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
     return errors

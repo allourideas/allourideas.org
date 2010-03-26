@@ -10,6 +10,10 @@ class EarlTest < ActiveSupport::TestCase
     assert_valid Factory.create(:earl)
   end
 
+  should "not allow reserved words to be saved" do 
+	  assert_raises(FriendlyId::SlugGenerationError) { Factory.create(:earl, :name => "privacy")}
+  end
+
 
 end
 

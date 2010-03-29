@@ -131,11 +131,11 @@ jQuery(document).ready(function() {
 	 //  });
 	  $("#submit_btn").bind("mouseover", function() {
 	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace(".jpg", "-over.jpg"));
+	    $(this).attr('src', str.replace(".jpg", "-down.jpg"));
 	  });
 	  $("#submit_btn").bind("mouseout", function() {
 	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace("-over.jpg", ".jpg"));
+	    $(this).attr('src', str.replace("-down.jpg", ".jpg"));
 	  });
 
 	  // $("#submit_btn").bind("mousedown", function() {

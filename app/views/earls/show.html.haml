@@ -58,3 +58,15 @@
         %p.error#v_error= flash[:v_error]
         = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
       %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
+
+
+-content_for :view_javascript do
+  :plain
+    $('#new_idea_field').focus( function () {
+      var str = $('#submit_btn').attr("src");
+      $('#submit_btn').attr('src', str.replace(".jpg", "-down.jpg"));
+    });
+    $('#new_idea_field').blur( function () {
+      var str = $('#submit_btn').attr("src");
+      $('#submit_btn').attr('src', str.replace("-down.jpg", ".jpg"));
+    });

@@ -89,6 +89,7 @@ class ApplicationController < ActionController::Base
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
 
     session = SessionInfo.find_or_initialize_by_session_id(:session_id => request.session_options[:id], 
+						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)

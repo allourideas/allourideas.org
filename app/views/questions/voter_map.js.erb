@@ -7,10 +7,10 @@
       <% count =0 -%>
       <%- @votes_by_geoloc.each do |city_state_string, hash| -%>
         <%- if city_state_string != "Unknown Location" -%>
-         data.setValue(<%=count%>, 0, <%= hash[:lat] %>);
-         data.setValue(<%=count%>, 1, <%= hash[:lng] %>);
-         data.setValue(<%=count%>, 2, <%= hash[:num_votes] %> );
-         data.setValue(<%=count%>, 3, "<%= city_state_string %>");
+         data.setValue(<%=count%>, 0, <%= escape_javascript(hash[:lat]) %>);
+         data.setValue(<%=count%>, 1, <%= escape_javascript(hash[:lng]) %>);
+         data.setValue(<%=count%>, 2, <%= escape_javascript(hash[:num_votes]) %> );
+         data.setValue(<%=count%>, 3, "<%= escape_javascript(city_state_string) %>");
          <% count = count +1 %>
         <%- end -%>
       <%- end -%>

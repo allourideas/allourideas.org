@@ -70,6 +70,7 @@ Rails::Initializer.run do |config|
     :lib => 'redis-store'
 
   config.gem 'geoip_city'
+  config.gem 'geokit'
 
   config.gem 'crack'
   config.gem 'friendly_id'

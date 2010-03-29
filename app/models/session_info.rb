@@ -8,8 +8,21 @@ class SessionInfo< ActiveRecord::Base
 
 	def geolocate!(ip_address)
 	      self.loc_info = GEOIP_DB.look_up(ip_address)
-	      self.loc_info = {} if self.loc_info.nil?
 
+	      if loc_info.blank?
+		      logger.info("Could not geolocate using local db, using geokit")
+		      loc = Geokit::Geocoders::MultiGeocoder.geocode(ip_address)
+		      if loc.success
+			      self.loc_info= {}
+			      self.loc_info[:city] = loc.city
+			      self.loc_info[:region] = loc.state
+			      self.loc_info[:country_code] = loc.country
+			      self.loc_info[:latitude] = loc.lat
+			      self.loc_info[:longitude] = loc.lng
+		      end
+	      end
+
+	      self.loc_info = {} if self.loc_info.blank?
 	      self.save
 	end
 

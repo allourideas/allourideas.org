@@ -143,7 +143,7 @@ end
 	     num_votes = num_votes.to_i
 	     session = SessionInfo.find_by_session_id(sid)
 
-	     if session.nil? || session.ip_addr.nil?
+	     if session.nil? || session.loc_info.nil? 
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
 	          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes

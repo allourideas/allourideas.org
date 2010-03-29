@@ -232,20 +232,20 @@ end
       tooltipformatter = "function() { return '<b>' + this.point.name + '</b>: '+ this.x; }"
       @votes_chart = Highchart.spline({
 	    :chart => { :renderTo => "#{type}-chart-container",
-		    	:margin => [50, 25, 60, 80],
+		    	:margin => [50, 25, 60, 100],
 			:borderColor =>  '#919191',
 			:borderWidth =>  '1',
 			:borderRadius => '0',
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => "Scores of User submitted and Seeded Ideas", 
+            :title => { :text => "Scores of Uploaded and Original Ideas", 
 		     	:style => { :color => '#919191' }
 		      },
 			      :x_axis => { :min => '0', :max => '100', :endOnTick => true, :showLastLabel => true,
 				      	   :type => 'linear', 
 					   :title => {:enabled => true, :text => "Score"}},
-	    :y_axis => { :categories => ['Seed Ideas', 'User Ideas'], :max => 1, :min => 0},
+	    :y_axis => { :categories => ['Uploaded Ideas', 'Original Ideas'], :max => 1, :min => 0},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
 			   :color => 'rgba( 49,152,193, .5)',

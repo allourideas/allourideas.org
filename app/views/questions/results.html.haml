@@ -60,7 +60,7 @@
           .wcdiv.chart-container#wcdiv-weight_by_score
       -if current_user && current_user.admin?
         %tr{:class => cycle("row2", "row1")}
-          %td.title= "Compare user submitted ideas with seeded ideas"
+          %td.title= "Compare uploaded ideas with original ideas"
           %td.votes
             = link_to('[View]', url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
         %tr{:class => current_cycle , :style => "display:none;"}

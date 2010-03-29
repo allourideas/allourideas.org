@@ -159,10 +159,11 @@ jQuery(document).ready(function() {
 	
 	$('.new_idea_submit').bind('click',function(event){		
 		var new_idea = $('#new_idea_field').val();
+		var default_text = $('#default_text').val()
 		$('.example_notice').hide();
 		
 		//if new idea is blank or longer than 140 characters, do not allow it to submit
-		if ((new_idea == 'Add your own idea here...') || (new_idea == '')) {
+		if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
 			event.returnValue = false;
 			alert('Sorry, blank ideas are not allowed.');
 			return false;

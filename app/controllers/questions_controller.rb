@@ -441,6 +441,7 @@ end
     def add_idea
       prompt_id = session[:current_prompt_id]
       logger.info "Getting ready to add an idea while viewing on Prompt #{prompt_id}, Question #{params[:id]}"
+      bingo!('submitted_idea')
       new_idea_data = params[:new_idea]
       @choice = Choice.new(:data => new_idea_data)
       respond_to do |format|

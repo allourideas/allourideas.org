@@ -67,6 +67,8 @@
           %tr.row1 
             %td
               Add a welcome message for new voters
+              =link_to('[?]', '#welcome_msg_explanation', :rel => 'facebox')
+
             %td
               = f.text_area :welcome_msg, :rows => 4, :cols => 65
           %tr.row1
@@ -95,6 +97,13 @@
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')
+    
+  #welcome_msg_explanation{:style => 'display:none;'}
+    %h2= "Optional Welcome Message"
+    You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a users votes for the first time.
+    %br
+    For example, it may be useful to explain who is leading the idea marketplace or what will be done with the feedback gathered from this question. 
+
 
 -content_for :head do
   = javascript_include_tag 'facebox', 'jquery.tablesorter.min.js'

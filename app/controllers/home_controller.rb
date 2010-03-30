@@ -10,6 +10,14 @@ class HomeController < ApplicationController
   def no_google_tracking
   end
 
+  def example
+    ab_test("Test example marketplace", ["/studentgovernment", "/priority_example"], :conversion => 'voted') do |the_link|
+	  redirect_to(the_link)
+    end
+
+  end
+
+
  # def login
  #   if request.post?
  #     set_user(params[:email], params[:password])

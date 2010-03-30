@@ -7,8 +7,16 @@ class Earl < ActiveRecord::Base
 
   belongs_to :user
   
-  def question(barebones = false)
-    barebones ? Question.find(question_id, :params => {:barebones => true}) : Question.find(question_id)
+  def question(barebones = false, algorithm= "standard")
+	  if barebones == true
+	          Question.find(question_id, :params => {:barebones => true})
+	  elsif algorithm == "standard"
+		  Question.find(question_id)
+	  elsif algorithm == "catchup"
+		  logger.info("Catchup algorithm question")
+		  Question.find(question_id, :params => {:algorithm => "catchup"})
+	  end
+    
   end
 
   def self.reserved_names

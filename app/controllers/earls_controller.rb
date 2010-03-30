@@ -16,7 +16,14 @@ class EarlsController < ApplicationController
         flash[:notice] = "Sorry, that question is not active."
         redirect_to '/' and return
       end
-      @question = @earl.question#the question has a prompt id with it
+
+      if @earl.name == "test0330"
+	      @question = @earl.question(false, "catchup")
+      else
+	      @question = @earl.question#the question has a prompt id with it
+      end
+
+
        logger.info "inside questions#show " + @question.inspect
        @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
        session[:current_prompt_id] = @question.attributes['picked_prompt_id']

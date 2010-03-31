@@ -365,6 +365,79 @@ end
 	format.js { render :text => @votes_chart }
      end
   end
+
+  def density_graph
+      @earl = Earl.find params[:id]
+      @densities = Density.find(:all, :params=> {:question_id => @earl.question_id})
+
+      type = params[:type]
+
+      prompt_types = ["seed_seed", "seed_nonseed","nonseed_seed","nonseed_nonseed"]
+
+      if @densities.blank?
+	render :text => "$('\##{type}-chart-container').text('Cannot make chart, no data.');" and return
+      end
+
+      chart_title = "Density of votes over time by prompt type"
+      y_axis_title = "Density of votes"
+
+      chart_data = {}
+      prompt_types.each do |the_type|
+	      chart_data[the_type] = []
+      end
+
+      start_date = nil
+      current_date = nil
+      @densities.each do |d|
+	    hash_date = d.created_at.to_date
+
+	    if start_date.nil?
+		    start_date = hash_date
+		    current_date= start_date
+	    end
+
+	    # We need to add in a blank entry for every day that doesn't exist
+	    if d.value.nil?
+	        chart_data[d.prompt_type] << 0
+	    else
+	        chart_data[d.prompt_type] << d.value
+	    end
+      end
+
+      the_series = []
+
+      prompt_types.each do |the_type|
+	      the_series << { :name => the_type.humanize,
+		              :type => 'line',
+			      :pointInterval => 86400000,
+			      :color => '#3198c1',
+			      :pointStart => start_date.to_time.to_i * 1000,
+			      :data => chart_data[the_type] }
+      end
+      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
+
+      @density_chart = Highchart.spline({
+	    :chart => { :renderTo => "#{type}-chart-container",
+		    	:margin => [50, 25, 60, 80],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => true},
+            :title => { :text => chart_title,
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
+	    :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
+	    :series => the_series,
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+     respond_to do |format|
+	format.js { render :text => @density_chart}
+     end
+  end
 	
   
   def vote(direction)

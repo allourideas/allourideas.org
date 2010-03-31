@@ -355,6 +355,9 @@ jQuery(document).ready(function() {
 
 	$('.vote_cell').bind('click',function(event){
 
+		var currentTime = new Date();
+		var time_viewed = currentTime - loadedTime
+
 		$('.example_notice').hide();
 
 		var the_id = $(this).attr("id");
@@ -375,7 +378,8 @@ jQuery(document).ready(function() {
 		 url: '/questions/' + question_id + '/vote_' + winner_side+ '.js',
 		 dataType: "json",
 		 data: {
-			'authenticity_token' : encodeURIComponent(AUTH_TOKEN)
+			'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+			'time_viewed' : time_viewed
 		 },
 		 beforeSend: function() {
 			$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
@@ -389,14 +393,17 @@ jQuery(document).ready(function() {
 		 },
 		 timeout: 5000,
 		 error: function(request,error) {
-			$('.indicator').hide();
-			$.unblockUI();
-		  if (error == "timeout") {
+		     $('.indicator').hide();
+		     $.unblockUI();
+		     if (error == "timeout") {
 			$('.tellmearea').html('Sorry, voting is taking too long ... too much traffic!').effect("highlight", {color: '#ff0000'}, 1500);
-		  }
-		  else {
-				$('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
-		  }
+		     }
+		     else {
+		        $('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
+		     }
+
+		     loadedTime = new Date() //reset loaded time
+
 		  },
 		  success:  function(data){
 				$('.indicator').hide();
@@ -427,6 +434,8 @@ jQuery(document).ready(function() {
 					    });
 				    });
 				});
+
+		                loadedTime = new Date() //reset loaded time
 			}// End success
 		}); // End ajax method
 		return false;

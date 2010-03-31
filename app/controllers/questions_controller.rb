@@ -447,13 +447,15 @@ end
     prompt_id = session[:current_prompt_id]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
+
+    time_viewed = params[:time_viewed]
     case direction
     when :left
       winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
-      conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id]})
+      conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id], 'time_viewed' => time_viewed})
     when :right
       loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
-      conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id]})
+      conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id], 'time_viewed' => time_viewed})
     else
       raise "unspecified choice"
     end

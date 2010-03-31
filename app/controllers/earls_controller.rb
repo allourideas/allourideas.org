@@ -11,13 +11,14 @@ class EarlsController < ApplicationController
     session[:on_example] = (params[:id] == 'studentgovernment')
     session[:welcome_msg] = @earl.welcome_msg
     
+    catchup_marketplaces = ["test0330", "studentgovernment", "priority_example"]
     if @earl
       unless @earl.active?
         flash[:notice] = "Sorry, that question is not active."
         redirect_to '/' and return
       end
 
-      if @earl.name == "test0330"
+      if catchup_marketplaces.include?(@earl.name)
 	      @question = @earl.question(false, "catchup")
       else
 	      @question = @earl.question#the question has a prompt id with it

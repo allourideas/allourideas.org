@@ -245,7 +245,7 @@ end
 			      :x_axis => { :min => '0', :max => '100', :endOnTick => true, :showLastLabel => true,
 				      	   :type => 'linear', 
 					   :title => {:enabled => true, :text => "Score"}},
-	    :y_axis => { :categories => ['Uploaded Ideas', 'Original Ideas'], :max => 1, :min => 0},
+	    :y_axis => { :categories => ['Original Ideas', 'Uploaded Ideas'], :max => 1, :min => 0},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
 			   :color => 'rgba( 49,152,193, .5)',

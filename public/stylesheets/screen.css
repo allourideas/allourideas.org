@@ -410,6 +410,10 @@ table.tablesorter tbody td {
 	vertical-align: top;
 }
 table.tablesorter tbody tr.odd td {
+    background-color: #fafafa; 
+}
+table.tablesorter tbody tr.even td {
+    background-color: #fefefe; 
 }
 table.tablesorter thead tr .headerSortUp {
 	background-image: url('/images/asc.gif');

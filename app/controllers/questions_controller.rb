@@ -445,6 +445,7 @@ end
 
     bingo!("voted")
     prompt_id = session[:current_prompt_id]
+    appearance_lookup = session[:appearance_lookup]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
 
@@ -452,10 +453,14 @@ end
     case direction
     when :left
       winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
-      conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id], 'time_viewed' => time_viewed})
+      conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id], 
+				                             'time_viewed' => time_viewed, 
+							     'appearance_lookup' => appearance_lookup })
     when :right
       loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
-      conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id], 'time_viewed' => time_viewed})
+      conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id], 
+				     		              'time_viewed' => time_viewed,
+							      'appearance_lookup' => appearance_lookup })
     else
       raise "unspecified choice"
     end
@@ -470,6 +475,7 @@ end
             newprompt = Crack::XML.parse(p.body)['prompt']
             logger.info "newprompt is #{newprompt.inspect}"
             session[:current_prompt_id] = newprompt['id']
+            session[:appearance_lookup] = newprompt['appearance_id']
             #@newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
                              :newright => truncate((newprompt['right_choice_text']), :length => 137)

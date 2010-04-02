@@ -7,14 +7,15 @@ class Earl < ActiveRecord::Base
 
   belongs_to :user
   
-  def question(barebones = false, algorithm= "standard")
+  #TODO refactor params to be an options hash
+  def question(barebones = false, algorithm= "standard", visitor_identifier = nil) #including visitor_identifer creates an appearance
 	  if barebones == true
-	          Question.find(question_id, :params => {:barebones => true})
+	          Question.find(question_id, :params => {:barebones => true, :visitor_identifier =>  visitor_identifier})
 	  elsif algorithm == "standard"
-		  Question.find(question_id)
+		  Question.find(question_id, :params => {:visitor_identifier => visitor_identifier})
 	  elsif algorithm == "catchup"
 		  logger.info("Catchup algorithm question")
-		  Question.find(question_id, :params => {:algorithm => "catchup"})
+		  Question.find(question_id, :params => {:algorithm => "catchup", :visitor_identifier => visitor_identifier})
 	  end
     
   end

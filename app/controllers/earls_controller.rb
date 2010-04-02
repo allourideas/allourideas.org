@@ -19,15 +19,17 @@ class EarlsController < ApplicationController
       end
 
       if catchup_marketplaces.include?(@earl.name)
-	      @question = @earl.question(false, "catchup")
+	      @question = @earl.question(false, "catchup", request.session_options[:id])
       else
-	      @question = @earl.question#the question has a prompt id with it
+	      @question = @earl.question(false, "standard", request.session_options[:id])#the question has a prompt id with it
       end
 
 
        logger.info "inside questions#show " + @question.inspect
        @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
        session[:current_prompt_id] = @question.attributes['picked_prompt_id']
+       session[:appearance_lookup] = @question.attributes['appearance_id']
+
        #@items = @question.items
        @right_choice_text = @prompt.right_choice_text
        @left_choice_text = @prompt.left_choice_text

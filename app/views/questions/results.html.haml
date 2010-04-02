@@ -62,10 +62,10 @@
         %td.title= "Compare uploaded ideas with original ideas"
         %td.votes
           = link_to('[View]', url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
+      %tr{:class => current_cycle , :style => "display:none;"}
+        %td.title{:colspan => '2'}
+          .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
       -if current_user && current_user.admin?
-        %tr{:class => current_cycle , :style => "display:none;"}
-          %td.title{:colspan => '2'}
-            .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
         %tr{:class => cycle("row2", "row1")}
           %td.title= "View density of votes for this question"
           %td.votes

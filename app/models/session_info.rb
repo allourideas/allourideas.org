@@ -11,14 +11,19 @@ class SessionInfo< ActiveRecord::Base
 
 	      if loc_info.blank? || loc_info[:latitude].nil? || loc_info[:longitude].nil?
 		      logger.info("Could not geolocate using local db, using geokit")
-		      loc = Geokit::Geocoders::MultiGeocoder.geocode(ip_address)
-		      if loc.success
+
+		      if(ip_address == "127.0.0.1")
+		      	      logger.info("Private ip - not geolocating ")
+		      else
+		          loc = Geokit::Geocoders::MultiGeocoder.geocode(ip_address)
+		          if loc.success
 			      self.loc_info= {}
 			      self.loc_info[:city] = loc.city
 			      self.loc_info[:region] = loc.state
 			      self.loc_info[:country_code] = loc.country
 			      self.loc_info[:latitude] = loc.lat
 			      self.loc_info[:longitude] = loc.lng
+		          end
 		      end
 	      end
 

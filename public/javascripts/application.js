@@ -40,7 +40,6 @@ function iframe_loaded(){
 }
 
 
-
 jQuery(document).ready(function() {
 	
 	var loadedTime = new Date();
@@ -132,11 +131,11 @@ jQuery(document).ready(function() {
 	 //  });
 	  $("#submit_btn").bind("mouseover", function() {
 	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace(".jpg", "-down.jpg"));
+	    $(this).attr('src', str.replace("submit.jpg", "submit-down.jpg"));
 	  });
 	  $("#submit_btn").bind("mouseout", function() {
 	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace("-down.jpg", ".jpg"));
+	    $(this).attr('src', str.replace("submit-down.jpg", "submit.jpg"));
 	  });
 
 	  // $("#submit_btn").bind("mousedown", function() {
@@ -158,90 +157,6 @@ jQuery(document).ready(function() {
 	}
 	
 	
-	$('.new_idea_submit').bind('click',function(event){		
-		var new_idea = $('#new_idea_field').val();
-		var default_text = $('#default_text').val()
-		$('.example_notice').hide();
-		
-		//if new idea is blank or longer than 140 characters, do not allow it to submit
-		if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
-			event.returnValue = false;
-			alert('Sorry, blank ideas are not allowed.');
-			return false;
-		}
-		if (new_idea.length > 140) {
-			alert('Sorry, ideas need to be less than 140 characters.');
-			event.returnValue = false;
-			return false;
-		}
-		
-		var str = $(this).attr("src");
-    if (str.indexOf("-over") == -1)
-      $(this).attr('src', str.replace(".jpg", "-down.jpg"));
-    else if(str.indexOf("-down") == -1)
-      $(this).attr('src', str.replace("-over.jpg", "-down.jpg"));
-		
-		$.setFragment({ "page" : $.queryString(this.href).page });
-		
-		$('.indicator').show();
-		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		cursor:    null
-		    }});
-		var question_id = $(this).attr("rel");
-		
-		//$('#new_idea_field').empty().val('').hint();
-		$.post('/questions/' + question_id + '/add_idea.js',
-		'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
-		function(data){
-			$('.tellmearea').html(data["message"]);
-			$('#new_idea_field').val("");
-			$('#new_idea_field').attr('title','Thank you. Your idea has been added. Please add some more ideas.');
-			$('#new_idea_field').unbind('focus').unbind('blur');
-			$('#new_idea_field').hint();
-			// $('.leftside').html(data["newleft"]);
-			// $('.rightside').html(data["newright"]);
-			
-			//humanMsg.displayMsg(data["message"]);
-			//$('.prompter').effect("highlight", {}, 1500);
-			//increment counter if the new idea is active
-			
-			
-			
-			
-			// var max = $(this).attr('maxlength');
-			//     var val = $(this).attr('value');
-			//     var cur = 0;
-			//     if(val) // value="", or no value at all will cause an error
-			//       cur = val.length;
-			//     var left = max-cur;
-			//     $(this).after("<div class='counter'>"
-			//       + left.toString()+"</div>");
-			//     // You can use something like this to align the
-			//     // counter to the right of the input field.
-			//     var c = $(this).next(".counter");
-			// 
-			// 
-			// 
-			
-			if (data['choice_status'] == 'active') {
-				current_item_count = $('#item_count').html();
-				$('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
-			}
-			
-			$('.indicator').hide();
-			$.unblockUI();
-			
-			var str = $("#submit_btn").attr("src");
-			$("#submit_btn").attr('src', str.replace("-down.jpg", ".jpg"));
-			
-			
-		},
-		"json"
-		);
-		return false;
-	});
 	
 	$('.skiplink').bind('click',function(event){
 		$('.example_notice').hide();

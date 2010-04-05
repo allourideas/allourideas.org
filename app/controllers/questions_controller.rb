@@ -43,9 +43,9 @@ class QuestionsController < ApplicationController
     logger.info "First choice is #{@choices.first.inspect}"
     
     @available_charts = {}
-    @available_charts['votes'] = { :title => "Number of votes over time"}
-    @available_charts['user_submitted_ideas'] = { :title => "Number of submitted idea over time"}
-    @available_charts['user_sessions'] = { :title => "Number of unique user sessions per day"}
+    @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
+    @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
+    @available_charts['user_sessions'] = { :title => t('results.user_sessions_over_time_title')}
   end
   
   def admin
@@ -239,13 +239,13 @@ end
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => "Scores of Uploaded and Original Ideas", 
+            :title => { :text => t('results.scores_of') + " " + t('results.uploaded_ideas')+ " "+   t('common.and') +  " " + t('results.original_ideas'), 
 		     	:style => { :color => '#919191' }
 		      },
 			      :x_axis => { :min => '0', :max => '100', :endOnTick => true, :showLastLabel => true,
 				      	   :type => 'linear', 
-					   :title => {:enabled => true, :text => "Score"}},
-	    :y_axis => { :categories => ['Original Ideas', 'Uploaded Ideas'], :max => 1, :min => 0},
+					   :title => {:enabled => true, :text => t('common.score').titleize}},
+	    :y_axis => { :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], :max => 1, :min => 0},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
 			   :color => 'rgba( 49,152,193, .5)',
@@ -278,28 +278,28 @@ end
 	 else
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
 	 end
-         chart_title = "Number of Votes per day"
-         y_axis_title = "Number of Votes"
+         chart_title = t('results.number_of') +  t('common.votes') + t('results.per_day')
+         y_axis_title = t('results.number_of') + t('common.votes')
       elsif type == 'user_sessions'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
 	 else
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
 	 end
-         chart_title = "Number of User sessions per day"
-         y_axis_title = "Number of Sessions"
+         chart_title = t('results.number_of') +  t('common.user_sessions') + t('results.per_day')
+         y_axis_title = t('results.number_of') + t('common.user_sessions')
       elsif type == 'user_submitted_ideas'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')
 	 else
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
 	 end
-         chart_title = "Number of Ideas submitted per day"
-         y_axis_title = "Number of Ideas"
+         chart_title = t('results.number_of') +  t('common.ideas').titleize + t('results.per_day')
+         y_axis_title = t('results.number_of') + t('common.ideas')
       elsif type == 'unique_users'
 	 if totals == "true"
-                 chart_title = "Number of Unique Users per day"
-                 y_axis_title = "Number of Users per day"
+                 chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
+                 y_axis_title = t('results.number_of') + t('common.users')
 		 result = SessionInfo.find(:all, :select => 'date(created_at) as date, visitor_id, count(*) as session_id_count', :group => 'date(created_at), visitor_id')
 		 votes_count_hash = Hash.new(0)
 
@@ -311,7 +311,7 @@ end
       end
 
       if votes_count_hash == "\n"
-	render :text => "$('\##{type}-chart-container').text('Cannot make chart, no data.');" and return
+	render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"	and return
       end
 
       votes_count_hash = votes_count_hash.sort
@@ -346,7 +346,7 @@ end
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => chart_title + " - Overall total: #{overalltotal}",
+            :title => { :text => chart_title + " " +  t('results.overall_total') + overalltotal.to_s,
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :type => 'datetime', :title => {:text => "Date"}},

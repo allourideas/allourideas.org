@@ -40,13 +40,13 @@
         - when "control"
           &nbsp;
         - when "makechoice_small"
-          .sixteen_pixel_font Make your choice and see what comes next
+          .sixteen_pixel_font=t('ab_tests.test_showmespace.make_your_choice')
         - when "makechoice_large"
-          .twenty_pixel_font Make your choice and see what comes next
+          .twenty_pixel_font=t('ab_tests.test_showmespace.make_your_choice')
         - when "pleaseclick_small"
-          .sixteen_pixel_font Please click on your choice
+          .sixteen_pixel_font=t('ab_tests.test_showmespace.please_click')
         - when "pleaseclick_large"
-          .twenty_pixel_font Please click on your choice
+          .twenty_pixel_font=t('ab_tests.test_showmespace.please_click')
       -if @winner
         -if @skip
           == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
@@ -82,11 +82,11 @@
       //if new idea is blank or longer than 140 characters, do not allow it to submit
       if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
         event.returnValue = false;
-        alert('Sorry, blank ideas are not allowed.');
+        alert('#{t('vote.submit_idea_default_error')}');
         return false;
       }
       if (new_idea.length > 140) {
-        alert('Sorry, ideas need to be less than 140 characters.');
+        alert('#{t('vote.submit_idea_too_long_error')}');
         event.returnValue = false;
         return false;
       }
@@ -105,7 +105,7 @@
         function(data){
           $('.tellmearea').html(data["message"]);
           $('#new_idea_field').val("");
-          thankyoutext = 'Thank you. Your idea has been added. Please add some more ideas.';
+          thankyoutext = '#{t('vote.submit_idea_thankyou')}';
           $('#new_idea_field').attr('title', thankyoutext);
           $('#default_text').val(thankyoutext);
           $('#new_idea_field').unbind('focus').unbind('blur');

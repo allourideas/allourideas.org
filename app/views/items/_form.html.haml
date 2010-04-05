@@ -1,7 +1,7 @@
 -form_tag "items_path" do
 
   .add-box
-    -ab_test(the_ab_test_name, ["Add your idea here!", "Make sure your voice is heard: add your idea here!", "Contribute to the community: add your idea here!"], :conversion => 'submitted_idea') do |the_choice|
+    -ab_test(the_ab_test_name, [t('ab_tests.test_ideasubmit.control'), t('ab_tests.test_ideasubmit.make_sure_your_voice'),t('ab_tests.test_ideasubmit.contribute_to_the_community')], :conversion => 'submitted_idea') do |the_choice|
       = rounded(text_area_tag('new_idea', '', :title => the_choice, :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
       = hidden_field_tag 'default_text', the_choice
       = hidden_field_tag 'question_id', @question_id 

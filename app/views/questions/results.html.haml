@@ -29,39 +29,39 @@
   
   %table.full
     %tr.row0
-      %th="Data Visualizations"
+      %th=t('results.data_visualizations')
       %th.score &nbsp;
     %tr.row1#view_voter_map_row
-      %td.title="World map of all votes"
+      %td.title= t('results.world_map_title')
       %td.votes 
-        = link_to('[View]', url_for(:action => :voter_map), :id => "view_voter_map")
+        = link_to(t('results.view_link'), url_for(:action => :voter_map), :id => "view_voter_map")
     -if @available_charts
       -@available_charts.each do |type, options|
         %tr{:class => cycle("row2", "row1")}
           %td.title= options[:title]
           %td.votes
-            = link_to('[View]', url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
+            = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{type}-chart-container"}
       %tr.row1
-        %td.title= "Word cloud of ideas"
+        %td.title= t('results.word_cloud_ideas_title')
         %td.votes
-          = link_to('[View]', url_for(:action => :word_cloud), :class => 'date-chart')
+          = link_to(t('results.view_link'), url_for(:action => :word_cloud), :class => 'date-chart')
       %tr.row1{:style => "display:none;"}
         %td{:colspan => '2'}
           .wcdiv.chart-container#wcdiv
       %tr.row2
-        %td.title= "Word cloud of ideas weighted by score"
+        %td.title= t('results.word_cloud_weighted_title')
         %td.votes
-          = link_to('[View]', url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
+          = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
       %tr.row2{:style => "display:none;"}
         %td{:colspan => '2'}
           .wcdiv.chart-container#wcdiv-weight_by_score
       %tr{:class => cycle("row2", "row1")}
-        %td.title= "Compare uploaded ideas with original ideas"
+        %td.title= t('results.scatter_ideas_title')
         %td.votes
-          = link_to('[View]', url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
+          = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
       %tr{:class => current_cycle , :style => "display:none;"}
         %td.title{:colspan => '2'}
           .chart-container{:id => "#{"scatter_ideas"}-chart-container"}

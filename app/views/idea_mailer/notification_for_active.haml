@@ -1,8 +1,7 @@
-Hi,
-= "\n"
-= "Someone has uploaded the idea '#{@choice}' to your question '#{@question.the_name}' \n"
-= "\n"
-Based on your settings, we have auto-activated the idea so that it may be seen and voted upon immediately.  If for whatever reason you need to de-activate this idea, go to the following url:
+= t('items.email.hello') 
+= "\n" + t('items.email.someone_has') +  "'#{@choice}'" + t('items.email.to_your_question') + "'#{@question.the_name}'"+ "\n\n"
+
+= t('items.email.we_auto_activated_idea')
 = "\n"
 = "\n"
 
@@ -10,10 +9,10 @@ Based on your settings, we have auto-activated the idea so that it may be seen a
 
 = "\n\n"
 
-If you want others to see this idea, no action is required.
+= t('items.email.if_you_want')
 
 
-= "\n\nTo see current results, or to vote further, you may want to visit the idea marketplace that you created: http://#{HOST}#{@question.earl}"
+= t('items.email.see_current_results') + " http://#{HOST}#{@question.earl}"
 = "\n\n"
 
 
@@ -22,4 +21,4 @@ All Our Ideas
 145 Wallace Hall
 Princeton, NJ 08544
 info@allourideas.org
-Follow us on twitter: http://twitter.com/allourideas
+= t('items.email.follow_us_on_twitter') + "http://twitter.com/allourideas"

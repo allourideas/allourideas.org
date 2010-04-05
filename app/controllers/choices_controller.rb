@@ -26,7 +26,7 @@ class ChoicesController < ApplicationController
     @question = @earl.question
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     unless current_user.owns? @earl
-      render(:json => {:message => "Sorry, we could not change the status of this choice because you do not own the question."}.to_json) and return
+      render(:json => {:message => t('items.toggle_error')}.to_json) and return
     end
     @old_status = @choice.active?
     logger.info "Getting ready to change active status of Choice #{params[:id]} to #{!@old_status}"
@@ -34,8 +34,8 @@ class ChoicesController < ApplicationController
     respond_to do |format|
         format.xml  {  head :ok }
         format.js  { 
-          verb = @choice.active? ? 'Deactivated' : 'Activated'
-          failed_verb = @choice.active? ? 'Activated' : 'Deactivated'
+          verb = @choice.active? ? t('items.list.deactivated') : t('items.list.activated')
+          failed_verb = @choice.active? ? t('items.list.activated') : t('items.list.deactivated')
           remote_function = @choice.active? ? :deactivate_from_abroad : :update_from_abroad
           
           begin
@@ -56,7 +56,7 @@ class ChoicesController < ApplicationController
   def activate
     authenticate 
     if !current_user
-    	flash[:notice] = "You must be logged in to perform this action"
+    	flash[:notice] = t('user.deny_access_error')
 	return
     end
     
@@ -69,12 +69,12 @@ class ChoicesController < ApplicationController
     if current_user == @question.creator
     
     	@choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:notice] = "You have successfully activated the idea '#{@choice.attributes['data']}'"
+    	flash[:notice] = t('items.you_have_succesfully_activated') + " '#{@choice.attributes['data']}'"
     	logger.info flash[:notice]
     	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
     	redirect_to("#{@question.earl}") and return
     else
-    	flash[:notice] = "You do not have permission to modify this question"
+    	flash[:notice] = t('user.not_authorized_error')
 	redirect_to('/sign_in') and return
     end
   end
@@ -83,7 +83,7 @@ class ChoicesController < ApplicationController
   def deactivate
     authenticate 
     if !current_user
-    	flash[:notice] = "You must be logged in to perform this action"
+    	flash[:notice] = t('user.deny_access_error')
 	return
     end
 
@@ -95,12 +95,12 @@ class ChoicesController < ApplicationController
     # should probably put an error message for those not logged in 
     if current_user == @question.creator
     	@choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:notice] = "You have successfully deactivated the idea '#{@choice.attributes['data']}'"
+    	flash[:notice] = t('items.you_have_succesfully_deactivated') + " '#{@choice.attributes['data']}'"
     	logger.info flash[:notice]
     	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
     	redirect_to("#{@question.earl}") and return
     else
-    	flash[:notice] = "You do not have permission to modify this question"
+    	flash[:notice] = t('user.not_authorized_error')
 	redirect_to('/sign_in') and return
     end
   end

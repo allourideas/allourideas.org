@@ -14,7 +14,7 @@ class EarlsController < ApplicationController
     catchup_marketplaces = ["test0330", "studentgovernment", "priority_example"]
     if @earl
       unless @earl.active?
-        flash[:notice] = "Sorry, that question is not active."
+        flash[:notice] = t('questions.not_active_error')
         redirect_to '/' and return
       end
 
@@ -82,7 +82,7 @@ class EarlsController < ApplicationController
     @earl = Earl.find(params[:id])
     redirect_to('/') and return unless @earl
     unless @earl.pass.blank?
-      authenticate_or_request_with_http_basic("The owner of this question has required authentication") do |user_name, password|
+      authenticate_or_request_with_http_basic(t('questions.owner_password_exp')) do |user_name, password|
         (user_name == @earl.name) && (password == @earl.pass)
       end
     end

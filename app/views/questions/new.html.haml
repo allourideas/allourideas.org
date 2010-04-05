@@ -7,7 +7,7 @@
   = t('questions.new.exp2')
   %br
   %br
-  = ("If you already have an account, please login " + link_to('here', sign_in_path) + '.') unless logged_in?
+  = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.') unless logged_in?
 %left.create-question
   -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
     %p
@@ -25,7 +25,7 @@
     %p
       == #{t('questions.new.display_text')}:
 
-      = f.text_field 'name', :size => 60, :title => 'For example, "Which do you want more from the student government?"', :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH
+      = f.text_field 'name', :size => 60, :title => t('questions.new.step1_exp'), :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH
       = hidden_field_tag 'default_text', t('questions.new.step1_exp')
     
     %br
@@ -51,26 +51,27 @@
 
     -unless @registered
       
-      %h2= "Step 4: Create an Account"
+      %h2= t('questions.new.step4')
       %p
-        Please give us your e-mail and pick a password so that you can get the results and administer your website.
+        = t('questions.new.new_account_exp')
         %br
         %br
-        = "E-mail:"
-        = f.text_field 'email', :size => 30, :class => 'required email', :title => 'Your E-mail Address', :maxlength => Const::MAX_QUESTION_LENGTH
+        = "#{t('user.email')}:"
+        = f.text_field 'email', :size => 30, :class => 'required email', :title => t('questions.new.your_email_address'), :maxlength => Const::MAX_QUESTION_LENGTH
         %br
 
-        = "Password:"
+        = "#{t('user.password')}:"
         = f.password_field 'password', :class => 'required', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
 
     -if @registered
-      %h2= "Step 4 [Optional]: Help Us Out"
+      %h2= "Step 4 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
     -else
-      %h2= "Step 5 [Optional]: Help Us Out"
+      %h2= "Step 5 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
     %p
-      Please tell us a bit about what you are trying to accomplish with All Our Ideas.
+      = t('questions.new.tell_us_why')
+
       %br
-      Also, feel free to let us know anything else we might find interesting (e.g. how you heard about us, how many visitors you're expecting)
+      = t('questions.new.tell_us_why2')
       %br
       %br
       = f.text_area 'information', :cols => 85, :rows => 12#, :title => t('questions.new.step3_exp')
@@ -92,4 +93,3 @@
     $('#new_question_form').submit(function(){
       $('#indicator').show();
     });
-       

@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
 
     unless ((current_user.owns?(@earl)) || current_user.admin?)
 	    logger.info ("Current user is: #{current_user.inspect}")
-	    flash[:notice] = "You are not authorized to view that page"
+	    flash[:notice] = t('user.not_authorized_error')
 	    redirect_to( "/#{params[:id]}") and return
     end
 
@@ -538,7 +538,7 @@ end
               @question = Question.find(params[:id])
               render :json => {:votes => 20,
                                :choice_status => newchoice['choice_status'], 
-                               :message => "You just added an idea for people to vote on: #{new_idea_data}"}.to_json
+                               :message => "#{t('items.you_just_added')}: #{new_idea_data}"}.to_json
               case newchoice['choice_status']
               when 'inactive'
                 ::IdeaMailer.deliver_notification @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id'] #spike
@@ -565,7 +565,7 @@ end
             format.xml  {  head :ok }
             format.js  { 
               @earl.active = !(@earl.active)
-              verb = @earl.active ? 'Activated' : 'Deactivated'
+              verb = @earl.active ? t('items.list.activated') : t('items.list.deactivated')
               if @earl.save!
                 logger.info "just #{verb} question"
                 render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
@@ -617,11 +617,6 @@ end
     end
   end
 
-  # GET /questions/1/edit
-  def edit
-    #@question = Question.find(params[:id])
-  end
-  
   def question_creation_validates?(question)
     # question.errors = []
     question.validate
@@ -654,7 +649,7 @@ end
                          :password => params[:question]['password'], 
                          :password_confirmation => params[:question]['password'])
        unless @user.valid?
-         flash[:registration_error] = "Sorry, we couldn't register you."
+         flash[:registration_error] = t('questions.new.error.registration')
          #redirect_to 'questions/new' and return
          logger.info "Registration failed, here's the flash: #{flash.inspect}"
          render :action => "new" and return
@@ -664,7 +659,7 @@ end
         sign_in @user
         just_registered = true
       else
-        flash[:notice] = "Sorry, we couldn't register you."
+        flash[:notice] = t('questions.new.error.registration')
         render :action => "new" and return
         #render :template => 'users/new' and return
       end
@@ -679,7 +674,7 @@ end
           @question = @question_two
           earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
           logger.info "Question was successfully created."
-          session[:standard_flash] = "Congratulations. You are about to discover some great ideas.<br /> Send out your URL: #{@question.fq_earl} and watch what happens. <br /> You can further customize this site by following this link: <a href=\"#{@question.fq_earl}/admin\"> Manage this page </a>"
+          session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
           ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
 	  if params[:question]['information'] != ""
 		  ::IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information'])
@@ -715,7 +710,7 @@ end
 	    logger.info("Saving new information on earl")
 	    flash[:notice] = 'Question settings saved successfully!'
 	    logger.info("Saved new information on earl")
-	    format.html {redirect_to :action => "admin"}
+	    format.html {redirect_to "/#{params[:id]}/admin"}
   	    # format.xml  { head :ok }
 	else 
 	    format.html { render :action => "admin"}

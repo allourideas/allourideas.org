@@ -13,9 +13,9 @@
       %p
         = "#{t('footer.logged_in')} as #{current_user.email}"
         %br
-        = link_to "Logout", '/sign_out'
+        = link_to t('user.logout'), '/sign_out'
         %br
-        = link_to "Control Panel", admin_path
+        = link_to t('user.control_panel'), admin_path
     -elsif signed_in?
       %p
         = "#{t('footer.logged_in')} at this computer but not yet registered"

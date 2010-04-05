@@ -7,20 +7,20 @@
           = @question.attributes['name']
         %th.score=  t('items.score')
         %th.score=  t('questions.source')
-        %th.score= "Status"
+        %th.score= t('items.list.status').titleize
         %th &nbsp;
     %tbody 
       -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
         %tr{:class => cycle ("row1", "row2")}
           %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
           %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
-          %td.votes= choice.attributes['user_created'] ? "User" : "Seed"
-          %td.votes{:id => "choice_#{choice.id}_status"}= choice.active? ? 'Activated' : 'Deactivated'
+          %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
+          %td.votes{:id => "choice_#{choice.id}_status"}= choice.active? ? t('items.list.activated') : t('items.list.deactivated')
           -#%td= rank
           -#%td= added
           %td
             -unless @choices.size < 3
-              =link_to('[Toggle]', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
+              =link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
   %br
 
 
@@ -30,43 +30,43 @@
         %iframe{:src => "#{url_for(:action => :voter_map)}", :width=> "600px", :height => "400px", :frameborder => "0", :scrolling => "no"}}
       %td &nbsp;
   %p
-    ="This question created #{time_ago_in_words(@earl.created_at)} ago"
+    = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago')
   
   %table.full
     %tr.row0
       %th
-        = "Optional Question Settings"
-      %th.score= "Status"
+        = t('admin.optional_question_settings')
+      %th.score= t('items.list.status').titleize 
       %th &nbsp;
     %tr.row1
-      %td.title= "Allow ideas by users to be automatically activated, without prior approval"
-      %td.votes{:id => "question_#{@question.id}_autoactivate_status"}= @question.it_should_autoactivate_ideas? ? 'Enabled' : 'Disabled'
-      %td=link_to('[Toggle]', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
+      %td.title= t('admin.auto_activate_exp')
+      %td.votes{:id => "question_#{@question.id}_autoactivate_status"}= @question.it_should_autoactivate_ideas? ? t('admin.enabled') : t('admin.disabled')
+      %td=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
 
   %br
 
   %table.full
     %tr.row0
-      %th{:colspan => 2}="Additional Settings:"
+      %th{:colspan => 2}=t('admin.additional_settings')
     %tr.row1
-      %td Require users to enter the following user/password combination before voting: 
+      %td= "#{t('admin.password_protect_exp')}:"
       %td 
         -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
-          = "Username: #{@earl.name}"
+          = "#{t('admin.username')}: #{@earl.name}"
           %br
-          = f.label :pass, "Password:"
+          = f.label :pass, "#{t('user.password')}:"
           = f.text_field :pass, :id => "passfield"
           %tr.row2
             %td 
               -if @earl.logo_file_name
-                Replace logo above with another file:
+                ="#{t('admin.replace_logo_exp')}: "
               -else
-                Upload a logo to be displayed on your idea market place page
+                ="#{t('admin.upload_logo_exp')}: "
             %td
               = f.file_field :logo
           %tr.row1 
             %td
-              Add a welcome message for new voters
+              = t('admin.welcome_msg_exp')
               =link_to('[?]', '#welcome_msg_explanation', :rel => 'facebox')
 
             %td
@@ -78,20 +78,20 @@
 
   %table.full
     %tr.row0
-      %th= "Download Idea Marketplace Data"
+      %th= t('admin.download_idea_marketplace_data')
       %th &nbsp;
       %th &nbsp;
     %tr.row1
-      %td.title= "List of Ideas (CSV File)"
+      %td.title= t('admin.list_of_ideas_csv')
       %td &nbsp;
       %td
         =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-        = link_to('[Download]', :action => :export, :params => {:type => :items})
+        = link_to('[' + t('admin.download') + ']', :action => :export, :params => {:type => :items})
     %tr.row2
-      %td.title= "List of Votes (CSV File)"
+      %td.title= t('admin.list_of_votes_csv') 
       %td &nbsp;
       %td
-        = link_to('[Download]', :action => :export, :params => {:type => :votes})
+        = link_to('[' + t('admin.download') + ']', :action => :export, :params => {:type => :votes})
       
     
   #explanation{:style => 'display:none;'}
@@ -100,9 +100,9 @@
     
   #welcome_msg_explanation{:style => 'display:none;'}
     %h2= "Optional Welcome Message"
-    You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time.
+    = t('admin.welcome_msg_long_exp')
     %br
-    For example, it may be useful to explain who is leading the idea marketplace or what will be done with the feedback gathered from this question. 
+    = t('admin.welcome_msg_long_exp2')
 
 
 -content_for :head do

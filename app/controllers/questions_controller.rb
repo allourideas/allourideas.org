@@ -538,7 +538,7 @@ end
               @question = Question.find(params[:id])
               render :json => {:votes => 20,
                                :choice_status => newchoice['choice_status'], 
-                               :message => "#{t('items.you_just_added')}: #{new_idea_data}"}.to_json
+                               :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
               case newchoice['choice_status']
               when 'inactive'
                 ::IdeaMailer.deliver_notification @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id'] #spike

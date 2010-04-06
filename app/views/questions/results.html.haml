@@ -31,7 +31,28 @@
     %tr.row0
       %th=t('results.data_visualizations')
       %th.score &nbsp;
-    %tr.row1#view_voter_map_row
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.scatter_ideas_title')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td.title{:colspan => '2'}
+        .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.word_cloud_ideas_title')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.word_cloud_weighted_title')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv-weight_by_score
+    %tr#view_voter_map_row{:class => cycle("row2", "row1")}
       %td.title= t('results.world_map_title')
       %td.votes 
         = link_to(t('results.view_link'), url_for(:action => :voter_map), :id => "view_voter_map")
@@ -44,30 +65,9 @@
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{type}-chart-container"}
-      %tr.row1
-        %td.title= t('results.word_cloud_ideas_title')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :word_cloud), :class => 'date-chart')
-      %tr.row1{:style => "display:none;"}
-        %td{:colspan => '2'}
-          .wcdiv.chart-container#wcdiv
-      %tr.row2
-        %td.title= t('results.word_cloud_weighted_title')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
-      %tr.row2{:style => "display:none;"}
-        %td{:colspan => '2'}
-          .wcdiv.chart-container#wcdiv-weight_by_score
-      %tr{:class => cycle("row2", "row1")}
-        %td.title= t('results.scatter_ideas_title')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
-      %tr{:class => current_cycle , :style => "display:none;"}
-        %td.title{:colspan => '2'}
-          .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
       -if current_user && current_user.admin?
         %tr{:class => cycle("row2", "row1")}
-          %td.title= "View density of votes for this question"
+          %td.title= "View density of votes for this question (super-admin only)"
           %td.votes
             = link_to('[View]', url_for(:action => :density_graph, :type => "density"), :class => 'date-chart')
         %tr{:class => current_cycle , :style => "display:none;"}

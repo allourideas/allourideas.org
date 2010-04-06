@@ -36,7 +36,7 @@
   -if current_user.admin?
     %table.full
       %tr.row0
-        %th= t('results.data_visualizations')
+        %th= t('results.data_visualizations') + '(super-admin only)'
         %th.score &nbsp;
       %tr.row1#view_voter_map_row
         %td.title= t('results.world_map_title')
@@ -54,7 +54,7 @@
 
     %table.full
       %tr.row0
-        %th= "Download Idea Marketplace Data"
+        %th= "Download Idea Marketplace Data (super-admin only)"
         %th &nbsp;
         %th &nbsp;
       %tr.row1

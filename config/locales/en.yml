@@ -1,5 +1,6 @@
 en:
   common:
+   # Common text elements across the application
    and: and
    votes_on: votes on
    items: ideas
@@ -18,6 +19,7 @@ en:
     submit: Submit
     save: Save
   nav:
+    # Navigation elements used at top right and just above question choices
     privacy_policy: Privacy Policy
     home: Home
     back: Back
@@ -143,6 +145,7 @@ en:
     you_chose: You chose
     you_skipped_both: You skipped
     skip: skip
+    cant_decide: "I can't decide"
     over: over
     others_thought: Click to see what others thought.
     submit_idea_default_error: Sorry, blank ideas are not allowed. 
@@ -153,12 +156,16 @@ en:
   results:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes
+    world_map_ideas_title: World map of all uploaded ideas
     votes_over_time_title: Number of votes over time
     user_ideas_over_time_title: Number of submitted ideas over time
     user_sessions_over_time_title: Number of unique user sessions per day
     word_cloud_ideas_title: Word cloud of ideas
     word_cloud_weighted_title: Word cloud of ideas weighted by score
+    word_cloud_uploaded_title: Word cloud of uploaded ideas
+    word_cloud_uploaded_weighted_title: Word cloud of uploaded ideas weighted by score
     scatter_ideas_title: Compare uploaded ideas with original ideas
+    scatter_ideas_subtitle: Roll over each point to learn more
     uploaded_ideas: Uploaded Ideas
     original_ideas: Original Ideas
     scores_of: Scores of

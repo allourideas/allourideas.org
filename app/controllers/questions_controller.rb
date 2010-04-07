@@ -438,6 +438,79 @@ end
 	format.js { render :text => @density_chart}
      end
   end
+
+  def choices_by_creation_date
+	  #authenticate admin only
+     @earl = Earl.find params[:id]
+     @question = @earl.question(true)
+
+     appearance_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'appearances_by_creation_date')
+
+      if appearance_count_hash == "\n"
+	render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"	and return
+      end
+
+      appearance_count_hash = appearance_count_hash.sort
+      chart_data =[]
+      date_list = []
+      start_date = nil
+      current_date = nil
+      appearance_count_hash.each do |hash_date_string, appearances_list|
+
+	    hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
+	    if start_date.nil?
+		    start_date = hash_date
+		    current_date= start_date
+	    end
+
+	    # We need to add in a blank entry for every day that doesn't exist
+	    while current_date != hash_date do
+		    date_list << current_date
+		    current_date = current_date + 1
+	    end
+            date_list << current_date
+	    appearances_list.each do |a_hash|
+		    point = {}
+		    point[:x] = date_list.size
+		    point[:y] = a_hash['appearances']
+		    point[:name] = a_hash['data'].strip.gsub("'","") + "@@@" + current_date.to_s
+	    	    chart_data  << point
+	    end
+	    current_date = current_date + 1
+      end
+      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
+                                        var name = splitresult[0];
+					var date = splitresult[1];
+
+                                        return '<b>' + name + '</b>: '+ this.y + ' Appearances<br> Created on: ' + date; }"
+      @votes_chart = Highchart.spline({
+	    :chart => { :renderTo => "choice-by-date-chart-container",
+		    	:margin => [50, 25, 60, 100],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => false },
+            :title => { :text => 'Number of Appearances per Choice by creation date', 
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :type => 'linear',:enabled => false },
+	    :y_axis => { :type => 'linear', :min => 0, :title => 'Number of Appearances'},
+	    :series => [ { :name => "Data",
+			   :type => 'scatter',
+			   :color => 'rgba( 49,152,193, .5)',
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+
+
+      respond_to do |format|
+	format.js { render :text => @votes_chart }
+      end
+  end
+
 	
   
   def vote(direction)

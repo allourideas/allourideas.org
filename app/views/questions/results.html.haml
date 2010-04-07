@@ -73,7 +73,13 @@
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{"density"}-chart-container"}
-
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of appearances per choice by choice creation date (super-admin only)"
+          %td.votes
+            = link_to('[View]', url_for(:action => :choices_by_creation_date, :type => "choice-by-date"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"choice-by-date"}-chart-container"}
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')

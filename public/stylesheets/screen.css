@@ -327,7 +327,7 @@ input, textarea {
 .vote-notice {
   background-color: #0B0; }
 
-.border *, .border-thick *, .round-filled * {
+.border *, .border-thick *, .round-filled *, .round-filled-grey * {
   font-size: 0.01px;
   line-height: 0.01px;
   display: block;
@@ -335,7 +335,7 @@ input, textarea {
   overflow: hidden;
   padding: 0px; }
 
-.border-top, .border-bottom, .border2, .round-filled-top, .round-filled-bottom {
+.border-top, .border-bottom, .border2, .round-filled-top, .round-filled-bottom, .round-filled-grey-top,round-filled-grey-top {
   padding-left: 1px;
   padding-right: 1px; }
 
@@ -373,6 +373,18 @@ input, textarea {
   border-left: 1px solid #3198c1;
   border-right: 1px solid #3198c1;
   background: #3198c1; }
+  
+.round-filled-grey-top, .round-filled-grey-bottom {
+  margin-left: 3px;
+  margin-right: 3px;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  background: #cccccc; }
+  
+.round-filled-grey2, .round-filled-grey3, .round-filled-grey4, .round-filled-grey5, .round-filled-greyfg {
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  background: #cccccc; }
 
 .round-filled2, .round-filled3, .round-filled4, .round-filled5, .round-filledfg {
   border-left: 1px solid #3198c1;
@@ -382,6 +394,13 @@ input, textarea {
 .round-filled2, .round-filled3 {
   margin-left: 1px;
   margin-right: 1px; }
+  
+.toggle_question_status {
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  line-height: 14px;
+}
 
 div.form_field { position: relative; float: left; }
 label.over-apply { color: #ccc; position: absolute; top: 0px; left: 5px;}

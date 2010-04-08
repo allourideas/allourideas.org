@@ -184,7 +184,51 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	$('.toggle_question_status').bind('change',function(event){
+	
+   $('.toggle_question_status').each(function(el) {
+      var status = $(this).attr("status");
+      if (status == "true") {
+      $(this).bind("mouseover", function() {
+         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+            $(this).css("background", "#2b88ad");
+            $(this).css("border-left", "1px solid #2b88ad");
+            $(this).css("border-right", "1px solid #2b88ad");
+          });
+       });
+       $(this).bind("mouseout", function() {
+         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+            $(this).css("background", "#3198c1");
+            $(this).css("border-left", "1px solid #3198c1");
+            $(this).css("border-right", "1px solid #3198c1");
+         });
+		 });
+		}
+		else if (status == "false") {
+      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+            $(this).css("background", "#cccccc");
+            $(this).css("border-left", "1px solid #cccccc");
+            $(this).css("border-right", "1px solid #cccccc");
+            $(this).css("color", "#686868");
+          });
+      $(this).bind("mouseover", function() {
+         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+            $(this).css("background", "#b1b1b1");
+            $(this).css("border-left", "1px solid #b1b1b1");
+            $(this).css("border-right", "1px solid #b1b1b1");
+          });
+       });
+       $(this).bind("mouseout", function() {
+         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+            $(this).css("background", "#cccccc");
+            $(this).css("border-left", "1px solid #cccccc");
+            $(this).css("border-right", "1px solid #cccccc");
+         });
+		 });
+		}
+	});
+
+	
+	$('.toggle_question_status').bind('click',function(event){
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
@@ -192,12 +236,65 @@ jQuery(document).ready(function() {
 						cursor:    null
 		    }});
 		var earl_id = $(this).attr("rel");
+		var state = $(this).attr("status");
 		$.post('/questions/' + earl_id + '/toggle.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
-			//$('.prompter').effect("highlight", {}, 1500);
+			$('#question_'+earl_id+'_toggle .round-filledfg').text(data['verb']);
+			
+			if(data['error']) { 
+			}
+			else {
+            if (data['verb'] == "Activated") {
+               $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "true");
+               $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filledfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#3198c1");
+                     $(this).css("border-left", "1px solid #3198c1");
+                     $(this).css("border-right", "1px solid #3198c1");
+                     $(this).css("color", "#ffffff");
+                   });
+               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseover", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#2b88ad");
+                     $(this).css("border-left", "1px solid #2b88ad");
+                     $(this).css("border-right", "1px solid #2b88ad");
+                   });
+                });
+                $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#3198c1");
+                     $(this).css("border-left", "1px solid #3198c1");
+                     $(this).css("border-right", "1px solid #3198c1");
+                  });
+                });
+            }
+            else if (data['verb'] == "Deactivated") {
+               $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "false");
+               $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filledfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#cccccc");
+                     $(this).css("border-left", "1px solid #cccccc");
+                     $(this).css("border-right", "1px solid #cccccc");
+                     $(this).css("color", "#686868");
+                   });
+               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseover", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#b1b1b1");
+                     $(this).css("border-left", "1px solid #b1b1b1");
+                     $(this).css("border-right", "1px solid #b1b1b1");
+                   });
+                });
+                $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#cccccc");
+                     $(this).css("border-left", "1px solid #cccccc");
+                     $(this).css("border-right", "1px solid #cccccc");
+                  });
+                });
+            }
+            //$('.prompter').effect("highlight", {}, 1500);
+			}
 			
 		},
 		"json"

@@ -28,8 +28,9 @@
             %td= @user_submitted_idea_info[q.id.to_s]["active_ideas"]
           %td= "#{earl.created_at.to_date}"
           %td.votes{:id => "question_#{earl.id}_status"}
-            =check_box_tag("question_#{earl.id}_status_checkbox", '1', earl.active?, {:rel => earl.id, :class => 'status-toggle toggle_question_status'}) 
-            =#earl.active? ? 'Activated' : 'Deactivated'
+            .toggle_question_status{:rel => earl.id, :id => "question_#{earl.id}_toggle", :status => "#{earl.active?}" }
+              =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled')
+            =#check_box_tag("question_#{earl.id}_status_checkbox", '1', earl.active?, {:rel => earl.id, :class => 'status-toggle toggle_question_status'}) 
             =#link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
   %br
   
@@ -76,10 +77,9 @@
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"
-  = javascript_include_tag 'jquery.tablesorter.min.js', 'iphone-style-checkboxes.js'
+  = javascript_include_tag 'jquery.tablesorter.min.js'
 
 -content_for :view_javascript do
-  = "$('.status-toggle').iphoneStyle({ resizeContainer: false, resizeHandle: false, checkedLabel: 'Active', uncheckedLabel: 'Inactive' });"
   = "$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } } });"
   $('.tablesorter').bind('sortEnd', function() {
   $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');

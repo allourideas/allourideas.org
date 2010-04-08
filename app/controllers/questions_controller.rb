@@ -80,12 +80,17 @@ end
      min_val = nil
      @choices.each do|c|
 	    if c.data
+		 if type && type.starts_with?("uploaded")
+			 unless c.user_created
+				 next
+			 end
+		 end
 		 c.data.split(" ").each do|word|
 		   word.downcase!
 	           if ignore_word_list.include?(word)
 			   next
 		   end
-		   if type == "weight_by_score"
+		   if type == "weight_by_score" || type == "uploaded_weight_by_score"
 		      @word_frequency[word] += c.score.to_i
 		      min_val = c.score if min_val.nil? || c.score < min_val
 		   else
@@ -99,10 +104,14 @@ end
 
       @word_frequency.delete_if { |word, score| score <= min_val}
 
+
        target_div = 'wcdiv'
        if type
 	       target_div+= "-" + type
        end
+      if @word_frequency.size ==0      
+             render :text => "$('\##{target_div}').text('#{t('results.no_data_error')}');"	and return
+      end
 
      @word_cloud_js ="
         var thedata = new google.visualization.DataTable();
@@ -311,7 +320,7 @@ end
       end
 
       if votes_count_hash == "\n"
-	render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"	and return
+	render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')}');"	and return
       end
 
       votes_count_hash = votes_count_hash.sort

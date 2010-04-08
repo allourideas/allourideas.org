@@ -52,6 +52,20 @@
     %tr{:class => current_cycle , :style => "display:none;"}
       %td{:colspan => '2'}
         .wcdiv.chart-container#wcdiv-weight_by_score
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.word_cloud_uploaded_title')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded'), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv-uploaded
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.word_cloud_uploaded_weighted_title')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded_weight_by_score'), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv-uploaded_weight_by_score
     %tr#view_voter_map_row{:class => cycle("row2", "row1")}
       %td.title= t('results.world_map_title')
       %td.votes 

@@ -489,15 +489,16 @@ jQuery(document).ready(function() {
 			});
 	*/
 
-        $('#view_voter_map').click(function(event){
+        $('.view_voter_map').click(function(event){
 			event.preventDefault();
 			event.stopPropagation();
 			
+			var current_row = $(this).parent().parent()
 			var target_row = $(this).parent().parent().next();
 			if(!toggleLinkTextandTargetElement($(this), target_row))
 			{
 			        var iframe_html= "<tr id=voter_map_row class='row1'><td class='title' colspan='2' height=370px><div id='voter_map_indicator'><img src='/images/indicator.gif' /></div><iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' onload='iframe_loaded();' width='746px' height='370px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>"
-				$('#view_voter_map_row').after(iframe_html);
+				current_row.after(iframe_html);
 //				$('#view_voter_map_row').after("<tr id=voter_map_row class='row1'><td class='title' height=360px colspan='2' style='text-align:center'><div id='geo_map_canvas'><img src=/images/indicator.gif /></div></td></tr>")
 //				$.get($(this).attr("href")+".js", null, null, "script");
 				$(this).attr('isLoaded', true);

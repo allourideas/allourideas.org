@@ -141,10 +141,20 @@ end
 
      if type == "all"
 	 votes_by_sids = Question.get(:all_num_votes_by_visitor_id)
-     else
+     elsif type == "uploaded_ideas"
+         
+	 @earl = Earl.find params[:id]
+         @question = @earl.question(true)
+     elsif type == "bounces"
+	 @earl = Earl.find params[:id]
+         @question = @earl.question(true)
+
+	 votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
+
+     elsif type == "votes"
          @earl = Earl.find params[:id]
-         @question = Question.find_by_name(params[:id])
-         votes_by_sids = @question.get(:num_votes_by_visitor_id)
+         @question = @earl.question(true)
+         votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
      end
      
      @votes_by_geoloc= {}

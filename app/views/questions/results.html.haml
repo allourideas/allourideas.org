@@ -66,10 +66,10 @@
     %tr{:class => current_cycle , :style => "display:none;"}
       %td{:colspan => '2'}
         .wcdiv.chart-container#wcdiv-uploaded_weight_by_score
-    %tr#view_voter_map_row{:class => cycle("row2", "row1")}
+    %tr{:class => cycle("row2", "row1")}
       %td.title= t('results.world_map_title')
       %td.votes 
-        = link_to(t('results.view_link'), url_for(:action => :voter_map), :id => "view_voter_map")
+        = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'votes'), :class => "view_voter_map")
     -if @available_charts
       -@available_charts.each do |type, options|
         %tr{:class => cycle("row2", "row1")}
@@ -94,6 +94,10 @@
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{"choice-by-date"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "World Map of bounces (viewed once and then left) (super-admin only)"
+          %td.votes 
+            = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'bounces'), :class => "view_voter_map")
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')

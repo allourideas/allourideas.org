@@ -39,10 +39,10 @@
       %tr.row0
         %th= t('results.data_visualizations') + '(super-admin only)'
         %th.score &nbsp;
-      %tr.row1#view_voter_map_row
+      %tr.row1
         %td.title= t('results.world_map_title')
         %td.votes 
-          = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :id => "view_voter_map")
+          = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :class => "view_voter_map")
       -if @available_charts
         -@available_charts.each do |type, options|
           %tr{:class => cycle("row2", "row1")}

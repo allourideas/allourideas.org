@@ -69,7 +69,7 @@ class ChoicesController < ApplicationController
     if current_user == @question.creator
     
     	@choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:notice] = t('items.you_have_succesfully_activated') + " '#{@choice.attributes['data']}'"
+    	flash[:notice] = t('items.you_have_successfully_activated') + " '#{@choice.attributes['data']}'"
     	logger.info flash[:notice]
     	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
     	redirect_to("#{@question.earl}") and return
@@ -95,7 +95,7 @@ class ChoicesController < ApplicationController
     # should probably put an error message for those not logged in 
     if current_user == @question.creator
     	@choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:notice] = t('items.you_have_succesfully_deactivated') + " '#{@choice.attributes['data']}'"
+    	flash[:notice] = t('items.you_have_successfully_deactivated') + " '#{@choice.attributes['data']}'"
     	logger.info flash[:notice]
     	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
     	redirect_to("#{@question.earl}") and return

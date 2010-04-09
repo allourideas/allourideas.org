@@ -384,18 +384,20 @@ input, textarea {
 .round-filled-grey2, .round-filled-grey3, .round-filled-grey4, .round-filled-grey5, .round-filled-greyfg {
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
-  background: #cccccc; }
+  background: #cccccc; 
+  color: #686868;
+  }
 
 .round-filled2, .round-filled3, .round-filled4, .round-filled5, .round-filledfg {
   border-left: 1px solid #3198c1;
   border-right: 1px solid #3198c1;
   background: #3198c1; }
 
-.round-filled2, .round-filled3 {
+.round-filled2, .round-filled3, .round-filled-grey2, .round-filled-grey3 {
   margin-left: 1px;
   margin-right: 1px; }
-  
-.toggle_question_status {
+
+.toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status {
   text-align: center;
   color: #ffffff;
   cursor: pointer;

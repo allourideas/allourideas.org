@@ -8,19 +8,23 @@
         %th.score=  t('items.score')
         %th.score=  t('questions.source')
         %th.score= t('items.list.status').titleize
-        %th &nbsp;
     %tbody 
       -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
         %tr{:class => cycle ("row1", "row2")}
           %td.title= link_to truncate(h(choice.data), :length => 137), choice.path
           %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
           %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
-          %td.votes{:id => "choice_#{choice.id}_status"}= choice.active? ? t('items.list.activated') : t('items.list.deactivated')
+          %td.votes{:id => "choice_#{choice.id}_status"}
+            -if @choices.size < 3
+              = choice.active? ? t('items.list.activated') : t('items.list.deactivated')
+            -else 
+              .toggle_choice_status{:rel => choice.id, :id => "choice_#{choice.id}_toggle", :earl_id => @earl.id, :status => "#{choice.active?}" }
+                = choice.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
           -#%td= rank
           -#%td= added
-          %td
-            -unless @choices.size < 3
-              =link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
+          -#%td
+            -#unless @choices.size < 3
+              -#=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
   %br
 
 
@@ -36,13 +40,14 @@
     %tr.row0
       %th
         = t('admin.optional_question_settings')
-      %th.score= t('items.list.status').titleize 
-      %th &nbsp;
+      %th.score{:style => "text-align: center"}= t('items.list.status').titleize 
+      -#%th &nbsp;
     %tr.row1
       %td.title= t('admin.auto_activate_exp')
-      %td.votes{:id => "question_#{@question.id}_autoactivate_status"}= @question.it_should_autoactivate_ideas? ? t('admin.enabled') : t('admin.disabled')
-      %td=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
-
+      %td.votes{:id => "question_#{@question.id}_autoactivate_status"}
+        .toggle_autoactivate_status{:question_id => @question.id, :id => "question_#{@question.id}_autoactivate_toggle", :status => "#{@question.it_should_autoactivate_ideas?}" }
+          = @question.it_should_autoactivate_ideas? ? rounded("Enabled", 'round-filled') : rounded("Disabled", 'round-filled-grey')
+      -#%td=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
   %br
 
   %table.full

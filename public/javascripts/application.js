@@ -185,7 +185,7 @@ jQuery(document).ready(function() {
 	});
 	
 	
-   $('.toggle_question_status').each(function(el) {
+   $('.toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status').each(function(el) {
       var status = $(this).attr("status");
       if (status == "true") {
       $(this).bind("mouseover", function() {
@@ -204,21 +204,15 @@ jQuery(document).ready(function() {
 		 });
 		}
 		else if (status == "false") {
-      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-            $(this).css("background", "#cccccc");
-            $(this).css("border-left", "1px solid #cccccc");
-            $(this).css("border-right", "1px solid #cccccc");
-            $(this).css("color", "#686868");
-          });
       $(this).bind("mouseover", function() {
-         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+         $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
             $(this).css("background", "#b1b1b1");
             $(this).css("border-left", "1px solid #b1b1b1");
             $(this).css("border-right", "1px solid #b1b1b1");
           });
        });
        $(this).bind("mouseout", function() {
-         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+         $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
             $(this).css("background", "#cccccc");
             $(this).css("border-left", "1px solid #cccccc");
             $(this).css("border-right", "1px solid #cccccc");
@@ -226,6 +220,7 @@ jQuery(document).ready(function() {
 		 });
 		}
 	});
+	
 
 	
 	$('.toggle_question_status').bind('click',function(event){
@@ -242,58 +237,70 @@ jQuery(document).ready(function() {
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
-			$('#question_'+earl_id+'_toggle .round-filledfg').text(data['verb']);
 			
 			if(data['error']) { 
 			}
 			else {
             if (data['verb'] == "Activated") {
+               $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled-greyfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).removeAttr("style")
+               });
                $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "true");
-               $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filledfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#3198c1");
-                     $(this).css("border-left", "1px solid #3198c1");
-                     $(this).css("border-right", "1px solid #3198c1");
-                     $(this).css("color", "#ffffff");
-                   });
+               $("#question_"+earl_id+"_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
+               $("#question_"+earl_id+"_status .round-filled-grey-top").addClass("round-filled-top").removeClass("round-filled-grey-top");
+               $("#question_"+earl_id+"_status .round-filled-grey-bottom").addClass("round-filled-bottom").removeClass("round-filled-grey-bottom");
+               $("#question_"+earl_id+"_status .round-filled-grey").addClass("round-filled").removeClass("round-filled-grey");
+               $("#question_"+earl_id+"_status .round-filled-grey2").addClass("round-filled2").removeClass("round-filled-grey2");
+               $("#question_"+earl_id+"_status .round-filled-grey3").addClass("round-filled3").removeClass("round-filled-grey3");
+               $("#question_"+earl_id+"_status .round-filled-grey4").addClass("round-filled4").removeClass("round-filled-grey4");
+               $("#question_"+earl_id+"_status .round-filled-grey5").addClass("round-filled5").removeClass("round-filled-grey5");
                $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseover", function() {
                   $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
                      $(this).css("background", "#2b88ad");
                      $(this).css("border-left", "1px solid #2b88ad");
                      $(this).css("border-right", "1px solid #2b88ad");
                    });
-                });
-                $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
+               });
+               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
                   $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
                      $(this).css("background", "#3198c1");
                      $(this).css("border-left", "1px solid #3198c1");
                      $(this).css("border-right", "1px solid #3198c1");
                   });
-                });
+               });
             }
             else if (data['verb'] == "Deactivated") {
-               $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "false");
                $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filledfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#cccccc");
-                     $(this).css("border-left", "1px solid #cccccc");
-                     $(this).css("border-right", "1px solid #cccccc");
-                     $(this).css("color", "#686868");
-                   });
+                     $(this).removeAttr("style")
+               });
+               $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "false");
+               $("#question_"+earl_id+"_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
+               $("#question_"+earl_id+"_status .round-filled .round-filled-top").addClass("round-filled-grey-top").removeClass("round-filled-top");
+               $("#question_"+earl_id+"_status .round-filled .round-filled-bottom").addClass("round-filled-grey-bottom").removeClass("round-filled-bottom");
+               $("#question_"+earl_id+"_status .round-filled").addClass("round-filled-grey").removeClass("round-filled");
+               $("#question_"+earl_id+"_status .round-filled2").addClass("round-filled-grey2").removeClass("round-filled2");
+               $("#question_"+earl_id+"_status .round-filled3").addClass("round-filled-grey3").removeClass("round-filled3");
+               $("#question_"+earl_id+"_status .round-filled4").addClass("round-filled-grey4").removeClass("round-filled4");
+               $("#question_"+earl_id+"_status .round-filled5").addClass("round-filled-grey5").removeClass("round-filled5");
                $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
                      $(this).css("background", "#b1b1b1");
                      $(this).css("border-left", "1px solid #b1b1b1");
                      $(this).css("border-right", "1px solid #b1b1b1");
                    });
-                });
-                $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+               });
+               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
                      $(this).css("background", "#cccccc");
                      $(this).css("border-left", "1px solid #cccccc");
                      $(this).css("border-right", "1px solid #cccccc");
                   });
-                });
+               });
             }
-            //$('.prompter').effect("highlight", {}, 1500);
+            if (state == "true")
+			      $('#question_'+earl_id+'_toggle .round-filled-greyfg').text(data['verb']);
+			   else
+			      $('#question_'+earl_id+'_toggle .round-filledfg').text(data['verb']);
 			}
 			
 		},
@@ -311,17 +318,76 @@ jQuery(document).ready(function() {
 		    }});
 		var choice_id = $(this).attr("rel");
 		var earl_id = $(this).attr("earl_id");
+		var state = $(this).attr("status");
 		$.post('/questions/' + earl_id + '/choices/' + choice_id + '/toggle.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
-			humanMsg.displayMsg(data['message']);
-			if(data['error']) {
-				//no-op
+			//humanMsg.displayMsg(data['message']);
+			if(data['error']) { 
 			}
 			else {
-			$('#choice_'+choice_id+'_status').text(data['verb']).effect("highlight", {}, 1500);
+            if (data['verb'] == "Activated") {
+               $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-greyfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).removeAttr("style")
+               });
+               $("#choice_"+choice_id+"_status .toggle_choice_status").attr("status", "true");
+               $("#choice_"+choice_id+"_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
+               $("#choice_"+choice_id+"_status .round-filled-grey-top").addClass("round-filled-top").removeClass("round-filled-grey-top");
+               $("#choice_"+choice_id+"_status .round-filled-grey-bottom").addClass("round-filled-bottom").removeClass("round-filled-grey-bottom");
+               $("#choice_"+choice_id+"_status .round-filled-grey").addClass("round-filled").removeClass("round-filled-grey");
+               $("#choice_"+choice_id+"_status .round-filled-grey2").addClass("round-filled2").removeClass("round-filled-grey2");
+               $("#choice_"+choice_id+"_status .round-filled-grey3").addClass("round-filled3").removeClass("round-filled-grey3");
+               $("#choice_"+choice_id+"_status .round-filled-grey4").addClass("round-filled4").removeClass("round-filled-grey4");
+               $("#choice_"+choice_id+"_status .round-filled-grey5").addClass("round-filled5").removeClass("round-filled-grey5");
+               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseover", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#2b88ad");
+                     $(this).css("border-left", "1px solid #2b88ad");
+                     $(this).css("border-right", "1px solid #2b88ad");
+                   });
+               });
+               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#3198c1");
+                     $(this).css("border-left", "1px solid #3198c1");
+                     $(this).css("border-right", "1px solid #3198c1");
+                  });
+               });
+            }
+            else if (data['verb'] == "Deactivated") {
+               $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filledfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled").children()]).each(function(el) {
+                     $(this).removeAttr("style")
+               });
+               $("#choice_"+choice_id+"_status .toggle_choice_status").attr("status", "false");
+               $("#choice_"+choice_id+"_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
+               $("#choice_"+choice_id+"_status .round-filled .round-filled-top").addClass("round-filled-grey-top").removeClass("round-filled-top");
+               $("#choice_"+choice_id+"_status .round-filled .round-filled-bottom").addClass("round-filled-grey-bottom").removeClass("round-filled-bottom");
+               $("#choice_"+choice_id+"_status .round-filled").addClass("round-filled-grey").removeClass("round-filled");
+               $("#choice_"+choice_id+"_status .round-filled2").addClass("round-filled-grey2").removeClass("round-filled2");
+               $("#choice_"+choice_id+"_status .round-filled3").addClass("round-filled-grey3").removeClass("round-filled3");
+               $("#choice_"+choice_id+"_status .round-filled4").addClass("round-filled-grey4").removeClass("round-filled4");
+               $("#choice_"+choice_id+"_status .round-filled5").addClass("round-filled-grey5").removeClass("round-filled5");
+               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseover", function() {
+                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).css("background", "#b1b1b1");
+                     $(this).css("border-left", "1px solid #b1b1b1");
+                     $(this).css("border-right", "1px solid #b1b1b1");
+                   });
+               });
+               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).css("background", "#cccccc");
+                     $(this).css("border-left", "1px solid #cccccc");
+                     $(this).css("border-right", "1px solid #cccccc");
+                  });
+               });
+            }
+            if (state == "true")
+			      $('#choice_'+choice_id+'_toggle .round-filled-greyfg').text(data['verb']);
+			   else
+			      $('#choice_'+choice_id+'_toggle .round-filledfg').text(data['verb']);
 		}
 			//$('.prompter').effect("highlight", {}, 1500);
 			
@@ -340,17 +406,77 @@ jQuery(document).ready(function() {
 		cursor:    null
 		    }});
 		var question_id = $(this).attr("question_id");
+		var state = $(this).attr("status");
 		$.post('/questions/' + question_id + '/toggle_autoactivate.js',
 		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
-			humanMsg.displayMsg(data['message']);
+			//humanMsg.displayMsg(data['message']);
 			if(data['error']) {
 				//no-op
 			}
 			else {
-			$('#question_'+question_id+'_autoactivate_status').text(data['verb']).effect("highlight", {}, 1500);
+			   if (data['verb'] == "Enabled") {
+               $([$("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled-greyfg"), $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).removeAttr("style")
+               });
+               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").attr("status", "true");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey-top").addClass("round-filled-top").removeClass("round-filled-grey-top");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey-bottom").addClass("round-filled-bottom").removeClass("round-filled-grey-bottom");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey").addClass("round-filled").removeClass("round-filled-grey");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey2").addClass("round-filled2").removeClass("round-filled-grey2");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey3").addClass("round-filled3").removeClass("round-filled-grey3");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey4").addClass("round-filled4").removeClass("round-filled-grey4");
+               $("#question_"+question_id+"_autoactivate_status .round-filled-grey5").addClass("round-filled5").removeClass("round-filled-grey5");
+               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseover", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#2b88ad");
+                     $(this).css("border-left", "1px solid #2b88ad");
+                     $(this).css("border-right", "1px solid #2b88ad");
+                   });
+               });
+               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+                     $(this).css("background", "#3198c1");
+                     $(this).css("border-left", "1px solid #3198c1");
+                     $(this).css("border-right", "1px solid #3198c1");
+                  });
+               });
+            }
+            else if (data['verb'] == "Disabled") {
+               $([$("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filledfg"), $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled").children()]).each(function(el) {
+                     $(this).removeAttr("style")
+               });
+               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").attr("status", "false");
+               $("#question_"+question_id+"_autoactivate_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
+               $("#question_"+question_id+"_autoactivate_status .round-filled .round-filled-top").addClass("round-filled-grey-top").removeClass("round-filled-top");
+               $("#question_"+question_id+"_autoactivate_status .round-filled .round-filled-bottom").addClass("round-filled-grey-bottom").removeClass("round-filled-bottom");
+               $("#question_"+question_id+"_autoactivate_status .round-filled").addClass("round-filled-grey").removeClass("round-filled");
+               $("#question_"+question_id+"_autoactivate_status .round-filled2").addClass("round-filled-grey2").removeClass("round-filled2");
+               $("#question_"+question_id+"_autoactivate_status .round-filled3").addClass("round-filled-grey3").removeClass("round-filled3");
+               $("#question_"+question_id+"_autoactivate_status .round-filled4").addClass("round-filled-grey4").removeClass("round-filled4");
+               $("#question_"+question_id+"_autoactivate_status .round-filled5").addClass("round-filled-grey5").removeClass("round-filled5");
+               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseover", function() {
+                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).css("background", "#b1b1b1");
+                     $(this).css("border-left", "1px solid #b1b1b1");
+                     $(this).css("border-right", "1px solid #b1b1b1");
+                   });
+               });
+               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseout", function() {
+                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
+                     $(this).css("background", "#cccccc");
+                     $(this).css("border-left", "1px solid #cccccc");
+                     $(this).css("border-right", "1px solid #cccccc");
+                  });
+               });
+            }
+            if (state == "true")
+			      $('#question_'+question_id+'_autoactivate_toggle .round-filled-greyfg').text(data['verb']);
+			   else
+			      $('#question_'+question_id+'_autoactivate_toggle .round-filledfg').text(data['verb']);
 		}
 			//$('.prompter').effect("highlight", {}, 1500);
 			

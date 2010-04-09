@@ -29,7 +29,7 @@
           %td= "#{earl.created_at.to_date}"
           %td.votes{:id => "question_#{earl.id}_status"}
             .toggle_question_status{:rel => earl.id, :id => "question_#{earl.id}_toggle", :status => "#{earl.active?}" }
-              =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled')
+              =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
             =#check_box_tag("question_#{earl.id}_status_checkbox", '1', earl.active?, {:rel => earl.id, :class => 'status-toggle toggle_question_status'}) 
             =#link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
   %br

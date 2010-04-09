@@ -101,8 +101,9 @@ end
 	    end
       end
 
-
-      @word_frequency.delete_if { |word, score| score <= min_val}
+      if !type || !type.starts_with?("uploaded")
+          @word_frequency.delete_if { |word, score| score <= min_val}
+      end
 
 
        target_div = 'wcdiv'

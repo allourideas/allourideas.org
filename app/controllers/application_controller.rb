@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   #   # cookie set to 5 years.., the above uses @current_user set in previous line.
   # end
   
-  before_filter :initialize_session, :record_action, :set_urls
+  before_filter :initialize_session, :record_action, :set_urls, :set_locale
   
   def set_urls
 
@@ -135,6 +135,8 @@ class ApplicationController < ActionController::Base
     deny_access("Please Login as an administrator to Access that Feature.") unless signed_in_as_admin?
   end
 
-	
+  def set_locale
+	  I18n.locale = params[:locale]
+  end
 
 end

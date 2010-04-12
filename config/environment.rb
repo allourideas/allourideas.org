@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -75,6 +75,7 @@ Rails::Initializer.run do |config|
   config.gem 'crack'
   config.gem 'friendly_id'
   config.gem 'sax-machine'
+  config.gem 'i18n'
 end
 
 PRODUCTION_API_HOST = ENV['API_HOST']

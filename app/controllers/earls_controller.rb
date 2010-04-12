@@ -20,6 +20,8 @@ class EarlsController < ApplicationController
 
       if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
+
+	      redirect_to :action => :show, :controller => :earls, :id => @earl.name and return
       end
       if catchup_marketplaces.include?(@earl.name)
 	      @question = @earl.question(false, "catchup", request.session_options[:id])

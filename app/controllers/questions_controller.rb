@@ -35,6 +35,7 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
+	      redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
     end
 
     logger.info "@question is #{@question.inspect}."

@@ -1,12 +1,7 @@
--if @question
-  -@cast_votes_url = @question.earl
-  -@results_url = @question.earl + "/results"
-  -@manage_url = @question.earl + "/admin"
-  -@all_results_url = "#{@results_url}?all=true"
--else
-  -@cast_votes_url = "http://#{HOST}/#{@earl.name}"
-  -@results_url = "http://#{HOST}/#{@earl.name}" + "/results"
-  -@manage_url = "http://#{HOST}/#{@earl.name}" + "/admin"
+-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @earl.name)
+-@results_url = url_for(:action => :results, :controller => :questions, :id => @earl.name)
+-@manage_url = url_for(:action => :admin, :controller => :questions, :id => @earl.name)
+-@all_results_url = "#{@results_url}?all=true"
 
 .vote-nav{:style => "position: relative;"}
   .fleft
@@ -17,7 +12,6 @@
     -else
       &nbsp;
   %div{:style => "position: absolute; bottom: 0px; right: 0px;"}
-    =#loc_based_style(link_to(t('vote.cast_votes'), @cast_votes_url), t('vote.cast_votes'))
     =link_to_unless_current(t('vote.cast_votes'), @cast_votes_url) do "<strong> #{t('vote.cast_votes')} </strong>" end
     %span.grey 
       &nbsp;|&nbsp;

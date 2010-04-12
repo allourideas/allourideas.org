@@ -7,12 +7,11 @@ ActionController::Routing::Routes.draw do |map|
                             :add_idea => :post, 
                             :toggle => :post, 
                             :toggle_autoactivate => :post, 
-                            :admin => :get, 
-                            :results => :get,
-                            :voter_map => :get,
-			    :delete_logo => :delete,
-  		            :update => :put }
-  map.resources :earls, :collection => {:export_list=> :get}
+#                            :admin => :get, 
+#                            :results => :get,
+#                            :voter_map => :get,
+			    :delete_logo => :delete }
+  map.resources :earls, :only => [:export_list], :collection => {:export_list=> :get}
   map.resources :clicks, :collection => {:export=> :get}
   map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   map.activate_choice '/:question_id/choices/:id/activate', :controller => 'choices', :action => 'activate'

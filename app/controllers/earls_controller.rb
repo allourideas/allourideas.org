@@ -18,6 +18,9 @@ class EarlsController < ApplicationController
         redirect_to '/' and return
       end
 
+      if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
+	      I18n.locale = @earl.default_lang
+      end
       if catchup_marketplaces.include?(@earl.name)
 	      @question = @earl.question(false, "catchup", request.session_options[:id])
       else

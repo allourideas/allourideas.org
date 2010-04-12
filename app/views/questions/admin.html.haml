@@ -76,6 +76,10 @@
 
             %td
               = f.text_area :welcome_msg, :rows => 4, :cols => 65
+          %tr.row2
+            %td= t('admin.default_lang_exp')
+            %td
+              = f.select :default_lang, [["English", "en"], ["French", "fr"], ["Spanish", "es"]]
           %tr.row1
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}

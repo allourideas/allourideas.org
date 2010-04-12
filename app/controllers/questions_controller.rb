@@ -33,6 +33,10 @@ class QuestionsController < ApplicationController
     @question = Question.find_by_name(params[:id], true)
     @question_id = @question.id
     @earl = Earl.find params[:id]
+    if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
+	      I18n.locale = @earl.default_lang
+    end
+
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]

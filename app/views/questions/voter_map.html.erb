@@ -41,7 +41,7 @@
 <body style='margin:0pt; padding:0pt;'>
 	<div id='map_canvas' style='position:relative;' ><img src='/images/indicator.gif' /></div>
 <% if @votes_by_geoloc['Unknown Location'] -%>
-<%= "We were unable to find the location of #{@votes_by_geoloc['Unknown Location'][:num_votes]} votes" %>
+	<%= "#{t('results.vote_map_geo_error')} #{@votes_by_geoloc['Unknown Location'][:num_votes]} #{t('common.votes').downcase}" %>
 <% end -%>
 </body>
 

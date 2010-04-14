@@ -4,8 +4,8 @@ fr:
    and: et
    votes_on: votes sur
    items:  des idées
-   ideas:  les idées
-   title:  toutes nos idées-une boite à suggestions pour l’ère du numérique
+   ideas:  idées
+   title:  Toutes Nos Idées - Une boite à suggestions pour l’ère du numérique
    characters:  caratères
    idea_marketplace:  L’idée de marché
    votes:  Votes
@@ -19,7 +19,7 @@ fr:
     create: pour créer
     view_results: Voir les resultants
     manage_question: Gérer cette page
-    see_all_ideas: voir plus…
+    see_all_ideas: Voir plus…
     make_your_own: Créer votre propre question
     view_idea: Voir idée
   items:
@@ -35,12 +35,12 @@ fr:
   footer:
     # Text in the footer of each page
     support: Ce projet est soutenu par des subventions de Google et le PACI (CITP) à l’Université Princeton.
-    open_source: toutes nos idées est un logiciel source ouvetter. N’hésitez pas à revoir, remix, ou de la refonte. En outré vous pouvez utiliser nos API pour créer votre proper site.
+    open_source: Toutes Nos Idées est un logiciel source ouvetter. N’hésitez pas à revoir, remix, ou de la refonte. En outré vous pouvez utiliser nos API pour créer votre proper site.
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment
     add_your_idea: Ajouter votre idée ici…
-    cast_votes: nombre de votants
+    cast_votes: Nombre de Votants
     you_chose: vous avez choisi
     you_skipped_both: vous vous avez sauté les deux
     skip: Eviter
@@ -55,27 +55,27 @@ fr:
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results
-    data_visualizations: visualizations de données
-    world_map_title: carte du monde de toutes les idées transférées
-    world_map_ideas_title:
+    data_visualizations: Visualizations de données
+    world_map_title: Carte du monde de toutes votes
+    world_map_ideas_title: Carte du monde de toutes les idées transférées
     votes_over_time_title: Le nombre de votes au fil du temps
     user_ideas_over_time_title: Nombre des idées présentées au fil du temps
     user_sessions_over_time_title: Nombre de sessions d’utilisateurs unique par jour
-    word_cloud_ideas_title: nuage de mots des idées
-    word_cloud_weighted_title: nuage de mots des idées pondérée selon le score
-    word_cloud_uploaded_title: nuage de mots des idées transferees
-    word_cloud_uploaded_weighted_title: nuage de mots des idées transferees pondéré par le score
+    word_cloud_ideas_title: Nuage de mots des idées
+    word_cloud_weighted_title: Nuage de mots des idées pondérée selon le score
+    word_cloud_uploaded_title: Nuage de mots des idées transferees
+    word_cloud_uploaded_weighted_title: Nuage de mots des idées transferees pondéré par le score
     scatter_ideas_title: Comparer les idées transferee avec les idées originals
     scatter_ideas_subtitle: Passer la souris sur chaque point pour en savoir plus
-    uploaded_ideas: idées postées
+    uploaded_ideas: Idées postées
     original_ideas: Idées Originales
     scores_of: Des dizaines de
-    view_link: "(voir)" 
-    per_day: "par jour" 
-    number_of: "Nombre de"
+    view_link: "[Voir]" 
+    per_day: " par jour" 
+    number_of: "Nombre de "
     no_data_error: "impossible de faire des cartes, pas de données"
-    overall_total: "Total dans l’ensemble" 
-    vote_map_geo_error: "ous n’avons pas pu trouver l’emplacement du"
+    overall_total: "Total dans l’ensemble - " 
+    vote_map_geo_error: "Nous n’avons pas pu trouver l’emplacement du "
   user:
     # User information that appears in a few places, most importantly the footer
     email: Courrier électronique

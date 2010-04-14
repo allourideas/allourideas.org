@@ -1,86 +1,86 @@
 fr:
   common:
    # Common text elements across the application
-   and: FR-and
-   votes_on: FR-votes on
-   items: FR-ideas
-   ideas: FR-ideas
-   title: FR-All Our Ideas - A Suggestion Box for the Digital Age for France!
-   characters: FR-characters
-   idea_marketplace: FR-Idea Marketplace
-   votes: FR-Votes
-   user_sessions: FR-User sessions
-   score: FR-score
+   and: et
+   votes_on: votes sur
+   items:  des idées
+   ideas:  les idées
+   title:  toutes nos idées-une boite à suggestions pour l’ère du numérique
+   characters:  caratères
+   idea_marketplace:  L’idée de marché
+   votes:  Votes
+   user_sessions:  sessions d’utilisateur
+   score:  Evaluation
   nav:
     # Navigation elements used at top right throughout site
     # Some elements found just above choices on voting page
-    home: FR-Home
-    about: FR-About
-    create: FR-Create
-    view_results: FR-View Results
-    manage_question: FR-Manage this page
-    see_all_ideas: FR-See more...
-    make_your_own: FR-Create Your Own Question
-    view_idea: FR-View Idea
+    home: Accueil
+    about: A propos de
+    create: pour créer
+    view_results: Voir les resultants
+    manage_question: Gérer cette page
+    see_all_ideas: voir plus…
+    make_your_own: Créer votre propre question
+    view_idea: Voir idée
   items:
     # Text on the item detail view page: FR-
     # For example: FR-http://www.allourideas.org/studentgovernment/choices/68
-    idea: FR-Idea
-    score: FR-Score
-    added_on: FR-Added on
-    number_of_votes: FR-Number of Votes
-    about_scoring: FR-About the Scoring
-    score_explain: FR-The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
-    you_just_submitted: FR-You just added an idea for people to vote on
+    idea: L’idée
+    score: Score
+    added_on: Ajouté le
+    number_of_votes: Nombre de votes
+    about_scoring: A propos de la notation
+    score_explain: Le score d’une idée est la chance estimée qu’il faudra gagner contre une idée choisis au hazard. Par exemple, un score de 100 signifie que l’idée est prevue à gagner à chaque fois et un score de 0 signifie que l’idée est prevue de perdre à chaque fois.
+    you_just_submitted: Vous venez d’ajouter une idée pour les gens à voter sur
   footer:
     # Text in the footer of each page
-    support: FR-This project is supported by grants from Google and CITP at Princeton University.
-    open_source: FR-All Our Ideas is open source software. Feel free to review, remix, or redesign. Also, you can use our API to create your own site.
+    support: Ce projet est soutenu par des subventions de Google et le PACI (CITP) à l’Université Princeton.
+    open_source: toutes nos idées est un logiciel source ouvetter. N’hésitez pas à revoir, remix, ou de la refonte. En outré vous pouvez utiliser nos API pour créer votre proper site.
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment
-    add_your_idea: FR-Add your own idea here...
-    cast_votes: FR-Cast Votes
-    you_chose: FR-You chose
-    you_skipped_both: FR-You skipped
-    skip: FR-skip
-    cant_decide: "FR-I can't decide"
-    over: FR-over
-    submit_idea_default_error: FR-Sorry, blank ideas are not allowed. 
-    submit_idea_too_long_error: FR-Sorry, ideas need to be less than 140 characters.
-    submit_idea_thankyou: FR-Thank you. Your idea has been added. Please add some more ideas.
-    vote_timeout_error: "FR-Sorry, voting is taking too long ... too much traffic!"
-    vote_other_error: "FR-Sorry, your vote wasn't counted ... there was an error"
+    add_your_idea: Ajouter votre idée ici…
+    cast_votes: nombre de votants
+    you_chose: vous avez choisi
+    you_skipped_both: vous vous avez sauté les deux
+    skip: Eviter
+    cant_decide: "je ne peux pas decider"
+    over: plus de
+    submit_idea_default_error: Désolé, les idées vierges ne sont pas autorisées
+    submit_idea_too_long_error: Désolé, il faut moins de 140 caractères.
+    submit_idea_thankyou: Je vous remercie. Votre idée a été ajouté. S’il vous plait ajouter encore plus d’idées.
+    vote_timeout_error: "Désolé, le vote prend trop longtemps…trop de traffic"
+    vote_other_error: Désolé, votre vote n’a pas été cpmpté 
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results
-    data_visualizations: FR-Data Visualizations
-    world_map_title: FR-World map of all votes
-    world_map_ideas_title: FR-World map of all uploaded ideas
-    votes_over_time_title: FR-Number of votes over time
-    user_ideas_over_time_title: FR-Number of submitted ideas over time
-    user_sessions_over_time_title: FR-Number of unique user sessions per day
-    word_cloud_ideas_title: FR-Word cloud of ideas
-    word_cloud_weighted_title: FR-Word cloud of ideas weighted by score
-    word_cloud_uploaded_title: FR-Word cloud of uploaded ideas
-    word_cloud_uploaded_weighted_title: FR-Word cloud of uploaded ideas weighted by score
-    scatter_ideas_title: FR-Compare uploaded ideas with original ideas
-    scatter_ideas_subtitle: FR-Roll over each point to learn more
-    uploaded_ideas: FR-Uploaded Ideas
-    original_ideas: FR-Original Ideas
-    scores_of: FR-Scores of
-    view_link: "FR-[View]"
-    per_day: "FR- per day"
-    number_of: "FR-Number of "
-    no_data_error: "FR-Cannot make chart, no data"
-    overall_total: "FR-Overall total - "
-    vote_map_geo_error: "FR-We were unable to find the location of "
+    data_visualizations: visualizations de données
+    world_map_title: carte du monde de toutes les idées transférées
+    world_map_ideas_title:
+    votes_over_time_title: Le nombre de votes au fil du temps
+    user_ideas_over_time_title: Nombre des idées présentées au fil du temps
+    user_sessions_over_time_title: Nombre de sessions d’utilisateurs unique par jour
+    word_cloud_ideas_title: nuage de mots des idées
+    word_cloud_weighted_title: nuage de mots des idées pondérée selon le score
+    word_cloud_uploaded_title: nuage de mots des idées transferees
+    word_cloud_uploaded_weighted_title: nuage de mots des idées transferees pondéré par le score
+    scatter_ideas_title: Comparer les idées transferee avec les idées originals
+    scatter_ideas_subtitle: Passer la souris sur chaque point pour en savoir plus
+    uploaded_ideas: idées postées
+    original_ideas: Idées Originales
+    scores_of: Des dizaines de
+    view_link: "(voir)" 
+    per_day: "par jour" 
+    number_of: "Nombre de"
+    no_data_error: "impossible de faire des cartes, pas de données"
+    overall_total: "Total dans l’ensemble" 
+    vote_map_geo_error: "ous n’avons pas pu trouver l’emplacement du"
   user:
     # User information that appears in a few places, most importantly the footer
-    email: FR-Email
-    login: FR-Log In
-    control_panel: FR-Control Panel
-    logout: FR-Logout
+    email: Courrier électronique
+    login: Connexion
+    control_panel: Panneau de configuration
+    logout: Déconnexion
   ab_tests:
     # Text that is currently being used for Ab testing purposes, so not all strings will be visible at the same time.
      test_showmespace:
@@ -88,11 +88,11 @@ fr:
         # For example: FR-http://www.allourideas.org/studentgovernment
         # Note that 1/3 of sessions will see no text at all (control), so you may need to        
         #  close and reopen your browser a few times to view this text
-        make_your_choice: FR-Make your choice and see what comes next
-        please_click: FR-Please click on your choice
+        make_your_choice: Faites votre choix et voir ce qui vient après
+        please_click: S’il vous plait cliquer sur votre choix
      test_ideasubmit:
         # This text appears inside the idea submit text box 
         # For example: FR-http://www.allourideas.org/studentgovernment
-        control: FR-Add your idea here!
-        make_sure_your_voice: "FR-Make sure your voice is heard: add your idea here!" 
-        contribute_to_the_community: "FR-Contribute to the community: add your idea here!"
+        control: Ajouter votre idée ici!
+        make_sure_your_voice: "Assurez-vous que votre voix est entendue: Ajouter votre idée ici"
+        contribute_to_the_community: "Contribuer à la communauté: Ajouter votre idée ici"

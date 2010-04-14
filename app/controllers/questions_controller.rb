@@ -554,7 +554,7 @@ end
             date_list << current_date
 	    appearances_list.each do |a_hash|
 		    point = {}
-		    point[:x] = date_list.size
+		    point[:x] = date_list.size - 1
 		    point[:y] = a_hash['appearances']
 		    point[:name] = a_hash['data'].strip.gsub("'","") + "@@@" + current_date.to_s
 	    	    chart_data  << point
@@ -578,8 +578,8 @@ end
             :title => { :text => 'Number of Appearances per Choice by creation date', 
 		     	:style => { :color => '#919191' }
 		      },
-	    :x_axis => { :type => 'linear',:enabled => false },
-	    :y_axis => { :type => 'linear', :min => 0, :title => 'Number of Appearances'},
+	    :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since creation",:enabled => true} },
+	    :y_axis => { :type => 'linear', :min => 0, :title => {:text => 'Number of Appearances'}},
 	    :series => [ { :name => "Data",
 			   :type => 'scatter',
 			   :color => 'rgba( 49,152,193, .5)',

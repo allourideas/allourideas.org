@@ -42,7 +42,6 @@ function iframe_loaded(){
 
 jQuery(document).ready(function() {
 	
-	var loadedTime = new Date();
 	//$('label').labelOver('over-apply');
 	
 	// [$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {
@@ -489,95 +488,6 @@ jQuery(document).ready(function() {
 	$('input[title!=""]').hint();
 	$('textarea[title!=""]').hint();
 	
-	
-
-	$('.vote_cell').bind('click',function(event){
-
-		var currentTime = new Date();
-		var time_viewed = currentTime - loadedTime
-
-		$('.example_notice').hide();
-
-		var the_id = $(this).attr("id");
-
-		var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
-		var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
-
-		var question_id = $(this).attr("rel");
-
-		var loser_link = $('a#' + loser_side + 'side')
-		var winner_link = $('a#' + winner_side + 'side')
-
-		var loser = "<a href='/questions/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") + "'>" + loser_link.html() + "</a>";
-		var winner = "<a href='/questions/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id") + "'>" + winner_link.html() + "</a>";	
-		
-		$.ajax({
-		 type: "post",
-		 url: '/questions/' + question_id + '/vote_' + winner_side+ '.js',
-		 dataType: "json",
-		 data: {
-			'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-			'time_viewed' : time_viewed
-		 },
-		 beforeSend: function() {
-			$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-			        backgroundColor: '#000', 
-			        opacity:         0.0,
-			cursor:    null
-			    }});
-			
-		  $('.tellmearea').html('');
-			$('.indicator').show();
-		 },
-		 timeout: 5000,
-		 error: function(request,error) {
-		     $('.indicator').hide();
-		     $.unblockUI();
-		     if (error == "timeout") {
-			$('.tellmearea').html('Sorry, voting is taking too long ... too much traffic!').effect("highlight", {color: '#ff0000'}, 1500);
-		     }
-		     else {
-		        $('.tellmearea').html("Sorry, your vote wasn't counted ... there was an error").effect("highlight", {color: '#ff0000'}, 1500);
-		     }
-
-		     loadedTime = new Date() //reset loaded time
-
-		  },
-		  success:  function(data){
-				$('.indicator').hide();
-				$('.leftside').html(data["newleft"]);
-				$('.rightside').html(data["newright"]);
-				$('.tellmearea').html("You chose " + winner + " over " + loser).effect("highlight", {}, 1500);
-				current_vote_count = $('#votes_count').html();
-				$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
-				$.unblockUI();
-				$(".votebox tr.prompt td.idea").each(function(el) {
-			      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-			        $(this).css("background", "#3198c1");
-			        $(this).css("border-left", "1px solid #3198c1");
-			        $(this).css("border-right", "1px solid #3198c1");
-					    $(this).bind("mouseover", function() {
-					      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-					        $(this).css("background", "#2b88ad");
-					        $(this).css("border-left", "1px solid #2b88ad");
-					        $(this).css("border-right", "1px solid #2b88ad");
-					      });
-					    });
-					    $(this).bind("mouseout", function() {
-					      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-					        $(this).css("background", "#3198c1");
-					        $(this).css("border-left", "1px solid #3198c1");
-					        $(this).css("border-right", "1px solid #3198c1");
-					      });
-					    });
-				    });
-				});
-
-		                loadedTime = new Date() //reset loaded time
-			}// End success
-		}); // End ajax method
-		return false;
-	});
 	
 /*
 	$('#view_voter_map').bind('click',function(event){		

@@ -1,0 +1,156 @@
+
+var loadedTime = new Date();
+set_focus_and_blur_events = function() {
+      $('#new_idea_field').focus( function () {
+        var str = $('#submit_btn').attr("src");
+        $('#submit_btn').attr('src', str.replace(".jpg", "-focus.jpg"));
+      });
+      $('#new_idea_field').blur( function () {
+        var str = $('#submit_btn').attr("src");
+        $('#submit_btn').attr('src', str.replace("-focus.jpg", ".jpg"));
+      });
+    };
+    set_focus_and_blur_events();
+    $('.new_idea_submit').bind('click',function(event){		
+      var new_idea = $('#new_idea_field').val();
+      var default_text = $('#default_text').val()
+      $('.example_notice').hide();
+      
+      //if new idea is blank or longer than 140 characters, do not allow it to submit
+      if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
+        event.returnValue = false;
+	alert('<%=t('vote.submit_idea_default_error') %>');
+        return false;
+      }
+      if (new_idea.length > 140) {
+      alert('<%=t('vote.submit_idea_too_long_error') %>');
+        event.returnValue = false;
+        return false;
+      }
+		
+      $.setFragment({ "page" : $.queryString(this.href).page });
+      $('.indicator').show();
+      $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+        backgroundColor: '#000', 
+        opacity:         0.0,
+        cursor:    null
+        }});
+      var question_id = $(this).attr("rel");
+		
+      $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
+        'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
+        function(data){
+          $('.tellmearea').html(data["message"]);
+          $('#new_idea_field').val("");
+	  thankyoutext = '<%=t('vote.submit_idea_thankyou')%>';
+          $('#new_idea_field').attr('title', thankyoutext);
+          $('#default_text').val(thankyoutext);
+          $('#new_idea_field').unbind('focus').unbind('blur');
+          $('#new_idea_field').hint();
+          set_focus_and_blur_events();
+        
+          if (data['choice_status'] == 'active') {
+            current_item_count = $('#item_count').html();
+            $('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
+          }
+          $('.indicator').hide();
+          $.unblockUI();
+          
+          var str = $("#submit_btn").attr("src");
+          $("#submit_btn").attr('src', "/images/submit.jpg");
+        },
+        "json"
+      );
+      return false;
+    });
+
+	$('.vote_cell').bind('click',function(event){
+
+		var currentTime = new Date();
+		var time_viewed = currentTime - loadedTime
+
+
+		$('.example_notice').hide();
+
+		// TODO refactor to use url_for in rails
+		var the_id = $(this).attr("id");
+		var the_locale = "<%= I18n.locale %>"
+
+		var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
+		var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
+
+		var question_id = $(this).attr("rel");
+
+		var loser_link = $('a#' + loser_side + 'side')
+		var winner_link = $('a#' + winner_side + 'side')
+
+		var loser = "<a href='/questions/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") + "'>" + loser_link.html() + "</a>";
+		var winner = "<a href='/questions/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id") + "'>" + winner_link.html() + "</a>";	
+		
+		$.ajax({
+		 type: "post",
+		 url: '/questions/' + question_id + '/vote_' + winner_side+ '.js' + '?locale=' + the_locale,
+		 dataType: "json",
+		 data: {
+			'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+			'time_viewed' : time_viewed
+		 },
+		 beforeSend: function() {
+			$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+			        backgroundColor: '#000', 
+			        opacity:         0.0,
+			cursor:    null
+			    }});
+			
+		  $('.tellmearea').html('');
+			$('.indicator').show();
+		 },
+		 timeout: 5000,
+		 error: function(request,error) {
+		     $('.indicator').hide();
+		     $.unblockUI();
+		     if (error == "timeout") {
+		       $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+		     }
+		     else {
+		       $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+		     }
+
+		     loadedTime = new Date() //reset loaded time
+
+		  },
+		  success:  function(data){
+				$('.indicator').hide();
+				$('.leftside').html(data["newleft"]);
+				$('.rightside').html(data["newright"]);
+				$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser).effect("highlight", {}, 1500);
+				current_vote_count = $('#votes_count').html();
+				$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
+				$.unblockUI();
+				$(".votebox tr.prompt td.idea").each(function(el) {
+			      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+			        $(this).css("background", "#3198c1");
+			        $(this).css("border-left", "1px solid #3198c1");
+			        $(this).css("border-right", "1px solid #3198c1");
+					    $(this).bind("mouseover", function() {
+					      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+					        $(this).css("background", "#2b88ad");
+					        $(this).css("border-left", "1px solid #2b88ad");
+					        $(this).css("border-right", "1px solid #2b88ad");
+					      });
+					    });
+					    $(this).bind("mouseout", function() {
+					      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+					        $(this).css("background", "#3198c1");
+					        $(this).css("border-left", "1px solid #3198c1");
+					        $(this).css("border-right", "1px solid #3198c1");
+					      });
+					    });
+				    });
+				});
+
+		                loadedTime = new Date() //reset loaded time
+			}// End success
+		}); // End ajax method
+		return false;
+	});

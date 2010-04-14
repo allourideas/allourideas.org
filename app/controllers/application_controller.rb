@@ -88,21 +88,21 @@ class ApplicationController < ActionController::Base
 
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
 
-    session = SessionInfo.find_or_initialize_by_session_id(:session_id => request.session_options[:id], 
+    user_session = SessionInfo.find_or_initialize_by_session_id(:session_id => request.session_options[:id], 
 						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)
-    if session.new_record?
-	    session.geolocate!(request.remote_ip)
+    if user_session.new_record?
+	    user_session.geolocate!(request.remote_ip)
     end
 
     Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
-		 :referrer => request.referrer, :session_info_id => session.id)
+		 :referrer => request.referrer, :session_info_id => user_session.id)
 
-    if current_user && !session.user_id
-	    session.user_id = current_user.id
-	    session.save!
+    if current_user && !user_session.user_id
+	    user_session.user_id = current_user.id
+	    user_session.save!
     end
 
     if current_user 
@@ -115,8 +115,8 @@ class ApplicationController < ActionController::Base
     if (session[:abingo_identity])
 	    Abingo.identity = session[:abingo_identity]
     else
-	    session[:abingo_identity] = session.id
-	    Abingo.identity = session.id
+	    session[:abingo_identity] = user_session.id
+	    Abingo.identity = user_session.id
     end
       
   end

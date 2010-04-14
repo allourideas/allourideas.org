@@ -60,6 +60,18 @@
         = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
       %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
 
+-unless session[:has_voted]
+  .firsttime
+    = t('vote.first_time')
+    %span{:id => "close", :style => "float: right; padding-right: 15px; cursor: pointer;"}= "X";
+  - session[:new_session] = nil
+   
 
 -content_for :view_javascript do
+  -unless session[:has_voted]
+    :plain
+      $('.firsttime').fadeIn(2000)
+      $('.firsttime, #close, .vote_cell').bind("click", function() {
+        $(".firsttime").fadeOut(500);
+      });
   =render :partial => 'vote_box_js' 

@@ -461,81 +461,20 @@ background-color: #8dbdd8;
 	color: #000000;
 }
 
-// Disable text selection outside of IE
-.iPhoneCheckContainer, 
-.iPhoneCheckContainer label {
-  user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none; }
+.firsttime {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 100;
+   background: #3dadda;
+   color: #1f7293;
+   font-size: 15px;
+   font-weight: bold;
+   text-align: center;
+   border-bottom: 1px solid #1f7293;
+   padding: 4px;
+   margin-bottom: 8px;
+   display: none;
+}
 
-.iPhoneCheckDisabled {  
-  filter: alpha(opacity=50);
-  -moz-opacity: 0.5;
-  -khtml-opacity: 0.5;
-  opacity: 0.5; }
-
-
-.iPhoneCheckContainer {
-  position: relative;
-  height: 27px;
-  cursor: pointer;
-  overflow: hidden; }
-  .iPhoneCheckContainer input {
-    position: absolute;
-    top: 5px;
-    left: 30px; 
-    filter: alpha(opacity=0);
-    -moz-opacity: 0;
-    -khtml-opacity: 0;
-    opacity: 0; }
-  .iPhoneCheckContainer label {
-    white-space: nowrap;
-    font-size: 15px;
-    line-height: 15px;
-    font-weight: bold;
-    font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
-    text-transform: uppercase;
-    cursor: pointer;
-    display: block;
-    height: 27px;
-    position: absolute;
-    width: auto;
-    top: 0;
-    padding-top: 7px;
-    overflow: hidden; }
-  label.iPhoneCheckLabelOn {
-    color: #fff;
-    background: url(images/on.png) no-repeat;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
-    left: 0;
-    padding-top: 7px; }
-    label.iPhoneCheckLabelOn span {
-      padding-left: 12px; }
-  label.iPhoneCheckLabelOff {
-    color: #8B8B8B;
-    background: url(images/off.png) no-repeat right 0;
-    text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
-    text-align: right;
-    right: 0; }
-    label.iPhoneCheckLabelOff span {
-      padding-right: 8px; }
-    
-.iPhoneCheckHandle {
-  display: block;
-  height: 27px;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10px;
-  background: url(images/slider_left.png) no-repeat;
-  padding-left: 3px; }
-  .iPhoneCheckHandleRight {
-    height: 100%;
-    width: 100%;
-    padding-right: 3px;
-    background: url(images/slider_right.png) no-repeat right 0; }
-  .iPhoneCheckHandleCenter {
-    height: 100%;
-    width: 100%;
-    background: url(images/slider_center.png); }

@@ -99,6 +99,10 @@
           %td.votes 
             = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'bounces'), :class => "view_voter_map")
         %tr{:class => cycle("row2", "row1")}
+          %td.title= "World Map of uploaded ideas (super-admin only)"
+          %td.votes 
+            = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'uploaded_ideas'), :class => "view_voter_map")
+        %tr{:class => cycle("row2", "row1")}
           %td.title= "View number of votes per session (super-admin only)"
           %td.votes
             = link_to(t('results.view_link'), url_for(:action => :scatter_votes_by_session, :type => "scatter_votes_by_session"), :class => 'date-chart')

@@ -151,6 +151,7 @@ end
          
 	 @earl = Earl.find params[:id]
          @question = @earl.question(true)
+	 votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'uploaded_ideas')
      elsif type == "bounces"
 	 @earl = Earl.find params[:id]
          @question = @earl.question(true)

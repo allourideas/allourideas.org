@@ -153,7 +153,7 @@ en:
     submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
-    first_time: First time? AllOurIdeas is easy to use! Just click on the choice you like more to start voting!
+    first_time: First time here? Click on the choice you like more to start voting!
   results:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes

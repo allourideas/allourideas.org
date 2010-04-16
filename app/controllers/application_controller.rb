@@ -88,14 +88,15 @@ class ApplicationController < ActionController::Base
 
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
 
-    user_session = SessionInfo.find_or_initialize_by_session_id(:session_id => request.session_options[:id], 
+    user_session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
 						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)
-    if user_session.new_record?
-	    user_session.geolocate!(request.remote_ip)
-    end
+#    if user_session.new_record?
+#	    logger.info "New user, creating job to geolocate ip address #{request.remote_ip}"
+#	    user_session.send_later :geolocate!, request.remote_ip
+#    end
 
     Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
 		 :referrer => request.referrer, :session_info_id => user_session.id)
@@ -141,7 +142,6 @@ class ApplicationController < ActionController::Base
 
 
   def default_url_options(options={})
-	  logger.debug "default_url_options is passed options: #{options.inspect}\n"
 	  if I18n.locale != I18n.default_locale
 		  { :locale => I18n.locale }
 	  end

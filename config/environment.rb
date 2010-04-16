@@ -18,10 +18,6 @@ Rails::Initializer.run do |config|
     :lib     => "smtp-tls",
     :version => "1.1.2",
     :source  => "http://gems.github.com"
-  config.gem "tobi-delayed_job",
-    :lib     => "delayed_job",
-    :version => "1.7.0",
-    :source  => "http://gems.github.com"
 #  config.gem "thoughtbot-paperclip",
 #    :lib     => "paperclip",
 #    :version => "2.3.1",
@@ -29,9 +25,9 @@ Rails::Initializer.run do |config|
   config.gem "paperclip",
     :lib => 'paperclip',
     :source  => "http://gemcutter.org"
-  config.gem "aws-s3",
-    :lib     => "aws/s3",
-    :version => "0.6.2"
+#  config.gem "aws-s3",
+#    :lib     => "aws/s3",
+#    :version => "0.6.2"
   config.gem "mime-types",
     :lib     => "mime/types",
     :version => "1.16"
@@ -76,6 +72,7 @@ Rails::Initializer.run do |config|
   config.gem 'friendly_id'
   config.gem 'sax-machine'
   config.gem 'i18n'
+  config.gem 'delayed_job'
 end
 
 PRODUCTION_API_HOST = ENV['API_HOST']

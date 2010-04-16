@@ -222,6 +222,15 @@ end
 	     end
      end
 
+     case type
+     when "votes" then
+	    @object_type = t('common.votes')
+     when "uploaded_ideas" then
+	    @object_type = t('results.uploaded_ideas')
+     when "bounces" then
+	    @object_type = "bounces"
+
+     end
      respond_to do |format|
 	format.html {render :layout => false}
         format.js
@@ -860,6 +869,7 @@ end
 
      @partial_results_url = "#{@earl.name}/results"
      @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+     
      respond_to do |format|
         if @earl.update_attributes(params[:earl])
 

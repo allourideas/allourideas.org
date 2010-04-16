@@ -51,7 +51,6 @@ fr:
     submit_idea_thankyou: Je vous remercie. Votre idée a été ajouté. S’il vous plait ajouter encore plus d’idées.
     vote_timeout_error: "Désolé, le vote prend trop longtemps…trop de traffic"
     vote_other_error: Désolé, votre vote n’a pas été cpmpté 
-    first_time: Première fois ici? Cliquez sur le choix que vous voulez plus de commencer à voter.
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results
@@ -97,3 +96,6 @@ fr:
         control: Ajouter votre idée ici!
         make_sure_your_voice: "Assurez-vous que votre voix est entendue: Ajouter votre idée ici"
         contribute_to_the_community: "Contribuer à la communauté: Ajouter votre idée ici"
+     test_stackoverflow:
+        first_time: Première fois ici? Cliquez sur le choix que vous voulez plus de commencer à voter.
+        no_first_time: Cliquez sur le choix que vous voulez plus de commencer à voter.

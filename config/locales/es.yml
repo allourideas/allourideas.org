@@ -51,7 +51,6 @@ es:
     submit_idea_thankyou: Gracias.  Su idea ha sido incluida.  Por favor añada más ideas.  
     vote_timeout_error: "Perdon, el proceso de votar esta tomando demasiado tiempo - hay mucho trafico de red!"
     vote_other_error: "Perdon, su voto no fue contado...sucedio un error."
-    first_time: Primera vez aquí? Haga clic en la opción te gusta más para empezar a votar!
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
@@ -97,3 +96,6 @@ es:
         control: Incluya su idea aca!
         make_sure_your_voice: "Asegure que se incluya su voz:  incluya su idéa aca!" 
         contribute_to_the_community: "Contribuya a su comunidad:  incluya su idéa aca!"
+     test_stackoverflow:
+        first_time: Primera vez aquí? Haga clic en la opción te gusta más para empezar a votar!
+        no_first_time: Haga clic en la opción te gusta más para empezar a votar!

@@ -9,7 +9,7 @@ class EarlsController < ApplicationController
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     session[:on_example] = (params[:id] == 'studentgovernment')
-    session[:welcome_msg] = @earl.welcome_msg
+    session[:welcome_msg] = @earl.welcome_msg.blank? ? nil: @earl.welcome_msg 
     
     catchup_marketplaces = ["test0330", "studentgovernment", "priority_example", "crsAWCpilot"]
     if @earl
@@ -46,8 +46,8 @@ class EarlsController < ApplicationController
 
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
-       @ab_test_showme_name = "#{@earl.name}_#{@earl.question_id}_test_size_text_of_show_me_space"	       
        @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_idea_submit_box"	       
+       @ab_test_stackoverflow_name = "#{@earl.name}_#{@earl.question_id}_test_stackoverflow_welcome"	       
       # # logger.info "redirecting"
       # # 
       render :controller => "Questions", :action => "show"

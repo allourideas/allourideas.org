@@ -153,7 +153,6 @@ en:
     submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
-    first_time: First time here? Click on the choice you like more to start voting!
   results:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes
@@ -254,6 +253,9 @@ en:
         control: Add your idea here!
         make_sure_your_voice: "Make sure your voice is heard: add your idea here!" 
         contribute_to_the_community: "Contribute to the community: add your idea here!"
+     test_stackoverflow:
+        first_time: First time here? Click on the choice you like more to start voting!
+        no_first_time: Click on the choice you like more to start voting!
   privacy: 
    h1: What information do we collect?
    p1: We collect information from you when you interact with All Our Ideas. Also, when creating a question, you will be required to enter your email address. You may, however, vote on questions anonymously. All visitors to the site will have their IP address recorded.

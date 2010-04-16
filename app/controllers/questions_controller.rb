@@ -879,7 +879,7 @@ end
 	    format.html {redirect_to "/#{params[:id]}/admin"}
   	    # format.xml  { head :ok }
 	else 
-	    format.html { render :action => "admin"}
+	    format.html { render :action => 'admin', :id => params[:id]}
   	    #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
         end
      end

@@ -216,7 +216,7 @@ en:
     replace_logo_exp: Replace logo above with another file
     upload_logo_exp: Upload a logo to be displayed on your idea market place page
     welcome_msg_exp: Add a welcome message for new voters
-    welcome_msg_long_exp: You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time.
+    welcome_msg_long_exp: You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
     welcome_msg_long_exp2: For example, it may be useful to explain who is leading the idea marketplace or what will be done with the feedback gathered from this question. 
     default_lang_exp: Change the default language of the voting page interface
     download_idea_marketplace_data: Download Idea Marketplace Data

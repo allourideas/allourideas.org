@@ -53,10 +53,13 @@
   %table.full
     %tr.row0
       %th{:colspan => 2}=t('admin.additional_settings')
-    %tr.row1
-      %td= "#{t('admin.password_protect_exp')}:"
-      %td 
-        -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
+    -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
+      -unless f.error_messages.blank?
+        %tr.row2
+          %td{:colspan => 2}=f.error_messages
+      %tr.row1
+        %td= "#{t('admin.password_protect_exp')}:"
+        %td 
           = "#{t('admin.username')}: #{@earl.name}"
           %br
           = f.label :pass, "#{t('user.password')}:"
@@ -83,7 +86,7 @@
           %tr.row1
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
-  %br
+  %b
 
   %table.full
     %tr.row0
@@ -127,4 +130,5 @@
   $('a[rel*=facebox]').facebox();
   $('#passfield').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
+  $('#earl_default_lang').change(function(){ $('#savebutton').addClass("active")});
 

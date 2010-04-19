@@ -4,7 +4,7 @@ class Earl < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"
   validates_length_of :welcome_message, :maximum=>280, :allow_nil => true, :allow_blank => true
   has_friendly_id :name, :use_slug => true, :reserved => @@reserved_names 
-  has_attached_file :logo, :whiny_thumbnails => true, :styles => { :medium => "150x150>" }
+  has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
 
   belongs_to :user
   

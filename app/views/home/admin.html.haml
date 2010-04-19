@@ -43,6 +43,10 @@
         %td.title= t('results.world_map_title')
         %td.votes 
           = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :class => "view_voter_map")
+      %tr.row2
+        %td.title= t('results.world_map_creators')
+        %td.votes 
+          = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all_creators"), :class => "view_voter_map")
       -if @available_charts
         -@available_charts.each do |type, options|
           %tr{:class => cycle("row2", "row1")}

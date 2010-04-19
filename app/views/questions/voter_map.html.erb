@@ -11,7 +11,7 @@
       data.addRows(<%= @votes_by_geoloc.size %>);
       data.addColumn('number', 'LATITUDE', 'Latitude');
       data.addColumn('number', 'LONGITUDE', 'Longitude');
-      data.addColumn('number', 'Votes', 'Votes');
+      data.addColumn('number', '<%=@object_type.titleize%>', '<%=@object_type.titleize%>');
       data.addColumn('string', 'HOVER', 'City');
       <% count =0 -%>
       <%- @votes_by_geoloc.each do |city_state_string, hash| -%>

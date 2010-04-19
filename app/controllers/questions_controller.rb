@@ -146,7 +146,9 @@ end
      type = params[:type]
 
      if type == "all"
-	 votes_by_sids = Question.get(:all_num_votes_by_visitor_id)
+	 votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "all_votes")
+     elsif type == "all_creators"
+	 votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "creators")
      elsif type == "uploaded_ideas"
          
 	 @earl = Earl.find params[:id]
@@ -229,7 +231,10 @@ end
 	    @object_type = t('results.uploaded_ideas')
      when "bounces" then
 	    @object_type = "bounces"
-
+     when "all" then
+	    @object_type = t('common.votes')
+     when "all_creators" then
+	    @object_type = "questions"
      end
      respond_to do |format|
 	format.html {render :layout => false}

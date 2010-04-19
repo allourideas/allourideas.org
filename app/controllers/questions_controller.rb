@@ -867,8 +867,6 @@ end
 	    redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
      end
 
-     @partial_results_url = "#{@earl.name}/results"
-     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
      
      respond_to do |format|
         if @earl.update_attributes(params[:earl])
@@ -879,7 +877,10 @@ end
 	    format.html {redirect_to "/#{params[:id]}/admin"}
   	    # format.xml  { head :ok }
 	else 
-	    format.html { render :action => 'admin', :id => params[:id]}
+            @partial_results_url = "#{@earl.name}/results"
+            @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+
+	    format.html { render :action => 'admin'}
   	    #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
         end
      end

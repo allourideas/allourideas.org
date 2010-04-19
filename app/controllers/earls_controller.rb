@@ -9,7 +9,7 @@ class EarlsController < ApplicationController
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     session[:on_example] = (params[:id] == 'studentgovernment')
-    session[:welcome_msg] = @earl.welcome_msg.blank? ? nil: @earl.welcome_msg 
+    session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
     catchup_marketplaces = ["test0330", "studentgovernment", "priority_example", "crsAWCpilot"]
     if @earl

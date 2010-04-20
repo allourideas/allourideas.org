@@ -1,4 +1,3 @@
-@focus
 Feature: Voting
   In order to get preferences from visitors
   A user

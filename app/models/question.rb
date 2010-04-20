@@ -69,12 +69,20 @@ class Question < ActiveResource::Base
     errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '|'
     errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '='
     errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '+'
+    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? "'"
+
+    errors.add("URL", "contains special characters (Step 2)")  unless attributes['url'] =~ /^[[:alnum:]_-]+$/i
+    
+    
     begin
-      Earl.find(attributes['url'].strip)
+      if Earl.find_by_name(attributes['url'].strip).nil?
+         Earl.find(attributes['url'].strip)
+      end
       errors.add("URL", "has already been taken (Step 2)")
     rescue
       nil
     end
+    
     if Earl.reserved_names.include?(attributes['url'].strip)
       errors.add("URL", "has already been taken (Step 2)")
     end

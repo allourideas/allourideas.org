@@ -13,6 +13,8 @@ module NavigationHelpers
 
     when /the question show page/i
       question_path
+    when /the question create page/i
+      new_question_path
     # Add more page name => path mappings here
 
     else

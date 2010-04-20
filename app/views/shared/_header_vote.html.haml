@@ -1,6 +1,7 @@
--@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => params[:id])
--@results_url = url_for(:action => :results, :controller => :questions, :id => params[:id])
--@manage_url = url_for(:action => :admin, :controller => :questions, :id => params[:id])
+-@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
+-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id)
+-@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
+-@manage_url = url_for(:action => :admin, :controller => :questions, :id => @the_id)
 -@all_results_url = "#{@results_url}?all=true"
 
 .vote-nav{:style => "position: relative;"}

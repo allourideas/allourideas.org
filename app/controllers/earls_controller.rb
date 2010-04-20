@@ -11,7 +11,7 @@ class EarlsController < ApplicationController
     session[:on_example] = (params[:id] == 'studentgovernment')
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
-    catchup_marketplaces = ["test0330", "studentgovernment", "priority_example", "crsAWCpilot"]
+    #catchup_marketplaces = ["test0330", "studentgovernment", "priority_example", "crsAWCpilot"]
     if @earl
       unless @earl.active?
         flash[:notice] = t('questions.not_active_error')
@@ -23,7 +23,8 @@ class EarlsController < ApplicationController
 
 	      redirect_to :action => :show, :controller => :earls, :id => @earl.name and return
       end
-      if catchup_marketplaces.include?(@earl.name)
+      if @earl.uses_catchup?
+	      logger.info("Requesting Catchup algorithm from Pairwise api")
 	      @question = @earl.question(false, "catchup", request.session_options[:id])
       else
 	      @question = @earl.question(false, "standard", request.session_options[:id])#the question has a prompt id with it

@@ -4,41 +4,35 @@ Feature: Creating Idea marketplaces
 	As a question admin
 	I want to be able to create an idea marketplace
 
-	Scenario Outline: user submit question registration info
+	Scenario Outline: user submits question registration info
 		Given I am on the question create page
-		When I fill in "question_name" with "<name>"
-		And I fill in "question_url" with "<url>"
-		And I fill in "question_question_ideas" with "<ideas>"
-		And I fill in "question_email" with "<email>"
-		And I fill in "question_password" with "<password>"
+		When I fill in all fields with valid data except "<field>"
+		And I fill in "<field>" with <value>
 		And I press "Create"
 		Then I should see "<resulttext>" 
 		
         Scenarios: valid registration info
-	   |name   |url    |ideas|email               |password  |resulttext                                                 |
-	   |test123|testing|1    |testing@dkapadia.com|helloworld|Congratulations. You are about to discover some great ideas.|
-	   |test456|testing456|1\n2\n3\n    |test@dkapadia.com|helloworld|Congratulations. You are about to discover some great ideas.|
-	   |test_45-6|testing_45-6|1\n2\n3\n    |test@dkapadia.com|helloworld|Congratulations. You are about to discover some great ideas.|
+	   |field    |value          |resulttext                                                  |
+	   |question_url|"testing"     |Congratulations. You are about to discover some great ideas.|
+	   |question_url|"testing456"  |Congratulations. You are about to discover some great ideas.|
+	   |question_url|"test_45-6"   |Congratulations. You are about to discover some great ideas.|
 	
          Scenarios: invalid registration info
-	   |name   |url    |ideas|email               |password  |resulttext                                                 |
-	   |Blank spaces|bad url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains spaces|
-	   |Bad Symbol|bad@url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad@url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad/url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad:url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad=url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad+url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad'url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Bad Symbol|bad$url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
-	   |Reserved url|questions|1\n2\n3\n    |test@dkapadia.com|helloworld|errors prohibited this website|
-	   |Reserved url|admin|1\n2\n3\n    |test@dkapadia.com|helloworld|errors prohibited this website|
-	   |Reserved url|admin|1\n2\n3\n    |test@dkapadia.com|helloworld|errors prohibited this website|
-	   #|\"\"|blankname|1\n2\n3\n    |test@dkapadia.com|helloworld|errors prohibited this website|
-	   #|Blank Ideas|blankname|\"\"|test@dkapadia.com|helloworld|errors prohibited this website|
-	   #|Blank user|blankuser|1\n2\n3\n|\"\"|helloworld|errors prohibited this website|
-	   #|Blank Password|blankpasswd|1\n2\n3\n    |test@dkapadia.com|\"\"|errors prohibited this website|
-	   #|Bad Symbol|bad\"url|1\n2\n3\n    |test@dkapadia.com|helloworld|Url contains special characters|
+	   |field       |value    |resulttext                     |
+	   |question_url|"bad url"  |Url contains spaces|
+	   |question_url|"bad@url"  |Url contains special characters|
+	   |question_url|"bad@url"  |Url contains special characters|
+	   |question_url|"bad/url"  |Url contains special characters|
+	   |question_url|"bad:url"  |Url contains special characters|
+	   |question_url|"bad=url"  |Url contains special characters|
+	   |question_url|"bad+url"  |Url contains special characters|
+	   |question_url|"bad'url"  |Url contains special characters|
+	   |question_url|"bad$url"  |Url contains special characters|
+	   |question_url|" badurl"  |Url contains special characters|
+	   |question_url|"badurl "  |Url contains special characters|
+	   |question_url|"questions"|Url has already been taken|
+	   |question_url|"admin"    |Url has already been taken|
+	   |question_url|"admin"    |Url has already been taken|
 
 	Scenario: User submits an existing url
 		Given an idea marketplace exists with url 'taken'
@@ -53,4 +47,19 @@ Feature: Creating Idea marketplaces
 		Then I should see "errors prohibited this website"
 		And I should not see "Congratulations."
 
+	@superfocus
+	Scenario Outline: User does not fill in all fields
+		Given I am on the question create page
+		When I fill in all fields with valid data except "<field>"
+		And I press "Create"
+		Then I should not see "Congratulations" 
+		And I should see "<result_text>"
+
+		Scenarios: missing fields
+			|field|result_text|
+			|question_name|Name is blank|
+			|question_url|Url is blank|
+			|question_question_ideas|Ideas are blank|
+			|question_email|Email can't be blank|
+			|question_password|Password can't be blank|
 

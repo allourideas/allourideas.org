@@ -95,7 +95,10 @@
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{"choice-by-date"}-chart-container"}
         %tr{:class => cycle("row2", "row1")}
-          %td.title= "World Map of bounces (viewed once and then left) (super-admin only)"
+          %td.title
+            = "World Map of bounces (viewed once and then left) (super-admin only)"
+            = link_to('[?]', '#bounce_explanation', :rel => 'facebox')
+
           %td.votes 
             = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'bounces'), :class => "view_voter_map")
         %tr{:class => cycle("row2", "row1")}
@@ -112,6 +115,16 @@
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')
+  
+  #bounce_explanation{:style => 'display:none;'}
+    %h2= "About Bounces"
+    A bounce is defined as a session that has only one appearance without an associated vote.
+    %br
+    So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
+    %br
+    Another example:  a user that views the voting page, then view results, then leaves would count as a bounce.
+    %br 
+    Note that this may not be 100% accurate the present moment. Cookies are causing session_ids to persist across user sessions
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"

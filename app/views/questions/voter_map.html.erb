@@ -40,6 +40,7 @@
 
 <body style='margin:0pt; padding:0pt;'>
 	<div id='map_canvas' style='position:relative;' ><img src='/images/indicator.gif' /></div>
+	<%= "#{t('results.overall_total')} #{@total} #{@object_type.downcase}." %>
 <% if @votes_by_geoloc['Unknown Location'] -%>
 	<%= "#{t('results.vote_map_geo_error')} #{@votes_by_geoloc['Unknown Location'][:num_votes]} #{@object_type.downcase}" %>
 <% end -%>

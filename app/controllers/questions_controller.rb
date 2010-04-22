@@ -167,10 +167,12 @@ end
      end
      
      @votes_by_geoloc= {}
+     object_total = 0
      votes_by_sids.each do|sid, num_votes|
 	     num_votes = num_votes.to_i
 	     session = SessionInfo.find_by_session_id(sid)
 
+	     object_total += num_votes
 	     if session.nil? || session.loc_info.nil? 
 	        if @votes_by_geoloc["Unknown Location"].nil?
 	          @votes_by_geoloc["Unknown Location"] = {}
@@ -236,6 +238,8 @@ end
      when "all_creators" then
 	    @object_type = "questions"
      end
+
+     @total = object_total
      respond_to do |format|
 	format.html {render :layout => false}
         format.js

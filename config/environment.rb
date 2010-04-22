@@ -13,7 +13,8 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = 'Eastern Time (US & Canada)'
 
   config.action_mailer.delivery_method = :sendmail
-  config.gem 'hoptoad_notifier'
+  config.gem 'hoptoad_notifier', 
+	  :version => '2.2.2'
   config.gem "ambethia-smtp-tls",
     :lib     => "smtp-tls",
     :version => "1.1.2",

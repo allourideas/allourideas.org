@@ -1,5 +1,6 @@
 <html>
 <head>
+  <%- if @total > 0 %>
   <%= stylesheet_link_tag 'screen' %>
   <script type='text/javascript' src='http://www.google.com/jsapi'></script>
   <script type='text/javascript'>
@@ -36,10 +37,11 @@
     };
   
   </script>
+  <%- end %>
 </head>
 
 <body style='margin:0pt; padding:0pt;'>
-	<div id='map_canvas' style='position:relative;' ><img src='/images/indicator.gif' /></div>
+	<div id='map_canvas' style='position:relative;' ></div>
 	<%= "#{t('results.overall_total')} #{@total} #{@object_type.downcase}." %>
 <% if @votes_by_geoloc['Unknown Location'] -%>
 	<%= "#{t('results.vote_map_geo_error')} #{@votes_by_geoloc['Unknown Location'][:num_votes]} #{@object_type.downcase}" %>

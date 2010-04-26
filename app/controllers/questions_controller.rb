@@ -172,7 +172,7 @@ end
 	     num_votes = num_votes.to_i
 	     session = SessionInfo.find_by_session_id(sid)
 
-	     if session.clicks.size > 1
+	     if type == "bounces" &&  session.clicks.size > 1
 		     next
 	     end
 

@@ -14,7 +14,8 @@ config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
 
 # Disable request forgery protection in test environment
-config.action_controller.allow_forgery_protection    = false
+# THIS IS IMPORTANT
+config.action_controller.allow_forgery_protection    = true
 
 # Tell Action Mailer not to deliver emails to the real world.
 # The :test delivery method accumulates sent emails in the
@@ -23,7 +24,8 @@ config.action_mailer.delivery_method = :test
 
 config.gem 'cucumber-rails',   :lib => false, :version => '>=0.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber-rails'))
 config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
-config.gem 'webrat',           :lib => false, :version => '>=0.7.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
+#config.gem 'webrat',           :lib => false, :version => '>=0.7.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
+config.gem 'capybara',         :lib => false, :version => '>=0.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/capybara'))
 config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
 config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
@@ -38,4 +40,6 @@ PAIRWISE_USERNAME = "testing@dkapadia.com"
 PAIRWISE_PASSWORD = "wheatthins"
 
 require 'redis-store'
-Abingo.cache = ActiveSupport::Cache::RedisStore.new
+#use a different redis store for testing
+Abingo.cache = ActiveSupport::Cache::RedisStore.new "localhost:6379/2"
+Abingo.cache.clear

@@ -40,7 +40,7 @@ set_focus_and_blur_events = function() {
       $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
-          $('.tellmearea').html(data["message"]);
+	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]);
           $('#new_idea_field').val("");
 	  thankyoutext = '<%=t('vote.submit_idea_thankyou')%>';
           $('#new_idea_field').attr('title', thankyoutext);
@@ -116,14 +116,14 @@ set_focus_and_blur_events = function() {
 		       $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
 		     }
 
-		     loadedTime = new Date() //reset loaded time
+		     loadedTime = new Date(); //reset loaded time
 
 		  },
 		  success:  function(data){
 				$('.indicator').hide();
 				$('.leftside').html(data["newleft"]);
 				$('.rightside').html(data["newright"]);
-				$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser).effect("highlight", {}, 1500);
+				$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
 				current_vote_count = $('#votes_count').html();
 				$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
 				$.unblockUI();

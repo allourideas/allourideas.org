@@ -647,12 +647,17 @@ end
           if conditional
             #flash[:notice] = 'Vote was successfully counted.'
             newprompt = Crack::XML.parse(p.body)['prompt']
+	    
+	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
+							:ideas => newprompt['visitor_ideas'].to_i)
+
             logger.info "newprompt is #{newprompt.inspect}"
             session[:current_prompt_id] = newprompt['id']
             session[:appearance_lookup] = newprompt['appearance_id']
             #@newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
-                             :newright => truncate((newprompt['right_choice_text']), :length => 137)
+                             :newright => truncate((newprompt['right_choice_text']), :length => 137), 
+			     :leveling_message => leveling_message
                              }.to_json
           else
             render :json => '{"error" : "Vote failed"}'
@@ -709,9 +714,13 @@ end
               logger.info "just posted to 'create from abroad', response pending"
               newchoice = Crack::XML.parse(p.body)['choice']
               logger.info "response is #{newchoice.inspect}"
+	      
+	      leveling_message = Visitor.leveling_message(:votes => newchoice['visitor_votes'].to_i,
+							:ideas => newchoice['visitor_ideas'].to_i)
               @question = Question.find(params[:id])
               render :json => {:votes => 20,
                                :choice_status => newchoice['choice_status'], 
+			       :leveling_message => leveling_message,
                                :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
               case newchoice['choice_status']
               when 'inactive'

@@ -15,6 +15,11 @@ module NavigationHelpers
       question_path
     when /the question create page/i
       new_question_path
+    
+    when /the Cast Votes page for '([^'].*)'/i
+	"/"+ $1
+    when /the View Results page for '([^'].*)'/i
+	"/"+ $1 + "/results"
     # Add more page name => path mappings here
 
     else

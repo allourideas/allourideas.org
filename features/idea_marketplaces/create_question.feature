@@ -1,4 +1,4 @@
-@focus
+@demo
 Feature: Creating Idea marketplaces
 	In order to collect information on preferences
 	As a question admin
@@ -47,7 +47,6 @@ Feature: Creating Idea marketplaces
 		Then I should see "errors prohibited this website"
 		And I should not see "Congratulations."
 
-	@superfocus
 	Scenario Outline: User does not fill in all fields
 		Given I am on the question create page
 		When I fill in all fields with valid data except "<field>"

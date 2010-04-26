@@ -118,13 +118,13 @@
   
   #bounce_explanation{:style => 'display:none;'}
     %h2= "About Bounces"
-    A bounce is defined as a session that has only one appearance without an associated vote.
+    A bounce is defined as a session that has seen exactly one appearance and taken no other action on our site (one 'click' on our site)
     %br
     So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
     %br
-    Another example:  a user that views the voting page, then view results, then leaves would count as a bounce.
+    Another example:  a user that views the voting page, then view results, then leaves, would not be considered a bounce
     %br 
-    Note that this may not be 100% accurate the present moment. Cookies are causing session_ids to persist across user sessions
+    Note that this may not be 100% accurate because of the way that firefox save cookies past their intended expiration date
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"

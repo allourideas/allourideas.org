@@ -172,6 +172,10 @@ end
 	     num_votes = num_votes.to_i
 	     session = SessionInfo.find_by_session_id(sid)
 
+	     if session.clicks.size > 1
+		     next
+	     end
+
 	     object_total += num_votes
 	     if session.nil? || session.loc_info.nil? 
 	        if @votes_by_geoloc["Unknown Location"].nil?

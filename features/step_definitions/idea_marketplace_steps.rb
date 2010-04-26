@@ -22,7 +22,4 @@ When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 		end
 		When "I fill in \"#{k}\" with \"#{v}\""
 	end
-
-
-
 end

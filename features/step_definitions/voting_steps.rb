@@ -12,7 +12,18 @@ When /^I upload an idea titled '(.*)'$/ do |ideatext|
 	find("#submit_btn").click
 end
 
+When /^I click the (.*) button$/ do |button_name|
+      case button_name
+      when "I can't decide"
+	find("#cant_decide_btn").click
+      when "I can't decide submit"
+	find("#cant_decide_submit_btn").click
+      end
+end
 
+When /^I pick "I like both ideas"$/ do
+	When "I choose \"cant_decide_reason_like_both\""
+end
 
 When /^I vote (\d*) times$/ do |num_votes|
 	num_votes.to_i.times do
@@ -31,3 +42,24 @@ When /^I upload (\d*) ideas$/ do |num_ideas|
 	end
 end
 
+
+Then /^the vote count should be (.*)$/ do |num_votes|
+	Then "I should see \"#{num_votes}\" within \"#votes_count\""
+end
+
+Then /^the idea count should be (.*)$/ do |num_ideas|
+	Then "I should see \"#{num_ideas}\" within \"#item_count\""
+end
+
+
+Then /^I should see a javascript alert$/ do
+	Capybara.driver.is_alert_present.should be_true
+end
+
+Then /^the notification in the tell me area should contain links$/ do
+	page.should have_css('.tellmearea a')
+end
+
+Then /^the notification in the tell me area should not contain links$/ do
+	page.should_not have_css('.tellmearea a')
+end

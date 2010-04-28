@@ -5,29 +5,35 @@ Feature: I Can't Decide
 
 
 	Background: 
-		Given that a test question named 'test' exists
-		And the question 'test' has four choices
+		Given an idea marketplace exists with url 'test'
+		And I am on the Cast Votes page for 'test'
 
 	Scenario: User sees menu of cant decide 
-		Given that I am on the vote page for 'test'
 		When I click the I can't decide button
-		Then I should see 'I like both ideas'
-		And I should see 'I don't like either idea'
-		And I should see 'I don't know enough about [left idea]'
-		And I should see 'I don't know enough about [right idea]'
-		And I should see 'I don't know enough about both ideas'
-		And I should see 'I think both ideas are the same'
-		And I should see 'I just can't decide'
+		Then I should see "I like both ideas"
+		And I should see "I don't like either idea"
+		And I should see "I don't know enough about [left idea]"
+		And I should see "I don't know enough about [right idea]"
+		And I should see "I don't know enough about both ideas"
+		And I should see "I think both ideas are the same"
+		And I should see "I just can't decide"
 
+	@selenium
 	Scenario: User chooses i can't decide
-		Given that I am the vote page for 'test'
-		And the vote count for 'test' is 0
 		When I click the I can't decide button
-		And I click 'I like both ideas'
-		Then the vote count for 'test' should be 0
-		And I should see 'You couldn't decide. Try choosing between these two!'
-	
-	
+		And I pick "I like both ideas"
+		And I click the I can't decide submit button
+		Then I should see "You couldn't decide. Try choosing between these two!" within ".tellmearea"
+		And the vote count should be 0
+
+	@selenium
+	Scenario: User does not enter a choice
+		When I click the I can't decide button
+		And I click the I can't decide submit button
+		Then I should not see "You couldn't decide. Try choosing between these two!"
+		#And I should see a javascript alert
+		
+
 	Scenario: User reloads page to try to skip
 		Given that I am on the vote page for 'test'
 		And the left choice text is 'x'

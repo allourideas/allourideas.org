@@ -157,32 +157,6 @@ jQuery(document).ready(function() {
 	
 	
 	
-	$('.skiplink').bind('click',function(event){
-		$('.example_notice').hide();
-		$.setFragment({ "page" : $.queryString(this.href).page });
-		$('.indicator').show();
-		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		cursor:    null
-		    }});
-		var question_id = $(this).attr("rel");
-		$.post('/questions/' + question_id + '/skip.js',
-		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
-		function(data){
-			$('.indicator').hide();
-			$.unblockUI();
-			$('.leftside').html(data["newleft"]);
-			$('.rightside').html(data["newright"]);
-			//humanMsg.displayMsg('<strong>Skipped.</strong> <span class="indent">You just skipped the last prompt.</span>');
-			//$('.prompter').effect("highlight", {}, 1500);
-			
-		},
-		"json"
-		);
-		return false;
-	});
-	
 	
    $('.toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status').each(function(el) {
       var status = $(this).attr("status");

@@ -1,6 +1,5 @@
-
-var loadedTime = new Date();
-set_focus_and_blur_events = function() {
+  var loadedTime = new Date();
+  set_focus_and_blur_events = function() {
       $('#new_idea_field').focus( function () {
         var str = $('#submit_btn').attr("src");
         $('#submit_btn').attr('src', str.replace(".jpg", "-focus.jpg"));
@@ -9,35 +8,37 @@ set_focus_and_blur_events = function() {
         var str = $('#submit_btn').attr("src");
         $('#submit_btn').attr('src', str.replace("-focus.jpg", ".jpg"));
       });
-    };
-    set_focus_and_blur_events();
-    $('.new_idea_submit').bind('click',function(event){		
-      var new_idea = $('#new_idea_field').val();
-      var default_text = $('#default_text').val()
-      $('.example_notice').hide();
-      
-      //if new idea is blank or longer than 140 characters, do not allow it to submit
-      if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
+  };
+  set_focus_and_blur_events();
+
+  $('.new_idea_submit').bind('click',function(event){		
+    var new_idea = $('#new_idea_field').val();
+    var default_text = $('#default_text').val()
+    $('.example_notice').hide();
+    
+    //if new idea is blank or longer than 140 characters, do not allow it to submit
+    if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
         event.returnValue = false;
 	alert('<%=t('vote.submit_idea_default_error') %>');
         return false;
-      }
-      if (new_idea.length > 140) {
-      alert('<%=t('vote.submit_idea_too_long_error') %>');
+    }
+    if (new_idea.length > 140) {
+        alert('<%=t('vote.submit_idea_too_long_error') %>');
         event.returnValue = false;
         return false;
-      }
+    }
 		
-      $.setFragment({ "page" : $.queryString(this.href).page });
-      $('.indicator').show();
-      $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+    $.setFragment({ "page" : $.queryString(this.href).page });
+    $('.indicator').show();
+    $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
         backgroundColor: '#000', 
         opacity:         0.0,
         cursor:    null
-        }});
-      var question_id = $(this).attr("rel");
+     }});
+    
+    var question_id = $(this).attr("rel");
 		
-      $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
+    $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
 	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]);
@@ -64,49 +65,49 @@ set_focus_and_blur_events = function() {
       return false;
     });
 
-	$('.vote_cell').bind('click',function(event){
+    $('.vote_cell').bind('click',function(event){
 
-		var currentTime = new Date();
-		var time_viewed = currentTime - loadedTime
+        var currentTime = new Date();
+	var time_viewed = currentTime - loadedTime
 
 
-		$('.example_notice').hide();
+	$('.example_notice').hide();
 
-		// TODO refactor to use url_for in rails
-		var the_id = $(this).attr("id");
-		var the_locale = "<%= I18n.locale %>"
+	// TODO refactor to use url_for in rails
+	var the_id = $(this).attr("id");
+	var the_locale = "<%= I18n.locale %>"
 
-		var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
-		var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
+	var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
+	var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
 
-		var question_id = $(this).attr("rel");
+	var question_id = $(this).attr("rel");
 
-		var loser_link = $('a#' + loser_side + 'side')
-		var winner_link = $('a#' + winner_side + 'side')
+	var loser_link = $('a#' + loser_side + 'side')
+	var winner_link = $('a#' + winner_side + 'side')
 
-		var loser = "<a href='/questions/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") + "'>" + loser_link.html() + "</a>";
-		var winner = "<a href='/questions/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id") + "'>" + winner_link.html() + "</a>";	
+	var loser = "<a href='/questions/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") + "'>" + loser_link.html() + "</a>";
+	var winner = "<a href='/questions/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id") + "'>" + winner_link.html() + "</a>";	
 		
-		$.ajax({
-		 type: "post",
-		 url: '/questions/' + question_id + '/vote_' + winner_side+ '.js' + '?locale=' + the_locale,
-		 dataType: "json",
-		 data: {
-			'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-			'time_viewed' : time_viewed
+	$.ajax({
+	   type: "post",
+	   url: '/questions/' + question_id + '/vote_' + winner_side+ '.js' + '?locale=' + the_locale,
+	   dataType: "json",
+	   data: {
+		 'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+		 'time_viewed' : time_viewed
 		 },
-		 beforeSend: function() {
-			$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-			        backgroundColor: '#000', 
-			        opacity:         0.0,
-			cursor:    null
-			    }});
+	   beforeSend: function() {
+	       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+	               backgroundColor: '#000', 
+		       opacity:         0.0,
+		       cursor:    null
+	       }});
 			
-		  $('.tellmearea').html('');
-			$('.indicator').show();
-		 },
-		 timeout: 5000,
-		 error: function(request,error) {
+	       $('.tellmearea').html('');
+	       $('.indicator').show();
+	   },
+	   timeout: 5000,
+	   error: function(request,error) {
 		     $('.indicator').hide();
 		     $.unblockUI();
 		     if (error == "timeout") {
@@ -118,17 +119,17 @@ set_focus_and_blur_events = function() {
 
 		     loadedTime = new Date(); //reset loaded time
 
-		  },
-		  success:  function(data){
-				$('.indicator').hide();
-				$('.leftside').html(data["newleft"]);
-				$('.rightside').html(data["newright"]);
-				$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
-				current_vote_count = $('#votes_count').html();
-				$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
-				$.unblockUI();
-				$(".votebox tr.prompt td.idea").each(function(el) {
-			      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+	   },
+	   success: function(data){
+		$('.indicator').hide();
+		$('.leftside').html(data["newleft"]);
+		$('.rightside').html(data["newright"]);
+		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
+		current_vote_count = $('#votes_count').html();
+		$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
+		$.unblockUI();
+		$(".votebox tr.prompt td.idea").each(function(el) {
+		      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
 			        $(this).css("background", "#3198c1");
 			        $(this).css("border-left", "1px solid #3198c1");
 			        $(this).css("border-right", "1px solid #3198c1");
@@ -150,7 +151,55 @@ set_focus_and_blur_events = function() {
 				});
 
 		                loadedTime = new Date() //reset loaded time
-			}// End success
-		}); // End ajax method
+		}// End success
+	     }); // End ajax method
+	  return false;
+	});
+ 
+    $(document).bind('reveal.facebox', function() { 
+    $('.cant_decide_submit_link').bind('click',function(event){
+    
+       var reason = $('input[name=cant_decide_reason]:checked').val()
+
+        //check that some radio button is selected before closing facebox...
+	if (!reason) {
+	  alert("You must select a reason");
+	  return -1;
+	}
+	
+	jQuery(document).trigger('close.facebox')
+	
+	var currentTime = new Date();
+	var time_viewed = currentTime - loadedTime
+	$('.example_notice').hide();
+	//$.setFragment({ "page" : $.queryString(this.href).page });
+	$('.tellmearea').html('');
+	$('.indicator').show();
+	$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:         0.0,
+		    cursor:    null
+		   }});
+	var question_id = $(this).attr("rel");
+	$.post('/questions/' + question_id + '/skip.js',
+	       {
+	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	       'cant_decide_reason' : reason, 
+		'time_viewed' : time_viewed
+		},
+
+		function(data){
+	                $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]);
+			$('.indicator').hide();
+			$.unblockUI();
+			$('.leftside').html(data["newleft"]);
+			$('.rightside').html(data["newright"]);
+	                //clear the radio buttons somehow?
+		        loadedTime = new Date() //reset loaded time
+			
+		},
+		"json"
+		);
 		return false;
 	});
+    });

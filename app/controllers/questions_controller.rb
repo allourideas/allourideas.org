@@ -683,18 +683,36 @@ end
   def skip
     expire_page :action => :results
     prompt_id = session[:current_prompt_id]
+    appearance_lookup = session[:appearance_lookup]
+    time_viewed = params[:time_viewed]
+    reason = params[:cant_decide_reason]
+
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
     #raise Prompt.find(:all).inspect
     respond_to do |format|
-        flash[:notice] = 'You just skipped.'
         format.xml  {  head :ok }
         format.js  { 
-          if p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id]})
+          if p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id],
+				                 'time_viewed' => time_viewed, 
+					         'appearance_lookup' => appearance_lookup,
+					         'skip_reason'=> reason
+       						})
             newprompt = Crack::XML.parse(p.body)['prompt']
+
+	    #leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
+	    #						:ideas => newprompt['visitor_ideas'].to_i)
             session[:current_prompt_id] = newprompt['id']
-            @newprompt = Question.find(params[:id])
-            render :json => {:votes => 20, :newleft => truncate(h(newprompt['left_choice_text']), :length => 137), :newright => truncate(h(newprompt['right_choice_text']), :length => 137)}.to_json
+            session[:appearance_lookup] = newprompt['appearance_id']
+
+	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
+							:ideas => newprompt['visitor_ideas'].to_i)
+            #@newprompt = Question.find(params[:id])
+            render :json => {:votes => 20, 
+		             :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
+			     :newright => truncate((newprompt['right_choice_text']), :length => 137),
+			     :leveling_message => leveling_message,
+			     :message => t('vote.cant_decide_message')}.to_json
           else
             render :json => '{"error" : "Skip failed"}'
           end

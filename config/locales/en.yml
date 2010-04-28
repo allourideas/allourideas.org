@@ -145,7 +145,15 @@ en:
     you_chose: You chose
     you_skipped_both: You skipped
     skip: skip
-    cant_decide: "I can't decide"
+    cant_decide: I can't decide
+    cd_like_both: I like both ideas
+    cd_dislike_both: I don't like either idea
+    cd_dont_know_left: I don't know enough about [left idea]
+    cd_dont_know_right: I don't know enough about [right idea]
+    cd_dont_know_both: I don't know enough about both ideas
+    cd_both_same: I think both ideas are the same
+    cd_other: I just can't decide
+    cant_decide_message: You couldn't decide. Try choosing between these two!
     over: over
     others_thought: Click to see what others thought.
     submit_idea_default_error: Sorry, blank ideas are not allowed. 

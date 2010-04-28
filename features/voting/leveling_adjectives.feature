@@ -25,7 +25,6 @@ Feature: Leveling Adjectives
 		And I click on the left choice
 		Then I should see "Now you have cast 2 votes and added 0 ideas: terrible" within ".tellmearea"
 	
-        @focus
 	@selenium
 	Scenario Outline: User submits a combination of votes and ideas
 		When I vote <num_votes> times

@@ -14,7 +14,7 @@
   %table.vote-footer
     %tr
       //%td.feedback= link_to(t('nav.feedback'), quick_link('vote/feedback', "#"))
-      %td.skip=# link_to(t('vote.skip'), "#", :class => "skiplink", :rel => @question.id)
+      %td.skip= link_to(t('vote.cant_decide'), {:anchor => "cant_decide_options"}, :id => "cant_decide_btn", :rel => 'facebox')
       - ab_test(@ab_test_name, %w{sixteen_pixel_font twelve_pixel_font}, :conversion => 'voted') do |theClass|
         %td{:class => theClass}
           ="<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
@@ -44,8 +44,22 @@
         = t('ab_tests.test_stackoverflow.'+ the_choice)
         %span{:id => "close", :style => "float: right; padding-right: 15px; cursor: pointer;"}= "X";
    
+#cant_decide_options{:style => 'display:none;'}
+  %h2="I can't decide because..."
+  -cant_decide_keys = ['like_both','dislike_both', 'dont_know_left', 'dont_know_right','dont_know_both','both_same', 'other']
+  -cant_decide_keys.each do |choice|
+    =radio_button_tag "cant_decide_reason", choice.to_s, false
+    =t('vote.cd_'+choice)
+    %br
+  =link_to "Submit", {:anchor => ""}, :class => "cant_decide_submit_link", :id => "cant_decide_submit_btn", :rel => @question.id
+  
+-content_for :head do
+  = javascript_include_tag 'facebox'
+  = stylesheet_link_tag 'facebox'
+      
 
 -content_for :view_javascript do
+  $('a[rel*=facebox]').facebox();
   -unless session[:has_voted]
     :plain
       $('.firsttime').fadeIn(2000)

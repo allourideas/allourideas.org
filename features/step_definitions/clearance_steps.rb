@@ -1,7 +1,11 @@
 # General
 
 Then /^I should see error messages$/ do
-  assert_match /error(s)? prohibited/m, response.body
+  if respond_to?(:page)
+    assert_match /error(s)? prohibited/m, page.body
+  else
+    assert_match /error(s)? prohibited/m, response.body
+  end
 end
 
 # Database
@@ -26,12 +30,14 @@ end
 
 # Session
 
-Then /^I should be signed in$/ do
-  assert controller.signed_in?
-end
+Then /^I should be signed in as "([^\"]*)"$/ do |email|
+  Given %{I am on the homepage}
+  Then %{I should see "Logged in as #{email}"}
+ end
 
 Then /^I should be signed out$/ do
-  assert ! controller.signed_in?
+  Given %{I am on the homepage}
+  Then %{I should see "Log In"}
 end
 
 When /^session is cleared$/ do
@@ -96,7 +102,7 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When /^I sign out$/ do
-  visit '/session', :delete
+  visit '/sign_out'
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
@@ -107,11 +113,10 @@ end
 
 When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
   And %{I fill in "Password" with "#{password}"}
-  And %{I fill in "Password confirmation" with "#{confirmation}"}
+  And %{I fill in "Password Confirmation" with "#{confirmation}"}
   And %{I press "Save this password"}
 end
 
 When /^I return next time$/ do
-  When %{session is cleared}
-  And %{I go to the homepage}
+  When %{I go to the homepage}
 end

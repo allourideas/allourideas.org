@@ -6,7 +6,7 @@ Feature: Sign out
     Scenario: User signs out
       Given I am signed up and confirmed as "email@person.com/password"
       When I sign in as "email@person.com/password"
-      Then I should be signed in
+      Then I should be signed in as "email@person.com"
       And I sign out
       Then I should see "Signed out"
       And I should be signed out

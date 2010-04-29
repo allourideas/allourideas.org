@@ -36,7 +36,8 @@
         return false;
     }
 		
-    $.setFragment({ "page" : $.queryString(this.href).page });
+    //$.setFragment({ "page" : $.queryString(this.href).page });
+    $('.tellmearea').html('');
     $('.indicator').show();
     $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
         backgroundColor: '#000', 
@@ -64,6 +65,9 @@
           }
           $('.indicator').hide();
           $.unblockUI();
+
+          $('.add_idea_button').show();
+          $('.add-box').hide(); 
           
           var str = $("#submit_btn").attr("src");
           $("#submit_btn").attr('src', "/images/submit.jpg");
@@ -166,8 +170,10 @@
  
     $(document).bind('reveal.facebox', function() { 
 
+    
     $('#facebox .footer').remove();
     $('#facebox .close').click($.facebox.close)
+    $('#facebox').draggable();
 
     $('.cd_submit_button').bind('click',function(event){
     

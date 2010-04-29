@@ -19,7 +19,7 @@
         %td{:class => theClass}
           ="<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
   .clear
-  %center
+  %center.add_container
     .add_idea
       = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
     %br

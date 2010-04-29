@@ -523,8 +523,16 @@ background-color: #8dbdd8;
   color: #FFFFFF;
   font-size:16px;
   cursor: pointer;
-  background: #31ca79;}
+  background: #01bb00;}
  .add_idea .add_idea_button:hover {
 	 background: #228b53;
  }
  
+
+#facebox .b{
+	cursor: move;
+}
+
+.add_container{
+	height: 12em;
+}

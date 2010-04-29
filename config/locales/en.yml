@@ -141,6 +141,7 @@ en:
     owner_password_exp: The owner of this question has required authentication
   vote:
     add_your_idea: Add your own idea here...
+    add_your_idea_button: Add your own idea
     cast_votes: Cast Votes
     you_chose: You chose
     you_skipped_both: You skipped

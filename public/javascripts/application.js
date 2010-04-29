@@ -145,18 +145,6 @@ jQuery(document).ready(function() {
 	  //     $(this).attr('src', str.replace("-over.jpg", "-down.jpg"));
 	  // });
 
-
-	humanMsg.setup();
-	$("#tabs").tabs();
-	
-	humane_message_to_be_displayed = $('.to_be_humanized').text()
-	
-	if (humane_message_to_be_displayed) {
-		humanMsg.displayMsg(humane_message_to_be_displayed);
-	}
-	
-	
-	
 	
    $('.toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status').each(function(el) {
       var status = $(this).attr("status");

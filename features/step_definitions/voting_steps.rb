@@ -8,7 +8,8 @@ When /^I click on the right choice$/ do
 	Capybara.default_wait_time = 10
 end
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
-	When "I fill in \"new_idea_field\" with \"#{ideatext}\""
+	When "I click the add new idea button"
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\""
 	find("#submit_btn").click
 end
 
@@ -18,6 +19,8 @@ When /^I click the (.*) button$/ do |button_name|
 	find("#cant_decide_btn").click
       when "I can't decide submit"
 	find("#cant_decide_submit_btn").click
+      when "add new idea"
+	find(".add_idea_button").click
       end
 end
 

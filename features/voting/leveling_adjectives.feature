@@ -10,20 +10,21 @@ Feature: Leveling Adjectives
 	@selenium
 	Scenario: User submits a single vote
 		When I click on the left choice
-		Then I should see "Now you have cast 1 vote and added 0 ideas: terrible" within ".tellmearea"
+		Then I should see "Now you have cast 1 vote and added 0 ideas: good" within ".tellmearea"
 		And I should see "You chose" within ".tellmearea"
 
 	@selenium
 	Scenario: User submits a single idea
 		When I upload an idea titled 'blah blah blah'
-		Then I should see "Now you have cast 0 votes and added 1 idea: terrible" within ".tellmearea"
+		Then I should see "Now you have cast 0 votes and added 1 idea: good" within ".tellmearea"
 	@selenium
 	Scenario: User views results in the middle of voting
 		When I click on the left choice
-		And I go to the View Results page for 'test'
+		Then I should see "Now you have cast 1 vote and added 0 ideas: good" within ".tellmearea"
+		When I go to the View Results page for 'test'
 		And I go to the Cast Votes page for 'test'
 		And I click on the left choice
-		Then I should see "Now you have cast 2 votes and added 0 ideas: terrible" within ".tellmearea"
+		Then I should see "Now you have cast 2 votes and added 0 ideas: good" within ".tellmearea"
 	
 	@selenium
 	Scenario Outline: User submits a combination of votes and ideas
@@ -32,9 +33,9 @@ Feature: Leveling Adjectives
 		Then I should see "Now you have cast <num_votes> votes and added <num_ideas> ideas: <adjective>" within ".tellmearea"
 		Scenarios: combination
 			|num_votes|num_ideas|adjective|
-			|2| 0| terrible|
-			|3| 0| pathetic|
-			|8| 0| lame|
+			|2| 0| good|
+			|3| 0| nice|
+			|8| 0| amazing|
 
 
 

@@ -8,8 +8,8 @@ class Visitor < ActiveRecord::Base
 	D = 25
 	E = 0
 	F = 0.7
-	LEVEL_ADJECTIVES = ["terrible", "pathetic", "lame", "so-so", "okay, I suppose",
-		              "not bad", "good", "great", "amazing", "mythical"]
+	LEVEL_ADJECTIVES = ["good", "nice", "amazing", "fabulous", "marvelous",
+		              "super", "fantastic", "incredible", "awesome", "wow"]
 
 	def self.leveling_message(params = {:votes => 0, :ideas => 0})
 		score = self.level_score(params)
@@ -23,6 +23,8 @@ class Visitor < ActiveRecord::Base
 	end
 
 	def self.level_score(params = {:votes => 0, :ideas => 0})
-		(A * params[:votes] + B)**C + (D * params[:ideas] + E)**F
+		score = (A * params[:votes] + B)**C + (D * params[:ideas] + E)**F
+
+		[score, 99].min # only 10 levels
 	end
 end

@@ -45,7 +45,7 @@
         = t('ab_tests.test_stackoverflow.'+ the_choice)
         %span{:id => "close", :style => "float: right; padding-right: 15px; cursor: pointer;"}= "X";
    
-#cant_decide_options
+#cant_decide_options{:style => 'display:none'}
   %h2="I can't decide because..."
   -cd_options= ['like_both','dislike_both', 'dont_know_left', 'dont_know_right','dont_know_both','both_same', 'other']
   -col1, col2 = cd_options.enum_slice((cd_options.size.to_f/2.0).ceil).to_a

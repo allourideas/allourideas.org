@@ -35,7 +35,7 @@ fr:
   footer:
     # Text in the footer of each page
     support: Ce projet est soutenu par des subventions de Google et le PACI (CITP) à l’Université Princeton.
-    open_source: Toutes Nos Idées est un logiciel source ouvetter. N’hésitez pas à revoir, remix, ou de la refonte. En outré vous pouvez utiliser nos API pour créer votre proper site.
+    open_source: Toutes Nos Idées est un logiciel source ouvetter. N'hésitez pas à revoir, remix, refonte, ou de contribuer 
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment

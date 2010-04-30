@@ -35,7 +35,7 @@ es:
   footer:
     # Text in the footer of each page
     support: Este proyecto se apoya con donaciones de Google y CITP de la universidad de Princeton.
-    open_source: Todas nuestras ideas es un paquete de software de codigo abierto.  Favor revisen y rediseñen.  Tambine pueden usar nuestro API para crear su propia pagina de red. 
+    open_source: Todas nuestras ideas es un paquete de software de codigo abierto.  Favor revisen y rediseñen.
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment

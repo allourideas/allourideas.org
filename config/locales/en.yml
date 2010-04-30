@@ -235,7 +235,7 @@ en:
     download: Download
   footer:
     support: This project is supported by grants from Google and CITP at Princeton University.
-    open_source: All Our Ideas is open source software. Feel free to review, remix, or redesign. Also, you can use our API to create your own site.
+    open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.
     logged_in: Logged in
     my_questions: My Questions
   tour:

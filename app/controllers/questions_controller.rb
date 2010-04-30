@@ -261,11 +261,11 @@ end
       jitter[1] = Hash.new(0)
       @choices.each_with_index do |c, i|
 	      point = {}
-	      point[:name] = c.data.strip.gsub("'", "")
+	      point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s
 	      point[:x] = c.score.round
 	      point[:y] = c.attributes['user_created'] ? 1 : 0
 	      if i % 2 == 1
-	        jitter[point[:y]][point[:x]] += 0.03
+	        jitter[point[:y]][point[:x]] += 0.04
 	      end
 	      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
 	      if i % 2 == 0
@@ -277,14 +277,28 @@ end
 	      chart_data << point
       end
       
-      tooltipformatter = "function() { return '<b>' + this.point.name + '</b>: '+ this.x; }"
+      choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
+      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
+                                        var name = splitresult[0];
+					var id = splitresult[1];
+      				        return '<b>' + name + '</b>: '+ this.x; }"
+
+      moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
+                                        var name = splitresult[0];
+					var id = splitresult[1];
+
+					var fake_url= '#{choice_url}';
+					var the_url = fake_url.replace('fakeid',id);
+
+      				        location.href=the_url;}"
       @votes_chart = Highchart.spline({
 	    :chart => { :renderTo => "#{type}-chart-container",
 		    	:margin => [50, 25, 60, 100],
 			:borderColor =>  '#919191',
 			:borderWidth =>  '1',
 			:borderRadius => '0',
-			:backgroundColor => '#FFFFFF'
+			:backgroundColor => '#FFFFFF',
+			:height => '500'
 		      },
 	    :legend => { :enabled => false },
             :title => { :text => t('results.scores_of') + " " + t('results.uploaded_ideas')+ " "+   t('common.and') +  " " + t('results.original_ideas'), 
@@ -294,6 +308,7 @@ end
 				      	   :type => 'linear', 
 					   :title => {:enabled => true, :text => t('common.score').titleize}},
 	    :y_axis => { :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], :max => 1, :min => 0},
+	    :plotOptions => {:scatter => { :point => {:events => {:click => moreinfoclickfn }}}},
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
 			   :color => 'rgba( 49,152,193, .5)',

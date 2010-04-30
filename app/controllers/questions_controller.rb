@@ -972,6 +972,10 @@ end
 
   end
 
+  def about
+      render :layout => false
+  end
+
 
   # 
   # # DELETE /questions/1

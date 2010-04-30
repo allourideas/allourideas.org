@@ -42,6 +42,7 @@ function iframe_loaded(){
 
 jQuery(document).ready(function() {
 	
+  $('a[rel*=facebox]').facebox();
 	//$('label').labelOver('over-apply');
 	
 	// [$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {

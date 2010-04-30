@@ -1,10 +1,10 @@
 .header
   .fleft.clear{:style => "clear:right;"}
     = link_to(image_tag("logo#{'-small' if (@earl && !@earl.logo_file_name.nil?)}.jpg"), root_path, :class => 'logo')
-  .fright
-    %ul
-      %li= link_to(t('nav.home'), root_path, class_for_nav(params, 'index'))
-      /= link_to(t('nav.tour'), tour_path, class_for_nav(params, 'tour'))
-      %li= link_to(t('nav.create'), new_question_path, class_for_nav(params, 'new', 'questions'))
-      %li= link_to(t('nav.about'), about_path, class_for_nav(params, 'about'))
+  -if controller.controller_name == 'home' || (controller.controller_name == 'questions' && controller.action_name == 'new')
+    .fright
+      %ul
+        %li= link_to(t('nav.home'), root_path, class_for_nav(params, 'index'))
+        %li= link_to(t('nav.create'), new_question_path, class_for_nav(params, 'new', 'questions'))
+        %li= link_to(t('nav.about'), about_path, class_for_nav(params, 'about'))
   .clear

@@ -18,7 +18,7 @@ When /^I click the (.*) button$/ do |button_name|
       when "I can't decide"
 	find("#cant_decide_btn").click
       when "I can't decide submit"
-	find("#cant_decide_submit_btn").click
+	find(".cd_submit_button").click
       when "add new idea"
 	find(".add_idea_button").click
       end

@@ -33,10 +33,7 @@ class EarlsController < ApplicationController
 
        logger.info "inside questions#show " + @question.inspect
        @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
-       session[:current_prompt_id] = @question.attributes['picked_prompt_id']
-       session[:appearance_lookup] = @question.attributes['appearance_id']
 
-       #@items = @question.items
        @right_choice_text = @prompt.right_choice_text
        @left_choice_text = @prompt.left_choice_text
        @left_choice_id = @prompt.left_choice_id

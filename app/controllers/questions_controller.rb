@@ -622,8 +622,8 @@ end
     expire_page :action => :results
 
     bingo!("voted")
-    prompt_id = session[:current_prompt_id]
-    appearance_lookup = session[:appearance_lookup]
+    prompt_id = params[:prompt_id]
+    appearance_lookup = params[:appearance_lookup]
     logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
 
@@ -656,12 +656,11 @@ end
 							:ideas => newprompt['visitor_ideas'].to_i)
 
             logger.info "newprompt is #{newprompt.inspect}"
-            session[:current_prompt_id] = newprompt['id']
-            session[:appearance_lookup] = newprompt['appearance_id']
-            #@newprompt = Question.find(params[:id])
             render :json => {:votes => 20, :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
                              :newright => truncate((newprompt['right_choice_text']), :length => 137), 
-			     :leveling_message => leveling_message
+			     :leveling_message => leveling_message,
+			     :prompt_id => newprompt['id'],
+			     :appearance_lookup => newprompt['appearance_id']
                              }.to_json
           else
             render :json => '{"error" : "Vote failed"}'
@@ -682,8 +681,8 @@ end
     
   def skip
     expire_page :action => :results
-    prompt_id = session[:current_prompt_id]
-    appearance_lookup = session[:appearance_lookup]
+    prompt_id = params[:prompt_id]
+    appearance_lookup = params[:appearance_lookup]
     time_viewed = params[:time_viewed]
     reason = params[:cant_decide_reason]
 
@@ -700,18 +699,14 @@ end
        						})
             newprompt = Crack::XML.parse(p.body)['prompt']
 
-	    #leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
-	    #						:ideas => newprompt['visitor_ideas'].to_i)
-            session[:current_prompt_id] = newprompt['id']
-            session[:appearance_lookup] = newprompt['appearance_id']
-
 	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
 							:ideas => newprompt['visitor_ideas'].to_i)
-            #@newprompt = Question.find(params[:id])
             render :json => {:votes => 20, 
 		             :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
 			     :newright => truncate((newprompt['right_choice_text']), :length => 137),
 			     :leveling_message => leveling_message,
+			     :prompt_id => newprompt['id'],
+			     :appearance_lookup => newprompt['appearance_id'],
 			     :message => t('vote.cant_decide_message')}.to_json
           else
             render :json => '{"error" : "Skip failed"}'
@@ -721,8 +716,7 @@ end
     end
 
     def add_idea
-      prompt_id = session[:current_prompt_id]
-      logger.info "Getting ready to add an idea while viewing on Prompt #{prompt_id}, Question #{params[:id]}"
+      logger.info "Getting ready to add an idea while viewing on Question #{params[:id]}"
       bingo!('submitted_idea')
       new_idea_data = params[:new_idea]
       @choice = Choice.new(:data => new_idea_data)

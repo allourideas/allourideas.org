@@ -100,13 +100,17 @@
 	var loser = "<a href='/questions/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") + "'>" + loser_link.html() + "</a>";
 	var winner = "<a href='/questions/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id") + "'>" + winner_link.html() + "</a>";	
 		
+	var prompt_id = $('#prompt_id').val()
+	var appearance_lookup = $('#appearance_lookup').val()
 	$.ajax({
 	   type: "post",
 	   url: '/questions/' + question_id + '/vote_' + winner_side+ '.js' + '?locale=' + the_locale,
 	   dataType: "json",
 	   data: {
 		 'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-		 'time_viewed' : time_viewed
+		 'time_viewed' : time_viewed,
+		 'prompt_id': prompt_id,
+		 'appearance_lookup': appearance_lookup
 		 },
 	   beforeSend: function() {
 	       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
@@ -136,6 +140,8 @@
 		$('.indicator').hide();
 		$('.leftside').html(data["newleft"]);
 		$('.rightside').html(data["newright"]);
+		$('#prompt_id').val(data["prompt_id"]);
+		$('#appearance_lookup').val(data["appearance_lookup"]);
 		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
@@ -193,6 +199,8 @@
 	//$.setFragment({ "page" : $.queryString(this.href).page });
 	$('.tellmearea').html('');
 	$('.indicator').show();
+	var prompt_id = $('#prompt_id').val()
+	var appearance_lookup = $('#appearance_lookup').val()
 	$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
 		        opacity:         0.0,
@@ -203,7 +211,9 @@
 	       {
 	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
 	       'cant_decide_reason' : reason, 
-		'time_viewed' : time_viewed
+		'time_viewed' : time_viewed,
+		'prompt_id': prompt_id,
+		'appearance_lookup': appearance_lookup
 		},
 
 		function(data){
@@ -212,6 +222,8 @@
 			$.unblockUI();
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
+		        $('#prompt_id').val(data["prompt_id"]);
+		        $('#appearance_lookup').val(data["appearance_lookup"]);
 	                //clear the radio buttons somehow?
 		        loadedTime = new Date() //reset loaded time
 			

@@ -23,3 +23,29 @@ When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 		When "I fill in \"#{k}\" with \"#{v}\""
 	end
 end
+
+When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
+	e = Earl.find(url)
+	@question = e.question
+
+	prev_auto_activate = @question.it_should_autoactivate_ideas
+	
+	unless prev_auto_activate
+          @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => true}) 
+	end
+        
+	num_ideas.to_i.times do |n|
+	  the_params = {'auto' => 'test choices', :data => "fake idea : #{n}", :question_id => @question.id}
+          Choice.post(:create_from_abroad, :question_id => @question.id, :params => the_params)
+	end
+
+	unless prev_auto_activate
+          @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => false}) 
+	end
+end
+
+Given /^the default locale for '(.*)' is '(.*)'$/ do |url, locale|
+	e = Earl.find(url)
+	e.default_lang = locale
+	e.save
+end

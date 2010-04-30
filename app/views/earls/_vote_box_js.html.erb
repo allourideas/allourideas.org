@@ -97,8 +97,17 @@
 	var loser_link = $('a#' + loser_side + 'side')
 	var winner_link = $('a#' + winner_side + 'side')
 
-	var loser = "<a href='/questions/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") + "'>" + loser_link.html() + "</a>";
-	var winner = "<a href='/questions/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id") + "'>" + winner_link.html() + "</a>";	
+	var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") 
+        var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id")
+
+	if(the_locale != 'en'){
+	  loser_url += '?locale=' + the_locale;
+	  winner_url += '?locale=' + the_locale;
+	}
+	  
+
+	var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
+	var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
 		
 	var prompt_id = $('#prompt_id').val()
 	var appearance_lookup = $('#appearance_lookup').val()

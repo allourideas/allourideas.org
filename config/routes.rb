@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 			    :delete_logo => :delete }
   map.resources :earls, :only => [:export_list], :collection => {:export_list=> :get}
   map.resources :clicks, :collection => {:export=> :get}
-  map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
+  #map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   map.activate_choice '/:question_id/choices/:id/activate', :controller => 'choices', :action => 'activate'
   map.deactivate_choice '/:question_id/choices/:id/deactivate', :controller => 'choices', :action => 'deactivate'
   map.toggle_choice_status '/questions/:earl_id/choices/:id/toggle.:format', :controller => 'choices', :action => 'toggle', :conditions => { :method => :post }

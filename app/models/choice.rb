@@ -17,11 +17,6 @@ class Choice < ActiveResource::Base
     prefix_options[:question_id]
   end
   
-  def path
-    #puts "inside Choice#path"
-    @earl = Earl.find_by_question_id(self.question_id)
-    "/#{@earl.name}/choices/#{id}"
-  end
   
   def data
     attributes['data']

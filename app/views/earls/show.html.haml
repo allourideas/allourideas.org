@@ -74,6 +74,7 @@
 
 -content_for :view_javascript do
   $.facebox.settings.opacity = 0.5;
+  $('a[rel*=facebox]').facebox();
   $('.rounded').corner('5px');
   -unless session[:has_voted]
     :plain

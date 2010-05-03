@@ -142,13 +142,12 @@ table {
       margin: 0; }
       .header .fright ul li a {
         padding: 5px 20px;
-        color: #919191; }
+        color: #54afe2;}
         .header .fright ul li a:hover {
-          color: #54afe2;
           border-top: 1px dotted #54afe2;
           border-bottom: 1px dotted #54afe2; }
         .header .fright ul li a.down {
-          color: #54afe2; }
+          color: #919191; }
   .header a.logo:hover {
     border: none; }
 

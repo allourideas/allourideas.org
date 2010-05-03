@@ -50,7 +50,7 @@
     $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
-	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]);
+	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
 	  thankyoutext = '<%=t('vote.submit_idea_thankyou')%>';
           $('#new_idea_field').attr('title', thankyoutext);
@@ -61,7 +61,7 @@
         
           if (data['choice_status'] == 'active') {
             current_item_count = $('#item_count').html();
-            $('#item_count').html(increment(current_item_count)).effect("highlight", {}, 1500);
+            $('#item_count').html(increment(current_item_count));
           }
           $('.indicator').hide();
           $.unblockUI();
@@ -153,7 +153,7 @@
 		$('#appearance_lookup').val(data["appearance_lookup"]);
 		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
-		$('#votes_count').html(increment(current_vote_count)).effect("highlight", {}, 1500);
+		$('#votes_count').html(increment(current_vote_count));
 		$.unblockUI();
 		$(".votebox tr.prompt td.idea").each(function(el) {
 		      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {

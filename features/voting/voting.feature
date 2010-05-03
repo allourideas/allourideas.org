@@ -23,7 +23,6 @@ Feature: Voting
       And the vote count should be 1
       And the idea count should be 2 
 
-    @focus
     @selenium
     Scenario: User has two choices and adds a new one
       When I upload an idea titled 'blah blah blah'

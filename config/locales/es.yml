@@ -51,6 +51,7 @@ es:
     submit_idea_thankyou: Gracias.  Su idea ha sido incluida.  Por favor añada más ideas.  
     vote_timeout_error: "Perdon, el proceso de votar esta tomando demasiado tiempo - hay mucho trafico de red!"
     vote_other_error: "Perdon, su voto no fue contado...sucedio un error."
+    view_all_the_results: Ver todos los resultados
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results

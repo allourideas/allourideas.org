@@ -157,6 +157,7 @@ en:
     cd_other: I just can't decide
     cant_decide_message: You couldn't decide. Try choosing between these two!
     over: over
+    view_all_the_results: View all the results
     others_thought: Click to see what others thought.
     submit_idea_default_error: Sorry, blank ideas are not allowed. 
     submit_idea_too_long_error: Sorry, ideas need to be less than 140 characters.

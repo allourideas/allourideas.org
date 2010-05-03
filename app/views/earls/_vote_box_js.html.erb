@@ -50,7 +50,7 @@
     $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
-	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
+	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
 	  thankyoutext = '<%=t('vote.submit_idea_thankyou')%>';
           $('#new_idea_field').attr('title', thankyoutext);
@@ -94,11 +94,12 @@
 
 	var question_id = $(this).attr("rel");
 
-	var loser_link = $('a#' + loser_side + 'side')
-	var winner_link = $('a#' + winner_side + 'side')
+	var loser_link = $('a#' + loser_side + 'side');
+	var winner_link = $('a#' + winner_side + 'side');
 
-	var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id") 
-        var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id")
+	var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id");
+        var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id");
+	
 
 	if(the_locale != 'en'){
 	  loser_url += '?locale=' + the_locale;
@@ -151,7 +152,7 @@
 		$('.rightside').html(data["newright"]);
 		$('#prompt_id').val(data["prompt_id"]);
 		$('#appearance_lookup').val(data["appearance_lookup"]);
-		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
+		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count));
 		$.unblockUI();
@@ -228,7 +229,7 @@
 		},
 
 		function(data){
-		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"]).effect("highlight", {}, 1500);
+		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 			$('.indicator').hide();
 			$.unblockUI();
 			$('.leftside').html(data["newleft"]);

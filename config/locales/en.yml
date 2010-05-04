@@ -156,7 +156,7 @@ en:
     cd_both_same: I think both ideas are the same
     cd_other: I just can't decide
     cd_user_other: "Other:"
-    cant_decide_message: You couldn't decide. Try choosing between these two!
+    cant_decide_message: You couldn't decide.
     over: over
     view_all_the_results: View all the results
     others_thought: Click to see what others thought.

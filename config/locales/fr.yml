@@ -60,7 +60,7 @@ fr:
     cd_both_same: Je pense que les deux idées sont les mêmes
     cd_other: Je ne peux pas décider
     cd_user_other: "Autres:"
-    cant_decide_message: Vous ne pouvez pas décider. Essayez de choisir entre ces deux!
+    cant_decide_message: Vous ne pouvez pas décider.
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results

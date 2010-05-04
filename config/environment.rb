@@ -59,9 +59,8 @@ Rails::Initializer.run do |config|
     :version => '1.5.1'
     
 
-  config.gem  'jodosha-redis-store',
-    :source => 'http://gems.github.com',
-    :lib => 'redis-store'
+  config.gem  'redis-store',
+    :version => '0.3.7'
   config.gem 'redis'
 
   config.gem 'geoip_city'

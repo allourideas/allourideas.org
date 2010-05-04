@@ -62,6 +62,7 @@ Rails::Initializer.run do |config|
   config.gem  'redis-store',
     :version => '0.3.7'
   config.gem 'redis'
+    :version => '1.0.7'
 
   config.gem 'geoip_city'
   config.gem 'geokit'

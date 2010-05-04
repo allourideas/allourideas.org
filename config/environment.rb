@@ -58,13 +58,11 @@ Rails::Initializer.run do |config|
     :lib     => 'fastercsv',
     :version => '1.5.1'
     
-  config.gem "ezmobius-redis-rb",
-    :lib => false,
-    :source  => 'http://gems.github.com'
 
   config.gem  'jodosha-redis-store',
     :source => 'http://gems.github.com',
     :lib => 'redis-store'
+  config.gem 'redis'
 
   config.gem 'geoip_city'
   config.gem 'geokit'

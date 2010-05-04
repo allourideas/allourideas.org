@@ -51,9 +51,6 @@ Rails::Initializer.run do |config|
     :lib     => 'clearance', 
     :source  => 'http://gems.github.com', 
     :version => '0.8.2'
-  config.gem "activemerchant",
-    :lib     => 'active_merchant',
-    :version => '1.4.2'
   config.gem "fastercsv",
     :lib     => 'fastercsv',
     :version => '1.5.1'
@@ -61,8 +58,12 @@ Rails::Initializer.run do |config|
 
   config.gem  'redis-store',
     :version => '0.3.7'
-  config.gem 'redis',
-    :version => '1.0.7'
+  #config.gem 'redis',
+  #  :version => '1.0.7'
+
+  config.gem "ezmobius-redis-rb",
+    :lib => false,
+    :source  => 'http://gems.github.com'
 
   config.gem 'geoip_city'
   config.gem 'geokit'

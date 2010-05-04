@@ -201,6 +201,11 @@
 	  alert("You must select a reason");
 	  return -1;
 	}
+
+	if(reason == 'user_other'){
+	   reason += ":" + $('#facebox input[name=reason_text]').val()
+	}
+
 	
 	jQuery(document).trigger('close.facebox')
 	

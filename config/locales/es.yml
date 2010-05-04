@@ -44,7 +44,6 @@ es:
     you_chose: Escojiste
     you_skipped_both: You skipped
     skip: Omitir
-    cant_decide: "No puedo decidir"
     over: sobre
     submit_idea_default_error: Perdon, idéas vacias no son permitidas. 
     submit_idea_too_long_error: Perdon, idéas necesitan ser menos de 140 caracteres. 
@@ -52,6 +51,16 @@ es:
     vote_timeout_error: "Perdon, el proceso de votar esta tomando demasiado tiempo - hay mucho trafico de red!"
     vote_other_error: "Perdon, su voto no fue contado...sucedio un error."
     view_all_the_results: Ver todos los resultados
+    cant_decide: No puedo decidir
+    cd_like_both: Me gustan las dos ideas
+    cd_dislike_both: No me gusta ni idea
+    cd_dont_know_left: "No sé lo suficiente sobre:"
+    cd_dont_know_right: "No sé lo suficiente sobre:"
+    cd_dont_know_both: No sé lo suficiente sobre ambas ideas 
+    cd_both_same: Creo que ambas ideas son las mismas
+    cd_other: Simplemente no puedo decidir
+    cd_user_other: "Otros:"
+    cant_decide_message: No se podría decidir. Trate de elegir entre estos dos!
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
@@ -76,6 +85,16 @@ es:
     no_data_error: "no se puede construir un gráfico, no hay datos"
     overall_total: "Total"
     vote_map_geo_error: "No se puede se puede ubicar"
+  about_page: 
+    intro: Estás participando en un mercado "idea" que permite a los grupos para recoger y dar prioridad a las ideas en un proceso democrático, abierto y eficiente. Mediante la combinación de un proceso de votación simple con carga abierto de ideas, las mejores ideas de su grupo saldrán a la parte superior. 
+    how_many_votes_q: ¿Cuántos votos emitidos puedo? Cuando se termina?
+    how_many_votes_exp: Puedes votar tan poco o tanto como usted desee, y podrá dejar de votar en cualquier momento. 
+    how_many_ideas_q: ¿Cuántas ideas se puede añadir? ¿Qué sucede con mi idea una vez que lo agregue? 
+    how_many_ideas_exp: Usted puede agregar tantas ideas como las tuyas. Una vez que una idea se añade, puede ser revisada por la persona que creó el mercado idea para asegurarse de que no es inapropiado. Una vez que la idea ha sido revisado, que comenzarán a aparecer a las personas a votar en ella. 
+    view_results_q: ¿Puedo ver lo que piensen los demás? 
+    view_results_exp: Sí, simplemente haga clic en "Ver resultados" en la pantalla de votación. Este proceso es totalmente transparente. 
+    make_my_own_q: Este es limpio. ¿Puedo hacer una de esas yo mismo? 
+    make_my_own_exp: "Claro que sí. Es fácil de configurar su mercado propia idea, y es totalmente gratuita gracias a nuestros subvenciones de Google y el Centro de Tecnologías de la Información Política de la Universidad de Princeton. Usted puede crear su propia idea mercado aquí: http://www.allourideas.org/questions/new."
   user:
     # User information that appears in a few places, most importantly the footer
     email: Correo electronico

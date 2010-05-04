@@ -44,7 +44,7 @@ fr:
     you_chose: vous avez choisi
     you_skipped_both: vous vous avez sauté les deux
     skip: Eviter
-    cant_decide: "je ne peux pas decider"
+    cant_decide: "Je ne peux pas decider"
     over: plus de
     submit_idea_default_error: Désolé, les idées vierges ne sont pas autorisées
     submit_idea_too_long_error: Désolé, il faut moins de 140 caractères.
@@ -52,6 +52,15 @@ fr:
     vote_timeout_error: "Désolé, le vote prend trop longtemps…trop de traffic"
     vote_other_error: Désolé, votre vote n’a pas été cpmpté 
     view_all_the_results: Voir tous les résultats
+    cd_like_both: J'aime les deux idées
+    cd_dislike_both: Je n'aime pas l'idée soit
+    cd_dont_know_left: "Je ne connais pas assez:"
+    cd_dont_know_right: "Je ne connais pas assez:"
+    cd_dont_know_both:  Je ne sais pas assez sur les deux idées
+    cd_both_same: Je pense que les deux idées sont les mêmes
+    cd_other: Je ne peux pas décider
+    cd_user_other: "Autres:"
+    cant_decide_message: Vous ne pouvez pas décider. Essayez de choisir entre ces deux!
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results
@@ -76,6 +85,16 @@ fr:
     no_data_error: "impossible de faire des cartes, pas de données"
     overall_total: "Total dans l’ensemble - " 
     vote_map_geo_error: "Nous n’avons pas pu trouver l’emplacement du "
+  about_page: 
+    intro: Vous participez à un "marché idée" qui permet aux groupes de recueillir des idées et établir des priorités dans un processus démocratique, ouverte et efficace. En combinant un processus de vote simple avec le téléchargement d'idées, les meilleures idées dans le groupe fera des bulles vers le haut.
+    how_many_votes_q: Combien de votes exprimés puis-je? Quand finit-elle? 
+    how_many_votes_exp: Vous pouvez voter que peu ou autant que vous le souhaitez, et vous pouvez arrêter de vote à tout moment.
+    how_many_ideas_q: Combien d'idées que je peux ajouter? Qu'advient-il de mon idée une fois que je l'ajouter?
+    how_many_ideas_exp: Vous pouvez ajouter autant d'idées que vous avez. Une fois qu'une idée est ajouté, il peut être examiné par la personne qui a créé le marché idée afin d'assurer qu'il n'est pas inapproprié. Une fois que l'idée a été examiné, il commencera à apparaître pour les gens de voter.
+    view_results_q: Puis-je voir ce que tout le monde pense?
+    view_results_exp: Oui, il suffit de cliquer sur "Afficher les résultats" de l'isoloir. Ce processus est complètement transparent.
+    make_my_own_q: Ceci est soignée. Puis-je faire un de ces moi-même?
+    make_my_own_exp: "Bien sûr. Il est facile de configurer votre propre idée du marché, et il est offert gratuitement à notre Merci subventions de Google et le Centre de technologie de l'information politique à l'Université Princeton. Vous pouvez créer votre propre idée du marché ici: http://www.allourideas.org/questions/new"
   user:
     # User information that appears in a few places, most importantly the footer
     email: Courrier électronique

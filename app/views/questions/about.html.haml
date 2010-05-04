@@ -1,12 +1,15 @@
-%h2 What the purpose of this site?
-%p
-Blah blah blah blah
-%h2 When does it all end?
-%p
-Blah blah blah blah
-%h2 What's the deal with pairwise comparisons?
-%p
-Blah blah blah blah
-%h2 How can I contribute?
-%p
-More blah
+.aboutpage{:style => 'width:500px'}
+  %p=t('about_page.intro')
+
+  %h2="1) " + t('about_page.how_many_votes_q')
+  %p= t('about_page.how_many_votes_exp')
+    
+  %h2="2) " + t('about_page.how_many_ideas_q')
+  %p=t('about_page.how_many_ideas_exp')
+
+  %h2="3) " + t('about_page.view_results_q') 
+  %p= t('about_page.view_results_exp')
+
+  %h2="4) " + t('about_page.make_my_own_q')
+  %p=t('about_page.make_my_own_exp')
+    

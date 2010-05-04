@@ -23,7 +23,7 @@ Feature: I Can't Decide
 		When I click the I can't decide button
 		And I pick "I like both ideas"
 		And I click the I can't decide submit button
-		Then I should see "You couldn't decide. Try choosing between these two!" within ".tellmearea"
+		Then I should see "You couldn't decide." within ".tellmearea"
 		And the vote count should be 0
 
 	@selenium

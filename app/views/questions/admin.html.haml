@@ -128,6 +128,7 @@
   $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});
   $('.tablesorter thead tr th').hover(function() { $(this).addClass("headerOver"); } , function() { $(this).removeClass("headerOver"); });
   $('a[rel*=facebox]').facebox();
+  $('#facebox').draggable();
   $('#passfield').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_default_lang').change(function(){ $('#savebutton').addClass("active")});

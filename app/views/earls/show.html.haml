@@ -76,6 +76,7 @@
   $.facebox.settings.opacity = 0.5;
   $('a[rel*=facebox]').facebox();
   $('.rounded').corner('5px');
+  $('#facebox').draggable();
   -unless session[:has_voted]
     :plain
       $('.firsttime').fadeIn(2000)

@@ -28,6 +28,5 @@ Feature: Voting
       When I upload an idea titled 'blah blah blah'
       Then I should see "You just added an idea for people to vote on: blah blah blah" within ".tellmearea"
       Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
-      And the notification in the tell me area should not contain links
       And the vote count should be 0
       And the idea count should be 2

@@ -12,11 +12,11 @@ Feature: I Can't Decide
 		When I click the I can't decide button
 		Then I should see "I like both ideas"
 		And I should see "I don't like either idea"
-		And I should see "I don't know enough about [left idea]"
-		And I should see "I don't know enough about [right idea]"
+		And I should see "I don't know enough about:"
 		And I should see "I don't know enough about both ideas"
 		And I should see "I think both ideas are the same"
 		And I should see "I just can't decide"
+		And I should see "Other"
 
 	@selenium
 	Scenario: User chooses i can't decide

@@ -68,11 +68,12 @@ class QuestionsController < ApplicationController
     logger.info "@question is #{@question.inspect}."
     logger.info "@earl is #{@earl.inspect}."
     @partial_results_url = "#{@earl.name}/results"
+
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
     logger.info "First choice is #{@choices.first.inspect}"
 
      
-end
+  end
 
   def word_cloud
      @earl = Earl.find params[:id]
@@ -1031,25 +1032,30 @@ end
 
     @earl = Earl.find params[:id]
     unless ((current_user.owns?(@earl)) || current_user.admin? )
-       flash[:notice] = "You are not authorized to export data"
-       redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
+       response = "You are not authorized to export data from this idea marketplace, please contact us at info@allouridea.org if you think this is a mistake"
+       render :text => response and return
     end
+
     @question = Question.find_by_name(params[:id])
 
-    case params[:type]
-       when "votes" then 
-	   outfile = "ideamarketplace_#{@question.id}_votes_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-	   post_response = @question.post(:export, :type => :votes)
-	   csv_data = post_response.body
-       when "items"  then 
-	   outfile = "ideamarketplace_#{@question.id}_ideas_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-	   post_response = @question.post(:export, :type => :items)
-	   csv_data = post_response.body
+    #creates delayed job that: sends request to pairwise, waits for response from pairwise, 
+    #  does some work to add ip address and click information to csv file, store in public/
+    #  create delayed job to delete file in 3 days, sends email to user with link
+   
+    if params[:type].nil?
+	    render :text => "An error has occured! Please try again later." and return
+    else
+       @earl.send_later :export_and_notify, :type => params[:type], :email => current_user.email
     end
+      
+    
+    
+    response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are." 
 
-    send_data(csv_data,
-        :type => 'text/csv; charset=iso-8859-1; header=present',
-        :disposition => "attachment; filename=#{outfile}")
+    render :text => response
+    #send_data(csv_data,
+    #    :type => 'text/csv; charset=iso-8859-1; header=present',
+    #    :disposition => "attachment; filename=#{outfile}")
 
   end
 

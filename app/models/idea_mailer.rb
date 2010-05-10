@@ -39,10 +39,19 @@ class IdeaMailer < ActionMailer::Base
     @body[:question] = question
     @body[:information] = information
   end
+
+  def export_data_ready(email, link)
+     setup_email(nil)
+     @recipients  = email
+     @subject += "Data export ready"
+     @body[:url] = link
+  end
   
   protected
     def setup_email(user)
-      @recipients  = user.email
+      if user
+        @recipients  = user.email
+      end
       @from        = "info@allourideas.org"
       @subject     = "[All Our Ideas] "
       @sent_on     = Time.now

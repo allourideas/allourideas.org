@@ -98,12 +98,17 @@
       %td &nbsp;
       %td
         =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-        = link_to('[' + t('admin.download') + ']', :action => :export, :params => {:type => :items})
+        = link_to('[' + t('admin.download') + ']', {:action => :export, :params => {:type => :items}}, :rel => 'facebox')
     %tr.row2
       %td.title= t('admin.list_of_votes_csv') 
       %td &nbsp;
       %td
-        = link_to('[' + t('admin.download') + ']', :action => :export, :params => {:type => :votes})
+        = link_to('[' + t('admin.download') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox')
+    %tr.row1
+      %td.title= t('admin.list_of_skips_csv') 
+      %td &nbsp;
+      %td
+        = link_to('[' + t('admin.download') + ']', {:action => :export, :params => {:type => :skips}}, :rel => 'facebox')
       
     
   #explanation{:style => 'display:none;'}

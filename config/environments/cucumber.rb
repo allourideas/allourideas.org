@@ -38,6 +38,7 @@ API_HOST = "http://localhost:4000"
 #
 PAIRWISE_USERNAME = "testing@dkapadia.com"
 PAIRWISE_PASSWORD = "wheatthins"
+IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on stored ip address hashes
 
 require 'redis-store'
 #use a different redis store for testing

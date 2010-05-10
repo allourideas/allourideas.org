@@ -54,6 +54,10 @@ class Question < ActiveResource::Base
   def it_should_autoactivate_ideas
       attributes['it_should_autoactivate_ideas']
   end
+
+  def testmethod
+	  puts "TEST METHOD"
+  end
   
   def validate_me
     #errors = []
@@ -95,7 +99,7 @@ class Question < ActiveResource::Base
     # ideas
     # email
   end
-  
+
   # 
   # def items_url
   #   Item.collection_path(:question_id => self.id)

@@ -20,6 +20,8 @@ module NavigationHelpers
 	"/"+ $1
     when /the View Results page for '([^'].*)'/i
 	"/"+ $1 + "/results"
+    when /the Admin page for '([^'].*)'/i
+	"/"+ $1 + "/admin"
     # Add more page name => path mappings here
 
     else

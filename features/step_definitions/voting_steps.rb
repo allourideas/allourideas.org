@@ -18,6 +18,7 @@ When /^I click the (.*) button$/ do |button_name|
       when "I can't decide"
 	find("#cant_decide_btn").click
       when "I can't decide submit"
+        page.evaluate_script('window.alert = function() { return true; }')
 	find(".cd_submit_button").click
       when "add new idea"
 	find(".add_idea_button").click
@@ -56,6 +57,7 @@ end
 
 
 Then /^I should see a javascript alert$/ do
+
 	Capybara.driver.is_alert_present.should be_true
 end
 

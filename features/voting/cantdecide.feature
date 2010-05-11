@@ -31,7 +31,6 @@ Feature: I Can't Decide
 		When I click the I can't decide button
 		And I click the I can't decide submit button
 		Then I should not see "You couldn't decide. Try choosing between these two!"
-		#And I should see a javascript alert
 		
 
 	Scenario: User reloads page to try to skip

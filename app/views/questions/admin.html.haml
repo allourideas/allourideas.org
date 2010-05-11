@@ -98,17 +98,17 @@
       %td &nbsp;
       %td
         =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-        = link_to('[' + t('admin.download') + ']', {:action => :export, :params => {:type => :items}}, :rel => 'facebox')
+        = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :rel => 'facebox', :id => 'ideas_request_link')
     %tr.row2
       %td.title= t('admin.list_of_votes_csv') 
       %td &nbsp;
       %td
-        = link_to('[' + t('admin.download') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox')
+        = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox',:id => 'votes_request_link')
     %tr.row1
-      %td.title= t('admin.list_of_skips_csv') 
+      %td.title= t('admin.list_of_non_votes_csv') 
       %td &nbsp;
       %td
-        = link_to('[' + t('admin.download') + ']', {:action => :export, :params => {:type => :skips}}, :rel => 'facebox')
+        = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
       
     
   #explanation{:style => 'display:none;'}

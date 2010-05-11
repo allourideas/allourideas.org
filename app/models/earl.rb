@@ -32,9 +32,12 @@ class Earl < ActiveRecord::Base
   def export_and_notify(options = {})
 
 	  @question = self.question
-	  num_slugs = self.slugs.size
 	  type = options[:type]
 	  email = options[:email]
+
+	  # delayed job doesn't like passing the user as parameter
+	  # so we do this manually
+	  current_user = User.find_by_email(email)
 
 	  r = Redis.new
 
@@ -55,23 +58,27 @@ class Earl < ActiveRecord::Base
 	  @sessions = {}
 	  @url_alias = {}
 
+	  num_slugs = self.slugs.size
 	  FasterCSV.open(dest_filename, "w") do |csv|
 		  FasterCSV.foreach(source_filename, {:headers => :first_row, :return_headers => true}) do |row|
 
 			  if row.header_row?
 				  case type
-				  when "votes"
+				  when "votes", "non_votes"
 					  #We need this to look up SessionInfos, but the user doesn't need to see it
 					  row.delete('Session Identifier')
 
 					  row << ['Hashed IP Address', 'Hashed IP Address']
 					  row << ['URL Alias', 'URL Alias']
-					  row << ['Geolocation Info', 'Geolocation Info']
+					  if current_user.admin?
+					     row << ['Geolocation Info', 'Geolocation Info']
+					  end
 				  end
 			          csv << row
 		          else
 			     case type
-			     when "votes"
+			     when "votes", "non_votes"
+
 			       sid = row['Session Identifier']
 			       row.delete('Session Identifier')
 
@@ -81,31 +88,35 @@ class Earl < ActiveRecord::Base
 				 @sessions[sid] = user_session
 			       end
 
-			       # Some marketplaces can be accessed via more than one url
-			       if num_slugs > 1
-			          url_alias = @url_alias[sid]
+			       unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
+				       # Some marketplaces can be accessed via more than one url
+				       if num_slugs > 1
+					       url_alias = @url_alias[sid]
 
-				  if url_alias.nil?
-					  max = 0
-					  self.slugs.each do |slug|
-						  num = user_session.clicks.count(:conditions => ['url like ?', '%' + slug.name + '%' ])
+					       if url_alias.nil?
+						       max = 0
+						       self.slugs.each do |slug|
+							       num = user_session.clicks.count(:conditions => ['url like ?', '%' + slug.name + '%' ])
 
-						  if num > max
-							  url_alias = slug.name
-							  max = num
-						  end
-					  end
+							       if num > max
+								       url_alias = slug.name
+								       max = num
+							       end
+						       end
 
-					  @url_alias[sid] = url_alias
-				  end
-				else
-					  url_alias = self.name
-				end
+						       @url_alias[sid] = url_alias
+					       end
+				       else
+					       url_alias = self.name
+				       end
 
 
-			       row << ['Hashed IP Address', Digest::MD5.hexdigest(user_session.ip_addr + IP_ADDR_HASH_SALT)]
-			       row << ['URL Alias', url_alias]
-			       row << ['Geolocation Info', user_session.loc_info.to_s]
+				       row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, IP_ADDR_HASH_SALT].join(""))]
+				       row << ['URL Alias', url_alias]
+				       if current_user.admin?
+				         row << ['Geolocation Info', user_session.loc_info.to_s]
+				       end
+			       end
 			     end
 			     csv << row
 

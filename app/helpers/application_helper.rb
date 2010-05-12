@@ -41,10 +41,6 @@ module ApplicationHelper
   #    @current_user ||= auto_create_user!
   # end
   
-  # def auto_create_user!
-  #   @autouser ||= RemoteUser.auto_create_user_object_from_sid(request.session_options[:id])
-  # end
-
   def log_or_new_path
     user_set? ? new_question_path : new_user_path
   end

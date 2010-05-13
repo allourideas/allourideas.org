@@ -30,7 +30,15 @@ Feature: I Can't Decide
 	Scenario: User does not enter a choice
 		When I click the I can't decide button
 		And I click the I can't decide submit button
-		Then I should not see "You couldn't decide. Try choosing between these two!"
+		Then I should not see "You couldn't decide." within ".tellmearea"
+	
+	@focus
+	@selenium
+	Scenario: User selects 'Other' but does not type in an answer
+		When I click the I can't decide button
+		And I pick "Other"
+		And I click the I can't decide submit button
+		Then I should not see "You couldn't decide." within ".tellmearea"
 		
 
 	Scenario: User reloads page to try to skip

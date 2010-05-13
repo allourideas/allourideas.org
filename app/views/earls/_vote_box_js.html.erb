@@ -203,7 +203,12 @@
 	}
 
 	if(reason == 'user_other'){
-	   reason += ":" + $('#facebox input[name=reason_text]').val()
+	   user_text = $('#facebox input[name=reason_text]').val()
+	   if(!user_text){
+	      alert("You must include an explanation");
+	      return -1;
+	   }
+	   reason += ":" + user_text;
 	}
 
 	

@@ -25,8 +25,13 @@ When /^I click the (.*) button$/ do |button_name|
       end
 end
 
-When /^I pick "I like both ideas"$/ do
-	When "I choose \"cant_decide_reason_like_both\""
+When /^I pick "(.*)"$/ do |radio_label|
+	case radio_label 
+	when "I like both ideas"
+           When "I choose \"cant_decide_reason_like_both\""
+	when "Other"
+           When "I choose \"cant_decide_reason_user_other\""
+	end
 end
 
 When /^I vote (\d*) times$/ do |num_votes|

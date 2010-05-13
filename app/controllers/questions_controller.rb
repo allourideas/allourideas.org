@@ -960,7 +960,7 @@ class QuestionsController < ApplicationController
 	  if params[:question]['information'] != ""
 		  ::IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information'])
 	  end
-          format.html { redirect_to(@question.earl + "?just_created=true") }
+          format.html { redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')}
           format.xml  { render :xml => @question, :status => :created, :location => @question }
         else
           logger.info "Question was not successfully created."

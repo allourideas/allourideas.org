@@ -14,7 +14,7 @@
   %table.vote-footer
     %tr
       %td &nbsp; 
-      %td#cd_button.rounded=link_to(t('vote.cant_decide'), {:anchor => "cant_decide_options"}, :id => "cant_decide_btn", :rel => 'facebox[.wider]')
+      %td#cd_button.rounded=link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :rel => 'facebox[.wider]')
       - ab_test(@ab_test_name, %w{sixteen_pixel_font twelve_pixel_font}, :conversion => 'voted') do |theClass|
         %td{:class => theClass}
           ="<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"

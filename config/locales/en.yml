@@ -275,9 +275,8 @@ en:
         make_your_choice: Make your choice and see what comes next
         please_click: Please click on your choice
      test_ideasubmit:
-        control: Add your idea here!
-        make_sure_your_voice: "Make sure your voice is heard: add your idea here!" 
-        contribute_to_the_community: "Contribute to the community: add your idea here!"
+        make_your_voice_heard: "Make your voice heard"
+        help_your_community: "Help your community"
      test_stackoverflow:
         first_time: First time here? Click on the choice you like more to start voting!
         no_first_time: Click on the choice you like more to start voting!

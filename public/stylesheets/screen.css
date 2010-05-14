@@ -496,14 +496,24 @@ background-color: #8dbdd8;
 
 #cd_button{
    background: #C5C5C5;
-   width: 12%; }
+   width: 17%; }
   #cd_button a{
    color: #FFFFFF;
    display:block;
    font-size: 16px;}
   #cd_button:hover {
    background-color: #B1B1B1;
+  }
 
+#cd_button_fr{
+   background: #C5C5C5;
+   width: 21%; }
+  #cd_button_fr a{
+   color: #FFFFFF;
+   display:block;
+   font-size: 16px;}
+  #cd_button_fr:hover {
+   background-color: #B1B1B1;
   }
 
 .cd_submit_button{
@@ -521,7 +531,10 @@ background-color: #8dbdd8;
   }
  .add_idea .add_idea_button{
   padding: 5px 10px 5px 10px;
-  width: 35%;
+  width: 265px;
+  height: 3em;
+  display: table-cell;
+  vertical-align: middle;
   color: #FFFFFF;
   font-size:16px;
   cursor: pointer;

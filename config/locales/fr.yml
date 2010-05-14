@@ -18,6 +18,7 @@ fr:
     about: A propos de
     create: pour créer
     view_results: Voir les resultants
+    about_this_page: À propos de cette page
     manage_question: Gérer cette page
     see_all_ideas: Voir plus…
     make_your_own: Créer votre propre question
@@ -40,6 +41,7 @@ fr:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment
     add_your_idea: Ajouter votre idée ici…
+    add_your_idea_button: Ajouter votre propre idée
     cast_votes: Nombre de Votants
     you_chose: vous avez choisi
     you_skipped_both: vous vous avez sauté les deux
@@ -113,9 +115,8 @@ fr:
      test_ideasubmit:
         # This text appears inside the idea submit text box 
         # For example: FR-http://www.allourideas.org/studentgovernment
-        control: Ajouter votre idée ici!
-        make_sure_your_voice: "Assurez-vous que votre voix est entendue: Ajouter votre idée ici"
-        contribute_to_the_community: "Contribuer à la communauté: Ajouter votre idée ici"
+        make_your_voice_heard: Faites entendre votre voix
+        help_your_community: Aidez votre communauté
      test_stackoverflow:
         first_time: Première fois ici? Cliquez sur le choix que vous voulez plus de commencer à voter.
         no_first_time: Cliquez sur le choix que vous voulez plus de commencer à voter.

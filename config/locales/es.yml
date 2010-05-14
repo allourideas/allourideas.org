@@ -56,7 +56,7 @@ es:
     cd_dislike_both: No me gusta ni idea
     cd_dont_know_left: "No sé lo suficiente sobre:"
     cd_dont_know_right: "No sé lo suficiente sobre:"
-    cd_dont_know_both: No sé lo suficiente sobre ambas ideas 
+    cd_dont_know_both: No sé lo suficiente sobre cualquier idea
     cd_both_same: Creo que ambas ideas son las mismas
     cd_other: Simplemente no puedo decidir
     cd_user_other: "Otros:"

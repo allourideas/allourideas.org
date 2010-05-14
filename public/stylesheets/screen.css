@@ -486,6 +486,9 @@ background-color: #8dbdd8;
 	color: #000000;} 
   .wider td{
 	  padding: 5px !important}
+  .wider tr.no_padding{
+	  padding-top: 0px !important;
+	  vertical-align: top}
   .wider h2{
 	font-weight: bold;
 	color: #3198c1}
@@ -523,9 +526,10 @@ background-color: #8dbdd8;
   font-size:16px;
   cursor: pointer;
   background: #01bb00;}
+ .add_idea .add_idea_button a{
+         color: #FFFFFF;}
  .add_idea .add_idea_button:hover {
-	 background: #228b53;
- }
+	 background: #228b53;}
  
 
 #facebox {

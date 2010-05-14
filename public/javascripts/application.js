@@ -128,14 +128,6 @@ jQuery(document).ready(function() {
 	 //      setTimeout(function() { $("#length_error").fadeOut(1000); }, 3000);
 	 //    }
 	 //  });
-	  $("#submit_btn").bind("mouseover", function() {
-	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace("submit.jpg", "submit-down.jpg"));
-	  });
-	  $("#submit_btn").bind("mouseout", function() {
-	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace("submit-down.jpg", "submit.jpg"));
-	  });
 
 	  // $("#submit_btn").bind("mousedown", function() {
 	  //   var str = $(this).attr("src");

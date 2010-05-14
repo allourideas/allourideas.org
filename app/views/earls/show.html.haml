@@ -25,6 +25,7 @@
     %br
     #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
     .tellmearea
+      -# TODO delete this section, not being used
       -if @winner
         -if @skip
           == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
@@ -61,7 +62,7 @@
           -if col2[index] == 'user_other'
             =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
         - if choice == 'dont_know_left' 
-          %tr
+          %tr.no_padding
             %td &nbsp;
             %td
               %i.leftside= @left_choice_text

@@ -45,7 +45,9 @@ class Earl < ActiveRecord::Base
 
 	  @question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
 
-	  thekey, source_filename = r.blpop(redis_key, "0")
+	  thekey, source_filename = r.blpop(redis_key, (60*60*3).to_s) #Timeout after 3 hours
+
+	  r.del(redis_key) # client is responsible for deleting key
 
 
 	  dest_filename= File.join(File.expand_path(Rails.root), "public", "system", "exports", 

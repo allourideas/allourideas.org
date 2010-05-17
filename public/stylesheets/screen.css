@@ -486,7 +486,10 @@ background-color: #8dbdd8;
 	color: #000000;} 
   .wider td{
 	  padding: 5px !important}
-  .wider tr.no_padding{
+
+  .wider td.no_bottom_padding{
+	  padding-bottom: 0px !important;}
+  .wider td.no_top_padding{
 	  padding-top: 0px !important;
 	  vertical-align: top}
   .wider h2{

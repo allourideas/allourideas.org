@@ -54,22 +54,28 @@
   %table
     -col1.each_with_index do |choice, index|
       %tr
-        %td=radio_button_tag "cant_decide_reason", choice.to_s, false
-        %td
+        -if choice == 'dont_know_left'
+          -padding_class = 'no_bottom_padding'
+        -else
+          -padding_class = ""
+        %td{:class => padding_class}
+          =radio_button_tag "cant_decide_reason", choice.to_s, false
+        %td{:class => padding_class}
           =t('vote.cd_'+choice)
-        %td=radio_button_tag "cant_decide_reason", col2[index].to_s, false
-        %td
+        %td{:class => padding_class}
+          =radio_button_tag "cant_decide_reason", col2[index].to_s, false
+        %td{:class => padding_class}
           =t('vote.cd_'+col2[index])
           -if col2[index] == 'user_other'
             =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
         - if choice == 'dont_know_left' 
-          %tr.no_padding
-            %td &nbsp;
-            %td
+          %tr
+            %td.no_top_padding &nbsp;
+            %td.no_top_padding
               %i.leftside= @left_choice_text
             -if col2[index] == 'dont_know_right'
-              %td &nbsp;
-              %td
+              %td.no_top_padding &nbsp;
+              %td.no_top_padding
                 %i.rightside=@right_choice_text
   %br
   .fleft

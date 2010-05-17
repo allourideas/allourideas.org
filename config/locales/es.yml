@@ -29,7 +29,7 @@ es:
     idea: Idea
     score: Resultados
     added_on: Añadido
-    number_of_votes: Nœmero de votos
+    number_of_votes: Número de votos
     about_scoring: Sobre el método de obtener resultados
     score_explain: El puntaje de una idea resulta de la probabilidad estimada de que dicha idea puede ganarle a una idea escogida al azar.  Por ejemplo, un puntaje de 100 predice que la idea va a ganar cada vez y un puntaje de 0 predice que la idea va a ser vencida cada vez.
     you_just_submitted: Acabas de añadir una idea para votar
@@ -69,9 +69,9 @@ es:
     data_visualizations: Visualizaciónes de datos
     world_map_title: Mapa mundial de todos los votos
     world_map_ideas_title: Mapa mundia de todas las ideas cargadas en el sistema
-    votes_over_time_title: El nœmero de votos a través del tiempo
-    user_ideas_over_time_title: El nœmero de ideas sometidas a través del tiempo
-    user_sessions_over_time_title: El nœmero de sesiones de usuario œnico por día
+    votes_over_time_title: El número de votos a través del tiempo
+    user_ideas_over_time_title: El número de ideas sometidas a través del tiempo
+    user_sessions_over_time_title: El número de sesiones de usuario œnico por día
     word_cloud_ideas_title: Nube-palabra de ideas
     word_cloud_weighted_title: Nube-palabra de ideas evaluada por peso ponderado
     word_cloud_uploaded_title: Nube-palabra de ideas cargadas
@@ -85,7 +85,7 @@ es:
     scores_of: Resultados de
     view_link: "[Revise]"
     per_day: " por día"
-    number_of: "Nœmero de"
+    number_of: "Número de"
     no_data_error: "No se puede construir un gráfico, no hay datos"
     overall_total: "Total"
     vote_map_geo_error: "No se pudo ubicar la localización de"

@@ -2,63 +2,63 @@ es:
   common:
    # Common text elements across the application
    and: y
-   votes_on: vota sobre
-   items: idéas
-   ideas: idéas
-   title: Todas nuestras idéas - una caja de sugerencias para la nueva epoca digital 
-   characters: characteres
-   idea_marketplace: Un Mercado de ideas
+   votes_on: votos en
+   items: ideas
+   ideas: ideas
+   title: Todas nuestras ideas - un buzón de sugerencias para la nueva época digital 
+   characters: caracteres
+   idea_marketplace: Un Mercado de Ideas
    votes: Votos
    user_sessions: Sesiones de usuario
    score: Resultados
   nav:
     # Navigation elements used at top right throughout site
     # Some elements found just above choices on voting page
-    home: Home
-    about: About
+    home: Inicio
+    about: Acerca
     create: Crear
     view_results: Ver Resultados
     about_this_page: Acerca de esta página
     manage_question: Manejar esta pagina
     see_all_ideas: Ver más...
     make_your_own: Crear su propia pregunta
-    view_idea: Ver idéa
+    view_idea: Ver idea
   items:
     # Text on the item detail view page: 
     # For example: http://www.allourideas.org/studentgovernment/choices/68
-    idea: Idéa
+    idea: Idea
     score: Resultados
     added_on: Añadido
-    number_of_votes: Numero de votos
-    about_scoring: Sobre el metodo de obtener resultados
-    score_explain: El resultado de una idéa viene de la oportunidad estimada que podria ganar en vez de una idea aleatoria.  Por ejemplo, un resultado de 100 signfiica que la idea esta predecida a ganar cada vez y un resultado de 0 significa que la idea esta predecida a ser vencida cada vez.
+    number_of_votes: Nœmero de votos
+    about_scoring: Sobre el método de obtener resultados
+    score_explain: El puntaje de una idea resulta de la probabilidad estimada de que dicha idea puede ganarle a una idea escogida al azar.  Por ejemplo, un puntaje de 100 predice que la idea va a ganar cada vez y un puntaje de 0 predice que la idea va a ser vencida cada vez.
     you_just_submitted: Acabas de añadir una idea para votar
   footer:
     # Text in the footer of each page
-    support: Este proyecto se apoya con donaciones de Google y CITP de la universidad de Princeton.
-    open_source: Todas nuestras ideas es un paquete de software de codigo abierto.  Favor revisen y rediseñen.
+    support: Este proyecto es financiado con donaciones de Google y de CITP de la Universidad de Princeton.
+    open_source: Todas Nuestras Ideas es un paquete de software de código abierto.  Siéntase libre de revisar, mezclar o cambiar el diseño.
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment
-    add_your_idea: Incluya su idea aca...
+    add_your_idea: Incluya su idea aquí...
     add_your_idea_button: Registra tu propia idea
-    cast_votes: Votar aca
+    cast_votes: Votar aquí
     you_chose: Escojiste
-    you_skipped_both: You skipped
+    you_skipped_both: Omitiste
     skip: Omitir
     over: sobre
-    submit_idea_default_error: Perdon, idéas vacias no son permitidas. 
-    submit_idea_too_long_error: Perdon, idéas necesitan ser menos de 140 caracteres. 
-    submit_idea_thankyou: Gracias.  Su idea ha sido incluida.  Por favor añada más ideas.  
-    vote_timeout_error: "Perdon, el proceso de votar esta tomando demasiado tiempo - hay mucho trafico de red!"
-    vote_other_error: "Perdon, su voto no fue contado...sucedio un error."
+    submit_idea_default_error: Perdón, ideas vacias no son permitidas. 
+    submit_idea_too_long_error: Perdón, las ideas necesitan tener menos de 140 caracteres. 
+    submit_idea_thankyou: Gracias.  Su idea ha sido añadida.  Por favor añada más ideas.  
+    vote_timeout_error: "Perdón, el proceso de votar está tomando demasiado tiempo - hay mucho tráfico en la red!"
+    vote_other_error: "Perdón, su voto no fué contado...occurrió un error."
     view_all_the_results: Ver todos los resultados
     cant_decide: No puedo decidir
     cd_like_both: Me gustan las dos ideas
     cd_dislike_both: No me gusta ni idea
     cd_dont_know_left: "No sé lo suficiente sobre:"
     cd_dont_know_right: "No sé lo suficiente sobre:"
-    cd_dont_know_both: No sé lo suficiente sobre cualquier idea
+    cd_dont_know_both: No sé lo suficiente sobre ambas ideas 
     cd_both_same: Creo que ambas ideas son las mismas
     cd_other: Simplemente no puedo decidir
     cd_user_other: "Otros:"
@@ -66,29 +66,29 @@ es:
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
-    data_visualizations: Data Visualizations
+    data_visualizations: Visualizaciónes de datos
     world_map_title: Mapa mundial de todos los votos
     world_map_ideas_title: Mapa mundia de todas las ideas cargadas en el sistema
-    votes_over_time_title: El numero de votos
-    user_ideas_over_time_title: El numero de ideas sumitidas sobre mucho tiempo
-    user_sessions_over_time_title: El numero de sesiones unicos de usuarios por día
-    word_cloud_ideas_title: Nube-palabra de idéas
-    word_cloud_weighted_title: Nube-palabra de idéas evaluada por resultados
+    votes_over_time_title: El nœmero de votos a través del tiempo
+    user_ideas_over_time_title: El nœmero de ideas sometidas a través del tiempo
+    user_sessions_over_time_title: El nœmero de sesiones de usuario œnico por día
+    word_cloud_ideas_title: Nube-palabra de ideas
+    word_cloud_weighted_title: Nube-palabra de ideas evaluada por peso ponderado
     word_cloud_uploaded_title: Nube-palabra de ideas cargadas
-    word_cloud_uploaded_weighted_title: Nube-palabra de ideas cargadas evaluada por resultados
+    word_cloud_uploaded_weighted_title: Nube-palabra de ideas cargadas evaluada por peso ponderado
+    scatter_ideas_title: Compare ideas cargadas en el sistema con ideas originales
+    scatter_ideas_subtitle: Mueva su cursor sobre cada punto para aprender más
+    uploaded_ideas: Ideas Cargadas
+    original_ideas: Ideas Originales
     about_word_cloud: Acerca de nubes de palabras
     word_cloud_exp:  La palabra nubes aparece en esta página son una representación visual de las palabras que con mayor frecuencia aparecen en este mercado idea. Cuando ponderada por la puntuación, la nube de palabras generado utilizará la puntuación actual de una idea para determinar la popularidad de la palabra. Tenga en cuenta que algunas palabras comunes o poco frecuentes pueden ser filtrados de la nube de palabras generadas.
-    scatter_ideas_title: Compare uploaded ideas cargadas en el sistema
-    scatter_ideas_subtitle: Mueva su flecho sobre cada punto para conocer mas
-    uploaded_ideas: Idéas Cargadas
-    original_ideas: Idéas Originales
     scores_of: Resultados de
     view_link: "[Revise]"
     per_day: " por día"
-    number_of: "Numero de"
-    no_data_error: "no se puede construir un gráfico, no hay datos"
+    number_of: "Nœmero de"
+    no_data_error: "No se puede construir un gráfico, no hay datos"
     overall_total: "Total"
-    vote_map_geo_error: "No se puede se puede ubicar"
+    vote_map_geo_error: "No se pudo ubicar la localización de"
   about_page: 
     intro: Estás participando en un mercado "idea" que permite a los grupos para recoger y dar prioridad a las ideas en un proceso democrático, abierto y eficiente. Mediante la combinación de un proceso de votación simple con carga abierto de ideas, las mejores ideas de su grupo saldrán a la parte superior. 
     how_many_votes_q: ¿Cuántos votos emitidos puedo? Cuando se termina?
@@ -102,9 +102,9 @@ es:
   user:
     # User information that appears in a few places, most importantly the footer
     email: Correo electronico
-    login: Entrada
+    login: Ingresar
     control_panel: Panel de control
-    logout: Log off
+    logout: Salir
   ab_tests:
     # Text that is currently being used for Ab testing purposes, so not all strings will be visible at the same time.
      test_showmespace:
@@ -117,8 +117,8 @@ es:
      test_ideasubmit:
         # This text appears inside the idea submit text box 
         # For example: http://www.allourideas.org/studentgovernment
-        make_your_voice_heard: Haga oír su voz
+        control: Incluya su idea aca!
         help_your_community: Ayude a su comunidad
      test_stackoverflow:
-        first_time: Primera vez aquí? Haga clic en la opción te gusta más para empezar a votar!
-        no_first_time: Haga clic en la opción te gusta más para empezar a votar!
+        first_time: Primera vez aquí? Haga clic en la opción que más le guste para empezar a votar!
+        no_first_time: Haga clic en la opción que más le guste para empezar a votar!

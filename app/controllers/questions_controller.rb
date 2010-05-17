@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   require 'crack'
   require 'geokit'
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export]
+  before_filter :admin_only, :only => [:index]
   #caches_page :results
   
   # GET /questions

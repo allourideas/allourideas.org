@@ -39,28 +39,36 @@
       %td.title{:colspan => '2'}
         .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
     %tr{:class => cycle("row2", "row1")}
-      %td.title= t('results.word_cloud_ideas_title')
+      %td.title
+        = t('results.word_cloud_ideas_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
       %td.votes
         = link_to(t('results.view_link'), url_for(:action => :word_cloud), :class => 'date-chart')
     %tr{:class => current_cycle , :style => "display:none;"}
       %td{:colspan => '2'}
         .wcdiv.chart-container#wcdiv
     %tr{:class => cycle("row2", "row1")}
-      %td.title= t('results.word_cloud_weighted_title')
+      %td.title
+        = t('results.word_cloud_weighted_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
       %td.votes
         = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
     %tr{:class => current_cycle , :style => "display:none;"}
       %td{:colspan => '2'}
         .wcdiv.chart-container#wcdiv-weight_by_score
     %tr{:class => cycle("row2", "row1")}
-      %td.title= t('results.word_cloud_uploaded_title')
+      %td.title
+        = t('results.word_cloud_uploaded_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
       %td.votes
         = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded'), :class => 'date-chart')
     %tr{:class => current_cycle , :style => "display:none;"}
       %td{:colspan => '2'}
         .wcdiv.chart-container#wcdiv-uploaded
     %tr{:class => cycle("row2", "row1")}
-      %td.title= t('results.word_cloud_uploaded_weighted_title')
+      %td.title
+        = t('results.word_cloud_uploaded_weighted_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
       %td.votes
         = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded_weight_by_score'), :class => 'date-chart')
     %tr{:class => current_cycle , :style => "display:none;"}
@@ -122,16 +130,21 @@
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')
+
+  #word_cloud_exp{:style => 'display:none;'}
+    %h2= t('results.about_word_cloud')
+    =t('results.word_cloud_exp')
   
-  #bounce_explanation{:style => 'display:none;'}
-    %h2= "About Bounces"
-    A bounce is defined as a session that has seen exactly one appearance and taken no other action on our site (one 'click' on our site)
-    %br
-    So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
-    %br
-    Another example:  a user that views the voting page, then view results, then leaves, would not be considered a bounce
-    %br 
-    Note that this may not be 100% accurate because of the way that firefox save cookies past their intended expiration date
+  -if current_user && current_user.admin?
+    #bounce_explanation{:style => 'display:none;'}
+      %h2= "About Bounces"
+      A bounce is defined as a session that has seen exactly one appearance and taken no other action on our site (one 'click' on our site)
+      %br
+      So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
+      %br
+      Another example:  a user that views the voting page, then view results, then leaves, would not be considered a bounce
+      %br 
+      Note that this may not be 100% accurate because of the way that firefox save cookies past their intended expiration date
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"

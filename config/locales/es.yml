@@ -76,6 +76,8 @@ es:
     word_cloud_weighted_title: Nube-palabra de idéas evaluada por resultados
     word_cloud_uploaded_title: Nube-palabra de ideas cargadas
     word_cloud_uploaded_weighted_title: Nube-palabra de ideas cargadas evaluada por resultados
+    about_word_cloud: Acerca de nubes de palabras
+    word_cloud_exp:  La palabra nubes aparece en esta página son una representación visual de las palabras que con mayor frecuencia aparecen en este mercado idea. Cuando ponderada por la puntuación, la nube de palabras generado utilizará la puntuación actual de una idea para determinar la popularidad de la palabra. Tenga en cuenta que algunas palabras comunes o poco frecuentes pueden ser filtrados de la nube de palabras generadas.
     scatter_ideas_title: Compare uploaded ideas cargadas en el sistema
     scatter_ideas_subtitle: Mueva su flecho sobre cada punto para conocer mas
     uploaded_ideas: Idéas Cargadas

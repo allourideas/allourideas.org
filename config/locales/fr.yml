@@ -76,6 +76,8 @@ fr:
     word_cloud_weighted_title: Nuage de mots des idées pondérée selon le score
     word_cloud_uploaded_title: Nuage de mots des idées transferees
     word_cloud_uploaded_weighted_title: Nuage de mots des idées transferees pondéré par le score
+    about_word_cloud: A propos de nuages mot 
+    word_cloud_exp: Le mot nuages affichés sur cette page sont une représentation visuelle des mots qui apparaissent le plus fréquemment dans ce marché idée. Lorsque pondéré par le score, le nuage de mot utilisera le score actuel de l'idée de déterminer la popularité du mot. Notez que certains mots communs ou rares peuvent être filtrés par le nuage de mots générés.
     scatter_ideas_title: Comparer les idées transferee avec les idées originals
     scatter_ideas_subtitle: Passer la souris sur chaque point pour en savoir plus
     uploaded_ideas: Idées postées

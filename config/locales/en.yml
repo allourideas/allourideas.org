@@ -177,6 +177,8 @@ en:
     word_cloud_weighted_title: Word cloud of ideas weighted by score
     word_cloud_uploaded_title: Word cloud of uploaded ideas
     word_cloud_uploaded_weighted_title: Word cloud of uploaded ideas weighted by score
+    about_word_cloud: About word clouds
+    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this idea marketplace. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
     scatter_ideas_title: Compare uploaded ideas with original ideas
     scatter_ideas_subtitle: Roll over each point to learn more
     uploaded_ideas: Uploaded Ideas

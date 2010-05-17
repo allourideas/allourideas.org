@@ -8,12 +8,13 @@ Feature: I Can't Decide
 		Given an idea marketplace exists with url 'test'
 		And I am on the Cast Votes page for 'test'
 
+	@focus
 	Scenario: User sees menu of cant decide 
 		When I click the I can't decide button
 		Then I should see "I like both ideas"
 		And I should see "I don't like either idea"
 		And I should see "I don't know enough about:"
-		And I should see "I don't know enough about both ideas"
+		And I should see "I don't know enough about either idea"
 		And I should see "I think both ideas are the same"
 		And I should see "I just can't decide"
 		And I should see "Other"
@@ -26,11 +27,12 @@ Feature: I Can't Decide
 		Then I should see "You couldn't decide." within ".tellmearea"
 		And the vote count should be 0
 
+        @focus
 	@selenium
 	Scenario: User does not enter a choice
 		When I click the I can't decide button
 		And I click the I can't decide submit button
-		Then I should not see "You couldn't decide." within ".tellmearea"
+		Then I should not see "You couldn't decide."
 	
 	@focus
 	@selenium
@@ -38,7 +40,7 @@ Feature: I Can't Decide
 		When I click the I can't decide button
 		And I pick "Other"
 		And I click the I can't decide submit button
-		Then I should not see "You couldn't decide." within ".tellmearea"
+		Then I should not see "You couldn't decide."
 		
 
 	Scenario: User reloads page to try to skip

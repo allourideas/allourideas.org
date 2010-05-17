@@ -5,7 +5,7 @@
       %th
         = @question.attributes['name']
         /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
-      %th.score= (@header_text = "Score") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
+      %th.score= t('common.score').titleize
       %th &nbsp;
       %th &nbsp;
     -alt=false

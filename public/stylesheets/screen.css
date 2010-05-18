@@ -555,3 +555,13 @@ background-color: #8dbdd8;
 .add_container{
 	height: 9em;
 }
+
+.new_idea_submit{
+  padding: 5px 10px 5px 10px;
+  background: #3198C1;
+  cursor: pointer;
+  color: #FFFFFF;
+  }
+  .new_idea_submit:hover {
+  background-color: #2B88AD;
+}

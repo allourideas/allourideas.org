@@ -18,4 +18,4 @@
       .fleft
         = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
       .fright
-        = link_to image_tag('submit.jpg', :id => 'submit_btn', :class => "new_idea_submit", :rel => @question.id), '#'
+        .new_idea_submit.rounded#submit_btn{:rel => @question.id}= t('vote.submit')

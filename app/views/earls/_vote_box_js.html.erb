@@ -1,14 +1,4 @@
   var loadedTime = new Date();
-  set_focus_and_blur_events = function() {
-      $('.new_idea_field').focus( function () {
-        var str = $('.new_idea_submit').attr("src");
-        $('.new_idea_submit').attr('src', str.replace(".jpg", "-focus.jpg"));
-      });
-      $('.new_idea_field').blur( function () {
-        var str = $('.new_idea_submit').attr("src");
-        $('.new_idea_submit').attr('src', str.replace("-focus.jpg", ".jpg"));
-      });
-  };
 
   on_idea_submit_button_click = function(event){		
     var new_idea = $('#facebox .new_idea_field').val();
@@ -49,7 +39,6 @@
           $('#default_text').val(thankyoutext);
           $('#new_idea_field').unbind('focus').unbind('blur');
           $('#new_idea_field').hint();
-          set_focus_and_blur_events();
         
           if (data['choice_status'] == 'active') {
             current_item_count = $('#item_count').html();
@@ -58,8 +47,6 @@
           $('.indicator').hide();
           $.unblockUI();
 
-          var str = $("#submit_btn").attr("src");
-          $("#submit_btn").attr('src', "/images/submit.jpg");
         },
         "json"
       );
@@ -181,17 +168,8 @@
     }
 
    // if popup is for add_idea_submit 
-      $("#facebox .new_idea_submit").bind("mouseover", function() {
-	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace("submit.jpg", "submit-down.jpg"));
-      });
-      $("#facebox .new_idea_submit").bind("mouseout", function() {
-	    var str = $(this).attr("src");
-	    $(this).attr('src', str.replace("submit-down.jpg", "submit.jpg"));
-      });
       $('#facebox .new_idea_submit').bind('click', on_idea_submit_button_click);
       $('#facebox .new_idea_field').hint();
-      set_focus_and_blur_events();
 
     //if popup is for cant_decide_submit
     $('.cd_submit_button').bind('click',function(event){

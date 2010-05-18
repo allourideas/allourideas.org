@@ -8,7 +8,6 @@ Feature: I Can't Decide
 		Given an idea marketplace exists with url 'test'
 		And I am on the Cast Votes page for 'test'
 
-	@focus
 	Scenario: User sees menu of cant decide 
 		When I click the I can't decide button
 		Then I should see "I like both ideas"
@@ -27,14 +26,12 @@ Feature: I Can't Decide
 		Then I should see "You couldn't decide." within ".tellmearea"
 		And the vote count should be 0
 
-        @focus
 	@selenium
 	Scenario: User does not enter a choice
 		When I click the I can't decide button
 		And I click the I can't decide submit button
 		Then I should not see "You couldn't decide."
 	
-	@focus
 	@selenium
 	Scenario: User selects 'Other' but does not type in an answer
 		When I click the I can't decide button

@@ -61,4 +61,17 @@ Feature: Creating Idea marketplaces
 			|question_question_ideas|Ideas are blank|
 			|question_email|Email can't be blank|
 			|question_password|Password can't be blank|
+	
+	@selenium
+	Scenario: User clicks Cant decide immediately after creating a question
+		Given I am on the question create page
+                When I fill in all fields with valid data except "question_url"
+		And I fill in "question_url" with "test_cant_decide"
+		And I press "Create"
+		Then I should have the following query string:
+		   |just_created|true|
+		When I click the I can't decide button
+		Then I should see "I like both ideas" within "#facebox"
+
+
 

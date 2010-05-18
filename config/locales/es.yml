@@ -47,12 +47,14 @@ es:
     you_skipped_both: Omitiste
     skip: Omitir
     over: sobre
+    submit: Presentar
     submit_idea_default_error: Perdón, ideas vacias no son permitidas. 
     submit_idea_too_long_error: Perdón, las ideas necesitan tener menos de 140 caracteres. 
     submit_idea_thankyou: Gracias.  Su idea ha sido añadida.  Por favor añada más ideas.  
     vote_timeout_error: "Perdón, el proceso de votar está tomando demasiado tiempo - hay mucho tráfico en la red!"
     vote_other_error: "Perdón, su voto no fué contado...occurrió un error."
     view_all_the_results: Ver todos los resultados
+    cant_decide_title: No puedo decidir porque...
     cant_decide: No puedo decidir
     cd_like_both: Me gustan las dos ideas
     cd_dislike_both: No me gusta ni idea

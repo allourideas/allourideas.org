@@ -147,6 +147,7 @@ en:
     you_chose: You chose
     you_skipped_both: You skipped
     skip: skip
+    cant_decide_title: I can't decide because...
     cant_decide: I can't decide
     cd_like_both: I like both ideas
     cd_dislike_both: I don't like either idea
@@ -158,6 +159,7 @@ en:
     cd_user_other: "Other:"
     cant_decide_message: You couldn't decide.
     over: over
+    submit: Submit
     view_all_the_results: View all the results
     others_thought: Click to see what others thought.
     submit_idea_default_error: Sorry, blank ideas are not allowed. 

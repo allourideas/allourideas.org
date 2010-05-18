@@ -48,12 +48,14 @@ fr:
     skip: Eviter
     cant_decide: "Je ne peux pas decider"
     over: plus de
+    submit: Soumettre
     submit_idea_default_error: Désolé, les idées vierges ne sont pas autorisées
     submit_idea_too_long_error: Désolé, il faut moins de 140 caractères.
     submit_idea_thankyou: Je vous remercie. Votre idée a été ajouté. S’il vous plait ajouter encore plus d’idées.
     vote_timeout_error: "Désolé, le vote prend trop longtemps…trop de traffic"
     vote_other_error: Désolé, votre vote n’a pas été cpmpté 
     view_all_the_results: Voir tous les résultats
+    cant_decide_title: Je ne peux pas décider, parce que... 
     cd_like_both: J'aime les deux idées
     cd_dislike_both: Je n'aime pas l'idée soit
     cd_dont_know_left: "Je ne connais pas assez:"

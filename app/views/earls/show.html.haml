@@ -48,7 +48,7 @@
         %span{:id => "close", :style => "float: right; padding-right: 15px; cursor: pointer;"}= "X";
    
 #cant_decide_options{:style => 'display:none'}
-  %h2="I can't decide because..."
+  %h2= t('vote.cant_decide_title')
   -cd_options= ['like_both','dislike_both', 'dont_know_both', 'dont_know_left','both_same', 'other', 'user_other', 'dont_know_right']
   -col1, col2 = cd_options.enum_slice((cd_options.size.to_f/2.0).ceil).to_a
   %table
@@ -81,7 +81,7 @@
   .fleft
     = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
   .fright
-    .cd_submit_button.rounded{:rel => @question.id}= "Submit"
+    .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
   %br
 
 =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']

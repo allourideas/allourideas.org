@@ -802,9 +802,7 @@ class QuestionsController < ApplicationController
       logger.info "Getting ready to add an idea while viewing on Question #{params[:id]}"
       bingo!('submitted_idea')
       new_idea_data = params[:new_idea]
-      @choice = Choice.new(:data => new_idea_data)
       respond_to do |format|
-          #flash[:notice] = 'You just added an idea for people to vote on.'
           format.xml  {  head :ok }
           format.js  { 
             the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}
@@ -816,7 +814,7 @@ class QuestionsController < ApplicationController
 	      
 	      leveling_message = Visitor.leveling_message(:votes => newchoice['visitor_votes'].to_i,
 							:ideas => newchoice['visitor_ideas'].to_i)
-              @question = Question.find(params[:id])
+              @question = Question.find(params[:id], :params => {:barebones => true})
               render :json => {:votes => 20,
                                :choice_status => newchoice['choice_status'], 
 			       :leveling_message => leveling_message,

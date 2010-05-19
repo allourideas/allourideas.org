@@ -34,11 +34,6 @@
         function(data){
 	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
-	  thankyoutext = '<%=t('vote.submit_idea_thankyou')%>';
-          $('#new_idea_field').attr('title', thankyoutext);
-          $('#default_text').val(thankyoutext);
-          $('#new_idea_field').unbind('focus').unbind('blur');
-          $('#new_idea_field').hint();
         
           if (data['choice_status'] == 'active') {
             current_item_count = $('#item_count').html();

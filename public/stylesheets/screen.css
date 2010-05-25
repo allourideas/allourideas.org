@@ -565,3 +565,13 @@ background-color: #8dbdd8;
   .new_idea_submit:hover {
   background-color: #2B88AD;
 }
+
+.flag_submit_button{
+  padding: 5px 10px 5px 10px;
+  background: #3198C1;
+  cursor: pointer;
+  color: #FFFFFF;
+  }
+  .flag_submit_button:hover {
+  background-color: #2B88AD;
+}

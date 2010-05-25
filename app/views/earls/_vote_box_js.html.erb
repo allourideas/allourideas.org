@@ -234,6 +234,8 @@
     $('.flag_link').bind("click", function(event){
        event.stopPropagation();
        $.facebox($("#flag_inappropriate").html());
+       $('#facebox .footer').hide();
+       $('#facebox .close').click($.facebox.close)
 
        var flag_side = $(this).attr('id');
 

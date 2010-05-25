@@ -12,11 +12,11 @@
       %td.idea.right.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
         = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
     %tr
+      %td.fleft
+        = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
       %td
-        = link_to("Flag as inappropriate", "#flag_inappropriate", :id => 'left_flag', :rel => "fdfkjdacebox", :class=> 'flag_link')
-      %td
-      %td
-        = link_to("Flag as inappropriate", "#flag_inappropriate", :id => 'right_flag', :rel => "facedidjfbox", :class => 'flag_link')
+      %td.fright
+        = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
   %table.vote-footer
     %tr
       %td &nbsp; 
@@ -92,9 +92,12 @@
 
 #flag_inappropriate{:style => 'display:none'}
   = t('vote.please_explain_flag')
-  =text_area_tag 'inappropriate_reason'
+  =text_area_tag 'inappropriate_reason', "", :cols => 55
   %br
-  =link_to t('vote.submit'), {:action => :flag , :controller => :questions}, :id => 'flag_submit_button', :class => 'flag_submit_button', :rel => @question.id
+  .fleft
+    = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
+  .fright
+    .flag_submit_button.rounded{:rel => @question.id}= t('vote.submit')
 
 =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
 =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']

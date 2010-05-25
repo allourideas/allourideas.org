@@ -65,7 +65,7 @@ class QuestionsController < ApplicationController
 	    redirect_to( "/#{params[:id]}") and return
     end
 
-    @question = Question.find_by_name(params[:id])
+    @question = Question.find_by_name(params[:id], true)
     logger.info "@question is #{@question.inspect}."
     logger.info "@earl is #{@earl.inspect}."
     @partial_results_url = "#{@earl.name}/results"
@@ -829,11 +829,17 @@ class QuestionsController < ApplicationController
     respond_to do |format|
         format.xml  {  head :ok }
         format.js  { 
-          if flag_choice_success && p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id],
+          begin
+             p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id],
 				                 'time_viewed' => time_viewed, 
 					         'appearance_lookup' => appearance_lookup,
-					         'skip_reason'=> reason
-       						})
+					         'skip_reason'=> reason})
+	  rescue ActiveResource::ResourceConflict
+	     p = nil
+	     flash[:error] = "You flagged an idea as inappropriate. We have deactivated this idea temporarily and sent a notification to the idea marketplace owner. Currently, this idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
+	  end
+       						
+          if flag_choice_success && p
             newprompt = Crack::XML.parse(p.body)['prompt']
 
 	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
@@ -847,10 +853,11 @@ class QuestionsController < ApplicationController
 			     :appearance_lookup => newprompt['appearance_id'],
 			     :message => t('vote.flag_complete_message')}.to_json
 
-	    ::IdeaMailer.send_later :deliver_flag_notification, @earl, new_choice["id"], new_choice["data"], reason
           else
-            render :json => '{"error" : "Flag of choice failed"}'
+            render :json => {:error => "Flag of choice failed", 
+		             :redirect => url_for(:controller => :home, :action => :index )}.to_json
           end
+	  ::IdeaMailer.send_later :deliver_flag_notification, @earl, new_choice["id"], new_choice["data"], reason
           }
       end
     end

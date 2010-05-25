@@ -23,11 +23,17 @@ class EarlsController < ApplicationController
 
 	      redirect_to :action => :show, :controller => :earls, :id => @earl.name and return
       end
-      if @earl.uses_catchup?
-	      logger.info("Requesting Catchup algorithm from Pairwise api")
-	      @question = @earl.question(false, "catchup", request.session_options[:id])
-      else
-	      @question = @earl.question(false, "standard", request.session_options[:id])#the question has a prompt id with it
+
+      begin
+	      if @earl.uses_catchup?
+		      logger.info("Requesting Catchup algorithm from Pairwise api")
+		      @question = @earl.question(false, "catchup", request.session_options[:id])
+	      else
+		      @question = @earl.question(false, "standard", request.session_options[:id])#the question has a prompt id with it
+	      end
+      rescue ActiveResource::ResourceConflict
+	      flash[:error] = "This idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
+	      redirect_to "/" and return
       end
 
 

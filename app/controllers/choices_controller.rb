@@ -23,7 +23,7 @@ class ChoicesController < ApplicationController
   def toggle
     authenticate
     @earl = Earl.find(params[:earl_id])
-    @question = @earl.question
+    @question = @earl.question(true)
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     unless current_user.owns? @earl
       render(:json => {:message => t('items.toggle_error')}.to_json) and return

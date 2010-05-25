@@ -34,7 +34,7 @@ When /^I click the (.*) button$/ do |button_name|
 	find(".add_idea_button").click
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
-	find("#facebox #flag_submit_button").click
+	find("#facebox .flag_submit_button").click
       end
 end
 

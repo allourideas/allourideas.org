@@ -35,6 +35,10 @@ function increment(number)
 {
 	return parseInt(number) + 1;
 }
+function decrement(number)
+{
+	return parseInt(number) - 1;
+}
 function iframe_loaded(){
 	   $('.voter_map_indicator').hide();
 }

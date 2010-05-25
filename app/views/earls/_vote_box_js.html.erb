@@ -274,14 +274,21 @@
 		},
 
 		function(data){
-		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
-			$('.indicator').hide();
-			$.unblockUI();
-			$('.leftside').html(data["newleft"]);
-			$('.rightside').html(data["newright"]);
-		        $('#prompt_id').val(data["prompt_id"]);
-		        $('#appearance_lookup').val(data["appearance_lookup"]);
-		        loadedTime = new Date() //reset loaded time
+		        if(data["error"]){
+				window.location.replace(data["redirect"]);
+		        }
+			else{
+			     $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+			     $('.indicator').hide();
+			     $.unblockUI();
+			     $('.leftside').html(data["newleft"]);
+			     $('.rightside').html(data["newright"]);
+			     $('#prompt_id').val(data["prompt_id"]);
+			     $('#appearance_lookup').val(data["appearance_lookup"]);
+			     current_item_count = $('#item_count').html();
+			     $('#item_count').html(decrement(current_item_count));
+			     loadedTime = new Date() //reset loaded time
+			}
 			
 		},
 		"json"

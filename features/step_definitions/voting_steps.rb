@@ -7,6 +7,16 @@ When /^I click on the right choice$/ do
 	When "I follow \"rightside\""
 	Capybara.default_wait_time = 10
 end
+
+When /^I click the flag link for the (.*) choice$/ do |side|
+	if side == "left"
+		When "I follow \"left_flag\""
+        else
+		When "I follow \"right_flag\""
+	end
+
+end
+
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
 	When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\""
@@ -18,10 +28,13 @@ When /^I click the (.*) button$/ do |button_name|
       when "I can't decide"
 	find("#cant_decide_btn").click
       when "I can't decide submit"
-        page.evaluate_script('window.alert = function() { return true; }')
+        page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
 	find(".cd_submit_button").click
       when "add new idea"
 	find(".add_idea_button").click
+      when "flag submit"
+        page.evaluate_script('window.alert = function() { return true; }')
+	find("#facebox #flag_submit_button").click
       end
 end
 
@@ -73,3 +86,21 @@ end
 Then /^the notification in the tell me area should not contain links$/ do
 	page.should_not have_css('.tellmearea a')
 end
+
+Given /^I save the current left choice$/ do
+	@question_id = page.locate('#leftside')[:rel].to_i
+	
+	#This is not the ideal way to find this value, but locate() and find() seem to have some problem with hidden fields
+        @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
+
+	@prompt = Prompt.find(@prompt_id, :params => {:question_id => @question_id})
+
+	@left_choice_text = page.locate('#leftside').text.to_s
+        @left_choice = Choice.find(@prompt.left_choice_id, :params => {:question_id => @question_id})
+end
+
+Then /^the saved left choice should not be active$/ do
+	@left_choice.reload
+	@left_choice.should_not be_active
+end
+

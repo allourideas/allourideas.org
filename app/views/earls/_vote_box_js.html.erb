@@ -231,4 +231,60 @@
     });
 
 
-    
+    $('.flag_link').bind("click", function(event){
+       event.stopPropagation();
+       $.facebox($("#flag_inappropriate").html());
+
+       var flag_side = $(this).attr('id');
+
+       $('.flag_submit_button').bind("click", function(event){
+           event.stopPropagation();
+           user_text = null;
+	   user_text = $('#facebox textarea').val();
+	   if(!user_text){
+	      alert("You must include an explanation");
+	      return false;
+	   }
+	   jQuery(document).trigger('close.facebox')
+	
+	   var currentTime = new Date();
+	   var time_viewed = currentTime - loadedTime
+	   $('.example_notice').hide();
+	   $('.tellmearea').html('');
+	   $('.indicator').show();
+	   var prompt_id = $('#prompt_id').val();
+
+	   var appearance_lookup = $('#appearance_lookup').val();
+	   $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		        backgroundColor: '#000', 
+		        opacity:         0.0,
+		    cursor:    null
+		   }});
+	   var question_id = $(this).attr("rel");
+	   $.post('/questions/' + question_id + '/flag.js', 
+	       {
+	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	       'flag_reason' : user_text,
+		'time_viewed' : time_viewed,
+		'prompt_id': prompt_id,
+		'side': flag_side,
+		'appearance_lookup': appearance_lookup
+		},
+
+		function(data){
+		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+			$('.indicator').hide();
+			$.unblockUI();
+			$('.leftside').html(data["newleft"]);
+			$('.rightside').html(data["newright"]);
+		        $('#prompt_id').val(data["prompt_id"]);
+		        $('#appearance_lookup').val(data["appearance_lookup"]);
+		        loadedTime = new Date() //reset loaded time
+			
+		},
+		"json"
+		);
+		return false;
+	});
+    });
+

@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :questions, 
                 :member => {:skip => :post, 
+                            :flag => :post, 
                             :vote_left => :post, 
                             :vote_right => :post, 
                             :add_idea => :post, 

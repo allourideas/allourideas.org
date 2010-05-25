@@ -16,6 +16,25 @@ Given /^an idea marketplace exists with admin '(.*)' and password '(.*)' and url
 
 		Capybara.reset_sessions!
 end
+
+Given /^an idea marketplace exists with admin '(.*)' and url '(.*)' and (\d+) ideas$/ do |email, url, num_ideas|
+
+		ideas_text = ""
+		num_ideas.to_i.times do |i|
+			ideas_text += i.to_s
+			ideas_text += "\n"
+		end
+
+
+		Given "I am on the question create page"
+		When "I fill in all fields with valid data except \"question_email\""
+		And "I fill in \"question_email\" with \"#{email}\""
+		And "I fill in \"question_url\" with \"#{url}\""
+		And "I fill in \"question_question_ideas\" with \"#{ideas_text}\""
+		And "I press \"Create\""
+
+		Capybara.reset_sessions!
+end
 When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 	valid_data = Hash[
 		  "question_name" => "Valid question",

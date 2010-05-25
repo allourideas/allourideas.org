@@ -19,6 +19,15 @@ class IdeaMailer < ActionMailer::Base
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
   end
+
+  def flag_notification(earl, choice_id, choice_data, explanation)
+    setup_email(earl.user)
+    @subject += "Possible inappropriate idea flagged by user"
+    @body[:earl] = earl
+    @body[:choice_id] = choice_id
+    @body[:choice_data] = choice_data
+    @body[:explanation] = explanation
+  end
   
   def extra_information(user, question, information)
     @recipients  = "signups@allourideas.org"

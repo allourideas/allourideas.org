@@ -68,6 +68,9 @@ en:
     email:
       hello: "Hello,"
       someone_has: "Someone has uploaded the idea " 
+      someone_has_flagged: Someone has flagged the idea '{{idea_data}}' in your idea marketplace at {{question_url}} as inappropriate.
+      provided_explanation_is: "The user that flagged this idea provided the following text as explanation:"
+      we_have_auto_deactivated: "We have automatically deactivated this idea from your idea marketplace. If you believe this idea is not inappropriate, you can re-enable it by visiting the following url:"
       to_your_question: " to your question " 
       if_you_want_to_activate: "If you want others to be able to vote on this idea, please activate it by visiting the following url:"
       if_you_dont_want: If you do not want others to vote on this idea, no action is required.
@@ -158,6 +161,8 @@ en:
     cd_other: I just can't decide
     cd_user_other: "Other:"
     cant_decide_message: You couldn't decide.
+    please_explain_flag: "Please explain why this choice is inappropriate:"
+    flag_complete_message: You flagged a choice as inappropriate.
     over: over
     submit: Submit
     view_all_the_results: View all the results

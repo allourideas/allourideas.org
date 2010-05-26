@@ -819,13 +819,14 @@ class QuestionsController < ApplicationController
                                :choice_status => newchoice['choice_status'], 
 			       :leveling_message => leveling_message,
                                :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
+
+	      @earl = Earl.find_by_question_id(@question.id)
               case newchoice['choice_status']
               when 'inactive'
-                ::IdeaMailer.deliver_notification @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id'] #spike
+                ::IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, newchoice['saved_choice_id'] 
               when 'active'
-                ::IdeaMailer.deliver_notification_for_active @question.creator, @question, params[:id], new_idea_data, newchoice['saved_choice_id']
+                ::IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, newchoice['saved_choice_id']
               end
-              #notification(user, question, question_id, choice, choice_id)
             else
               render :json => '{"error" : "Addition of new idea failed"}'
             end

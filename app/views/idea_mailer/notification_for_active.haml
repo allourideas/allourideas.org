@@ -1,18 +1,18 @@
 = t('items.email.hello') 
-= "\n" + t('items.email.someone_has') +  "'#{@choice}'" + t('items.email.to_your_question') + "'#{@question.the_name}'"+ "\n\n"
+= "\n" + t('items.email.someone_has') +  "'#{@choice_text}'" + t('items.email.to_your_question') + "'#{@question_name}'"+ "\n\n"
 
 = t('items.email.we_auto_activated_idea')
 = "\n"
 = "\n"
 
-= "http://#{HOST}#{@question.earl}/choices/#{@choice_id}/deactivate"
+= "http://#{HOST}/#{@earl.name}/choices/#{@choice_id}/deactivate"
 
 = "\n\n"
 
 = t('items.email.if_you_want')
 
 
-= t('items.email.see_current_results') + " http://#{HOST}#{@question.earl}"
+= t('items.email.see_current_results') + " http://#{HOST}/#{@earl.name}"
 = "\n\n"
 
 

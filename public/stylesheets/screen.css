@@ -575,3 +575,6 @@ background-color: #8dbdd8;
   .flag_submit_button:hover {
   background-color: #2B88AD;
 }
+
+.no_bottom_padding{
+	  padding-bottom: 0px !important;}

@@ -25,7 +25,7 @@ class ChoicesController < ApplicationController
     @earl = Earl.find(params[:earl_id])
     @question = @earl.question(true)
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
-    unless current_user.owns? @earl
+    unless (current_user.owns?(@earl) || current_user.admin?)
       render(:json => {:message => t('items.toggle_error')}.to_json) and return
     end
     @old_status = @choice.active?

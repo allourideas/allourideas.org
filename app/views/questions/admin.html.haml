@@ -84,6 +84,12 @@
             %td
               = f.select :default_lang, [["English", "en"], ["French", "fr"], ["Spanish", "es"], ["Portugese", "pt"]]
           %tr.row1
+            %td
+              = t('admin.allow_flag_as_inappropriate')
+              =link_to('[?]', '#allow_flag_as_inappropriate_exp', :rel => 'facebox')
+            %td 
+              = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
+          %tr.row2
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
   %b
@@ -120,6 +126,9 @@
     = t('admin.welcome_msg_long_exp')
     %br
     = t('admin.welcome_msg_long_exp2')
+  
+  #allow_flag_as_inappropriate_exp{:style => 'display:none;'}
+    = t('admin.allow_flag_as_inappropriate_exp')
 
 
 -content_for :head do

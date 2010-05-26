@@ -251,6 +251,8 @@ en:
     welcome_msg_exp: Add a welcome message for new voters
     welcome_msg_long_exp: You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
     welcome_msg_long_exp2: For example, it may be useful to explain who is leading the idea marketplace or what will be done with the feedback gathered from this question. 
+    allow_flag_as_inappropriate: Allow users to flag individual ideas as inappropriate. 
+    allow_flag_as_inappropriate_exp: This setting will allow users to flag ideas as inappropriate or offtopic. After a user submits a flag request, the idea will be automatically deactivated and an email will be sent to the owner of the idea marketplace. The email will contain whatever explanation the user provided along with the option to quickly re-activate an idea.
     default_lang_exp: Change the default language of the voting page interface
     download_idea_marketplace_data: Download Idea Marketplace Data
     list_of_ideas_csv: List of Ideas (CSV File)

@@ -78,3 +78,13 @@ Given /^the default locale for '(.*)' is '(.*)'$/ do |url, locale|
 	e.default_lang = locale
 	e.save
 end
+
+Given /^idea marketplace '(.*)' has enabled "([^\"]*)"$/ do |url, setting|
+	e = Earl.find(url)
+	case setting.downcase
+	when "flag as inappropriate"
+		e.flag_enabled = true
+	end
+	e.save!
+end
+

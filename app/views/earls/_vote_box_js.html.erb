@@ -233,6 +233,7 @@
 
     $('.flag_link').bind("click", function(event){
        event.stopPropagation();
+       event.preventDefault();
        $.facebox($("#flag_inappropriate").html());
        $('#facebox .footer').hide();
        $('#facebox .close').click($.facebox.close)

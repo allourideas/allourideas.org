@@ -1,0 +1,3 @@
+- @item_count = @question.attributes['item_count'] - @question.attributes["inactive_choices_count"]
+- @votes_count = @question.attributes['votes_count'].to_i
+="<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"

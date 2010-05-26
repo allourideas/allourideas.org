@@ -45,9 +45,6 @@ class EarlsController < ApplicationController
        @left_choice_id = @prompt.left_choice_id
        @right_choice_id = @prompt.right_choice_id
        
-       @item_count = @question.attributes['item_count'] - @question.attributes["inactive_choices_count"]
-       @votes_count = @question.attributes['votes_count']
-
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
        @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_add_idea_button"	       

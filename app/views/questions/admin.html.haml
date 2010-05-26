@@ -1,4 +1,4 @@
-= render :partial => 'shared/header_vote', :locals => {"show_delete" => true}
+= render :partial => 'shared/header_vote', :locals => {"show_delete" => true, :question => @question}
 .ninety
   %table.full.tablesorter
     %thead 
@@ -145,5 +145,6 @@
   $('#facebox').draggable();
   $('#passfield').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
+  $('#earl_flag_enabled').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_default_lang').change(function(){ $('#savebutton').addClass("active")});
 

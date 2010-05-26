@@ -1,5 +1,5 @@
 -@item_data, @item_ids = [], []
-= render :partial => 'shared/header_vote'
+= render :partial => 'shared/header_vote', :locals => {:question => @question}
 
 .votebox
   %table.full
@@ -23,9 +23,11 @@
       %td &nbsp; 
       %td.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
         =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :rel => 'facebox[.wider]')
-      - ab_test(@ab_test_name, %w{sixteen_pixel_font twelve_pixel_font}, :conversion => 'voted') do |theClass|
-        %td{:class => theClass}
-          ="<span id='votes_count'>#{@votes_count}</span> #{t('common.votes_on')} <span id='item_count'>#{@item_count}</span> #{t('common.ideas')}"
+      %td
+        - if !@earl.flag_enabled?
+          = render :partial => 'vote_idea_count', :locals => {:question => @question}
+        -else
+          &nbsp;
   .clear
   %center.add_container
     .add_idea

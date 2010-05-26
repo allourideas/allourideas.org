@@ -21,6 +21,10 @@
       = link_to_unless_current(t('nav.view_results'), @results_url) do "<strong> #{t('nav.view_results')} </strong>" end
     -else
       = link_to_unless_current(t('nav.view_results'), @all_results_url) do "<strong> #{t('nav.view_results')} </strong>" end
+    -if @earl.flag_enabled?
+      = "("
+      = render :partial => 'earls/vote_idea_count', :locals => {:question => @question}
+      = ")"
     %span.grey 
       &nbsp;|&nbsp;
       = link_to_unless_current(t('nav.about_this_page'), @about_url, :rel => 'facebox') do "<strong> #{t('nav.about_this_page')} </strong>" end

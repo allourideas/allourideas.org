@@ -40,25 +40,45 @@ class AbingoDashboardController < ApplicationController
 	# Get the list from the server
 	# The Session class uses json for simplicity, we need to do some parsing here
 	# It's important that we send parameters in the body here, otherwise some undefined behavior occurs
-	# when the URI gets too long
-	theresponse = Session.post(:votes_by_session_ids, {}, {:session_ids => session_list}.to_json)
-	@votes_by_session_ids = JSON.parse(theresponse.body) 
+	#          when the URI gets too long
+	theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_list}.to_json)
+	@objects_by_session_ids = JSON.parse(theresponse.body) 
 	@voter_distribution = Hash.new(0)
+	@uploader_distribution= Hash.new(0)
 
 	# Format our info from the server into a distribution table
 	@experiment.alternatives.each do |a|
 		@voter_distribution[a.id] = Hash.new(0)
+	        @uploader_distribution[a.id]= Hash.new(0)
 		a.session_infos.each do |s|
 			if s.user_id and admin_user_list.include?(s.user_id)
 				next
 			end
 
-			num_votes = @votes_by_session_ids[s.session_id]
+			begin
+			    num_votes = @objects_by_session_ids[s.session_id]["votes"]
+			rescue
+			    num_votes = nil
+                        end
+			
 			if num_votes
 				@voter_distribution[a.id][num_votes] +=1
 			else
 				@voter_distribution[a.id][0] +=1
 		        end	
+		        
+                        begin
+			    num_ideas = @objects_by_session_ids[s.session_id]["ideas"]
+			rescue
+			    num_ideas = nil
+			end
+			if num_ideas
+				@uploader_distribution[a.id][num_ideas] +=1
+			else
+				@uploader_distribution[a.id][0] +=1
+				
+			end
+	
 		end
 	end
 
@@ -69,13 +89,16 @@ class AbingoDashboardController < ApplicationController
 		@summary_stats[a.id] = Hash.new(0)
 		votes_for_median =[]
 		@voter_distribution[a.id].each do |num_votes, num_sessions|
-		     @summary_stats[a.id][:total_votes] += num_votes
+		     @summary_stats[a.id][:total_votes] += num_votes * num_sessions
 		     @summary_stats[a.id][:total_sessions] += num_sessions
 
 		     num_sessions.times do 
 			     votes_for_median << num_votes
 		     end
 
+		end
+		@uploader_distribution[a.id].each do |num_ideas, num_sessions|
+		     @summary_stats[a.id][:total_uploaded_ideas] += num_ideas * num_sessions
 		end
 		total = @summary_stats[a.id][:total_sessions].to_f
 		@summary_stats[a.id][:percent_of_sessions_greater_than_0_votes] = ((total - @voter_distribution[a.id][0]).to_f / total) * 100
@@ -84,6 +107,8 @@ class AbingoDashboardController < ApplicationController
 
 		@summary_stats[a.id][:mean_votes_of_voters] = @summary_stats[a.id][:total_votes].to_f/ (@summary_stats[a.id][:total_sessions] - @voter_distribution[a.id][0]).to_f
 		@summary_stats[a.id][:median_votes_of_voters] = median(votes_for_median-[0])
+
+		@summary_stats[a.id][:percent_of_sessions_greater_than_0_ideas] = ((total - @uploader_distribution[a.id][0]).to_f / total) * 100
 	end
 
  	#Now that we have the data, format into a pretty graph	

@@ -2,7 +2,11 @@ class AbingoDashboardController < ApplicationController
       before_filter :admin_only
       
       def index
-        @experiments = Abingo::Experiment.all
+	if params[:all]
+	   @experiments = Abingo::Experiment.all
+	else
+           @experiments = Abingo::Experiment.paginate :page => params[:page], :order => 'created_at DESC'
+	end
       end
 
       def show

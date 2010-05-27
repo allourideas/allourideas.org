@@ -19,6 +19,10 @@
       - @experiments.each do |experiment|
         = render :partial => "experiment_row", :locals => {:experiment => experiment}
 
+  - unless(params[:all])
+    = will_paginate @experiments
+    = link_to("Show All", :action => :index, :all => true)
+
 
 
 -content_for :head do

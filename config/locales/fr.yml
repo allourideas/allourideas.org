@@ -86,6 +86,7 @@ fr:
     original_ideas: Idées Originales
     scores_of: Des dizaines de
     view_link: "[Voir]" 
+    close_link: "[Fermer]" 
     per_day: " par jour" 
     number_of: "Nombre de "
     no_data_error: "impossible de faire des cartes, pas de données"

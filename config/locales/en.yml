@@ -193,6 +193,7 @@ en:
     original_ideas: Original Ideas
     scores_of: Scores of
     view_link: "[View]"
+    close_link: "[Close]"
     per_day: " per day"
     number_of: "Number of "
     no_data_error: "Cannot make chart, no data"

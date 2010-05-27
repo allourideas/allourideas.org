@@ -152,6 +152,10 @@
   = '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
   = javascript_include_tag 'google-termcloud.js', 'facebox'
   = stylesheet_link_tag 'google-termcloud', 'facebox'
+  :javascript
+    var results_view_text = function(){ return "#{t('results.view_link')}";};
+    var results_close_text = function(){ return "#{t('results.close_link')}";};
+
 
 -content_for :view_javascript do
   $('a[rel*=facebox]').facebox();

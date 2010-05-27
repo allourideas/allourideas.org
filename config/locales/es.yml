@@ -86,6 +86,7 @@ es:
     word_cloud_exp:  La palabra nubes aparece en esta página son una representación visual de las palabras que con mayor frecuencia aparecen en este mercado idea. Cuando ponderada por la puntuación, la nube de palabras generado utilizará la puntuación actual de una idea para determinar la popularidad de la palabra. Tenga en cuenta que algunas palabras comunes o poco frecuentes pueden ser filtrados de la nube de palabras generadas.
     scores_of: Resultados de
     view_link: "[Revise]"
+    close_link: "[Cerrar]"
     per_day: " por día"
     number_of: "Número de"
     no_data_error: "No se puede construir un gráfico, no hay datos"

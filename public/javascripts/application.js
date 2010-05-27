@@ -500,13 +500,14 @@ jQuery(document).ready(function() {
 	});
 	
 	function toggleLinkTextandTargetElement(link, target){
-			var theText = (link.text() == "[View]") ? "[Close]" : "[View]";
+			//Using functions here to allow for i8n
+			var theText = (link.text() == results_view_text()) ? results_close_text() : results_view_text();
 			link.text(theText);
 
 			var loaded = link.attr('isLoaded');
 			if(loaded)
 			{
-				if(theText == "[View]"){
+				if(theText == results_view_text()){
 				  target.hide();
 				}
 				else{

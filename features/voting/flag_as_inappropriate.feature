@@ -6,6 +6,7 @@ Feature: Flag as inappropriate
 
 	Background: 
 		Given an idea marketplace exists with admin 'flag_test@test.com' and url 'test' and 5 ideas
+	        And idea marketplace 'test' has enabled "flag as inappropriate"
 		And I am on the Cast Votes page for 'test'
 		And I save the current left choice
 		And no emails have been sent
@@ -37,6 +38,7 @@ Feature: Flag as inappropriate
 	@selenium
 	Scenario: User flags all but one choices in marketplace
 		Given an idea marketplace exists with admin 'flag_test2@test.com' and url 'test_2' and 2 ideas
+	        And idea marketplace 'test_2' has enabled "flag as inappropriate"
 		And I am on the Cast Votes page for 'test_2'
 		And no emails have been sent
 		When I click the flag link for the left choice

@@ -45,6 +45,7 @@ pt:
     cast_votes: Votar
     you_chose: Você achou
     you_skipped_both: Você pulou
+    flag_as_inappropriate: Marcar como inapropriado 
     skip: pular
     over: melhor do que
     submit: Submeter
@@ -86,6 +87,7 @@ pt:
     word_cloud_exp:  A palavra nuvens exibidas nesta página são uma representação visual das palavras que mais frequentemente aparecem neste mercado idéia. Quando ponderado pela pontuação, a palavra nuvem gerada usará a pontuação atual de uma idéia para determinar a popularidade da palavra. Note-se que algumas palavras comuns ou raros pode ser filtrada para fora da nuvem de palavras geradas.
     scores_of: Pontuações das
     view_link: "[Ver]"
+    close_link: "[Fechar]"
     per_day: " por dia"
     number_of: "Número de "
     no_data_error: "Não há dados para construir o gráfico"
@@ -119,7 +121,7 @@ pt:
      test_ideasubmit:
         # This text appears inside the idea submit text box
         # For example: http://www.allourideas.org/studentgovernment
-        make_sure_your_voice: Faça ouvir a sua voz
+        make_your_voice_heard: Faça ouvir a sua voz
         help_your_community: Ajude a sua comunidade
      test_stackoverflow:
         first_time: Primeira vez aqui? Clique na opção que você gosta mais para começar a votar!

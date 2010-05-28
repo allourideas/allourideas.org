@@ -45,8 +45,8 @@ fr:
     cast_votes: Nombre de Votants
     you_chose: vous avez choisi
     you_skipped_both: vous vous avez sauté les deux
+    flag_as_inappropriate: Signaler comme inapproprié
     skip: Eviter
-    cant_decide: "Je ne peux pas decider"
     over: plus de
     submit: Soumettre
     submit_idea_default_error: Désolé, les idées vierges ne sont pas autorisées
@@ -56,6 +56,7 @@ fr:
     vote_other_error: Désolé, votre vote n’a pas été cpmpté 
     view_all_the_results: Voir tous les résultats
     cant_decide_title: Je ne peux pas décider, parce que... 
+    cant_decide: "Je ne peux pas decider"
     cd_like_both: J'aime les deux idées
     cd_dislike_both: Je n'aime pas l'idée soit
     cd_dont_know_left: "Je ne connais pas assez:"
@@ -78,12 +79,12 @@ fr:
     word_cloud_weighted_title: Nuage de mots des idées pondérée selon le score
     word_cloud_uploaded_title: Nuage de mots des idées transferees
     word_cloud_uploaded_weighted_title: Nuage de mots des idées transferees pondéré par le score
-    about_word_cloud: A propos de nuages mot 
-    word_cloud_exp: Le mot nuages affichés sur cette page sont une représentation visuelle des mots qui apparaissent le plus fréquemment dans ce marché idée. Lorsque pondéré par le score, le nuage de mot utilisera le score actuel de l'idée de déterminer la popularité du mot. Notez que certains mots communs ou rares peuvent être filtrés par le nuage de mots générés.
     scatter_ideas_title: Comparer les idées transferee avec les idées originals
     scatter_ideas_subtitle: Passer la souris sur chaque point pour en savoir plus
     uploaded_ideas: Idées postées
     original_ideas: Idées Originales
+    about_word_cloud: A propos de nuages mot 
+    word_cloud_exp: Le mot nuages affichés sur cette page sont une représentation visuelle des mots qui apparaissent le plus fréquemment dans ce marché idée. Lorsque pondéré par le score, le nuage de mot utilisera le score actuel de l'idée de déterminer la popularité du mot. Notez que certains mots communs ou rares peuvent être filtrés par le nuage de mots générés.
     scores_of: Des dizaines de
     view_link: "[Voir]" 
     close_link: "[Fermer]" 

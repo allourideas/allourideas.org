@@ -45,6 +45,7 @@ es:
     cast_votes: Votar aquí
     you_chose: Escojiste
     you_skipped_both: Omitiste
+    flag_as_inappropriate: Marcar como inadecuado
     skip: Omitir
     over: sobre
     submit: Presentar
@@ -120,7 +121,7 @@ es:
      test_ideasubmit:
         # This text appears inside the idea submit text box 
         # For example: http://www.allourideas.org/studentgovernment
-        make_sure_your_voice: Hacer oír su voz
+        make_your_voice_heard: Hacer oír su voz
         help_your_community: Ayude a su comunidad
      test_stackoverflow:
         first_time: Primera vez aquí? Haga clic en la opción que más le guste para empezar a votar!

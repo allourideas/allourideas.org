@@ -25,12 +25,12 @@ class EarlsController < ApplicationController
       end
 
       begin
-	      if @earl.uses_catchup?
-		      logger.info("Requesting Catchup algorithm from Pairwise api")
-		      @question = @earl.question(false, "catchup", request.session_options[:id])
-	      else
-		      @question = @earl.question(false, "standard", request.session_options[:id])#the question has a prompt id with it
-	      end
+      @question = Question.find(@earl.question_id, :params => {:with_prompt => true, 
+						   :with_appearance => true, 
+						   :with_visitor_stats => true,
+						   :visitor_identifier => request.session_options[:id]})
+
+      #reimplement in some way
       rescue ActiveResource::ResourceConflict
 	      flash[:error] = "This idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
 	      redirect_to "/" and return
@@ -38,6 +38,8 @@ class EarlsController < ApplicationController
 
 
        logger.info "inside questions#show " + @question.inspect
+
+       # we can probably make this into one api call
        @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
 
        @right_choice_text = @prompt.right_choice_text

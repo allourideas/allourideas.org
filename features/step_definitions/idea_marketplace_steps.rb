@@ -55,7 +55,7 @@ end
 
 When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	e = Earl.find(url)
-	@question = e.question
+	@question = Question.find(e.question_id)
 
 	prev_auto_activate = @question.it_should_autoactivate_ideas
 	

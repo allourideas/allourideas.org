@@ -29,8 +29,7 @@ class ChoicesController < ApplicationController
   def toggle
     authenticate
     @earl = Earl.find(params[:earl_id])
-    @question = @earl.question(true)
-    @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
+    @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
     unless (current_user.owns?(@earl) || current_user.admin?)
       render(:json => {:message => t('items.toggle_error')}.to_json) and return
     end
@@ -45,7 +44,7 @@ class ChoicesController < ApplicationController
           remote_function = @choice.active? ? :deactivate_from_abroad : :update_from_abroad
           
           begin
-            if @choice.put(remote_function, :params => {:question_id => @question.id})
+            if @choice.put(remote_function, :params => {:question_id => @earl.question_id})
               logger.info "just #{verb} choice"
               render :json => {:message => "You've just #{verb.downcase} this choice", :verb => verb}.to_json
             else

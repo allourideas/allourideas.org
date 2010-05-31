@@ -31,9 +31,10 @@ class QuestionsController < ApplicationController
   def results
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-    @question = Question.find_by_name(params[:id], true)
-    @question_id = @question.id
     @earl = Earl.find params[:id]
+
+    @question = Question.find(@earl.question_id)
+    @question_id = @question.id
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
 	      redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
@@ -65,14 +66,10 @@ class QuestionsController < ApplicationController
 	    redirect_to( "/#{params[:id]}") and return
     end
 
-    @question = Question.find_by_name(params[:id], true)
-    logger.info "@question is #{@question.inspect}."
-    logger.info "@earl is #{@earl.inspect}."
+    @question = Question.find(@earl.question_id)
     @partial_results_url = "#{@earl.name}/results"
 
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
-    logger.info "First choice is #{@choices.first.inspect}"
-
      
   end
 
@@ -154,17 +151,19 @@ class QuestionsController < ApplicationController
      elsif type == "uploaded_ideas"
          
 	 @earl = Earl.find params[:id]
-         @question = @earl.question(true)
+         @question = Question.new
+         @question.id = @earl.question_id
 	 votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'uploaded_ideas')
      elsif type == "bounces"
 	 @earl = Earl.find params[:id]
-         @question = @earl.question(true)
-
+         @question = Question.new
+         @question.id = @earl.question_id
 	 votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
 
      elsif type == "votes"
          @earl = Earl.find params[:id]
-         @question = @earl.question(true)
+         @question = Question.new
+         @question.id = @earl.question_id
          votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
      end
      
@@ -394,7 +393,8 @@ class QuestionsController < ApplicationController
   def scatter_votes_by_session
       type = params[:type] # should be scatter_votes_by_session
       @earl = Earl.find params[:id]
-      @question = @earl.question(true)
+      @question = Question.new(:id => @earl.question_id)
+
       votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
       bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
 
@@ -457,7 +457,7 @@ class QuestionsController < ApplicationController
 
       if !totals || totals != "true"
         @earl = Earl.find params[:id]
-        @question = @earl.question(true)
+        @question = Question.new(:id => @earl.question_id)
       end
       
       if type == 'votes'
@@ -630,7 +630,7 @@ class QuestionsController < ApplicationController
   def choices_by_creation_date
 	  #authenticate admin only
      @earl = Earl.find params[:id]
-     @question = @earl.question(true)
+     @question = Question.new(:id => @earl.question_id)
 
      appearance_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'appearances_by_creation_date')
 
@@ -878,7 +878,7 @@ class QuestionsController < ApplicationController
 	      
 	      leveling_message = Visitor.leveling_message(:votes => newchoice['visitor_votes'].to_i,
 							:ideas => newchoice['visitor_ideas'].to_i)
-              @question = Question.find(params[:id], :params => {:barebones => true})
+              @question = Question.find(params[:id])
               render :json => {:votes => 20,
                                :choice_status => newchoice['choice_status'], 
 			       :leveling_message => leveling_message,
@@ -923,7 +923,7 @@ class QuestionsController < ApplicationController
 
    def toggle_autoactivate
         @earl = Earl.find_by_question_id(params[:id])
-	@question = @earl.question
+	@question = Question.find(@earl.question_id)
         unless current_user.owns? @earl
           render(:json => {:message => "Succesfully changed settings, #{params[:id]}"}.to_json) and return
         end
@@ -1039,8 +1039,8 @@ class QuestionsController < ApplicationController
   # # PUT /questions/1.xml
   def update
      @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
-     @question = Question.find_by_name(params[:id])
      @earl = Earl.find params[:id]
+     @question = Question.find(@earl.question_id)
      
      unless ( (current_user.owns? @earl) || current_user.admin?)
 	    flash[:notice] = "You are not authorized to view that page"
@@ -1074,7 +1074,7 @@ class QuestionsController < ApplicationController
 	    flash[:notice] = "You are not authorized to view that page"
 	    redirect_to( "/#{params[:id]}") and return
     end
-     @question = Question.find_by_name(params[:id])
+     @question = Question.find(@earl.question_id)
      
      @earl.logo = nil
      respond_to do |format|
@@ -1099,8 +1099,6 @@ class QuestionsController < ApplicationController
        response = "You are not authorized to export data from this idea marketplace, please contact us at info@allouridea.org if you think this is a mistake"
        render :text => response and return
     end
-
-    @question = Question.find_by_name(params[:id])
 
     #creates delayed job that: sends request to pairwise, waits for response from pairwise, 
     #  does some work to add ip address and click information to csv file, store in public/

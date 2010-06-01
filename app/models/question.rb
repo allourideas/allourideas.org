@@ -59,25 +59,31 @@ class Question < ActiveResource::Base
 	  puts "TEST METHOD"
   end
   
-  def validate_me
-    #errors = []
-    #raise attributes.inspect
-    # TODO refactor the following to test for only the characters we want using a regex, ie /[a-zA-Z0-9]
-	  # The following leaves plenty of special characters that would screw up urls
-    # TODO check minimum number of ideas here? keep validation code in one place?
+  def valid?
+    self.validate
+    errors.empty?
+  end
+  
+  def validate
+    url_format_valid
+    url_unique
+
+    errors.add("Name", "is blank (Step 1)") if attributes['name'].blank?
+    errors.add("Ideas", "are blank (Step 3)") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
+    return errors
+  end
+  
+  protected
+  def url_format_valid
     errors.add("URL", "is blank (Step 2)")  if attributes['url'].blank?
     errors.add("URL", "contains spaces (Step 2)")  if attributes['url'].include? ' '
-    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '@'
-    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '/'
-    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? ':'
-    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '|'
-    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '='
     errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? '+'
-    errors.add("URL", "contains special characters (Step 2)")  if attributes['url'].include? "'"
-
-    errors.add("URL", "contains special characters (Step 2)")  unless attributes['url'] =~ /^[[:alnum:]_-]+$/i
-    
-    
+    if attributes['url'].parameterize != attributes['url']
+      errors.add("URL", "contains special characters (Step 2)")  
+    end
+  end
+  
+  def url_unique
     begin
       if Earl.find_by_name(attributes['url'].strip).nil?
          Earl.find(attributes['url'].strip)
@@ -86,18 +92,9 @@ class Question < ActiveResource::Base
     rescue
       nil
     end
-    
     if Earl.reserved_names.include?(attributes['url'].strip)
       errors.add("URL", "has already been taken (Step 2)")
     end
-
-    errors.add("Name", "is blank (Step 1)") if attributes['name'].blank?
-    errors.add("Ideas", "are blank (Step 3)") if (attributes['question_ideas'].blank? || attributes['question_ideas'] == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
-    return errors
-    # url
-    # question
-    # ideas
-    # email
   end
 
   # 

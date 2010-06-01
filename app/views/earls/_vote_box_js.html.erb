@@ -85,13 +85,14 @@
 	var appearance_lookup = $('#appearance_lookup').val()
 	$.ajax({
 	   type: "post",
-	   url: '/questions/' + question_id + '/vote_' + winner_side+ '.js' + '?locale=' + the_locale,
+	   url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
 	   dataType: "json",
 	   data: {
 		 'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
 		 'time_viewed' : time_viewed,
 		 'prompt_id': prompt_id,
-		 'appearance_lookup': appearance_lookup
+		 'appearance_lookup': appearance_lookup,
+		 'direction' : winner_side,
 		 },
 	   beforeSend: function() {
 	       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 

@@ -1,4 +1,3 @@
-@demo
 Feature: Creating Idea marketplaces
 	In order to collect information on preferences
 	As a question admin

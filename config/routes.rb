@@ -7,15 +7,19 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :questions, 
                 :member => {:skip => :post, 
                             :flag => :post, 
-                            :vote_left => :post, 
-                            :vote_right => :post, 
                             :add_idea => :post, 
                             :toggle => :post, 
                             :toggle_autoactivate => :post, 
 #                            :admin => :get, 
 #                            :results => :get,
 #                            :voter_map => :get,
-			    :delete_logo => :delete }
+			    :delete_logo => :delete } do |question|
+	  question.resources :prompts, 
+		  :only => [:vote],
+		  :member => {
+		  	:vote => :post
+	          }
+	  end
   map.resources :earls, :only => [:export_list], :collection => {:export_list=> :get}
   map.resources :clicks, :collection => {:export=> :get}
   #map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'

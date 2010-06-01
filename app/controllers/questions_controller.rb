@@ -700,68 +700,6 @@ class QuestionsController < ApplicationController
   end
 
 	
-  
-  def vote(direction)
-    expire_page :action => :results
-
-    bingo!("voted")
-    prompt_id = params[:prompt_id]
-    appearance_lookup = params[:appearance_lookup]
-    logger.info "Getting ready to vote left on Prompt #{prompt_id}, Question #{params[:id]}"
-    @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-
-    time_viewed = params[:time_viewed]
-    case direction
-    when :left
-      winner, loser = @prompt.left_choice_text, @prompt.right_choice_text
-      conditional = p = @prompt.post(:vote_left, :params => {'auto' => request.session_options[:id], 
-				                             'time_viewed' => time_viewed, 
-							     'appearance_lookup' => appearance_lookup })
-    when :right
-      loser, winner = @prompt.left_choice_text, @prompt.right_choice_text
-      conditional = p = @prompt.post(:vote_right, :params => {'auto' => request.session_options[:id], 
-				     		              'time_viewed' => time_viewed,
-							      'appearance_lookup' => appearance_lookup })
-    else
-      raise "unspecified choice"
-    end
-    session[:has_voted] = true
-    logger.info "winnder [sic] was #{winner}, loser is #{loser}"
-    logger.info "prompt was #{@prompt.inspect}"
-    respond_to do |format|
-        format.xml  {  head :ok }
-        format.js  { 
-          if conditional
-            #flash[:notice] = 'Vote was successfully counted.'
-            newprompt = Crack::XML.parse(p.body)['prompt']
-	    
-	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
-							:ideas => newprompt['visitor_ideas'].to_i)
-
-            logger.info "newprompt is #{newprompt.inspect}"
-            render :json => {:votes => 20, :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
-                             :newright => truncate((newprompt['right_choice_text']), :length => 137), 
-			     :leveling_message => leveling_message,
-			     :prompt_id => newprompt['id'],
-			     :appearance_lookup => newprompt['appearance_id']
-                             }.to_json
-          else
-            render :json => '{"error" : "Vote failed"}'
-          end
-          }
-      end
-  end
-  
-  def vote_left
-    expire_page :action => :results
-    vote(:left)
-  end
-  
-  def vote_right
-    expire_page :action => :results
-    vote(:right)
-  end
-    
   def skip
     expire_page :action => :results
     prompt_id = params[:prompt_id]
@@ -978,7 +916,7 @@ class QuestionsController < ApplicationController
     #                                                                 :ideas => params[:question]['question_ideas']))
     @question = Question.new(params[:question])
     #raise @question.inspect
-    @question.validate_me
+    @question.validate
     unless @question.valid?
     	if signed_in?
       	   @registered = true

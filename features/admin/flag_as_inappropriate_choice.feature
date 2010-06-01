@@ -1,4 +1,3 @@
-@focus
 Feature: Control Flag as Inappropriate
 	In order to prevent unsavory materials from appearing on our site
 	As a question administrator

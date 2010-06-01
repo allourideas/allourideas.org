@@ -12,10 +12,9 @@
   -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
     %p
       = f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
-      - if flash[:registration_error]
+      - if @user && @user.errors.any?
         #errorExplanation.errorExplanation
-          %h2= flash[:registration_error]
-          - flash[:registration_error] = nil
+          %h2=t('questions.new.error.registration')
           %br
           %ul
             -@user.errors.each do |error|
@@ -46,10 +45,10 @@
       %br
       %br
 
-      = f.text_area 'question_ideas', :class => 'required', :cols => 85, :rows => 12, :title => t('questions.new.step3_exp')
+      = f.text_area 'ideas', :class => 'required', :cols => 85, :rows => 12, :title => t('questions.new.step3_exp')
       = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
 
-    -unless @registered
+    -unless signed_in?
       
       %h2= t('questions.new.step4')
       %p

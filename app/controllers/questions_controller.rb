@@ -888,10 +888,6 @@ class QuestionsController < ApplicationController
   # GET /questions/new.xml
   def new
     @errors ||= []
-    if signed_in?
-      @registered = true
-    end
-
     @question = Question.new
 
     respond_to do |format|
@@ -910,66 +906,47 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    #raise params[:question].inspect
-    # 
-    # @question = Question.new(params[:question].except('url').merge('visitor_identifier' => request.session_options[:id], 
-    #                                                                 :ideas => params[:question]['question_ideas']))
     @question = Question.new(params[:question])
-    #raise @question.inspect
-    @question.validate
     unless @question.valid?
-    	if signed_in?
-      	   @registered = true
-        end
       render :action => "new" and return
     end
     
-    just_registered = true
     unless signed_in?
-       logger.info "not signed in, getting ready to instantiate a new user from params in Questions#create"
       #try to register the user before adding the question
-      @user = ::User.new(:email => params[:question]['email'], 
+      @user = User.new(:email => params[:question]['email'], 
                          :password => params[:question]['password'], 
                          :password_confirmation => params[:question]['password'])
-       unless @user.valid?
-         flash[:registration_error] = t('questions.new.error.registration')
-         #redirect_to 'questions/new' and return
-         logger.info "Registration failed, here's the flash: #{flash.inspect}"
-         render :action => "new" and return
-       end
-      if @user.save
-        logger.info "just saved the user in Questions#create"
-        sign_in @user
-        just_registered = true
+      if @user.valid?
+	@user.save
+	sign_in @user
       else
-        flash[:notice] = t('questions.new.error.registration')
         render :action => "new" and return
-        #render :template => 'users/new' and return
+        #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
       end
     end
-    #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
     
-    @question_two = Question.new(params[:question].except('url').merge({'local_identifier' => current_user.id, 'visitor_identifier' => request.session_options[:id], :ideas => params[:question]['question_ideas']}))
-    logger.info "question pre-save is #{@question.inspect}"
+    @question.attributes.merge!({'local_identifier' => current_user.id, 
+	    			'visitor_identifier' => request.session_options[:id]})
+
+    ideas = @question.ideas.lines.to_a.delete_if {|i| i.blank?}
+
+    if ideas.length == 1
+	    @question.ideas += "\nsample choice" 
+    end
+    
     respond_to do |format|
-      retryable(:tries => 5) do
-        if @question_two.save
-          @question = @question_two
+        if @question.save
           earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
-          logger.info "Question was successfully created."
           session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
-          ::ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl) if just_registered
-	  if params[:question]['information'] != ""
-		  ::IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information'])
-	  end
+          ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl)
+	  IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information']) unless params[:question]["information"].blank?
           format.html { redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')}
           format.xml  { render :xml => @question, :status => :created, :location => @question }
         else
           logger.info "Question was not successfully created."
           format.html { render :action => "new" }
-          format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+         format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
         end
-      end
     end
   end
 

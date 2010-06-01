@@ -15,9 +15,13 @@ module NavigationHelpers
       question_path
     when /the question create page/i
       new_question_path
+    when /the questions index page/i
+      questions_path
     
     when /the Cast Votes page for '([^'].*)'/i
 	"/"+ $1
+    when /the Just Created Cast Votes page for '([^'].*)'/i
+	"/"+ $1 + "?just_created=true"
     when /the View Results page for '([^'].*)'/i
 	"/"+ $1 + "/results"
     when /the Admin page for '([^'].*)'/i

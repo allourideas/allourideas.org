@@ -29,3 +29,9 @@ Then /^the the background job should call '(.*)'$/ do |method|
 	
 end
 
+When /^I click on the toggle link for the first choice$/ do 
+	find('.toggle_choice_status').click
+end
+Then /^the first choice should be (.*)$/ do |status|
+	Then "I should see \"#{status}\" within \".toggle_choice_status\""
+end

@@ -285,7 +285,7 @@ jQuery(document).ready(function() {
 			if(data['error']) { 
 			}
 			else {
-            if (data['verb'] == "Activated") {
+            if (data['active'] == true) {
                $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-greyfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-grey").children()]).each(function(el) {
                      $(this).removeAttr("style")
                });
@@ -313,7 +313,7 @@ jQuery(document).ready(function() {
                   });
                });
             }
-            else if (data['verb'] == "Deactivated") {
+            else if (data['active'] == false) {
                $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filledfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled").children()]).each(function(el) {
                      $(this).removeAttr("style")
                });

@@ -1,5 +1,7 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
+  before_filter :authenticate, :only => [:toggle]
+
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     @question_id = Question.find_id_by_name(params[:question_id])
@@ -27,32 +29,24 @@ class ChoicesController < ApplicationController
   end
   
   def toggle
-    authenticate
     @earl = Earl.find(params[:earl_id])
-    @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
     unless (current_user.owns?(@earl) || current_user.admin?)
       render(:json => {:message => t('items.toggle_error')}.to_json) and return
     end
-    @old_status = @choice.active?
-    logger.info "Getting ready to change active status of Choice #{params[:id]} to #{!@old_status}"
+    @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
+    @choice.active = !@choice.active
+    
+    verb = {true => t('items.list.activated'), false => t('items.list.deactivated')}
     
     respond_to do |format|
         format.xml  {  head :ok }
         format.js  { 
-          verb = @choice.active? ? t('items.list.deactivated') : t('items.list.activated')
-          failed_verb = @choice.active? ? t('items.list.activated') : t('items.list.deactivated')
-          remote_function = @choice.active? ? :deactivate_from_abroad : :update_from_abroad
           
-          begin
-            if @choice.put(remote_function, :params => {:question_id => @earl.question_id})
-              logger.info "just #{verb} choice"
-              render :json => {:message => "You've just #{verb.downcase} this choice", :verb => verb}.to_json
-            else
-              render :json => {:message => "Sorry, could not toggle status of choice", :verb => verb}.to_json
-            end
-          rescue
-            render :json => {:message => "Sorry, could not toggle status of choice. Remember that you need at least two active choices.", :verb => failed_verb, :error => true}.to_json
-          end
+        if @choice.save
+          render :json => {:verb => verb[@choice.active?], :active => @choice.active?}.to_json
+        else
+          render :json => {:verb => verb[!@choice.active?], :active => !@choice.active?}.to_json
+        end
         }
     end
   end

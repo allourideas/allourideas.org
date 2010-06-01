@@ -1,0 +1,10 @@
+.grid_7.center
+  =render(:partial => 'questions/photo',
+          :locals => {:direction => "left", :choice => @left_choice_id, :photo => @left_choice_photo})
+.grid_2.center
+  #vs VS
+.grid_7.center
+  =render(:partial => 'questions/photo',
+          :locals => {:direction => "right", :choice => @right_choice_id, :photo => @right_choice_photo})
+.clear
+  =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']

@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :initialize_session, :record_action, :set_urls, :set_locale
+
+  before_filter :photocracy_filter
+
+  def photocracy_filter
+    if request.url.include?('photocracy')
+	    @photocracy = true
+	    request.format = :photocracy
+    end
+  end
   
   def set_urls
 

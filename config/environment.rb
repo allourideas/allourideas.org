@@ -77,6 +77,8 @@ Rails::Initializer.run do |config|
   config.gem 'sax-machine'
   config.gem 'i18n'
   config.gem 'delayed_job'
+  config.gem 'haml',
+	  :version => '3.0.9'
 end
 
 PRODUCTION_API_HOST = ENV['API_HOST']

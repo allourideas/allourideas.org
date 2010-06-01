@@ -51,9 +51,6 @@ class EarlsController < ApplicationController
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
        @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_add_idea_button"	       
        @ab_test_stackoverflow_name = "#{@earl.name}_#{@earl.question_id}_test_stackoverflow_welcome"	       
-      # # logger.info "redirecting"
-      # # 
-      render :controller => "Questions", :action => "show"
     else
       redirect_to('/') and return
     end

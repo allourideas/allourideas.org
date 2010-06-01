@@ -46,6 +46,11 @@ class EarlsController < ApplicationController
        @left_choice_text = @prompt.left_choice_text
        @left_choice_id = @prompt.left_choice_id
        @right_choice_id = @prompt.right_choice_id
+
+       if @photocracy
+          @right_choice_photo = Photo.find(@right_choice_text)
+          @left_choice_photo = Photo.find(@left_choice_text)
+       end
        
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       

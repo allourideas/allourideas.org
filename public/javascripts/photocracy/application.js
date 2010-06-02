@@ -3,8 +3,9 @@ $(document).ready(function() {
 		if ($(this).hasClass('loading')) {
 			alert("One sec, we're loading the next pair...");
 		} else {
-			$('a.vote').addClass('loading');
-			$(this).addClass('chosen');
+			$('.click_to_vote').hide(); // visible if the users hasn't voted
+			$('a.vote').addClass('loading'); // spinner
+			$(this).addClass('chosen');  // checkmark
 			castVote($(this));
 		}
 		e.preventDefault();
@@ -42,24 +43,17 @@ function updateVotingHistory(data) {
 }
 
 function loadNextPrompt(data) {
-	$.ajax({
-		type: 'GET',
-		dataType: 'html',
-	  url: data['show_prompt_path'],
-	  data: {
-			authenticity_token: encodeURIComponent(AUTH_TOKEN),
-	    right_choice_text:  data['right_choice_text'],
-			left_choice_text:   data['left_choice_text'],
-			right_choice_id:    data['right_choice_id'],
-			left_choice_id:     data['left_choice_id'],
-			question_id:        data['question_id'],
-			prompt_id:          data['prompt_id']
-	  },
-	  success: function(html) {
-			$('#prompt').html(html);
-			$('#appearance_lookup').val(data['appearance_lookup']);
-		}
-	});
+	// remove spinner and checkmark
+	$('a.vote').removeClass('loading');
+	$('a.vote').removeClass('chosen');
+
+	// change photos
+	$('a.vote.left').css('background', "url('" + data['newleft_photo'] + "') center center no-repeat");
+	$('a.vote.right').css('background', "url('" + data['newright_photo'] + "') center center no-repeat");
+
+	// change href urls
+	$('a.vote.left').attr('href', data['newleft_url']);
+	$('a.vote.right').attr('href', data['newright_url']);
 }
 
 function voteError(request, textStatus, errorThrown) {

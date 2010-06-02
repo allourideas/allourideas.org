@@ -130,7 +130,7 @@ p.score_explanation {
   position: fixed;
   top: 0px;
   width: 100%;
-  background: #eeeeee url(../images/hd_fade.png) bottom repeat-x; }
+  background: #eeeeee url(../../images/photocracy/hd_fade.png) bottom repeat-x; }
 
 #ft {
   margin-top: 2em;
@@ -144,10 +144,10 @@ p.score_explanation {
   margin-top: 8em; }
 
 .loading {
-  background: white url(../images/photocracy/spinner.gif) center center no-repeat !important; }
+  background: white url(../../images/photocracy/spinner.gif) center center no-repeat !important; }
 
 .chosen {
-  background: white url(../images/photocracy/chosen.png) center center no-repeat !important; }
+  background: white url(../../images/photocracy/chosen.png) center center no-repeat !important; }
 
 .center {
   text-align: center; }

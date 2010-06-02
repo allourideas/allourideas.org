@@ -17,9 +17,12 @@ class Choice < ActiveResource::Base
     prefix_options[:question_id]
   end
   
-  
   def data
     attributes['data']
+  end
+
+  def created_at
+    attributes['created_at']
   end
   
   def activate!

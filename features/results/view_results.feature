@@ -1,4 +1,3 @@
-@focus
 Feature: View Results
 	In order to be motivated to engage in this idea marketplace
 	As a voter

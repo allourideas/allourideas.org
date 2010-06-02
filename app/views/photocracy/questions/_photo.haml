@@ -1,6 +1,7 @@
 %a.photo_frame{:style => "background:#fff url('#{photo.image.url(:medium)}') center center no-repeat;",
-              :href => vote_question_prompt_path(@question.id, @prompt.id, :direction => direction),
+              :href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
               :class => "#{direction} vote", :direction => direction, :locale => I18n.locale}
-  .click_to_vote
-    / =image_tag 'click_to_vote.png'
+  =unless session[:has_voted] == true
+    .click_to_vote
+      =image_tag 'photocracy/click_to_vote.png'
 =link_to 'report as inappropriate', '#', :class => 'gray'

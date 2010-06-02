@@ -93,6 +93,8 @@ fr:
     no_data_error: "impossible de faire des cartes, pas de données"
     overall_total: "Total dans l’ensemble - " 
     vote_map_geo_error: "Nous n’avons pas pu trouver l’emplacement du "
+    previous: << Précédent
+    next: Prochain >>
   about_page: 
     intro: Vous participez à un "marché idée" qui permet aux groupes de recueillir des idées et établir des priorités dans un processus démocratique, ouverte et efficace. En combinant un processus de vote simple avec le téléchargement d'idées, les meilleures idées dans le groupe fera des bulles vers le haut.
     how_many_votes_q: Combien de votes exprimés puis-je? Quand finit-elle? 

@@ -2,7 +2,7 @@
 -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id)
 -@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
 -@manage_url = url_for(:action => :admin, :controller => :questions, :id => @the_id)
--@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :all => true)
+-@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :more => true)
 -@about_url= url_for(:action => :about, :controller => :questions, :id => @the_id)
 
 .vote-nav{:style => "position: relative;"}

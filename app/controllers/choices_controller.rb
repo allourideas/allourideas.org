@@ -4,21 +4,16 @@ class ChoicesController < ApplicationController
 
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
-    @question_id = Question.find_id_by_name(params[:question_id])
     @earl = Earl.find params[:question_id]
+    @question = Question.find(@earl.question_id)
     
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
 	      redirect_to :action => :show, :controller => :choices, 
 		      :question_id => params[:question_id], :id => params[:id]  and return
     end
-    @choice = Choice.find(params[:id], :params => {:question_id => @question_id})
+    @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     if @choice
-      @question_name = @choice.attributes['question_name']
-      @data = @choice.attributes['data']
-      @score = @choice.attributes['score'].round rescue (@score = 0)
-      logger.info "the score is #{@score.inspect}"
-      @created_at = @choice.attributes['created_at']
       @votes_count = @choice.attributes['wins_plus_losses']
       respond_to do |format|
         format.html # show.html.erb

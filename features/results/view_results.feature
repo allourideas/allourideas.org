@@ -10,21 +10,22 @@ Feature: View Results
 	Scenario: User clicks all results
 		Given I am on the View Results page for 'test'
 		When I follow "See more..."
-		Then I should see "fake idea : 0"
-		And I should see "fake idea : 19"
+		Then I should see "Idea #1"
+		And I should see "Idea #19"
 		And I should not see "See more..."
 		And I should have the following query string:
-		   |all|true|
+		   |more|true|
          
 	Scenario: User clicks all results in french
 		Given the default locale for 'test' is 'fr'
 		And I am on the View Results page for 'test'
 		When I follow "Voir plus"
-		Then I should see "fake idea : 0"
-		And I should see "fake idea : 19"
+		Then I should see "Idea #1"
+		And show me the page
+		And I should see "Idea #19"
 		And I should not see "Voir plus"
 		And I should have the following query string:
-		   |all|true|
+		   |more|true|
 		   |locale|fr|
 
 

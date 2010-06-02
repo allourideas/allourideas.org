@@ -30,11 +30,17 @@ class QuestionsController < ApplicationController
   # end
   def results
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
-    logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
 
     @question = Question.find(@earl.question_id)
     @question_id = @question.id
+
+    current_page = params[:page] || 1
+    current_page = current_page.to_i
+    per_page = 50
+
+    logger.info "current page is #{current_page} but params is #{params[:page]}"
+
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
 	      redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
@@ -43,11 +49,23 @@ class QuestionsController < ApplicationController
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]
-      @choices = Choice.find(:all, :params => {:question_id => @question_id})
+      choices = Choice.find(:all, :params => {:question_id => @question_id})
+    elsif params[:more]
+      choices = Choice.find(:all, :params => {:question_id => @question_id,
+			                      :limit => per_page, 
+					      :offset => (current_page - 1) * per_page})
     else
-      @choices = Choice.find(:all, :params => {:question_id => @question_id, :limit => 10, :offset => 0})
+      choices = Choice.find(:all, :params => {:question_id => @question_id, 
+			                      :limit => 10, 
+					      :offset => 0})
     end
-    logger.info "First choice is #{@choices.first.inspect}"
+
+    @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
+	       pager.replace(choices)
+
+	       pager.total_entries = @question.choices_count - @question.inactive_choices_count
+
+    end
     
     @available_charts = {}
     @available_charts['votes'] = { :title => t('results.votes_over_time_title')}

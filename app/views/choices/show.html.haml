@@ -3,16 +3,16 @@
   %table.full.item
     %tr.row0
       %th{:colspan => 2}
-        = @question_name.strip
+        = @question.name.strip
     %tr
       %td= t('items.idea')
-      %td{:width=>'80%'}= @data.strip
+      %td{:width=>'80%'}= @choice.data.strip
     %tr
       %td= t('items.added_on')
-      %td= @created_at.getlocal.strftime("%m/%d/%Y")
+      %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
     %tr
       %td= t('items.score')
-      %td= @score.round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+      %td= @choice.score.round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
     %tr
       %td= t('items.number_of_votes')
       %td= @votes_count

@@ -91,4 +91,7 @@ class Question < ActiveResource::Base
     end
   end
 
+  def active_choices
+	self.choices_count - self.inactive_choices_count
+  end
 end

@@ -4,7 +4,6 @@
     %tr.row0
       %th
         = @question.attributes['name']
-        /== (#{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')})
       %th.score= t('common.score').titleize
       %th &nbsp;
       %th &nbsp;
@@ -13,20 +12,22 @@
       %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
         %td.title= link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
         %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
-        -#%td= rank
-        -#%td= added
         %td
           .bar-chart
             %div{:style => "width:#{choice.attributes['score']}%"}
-    -if !params[:all] and (@question.attributes['choices_count'].to_i > 10)#@items_all || @items_newest
+    -if !params[:more] && !params[:all] && (@question.attributes['choices_count'].to_i > 10)
       %tr.row1
         %td{:colspan => 3}
-          %strong= link_to(t('nav.see_all_ideas'), @all_results_url)#quick_link('items/all', "items_path(:question_id => @question_id)"))
-
+          %strong= link_to(t('nav.see_all_ideas'), @all_results_url)
     %tr.row0.thin
       %td{:colspan => 3}
+  -if params[:more] && !params[:all]
+    = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next') 
+    -if paginated
+      .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
   %br
-  
+  %br
+
   %table.full
     %tr.row0
       %th=t('results.data_visualizations')

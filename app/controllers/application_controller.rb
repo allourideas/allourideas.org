@@ -4,19 +4,19 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :record_action, :set_urls, :set_locale
+  before_filter :initialize_session, :record_action, :set_locale
 
+  # preprocess photocracy_view_path on boot because
+  # doing pathset generation during a request is very costly.
   before_filter :photocracy_filter
-
-  def photocracy_filter
-    if request.url.include?('photocracy')
-	    @photocracy = true
-	    request.format = :photocracy
-    end
-  end
+  cattr_accessor :photocracy_view_path
+  @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   
-  def set_urls
-
+  def photocracy_filter
+    if request.url.include?('photocracy') || @photocracy
+	    @photocracy = true
+      prepend_view_path(@@photocracy_view_path)
+    end
   end
   
   def initialize_session

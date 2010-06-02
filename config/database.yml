@@ -3,6 +3,7 @@
 
 development: &default
   adapter: mysql
+  user: root
   database: allourideas_development
   pool: 5
   timeout: 5000

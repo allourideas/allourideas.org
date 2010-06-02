@@ -9,26 +9,23 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
 
-#  config.time_zone = 'Eastern Time (US & Canada)'
   config.active_record.default_timezone = 'Eastern Time (US & Canada)'
 
   config.action_mailer.delivery_method = :sendmail
+
   config.gem 'hoptoad_notifier', 
 	  :version => '2.2.2'
   config.gem "ambethia-smtp-tls",
     :lib     => "smtp-tls",
     :version => "1.1.2",
     :source  => "http://gems.github.com"
-#  config.gem "thoughtbot-paperclip",
-#    :lib     => "paperclip",
-#    :version => "2.3.1",
-#    :source  => "http://gems.github.com"
   config.gem "paperclip",
     :lib => 'paperclip',
-    :source  => "http://gemcutter.org"
-#  config.gem "aws-s3",
-#    :lib     => "aws/s3",
-#    :version => "0.6.2"
+    :source  => "http://gemcutter.org",
+    :version => '2.3.1.1'
+ config.gem "aws-s3",
+   :lib     => "aws/s3",
+   :version => "0.6.2"
   config.gem "mime-types",
     :lib     => "mime/types",
     :version => "1.16"
@@ -54,29 +51,28 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv",
     :lib     => 'fastercsv',
     :version => '1.5.1'
-    
-
   config.gem  'redis-store',
     :version => '0.3.7'
-  #config.gem 'redis',
-  #  :version => '1.0.7'
-
   config.gem "ezmobius-redis-rb",
     :lib => false,
-    :source  => 'http://gems.github.com'
-
-  config.gem "will_paginate", 
-	:version => '>2.3.11', 
-	:source => 'http://gemcutter.org'
-
-  config.gem 'geoip_city'
-  config.gem 'geokit'
-
-  config.gem 'crack'
-  config.gem 'friendly_id'
-  config.gem 'sax-machine'
+    :source  => 'http://gems.github.com',
+    :version => '0.1'
+  config.gem "will_paginate",
+	  :version => '2.3.11',
+	  :source => 'http://gemcutter.org'
+  config.gem 'geoip_city',
+     :version => '0.2.0'
+  config.gem 'geokit',
+     :version => '1.5.0'
+  config.gem 'crack',
+    :version => '0.1.4'
+  config.gem 'friendly_id',
+    :version => '2.2.5'
+  config.gem 'sax-machine',
+    :version => '0.0.14'
   config.gem 'i18n'
-  config.gem 'delayed_job'
+  config.gem 'delayed_job',
+    :version => '2.0.3'
   config.gem 'haml',
 	  :version => '3.0.9'
 end

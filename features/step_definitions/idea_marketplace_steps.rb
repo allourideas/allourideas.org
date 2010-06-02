@@ -63,8 +63,10 @@ When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
           @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => true}) 
 	end
         
-	num_ideas.to_i.times do |n|
-	  the_params = {'auto' => 'test choices', :data => "fake idea : #{n}", :question_id => @question.id}
+
+	#Pairwise sorts by last created, but this makes testing pagination annoying, let's create these going down
+	(1..num_ideas.to_i).to_a.reverse.each do |n|
+	  the_params = {'auto' => 'test choices', :data => "Idea ##{n}", :question_id => @question.id}
           Choice.post(:create_from_abroad, :question_id => @question.id, :params => the_params)
 	end
 

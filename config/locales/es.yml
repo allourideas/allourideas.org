@@ -93,6 +93,8 @@ es:
     no_data_error: "No se puede construir un gráfico, no hay datos"
     overall_total: "Total"
     vote_map_geo_error: "No se pudo ubicar la localización de"
+    previous: << Anterior
+    next: Próximo >>
   about_page: 
     intro: Estás participando en un mercado "idea" que permite a los grupos para recoger y dar prioridad a las ideas en un proceso democrático, abierto y eficiente. Mediante la combinación de un proceso de votación simple con carga abierto de ideas, las mejores ideas de su grupo saldrán a la parte superior. 
     how_many_votes_q: ¿Cuántos votos emitidos puedo? Cuando se termina?

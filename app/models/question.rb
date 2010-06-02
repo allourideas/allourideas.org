@@ -100,6 +100,9 @@ class Question < ActiveResource::Base
     # email
   end
 
+  def active_choices
+	self.choices_count - self.inactive_choices_count
+  end
   # 
   # def items_url
   #   Item.collection_path(:question_id => self.id)

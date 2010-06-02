@@ -578,3 +578,30 @@ background-color: #8dbdd8;
 
 .no_bottom_padding{
 	  padding-bottom: 0px !important;}
+
+.pagination {
+  text-align: center;
+  padding: .3em; }
+  .pagination a, .pagination span {
+    padding: .2em .5em; }
+  .pagination span.disabled {
+    color: #AAA; }
+  .pagination span.current {
+    font-weight: bold;}
+  .pagination a {
+    border: 1px solid #DDDDDD;
+    text-decoration: none; }
+    .pagination a:hover, .pagination a:focus {
+      border-color: #003366;
+      background: #3198c1;
+      color: white; }
+  .pagination .page_info {
+    color: #aaa;
+    padding-top: .8em; }
+  .pagination .prev_page, .pagination .next_page {
+    border-width: 2px; }
+  .pagination .prev_page {
+    margin-right: 1em; }
+  .pagination .next_page {
+    margin-left: 1em; }
+

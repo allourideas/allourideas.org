@@ -4,7 +4,7 @@ Feature: View Results
 	I want to be able to see current results
 
 	Background: 
-		Given an idea marketplace exists with url 'test'
+		Given an idea marketplace quickly exists with url 'test'
 		And idea marketplace 'test' has 20 ideas
 
 	Scenario: User clicks all results

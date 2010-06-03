@@ -15,7 +15,9 @@ ActionController::Routing::Routes.draw do |map|
 #                            :admin => :get, 
 #                            :results => :get,
 #                            :voter_map => :get,
-			    :delete_logo => :delete }
+			    :delete_logo => :delete } do |question|
+	         question.resources :choices, :only => [:show], :path_prefix => '/:question_id'
+		 end
   map.resources :earls, :only => [:export_list], :collection => {:export_list=> :get}
   map.resources :clicks, :collection => {:export=> :get}
   #map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
@@ -37,7 +39,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '/:id', :controller => 'earls', :action => 'show'
   map.connect '/:id/:action', :controller => 'questions'
-  map.connect '/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   
 
   # rake routes

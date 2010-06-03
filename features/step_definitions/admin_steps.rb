@@ -29,3 +29,7 @@ Then /^the the background job should call '(.*)'$/ do |method|
 	
 end
 
+When /^I deactivate the two saved choices$/ do
+        @left_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
+        @right_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
+end

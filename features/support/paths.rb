@@ -26,6 +26,13 @@ module NavigationHelpers
 	"/"+ $1 + "/results"
     when /the Admin page for '([^'].*)'/i
 	"/"+ $1 + "/admin"
+    
+    when /the Idea Detail page for the saved left choice/i
+	 @earl = Earl.find_by_question_id(@question_id)
+	 question_choice_path(:question_id => @earl, :id => @left_choice.id)
+    when /the Idea Detail page for the saved right choice/i
+	 @earl = Earl.find_by_question_id(@question_id)
+	 question_choice_path(:question_id => @earl, :id => @right_choice.id)
     # Add more page name => path mappings here
 
     else

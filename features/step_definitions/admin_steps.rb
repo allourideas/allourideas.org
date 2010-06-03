@@ -35,3 +35,7 @@ end
 Then /^the first choice should be (.*)$/ do |status|
 	Then "I should see \"#{status}\" within \".toggle_choice_status\""
 end
+When /^I deactivate the two saved choices$/ do
+        @left_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
+        @right_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
+end

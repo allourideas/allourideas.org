@@ -6,6 +6,7 @@ Given /^an idea marketplace exists with url '(.*)'$/ do |url|
 
 		Capybara.reset_sessions!
 end
+
 Given /^an idea marketplace exists with admin '(.*)' and password '(.*)' and url '(.*)'$/ do |email, password, url|
 		Given "I am on the question create page"
 		When "I fill in all fields with valid data except \"question_email\""
@@ -53,6 +54,12 @@ When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 		When "I fill in \"#{k}\" with \"#{v}\""
 	end
 end
+
+Given /^an idea marketplace quickly exists with url '(.*)'$/ do |url|
+	q = Question.create(Factory.attributes_for(:question))
+	e = Factory.create(:earl, :name => url, :question_id => q.id)
+end
+
 
 When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	e = Earl.find(url)

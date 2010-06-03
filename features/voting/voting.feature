@@ -4,7 +4,7 @@ Feature: Voting
   Should be able to interact successfully with the voting screen
   
   Background: 
-    Given an idea marketplace exists with url 'test'
+    Given an idea marketplace quickly exists with url 'test'
     And I am on the Cast Votes page for 'test'
 
     @selenium

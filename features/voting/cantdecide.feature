@@ -5,7 +5,7 @@ Feature: I Can't Decide
 
 
 	Background: 
-		Given an idea marketplace exists with url 'test'
+		Given an idea marketplace quickly exists with url 'test'
 		And I am on the Cast Votes page for 'test'
 
 	Scenario: User sees menu of cant decide 

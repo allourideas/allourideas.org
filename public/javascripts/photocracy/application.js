@@ -38,7 +38,7 @@ function castVote(choice) {
 
 function updateVotingHistory(data) {
 	var winner = data['voted_prompt_winner']
-	$('#visitor_votes').text(data['visitor_votes']);
+	//$('#visitor_votes').text(data['visitor_votes']);
 	$('#your_votes').prepend("\
 		<li>\
 			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\

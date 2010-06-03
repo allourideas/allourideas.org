@@ -54,18 +54,17 @@ function updateVotingHistory(data) {
 function loadNextPrompt(data) {
 	// remove spinner and checkmark
 	$('a.vote').removeClass('loading chosen');
-
-	// change photos
-	$('a.vote.left').css('background', "#fff url('" + data['newleft_photo'] + "') center center no-repeat");
-	$('a.vote.right').css('background', "#fff url('" + data['newright_photo'] + "') center center no-repeat");
 	
-	// change photo thumbs
-	$('a.vote.left').attr('thumb', data['newleft_photo_thumb']);
-	$('a.vote.right').attr('thumb', data['newright_photo_thumb']);
+	jQuery.each(['left', 'right'], function(index, side) {
+		// change photo
+		$('a.vote.' + side).css('background', "#fff url('" + data['new' + side + '_photo'] + "') center center no-repeat");
 
-	// change href urls
-	$('a.vote.left').attr('href', data['newleft_url']);
-	$('a.vote.right').attr('href', data['newright_url']);
+		// change photo thumb
+		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
+
+		// change href url
+		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
+	});
 }
 
 function voteError(request, textStatus, errorThrown) {

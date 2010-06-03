@@ -29,12 +29,18 @@ class PromptsController < ApplicationController
       }
 
       if @photocracy
+        newright_photo = Photo.find(next_prompt['right_choice_text'])
+        newleft_photo = Photo.find(next_prompt['left_choice_text'])
         result.merge!({
-          :visitor_votes  => next_prompt['visitor_votes'],
-          :newright_photo => Photo.find(next_prompt['right_choice_text']).image.url(:medium),
-          :newleft_photo  => Photo.find(next_prompt['left_choice_text']).image.url(:medium),
-          :newleft_url    => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :left),
-          :newright_url   => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :right)
+          :visitor_votes        => next_prompt['visitor_votes'],
+          :newright_photo       => newright_photo.image.url(:medium),
+          :newright_photo_thumb => newright_photo.image.url(:thumb),
+          :newleft_photo        => newleft_photo.image.url(:medium),
+          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
+          :newleft_url          => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :left),
+          :newright_url         => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :right),
+          :voted_at             => Time.now.getutc.iso8601,
+          :voted_prompt_winner  => params[:direction]
         })
       end
 

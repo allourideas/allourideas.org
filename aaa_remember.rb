@@ -1,4 +1,4 @@
-Steps to prepare testing
+Steps to prepare testing 
 Pairwise:
   rake testserver:launch
 AOI: 

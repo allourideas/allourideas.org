@@ -91,9 +91,18 @@ end
 
 Given /^I save the current (.*) choices?$/ do |side|
 	@question_id = page.locate('#leftside')[:rel].to_i
-	#This is not the ideal way to find this value, but locate() and find() seem to have some problem with hidden fields
-        @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
-	@prompt = Prompt.find(@prompt_id, :params => {:question_id => @question_id})
+	
+	#The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
+        begin
+	  @prompt_id = page.locate('#prompt_id')[:value].to_s
+	rescue Capybara::ElementNotFound
+          @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
+	end
+	if @prompt_id.blank?
+	  raise Capybara::ElementNotFound
+	end
+
+        @prompt = Prompt.find(@prompt_id, :params => {:question_id => @question_id})
 
 	if side == "left" or side == "two"
 	  @left_choice_text = page.locate('#leftside').text.to_s

@@ -39,3 +39,20 @@ When /^I deactivate the two saved choices$/ do
         @left_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
         @right_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
 end
+
+When /^I deactivate the saved left choice$/ do
+	@left_choice.active = false
+	@left_choice.save
+end
+
+Then /^I should not see the saved (.*) choice text$/ do |side|
+	choice = (side == "left") ? @left_choice : @right_choice
+
+	Then "I should not see \"#{choice.data}\""
+end
+
+Then /^I should see the saved (.*) choice text$/ do |side|
+	choice = (side == "left") ? @left_choice : @right_choice
+
+	Then "I should see \"#{choice.data}\""
+end

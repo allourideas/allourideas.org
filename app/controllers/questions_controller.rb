@@ -755,7 +755,6 @@ class QuestionsController < ApplicationController
   end
          
   def flag
-    expire_page :action => :results
     prompt_id = params[:prompt_id]
 
     appearance_lookup = params[:appearance_lookup]

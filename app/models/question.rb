@@ -30,6 +30,10 @@ class Question < ActiveResource::Base
       attributes[attr]
     end
   end 
+  
+  def active_choices
+	self.choices_count - self.inactive_choices_count
+  end
 
   def ideas=(new_ideas)
 	  attributes['ideas'] = new_ideas
@@ -91,7 +95,4 @@ class Question < ActiveResource::Base
     end
   end
 
-  def active_choices
-	self.choices_count - self.inactive_choices_count
-  end
 end

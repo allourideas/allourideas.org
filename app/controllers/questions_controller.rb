@@ -79,7 +79,7 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
 
     unless ((current_user.owns?(@earl)) || current_user.admin?)
-	    logger.info ("Current user is: #{current_user.inspect}")
+	    logger.info("Current user is: #{current_user.inspect}")
 	    flash[:notice] = t('user.not_authorized_error')
 	    redirect_to( "/#{params[:id]}") and return
     end
@@ -755,7 +755,6 @@ class QuestionsController < ApplicationController
   end
          
   def flag
-    expire_page :action => :results
     prompt_id = params[:prompt_id]
 
     appearance_lookup = params[:appearance_lookup]
@@ -1003,7 +1002,7 @@ class QuestionsController < ApplicationController
      @earl = Earl.find params[:id]
     
      unless ((current_user.owns?(@earl)) || current_user.admin? )
-	    logger.info ("Current user is: #{current_user.inspect}")
+	    logger.info("Current user is: #{current_user.inspect}")
 	    flash[:notice] = "You are not authorized to view that page"
 	    redirect_to( "/#{params[:id]}") and return
     end

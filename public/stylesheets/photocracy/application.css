@@ -92,12 +92,14 @@ a.photo_frame:hover {
 #secondary_content img {
   vertical-align: middle; }
 
-ul.your_votes {
+ul#your_votes {
   line-height: 75px;
   margin: 0;
   list-style-type: none; }
-  ul.your_votes li {
+  ul#your_votes li {
     margin: 0; }
+  ul#your_votes img.loser {
+    opacity: 0.5; }
 
 ul.results {
   list-style-type: none; }

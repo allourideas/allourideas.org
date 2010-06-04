@@ -7,13 +7,18 @@ class PromptsController < ApplicationController
     session[:has_voted] = true
     
     if params[:direction] &&
-      vote = voted_prompt.post("vote_#{params[:direction]}".to_sym,
+      vote = voted_prompt.post(:vote,
         :question_id => params[:question_id],
-        :params => {
-          :auto => request.session_options[:id],
-          :time_viewed => params[:time_viewed],
-          :appearance_lookup => params[:appearance_lookup]
-        }
+          :vote => { :direction => params[:direction],
+                     :visitor_identifier => request.session_options[:id],
+                     :time_viewed => params[:time_viewed],
+                     :appearance_lookup => params[:appearance_lookup]
+                   },
+          :next_prompt => { :with_appearance => true,
+                            :with_visitor_stats => true,
+                            :visitor_identifier => request.session_options[:id]
+                          }
+        
       )
 
       next_prompt = Crack::XML.parse(vote.body)['prompt']
@@ -29,12 +34,18 @@ class PromptsController < ApplicationController
       }
 
       if @photocracy
+        newright_photo = Photo.find(next_prompt['right_choice_text'])
+        newleft_photo = Photo.find(next_prompt['left_choice_text'])
         result.merge!({
-          :visitor_votes  => next_prompt['visitor_votes'],
-          :newright_photo => Photo.find(next_prompt['right_choice_text']).image.url(:medium),
-          :newleft_photo  => Photo.find(next_prompt['left_choice_text']).image.url(:medium),
-          :newleft_url    => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :left),
-          :newright_url   => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :right)
+          :visitor_votes        => next_prompt['visitor_votes'],
+          :newright_photo       => newright_photo.image.url(:medium),
+          :newright_photo_thumb => newright_photo.image.url(:thumb),
+          :newleft_photo        => newleft_photo.image.url(:medium),
+          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
+          :newleft_url          => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :left),
+          :newright_url         => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :right),
+          :voted_at             => Time.now.getutc.iso8601,
+          :voted_prompt_winner  => params[:direction]
         })
       end
 

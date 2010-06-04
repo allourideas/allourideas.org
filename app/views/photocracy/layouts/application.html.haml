@@ -9,12 +9,13 @@
     /[if IE 7] 
       =stylesheet_link_tag 'photocracy/ie'
     =stylesheet_link_tag 'photocracy/application'
-    =javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'photocracy/application'
+    =javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js', 'photocracy/application', 'photocracy/jquery.timeago'
     :javascript 
       var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
     :javascript
       $(document).ready(function(){
+        $("abbr.timeago").timeago();
         column_heights = new Array();
           $("#secondary_content .grid_4").each(function(index) {
           column_heights[index] = $(this).height();
@@ -22,7 +23,7 @@
         
         tallest = Math.max.apply(null,column_heights);
         $("#secondary_content .grid_4").each(function(index) {
-          $(this).height(tallest);
+          $(this).css('min-height', tallest);
         });
       });
   %body

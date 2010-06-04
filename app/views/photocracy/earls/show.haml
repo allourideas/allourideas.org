@@ -16,22 +16,10 @@
   #secondary_content
     .grid_4
       %h5.no_margin
-        Your <span id="visitor_votes">0</span> votes
+        Your <span id="visitor_votes"></span> votes
         %span.normal (average is 12)
       .padding
-        %ul.your_votes
-          %li
-            =image_tag "photocracy/test1_small.jpg", :style => "opacity:.5;"
-            =image_tag "photocracy/test2_small.jpg"
-            2 seconds ago
-          %li
-            =image_tag "photocracy/test1_small.jpg", :style => "opacity:.5;"
-            =image_tag "photocracy/test2_small.jpg"
-            2 seconds ago
-          %li
-            =image_tag "photocracy/test1_small.jpg", :style => "opacity:.5;"
-            =image_tag "photocracy/test2_small.jpg"
-            2 seconds ago
+        %ul#your_votes
     .grid_4.center
       %h5.no_margin 232 votes on 134 photos
       .padding

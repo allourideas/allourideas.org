@@ -1,6 +1,7 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
   before_filter :authenticate, :only => [:toggle]
+  before_filter :earl_owner_or_admin_only, :only => [:activate, :deactivate]
 
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
@@ -48,56 +49,30 @@ class ChoicesController < ApplicationController
   
   
   def activate
-    authenticate 
-    if !current_user
-    	flash[:notice] = t('user.deny_access_error')
-	return
-    end
-    
-    @question = Question.find_by_name(params[:question_id])
-    logger.info "actual question ID is #{@question.id}"
-    @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
-    logger.info "Found choice: #{@choice.inspect}"
-    #@choice.activate! if @choice
-    
-    if current_user == @question.creator
-    
-    	@choice.put(:update_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:notice] = t('items.you_have_successfully_activated') + " '#{@choice.attributes['data']}'"
-    	logger.info flash[:notice]
-    	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
-    	redirect_to("#{@question.earl}") and return
-    else
-    	flash[:notice] = t('user.not_authorized_error')
-	redirect_to('/sign_in') and return
-    end
+    set_choice_active(true,  t('items.you_have_successfully_activated'))
   end
   
   
   def deactivate
-    authenticate 
-    if !current_user
-    	flash[:notice] = t('user.deny_access_error')
-	return
-    end
-
-    @question = Question.find_by_name(params[:question_id])
-    logger.info "actual question ID is #{@question.id}"
-    @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
-    logger.info "Found choice: #{@choice.inspect}"
-
-    # should probably put an error message for those not logged in 
-    if current_user == @question.creator
-    	@choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id}) if @choice
-    	flash[:notice] = t('items.you_have_successfully_deactivated') + " '#{@choice.attributes['data']}'"
-    	logger.info flash[:notice]
-    	# redirect_to("#{@question.earl}/choices/#{@choice.id}") and return
-    	redirect_to("#{@question.earl}") and return
-    else
-    	flash[:notice] = t('user.not_authorized_error')
-	redirect_to('/sign_in') and return
-    end
+    set_choice_active(false, t('items.you_have_successfully_deactivated'))
   end
   
+  protected 
+
+  def set_choice_active(value, success_message)
+    @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
+    @choice.active = value
+    
+    respond_to do |format|
+       if @choice.save
+         flash[:notice] = success_message + " '#{@choice.attributes['data']}'"
+         format.html {redirect_to(:controller => :earls, :action => :show, :id => @earl.name) and return}
+       else
+         flash[:notice] = "There was an error, could not save choice settings"
+         format.html {redirect_to(:controller => :earls, :action => :show, :id => @earl.name) and return}
+       end
+    end
+
+  end
   
 end

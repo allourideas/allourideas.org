@@ -60,6 +60,15 @@ Given /^an idea marketplace quickly exists with url '(.*)'$/ do |url|
 	e = Factory.create(:earl, :name => url, :question_id => q.id)
 end
 
+Given /^an idea marketplace quickly exists with url '(.*)' and (.*) ideas$/ do |url, num_ideas|
+	ideas = ""
+	(1..num_ideas.to_i).to_a.reverse.each do |n|
+	  ideas += "Idea ##{n}" + "\n"
+	end
+	q = Question.create(Factory.attributes_for(:question, :ideas => ideas))
+	e = Factory.create(:earl, :name => url, :question_id => q.id)
+end
+
 
 When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	e = Earl.find(url)

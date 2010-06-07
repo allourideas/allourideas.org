@@ -26,6 +26,17 @@ module NavigationHelpers
 	"/"+ $1 + "/results"
     when /the Admin page for '([^'].*)'/i
 	"/"+ $1 + "/admin"
+
+    when /the Deactivate page for the saved (.*) choice/
+	 @earl = Earl.find_by_question_id(@question_id)
+	 choice = ($1 == "left") ? @left_choice : @right_choice
+	 deactivate_question_choice_path(:question_id => @earl, :id => choice.id)
+    
+    when /the Activate page for the saved (.*) choice/
+	 @earl = Earl.find_by_question_id(@question_id)
+	 choice = ($1 == "left") ? @left_choice : @right_choice
+	 activate_question_choice_path(:question_id => @earl, :id => choice.id)
+
     
     when /the Idea Detail page for the saved left choice/i
 	 @earl = Earl.find_by_question_id(@question_id)

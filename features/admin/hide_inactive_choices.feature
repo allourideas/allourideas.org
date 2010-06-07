@@ -1,4 +1,3 @@
-@focus
 Feature: Hide inactive choices
 	In order to prevent unwanted choices from being displayed
 	As a question administrator
@@ -16,11 +15,10 @@ Feature: Hide inactive choices
 		Then I should not see the saved left choice text
 		And I should see the saved right choice text
 	
-	Scenario: Inactive choices should be show on question admin page
+	Scenario: Inactive choices should be shown on question admin page
                 Given I sign in as "test@test.com/password"
 		When I deactivate the saved left choice
 		And I go to the Admin page for 'test'
-		Then show me the page
 		Then I should see the saved left choice text
 		And I should see the saved right choice text
 		And I should see "Deactivated"

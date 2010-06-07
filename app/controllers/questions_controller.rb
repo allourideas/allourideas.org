@@ -955,8 +955,8 @@ class QuestionsController < ApplicationController
         if @question.save
           earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
           session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
-          ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl)
-	  IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information']) unless params[:question]["information"].blank?
+          ClearanceMailer.send_later :deliver_confirmation, current_user, @question.fq_earl
+	  IdeaMailer.send_later :deliver_extra_information, current_user, @question.name, params[:question]['information'] unless params[:question]["information"].blank?
           format.html { redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')}
           format.xml  { render :xml => @question, :status => :created, :location => @question }
         else

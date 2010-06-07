@@ -29,7 +29,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:explanation] = explanation
   end
   
-  def extra_information(user, question, information)
+  def extra_information(user, question_name, information)
     @recipients  = "signups@allourideas.org"
     @from        = "info@allourideas.org"
     @subject     = "[All Our Ideas] "
@@ -37,9 +37,9 @@ class IdeaMailer < ActionMailer::Base
     @body[:user] = user
     @body[:host] = "www.allourideas.org"
 
-    @subject += "Extra Information included in #{question.the_name}"
+    @subject += "Extra Information included in #{question_name}"
 
-    @body[:question] = question
+    @body[:question_name] = question_name
     @body[:information] = information
   end
 

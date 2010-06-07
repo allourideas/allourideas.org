@@ -73,7 +73,6 @@ Feature: Creating Idea marketplaces
 		When I click the I can't decide button
 		Then I should see "I like both ideas" within "#facebox"
         
-	@focus
 	Scenario: User should receive email after question is created
 		Given I am on the question create page
 		And no emails have been sent
@@ -88,7 +87,6 @@ Feature: Creating Idea marketplaces
 		And they should see "This email confirms your recent activity on" in the email body
 		And they should see "/test12345" in the email body
 	
-         @focus	
          Scenario: Admins should receive optional question emails
 		Given I am on the question create page
 		And no emails have been sent

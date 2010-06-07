@@ -18,8 +18,9 @@
     }
 		
     $('.tellmearea').html('');
-    $.facebox.close();
     $('.indicator').show();
+    $('#facebox .border-thick').hide();
+    $('#facebox .new_idea_field').hide();
     $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
         backgroundColor: '#000', 
         opacity:         0.0,
@@ -32,15 +33,22 @@
     $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
+          $.unblockUI();
 	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
+          $('.indicator').hide();
         
           if (data['choice_status'] == 'active') {
             current_item_count = $('#item_count').html();
             $('#item_count').html(increment(current_item_count));
+	    $.facebox.close();
           }
-          $('.indicator').hide();
-          $.unblockUI();
+	  else{
+            $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox .new_idea_field');
+            $('#facebox .new_idea_submit').html('<%= t('vote.cast_votes') %>');
+            $('#facebox .new_idea_submit').unbind('click');
+            $('#facebox .new_idea_submit').bind('click', $.facebox.close);
+          }
 
         },
         "json"

@@ -834,7 +834,7 @@ class QuestionsController < ApplicationController
 	      leveling_message = Visitor.leveling_message(:votes => newchoice['visitor_votes'].to_i,
 							:ideas => newchoice['visitor_ideas'].to_i)
               @question = Question.find(params[:id])
-              render :json => {:votes => 20,
+              render :json => {
                                :choice_status => newchoice['choice_status'], 
 			       :leveling_message => leveling_message,
                                :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json

@@ -119,3 +119,6 @@ Then /^the saved left choice should not be active$/ do
 	@left_choice.should_not be_active
 end
 
+When /^I close the facebox$/ do
+        page.evaluate_script("$.facebox.close();")
+end

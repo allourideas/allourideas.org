@@ -56,3 +56,9 @@ Then /^I should see the saved (.*) choice text$/ do |side|
 
 	Then "I should see \"#{choice.data}\""
 end
+
+Given /^idea marketplace '(.*)' has enabled idea autoactivation$/ do |url|
+ @earl = Earl.find(url)
+ @question = Question.find(@earl.question_id)
+ @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => true})
+end

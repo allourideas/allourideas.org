@@ -727,7 +727,6 @@ class QuestionsController < ApplicationController
 
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-    #raise Prompt.find(:all).inspect
     respond_to do |format|
         format.xml  {  head :ok }
         format.js  { 

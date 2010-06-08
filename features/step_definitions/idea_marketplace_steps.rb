@@ -83,8 +83,9 @@ When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 
 	#Pairwise sorts by last created, but this makes testing pagination annoying, let's create these going down
 	(1..num_ideas.to_i).to_a.reverse.each do |n|
-	  the_params = {'auto' => 'test choices', :data => "Idea ##{n}", :question_id => @question.id}
-          Choice.post(:create_from_abroad, :question_id => @question.id, :params => the_params)
+	  the_params = {:visitor_identifier => 'test choices', :data => "Idea ##{n}", :question_id => @question.id}
+          c =Choice.create(the_params)
+	  c.should_not be_nil
 	end
 
 	unless prev_auto_activate

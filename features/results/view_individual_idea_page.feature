@@ -4,8 +4,7 @@ Feature: View individual idea page
 	Should be able to view an individual idea page
 	
 	Background: 
-		Given an idea marketplace quickly exists with url 'test'
-		And idea marketplace 'test' has 2 ideas
+		Given an idea marketplace quickly exists with url 'test' and 4 ideas
 
 	Scenario: User visits idea page
 		Given I am on the View Results page for 'test'
@@ -51,7 +50,7 @@ Feature: View individual idea page
 		And I go to the Cast Votes page for 'test'
 		And I vote 10 times
 		Then the vote count should be 11
-		And I go to the Idea Detail page for the saved left choice
+		When I go to the Idea Detail page for the saved left choice
 		Then I should see "11 votes on 2 ideas"
 		And I should see "1" within "#num_votes"
 		When I go to the Idea Detail page for the saved right choice

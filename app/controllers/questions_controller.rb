@@ -818,33 +818,36 @@ class QuestionsController < ApplicationController
     end
 
     def add_idea
-      logger.info "Getting ready to add an idea while viewing on Question #{params[:id]}"
       bingo!('submitted_idea')
       new_idea_data = params[:new_idea]
+      
+      choice_params = {:visitor_identifier => request.session_options[:id], 
+	      	       :data => new_idea_data, 
+		       :question_id => params[:id]}
+
+      choice_params.merge!(:local_identifier => current_user.id) if signed_in?
+
       respond_to do |format|
           format.xml  {  head :ok }
           format.js  { 
-            the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}
-            the_params.merge!(:local_identifier => current_user.id) if signed_in?
-            if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => the_params)
-              logger.info "just posted to 'create from abroad', response pending"
-              newchoice = Crack::XML.parse(p.body)['choice']
-              logger.info "response is #{newchoice.inspect}"
-	      
-	      leveling_message = Visitor.leveling_message(:votes => newchoice['visitor_votes'].to_i,
-							:ideas => newchoice['visitor_ideas'].to_i)
-              @question = Question.find(params[:id])
+            if @choice = Choice.create(choice_params)
+              @question = Question.find(params[:id], :params => {
+						   :with_visitor_stats => true,
+						   :visitor_identifier => request.session_options[:id]})
+
+	      leveling_message = Visitor.leveling_message(:votes => @question.attributes['visitor_votes'].to_i,
+							:ideas => @question.attributes['visitor_ideas'].to_i)
               render :json => {
-                               :choice_status => newchoice['choice_status'], 
+                               :choice_status => @choice.active? ? 'active' : 'inactive',
 			       :leveling_message => leveling_message,
                                :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
 
 	      @earl = Earl.find_by_question_id(@question.id)
-              case newchoice['choice_status']
-              when 'inactive'
-                ::IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, newchoice['saved_choice_id'] 
-              when 'active'
-                ::IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, newchoice['saved_choice_id']
+              case @choice.active?
+              when false
+                IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id
+              when true
+                IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id
               end
             else
               render :json => '{"error" : "Addition of new idea failed"}'

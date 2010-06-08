@@ -4,7 +4,7 @@ Feature: Add idea to marketplace
   Should be able to add their own idea while voting
   
   Background: 
-    Given an idea marketplace exists with url 'test'
+    Given an idea marketplace quickly exists with url 'test'
     And I am on the Cast Votes page for 'test'
 
     @selenium
@@ -15,6 +15,8 @@ Feature: Add idea to marketplace
       Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
       And the vote count should be 0
       And the idea count should be 3
+      When I go to the View Results page for 'test'
+      Then I should see "blah blah blah"
 
     @selenium
     Scenario: Adding choice to moderated marketplace
@@ -25,4 +27,9 @@ Feature: Add idea to marketplace
       Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
       Then the vote count should be 0
       And the idea count should be 2
+      When I go to the View Results page for 'test'
+      Then I should not see "blah blah blah"
+      When I sign in as "test@test.com/password"
+      And I go to the Admin Page for 'test'
+      Then I should see "blah blah blah"
 	

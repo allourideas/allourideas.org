@@ -36,11 +36,22 @@ Then /^the first choice should be (.*)$/ do |status|
 	Then "I should see \"#{status}\" within \".toggle_choice_status\""
 end
 When /^I deactivate the two saved choices$/ do
-        @left_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
-        @right_choice.put(:deactivate_from_abroad, :params => {:question_id => @question.id})
+	# reload kills prefix options, rails hasn't merged in a fix yet, see 
+	# https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/810
+	@left_choice.reload
+	@left_choice.prefix_options[:question_id] = @question_id
+        @left_choice.active = false
+	@left_choice.save
+
+	@right_choice.reload
+	@right_choice.prefix_options[:question_id] = @question_id
+        @right_choice.active = false
+        @right_choice.save
 end
 
 When /^I deactivate the saved left choice$/ do
+	@left_choice.reload
+	@left_choice.prefix_options[:question_id] = @question_id
 	@left_choice.active = false
 	@left_choice.save
 end

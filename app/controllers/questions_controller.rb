@@ -988,7 +988,7 @@ class QuestionsController < ApplicationController
 	    logger.info("Saving new information on earl")
 	    flash[:notice] = 'Question settings saved successfully!'
 	    logger.info("Saved new information on earl")
-	    format.html {redirect_to "/#{params[:id]}/admin"}
+	    format.html {redirect_to(:action => 'admin', :id => @earl.name)}
   	    # format.xml  { head :ok }
 	else 
             @partial_results_url = "#{@earl.name}/results"

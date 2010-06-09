@@ -23,8 +23,7 @@
     $('#facebox .new_idea_field').hide();
     $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
         backgroundColor: '#000', 
-        opacity:         0.0,
-        cursor:    null
+        opacity:         0.0
      }});
     
     var question_id = $(this).attr("rel");
@@ -100,22 +99,20 @@
 		 'time_viewed' : time_viewed,
 		 'prompt_id': prompt_id,
 		 'appearance_lookup': appearance_lookup,
-		 'direction' : winner_side,
+		 'direction' : winner_side
 		 },
 	   beforeSend: function() {
-	       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-	               backgroundColor: '#000', 
-		       opacity:         0.0,
-		       cursor:    null
-	       }});
-			
 	       $('.tellmearea').html('');
 	       $('.indicator').show();
+	       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+	               backgroundColor: '#000', 
+		       opacity:         0.0
+	       }});
 	   },
 	   timeout: 5000,
 	   error: function(request,error) {
-		     $('.indicator').hide();
 		     $.unblockUI();
+		     $('.indicator').hide();
 		     if (error == "timeout") {
 		       $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
 		     }
@@ -127,6 +124,7 @@
 
 	   },
 	   success: function(data){
+		$.unblockUI();
 		$('.indicator').hide();
 		$('.leftside').html(data["newleft"]);
 		$('.rightside').html(data["newright"]);
@@ -135,7 +133,6 @@
 		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count));
-		$.unblockUI();
 		$(".votebox tr.prompt td.idea").each(function(el) {
 		      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
 			        $(this).css("background", "#3198c1");
@@ -208,8 +205,7 @@
 	var appearance_lookup = $('#appearance_lookup').val()
 	$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		    cursor:    null
+		        opacity:         0.0
 		   }});
 	var question_id = $(this).attr("rel");
 	$.post('/questions/' + question_id + '/skip.js',
@@ -269,8 +265,7 @@
 	   var appearance_lookup = $('#appearance_lookup').val();
 	   $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		    cursor:    null
+		        opacity:         0.0
 		   }});
 	   var question_id = $(this).attr("rel");
 	   $.post('/questions/' + question_id + '/flag.js', 

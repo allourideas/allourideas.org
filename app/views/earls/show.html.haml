@@ -107,7 +107,7 @@
 =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
 -content_for :head do
-  = javascript_include_tag 'facebox', 'jquery.corner'
+  = javascript_include_tag 'facebox', 'jquery.corner', 'jquery.blockUI.js'
   = stylesheet_link_tag 'facebox'
       
 

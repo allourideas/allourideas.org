@@ -3,7 +3,7 @@
   -ab_test(the_ab_test_name, %w{control make_your_voice_heard help_your_community}, :conversion => 'submitted_idea') do |choice|
     -link_to("#the_add_box", :rel => 'facebox[.wider]') do
       .add_idea_button.rounded
-        /*- unless choice == "control"                          /*comment these out b/c we don't want "Help your community" 
+        /*- unless choice == "control"                          /*comment these out b/c we don't want "Help your community"
         /*  =t('ab_tests.test_ideasubmit.'+ choice)
         /*  %br
         = t('vote.add_your_idea_button')

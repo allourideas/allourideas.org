@@ -1,6 +1,6 @@
   var loadedTime = new Date();
 
-  //  har... we want to launch the text area when add idea button is clicked */
+  //  har... we want to launch the text area when button is clicked */
   $('.add_idea_button.rounded').click(function() {
     $('.add_idea_button.rounded').hide();
     $('#the_add_box').show();  

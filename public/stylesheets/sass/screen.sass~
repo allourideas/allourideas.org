@@ -532,7 +532,7 @@ table.tablesorter
     background-color: #2B88AD
 
 .add_idea
-  margin: 20px *$scaleFactor 0px 0px 0px /* har... was 35px originally*/
+  margin: 20px *$scaleFactor 0px 0px 0px /* was 35px originally*/
   .add_idea_button
     padding: 5px 10px 5px 10px
     width: 265px * $scaleFactor

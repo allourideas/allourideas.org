@@ -3,19 +3,21 @@
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
     $('.add_idea_button.rounded').hide();
+    $('.tellmearea').hide();
     $('#the_add_box').show();  
     $('#submit_btn').show();  
   });
 
+  //  modify to eliminate facebox stuff
   on_idea_submit_button_click = function(event){		
-    var new_idea = $('#facebox .new_idea_field').val();
+    var new_idea = $('.new_idea_field').val();        // *har* used to have a (#facebox '.new_idea_field  ...  etc
     var default_text = $('#default_text').val()
     $('.example_notice').hide();
     
     //if new idea is blank or longer than 140 characters, do not allow it to submit
     if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
         event.returnValue = false;
-	alert('<%=t('vote.submit_idea_default_error') %>');
+      	alert('<%=t('vote.submit_idea_default_error') %>');
         return false;
     }
     if (new_idea.length > 140) {
@@ -23,6 +25,11 @@
         event.returnValue = false;
         return false;
     }
+
+    $('#the_add_box').hide();               /* har*/
+    $('#submit_btn').hide();                /* har*/
+    $('.add_idea_button.rounded').show();   /* har*/
+    $('.tellmearea').show();                 /* har*/
 		
     $('.tellmearea').html('');
     $('.indicator').show();
@@ -63,7 +70,28 @@
       return false;
     };
 
+    //  bind to idea submit button
+    $('#submit_btn').bind('click', on_idea_submit_button_click);
+
+    //  bind to idea close button
+    $('.close').bind('click', function(event) {
+      $('#the_add_box').hide();               /* har*/
+      $('#submit_btn').hide();                /* har*/
+      $('.add_idea_button.rounded').show();   /* har*/
+    });
+
+    //  bind to voting
     $('.vote_cell').bind('click',function(event){
+
+    //  Remove this stuff when somebody votes in case it's still there (add idea)
+    $('#the_add_box').hide();               /* har*/
+    $('#submit_btn').hide();                /* har*/
+    $('.add_idea_button.rounded').show();   /* har*/
+
+    //  Remove in case it's still there... same as above (can't decide)
+    $('.add_container').show();
+    $('.actual_cd_button.rounded').show();
+    $('#cant_decide_options').hide();
 
         var currentTime = new Date();
 	var time_viewed = currentTime - loadedTime
@@ -171,79 +199,79 @@
 	  return false;
 	});
  
-    $(document).bind('reveal.facebox', function() { 
+    // all this stuff should be indented left once
+    $('#cant_decide_btn').bind('click', function() { 
 
-    if($('#facebox .content').hasClass('wider')){
-    $('#facebox .footer').hide();
-    $('#facebox .close').click($.facebox.close)
-    }
+      $('.add_container').hide();
+      $('.actual_cd_button.rounded').hide();      
+      $('#cant_decide_options').show();
 
-   // if popup is for add_idea_submit 
-      $('#facebox .new_idea_submit').bind('click', on_idea_submit_button_click);
-      $('#facebox .new_idea_field').hint();
-
-    //if popup is for cant_decide_submit
-    $('.cd_submit_button').bind('click',function(event){
+      if($('#facebox .content').hasClass('wider')){
+        $('#facebox .footer').hide();
+        $('#facebox .close').click($.facebox.close)
+      }
+      
+      $('.cd_submit_button').bind('click',function(event){
     
-       var reason = $('input[name=cant_decide_reason]:checked').val()
+        var reason = $('input[name=cant_decide_reason]:checked').val()
 
         //check that some radio button is selected before closing facebox...
-	if (!reason) {
-	  alert("You must select a reason");
-	  return -1;
-	}
+      	if (!reason) {
+	        alert("You must select a reason");
+	        return -1;
+      	}
 
-	if(reason == 'user_other'){
-	   user_text = $('#facebox input[name=reason_text]').val()
-	   if(!user_text){
-	      alert("You must include an explanation");
-	      return -1;
-	   }
-	   reason += ":" + user_text;
-	}
+      	if(reason == 'user_other'){
+	        user_text = $('#facebox input[name=reason_text]').val()
+	        if(!user_text){
+	        alert("You must include an explanation");
+	        return -1;
+	      }
+	      reason += ":" + user_text;
+    	}
 
 	
-	jQuery(document).trigger('close.facebox')
+    	jQuery(document).trigger('close.facebox')
 	
-	var currentTime = new Date();
-	var time_viewed = currentTime - loadedTime
-	$('.example_notice').hide();
-	//$.setFragment({ "page" : $.queryString(this.href).page });
-	$('.tellmearea').html('');
-	$('.indicator').show();
-	var prompt_id = $('#prompt_id').val()
-	var appearance_lookup = $('#appearance_lookup').val()
-	$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		    cursor:    null
-		   }});
-	var question_id = $(this).attr("rel");
-	$.post('/questions/' + question_id + '/skip.js',
-	       {
-	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-	       'cant_decide_reason' : reason, 
-		'time_viewed' : time_viewed,
-		'prompt_id': prompt_id,
-		'appearance_lookup': appearance_lookup
-		},
+	    var currentTime = new Date();
+	    var time_viewed = currentTime - loadedTime
+	    $('.example_notice').hide();
+	    //$.setFragment({ "page" : $.queryString(this.href).page });
+	    $('.tellmearea').html('');
+	    $('.indicator').show();
+	    var prompt_id = $('#prompt_id').val()
+	    var appearance_lookup = $('#appearance_lookup').val()
+	    $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		            backgroundColor: '#000', 
+		            opacity:         0.0,
+		        cursor:    null
+		       }});
+	    var question_id = $(this).attr("rel");
+	    $.post('/questions/' + question_id + '/skip.js',
+	           {
+	           'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	           'cant_decide_reason' : reason, 
+		    'time_viewed' : time_viewed,
+		    'prompt_id': prompt_id,
+		    'appearance_lookup': appearance_lookup
+		    },
 
-		function(data){
-		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
-			$('.indicator').hide();
-			$.unblockUI();
-			$('.leftside').html(data["newleft"]);
-			$('.rightside').html(data["newright"]);
-		        $('#prompt_id').val(data["prompt_id"]);
-		        $('#appearance_lookup').val(data["appearance_lookup"]);
-	                //clear the radio buttons somehow?
-		        loadedTime = new Date() //reset loaded time
+		    function(data){
+		            $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+			    $('.indicator').hide();
+			    $.unblockUI();
+			    $('.leftside').html(data["newleft"]);
+			    $('.rightside').html(data["newright"]);
+		            $('#prompt_id').val(data["prompt_id"]);
+		            $('#appearance_lookup').val(data["appearance_lookup"]);
+	                    //clear the radio buttons somehow?
+		            loadedTime = new Date() //reset loaded time
 			
-		},
-		"json"
-		);
-		return false;
-	});
+		    },
+		    "json"
+		    );
+		    return false;
+	    });
     });
 
 

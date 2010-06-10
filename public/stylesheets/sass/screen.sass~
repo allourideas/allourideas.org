@@ -303,12 +303,12 @@ hr
   border-bottom: 1px dotted #BBB
   margin: 0 0 15px 0
 
+/* modified this */
 .add-box
-  width: 425px
+  width: 750px * $scaleFactor   /* har ... was 425px */
   textarea
-    padding: 2px 0
     border: none
-    width: 400px
+    width: 725px * $scaleFactor   /* har ... was 400px */
 
 input, textarea
   font-size: 13px
@@ -487,9 +487,6 @@ table.tablesorter
   margin-bottom: 8px
   display: none
 
-#cant_decide_options
-  width: 500px
-
 .wider
   color: #000000
   td
@@ -502,6 +499,13 @@ table.tablesorter
   h2
     font-weight: bold
     color: #3198c1
+
+#cant_decide_options
+  width: 100%
+  font-size: 24px * $scaleFactor    /* har*/
+
+#cant_decide_options table
+  text-align: left
 
 #cd_button
   background: #C5C5C5
@@ -525,14 +529,14 @@ table.tablesorter
 
 .cd_submit_button
   padding: 5px 10px 5px 10px
-  background: #3198C1
+  background: #01bb00       /* har*/
   cursor: pointer
   color: #FFFFFF
   &:hover
-    background-color: #2B88AD
+    background-color: #228b53  /* har*/
 
 .add_idea
-  margin: 20px *$scaleFactor 0px 0px 0px /* was 35px originally*/
+  margin: 20px *$scaleFactor 0px 0px 0px /* har... was 35px originally*/
   .add_idea_button
     padding: 5px 10px 5px 10px
     width: 265px * $scaleFactor
@@ -556,11 +560,11 @@ table.tablesorter
 
 .new_idea_submit, .flag_submit_button
   padding: 5px 10px 5px 10px
-  background: #3198C1
+  background: #01bb00
   cursor: pointer
   color: #FFFFFF
   &:hover
-    background-color: #2B88AD
+    background-color: #228b53
 
 .no_bottom_padding
   padding-bottom: 0px !important
@@ -592,3 +596,7 @@ table.tablesorter
     margin-right: 1em
   .next_page
     margin-left: 1em
+
+/* this is all me... i feel like there might be somewhere else to modify this???*/
+.vote-nav
+  font-size: 24px * $scaleFactor

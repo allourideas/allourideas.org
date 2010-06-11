@@ -157,6 +157,8 @@ en:
     cd_dislike_both: I don't like either idea
     cd_dont_know_left: "I don't know enough about:"
     cd_dont_know_right: "I don't know enough about:"
+    cd_explicit_dont_know_left: I don't know enough about the left idea            #har
+    cd_explicit_dont_know_right: I don't know enough about the right idea          #har
     cd_dont_know_both: I don't know enough about either idea
     cd_both_same: I think both ideas are the same
     cd_other: I just can't decide

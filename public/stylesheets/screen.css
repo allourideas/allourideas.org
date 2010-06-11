@@ -585,3 +585,9 @@ table.tablesorter {
 
 #radio_button {
   padding-right: 10px; }
+
+#user_cd_reason {
+  width: 150px; }
+
+#tellme_appended {
+  margin-top: 5px; }

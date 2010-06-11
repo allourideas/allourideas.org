@@ -47,9 +47,11 @@
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
           $.unblockUI();
-//      	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
-/*har*/     $('.add_container').append(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a><br/>").effect("highlight", {}, 1500);
-          $('#new_idea_field').val("");
+
+          /*har... these next two lines are me*/
+          $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\">" + data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
+          $('#tellme_prepended').effect("highlight", {}, 1500);
+
           $('.indicator').hide();
         
           if (data['choice_status'] == 'active') {
@@ -167,7 +169,12 @@
 		  $('.rightside').html(data["newright"]);
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
-		  $('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+
+       /*har... these next two lines are me*/
+       $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\">" + "<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
+       $('#tellme_prepended').effect("highlight", {}, 1500);
+
+
 		  current_vote_count = $('#votes_count').html();
 		  $('#votes_count').html(increment(current_vote_count));
 		  $.unblockUI();
@@ -276,7 +283,11 @@
 		      },
 
 		      function(data){
-		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+
+           /*har... these next two lines are me*/
+           $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\">" + data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
+           $('#tellme_prepended').effect("highlight", {}, 1500);
+
 			      $('.indicator').hide();
 			      $.unblockUI();
 			      $('.leftside').html(data["newleft"]);

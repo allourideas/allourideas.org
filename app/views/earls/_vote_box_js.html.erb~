@@ -1,4 +1,5 @@
   var loadedTime = new Date();
+  var tellMeArray = new Array();
 
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
@@ -29,7 +30,6 @@
     $('#the_add_box').hide();               /* har*/
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
-    $('.tellmearea').show();                 /* har*/
 		
     $('.tellmearea').html('');
     $('.indicator').show();
@@ -42,13 +42,13 @@
      }});
     
     var question_id = $(this).attr("rel");
-
 		
     $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
           $.unblockUI();
-	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+//      	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+/*har*/     $('.add_container').append(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
           $('.indicator').hide();
         
@@ -70,18 +70,18 @@
       return false;
     };
 
-    //  bind to idea submit button
-    $('#submit_btn').bind('click', on_idea_submit_button_click);
+  //  bind to idea submit button
+  $('#submit_btn').bind('click', on_idea_submit_button_click);
 
-    //  bind to idea close button
-    $('.close').bind('click', function(event) {
-      $('#the_add_box').hide();               /* har*/
-      $('#submit_btn').hide();                /* har*/
-      $('.add_idea_button.rounded').show();   /* har*/
-    });
+  //  bind to idea close button
+  $('.close').bind('click', function(event) {
+    $('#the_add_box').hide();               /* har*/
+    $('#submit_btn').hide();                /* har*/
+    $('.add_idea_button.rounded').show();   /* har*/
+  });
 
-    //  bind to voting
-    $('.vote_cell').bind('click',function(event){
+  //  bind to voting
+  $('.vote_cell').bind('click',function(event){
 
     //  Remove this stuff when somebody votes in case it's still there (add idea)
     $('#the_add_box').hide();               /* har*/
@@ -89,153 +89,172 @@
     $('.add_idea_button.rounded').show();   /* har*/
 
     //  Remove in case it's still there... same as above (can't decide)
-    $('.add_container').hide();
+    $('.add_container').show();
+    $('.actual_cd_button.rounded').show();
+    $('#cant_decide_options').hide();
+
+    var currentTime = new Date();
+	  var time_viewed = currentTime - loadedTime
+
+
+	  $('.example_notice').hide();
+
+	  // TODO refactor to use url_for in rails
+	  var the_id = $(this).attr("id");
+	  var the_locale = "<%= I18n.locale %>"
+
+	  var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
+	  var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
+
+	  var question_id = $(this).attr("rel");
+
+	  var loser_link = $('a#' + loser_side + 'side');
+	  var winner_link = $('a#' + winner_side + 'side');
+
+	  var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id");
+          var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id");
+	
+
+	  if(the_locale != 'en'){
+	    loser_url += '?locale=' + the_locale;
+	    winner_url += '?locale=' + the_locale;
+	  }
+	    
+
+	  var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
+	  var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
+		
+	  var prompt_id = $('#prompt_id').val()
+	  var appearance_lookup = $('#appearance_lookup').val()
+	  $.ajax({
+	     type: "post",
+	     url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
+	     dataType: "json",
+	     data: {
+		   'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+		   'time_viewed' : time_viewed,
+		   'prompt_id': prompt_id,
+		   'appearance_lookup': appearance_lookup,
+		   'direction' : winner_side,
+		   },
+	     beforeSend: function() {
+	         $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+	                 backgroundColor: '#000', 
+		         opacity:         0.0,
+		         cursor:    null
+	         }});
+			
+	         $('.tellmearea').html('');
+	         $('.indicator').show();
+	     },
+	     timeout: 5000,
+	     error: function(request,error) {
+		       $('.indicator').hide();
+		       $.unblockUI();
+		       if (error == "timeout") {
+		         $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+		       }
+		       else {
+		         $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+		       }
+
+		       loadedTime = new Date(); //reset loaded time
+
+	     },
+	     success: function(data){
+		  $('.indicator').hide();
+		  $('.leftside').html(data["newleft"]);
+		  $('.rightside').html(data["newright"]);
+		  $('#prompt_id').val(data["prompt_id"]);
+		  $('#appearance_lookup').val(data["appearance_lookup"]);
+		  $('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+		  current_vote_count = $('#votes_count').html();
+		  $('#votes_count').html(increment(current_vote_count));
+		  $.unblockUI();
+		  $(".votebox tr.prompt td.idea").each(function(el) {
+		        $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+			          $(this).css("background", "#3198c1");
+			          $(this).css("border-left", "1px solid #3198c1");
+			          $(this).css("border-right", "1px solid #3198c1");
+					      $(this).bind("mouseover", function() {
+					        $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+					          $(this).css("background", "#2b88ad");
+					          $(this).css("border-left", "1px solid #2b88ad");
+					          $(this).css("border-right", "1px solid #2b88ad");
+					        });
+					      });
+					      $(this).bind("mouseout", function() {
+					        $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
+					          $(this).css("background", "#3198c1");
+					          $(this).css("border-left", "1px solid #3198c1");
+					          $(this).css("border-right", "1px solid #3198c1");
+					        });
+					      });
+				      });
+				  });
+
+		                  loadedTime = new Date() //reset loaded time
+		  }// End success
+	  }); // End ajax method
+	    return false;
+	});
+ 
+  $('#cant_decide_btn').bind('click', function() { 
+
+    //  hide/show everything necessary
+    //  cd stuff
     $('.actual_cd_button.rounded').hide();      
     $('#cant_decide_options').show();
 
-        var currentTime = new Date();
-	var time_viewed = currentTime - loadedTime
+    //  idea/other stuff... yes, it seems redundant, but it's all necessary
+    $('.add_container').hide();
 
-
-	$('.example_notice').hide();
-
-	// TODO refactor to use url_for in rails
-	var the_id = $(this).attr("id");
-	var the_locale = "<%= I18n.locale %>"
-
-	var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
-	var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
-
-	var question_id = $(this).attr("rel");
-
-	var loser_link = $('a#' + loser_side + 'side');
-	var winner_link = $('a#' + winner_side + 'side');
-
-	var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id");
-        var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id");
-	
-
-	if(the_locale != 'en'){
-	  loser_url += '?locale=' + the_locale;
-	  winner_url += '?locale=' + the_locale;
-	}
-	  
-
-	var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
-	var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
-		
-	var prompt_id = $('#prompt_id').val()
-	var appearance_lookup = $('#appearance_lookup').val()
-	$.ajax({
-	   type: "post",
-	   url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
-	   dataType: "json",
-	   data: {
-		 'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-		 'time_viewed' : time_viewed,
-		 'prompt_id': prompt_id,
-		 'appearance_lookup': appearance_lookup,
-		 'direction' : winner_side,
-		 },
-	   beforeSend: function() {
-	       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-	               backgroundColor: '#000', 
-		       opacity:         0.0,
-		       cursor:    null
-	       }});
-			
-	       $('.tellmearea').html('');
-	       $('.indicator').show();
-	   },
-	   timeout: 5000,
-	   error: function(request,error) {
-		     $('.indicator').hide();
-		     $.unblockUI();
-		     if (error == "timeout") {
-		       $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
-		     }
-		     else {
-		       $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
-		     }
-
-		     loadedTime = new Date(); //reset loaded time
-
-	   },
-	   success: function(data){
-		$('.indicator').hide();
-		$('.leftside').html(data["newleft"]);
-		$('.rightside').html(data["newright"]);
-		$('#prompt_id').val(data["prompt_id"]);
-		$('#appearance_lookup').val(data["appearance_lookup"]);
-		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
-		current_vote_count = $('#votes_count').html();
-		$('#votes_count').html(increment(current_vote_count));
-		$.unblockUI();
-		$(".votebox tr.prompt td.idea").each(function(el) {
-		      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-			        $(this).css("background", "#3198c1");
-			        $(this).css("border-left", "1px solid #3198c1");
-			        $(this).css("border-right", "1px solid #3198c1");
-					    $(this).bind("mouseover", function() {
-					      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-					        $(this).css("background", "#2b88ad");
-					        $(this).css("border-left", "1px solid #2b88ad");
-					        $(this).css("border-right", "1px solid #2b88ad");
-					      });
-					    });
-					    $(this).bind("mouseout", function() {
-					      $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-					        $(this).css("background", "#3198c1");
-					        $(this).css("border-left", "1px solid #3198c1");
-					        $(this).css("border-right", "1px solid #3198c1");
-					      });
-					    });
-				    });
-				});
-
-		                loadedTime = new Date() //reset loaded time
-		}// End success
-	     }); // End ajax method
-	  return false;
-	});
- 
-    // all this stuff should be indented left once
-    $('#cant_decide_btn').bind('click', function() { 
-
-      $('.add_container').hide();
-      $('.actual_cd_button.rounded').hide();      
-      $('#cant_decide_options').show();
-
-      if($('#facebox .content').hasClass('wider')){
-        $('#facebox .footer').hide();
-        $('#facebox .close').click($.facebox.close)
-      }
+    $('.close').bind('click', function() {
+      //  make the right stuff reappear/rehide/work
+      $('.actual_cd_button.rounded').show();      
+      $('#cant_decide_options').hide();
+      $('.add_container').show();    
+    });
       
-      $('.cd_submit_button').bind('click',function(event){
-    
-        var reason = $('input[name=cant_decide_reason]:checked').val()
+    $('.cd_submit_button').bind('click',function(event) {
+      
+      var reason = $('input[name=cant_decide_reason]:checked').val();
 
-        //check that some radio button is selected before closing facebox...
-      	if (!reason) {
-	        alert("You must select a reason");
-	        return -1;
-      	}
-
-      	if(reason == 'user_other'){
-	        user_text = $('#facebox input[name=reason_text]').val()
-	        if(!user_text){
-	        alert("You must include an explanation");
-	        return -1;
-	      }
-	      reason += ":" + user_text;
+      //check that some radio button is selected before closing facebox...
+    	if (!reason) {
+        alert("You must select a reason");
+        return -1;
+    	}
+      
+    	if(reason == 'user_other'){
+        user_text = $('input[name=reason_text]').val()
+        if(!user_text){
+          alert("You must include an explanation");
+          return -1;
+        }
+      reason += ":" + user_text;
     	}
 
+      //  make the right stuff reappear/rehide/work
+      //  cd stuff
+      $('.actual_cd_button.rounded').show();      
+      $('#cant_decide_options').hide();
+
+      //  idea/other stuff... might seem redundant, but it's necessary
+      $('.add_container').show();
+      $('.add_idea_button.rounded').show();
+      $('.tellmearea').show();
+      $('#the_add_box').hide();  
+      $('#submit_btn').hide();  
+
+      //  this doesn't work
+//      $('input[name=cant_decide_reason]:checked').val(!reason);
 	
-    	jQuery(document).trigger('close.facebox')
-	
-	    var currentTime = new Date();
-	    var time_viewed = currentTime - loadedTime
-	    $('.example_notice').hide();
+  	  jQuery(document).trigger('close.facebox')
+    
+      var currentTime = new Date();
+      var time_viewed = currentTime - loadedTime
+      $('.example_notice').hide();
 	    //$.setFragment({ "page" : $.queryString(this.href).page });
 	    $('.tellmearea').html('');
 	    $('.indicator').show();
@@ -244,30 +263,30 @@
 	    $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		            backgroundColor: '#000', 
 		            opacity:         0.0,
-		        cursor:    null
+		            cursor:    null
 		       }});
 	    var question_id = $(this).attr("rel");
 	    $.post('/questions/' + question_id + '/skip.js',
-	           {
-	           'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-	           'cant_decide_reason' : reason, 
-		    'time_viewed' : time_viewed,
-		    'prompt_id': prompt_id,
-		    'appearance_lookup': appearance_lookup
-		    },
+	          {
+	          'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	          'cant_decide_reason' : reason, 
+		        'time_viewed' : time_viewed,
+		        'prompt_id': prompt_id,
+		        'appearance_lookup': appearance_lookup
+		      },
 
-		    function(data){
-		            $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
-			    $('.indicator').hide();
-			    $.unblockUI();
-			    $('.leftside').html(data["newleft"]);
-			    $('.rightside').html(data["newright"]);
-		            $('#prompt_id').val(data["prompt_id"]);
-		            $('#appearance_lookup').val(data["appearance_lookup"]);
-	                    //clear the radio buttons somehow?
-		            loadedTime = new Date() //reset loaded time
+		      function(data){
+		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+			      $('.indicator').hide();
+			      $.unblockUI();
+			      $('.leftside').html(data["newleft"]);
+			      $('.rightside').html(data["newright"]);
+		        $('#prompt_id').val(data["prompt_id"]);
+		        $('#appearance_lookup').val(data["appearance_lookup"]);
+	          //clear the radio buttons somehow?
+		        loadedTime = new Date() //reset loaded time
 			
-		    },
+		      },
 		    "json"
 		    );
 		    return false;
@@ -286,7 +305,7 @@
 
        $('.flag_submit_button').bind("click", function(event){
            event.stopPropagation();
-           user_text = null;
+	            user_text = null;
 	   user_text = $('#facebox textarea').val();
 	   if(!user_text){
 	      alert("You must include an explanation");

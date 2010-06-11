@@ -234,7 +234,7 @@ table {
           color: white;
           border: none; }
     .votebox table td table td {
-      height: 47.5px; }
+      height: 115px; }
   .votebox table.vote-footer {
     width: 100%;
     margin-top: 10px; }
@@ -579,6 +579,9 @@ table.tablesorter {
   .pagination .next_page {
     margin-left: 1em; }
 
-/* this is all me... i feel like there might be somewhere else to modify this??? */
+/* this is all me after this... */
 .vote-nav {
   font-size: 12px; }
+
+#radio_button {
+  padding-right: 10px; }

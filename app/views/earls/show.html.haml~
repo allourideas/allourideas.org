@@ -21,7 +21,7 @@
           = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
   /* moved this entire block here
   #cant_decide_options{:style => 'display:none'}                      
-    %h2= t('vote.cant_decide_title')
+    %h2.center= t('vote.cant_decide_title')
     -cd_options= ['like_both','dislike_both', 'dont_know_both', 'dont_know_left','both_same', 'other', 'user_other', 'dont_know_right']
     -col1, col2 = cd_options.enum_slice((cd_options.size.to_f/2.0).ceil).to_a
     %table
@@ -31,7 +31,7 @@
             -padding_class = 'no_bottom_padding'
           -else
             -padding_class = ""
-          %td{:class => padding_class}
+          %td{:class => padding_class, :id => 'radio_button'}
             =radio_button_tag "cant_decide_reason", choice.to_s, false
           %td{:class => padding_class}
             =t('vote.cd_'+choice)

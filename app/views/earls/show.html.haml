@@ -31,11 +31,11 @@
             -padding_class = 'no_bottom_padding'
           -else
             -padding_class = ""
-          %td{:class => padding_class}
+          %td{:class => padding_class, :id => 'radio_button'}
             =radio_button_tag "cant_decide_reason", choice.to_s, false
           %td{:class => padding_class}
             =t('vote.cd_'+choice)
-          %td{:class => padding_class}
+          %td{:class => padding_class, :id => 'radio_button'}
             =radio_button_tag "cant_decide_reason", col2[index].to_s, false
           %td{:class => padding_class}
             =t('vote.cd_'+col2[index])

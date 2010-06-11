@@ -250,7 +250,7 @@ $fontScaleFactor = .8                           /* har */
           color: #FFF
           border: none
     table td
-      height: 95px * $scaleFactor
+      height: 225px * $scaleFactor
   &.vote-footer
     width: 100%
     margin-top: 10px
@@ -501,6 +501,7 @@ table.tablesorter
     color: #3198c1
 
 #cant_decide_options
+  margin: 20px *$scaleFactor 0px 0px 0px
   width: 100%
   font-size: 24px * $scaleFactor    /* har*/
 
@@ -597,6 +598,9 @@ table.tablesorter
   .next_page
     margin-left: 1em
 
-/* this is all me... i feel like there might be somewhere else to modify this???*/
+/* this is all me after this...*/
 .vote-nav
   font-size: 24px * $scaleFactor
+
+#radio_button
+  padding-right: 10px

@@ -1,5 +1,5 @@
   var loadedTime = new Date();
-  var tellMeArray = new Array();
+  var count = 0;
 
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
@@ -140,14 +140,17 @@
 		   'direction' : winner_side,
 		   },
 	     beforeSend: function() {
-	         $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-	                 backgroundColor: '#000', 
-		         opacity:         0.0,
-		         cursor:    null
-	         }});
+	      $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+	        backgroundColor:  '#000', 
+		      opacity:          0.0,
+		      cursor:           null
+	      }});
 			
-	         $('.tellmearea').html('');
-	         $('.indicator').show();
+	      $('.tellmearea').html(''); //b4
+        $('.indicator').show();    //b4
+//  this is line is new... messing here
+        $('#tellme_prepend_spot').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
+        $('#newlines').slideDown(1000);
 	     },
 	     timeout: 5000,
 	     error: function(request,error) {
@@ -170,10 +173,20 @@
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
-       /*har... these next two lines are me*/
-       $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\">" + "<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
-       $('#tellme_prepended').effect("highlight", {}, 1500);
+      /* har*/
+      $('#newlines').remove();
+      /*har... these next two lines are me*/
+      $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div><br/>");
+      $("#tellme_prepended").effect("highlight", {}, 1500);
 
+/*
+       
+      var nextId = '#tellme_prepended' + count.toString();       
+      $('#tellme_prepend_spot').prepend(nextId);
+      $('#tellme_prepend_spot').prepend("<div id = \"" + nextId + "\">" + "<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
+      $('' + nextId).effect("highlight", {}, 1500);
+      count++;
+*/
 
 		  current_vote_count = $('#votes_count').html();
 		  $('#votes_count').html(increment(current_vote_count));

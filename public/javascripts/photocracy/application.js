@@ -15,7 +15,7 @@ $(document).ready(function() {
 function castVote(choice) {
 	var VOTE_CAST_AT = new Date();
 
-	$.ajax({
+	jQuery.ajax({
 		type: 'POST',
 		dataType: 'json',
 	  url: choice.attr('href'),
@@ -38,7 +38,7 @@ function castVote(choice) {
 
 function updateVotingHistory(data) {
 	var winner = data['voted_prompt_winner']
-	$('#visitor_votes').text(data['visitor_votes']);
+	//$('#visitor_votes').text(data['visitor_votes']);
 	$('#your_votes').prepend("\
 		<li>\
 			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
@@ -54,20 +54,46 @@ function updateVotingHistory(data) {
 function loadNextPrompt(data) {
 	// remove spinner and checkmark
 	$('a.vote').removeClass('loading chosen');
-
-	// change photos
-	$('a.vote.left').css('background', "#fff url('" + data['newleft_photo'] + "') center center no-repeat");
-	$('a.vote.right').css('background', "#fff url('" + data['newright_photo'] + "') center center no-repeat");
 	
-	// change photo thumbs
-	$('a.vote.left').attr('thumb', data['newleft_photo_thumb']);
-	$('a.vote.right').attr('thumb', data['newright_photo_thumb']);
+	jQuery.each(['left', 'right'], function(index, side) {
+		// change photo
+		$('a.vote.' + side).css('background', "#fff url('" + data['new' + side + '_photo'] + "') center center no-repeat");
 
-	// change href urls
-	$('a.vote.left').attr('href', data['newleft_url']);
-	$('a.vote.right').attr('href', data['newright_url']);
+		// change photo thumb
+		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
+
+		// change href url
+		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
+	});
 }
 
 function voteError(request, textStatus, errorThrown) {
 	alert(textStatus);
+}
+
+
+// adding a photo
+
+$(document).ready(function() {
+	$('#add_photo_form').live('submit', function (e) {
+	    $(this).addPhoto();
+	    (this).preventDefault();
+	});
+});
+function addPhoto() {
+	jQuery.ajax({
+		type: 'POST',
+		dataType: 'json',
+	  url: this.attr('action'),
+	  data: {
+	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+			locale: LOCALE,
+			new_photo: $('#add_photo_field').val()
+	  },
+	  timeout: 10000,
+	  error: function(request, textStatus, errorThrown) {
+		},
+	  success: function(data, textStatus, request) {
+		}
+	});
 }

@@ -9,7 +9,7 @@
       #prompt
         =render(:partial => 'questions/prompt')
     .center.margin_bottom
-      =link_to 'Add your own Photo', "#", :class => 'blue button'
+      =link_to 'Add your own Photo', "#", :class => 'blue button', :id => 'add_photo_button'
       <br /><br />
       =link_to "I can't decide", "#"
 .container_12
@@ -21,9 +21,10 @@
       .padding
         %ul#your_votes
     .grid_4.center
-      %h5.no_margin 232 votes on 134 photos
+      %h5.no_margin
+        ="#{@question.attributes['votes_count'].to_i} votes on #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} photos"
       .padding
-        =link_to "View all Results", "#", :class => 'button'
+        =link_to "View all Results", results_question_url(:id => params[:id]), :class => 'button'
     .grid_4
       %h5.no_margin About this survey
       .padding
@@ -43,3 +44,17 @@
           Photocracy is supported by grants from Google<br />
           and CITP at Princeton University.
   .clear
+  #add_photo{:title => 'Add your own photo'}
+    -form_tag(add_idea_question_url(:id => params[:id], :format => :js), :multipart => true, :id => :add_photo_form) do
+      =file_field_tag :add_photo_field
+      %p.microcopy By uploading a photo you certify that you have the right to distribute this picture and that it does not violate the Terms of Service.
+      =submit_tag 'Add photo', :class => 'button'
+  
+  :javascript
+    $(document).ready(function(){
+      $('#add_photo').dialog({ autoOpen: false, modal: true, width: 400 });
+      $('#add_photo_button').click( function() {
+        $('#add_photo').dialog('open');
+        return false;
+      });
+    });

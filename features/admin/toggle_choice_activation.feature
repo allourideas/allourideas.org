@@ -1,4 +1,3 @@
-@focus
 Feature: Toggling choice activation
    In order to show users only choices of our choosing
    A question administrator

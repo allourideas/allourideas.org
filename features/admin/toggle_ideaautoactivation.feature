@@ -1,4 +1,3 @@
-@focus
 Feature: Toggling question idea auto activation
    In order to allow question administrators to moderate choices
    A question administrator

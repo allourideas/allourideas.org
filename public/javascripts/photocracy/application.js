@@ -65,6 +65,9 @@ function loadNextPrompt(data) {
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
 	});
+
+	// change appearance_lookup
+	$('#appearance_lookup').val(data['appearance_lookup']);
 }
 
 function voteError(request, textStatus, errorThrown) {

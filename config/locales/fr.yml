@@ -66,6 +66,7 @@ fr:
     cd_other: Je ne peux pas décider
     cd_user_other: "Autres:"
     cant_decide_message: Vous ne pouvez pas décider.
+    idea_sent_for_review: Votre idée a été soumis pour examen. Il apparaîtra bientôt.
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results

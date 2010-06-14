@@ -147,8 +147,7 @@ jQuery(document).ready(function() {
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
-		        opacity:   0.0,
-						cursor:    null
+		        opacity:   0.0
 		    }});
 		var earl_id = $(this).attr("rel");
 		var state = $(this).attr("status");
@@ -233,8 +232,7 @@ jQuery(document).ready(function() {
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		cursor:    null
+		        opacity:         0.0
 		    }});
 		var choice_id = $(this).attr("rel");
 		var earl_id = $(this).attr("earl_id");
@@ -322,8 +320,7 @@ jQuery(document).ready(function() {
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		cursor:    null
+		        opacity:         0.0
 		    }});
 		var question_id = $(this).attr("question_id");
 		var state = $(this).attr("status");

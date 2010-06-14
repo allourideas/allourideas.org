@@ -4,7 +4,7 @@
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
     $('.add_idea_button.rounded').hide();
-    $('#tellme_prepend_spot').hide();
+    $('.tellmearea').hide();
     $('#the_add_box').show();  
     $('#submit_btn').show();  
   });
@@ -30,8 +30,14 @@
     $('#the_add_box').hide();               /* har*/
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
+    $('.tellmearea').show();
 		
     $('.indicator').show();
+
+    //  append this for scrolling funtionality... har
+    $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
+    $('#newlines').slideDown(1000);
+
     $('#facebox .border-thick').hide();
     $('#facebox .new_idea_field').hide();
     $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
@@ -47,9 +53,16 @@
         function(data){
           $.unblockUI();
 
-          /*har... these next two lines are me*/
-          $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\">" + data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
-          $('#tellme_prepended').effect("highlight", {}, 1500);
+          /* har*/
+          $('#newlines').remove();
+          /*har... these next lines are me... decided i didn't want view all the results anymore */
+  
+          //  NOTE: NEED TO BREAK UP DATA[MESSAGE] SUCH THAT MESSAGE IS ON ONE LINE AND IDEA IS ON THE NEXT. ALSO NEED TO TRUNCATE IDEA.
+          $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
+          $("#tellme_prepended").effect("highlight", {}, 1500);
+
+          $("#leveling_message_appended").remove();
+          $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
           $('.indicator').hide();
         
@@ -79,17 +92,18 @@
     $('#the_add_box').hide();               /* har*/
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
+    $('.tellmearea').show();
   });
 
   //  bind to voting
   $('.vote_cell').bind('click',function(event){
 
-    //  Remove this stuff when somebody votes in case it's still there (add idea)
+    //  Remove this stuff when somebody votes in case it's still there (add idea stuff)
     $('#the_add_box').hide();               /* har*/
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
 
-    //  Remove in case it's still there... same as above (can't decide)
+    //  Remove in case it's still there... same as above (can't decide stuff)
     $('.add_container').show();
     $('.actual_cd_button.rounded').show();
     $('#cant_decide_options').hide();
@@ -144,12 +158,11 @@
 		      opacity:          0.0,
 		      cursor:           null
 	      }});
-			
-	      $('.tellmearea').html(''); //b4
-        $('.indicator').show();    //b4
+			  
+        $('.indicator').show();    // was here b4
 
         //  append this for scrolling funtionality... har
-        $('#tellme_prepend_spot').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br><br></div>");
+        $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
         $('#newlines').slideDown(1000);
 	     },
 	     timeout: 5000,
@@ -157,10 +170,13 @@
 		       $('.indicator').hide();
 		       $.unblockUI();
 		       if (error == "timeout") {
-		         $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_timeout_error')%></div>");
+             $("#error_prepended").effect("highlight", {color: '#ff0000'}, 1500);
 		       }
 		       else {
-		         $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+		         $('.tellmearea').prepend("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_other_error')%></div>");
+             $("#error_prepended").effect("highlight", {color: '#ff0000'}, 1500);
 		       }
 
 		       loadedTime = new Date(); //reset loaded time
@@ -184,23 +200,14 @@
       /* har*/
       $('#newlines').remove();
       /*har... these next lines are me... decided i didn't want view all the results anymore */
-//      $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" /*+ "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>"*/ + "</a></div><br/>");
-
-      $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
+      $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
+      $("#tellme_prepended").effect("highlight", {}, 1500);
 
       $("#leveling_message_appended").remove();
       $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
-      $("#tellme_prepended").effect("highlight", {}, 1500);
 //      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
-/*
-       
-      var nextId = '#tellme_prepended' + count.toString();       
-      $('#tellme_prepend_spot').prepend(nextId);
-      $('#tellme_prepend_spot').prepend("<div id = \"" + nextId + "\">" + "<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
-      $('' + nextId).effect("highlight", {}, 1500);
-      count++;
-*/
+
 
 		  current_vote_count = $('#votes_count').html();
 		  $('#votes_count').html(increment(current_vote_count));
@@ -247,73 +254,86 @@
       //  make the right stuff reappear/rehide/work
       $('.actual_cd_button.rounded').show();      
       $('#cant_decide_options').hide();
-      $('.add_container').show();    
+      $('.add_container').show();   
     });
+  });
       
-    $('.cd_submit_button').bind('click',function(event) {
+  $('.cd_submit_button').bind('click',function(event) {
       
-      var reason = $('input[name=cant_decide_reason]:checked').val();
+    var reason = $('input[name=cant_decide_reason]:checked').val();
 
-      //check that some radio button is selected before closing facebox...
-    	if (!reason) {
-        alert("You must select a reason");
+    //check that some radio button is selected before closing facebox...
+  	if (!reason) {
+      alert("You must select a reason");
+      return -1;
+  	}
+      
+  	if(reason == 'user_other'){
+      user_text = $('input[name=reason_text]').val()
+      if(!user_text){
+        alert("You must include an explanation");
         return -1;
-    	}
-      
-    	if(reason == 'user_other'){
-        user_text = $('input[name=reason_text]').val()
-        if(!user_text){
-          alert("You must include an explanation");
-          return -1;
-        }
-      reason += ":" + user_text;
-    	}
+      }
+    reason += ":" + user_text;
+  	}
 
-      //  make the right stuff reappear/rehide/work
-      //  cd stuff
-      $('.actual_cd_button.rounded').show();      
-      $('#cant_decide_options').hide();
+    //  make the right stuff reappear/rehide/work
+    //  cd stuff
+    $('.actual_cd_button.rounded').show();      
+    $('#cant_decide_options').hide();
 
-      //  idea/other stuff... might seem redundant, but it's necessary
-      $('.add_container').show();
-      $('.add_idea_button.rounded').show();
-      $('.tellmearea').show();
-      $('#the_add_box').hide();  
-      $('#submit_btn').hide();  
-
-      //  this doesn't work
-//      $('input[name=cant_decide_reason]:checked').val(!reason);
+    //  idea/other stuff... might seem redundant, but it's necessary
+    $('.add_container').show();
+    $('.add_idea_button.rounded').show();
+    $('.tellmearea').show();
+    $('#the_add_box').hide();  
+    $('#submit_btn').hide();  
 	
-  	  jQuery(document).trigger('close.facebox')
+	  jQuery(document).trigger('close.facebox')
     
-      var currentTime = new Date();
-      var time_viewed = currentTime - loadedTime
-      $('.example_notice').hide();
-	    //$.setFragment({ "page" : $.queryString(this.href).page });
-	    $('.tellmearea').html('');
-	    $('.indicator').show();
-	    var prompt_id = $('#prompt_id').val()
-	    var appearance_lookup = $('#appearance_lookup').val()
-	    $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-		            backgroundColor: '#000', 
-		            opacity:         0.0,
-		            cursor:    null
-		       }});
-	    var question_id = $(this).attr("rel");
-	    $.post('/questions/' + question_id + '/skip.js',
-	          {
-	          'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-	          'cant_decide_reason' : reason, 
-		        'time_viewed' : time_viewed,
-		        'prompt_id': prompt_id,
-		        'appearance_lookup': appearance_lookup
+    var currentTime = new Date();
+    var time_viewed = currentTime - loadedTime
+    $('.example_notice').hide();
+   //$.setFragment({ "page" : $.queryString(this.href).page });
+
+    $('.indicator').show();
+
+    //  append this for scrolling funtionality... har
+    $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br></div>");
+    $('.tellmearea').prepend("new");
+    $('#newlines').slideDown(1000);
+
+	  var prompt_id = $('#prompt_id').val()
+	  var appearance_lookup = $('#appearance_lookup').val()
+	  $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+	           backgroundColor: '#000', 
+	           opacity:         0.0,
+	           cursor:    null
+	      }});
+	  var question_id = $(this).attr("rel");
+	  $.post('/questions/' + question_id + '/skip.js',
+	        {
+	        'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	        'cant_decide_reason' : reason, 
+	        'time_viewed' : time_viewed,
+		      'prompt_id': prompt_id,
+		      'appearance_lookup': appearance_lookup
 		      },
 
 		      function(data){
 
-           /*har... these next two lines are me*/
-           $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\">" + data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
+/*           /*har... these next two lines are me
+           $('.tellmearea').prepend("<div id = \"tellme_prepended\">" + data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
            $('#tellme_prepended').effect("highlight", {}, 1500);
+*/
+            /*har... these next lines are me... decided i didn't want view all the results anymore */
+            $('#newlines').remove();
+            $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
+            $("#tellme_prepended").effect("highlight", {}, 1500);
+            count++;
+
+            $("#leveling_message_appended").remove();
+            $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
 			      $('.indicator').hide();
 			      $.unblockUI();
@@ -325,11 +345,10 @@
 		        loadedTime = new Date() //reset loaded time
 			
 		      },
-		    "json"
-		    );
-		    return false;
-	    });
-    });
+		      "json"
+    );
+	return false;
+	});
 
 
     $('.flag_link').bind("click", function(event){
@@ -354,7 +373,7 @@
 	   var currentTime = new Date();
 	   var time_viewed = currentTime - loadedTime
 	   $('.example_notice').hide();
-	   $('.tellmearea').html('');
+
 	   $('.indicator').show();
 	   var prompt_id = $('#prompt_id').val();
 

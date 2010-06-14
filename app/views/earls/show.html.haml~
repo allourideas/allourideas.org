@@ -56,7 +56,7 @@
         .fleft
           = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
         .fright
-          .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
+          #cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
     %table.vote-footer
       %tr
         %td &nbsp; 

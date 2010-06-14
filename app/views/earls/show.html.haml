@@ -75,6 +75,7 @@
         = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
         %br
       #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+      .tellmearea
       #tellme_prepend_spot
 
   -unless session[:has_voted]

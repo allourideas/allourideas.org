@@ -14,8 +14,8 @@
     %tbody
       -alt=false
       -for earl in @earls
-        -if @questions_hash.empty? #admin
-          -q = earl.question 
+        -if @questions_hash.empty? 
+          -q = Question.find(earl.question_id)
         -else
           -q = @questions_hash[earl.question_id.to_s]
         %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}

@@ -69,6 +69,13 @@ Given /^an idea marketplace quickly exists with url '(.*)' and (.*) ideas$/ do |
 	e = Factory.create(:earl, :name => url, :question_id => q.id)
 end
 
+Given /^an idea marketplace quickly exists with question title '(.*)' and admin '(.*)\/(.*)'$/ do |title, email, password|
+	u = Factory.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)
+
+	q = Question.create(Factory.attributes_for(:question, :name => title))
+	e = Factory.create(:earl, :user => u, :question_id => q.id)
+end
+
 
 When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	e = Earl.find(url)

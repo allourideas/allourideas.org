@@ -9,7 +9,8 @@ ActionController::Routing::Routes.draw do |map|
                             :flag => :post, 
                             :add_idea => :post, 
                             :toggle => :post, 
-                            :toggle_autoactivate => :post, 
+                            :toggle_autoactivate => :post,
+                            :results => :get,
 			    :delete_logo => :delete } do |question|
 	  question.resources :prompts, 
 		  :only => [:vote],

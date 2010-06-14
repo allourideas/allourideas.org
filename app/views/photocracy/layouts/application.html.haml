@@ -3,16 +3,17 @@
   %head
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     %title Which photo is more Princeton? | photocracy.org
-    =stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/smoothness/jquery-ui.css', 'photocracy/reset', 'photocracy/text', 'photocracy/grid'
+    =stylesheet_link_tag 'photocracy/reset', 'photocracy/text', 'photocracy/grid', 'photocracy/jquery-ui'
     /[if IE 6] 
       =stylesheet_link_tag 'photocracy/ie6'
     /[if IE 7] 
       =stylesheet_link_tag 'photocracy/ie'
     =stylesheet_link_tag 'photocracy/application'
-    =javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js', 'photocracy/application', 'photocracy/jquery.timeago'
+    =javascript_include_tag 'photocracy/jquery.min.js', 'photocracy/jquery-ui.min.js', 'photocracy/application', 'photocracy/jquery.timeago'
     :javascript 
       var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
+      var LOCALE = '#{I18n.locale}';
     :javascript
       $(document).ready(function(){
         $("abbr.timeago").timeago();

@@ -15,7 +15,7 @@ $(document).ready(function() {
 function castVote(choice) {
 	var VOTE_CAST_AT = new Date();
 
-	$.ajax({
+	jQuery.ajax({
 		type: 'POST',
 		dataType: 'json',
 	  url: choice.attr('href'),
@@ -69,4 +69,31 @@ function loadNextPrompt(data) {
 
 function voteError(request, textStatus, errorThrown) {
 	alert(textStatus);
+}
+
+
+// adding a photo
+
+$(document).ready(function() {
+	$('#add_photo_form').live('submit', function (e) {
+	    $(this).addPhoto();
+	    (this).preventDefault();
+	});
+});
+function addPhoto() {
+	jQuery.ajax({
+		type: 'POST',
+		dataType: 'json',
+	  url: this.attr('action'),
+	  data: {
+	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+			locale: LOCALE,
+			new_photo: $('#add_photo_field').val()
+	  },
+	  timeout: 10000,
+	  error: function(request, textStatus, errorThrown) {
+		},
+	  success: function(data, textStatus, request) {
+		}
+	});
 }

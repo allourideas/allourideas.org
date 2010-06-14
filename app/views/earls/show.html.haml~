@@ -1,4 +1,4 @@
-%div.scrollbar{:style => 'overflow:auto;'}
+.scrollbar{:style => 'overflow:auto;'}
 
   -@item_data, @item_ids = [], []
   = render :partial => 'shared/header_vote', :locals => {:question => @question}
@@ -115,3 +115,8 @@
           $(".firsttime").fadeOut(500);
         });
     =render :partial => 'vote_box_js' 
+
+.votestatus
+  #leveling_message_appended
+    Click on an idea to start voting.
+    /*^bad style here; i should probably have this in some file elsewhere*/

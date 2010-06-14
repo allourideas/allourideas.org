@@ -4,7 +4,7 @@
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
     $('.add_idea_button.rounded').hide();
-    $('.tellmearea').hide();
+    $('#tellme_prepend_spot').hide();
     $('#the_add_box').show();  
     $('#submit_btn').show();  
   });
@@ -31,7 +31,6 @@
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
 		
-    $('.tellmearea').html('');
     $('.indicator').show();
     $('#facebox .border-thick').hide();
     $('#facebox .new_idea_field').hide();
@@ -148,8 +147,9 @@
 			
 	      $('.tellmearea').html(''); //b4
         $('.indicator').show();    //b4
-//  this is line is new... messing here
-        $('#tellme_prepend_spot').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
+
+        //  append this for scrolling funtionality... har
+        $('#tellme_prepend_spot').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br><br></div>");
         $('#newlines').slideDown(1000);
 	     },
 	     timeout: 5000,
@@ -173,11 +173,25 @@
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
+      var maxLength = 75;
+
+      if (winner.length > maxLength)
+        winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
+
+      if (loser.length > maxLength)
+        loser = "<a href='" + loser_url + "'>" + loser.substring(0, maxLength - 3) + "..." + "</a>";	
+
       /* har*/
       $('#newlines').remove();
-      /*har... these next two lines are me*/
-      $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div><br/>");
+      /*har... these next lines are me... decided i didn't want view all the results anymore */
+//      $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" /*+ "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>"*/ + "</a></div><br/>");
+
+      $('#tellme_prepend_spot').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
+
+      $("#leveling_message_appended").remove();
+      $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
       $("#tellme_prepended").effect("highlight", {}, 1500);
+//      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
 /*
        

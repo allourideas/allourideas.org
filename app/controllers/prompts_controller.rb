@@ -7,13 +7,18 @@ class PromptsController < ApplicationController
     session[:has_voted] = true
     
     if params[:direction] &&
-      vote = voted_prompt.post("vote_#{params[:direction]}".to_sym,
+      vote = voted_prompt.post(:vote,
         :question_id => params[:question_id],
-        :params => {
-          :auto => request.session_options[:id],
-          :time_viewed => params[:time_viewed],
-          :appearance_lookup => params[:appearance_lookup]
-        }
+          :vote => { :direction => params[:direction],
+                     :visitor_identifier => request.session_options[:id],
+                     :time_viewed => params[:time_viewed],
+                     :appearance_lookup => params[:appearance_lookup]
+                   },
+          :next_prompt => { :with_appearance => true,
+                            :with_visitor_stats => true,
+                            :visitor_identifier => request.session_options[:id]
+                          }
+        
       )
 
       next_prompt = Crack::XML.parse(vote.body)['prompt']

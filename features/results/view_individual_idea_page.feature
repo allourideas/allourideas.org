@@ -4,8 +4,7 @@ Feature: View individual idea page
 	Should be able to view an individual idea page
 	
 	Background: 
-		Given an idea marketplace exists with url 'test'
-		And idea marketplace 'test' has 10 ideas
+		Given an idea marketplace quickly exists with url 'test' and 4 ideas
 
 	Scenario: User visits idea page
 		Given I am on the View Results page for 'test'
@@ -25,4 +24,34 @@ Feature: View individual idea page
 		And I should see "Score"
 		And I should see "50"
 		And I should see "Number of Votes"
-		And I should see "0 votes on 12 ideas"
+		And I should see "0 votes on 4 ideas"
+	
+	@selenium
+	Scenario: Voting updates individual choice total correctly
+		Given I am on the Cast Votes page for 'test'
+		And I save the current two choices
+      		When I click on the left choice 
+		And I deactivate the two saved choices
+		And I go to the Cast Votes page for 'test'
+		And I vote 10 times
+		Then the vote count should be 11
+		When I go to the Idea Detail page for the saved left choice
+		Then I should see "1" within "#num_votes"
+		When I go to the Idea Detail page for the saved right choice
+		Then I should see "1" within "#num_votes"
+
+	@selenium
+	Scenario: Voting updates individual choice total correctly on flag as inappropriate
+	        Given idea marketplace 'test' has enabled "flag as inappropriate"
+		And I am on the Cast Votes page for 'test'
+		And I save the current two choices
+      		When I click on the left choice 
+		And I deactivate the two saved choices
+		And I go to the Cast Votes page for 'test'
+		And I vote 10 times
+		Then the vote count should be 11
+		When I go to the Idea Detail page for the saved left choice
+		Then I should see "11 votes on 2 ideas"
+		And I should see "1" within "#num_votes"
+		When I go to the Idea Detail page for the saved right choice
+		Then I should see "1" within "#num_votes"

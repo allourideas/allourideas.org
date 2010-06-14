@@ -72,6 +72,28 @@ Feature: Creating Idea marketplaces
 		   |just_created|true|
 		When I click the I can't decide button
 		Then I should see "I like both ideas" within "#facebox"
-
-
-
+        
+	Scenario: User should receive email after question is created
+		Given I am on the question create page
+		And no emails have been sent
+                When I fill in all fields with valid data except "question_email"
+		And I fill in "question_email" with "testemail@example.com"
+		And I fill in "question_url" with "test12345"
+		And I press "Create"
+		Then "signups@allourideas.org" should receive an email 
+		And "testemail@example.com" should receive an email 
+		When "testemail@example.com" opens the email
+		Then they should see "Account confirmation" in the email subject
+		And they should see "This email confirms your recent activity on" in the email body
+		And they should see "/test12345" in the email body
+	
+         Scenario: Admins should receive optional question emails
+		Given I am on the question create page
+		And no emails have been sent
+                When I fill in all fields with valid data except "question_name"
+		And I fill in "question_name" with "Which of these is the best dancer?"
+		And I fill in "question_information" with "I want to save the world"
+		And I press "Create"
+		Then "signups@allourideas.org" should receive 2 emails
+		When "signups@allourideas.org" opens the email with subject "Extra Information included in Which of these is the best dancer?"
+		Then they should see "I want to save the world" in the email body

@@ -6,6 +6,7 @@ Given /^an idea marketplace exists with url '(.*)'$/ do |url|
 
 		Capybara.reset_sessions!
 end
+
 Given /^an idea marketplace exists with admin '(.*)' and password '(.*)' and url '(.*)'$/ do |email, password, url|
 		Given "I am on the question create page"
 		When "I fill in all fields with valid data except \"question_email\""
@@ -54,6 +55,28 @@ When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 	end
 end
 
+Given /^an idea marketplace quickly exists with url '(.*)'$/ do |url|
+	q = Question.create(Factory.attributes_for(:question))
+	e = Factory.create(:earl, :name => url, :question_id => q.id)
+end
+
+Given /^an idea marketplace quickly exists with url '(.*)' and (.*) ideas$/ do |url, num_ideas|
+	ideas = ""
+	(1..num_ideas.to_i).to_a.reverse.each do |n|
+	  ideas += "Idea ##{n}" + "\n"
+	end
+	q = Question.create(Factory.attributes_for(:question, :ideas => ideas))
+	e = Factory.create(:earl, :name => url, :question_id => q.id)
+end
+
+Given /^an idea marketplace quickly exists with question title '(.*)' and admin '(.*)\/(.*)'$/ do |title, email, password|
+	u = Factory.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)
+
+	q = Question.create(Factory.attributes_for(:question, :name => title))
+	e = Factory.create(:earl, :user => u, :question_id => q.id)
+end
+
+
 When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	e = Earl.find(url)
 	@question = Question.find(e.question_id)
@@ -67,8 +90,9 @@ When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 
 	#Pairwise sorts by last created, but this makes testing pagination annoying, let's create these going down
 	(1..num_ideas.to_i).to_a.reverse.each do |n|
-	  the_params = {'auto' => 'test choices', :data => "Idea ##{n}", :question_id => @question.id}
-          Choice.post(:create_from_abroad, :question_id => @question.id, :params => the_params)
+	  the_params = {:visitor_identifier => 'test choices', :data => "Idea ##{n}", :question_id => @question.id}
+          c =Choice.create(the_params)
+	  c.should_not be_nil
 	end
 
 	unless prev_auto_activate

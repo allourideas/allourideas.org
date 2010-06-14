@@ -1,11 +1,13 @@
 When /^I click on the left choice$/ do
 	When "I follow \"leftside\""
 	Capybara.default_wait_time = 10
+	Then "I should see \"You chose\" within \".tellmearea\""
 end
 
 When /^I click on the right choice$/ do
 	When "I follow \"rightside\""
 	Capybara.default_wait_time = 10
+	Then "I should see \"You chose\" within \".tellmearea\""
 end
 
 When /^I click the flag link for the (.*) choice$/ do |side|
@@ -87,16 +89,29 @@ Then /^the notification in the tell me area should not contain links$/ do
 	page.should_not have_css('.tellmearea a')
 end
 
-Given /^I save the current left choice$/ do
+Given /^I save the current (.*) choices?$/ do |side|
 	@question_id = page.locate('#leftside')[:rel].to_i
 	
-	#This is not the ideal way to find this value, but locate() and find() seem to have some problem with hidden fields
-        @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
+	#The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
+        begin
+	  @prompt_id = page.locate('#prompt_id')[:value].to_s
+	rescue Capybara::ElementNotFound
+          @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
+	end
+	if @prompt_id.blank?
+	  raise Capybara::ElementNotFound
+	end
 
-	@prompt = Prompt.find(@prompt_id, :params => {:question_id => @question_id})
+        @prompt = Prompt.find(@prompt_id, :params => {:question_id => @question_id})
 
-	@left_choice_text = page.locate('#leftside').text.to_s
-        @left_choice = Choice.find(@prompt.left_choice_id, :params => {:question_id => @question_id})
+	if side == "left" or side == "two"
+	  @left_choice_text = page.locate('#leftside').text.to_s
+          @left_choice = Choice.find(@prompt.left_choice_id, :params => {:question_id => @question_id})
+	end
+	if side == "right" or side == "two"
+	  @right_choice_text= page.locate('#rightside').text.to_s
+          @right_choice = Choice.find(@prompt.right_choice_id, :params => {:question_id => @question_id})
+	end
 end
 
 Then /^the saved left choice should not be active$/ do
@@ -104,3 +119,6 @@ Then /^the saved left choice should not be active$/ do
 	@left_choice.should_not be_active
 end
 
+When /^I close the facebox$/ do
+        page.evaluate_script("$.facebox.close();")
+end

@@ -107,6 +107,13 @@ class ApplicationController < ActionController::Base
     deny_access("Please Login as an administrator to Access that Feature.") unless signed_in_as_admin?
   end
 
+  def earl_owner_or_admin_only
+    @earl = Earl.find(params[:question_id])
+    unless (current_user && (current_user.owns?(@earl) || current_user.admin?))
+    	deny_access(t('user.not_authorized_error'))
+    end
+  end
+
   def set_locale
 	  I18n.locale = params[:locale]
   end

@@ -14,8 +14,8 @@
     %tbody
       -alt=false
       -for earl in @earls
-        -if @questions_hash.empty? #admin
-          -q = earl.question 
+        -if @questions_hash.empty? 
+          -q = Question.find(earl.question_id)
         -else
           -q = @questions_hash[earl.question_id.to_s]
         %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
@@ -30,8 +30,6 @@
           %td.votes{:id => "question_#{earl.id}_status"}
             .toggle_question_status{:rel => earl.id, :id => "question_#{earl.id}_toggle", :status => "#{earl.active?}" }
               =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
-            =#check_box_tag("question_#{earl.id}_status_checkbox", '1', earl.active?, {:rel => earl.id, :class => 'status-toggle toggle_question_status'}) 
-            =#link_to('[Toggle]', '#', :class => 'toggle_question_status', :rel => earl.id)
   %br
   
   -if current_user.admin?
@@ -87,7 +85,7 @@
     var results_close_text = function(){ return "#{t('results.close_link')}";};
 
 -content_for :view_javascript do
-  = "$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } } });"
+  = "$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } }, sortList: [[2,1]] });"
   $('.tablesorter').bind('sortEnd', function() {
   $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
   $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});

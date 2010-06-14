@@ -727,7 +727,6 @@ class QuestionsController < ApplicationController
 
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-    #raise Prompt.find(:all).inspect
     respond_to do |format|
         format.xml  {  head :ok }
         format.js  { 
@@ -755,7 +754,6 @@ class QuestionsController < ApplicationController
   end
          
   def flag
-    expire_page :action => :results
     prompt_id = params[:prompt_id]
 
     appearance_lookup = params[:appearance_lookup]
@@ -819,33 +817,36 @@ class QuestionsController < ApplicationController
     end
 
     def add_idea
-      logger.info "Getting ready to add an idea while viewing on Question #{params[:id]}"
       bingo!('submitted_idea')
       new_idea_data = params[:new_idea]
+      
+      choice_params = {:visitor_identifier => request.session_options[:id], 
+	      	       :data => new_idea_data, 
+		       :question_id => params[:id]}
+
+      choice_params.merge!(:local_identifier => current_user.id) if signed_in?
+
       respond_to do |format|
           format.xml  {  head :ok }
           format.js  { 
-            the_params = {'auto' => request.session_options[:id], :data => new_idea_data, :question_id => params[:id]}
-            the_params.merge!(:local_identifier => current_user.id) if signed_in?
-            if p = Choice.post(:create_from_abroad, :question_id => params[:id], :params => the_params)
-              logger.info "just posted to 'create from abroad', response pending"
-              newchoice = Crack::XML.parse(p.body)['choice']
-              logger.info "response is #{newchoice.inspect}"
-	      
-	      leveling_message = Visitor.leveling_message(:votes => newchoice['visitor_votes'].to_i,
-							:ideas => newchoice['visitor_ideas'].to_i)
-              @question = Question.find(params[:id])
-              render :json => {:votes => 20,
-                               :choice_status => newchoice['choice_status'], 
+            if @choice = Choice.create(choice_params)
+              @question = Question.find(params[:id], :params => {
+						   :with_visitor_stats => true,
+						   :visitor_identifier => request.session_options[:id]})
+
+	      leveling_message = Visitor.leveling_message(:votes => @question.attributes['visitor_votes'].to_i,
+							:ideas => @question.attributes['visitor_ideas'].to_i)
+              render :json => {
+                               :choice_status => @choice.active? ? 'active' : 'inactive',
 			       :leveling_message => leveling_message,
                                :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
 
 	      @earl = Earl.find_by_question_id(@question.id)
-              case newchoice['choice_status']
-              when 'inactive'
-                ::IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, newchoice['saved_choice_id'] 
-              when 'active'
-                ::IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, newchoice['saved_choice_id']
+              case @choice.active?
+              when false
+                IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id
+              when true
+                IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id
               end
             else
               render :json => '{"error" : "Addition of new idea failed"}'
@@ -956,8 +957,8 @@ class QuestionsController < ApplicationController
         if @question.save
           earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
           session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
-          ClearanceMailer.deliver_confirmation(current_user, @question.fq_earl)
-	  IdeaMailer.deliver_extra_information(current_user, @question, params[:question]['information']) unless params[:question]["information"].blank?
+          ClearanceMailer.send_later :deliver_confirmation, current_user, @question.fq_earl
+	  IdeaMailer.send_later :deliver_extra_information, current_user, @question.name, params[:question]['information'] unless params[:question]["information"].blank?
           format.html { redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')}
           format.xml  { render :xml => @question, :status => :created, :location => @question }
         else
@@ -987,7 +988,7 @@ class QuestionsController < ApplicationController
 	    logger.info("Saving new information on earl")
 	    flash[:notice] = 'Question settings saved successfully!'
 	    logger.info("Saved new information on earl")
-	    format.html {redirect_to "/#{params[:id]}/admin"}
+	    format.html {redirect_to(:action => 'admin', :id => @earl.name)}
   	    # format.xml  { head :ok }
 	else 
             @partial_results_url = "#{@earl.name}/results"

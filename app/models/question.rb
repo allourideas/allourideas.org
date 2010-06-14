@@ -5,10 +5,6 @@ class Question < ActiveResource::Base
 
   attr_accessor :name, :question_text, :ideas, :url, :information, :email, :password, :it_should_autoactivate_ideas
   
-  def self.find_by_name(name, barebones = false)
-    Earl.find(name).question(barebones) rescue nil
-  end
-  
   def self.find_id_by_name(name)
     Earl.find(name).question_id rescue nil
   end
@@ -30,6 +26,10 @@ class Question < ActiveResource::Base
       attributes[attr]
     end
   end 
+  
+  def active_choices
+	self.choices_count - self.inactive_choices_count
+  end
 
   def ideas=(new_ideas)
 	  attributes['ideas'] = new_ideas
@@ -91,7 +91,4 @@ class Question < ActiveResource::Base
     end
   end
 
-  def active_choices
-	self.choices_count - self.inactive_choices_count
-  end
 end

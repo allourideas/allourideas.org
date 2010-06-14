@@ -4,7 +4,7 @@ Feature: Paginate large view results set
    Should be able to see pages of view results, rather than a large list
 
 	Scenario: Lots of ideas
-		Given an idea marketplace exists with url 'test'
+		Given an idea marketplace quickly exists with url 'test'
 		And idea marketplace 'test' has 100 ideas
 		When I go to the View Results page for 'test'
 		Then I should see "Idea #2"
@@ -23,7 +23,7 @@ Feature: Paginate large view results set
  
 
 	Scenario: Some ideas
-		Given an idea marketplace exists with url 'test'
+		Given an idea marketplace quickly exists with url 'test'
 		And idea marketplace 'test' has 5 ideas
 		When I go to the View Results page for 'test'
 		Then I should see "Idea #1"
@@ -31,7 +31,7 @@ Feature: Paginate large view results set
 		And I should not see "See More..."
 	
 	Scenario: One page of ideas
-		Given an idea marketplace exists with url 'test'
+		Given an idea marketplace quickly exists with url 'test'
 		And idea marketplace 'test' has 35 ideas
 		When I go to the View Results page for 'test'
 		Then I should see "Idea #1"

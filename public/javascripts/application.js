@@ -48,43 +48,6 @@ jQuery(document).ready(function() {
 	
 	//$('label').labelOver('over-apply');
 	
-	// [$("#logo-citp"), $("#logo-princeton"), $("#logo-open"), $("#logo-check")]).each(function(el) {
-	//     $(this).bind("mouseover", function() {
-	//       var str = $(this).attr("src");
-	//       $(this).attr('src', str.replace(".jpg", "-down.jpg"));
-	//     });
-	//     $(this).bind("mouseout", function() {
-	//       var str = $(this).attr("src");
-	//       $(this).attr('src', str.replace("-down.jpg", ".jpg"));
-	//     });
-	//   });
-	// $('#question_create_button').click(function () { 
-	//       //$(this).slideUp(); 
-	// 			validate_idea_form();
-	// 			alert('k');
-	// 			return false;
-	//     });
-	// 
-    // $("new_question_form").submit(function(e) {
-    // 	
-    // 	
-    //     if (e.originalEvent.explicitOriginalTarget.id == "question_create_button") {
-    // 						var the_status = validate_idea_form();
-    //         if (the_status)
-    // 								alert('the status is ' + validate_idea_form());
-    //             return false;
-    //             //If the status above is false continue to prompt the user if they want to submit or not
-    //         var ok = confirm('Do you really want to save your data?');
-    //         if (ok) {               
-    //             return true;
-    //         }
-    //         else {
-    //             //Prevent the submit event and remain on the screen
-    //             e.preventDefault();
-    //             return false;
-    //         }
-    //     }
-    // });
 	
   $(".votebox tr.prompt td.idea").each(function(el) {
     $(this).bind("click", function() {

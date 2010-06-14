@@ -10,21 +10,24 @@ ActionController::Routing::Routes.draw do |map|
                             :add_idea => :post, 
                             :toggle => :post, 
                             :toggle_autoactivate => :post, 
-#                            :admin => :get, 
-#                            :results => :get,
-#                            :voter_map => :get,
 			    :delete_logo => :delete } do |question|
 	  question.resources :prompts, 
 		  :only => [:vote],
 		  :member => {
 		  	:vote => :post
 	          }
+	  question.resources :choices, 
+		  :only => [:show], 
+		  :member => {
+		  	:activate => :get, # these shouldn't be get requests, but they need to work in email
+			:deactivate => :get
+		  },
+		  :path_prefix => '/:question_id'
 	  end
+
   map.resources :earls, :only => [:export_list], :collection => {:export_list=> :get}
   map.resources :clicks, :collection => {:export=> :get}
   #map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
-  map.activate_choice '/:question_id/choices/:id/activate', :controller => 'choices', :action => 'activate'
-  map.deactivate_choice '/:question_id/choices/:id/deactivate', :controller => 'choices', :action => 'deactivate'
   map.toggle_choice_status '/questions/:earl_id/choices/:id/toggle.:format', :controller => 'choices', :action => 'toggle', :conditions => { :method => :post }
   
   map.about '/about', :controller => 'home', :action => 'about'
@@ -41,7 +44,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '/:id', :controller => 'earls', :action => 'show'
   map.connect '/:id/:action', :controller => 'questions'
-  map.connect '/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   
 
   # rake routes

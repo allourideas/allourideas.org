@@ -62,7 +62,7 @@
         = "#{t('user.password')}:"
         = f.password_field 'password', :class => 'required', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
 
-    -if @registered
+    -if signed_in?
       %h2= "Step 4 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
     -else
       %h2= "Step 5 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
@@ -75,17 +75,14 @@
       %br
       = f.text_area 'information', :cols => 85, :rows => 12#, :title => t('questions.new.step3_exp')
     
-    -if @registered
-      %p= submit_tag t('form.create'), :class => 'form-btn'
-    -else
-      %p= submit_tag t('form.create'), :class => 'form-btn', :id => "question_create_button"
+    %p= submit_tag t('form.create'), :class => 'form-btn', :id => "question_create_button"
     
-    %p=#:value => ((@question && @question.name) || 'For example, "Which do you want more from the student government?"')
 
 #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
 
--content_for :crazyegg do
-  <script type="text/javascript" src="http://s3.amazonaws.com/new.cetrk.com/pages/scripts/0010/7235.js"> </script>
+-if RAILS_ENV['production']
+  -content_for :crazyegg do
+    <script type="text/javascript" src="http://s3.amazonaws.com/new.cetrk.com/pages/scripts/0010/7235.js"> </script>
 
 -content_for :view_javascript do
   :plain

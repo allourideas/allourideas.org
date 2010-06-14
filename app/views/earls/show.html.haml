@@ -106,8 +106,11 @@
 =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
 =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
+-if params[:just_created]
+  = render :partial => 'adwords_conversion'
+
 -content_for :head do
-  = javascript_include_tag 'facebox', 'jquery.corner'
+  = javascript_include_tag 'facebox', 'jquery.corner', 'jquery.blockUI.js'
   = stylesheet_link_tag 'facebox'
       
 

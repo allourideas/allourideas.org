@@ -4,7 +4,7 @@ Feature: Toggling choice activation
    Should be able to activate and deactivate choices
 
    Background:
-	Given an idea marketplace exists with admin 'test@test.com' and url 'test' and 4 ideas
+	Given an idea marketplace quickly exists with url 'test' and 4 ideas
         And I sign in as "test@test.com/password"
         And I am on the Admin page for 'test'
 
@@ -19,4 +19,3 @@ Feature: Toggling choice activation
 		And I click on the toggle link for the first choice
 		Then the first choice should be Activated
 		And I should not see "Deactivated" within ".toggle_choice_status"
-

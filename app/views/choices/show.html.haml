@@ -15,7 +15,7 @@
       %td= @choice.score.round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
     %tr
       %td= t('items.number_of_votes')
-      %td= @votes_count
+      %td#num_votes= @choice.attributes["wins_plus_losses"]
       
 #explanation{:style => 'display:none;'}
   %h2= t('items.about_scoring')

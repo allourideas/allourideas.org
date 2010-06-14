@@ -35,3 +35,49 @@ end
 Then /^the first choice should be (.*)$/ do |status|
 	Then "I should see \"#{status}\" within \".toggle_choice_status\""
 end
+When /^I deactivate the two saved choices$/ do
+	# reload kills prefix options, rails hasn't merged in a fix yet, see 
+	# https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/810
+	@left_choice.reload
+	@left_choice.prefix_options[:question_id] = @question_id
+        @left_choice.active = false
+	@left_choice.save
+
+	@right_choice.reload
+	@right_choice.prefix_options[:question_id] = @question_id
+        @right_choice.active = false
+        @right_choice.save
+end
+
+When /^I deactivate the saved left choice$/ do
+	@left_choice.reload
+	@left_choice.prefix_options[:question_id] = @question_id
+	@left_choice.active = false
+	@left_choice.save
+end
+
+Then /^I should not see the saved (.*) choice text$/ do |side|
+	choice = (side == "left") ? @left_choice : @right_choice
+
+	Then "I should not see \"#{choice.data}\""
+end
+
+Then /^I should see the saved (.*) choice text$/ do |side|
+	choice = (side == "left") ? @left_choice : @right_choice
+
+	Then "I should see \"#{choice.data}\""
+end
+
+Given /^idea marketplace '(.*)' has enabled idea autoactivation$/ do |url|
+ @earl = Earl.find(url)
+ @question = Question.find(@earl.question_id)
+ @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => true})
+end
+
+Given /^a super admin user exists with credentials "(.*)\/(.*)"$/ do |email, password|
+  user = Factory :email_confirmed_user,
+    :email                 => email,
+    :password              => password,
+    :password_confirmation => password,
+    :admin		   => true
+end

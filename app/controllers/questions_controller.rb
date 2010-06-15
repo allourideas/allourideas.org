@@ -724,33 +724,52 @@ class QuestionsController < ApplicationController
     appearance_lookup = params[:appearance_lookup]
     time_viewed = params[:time_viewed]
     reason = params[:cant_decide_reason]
+    question_id = params[:id]
 
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-    respond_to do |format|
-        format.xml  {  head :ok }
-        format.js  { 
-          if p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id],
-				                 'time_viewed' => time_viewed, 
-					         'appearance_lookup' => appearance_lookup,
-					         'skip_reason'=> reason
-       						})
-            newprompt = Crack::XML.parse(p.body)['prompt']
 
-	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
-							:ideas => newprompt['visitor_ideas'].to_i)
-            render :json => {:votes => 20, 
-		             :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
-			     :newright => truncate((newprompt['right_choice_text']), :length => 137),
-			     :leveling_message => leveling_message,
-			     :prompt_id => newprompt['id'],
-			     :appearance_lookup => newprompt['appearance_id'],
-			     :message => t('vote.cant_decide_message')}.to_json
-          else
-            render :json => '{"error" : "Skip failed"}'
-          end
-          }
+    if skip = @prompt.post(:skip,
+                           :params => {
+                             'auto' => request.session_options[:id],
+                             'time_viewed' => time_viewed,
+                             'appearance_lookup' => appearance_lookup,
+                             'skip_reason'=> reason
+                           })
+
+      next_prompt = Crack::XML.parse(skip.body)['prompt']
+      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
+					                                        :ideas => next_prompt['visitor_ideas'].to_i)
+
+      result = {
+        :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
+        :newright          => truncate(next_prompt['right_choice_text'], {:length => 137}),
+        :appearance_lookup => next_prompt['appearance_id'],
+        :prompt_id         => next_prompt['id'],
+        :leveling_message  => leveling_message,
+        :message => t('vote.cant_decide_message')
+      }
+
+      if @photocracy
+        newright_photo = Photo.find(next_prompt['right_choice_text'])
+        newleft_photo = Photo.find(next_prompt['left_choice_text'])
+        result.merge!({
+          :visitor_votes        => next_prompt['visitor_votes'],
+          :newright_photo       => newright_photo.image.url(:medium),
+          :newright_photo_thumb => newright_photo.image.url(:thumb),
+          :newleft_photo        => newleft_photo.image.url(:medium),
+          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
+          :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
+          :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
+          :voted_at             => Time.now.getutc.iso8601,
+          :voted_prompt_winner  => params[:direction]
+        })
       end
+
+      render :json => result.to_json
+    else
+      render :json => '{"error" : "Skip failed"}'
+    end
   end
          
   def flag

@@ -8,3 +8,4 @@
           :locals => {:direction => "right", :choice => @right_choice_id, :photo => @right_choice_photo})
 .clear
   =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
+  =hidden_field_tag 'prompt_id', @prompt.id

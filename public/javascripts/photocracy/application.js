@@ -42,7 +42,60 @@ $(document).ready(function() {
   });
 
 
+	// can't decide submit (skip)
+	$('#cant_decide_form').submit(function(e){
+		submitCantDecide($(this));
+		e.preventDefault();
+	});
 });
+
+function submitCantDecide(form) {
+	var VOTE_CAST_AT = new Date();
+	var reason = $('input[name=cant_decide_reason]:checked').val()
+
+	if (reasonValid(reason)) {
+		$('a.vote').addClass('loading');
+		$('#cant_decide_options').dialog('close');
+
+		jQuery.ajax({
+			type: 'POST',
+			dataType: 'json',
+		  url: form.attr('action'),
+		  data: {
+				cant_decide_reason: reason,
+				prompt_id: $('#prompt_id').val(),
+		    appearance_lookup: $('#appearance_lookup').val(),
+				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
+				authenticity_token: encodeURIComponent(AUTH_TOKEN),
+				locale: LOCALE
+		  },
+		  timeout: 10000,
+		  error: function(request, textStatus, errorThrown) {
+				voteError(request, textStatus, errorThrown);
+			},
+		  success: function(data, textStatus, request) {
+				loadNextPrompt(data);
+				PAGE_LOADED_AT = new Date(); // reset the page load time
+			}
+		});
+	}
+}
+
+function reasonValid(reason) {
+	if (!reason) {
+	  alert("Please select a reason");
+	  return false;
+	} else {
+		if(reason == 'user_other'){
+			user_text = $.trim($('input[name=reason_text]').val());
+	   	if(!user_text){
+	    	alert("Please include an explanation");
+	      return false;
+	   	}
+		}
+		return true;
+	}
+}
 
 function castVote(choice) {
 	var VOTE_CAST_AT = new Date();
@@ -54,7 +107,8 @@ function castVote(choice) {
 	  data: {
 	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
 			time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
-	    appearance_lookup: $('#appearance_lookup').val()
+	    appearance_lookup: $('#appearance_lookup').val(),
+			locale: LOCALE
 	  },
 	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {
@@ -88,18 +142,17 @@ function loadNextPrompt(data) {
 	$('a.vote').removeClass('loading chosen');
 	
 	jQuery.each(['left', 'right'], function(index, side) {
-		// change photo
+		// change photos
 		$('a.vote.' + side).css('background', "#fff url('" + data['new' + side + '_photo'] + "') center center no-repeat");
-
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
-
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
 	});
 
-	// change appearance_lookup
+	// change appearance_lookup and prompt_id hidden fields
 	$('#appearance_lookup').val(data['appearance_lookup']);
+	$('#prompt_id').val(data['prompt_id']);
 }
 
 function voteError(request, textStatus, errorThrown) {

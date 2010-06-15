@@ -11,7 +11,7 @@
     .center.margin_bottom
       =link_to 'Add your own Photo', add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
       <br /><br />
-      =link_to "I can't decide", "#"
+      =link_to_function "I can't decide", "$('#cant_decide_options').dialog('open');"
 .container_12
   #secondary_content
     .grid_4
@@ -45,6 +45,22 @@
           and CITP at Princeton University.
   .clear
 
+  #cant_decide_options{:style => 'display:none', :title => t('vote.cant_decide_title')}
+    %form{:action => "#{skip_question_url(@question, :format => :js)}", :id => 'cant_decide_form'}
+      / 'http://photocracy:3001/questions/' + question_id + '/skip.js'
+      -options= %w(like_both dislike_both both_same other user_other)
+      %p
+        -options.each do |choice|
+          %label
+            =radio_button_tag "cant_decide_reason", choice.to_s, false
+            =t('vote.cd_'+choice)
+
+          -if choice == 'user_other'
+            =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
+          %br
+      %p
+        %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
+
   #upload_status{:style => 'display:none;', :title => 'Adding a photo'}
     #upload_status_message
       %p Uploading your photo...
@@ -52,12 +68,16 @@
   
   :javascript
     $(document).ready(function(){
+      $('#cant_decide_options').dialog({autoOpen:false, modal:true, width:330});
+
       $('#upload_status').dialog({
         autoOpen: false,
         modal: true,
         width: 400,
         close: function(event, ui) {
-          $('#upload_status_message').html("<p>Uploading your photo...</p><img src='/images/photocracy/indicator.gif' />")
+          $('#upload_status_message').html(
+            "<p>Uploading your photo...</p><img src='/images/photocracy/indicator.gif' />"
+          )
         }
       });
     });

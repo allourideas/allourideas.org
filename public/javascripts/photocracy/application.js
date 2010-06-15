@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	// voting
   $('a.vote').live('click', function(e) {
 		if ($(this).hasClass('loading')) {
 			alert("One sec, we're loading the next pair...");
@@ -10,6 +12,36 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
   });
+
+	// uploading a photo
+	var button = $('#add_photo_button');
+	// uses ajaxupload.js
+  new AjaxUpload(button, {
+    action: button.attr('href'),
+    name: 'new_idea',
+    data: {
+      question_id : button.attr('question_id'),
+      authenticity_token: AUTH_TOKEN,
+      locale: LOCALE,
+    },
+    autoSubmit: true,
+    responseType: "json",
+    onChange: function(file, extension){
+      $('#upload_status').dialog('open');
+    },
+    onSubmit : function(file , ext){
+      // validate jpg, png, jpeg, or gif
+      if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
+        $('#upload_status_message').html('Please select another image. <br />(Only jpg png and gifs allowed)');
+        return false;
+      }
+    },
+    onComplete: function(file, response) {
+      $('#upload_status_message').html('<strong>Thanks!</strong><br />Your photo has been submitted for review.<br />It will appear soon.');
+    }
+  });
+
+
 });
 
 function castVote(choice) {
@@ -72,31 +104,4 @@ function loadNextPrompt(data) {
 
 function voteError(request, textStatus, errorThrown) {
 	alert(textStatus);
-}
-
-
-// adding a photo
-
-$(document).ready(function() {
-	$('#add_photo_form').live('submit', function (e) {
-	    $(this).addPhoto();
-	    (this).preventDefault();
-	});
-});
-function addPhoto() {
-	jQuery.ajax({
-		type: 'POST',
-		dataType: 'json',
-	  url: this.attr('action'),
-	  data: {
-	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
-			locale: LOCALE,
-			new_photo: $('#add_photo_field').val()
-	  },
-	  timeout: 10000,
-	  error: function(request, textStatus, errorThrown) {
-		},
-	  success: function(data, textStatus, request) {
-		}
-	});
 }

@@ -820,6 +820,10 @@ class QuestionsController < ApplicationController
       bingo!('submitted_idea')
       new_idea_data = params[:new_idea]
       
+      if @photocracy
+        new_idea_data = Photo.create(:image => params[:new_idea]).id
+      end
+
       choice_params = {:visitor_identifier => request.session_options[:id], 
 	      	       :data => new_idea_data, 
 		       :question_id => params[:id]}

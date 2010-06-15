@@ -9,7 +9,7 @@
       #prompt
         =render(:partial => 'questions/prompt')
     .center.margin_bottom
-      =link_to 'Add your own Photo', "#", :class => 'blue button', :id => 'add_photo_button'
+      =link_to 'Add your own Photo', add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
       <br /><br />
       =link_to "I can't decide", "#"
 .container_12
@@ -44,17 +44,20 @@
           Photocracy is supported by grants from Google<br />
           and CITP at Princeton University.
   .clear
-  #add_photo{:title => 'Add your own photo'}
-    -form_tag(add_idea_question_url(:id => params[:id], :format => :js), :multipart => true, :id => :add_photo_form) do
-      =file_field_tag :add_photo_field
-      %p.microcopy By uploading a photo you certify that you have the right to distribute this picture and that it does not violate the Terms of Service.
-      =submit_tag 'Add photo', :class => 'button'
+
+  #upload_status{:style => 'display:none;', :title => 'Adding a photo'}
+    #upload_status_message
+      %p Uploading your photo...
+      =image_tag "photocracy/indicator.gif"
   
   :javascript
     $(document).ready(function(){
-      $('#add_photo').dialog({ autoOpen: false, modal: true, width: 400 });
-      $('#add_photo_button').click( function() {
-        $('#add_photo').dialog('open');
-        return false;
+      $('#upload_status').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 400,
+        close: function(event, ui) {
+          $('#upload_status_message').html("<p>Uploading your photo...</p><img src='/images/photocracy/indicator.gif' />")
+        }
       });
     });

@@ -234,7 +234,7 @@ table {
           color: white;
           border: none; }
     .votebox table td table td {
-      height: 115px; }
+      height: 137.5px; }
   .votebox table.vote-footer {
     width: 100%;
     margin-top: 10px; }
@@ -597,3 +597,6 @@ table.tablesorter {
   text-align: center;
   background-color: #54afe2;
   color: white; }
+
+.cd_close_and_submit {
+  margin-top: 10px; }

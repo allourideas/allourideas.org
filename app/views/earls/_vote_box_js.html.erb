@@ -1,3 +1,5 @@
+//  note: vote-footer = where can't decide button is
+
   var loadedTime = new Date();
   var count = 0;
 
@@ -31,8 +33,8 @@
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
     $('.tellmearea').show();
-		
-    $('.indicator').show();
+	  $('.indicator').show();
+    $('.new_idea_field').val(default_text); /* har*/
 
     //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
@@ -105,7 +107,7 @@
 
     //  Remove in case it's still there... same as above (can't decide stuff)
     $('.add_container').show();
-    $('.actual_cd_button.rounded').show();
+    $('.vote-footer').show();
     $('#cant_decide_options').hide();
 
     var currentTime = new Date();
@@ -244,7 +246,7 @@
 
     //  hide/show everything necessary
     //  cd stuff
-    $('.actual_cd_button.rounded').hide();      
+    $('.vote-footer').hide();      
     $('#cant_decide_options').show();
 
     //  idea/other stuff... yes, it seems redundant, but it's all necessary
@@ -252,7 +254,7 @@
 
     $('.close').bind('click', function() {
       //  make the right stuff reappear/rehide/work
-      $('.actual_cd_button.rounded').show();      
+      $('.vote-footer').show();      
       $('#cant_decide_options').hide();
       $('.add_container').show();   
     });
@@ -279,7 +281,7 @@
 
     //  make the right stuff reappear/rehide/work
     //  cd stuff
-    $('.actual_cd_button.rounded').show();      
+    $('.vote-footer').show();      
     $('#cant_decide_options').hide();
 
     //  idea/other stuff... might seem redundant, but it's necessary
@@ -342,6 +344,8 @@
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 	          //clear the radio buttons somehow?
 		        loadedTime = new Date() //reset loaded time
+
+            $('radio_button:checked').val(false);
 			
 		      },
 		      "json"

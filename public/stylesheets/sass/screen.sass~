@@ -250,7 +250,7 @@ $fontScaleFactor = .8                           /* har */
           color: #FFF
           border: none
     table td
-      height: 230px * $scaleFactor
+      height: 275px * $scaleFactor
   &.vote-footer
     width: 100%
     margin-top: 10px
@@ -619,3 +619,10 @@ table.tablesorter
 .votestatus
   text-align: center
   background-color: #54afe2
+  color: white
+
+.cd_close_and_submit
+  margin-top: 10px
+
+.other
+  width: 1px

@@ -22,7 +22,7 @@
           %td.fright.no_bottom_padding
             = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
     /* moved this entire block here
-    #cant_decide_options{:style => 'display:none'}                      
+    #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
       %h2.center= t('vote.cant_decide_title')
       -cd_options= ['like_both','dislike_both', 'dont_know_both', 'explicit_dont_know_left','both_same', 'other', 'user_other', 'explicit_dont_know_right']
       -col1, col2 = cd_options.enum_slice((cd_options.size.to_f/2.0).ceil).to_a
@@ -39,7 +39,7 @@
               =t('vote.cd_'+choice)
             %td{:class => padding_class, :id => 'radio_button'}
               =radio_button_tag "cant_decide_reason", col2[index].to_s, false
-            %td{:class => padding_class}
+            %td.other{:class => padding_class}
               =t('vote.cd_'+col2[index])
               -if col2[index] == 'user_other'
                 =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
@@ -52,11 +52,11 @@
                   %td.no_top_padding &nbsp;
                   %td.no_top_padding
                     %i.rightside=@right_choice_text
-      %br
+      .cd_close_and_submit
         .fleft
           = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
         .fright
-          #cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
+          .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
     %table.vote-footer
       %tr
         %td &nbsp; 

@@ -264,6 +264,7 @@ en:
     list_of_non_votes_csv: List of Non Vote Actions (CSV File)
     download: Download
     request: Request
+    and_registered_to: and it is registered to
   footer:
     support: This project is supported by grants from Google and CITP at Princeton University.
     open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.

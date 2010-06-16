@@ -20,21 +20,11 @@
             -else 
               .toggle_choice_status{:rel => choice.id, :id => "choice_#{choice.id}_toggle", :earl_id => @earl.id, :status => "#{choice.active?}" }
                 = choice.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
-          -#%td= rank
-          -#%td= added
-          -#%td
-            -#unless @choices.size < 3
-              -#=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_choice_status', :rel => choice.id, :earl_id => @earl.id)
   %br
 
-
-
-    -#%tr.row1
-      %td
-        %iframe{:src => "#{url_for(:action => :voter_map)}", :width=> "600px", :height => "400px", :frameborder => "0", :scrolling => "no"}}
-      %td &nbsp;
   %p
-    = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago')
+    = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago') 
+    = t('admin.and_registered_to') + ": " + @earl.user.email
   
   %table.full
     %tr.row0

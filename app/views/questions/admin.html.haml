@@ -49,12 +49,15 @@
           = @question.it_should_autoactivate_ideas? ? rounded("Enabled", 'round-filled') : rounded("Disabled", 'round-filled-grey')
       -#%td=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
   %br
-
   %table.full
     %tr.row0
       %th{:colspan => 2}=t('admin.additional_settings')
     -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
       -unless f.error_messages.blank?
+        :javascript
+          $(document).ready(function(){
+            document.getElementById('errorExplanation').scrollIntoView(true);
+          });
         %tr.row2
           %td{:colspan => 2}=f.error_messages
       %tr.row1
@@ -132,7 +135,7 @@
 
 
 -content_for :head do
-  = javascript_include_tag 'facebox', 'jquery.tablesorter.min.js'
+  = javascript_include_tag 'facebox', 'jquery.tablesorter.min.js', 'jquery.blockUI.js'
   = stylesheet_link_tag 'facebox'
 
 - content_for :view_javascript do

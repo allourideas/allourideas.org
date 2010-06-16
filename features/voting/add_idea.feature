@@ -21,7 +21,7 @@ Feature: Add idea to marketplace
     @selenium
     Scenario: Adding choice to moderated marketplace
       When I upload an idea titled 'blah blah blah'
-      Then I should see "Thank you. Your idea has been submitted for review, and it will appear soon" within "#facebox"
+      Then I should see "Your idea has been submitted for review. It will appear soon." within "#facebox"
       Then I should see "Cast Votes" within "#facebox"
       When I close the facebox
       Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"

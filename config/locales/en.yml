@@ -173,7 +173,7 @@ en:
     submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
-    idea_sent_for_review: Thank you. Your idea has been submitted for review, and it will appear soon
+    idea_sent_for_review: Your idea has been submitted for review. It will appear soon.
   results:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes

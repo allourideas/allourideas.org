@@ -58,7 +58,7 @@ Rails::Initializer.run do |config|
     :source  => 'http://gems.github.com',
     :version => '0.1'
   config.gem "will_paginate",
-	  :version => '2.3.11',
+	  :version => '2.3.14',
 	  :source => 'http://gemcutter.org'
   config.gem 'geoip_city',
      :version => '0.2.0'

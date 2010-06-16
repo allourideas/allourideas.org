@@ -37,6 +37,9 @@ class HomeController < ApplicationController
 	if @recent_votes_by_question_id == "\n" #no data
 		@recent_votes_by_question_id = {}
         end
+	if @user_submitted_idea_info == "\n" #no data
+		@user_submitted_idea_info = {}
+        end
 	
 	@questions.each do |q|
 		@questions_hash[q.id.to_s] = q

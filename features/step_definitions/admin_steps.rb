@@ -73,3 +73,11 @@ Given /^idea marketplace '(.*)' has enabled idea autoactivation$/ do |url|
  @question = Question.find(@earl.question_id)
  @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => true})
 end
+
+Given /^a super admin user exists with credentials "(.*)\/(.*)"$/ do |email, password|
+  user = Factory :email_confirmed_user,
+    :email                 => email,
+    :password              => password,
+    :password_confirmation => password,
+    :admin		   => true
+end

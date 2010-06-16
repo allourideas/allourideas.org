@@ -14,8 +14,8 @@
     %tbody
       -alt=false
       -for earl in @earls
-        -if @questions_hash.empty? #admin
-          -q = earl.question 
+        -if @questions_hash.empty? 
+          -q = Question.find(earl.question_id)
         -else
           -q = @questions_hash[earl.question_id.to_s]
         %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
@@ -79,7 +79,7 @@
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"
-  = javascript_include_tag 'jquery.tablesorter.min.js'
+  = javascript_include_tag 'jquery.tablesorter.min.js', 'jquery.blockUI.js'
   :javascript
     var results_view_text = function(){ return "#{t('results.view_link')}";};
     var results_close_text = function(){ return "#{t('results.close_link')}";};

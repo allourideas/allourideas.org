@@ -41,10 +41,15 @@ $(document).ready(function() {
     }
   });
 
-
 	// can't decide submit (skip)
 	$('#cant_decide_form').submit(function(e){
 		submitCantDecide($(this));
+		e.preventDefault();
+	});
+
+	// flag as inappropriate submit
+	$('#flag_as_inappropriate_form').submit(function(e){
+		submitFlag($(this));
 		e.preventDefault();
 	});
 });
@@ -63,6 +68,42 @@ function submitCantDecide(form) {
 		  url: form.attr('action'),
 		  data: {
 				cant_decide_reason: reason,
+				prompt_id: $('#prompt_id').val(),
+		    appearance_lookup: $('#appearance_lookup').val(),
+				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
+				authenticity_token: encodeURIComponent(AUTH_TOKEN),
+				locale: LOCALE
+		  },
+		  timeout: 10000,
+		  error: function(request, textStatus, errorThrown) {
+				voteError(request, textStatus, errorThrown);
+			},
+		  success: function(data, textStatus, request) {
+				loadNextPrompt(data);
+				PAGE_LOADED_AT = new Date(); // reset the page load time
+			}
+		});
+	}
+}
+
+function submitFlag(form) {
+	var VOTE_CAST_AT = new Date();
+	var reason = $.trim($('#inappropriate_reason').val());
+
+ 	if(!reason){
+  	alert("Please include an explanation");
+    return false;
+ 	} else {
+		$('a.vote').addClass('loading');
+		$('#flag_as_inappropriate').dialog('close');
+
+		jQuery.ajax({
+			type: 'POST',
+			dataType: 'json',
+		  url: form.attr('action'),
+		  data: {
+				flag_reason: reason,
+				side: $('#inappropriate_side').val(),
 				prompt_id: $('#prompt_id').val(),
 		    appearance_lookup: $('#appearance_lookup').val(),
 				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,

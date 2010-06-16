@@ -47,7 +47,6 @@
 
   #cant_decide_options{:style => 'display:none', :title => t('vote.cant_decide_title')}
     %form{:action => "#{skip_question_url(@question, :format => :js)}", :id => 'cant_decide_form'}
-      / 'http://photocracy:3001/questions/' + question_id + '/skip.js'
       -options= %w(like_both dislike_both both_same other user_other)
       %p
         -options.each do |choice|
@@ -61,19 +60,28 @@
       %p
         %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
 
+  -if @earl.flag_enabled?
+    #flag_as_inappropriate{:style => 'display:none', :title => t('vote.flag_as_inappropriate')}
+      %form{:action => "#{flag_question_url(@question, :format => :js)}", :id => 'flag_as_inappropriate_form'}
+        = t('vote.please_explain_flag')
+        %p
+          = text_area_tag 'inappropriate_reason', "", :style => 'width:100%'
+          = hidden_field_tag 'inappropriate_side'
+        %p
+          %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
+
   #upload_status{:style => 'display:none;', :title => 'Adding a photo'}
     #upload_status_message
       %p Uploading your photo...
       =image_tag "photocracy/indicator.gif"
-  
+
   :javascript
     $(document).ready(function(){
       $('#cant_decide_options').dialog({autoOpen:false, modal:true, width:330});
 
-      $('#upload_status').dialog({
-        autoOpen: false,
-        modal: true,
-        width: 400,
+      $('#flag_as_inappropriate').dialog({autoOpen:false, modal:true, width:450});
+
+      $('#upload_status').dialog({autoOpen: false, modal: true, width: 400,
         close: function(event, ui) {
           $('#upload_status_message').html(
             "<p>Uploading your photo...</p><img src='/images/photocracy/indicator.gif' />"

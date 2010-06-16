@@ -38,13 +38,3 @@ Feature: I Can't Decide
 		And I pick "Other"
 		And I click the I can't decide submit button
 		Then I should not see "You couldn't decide."
-		
-
-	Scenario: User reloads page to try to skip
-		Given that I am on the vote page for 'test'
-		And the left choice text is 'x'
-		And the right choice text is 'y'
-		When I reload the page
-		Then the left choice text should be 'x'
-		And the right choice text should be 'y'
-		

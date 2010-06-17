@@ -407,6 +407,67 @@ class QuestionsController < ApplicationController
      end
 
   end
+  
+  def scatter_votes_vs_skips
+        @earl = Earl.find params[:id]
+        @question = Question.new(:id => @earl.question_id)
+        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+
+        skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+
+        chart_data = []
+	max_x = 0
+	max_y = 0
+        votes_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
+	      point = {}
+	      point[:x] = votes
+	      max_x = votes.to_i if votes.to_i > max_x
+	      if skips = skips_by_sids.delete(sid)
+	         point[:y] = skips
+	         max_y = skips.to_i if skips.to_i > max_y
+	      else
+	         point[:y] = 0
+	      end
+		
+	      point[:name] = sid
+	      chart_data << point
+      end
+      # if any sids remain, they have not voted
+      skips_by_sids.each do |sid, skips|
+	      point = {}
+	      point[:x] = 0
+	      point[:y] = skips
+	      max_y = skips.to_i if skips.to_i > max_y
+		
+	      point[:name] = sid
+	      chart_data << point
+      end
+      tooltipformatter = "function() { return  this.x + ' Votes '  + this.y + ' Skips '; }"
+      @votes_chart = Highchart.scatter({
+	    :chart => { :renderTo => "scatter_votes_vs_skips-chart-container",
+		    	:margin => [50, 25, 60, 50],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => false },
+            :title => { :text => "Number of Votes and Skips by session",
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :type => 'linear', :min => 0, :max => max_x,
+			 :title => {:enabled => true, :text => "Votes"}},
+	    :y_axis => { :min => 0, :max => max_y, :type => 'linear' , :title => {:enabled => true, :title => "Skips"}},
+	    :series => [ { :type => 'scatter',
+			   :color => 'rgba( 49,152,193, .5)',
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+      respond_to do |format|
+	format.js { render :text => @votes_chart }
+     end
+  end
 
   def scatter_votes_by_session
       type = params[:type] # should be scatter_votes_by_session

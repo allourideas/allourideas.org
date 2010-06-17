@@ -413,15 +413,20 @@ class QuestionsController < ApplicationController
       @earl = Earl.find params[:id]
       @question = Question.new(:id => @earl.question_id)
 
-      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-      bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
-
-      bounce_hash = {}
-      bounces_by_sids.each do |k|
+     
+      case type
+      when "votes"
+        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+        bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
+        bounce_hash = {}
+        bounces_by_sids.each do |k|
 	      bounce_hash[k] = 0
-      end
+        end
 
-      votes_by_sids.merge!(bounce_hash)
+        votes_by_sids.merge!(bounce_hash)
+       when "skips"
+        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+       end
 
       chart_data = []
       jitter = Hash.new(0)
@@ -437,9 +442,9 @@ class QuestionsController < ApplicationController
 	      chart_data << point
       end
       
-      tooltipformatter = "function() { return '<b>' + this.x + ' Votes </b>' ; }"
+      tooltipformatter = "function() { return '<b>' + this.x + ' #{type.titleize} </b>' ; }"
       @votes_chart = Highchart.scatter({
-	    :chart => { :renderTo => "#{type}-chart-container",
+	    :chart => { :renderTo => "scatter_#{type}_by_session-chart-container",
 		    	:margin => [50, 25, 60, 50],
 			:borderColor =>  '#919191',
 			:borderWidth =>  '1',
@@ -447,11 +452,11 @@ class QuestionsController < ApplicationController
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => "Number of votes by session",
+            :title => { :text => "Number of #{type} by session",
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :type => 'linear', :min => 0, :max => max,
-			 :title => {:enabled => true, :text => t('common.votes').titleize}},
+			 :title => {:enabled => true, :text => type.titleize}},
 	    :y_axis => { :min => 0, :type => 'linear' },
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',

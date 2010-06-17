@@ -28,5 +28,10 @@ Feature: Prevent skip by reloading the page
 		And I go to the Cast Votes page for 'test' # effectively reloads page
 		Then the left choice text should match the saved left choice text
 		And the right choice text should match the saved right choice text
+	
+	Scenario: User visits more than one idea marketplace
+	        Given an idea marketplace quickly exists with url 'test2'
+	        When I go to the Cast Votes page for 'test2'
+		Then the left choice text should not match the saved left choice text
  
  

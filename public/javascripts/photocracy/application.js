@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	// voting
   $('a.vote').live('click', function(e) {
 		if ($(this).hasClass('loading')) {
@@ -15,31 +14,35 @@ $(document).ready(function() {
 
 	// uploading a photo
 	var button = $('#add_photo_button');
-	// uses ajaxupload.js
-  new AjaxUpload(button, {
-    action: button.attr('href'),
-    name: 'new_idea',
-    data: {
-      question_id : button.attr('question_id'),
-      authenticity_token: AUTH_TOKEN,
-      locale: LOCALE,
-    },
-    autoSubmit: true,
-    responseType: "json",
-    onChange: function(file, extension){
-      $('#upload_status').dialog('open');
-    },
-    onSubmit : function(file , ext){
-      // validate jpg, png, jpeg, or gif
-      if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
-        $('#upload_status_message').html('Please select another image. <br />(Only jpg png and gifs allowed)');
-        return false;
-      }
-    },
-    onComplete: function(file, response) {
-      $('#upload_status_message').html('<strong>Thanks!</strong><br />Your photo has been submitted for review.<br />It will appear soon.');
-    }
-  });
+
+	// AjaxUpload throws an error if button isn't on page
+	if (button.length != 0) {
+		// uses ajaxupload.js
+	  new AjaxUpload(button, {
+	    action: button.attr('href'),
+	    name: 'new_idea',
+	    data: {
+	      question_id : button.attr('question_id'),
+	      authenticity_token: AUTH_TOKEN,
+	      locale: LOCALE,
+	    },
+	    autoSubmit: true,
+	    responseType: "json",
+	    onChange: function(file, extension){
+	      $('#upload_status').dialog('open');
+	    },
+	    onSubmit : function(file , ext){
+	      // validate jpg, png, jpeg, or gif
+	      if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
+	        $('#upload_status_message').html('Please select another image. <br />(Only jpg png and gifs allowed)');
+	        return false;
+	      }
+	    },
+	    onComplete: function(file, response) {
+	      $('#upload_status_message').html('<strong>Thanks!</strong><br />Your photo has been submitted for review.<br />It will appear soon.');
+	    }
+	  });
+	}
 
 	// can't decide submit (skip)
 	$('#cant_decide_form').submit(function(e){
@@ -52,11 +55,34 @@ $(document).ready(function() {
 		submitFlag($(this));
 		e.preventDefault();
 	});
+
+	// view ajax graph
+	$('a.ajax_graph').live('click', function(e) {
+		$('#graphs > li > a').removeClass('active');
+		$(this).addClass('active');
+
+		target = $('.target');
+		target.html('<img src=/images/indicator.gif />')
+		target.attr('id', $(this).attr('div_id'));
+
+		if ($(this).attr('response_type') == 'script') {
+			jQuery.get($(this).attr("href"), null, null, $(this).attr('response_type'));
+		} else {
+			// total hack for world map
+			var iframe_html= "<iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' onload='iframe_loaded();' width='100%' height='370px' frameborder=0 scrolling=no style='border:1px solid #666;'></iframe>"
+			target.html(iframe_html);
+			// jQuery.get($(this).attr("href"), function(data) {
+			//   target.html(data);
+			// });
+		}
+
+		e.preventDefault();
+	});
 });
 
 function submitCantDecide(form) {
 	var VOTE_CAST_AT = new Date();
-	var reason = $('input[name=cant_decide_reason]:checked').val()
+	var reason = $('input[name=cant_decide_reason]:checked').val();
 
 	if (reasonValid(reason)) {
 		$('a.vote').addClass('loading');
@@ -88,7 +114,8 @@ function submitCantDecide(form) {
 
 function submitFlag(form) {
 	var VOTE_CAST_AT = new Date();
-	var reason = $.trim($('#inappropriate_reason').val());
+	var reason = jQuery.trim($('#inappropriate_reason').val());
+	$('#inappropriate_reason').val('');
 
  	if(!reason){
   	alert("Please include an explanation");
@@ -128,7 +155,7 @@ function reasonValid(reason) {
 	  return false;
 	} else {
 		if(reason == 'user_other'){
-			user_text = $.trim($('input[name=reason_text]').val());
+			user_text = jQuery.trim($('input[name=reason_text]').val());
 	   	if(!user_text){
 	    	alert("Please include an explanation");
 	      return false;

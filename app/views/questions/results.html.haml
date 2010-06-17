@@ -128,6 +128,13 @@
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{"scatter_votes_by_session"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of skips per day (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => "skips"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "skips-chart-container"}
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')

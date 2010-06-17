@@ -478,7 +478,8 @@ class QuestionsController < ApplicationController
         @question = Question.new(:id => @earl.question_id)
       end
       
-      if type == 'votes'
+      case type
+      when 'votes'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'votes')
 	 else
@@ -486,7 +487,15 @@ class QuestionsController < ApplicationController
 	 end
          chart_title = t('results.number_of') +  t('common.votes') + t('results.per_day')
          y_axis_title = t('results.number_of') + t('common.votes')
-      elsif type == 'user_sessions'
+      when 'skips'
+	 if totals == "true"
+             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'skips')
+	 else
+             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'skips')
+	 end
+         chart_title = t('results.number_of') +  t('common.skips') + t('results.per_day')
+         y_axis_title = t('results.number_of') + t('common.skips')
+      when 'user_sessions'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
 	 else
@@ -494,7 +503,7 @@ class QuestionsController < ApplicationController
 	 end
          chart_title = t('results.number_of') +  t('common.user_sessions') + t('results.per_day')
          y_axis_title = t('results.number_of') + t('common.user_sessions')
-      elsif type == 'user_submitted_ideas'
+      when 'user_submitted_ideas'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')
 	 else
@@ -502,7 +511,7 @@ class QuestionsController < ApplicationController
 	 end
          chart_title = t('results.number_of') +  t('common.ideas').titleize + t('results.per_day')
          y_axis_title = t('results.number_of') + t('common.ideas')
-      elsif type == 'unique_users'
+       when 'unique_users'
 	 if totals == "true"
                  chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
                  y_axis_title = t('results.number_of') + t('common.users')

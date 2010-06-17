@@ -191,7 +191,7 @@
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
-      var maxLength = 75;
+      var maxLength = 65;
 
       if (winner.length > maxLength)
         winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
@@ -345,7 +345,7 @@
 	          //clear the radio buttons somehow?
 		        loadedTime = new Date() //reset loaded time
 
-            $('radio_button_tag:checked').val(false);
+            $('radio_button:checked').val(false);
 			
 		      },
 		      "json"

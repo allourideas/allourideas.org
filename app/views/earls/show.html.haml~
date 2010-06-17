@@ -39,7 +39,7 @@
               =t('vote.cd_'+choice)
             %td{:class => padding_class, :id => 'radio_button'}
               =radio_button_tag "cant_decide_reason", col2[index].to_s, false
-            %td.other{:class => padding_class}
+            %td{:class => padding_class}
               =t('vote.cd_'+col2[index])
               -if col2[index] == 'user_other'
                 =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
@@ -76,7 +76,6 @@
         %br
       #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
       .tellmearea
-      #tellme_prepend_spot
 
   -unless session[:has_voted]
     -ab_test(@ab_test_stackoverflow_name, %w{control first_time no_first_time}, :conversion => 'voted') do |the_choice|
@@ -119,4 +118,4 @@
 .votestatus
   #leveling_message_appended
     Click on an idea to start voting.
-    /*^bad style here; i should probably have this in some file elsewhere*/
+      /*^bad style here; i should probably have this in some file elsewhere*/

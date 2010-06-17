@@ -76,7 +76,6 @@
         %br
       #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
       .tellmearea
-      #tellme_prepend_spot
 
   -unless session[:has_voted]
     -ab_test(@ab_test_stackoverflow_name, %w{control first_time no_first_time}, :conversion => 'voted') do |the_choice|

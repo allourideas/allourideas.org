@@ -115,7 +115,6 @@
         });
     =render :partial => 'vote_box_js' 
 
-.votestatus
-  #leveling_message_appended
-    Click on an idea to start voting.
-      /*^bad style here; i should probably have this in some file elsewhere*/
+.bottom_status
+  Click on an idea to start voting.
+  /*^bad style here; i should probably have this in some file elsewhere*/

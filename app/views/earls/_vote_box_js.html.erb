@@ -64,7 +64,7 @@
           $("#tellme_prepended").effect("highlight", {}, 1500);
 
           $("#leveling_message_appended").remove();
-          $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+          $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
           $('.indicator').hide();
         
@@ -206,7 +206,7 @@
       $("#tellme_prepended").effect("highlight", {}, 1500);
 
       $("#leveling_message_appended").remove();
-      $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+      $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 //      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
 
@@ -334,7 +334,7 @@
             count++;
 
             $("#leveling_message_appended").remove();
-            $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+            $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
 			      $('.indicator').hide();
 			      $.unblockUI();

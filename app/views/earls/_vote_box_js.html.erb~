@@ -64,7 +64,7 @@
           $("#tellme_prepended").effect("highlight", {}, 1500);
 
           $("#leveling_message_appended").remove();
-          $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+          $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
           $('.indicator').hide();
         
@@ -191,7 +191,7 @@
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
-      var maxLength = 65;
+      var maxLength = 70;
 
       if (winner.length > maxLength)
         winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
@@ -206,7 +206,7 @@
       $("#tellme_prepended").effect("highlight", {}, 1500);
 
       $("#leveling_message_appended").remove();
-      $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+      $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 //      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
 

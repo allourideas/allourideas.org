@@ -221,7 +221,7 @@ table
 
 .vote-nav
   width: 90%
-  font-size: 16px
+  font-size: 24px * $scaleFactor
   padding-bottom: 2px
 
 $fontScaleFactor = .8                           /* har */
@@ -288,7 +288,7 @@ $fontScaleFactor = .8                           /* har */
 
 div.bar-chart
   border: 1px solid #ccc
-  width: 250px
+  width: 250px * $scaleFactor
   margin: 2px 5px 2px 0
   padding: 1px
   float: left
@@ -599,8 +599,6 @@ table.tablesorter
     margin-left: 1em
 
 /* this is all me after this...*/
-.vote-nav
-  font-size: 24px * $scaleFactor
 
 #radio_button
   padding-right: 10px
@@ -611,24 +609,25 @@ table.tablesorter
 .scrollbar
   width: 850px * $scaleFactor
   height: 500px
-  border: 4px solid #3198c1              /* har, comment out below border code*/
+  border: 4px solid #3198c1              /* har, comment out other border code*/
 
-.votestatus
+.bottom_status
   //margin-top: 490px
-  border: 4px solid #3198c1              /* har, comment out below border code*/
+  border: 4px solid #3198c1              /* har, comment out other border code*/
   border-top: 0px
   width: 850px * $scaleFactor
+  text-align: center
+  background-color: #54afe2
+  color: white
+
+.bottom_status a
+  color: white
 
 #tellme_prepend_spot
 //  text-align: left
 
 .tellmearea
   font-size: 28px * $scaleFactor
-
-.votestatus
-  text-align: center
-  background-color: #54afe2
-  color: white
 
 .cd_close_and_submit
   margin-top: 10px

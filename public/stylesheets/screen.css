@@ -206,7 +206,7 @@ table {
 
 .vote-nav {
   width: 90%;
-  font-size: 16px;
+  font-size: 12px;
   padding-bottom: 2px; }
 
 .votebox table {
@@ -271,7 +271,7 @@ table {
 
 div.bar-chart {
   border: 1px solid #cccccc;
-  width: 250px;
+  width: 125px;
   margin: 2px 5px 2px 0;
   padding: 1px;
   float: left;
@@ -579,9 +579,6 @@ table.tablesorter {
     margin-left: 1em; }
 
 /* this is all me after this... */
-.vote-nav {
-  font-size: 12px; }
-
 #radio_button {
   padding-right: 10px; }
 
@@ -593,18 +590,19 @@ table.tablesorter {
   height: 500px;
   border: 4px solid #3198c1; }
 
-.votestatus {
+.bottom_status {
   border: 4px solid #3198c1;
   border-top: 0px;
-  width: 425px; }
-
-.tellmearea {
-  font-size: 14px; }
-
-.votestatus {
+  width: 425px;
   text-align: center;
   background-color: #54afe2;
   color: white; }
+
+.bottom_status a {
+  color: white; }
+
+.tellmearea {
+  font-size: 14px; }
 
 .cd_close_and_submit {
   margin-top: 10px; }

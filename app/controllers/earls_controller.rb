@@ -11,7 +11,6 @@ class EarlsController < ApplicationController
     session[:on_example] = (params[:id] == 'studentgovernment')
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
-    #catchup_marketplaces = ["test0330", "studentgovernment", "priority_example", "crsAWCpilot"]
     if @earl
       unless @earl.active?
         flash[:notice] = t('questions.not_active_error')

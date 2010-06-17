@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100601222007) do
+ActiveRecord::Schema.define(:version => 20100617164530) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20100601222007) do
     t.string   "welcome_message",   :limit => 400
     t.string   "default_lang",                     :default => "en"
     t.string   "logo_size",                        :default => "medium"
-    t.boolean  "uses_catchup",                     :default => false
     t.boolean  "flag_enabled",                     :default => false
   end
 

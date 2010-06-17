@@ -81,3 +81,9 @@ Given /^a super admin user exists with credentials "(.*)\/(.*)"$/ do |email, pas
     :password_confirmation => password,
     :admin		   => true
 end
+
+Given /^I sign in as the admin for '(.*)'$/ do |url|
+  earl = Earl.find(url)
+  Given "I sign in as \"#{earl.user.email}/password\""
+end
+

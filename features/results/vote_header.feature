@@ -1,4 +1,3 @@
-@focus
 Feature: Tabbed vote header
  In order to help navigate the site
  A user

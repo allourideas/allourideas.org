@@ -16,7 +16,7 @@ Feature: Hide inactive choices
 		And I should see the saved right choice text
 	
 	Scenario: Inactive choices should be shown on question admin page
-                Given I sign in as "test@test.com/password"
+                Given I sign in as the admin for 'test'
 		When I deactivate the saved left choice
 		And I go to the Admin page for 'test'
 		Then I should see the saved left choice text

@@ -71,6 +71,16 @@ class QuestionsController < ApplicationController
     @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
     @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
     @available_charts['user_sessions'] = { :title => t('results.user_sessions_over_time_title')}
+
+    if @photocracy
+      @available_charts = [
+        {:title => :scatter_ideas_title, :link => 'scatter_plot_user_vs_seed_ideas', :type => 'scatter_ideas', :div_id => 'scatter_ideas-chart-container', :response_type => 'script'},
+        {:title => :world_map_title, :link => 'voter_map', :type => 'votes', :response_type => 'html', :div_id => 'voter_map'},
+        {:title => :votes_over_time_title, :link => 'timeline_graph', :type => 'votes', :div_id => 'votes-chart-container', :response_type => 'script'},
+        {:title => :user_ideas_over_time_title, :link => 'timeline_graph', :type => 'user_submitted_ideas', :div_id => 'user_submitted_ideas-chart-container', :response_type => 'script'},
+        {:title => :user_sessions_over_time_title, :link => 'timeline_graph', :type => 'user_sessions', :div_id => 'user_sessions-chart-container', :response_type => 'script'}
+      ]
+    end
   end
   
   def admin

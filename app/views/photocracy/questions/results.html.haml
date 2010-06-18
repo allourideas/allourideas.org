@@ -15,12 +15,12 @@
       %ul#graphs.results
         %li
           =link_to 'Top photos', results_question_url(:id => params[:id]), :class => 'active'
-        -[{:title => :scatter_ideas_title, :link => 'scatter_plot_user_vs_seed_ideas', :type => 'scatter_ideas', :div_id => 'scatter_ideas-chart-container', :response_type => 'script'},
-         {:title => :world_map_title, :link => 'voter_map', :type => 'votes', :response_type => 'html', :div_id => 'voter_map'}].each do |graph|
-          %li
-            =link_to t("results.#{graph[:title]}"),
-                      url_for(:action => graph[:link], :type => graph[:type]),
-                      :div_id => graph[:div_id], :response_type => graph[:response_type], :class => 'ajax_graph'
+        -@available_charts.each do |graph|
+          -if !graph[:login_required] || (current_user && current_user.admin?)
+            %li
+              =link_to t("results.#{graph[:title]}"),
+                        url_for(:action => graph[:link], :type => graph[:type]),
+                        :div_id => graph[:div_id], :response_type => graph[:response_type], :class => 'ajax_graph'
           
         %br
         =link_to '« Back to voting', url_for(:action => :show, :controller => :earls, :id => params[:id]), :class => 'blue button'
@@ -29,7 +29,7 @@
       .target
         -@choices.each_with_index do |choice, i|
           -photo = Photo.find(choice.data)
-          %a.float_left.photo_frame{:style => "background:#fff url('#{photo.image.url(:medium)}') center center no-repeat;width:70%;margin-bottom:3em;", :href => photo.image.url, :target => '_blank'}
+          %a.float_left.photo_frame{:style => "background:#fff url('#{photo.image.url(:medium)}') center center no-repeat;width:70%;margin-bottom:50px;", :href => photo.image.url, :target => '_blank'}
             -if choice == @choices.first
               =image_tag('photocracy/blue_ribbon.png')
         
@@ -54,5 +54,5 @@
         -if !params[:more] && (@question.attributes['choices_count'].to_i > 10)
           =link_to(t('nav.see_all_ideas'), url_for(:action => :results, :controller => :questions, :id => params[:id], :more => true))
         -if params[:more]
-          = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next') 
+          = paginated = will_paginate @choices, :previous_label => t('results.previous'), :next_label => t('results.next')
     .clear

@@ -7,11 +7,11 @@
       %tr
         %th Number of Votes
         %th Sessions that voted that amount
-      -@voter_distribution[a.id].sort.each do |k,v|
+      -@voter_distribution[a.content].sort.each do |k,v|
         %tr  
           %td= k.to_s
           %td= v.to_s
-      -@summary_stats[a.id].sort{|a,b| a[0].to_s <=> b[0].to_s}.each do |k,v|
+      -@summary_stats[a.content].sort{|a,b| a[0].to_s <=> b[0].to_s}.each do |k,v|
         %tr
           %th=k.to_s.humanize
           %th=v

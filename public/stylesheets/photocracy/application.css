@@ -108,14 +108,19 @@ ul.results {
     padding: .5em; }
     ul.results li a {
       padding: .5em;
-      border: 1px solid #ccc;
       -moz-border-radius: 5px;
       text-decoration: none;
       color: #000;
-      display: inline-block; }
-      ul.results li a .active, ul.results li a .active:hover {
-        background: #ccc;
-        font-weight: bold; }
+      display: inline-block;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px; }
+    ul.results li a.active, ul.results li a.active:hover {
+      background: #DB9327;
+      font-weight: bold;
+      color: #fff; }
+    ul.results li a:hover {
+      background: #ccc; }
 
 p.results_label {
   font-weight: normal;
@@ -162,6 +167,10 @@ p.score_explanation {
 
 .normal {
   font-weight: normal; }
+
+.float_left {
+  float: left;
+  margin-right: 10px; }
 
 .margin_bottom {
   overflow: hidden;

@@ -120,20 +120,26 @@ ul.results {
   li {
     margin: 0;
     padding: .5em;
-    
+
     a {
       padding: .5em;
-      border: 1px solid #ccc;
       -moz-border-radius: 5px;
       text-decoration: none;
       color: #000;
       display: inline-block;
-      
-      .active, .active:hover {
-        background: #ccc;
-        font-weight: bold;
-      }
+      @include rounded(5px);
     }
+
+    a.active, a.active:hover {
+        background: #DB9327;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    a:hover {
+      background: #ccc;
+    }
+
   }
 }
 
@@ -194,6 +200,11 @@ p.score_explanation {
 
 .normal {
   font-weight: normal;
+}
+
+.float_left {
+  float: left;
+  margin-right: 10px
 }
 
 .margin_bottom {

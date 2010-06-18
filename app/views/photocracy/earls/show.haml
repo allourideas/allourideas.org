@@ -12,6 +12,7 @@
       =link_to 'Add your own Photo', add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
       <br /><br />
       =link_to_function "I can't decide", "$('#cant_decide_options').dialog('open');"
+
 .container_12
   #secondary_content
     .grid_4
@@ -25,6 +26,7 @@
         ="#{@question.attributes['votes_count'].to_i} votes on #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} photos"
       .padding
         =link_to "View all Results", results_question_url(:id => params[:id]), :class => 'button'
+
     .grid_4
       %h5.no_margin About this survey
       .padding
@@ -39,7 +41,7 @@
           <br />
           %strong
             Powered by 
-            =link_to "photocracy.org", "#"
+            =link_to "photocracy.org", "http://photocracy.org"
           <br />
           Photocracy is supported by grants from Google<br />
           and CITP at Princeton University.

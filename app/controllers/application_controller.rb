@@ -4,11 +4,10 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :set_session_timestamp, :record_action, :set_locale
+  before_filter :initialize_session, :set_session_timestamp, :record_action, :photocracy_filter, :set_locale
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
-  before_filter :photocracy_filter
   cattr_accessor :photocracy_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   
@@ -118,14 +117,22 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-	  I18n.locale = params[:locale]
+    if @photocracy
+      if params[:locale].blank?
+        I18n.locale = ('photocracy_' + I18n.default_locale.to_s).to_sym
+      else
+	      I18n.locale = "#{'photocracy_' unless params[:locale].starts_with?('photocracy_')}".to_sym
+      end
+    else
+      I18n.locale = params[:locale]
+    end
   end
 
 
   def default_url_options(options={})
-	  if I18n.locale != I18n.default_locale
-		  { :locale => I18n.locale }
-	  end
+    if I18n.locale != I18n.default_locale
+  	  { :locale => I18n.locale }
+    end
   end
 
 end

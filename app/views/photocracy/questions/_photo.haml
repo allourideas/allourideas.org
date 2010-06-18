@@ -1,8 +1,8 @@
 %a.photo_frame{:style => "background:#fff url('#{photo.image.url(:medium)}') center center no-repeat;",
               :href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
               :thumb => photo.image.url(:thumb), :class => "#{direction} vote", :direction => direction}
-  =unless session[:has_voted] == true
+  -unless session[:has_voted] == true
     .click_to_vote
-      =image_tag 'photocracy/click_to_vote.png'
+      Click to Vote
 -if @earl.flag_enabled?
   =link_to_function t('vote.flag_as_inappropriate'), "$('#flag_as_inappropriate').dialog('open'); $('#inappropriate_side').val('#{direction}_flag')", :class => 'gray', :class => "#{direction} flag"

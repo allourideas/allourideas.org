@@ -4,31 +4,31 @@
       %h1.no_margin
         =h @question.name
       %p.gray
-        Click on the best photo to vote! 
-        =link_to 'How does this work?', '#'
+        =t('common.instructions')
+        =link_to t('common.how_does_this_work'), '#'
       #prompt
         =render(:partial => 'questions/prompt')
     .center.margin_bottom
-      =link_to 'Add your own Photo', add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
+      =link_to t('vote.add_your_idea_button'), add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
       <br /><br />
-      =link_to_function "I can't decide", "$('#cant_decide_options').dialog('open');"
+      =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
 
 .container_12
   #secondary_content
     .grid_4
       %h5.no_margin
-        Your <span id="visitor_votes"></span> votes
-        %span.normal (average is 12)
+        =t('common.your_votes')
+        %span.normal="(#{t('common.average')} is 12)"
       .padding
         %ul#your_votes
     .grid_4.center
       %h5.no_margin
-        ="#{@question.attributes['votes_count'].to_i} votes on #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} photos"
+        ="#{@question.attributes['votes_count'].to_i} #{t('common.votes_on')} #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} #{t('common.items')}"
       .padding
-        =link_to "View all Results", results_question_url(:id => params[:id]), :class => 'button'
+        =link_to t('nav.view_results'), results_question_url(:id => params[:id]), :class => 'button'
 
     .grid_4
-      %h5.no_margin About this survey
+      %h5.no_margin=t('common.about_this_survey')
       .padding
         .margin_bottom.center
           =image_tag "photocracy/alum_logo.png", :width => 100, :height => 100
@@ -72,10 +72,10 @@
         %p
           %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
 
-  #upload_status{:style => 'display:none;', :title => 'Adding a photo'}
+  #upload_status{:style => 'display:none;', :title => t('vote.add_your_idea_button')}
     #upload_status_message
       %p Uploading your photo...
-      =image_tag "photocracy/indicator.gif"
+      =image_tag 'photocracy/indicator.gif'
 
   :javascript
     $(document).ready(function(){

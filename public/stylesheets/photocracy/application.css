@@ -31,6 +31,7 @@ h1 {
   border: 1px solid #000;
   height: 350px;
   overflow: hidden;
+  text-decoration: none;
   box-shadow: 1px 10px 10px #cccccc;
   -moz-box-shadow: 1px 10px 10px #cccccc;
   -webkit-box-shadow: 1px 10px 10px #cccccc; }
@@ -40,8 +41,22 @@ a.photo_frame:hover {
   cursor: pointer; }
 
 .click_to_vote {
+  text-align: center;
+  color: #000;
+  background: #fff;
+  opacity: 0.8;
+  width: 160px;
+  margin: 0 auto;
   margin-top: 150px;
-  text-align: center; }
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 2px 2px 2px black;
+  -moz-box-shadow: 2px 2px 2px black;
+  -webkit-box-shadow: 2px 2px 2px black;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px; }
 
 .button {
   padding: .5em 2.5em;

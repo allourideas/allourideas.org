@@ -2,19 +2,36 @@
   %head 
     %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
     %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
+    = stylesheet_link_tag 'screen'
   %body
-    .aboutpage{:style => 'width:500px'}
-      %p=t('about_page.intro')
-  
-      %h2="1) " + t('about_page.how_many_votes_q')
-      %p= t('about_page.how_many_votes_exp')
-      
-      %h2="2) " + t('about_page.how_many_ideas_q')
-      %p=t('about_page.how_many_ideas_exp')
-
-      %h2="3) " + t('about_page.view_results_q') 
-      %p= t('about_page.view_results_exp')
-  
-      %h2="4) " + t('about_page.make_my_own_q')
-      %p=t('about_page.make_my_own_exp')
+    .scrollbar_container{:style => 'overflow:auto;'}
+      = render :partial => 'shared/header_vote'
+      .aboutpage     
+        %p=t('about_page.intro')
     
+        %h2="1) " + t('about_page.how_many_votes_q')
+        %p= t('about_page.how_many_votes_exp')
+        
+        %h2="2) " + t('about_page.how_many_ideas_q')
+        %p=t('about_page.how_many_ideas_exp')
+
+        %h2="3) " + t('about_page.view_results_q') 
+        %p= t('about_page.view_results_exp')
+    
+        %h2="4) " + t('about_page.make_my_own_q')
+        %p=t('about_page.make_my_own_exp')
+
+      /
+        %p= t('about_page.intro')
+        %ol
+          %li= t('about_page.how_many_votes_q')
+          %li= t('about_page.how_many_ideas_q')
+          %li= t('about_page.view_results_q') 
+          %li= t('about_page.make_my_own_q')
+    .bottom_status
+      -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
+      &nbsp
+      .bottom_padding.fright
+        = link_to('Return to Voting', @cast_votes_url) 
+      /*^bad style here; i should probably have this in some file elsewhere*/
+      

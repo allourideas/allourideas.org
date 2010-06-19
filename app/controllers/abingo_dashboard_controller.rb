@@ -54,6 +54,8 @@ class AbingoDashboardController < ApplicationController
 	@summary_stats = calculate_summary_stats(@experiments.first, @voter_distribution, @uploader_distribution)	
         @vote_distribution_chart = create_voter_distribution_chart(@experiments.first, @voter_distribution)
 	@experiment = @experiments.first
+	# change title to make it a bit prettier on display
+	@experiment.test_name = "#{params[:ids].size} experiments aggregated together"
 	render :action => :show
       end
 

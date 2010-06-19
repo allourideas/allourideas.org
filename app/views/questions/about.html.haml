@@ -4,8 +4,8 @@
     %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
     = stylesheet_link_tag 'screen'
   %body
+    = render :partial => 'shared/header_vote'
     .scrollbar_container{:style => 'overflow:auto;'}
-      = render :partial => 'shared/header_vote'
       .aboutpage     
         %p=t('about_page.intro')
     

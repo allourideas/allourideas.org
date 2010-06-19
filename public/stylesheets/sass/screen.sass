@@ -219,11 +219,6 @@ table
 .votebox
   width: 90%
 
-.vote-nav
-  width: 90%
-  font-size: 24px * $scaleFactor
-  padding-bottom: 2px
-
 $fontScaleFactor = .8                           /* har */
 
 .votebox table
@@ -620,7 +615,7 @@ table.tablesorter
   color: white
 
 .bottom_status a
-  color: white
+  color: #008
 
 #tellme_prepend_spot
 //  text-align: left
@@ -638,3 +633,29 @@ table.tablesorter
 .aboutpage
   padding-left: 5px
   padding-right: 5px
+
+.tabs
+  margin: 0
+  padding: 0  
+  list-style: none
+  color: white
+  li
+    display: inline
+    float: right
+    border-top: 4px solid #3198c1 
+    border-left: 4px solid #3198c1 
+    border-right: 4px solid #3198c1 
+    margin: 0 0 0 1px
+    padding-left: 5px
+    padding-right: 5px
+    background-color: #54afe2
+    a
+      color: white
+    &:hover
+      background-color: #3198c1
+
+.vote-nav
+  width: 858px * $scaleFactor                   /* needs to be same width as scrollbar container*/
+  height: 5px                                   /* THIS DOESN'T WORK*/
+  font-size: 24px * $scaleFactor
+  //padding-bottom: 2px                         /* har*/

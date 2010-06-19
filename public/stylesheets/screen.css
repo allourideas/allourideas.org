@@ -204,11 +204,6 @@ table {
 .votebox {
   width: 90%; }
 
-.vote-nav {
-  width: 90%;
-  font-size: 12px;
-  padding-bottom: 2px; }
-
 .votebox table {
   text-align: center; }
   .votebox table td {
@@ -598,7 +593,7 @@ table.tablesorter {
   color: white; }
 
 .bottom_status a {
-  color: white; }
+  color: #000088; }
 
 .tellmearea {
   font-size: 14px; }
@@ -613,3 +608,28 @@ table.tablesorter {
 .aboutpage {
   padding-left: 5px;
   padding-right: 5px; }
+
+.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: white; }
+  .tabs li {
+    display: inline;
+    float: right;
+    border-top: 4px solid #3198c1;
+    border-left: 4px solid #3198c1;
+    border-right: 4px solid #3198c1;
+    margin: 0 0 0 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #54afe2; }
+    .tabs li a {
+      color: white; }
+    .tabs li:hover {
+      background-color: #3198c1; }
+
+.vote-nav {
+  width: 429px;
+  height: 5px;
+  font-size: 12px; }

@@ -639,7 +639,9 @@ table.tablesorter
   padding: 0  
   list-style: none
   color: white
+  font-size: 24px * $scaleFactor
   li
+    //height: 44px * $scaleFactor             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
     float: right
     border-top: 4px solid #3198c1 
@@ -656,6 +658,5 @@ table.tablesorter
 
 .vote-nav
   width: 858px * $scaleFactor                   /* needs to be same width as scrollbar container*/
-  height: 5px                                   /* THIS DOESN'T WORK*/
   font-size: 24px * $scaleFactor
   //padding-bottom: 2px                         /* har*/

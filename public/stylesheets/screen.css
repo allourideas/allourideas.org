@@ -613,7 +613,8 @@ table.tablesorter {
   margin: 0;
   padding: 0;
   list-style: none;
-  color: white; }
+  color: white;
+  font-size: 12px; }
   .tabs li {
     display: inline;
     float: right;
@@ -631,5 +632,4 @@ table.tablesorter {
 
 .vote-nav {
   width: 429px;
-  height: 5px;
   font-size: 12px; }

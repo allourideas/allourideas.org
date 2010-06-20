@@ -1,4 +1,29 @@
-//  note: vote-footer = where can't decide button is
+  /* Tabbing functionality */
+  $('.about').hide();
+  $('.results').hide();
+
+  /* A general tabbing function: */  
+  switch_tabs = function(event) {
+    $('.current').hide();
+
+    $('.current_tab').removeClass('current_tab');  
+    $('.current').removeClass('current');
+
+    if ($(this).hasClass('about_tab')) 
+      $('.page2').addClass('current');
+    else if ($(this).hasClass('vote_tab')) {
+      $('.vote_tab').addClass('current_tab');
+      $('.cast_votes').addClass('current');
+    }
+    else 
+      $('.vote-nav').append("what the hell");
+
+    $(this).addClass('current_tab'); 
+    $('.current').show();
+  };
+
+  $('.tab').click(switch_tabs);
+
 
   var loadedTime = new Date();
   var count = 0;
@@ -334,7 +359,7 @@
             count++;
 
             $("#leveling_message_appended").remove();
-            $('.votestatus').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+            $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
 			      $('.indicator').hide();
 			      $.unblockUI();

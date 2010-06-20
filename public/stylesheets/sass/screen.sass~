@@ -616,6 +616,7 @@ table.tablesorter
 
 .bottom_status a
   color: #008
+  font-weight: bolder
 
 #tellme_prepend_spot
 //  text-align: left
@@ -640,6 +641,8 @@ table.tablesorter
   list-style: none
   color: white
   font-size: 24px * $scaleFactor
+  .current_tab
+    font-weight: bold
   li
     //height: 44px * $scaleFactor             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
@@ -652,7 +655,6 @@ table.tablesorter
     padding-right: 5px
     background-color: #54afe2
     a
-      display: block
       color: white
     &:hover
       background-color: #3198c1
@@ -661,3 +663,6 @@ table.tablesorter
   width: 858px * $scaleFactor                   /* needs to be same width as scrollbar container*/
   font-size: 24px * $scaleFactor
   //padding-bottom: 2px                         /* har*/
+
+.link_color
+  font-color: #008

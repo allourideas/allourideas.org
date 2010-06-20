@@ -593,7 +593,8 @@ table.tablesorter {
   color: white; }
 
 .bottom_status a {
-  color: #000088; }
+  color: #000088;
+  font-weight: bolder; }
 
 .tellmearea {
   font-size: 14px; }
@@ -615,6 +616,8 @@ table.tablesorter {
   list-style: none;
   color: white;
   font-size: 12px; }
+  .tabs .current_tab {
+    font-weight: bold; }
   .tabs li {
     display: inline;
     float: right;
@@ -633,3 +636,6 @@ table.tablesorter {
 .vote-nav {
   width: 429px;
   font-size: 12px; }
+
+.link_color {
+  color: #000088; }

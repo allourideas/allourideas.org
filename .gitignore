@@ -12,3 +12,4 @@ ideas
 ideas.xml
 config/s3.yml
 .sass-cache
+capybara*

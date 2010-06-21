@@ -23,8 +23,7 @@ $(document).ready(function() {
 	    name: 'new_idea',
 	    data: {
 	      question_id : button.attr('question_id'),
-	      authenticity_token: AUTH_TOKEN,
-	      locale: LOCALE,
+	      authenticity_token: AUTH_TOKEN
 	    },
 	    autoSubmit: true,
 	    responseType: "json",
@@ -42,7 +41,7 @@ $(document).ready(function() {
 	      $('#upload_status_message').html('<strong>Thanks!</strong><br />Your photo has been submitted for review.<br />It will appear soon.');
 	    }
 	  });
-	}
+	};
 
 	// can't decide submit (skip)
 	$('#cant_decide_form').submit(function(e){
@@ -98,7 +97,7 @@ function submitCantDecide(form) {
 		    appearance_lookup: $('#appearance_lookup').val(),
 				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
 				authenticity_token: encodeURIComponent(AUTH_TOKEN),
-				locale: LOCALE
+				locale: RAILS_LOCALE
 		  },
 		  timeout: 10000,
 		  error: function(request, textStatus, errorThrown) {
@@ -135,7 +134,7 @@ function submitFlag(form) {
 		    appearance_lookup: $('#appearance_lookup').val(),
 				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
 				authenticity_token: encodeURIComponent(AUTH_TOKEN),
-				locale: LOCALE
+				locale: RAILS_LOCALE
 		  },
 		  timeout: 10000,
 		  error: function(request, textStatus, errorThrown) {
@@ -176,7 +175,7 @@ function castVote(choice) {
 	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
 			time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
 	    appearance_lookup: $('#appearance_lookup').val(),
-			locale: LOCALE
+			locale: RAILS_LOCALE
 	  },
 	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {

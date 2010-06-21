@@ -19,8 +19,10 @@
       %a{:href => '#page3'}
         #{t('nav.about_this_page')}
     %li.results_tab.tab
-      %a{:href => '#page2'}
-        #{t('nav.view_results')}
+      -#= link_to_remote 'Results', {:action => :results, :controller => :questions, :id => @the_id, :update => :results}, :confirm => "Are you sure?"
+      = link_to_remote t('nav.view_results'), :update => :results, :url => @results_url
+      -#%a{:href => '#page2'}
+      -#  #{t('nav.view_results')}
     %li.vote_tab.current_tab.tab
       %a{:href => '#page1'}
         #{t('vote.cast_votes')} 
@@ -29,3 +31,4 @@
       - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
         = link_to_unless_current(t('nav.manage_question'), @manage_url) do "<strong> #{t('nav.manage_question')} </strong>" end
   .clear
+

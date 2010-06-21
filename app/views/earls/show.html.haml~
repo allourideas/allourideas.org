@@ -1,8 +1,10 @@
+-@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
+
 //  Navigation bar
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 .cast_votes.current
   = render 'cast_votes.html.haml'
-.results{:style => 'display:none'}
-//  = render 'questions/results.html.haml'
+.results#results{:style => 'display:none'}
+  = render :partial => 'questions/results'
 .about{:style => 'display:none'}
   = render 'questions/about.html.haml'

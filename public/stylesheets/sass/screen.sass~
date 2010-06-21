@@ -87,7 +87,7 @@ table
   .idea_padding
     padding: 2.5px 2.5px 2.5px 5px 
   .title
-    width: 545px
+    width: 45px
   .row0
     background-color: #3198c1
     color: white
@@ -656,6 +656,7 @@ table.tablesorter
     padding-right: 5px
     background-color: #54afe2
     a
+      outline: none
       display: block
       color: white
     &:hover

@@ -25,7 +25,7 @@
       %h5.no_margin
         ="#{@question.attributes['votes_count'].to_i} #{t('common.votes_on')} #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} #{t('common.items')}"
       .padding
-        =link_to t('nav.view_results'), results_question_url(:id => params[:id]), :class => 'button'
+        =link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'button'
 
     .grid_4
       %h5.no_margin=t('common.about_this_survey')

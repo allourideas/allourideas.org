@@ -14,7 +14,7 @@
     .grid_4
       %ul#graphs.results
         %li
-          =link_to 'Top photos', results_question_url(:id => params[:id]), :class => 'active'
+          =link_to 'Top photos', url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'active'
         -@available_charts.each do |graph|
           -if !graph[:login_required] || (current_user && current_user.admin?)
             %li

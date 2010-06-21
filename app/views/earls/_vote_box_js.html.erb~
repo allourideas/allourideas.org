@@ -1,6 +1,4 @@
   /* Tabbing functionality */
-  $('.about').hide();
-  $('.results').hide();
 
   /* A general tabbing function: */  
   switch_tabs = function(event) {
@@ -10,13 +8,13 @@
     $('.current').removeClass('current');
 
     if ($(this).hasClass('about_tab')) 
-      $('.page2').addClass('current');
+      $('.about').addClass('current');
     else if ($(this).hasClass('vote_tab')) {
-      $('.vote_tab').addClass('current_tab');
+      $('.vote_tab').addClass('current_tab');   //  necessary b/c of the hacky way i do "return to voting"
       $('.cast_votes').addClass('current');
     }
     else 
-      $('.vote-nav').append("what the hell");
+      $('.results').addClass('current');
 
     $(this).addClass('current_tab'); 
     $('.current').show();
@@ -89,7 +87,7 @@
           $("#tellme_prepended").effect("highlight", {}, 1500);
 
           $("#leveling_message_appended").remove();
-          $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+          $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
           $('.indicator').hide();
         
@@ -231,7 +229,7 @@
       $("#tellme_prepended").effect("highlight", {}, 1500);
 
       $("#leveling_message_appended").remove();
-      $('.bottom_status').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+      $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 //      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
 

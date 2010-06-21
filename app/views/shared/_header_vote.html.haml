@@ -16,11 +16,14 @@
   -#    &nbsp;
   %ul.tabs
     %li.about_tab.tab
-      #{t('nav.about_this_page')}
+      %a{:href => '#page3'}
+        #{t('nav.about_this_page')}
     %li.results_tab.tab
-      #{t('nav.view_results')}
+      %a{:href => '#page2'}
+        #{t('nav.view_results')}
     %li.vote_tab.current_tab.tab
-      #{t('vote.cast_votes')} 
+      %a{:href => '#page1'}
+        #{t('vote.cast_votes')} 
 
     %div{:style => "position: absolute; bottom: 20px; right: 0px;"}
       - if current_user && ( (current_user.owns? @earl) || current_user.admin? )

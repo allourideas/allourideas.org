@@ -59,6 +59,46 @@ class EarlsController < ApplicationController
     else
       redirect_to('/') and return
     end
+
+
+    # i added this crap here
+
+    @question_id = @question.id
+
+    current_page = params[:page] || 1
+    current_page = current_page.to_i
+    per_page = 50
+
+    logger.info "current page is #{current_page} but params is #{params[:page]}"
+
+    if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
+	      I18n.locale = @earl.default_lang
+	      redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
+    end
+
+    logger.info "@question is #{@question.inspect}."
+    @partial_results_url = "#{@earl.name}/results"
+    if params[:all]
+      choices = Choice.find(:all, :params => {:question_id => @question_id})
+    elsif params[:more]
+      choices = Choice.find(:all, :params => {:question_id => @question_id,
+			                      :limit => per_page, 
+					      :offset => (current_page - 1) * per_page})
+    else
+      choices = Choice.find(:all, :params => {:question_id => @question_id, 
+			                      :limit => 10, 
+					      :offset => 0})
+    end
+
+    @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
+	       pager.replace(choices)
+
+	       pager.total_entries = @question.choices_count - @question.inactive_choices_count
+
+    end
+
+    # end where i added crap
+
   end
   
   def export_list

@@ -617,7 +617,8 @@ table.tablesorter {
   color: white;
   font-size: 12px; }
   .tabs .current_tab {
-    font-weight: bold; }
+    font-weight: bold;
+    background-color: #3198ff; }
   .tabs li {
     display: inline;
     float: right;
@@ -629,6 +630,8 @@ table.tablesorter {
     padding-right: 5px;
     background-color: #54afe2; }
     .tabs li a {
+      outline: none;
+      display: block;
       color: white; }
     .tabs li:hover {
       background-color: #3198c1; }

@@ -12,3 +12,7 @@ ideas
 ideas.xml
 config/s3.yml
 .sass-cache
+tmp/*
+doc/api
+doc/app
+*~

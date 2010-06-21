@@ -643,6 +643,7 @@ table.tablesorter
   font-size: 24px * $scaleFactor
   .current_tab
     font-weight: bold
+    background-color: #3198ff                 /* note: i pretty much came up with this color randomly*/ 
   li
     //height: 44px * $scaleFactor             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
@@ -655,6 +656,7 @@ table.tablesorter
     padding-right: 5px
     background-color: #54afe2
     a
+      display: block
       color: white
     &:hover
       background-color: #3198c1
@@ -665,4 +667,4 @@ table.tablesorter
   //padding-bottom: 2px                         /* har*/
 
 .link_color
-  font-color: #008
+  color: #008

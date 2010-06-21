@@ -1,7 +1,8 @@
--@item_data, @item_ids = [], []
 //  Navigation bar
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
-%div.cast_votes.current
+.cast_votes.current
   = render 'cast_votes.html.haml'
-%div.about
+.results{:style => 'display:none'}
+//  = render 'questions/results.html.haml'
+.about{:style => 'display:none'}
   = render 'questions/about.html.haml'

@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
       if params[:locale].blank?
         I18n.locale = ('photocracy_' + I18n.default_locale.to_s).to_sym
       else
-	      I18n.locale = "#{'photocracy_' unless params[:locale].starts_with?('photocracy_')}".to_sym
+	      I18n.locale = "#{'photocracy_' unless params[:locale].starts_with?('photocracy_')}#{params[:locale]}".to_sym
       end
     else
       I18n.locale = params[:locale]

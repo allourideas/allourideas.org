@@ -640,3 +640,6 @@ table.tablesorter {
 
 .link_color {
   color: #000088; }
+
+.results_table {
+  margin-top: 5px; }

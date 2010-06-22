@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   
   def photocracy_filter
-    if request.url.include?('photocracy') || @photocracy
+    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy
 	    @photocracy = true
       prepend_view_path(@@photocracy_view_path)
     end

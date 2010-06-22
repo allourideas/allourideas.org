@@ -35,6 +35,7 @@ h1 {
   height: 350px;
   overflow: hidden;
   text-decoration: none;
+  margin-bottom:10px;
   @include box-shadow(1px, 10px, 10px, #ccc);
 }
 

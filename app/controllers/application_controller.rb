@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :set_session_timestamp, :record_action, :photocracy_filter, :set_locale
+  before_filter :initialize_session, :set_session_timestamp, :record_action, :photocracy_filter, :set_pairwise_credentials, :set_locale
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
@@ -12,9 +12,23 @@ class ApplicationController < ActionController::Base
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   
   def photocracy_filter
-    if request.url.include?('photocracy') || @photocracy
+    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy
 	    @photocracy = true
       prepend_view_path(@@photocracy_view_path)
+    end
+  end
+  def set_pairwise_credentials
+    if @photocracy
+       username = PHOTOCRACY_USERNAME
+       password = PHOTOCRACY_PASSWORD
+    else
+       username = PAIRWISE_USERNAME
+       password = PAIRWISE_PASSWORD
+    end
+    active_resource_classes = [Choice, Density, Prompt, Question, Session]
+    active_resource_classes.each do |klass|
+      klass.user = username
+      klass.password = password
     end
   end
   

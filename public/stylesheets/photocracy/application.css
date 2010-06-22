@@ -32,6 +32,7 @@ h1 {
   height: 350px;
   overflow: hidden;
   text-decoration: none;
+  margin-bottom: 10px;
   box-shadow: 1px 10px 10px #cccccc;
   -moz-box-shadow: 1px 10px 10px #cccccc;
   -webkit-box-shadow: 1px 10px 10px #cccccc; }

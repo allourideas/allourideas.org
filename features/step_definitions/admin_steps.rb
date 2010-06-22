@@ -30,6 +30,7 @@ Then /^the the background job should call '(.*)'$/ do |method|
 end
 
 When /^I click on the toggle link for the first choice$/ do 
+        sleep(3) # "activate a deactivated idea" can fail without this
 	find('.toggle_choice_status').click
 end
 Then /^the first choice should be (.*)$/ do |status|

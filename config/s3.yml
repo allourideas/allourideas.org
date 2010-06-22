@@ -1,9 +1,9 @@
 staging:
-  bucket: ENV['STAGING_S3_BUCKET']
-  access_key_id: ENV['S3_ID']
-  secret_access_key: ENV['S3_KEY']
+  bucket: <%= ENV['STAGING_S3_BUCKET'] %>
+  access_key_id: <%= ENV['S3_ID'] %>
+  secret_access_key: <%= ENV['S3_KEY'] %>
   
 production:
-  bucket: ENV['S3_BUCKET']
-  access_key_id: ENV['S3_ID']
-  secret_access_key: ENV['S3_KEY']
+  bucket: <%= ENV['S3_BUCKET'] %>
+  access_key_id: <%= ENV['S3_ID'] %>
+  secret_access_key: <%= ENV['S3_KEY'] %>

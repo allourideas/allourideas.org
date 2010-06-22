@@ -2,7 +2,7 @@
                                      :password => 'password',
                                      :password_confirmation => 'password')
 
-photo_ids = (1..3).to_a
+photo_ids = (1..32).to_a
 @question = Question.create(:name => 'Which photo is more Princeton?',
                             :url => 'princeton',
                             :local_identifier => @user.id,

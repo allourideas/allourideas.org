@@ -63,7 +63,7 @@
     $('.add_idea_button.rounded').show();   /* har*/
     $('.tellmearea').show();
 	  $('.indicator').show();
-    $('.new_idea_field').val(default_text); /* har*/
+    $('.new_idea_field').val('');           /* har... could do default text here, but then the text has to actually be deleted*/
 
     //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
@@ -100,7 +100,7 @@
           if (data['choice_status'] == 'active') {
             current_item_count = $('#item_count').html();
             $('#item_count').html(increment(current_item_count));
-	    $.facebox.close();
+	           $.facebox.close();
           }
 	  else{
             $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox .new_idea_field');

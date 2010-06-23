@@ -28,10 +28,6 @@ a
 
 $scaleFactor = .5 /* har */
 
-/*.question is totally new, all me*/
-.question
-  font-size: 36px * $scaleFactor               
-
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
@@ -85,12 +81,14 @@ table
   .header_padding
     padding: 5px
   .idea_padding
-    padding: 2.5px 2.5px 2.5px 5px 
+    padding: 2.5px 5px 2.5px 5px 
   .row0
     background-color: #3198c1
     color: white
     th.score
-      width: 95px
+      text-align: right
+    th.idea
+      width: 200px
   .row1
     background-color: #fafafa
   .row2
@@ -132,7 +130,7 @@ table
 
 .header
   padding: 30px 5px 15px 5px
-  border-bottom: 1px solid #f4f5f6
+  border-bottomf: 1px solid #f4f5f6
   .fright
     padding-top: 18px
     ul li
@@ -281,7 +279,7 @@ $fontScaleFactor = .8                           /* har */
 
 div.bar-chart
   border: 1px solid #ccc
-  width: 250px * $scaleFactor
+  width: 220px * $scaleFactor
   margin: 0 auto
   padding: 1px
   background: white
@@ -600,7 +598,7 @@ table.tablesorter
 
 .scrollbar_container
   width: 850px * $scaleFactor
-  height: 500px
+  height: 455px
   border: 4px solid #3198c1              /* har, comment out other border code*/
 
 .bottom_status
@@ -668,5 +666,6 @@ table.tablesorter
 .link_color
   color: #008
 
-.results_table 
-  margin-top: 5px
+.question
+  font-size: 36px * $scaleFactor  
+  width: 400px

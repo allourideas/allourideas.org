@@ -1,0 +1,37 @@
+-@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
+-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id)
+-@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
+-@manage_url = url_for(:action => :admin, :controller => :questions, :id => @the_id)
+-@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :more => true)
+-@about_url= url_for(:action => :about, :controller => :questions, :id => @the_id)
+
+.vote-nav{:style => "position: relative;"}
+  .fleft
+    -if @earl && !@earl.logo_file_name.nil?
+      = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
+      -if local_assigns.has_key?("show_delete")
+        =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
+    -else
+      &nbsp;
+  %div{:style => "position: absolute; bottom: 0px; right: 0px;"}
+    =link_to_unless_current(t('vote.cast_votes'), @cast_votes_url) do "<strong> #{t('vote.cast_votes')} </strong>" end
+    %span.grey 
+      &nbsp;|&nbsp;
+    -if params[:all].nil?
+      = link_to_unless_current(t('nav.view_results'), @results_url) do "<strong> #{t('nav.view_results')} </strong>" end
+    -else
+      = link_to_unless_current(t('nav.view_results'), @all_results_url) do "<strong> #{t('nav.view_results')} </strong>" end
+    /* har...this commented block... i think it's irrelevant for widget
+    //-if @earl.flag_enabled?
+    //  = "("
+    //  = render :partial => 'earls/vote_idea_count', :locals => {:question => @question}
+    //  = ")"
+    %span.grey 
+      &nbsp;|&nbsp;
+      = link_to_unless_current(t('nav.about_this_page'), @about_url) do "<strong> #{t('nav.about_this_page')} </strong>" end
+      /* har... was       = link_to_unless_current(t('nav.about_this_page'), @about_url, :rel => 'facebox') do "<strong> #{t('nav.about_this_page')} </strong>" end */
+
+    %div{:style => "position: absolute; bottom: 20px; right: 0px;"}
+      - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
+        = link_to_unless_current(t('nav.manage_question'), @manage_url) do "<strong> #{t('nav.manage_question')} </strong>" end
+  .clear

@@ -25,10 +25,6 @@ a {
 .grey, label {
   color: #919191; }
 
-/*.question is totally new, all me */
-.question {
-  font-size: 18px; }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -82,12 +78,14 @@ table {
   table .header_padding {
     padding: 5px; }
   table .idea_padding {
-    padding: 2.5px 2.5px 2.5px 5px; }
+    padding: 2.5px 5px 2.5px 5px; }
   table .row0 {
     background-color: #3198c1;
     color: white; }
     table .row0 th.score {
-      width: 95px; }
+      text-align: right; }
+    table .row0 th.idea {
+      width: 200px; }
   table .row1 {
     background-color: #fafafa; }
   table .row2 {
@@ -128,7 +126,7 @@ table {
 
 .header {
   padding: 30px 5px 15px 5px;
-  border-bottom: 1px solid #f4f5f6; }
+  border-bottomf: 1px solid #f4f5f6; }
   .header .fright {
     padding-top: 18px; }
     .header .fright ul li {
@@ -264,7 +262,7 @@ table {
 
 div.bar-chart {
   border: 1px solid #cccccc;
-  width: 125px;
+  width: 110px;
   margin: 0 auto;
   padding: 1px;
   background: white; }
@@ -579,7 +577,7 @@ table.tablesorter {
 
 .scrollbar_container {
   width: 425px;
-  height: 500px;
+  height: 455px;
   border: 4px solid #3198c1; }
 
 .bottom_status {
@@ -641,5 +639,6 @@ table.tablesorter {
 .link_color {
   color: #000088; }
 
-.results_table {
-  margin-top: 5px; }
+.question {
+  font-size: 18px;
+  width: 400px; }

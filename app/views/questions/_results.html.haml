@@ -1,0 +1,56 @@
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
+  %head 
+    %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
+    = javascript_include_tag 'results_page'
+    = stylesheet_link_tag 'screen'
+%body
+  .scrollbar_container{:style => 'overflow:auto;'}
+    .question.center
+      = @question.attributes['name']
+    .ninety
+      %table.full{:style => 'margin-top: 5px'}
+        %tr.row0
+          %th.idea.header_padding= 'Idea'
+          %th.score{:style => 'text-align: right'}= t('common.score').titleize
+          %th &nbsp
+        -alt=false
+        -for choice in @choices
+          %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
+            %td.idea_padding
+              = link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
+            %td
+              .score{:style => 'text-align: right'}
+                = choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+            %td
+              .bar-chart
+                %div{:style => "width:#{choice.attributes['score']}%"}
+      /*  don't need this anymore
+      /
+        -if !params[:more] && !params[:all] && (@question.attributes['choices_count'].to_i > 10)
+          %tr.row1
+            %td{:colspan => 3}
+              %strong= link_to(t('nav.see_all_ideas'), @all_results_url)
+      /* don't want the dividing line (nothing to divide anymore)
+      /
+        %tr.row0.thin
+          %td{:colspan => 3}
+      -if params[:more] && !params[:all]
+        = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next') 
+        -if paginated
+          .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
+      %br    
+
+  /* Need to add an actual link to more results */
+  .bottom_status
+    // for some mysterious reason, these don't work anymore
+    //-@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
+    //-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
+    &nbsp
+    .bottom_padding.fleft
+      = link_to('View More Results', @results_url) 
+    //  add the last two tab classes below to make use of already existing javascript
+    %a{:href => '#page1'}
+      .bottom_padding.fright.return_voting
+        Return to Voting
+    -# ^bad style here; i should probably have this text in some file elsewhere*/

@@ -20,7 +20,7 @@
         #{t('nav.about_this_page')}
     %li.results_tab.tab
       %a{:href => '#page2'}
-        = link_to_remote t('nav.view_results'), :update => :results, :url => @results_url
+        = link_to_remote t('nav.view_results'), :update => :render_spot, :url => @results_url
       -#%a{:href => '#page2'}
       -#  #{t('nav.view_results')}
     %li.vote_tab.current_tab.tab

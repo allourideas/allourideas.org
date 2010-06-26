@@ -39,6 +39,11 @@ class QuestionsController < ApplicationController
     current_page = current_page.to_i
     per_page = 50
 
+    if @photocracy
+      per_page = 10
+      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
+    end
+
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s

@@ -27,10 +27,11 @@
     
     .grid_8
       .target
-        -@choices.each_with_index do |choice, i|
+        -@choices.each do |choice|
+          -i = @all_choices.index(choice)
           -photo = Photo.find(choice.data)
-          %a.float_left.photo_frame{:style => "background:#fff url('#{photo.image.url(:medium)}') center center no-repeat;width:70%;margin-bottom:50px;", :href => photo.image.url, :target => '_blank'}
-            -if choice == @choices.first
+          %a.float_left.photo_frame{:style => "background: url('#{photo.image.url(:medium)}') center center no-repeat;width:70%;margin-bottom:50px;", :href => photo.image.url, :target => '_blank'}
+            -if i == 0
               =image_tag('photocracy/blue_ribbon.png')
         
           .float_left{:style => 'width:20%'}
@@ -51,8 +52,5 @@
                 %i
                   The score of a photo is the chance that it will win against a randomly chosen photo.
           .clear
-        -if !params[:more] && (@question.attributes['choices_count'].to_i > 10)
-          =link_to(t('nav.see_all_ideas'), url_for(:action => :results, :controller => :questions, :id => params[:id], :more => true))
-        -if params[:more]
-          = paginated = will_paginate @choices, :previous_label => t('results.previous'), :next_label => t('results.next')
+        =will_paginate @choices, :previous_label => t('results.previous'), :next_label => t('results.next')
     .clear

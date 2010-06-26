@@ -8,10 +8,10 @@
         =link_to t('common.how_does_this_work'), '#'
       #prompt
         =render(:partial => 'questions/prompt')
-    .center.margin_bottom
+    .center{:style => 'padding-bottom:10px'}
+      %div{:style => 'margin-bottom:5px'}
+        =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
       =link_to t('vote.add_your_idea_button'), add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
-      <br /><br />
-      =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
 
 .container_12
   #secondary_content

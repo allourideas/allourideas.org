@@ -29,14 +29,15 @@ h1 {
   margin-bottom: 5em;
 }
 
+#prompt {
+  margin-bottom: -20px;
+}
+
 .photo_frame {
   display: block;
   height: 350px;
   overflow: hidden;
   text-decoration: none;
-  margin-bottom:10px;
-  /* border: 1px solid #000; */
-  /* @include box-shadow(1px, 10px, 10px, #ccc); */
 }
 
 a.photo_frame:hover {
@@ -103,7 +104,7 @@ a.photo_frame:hover {
     @include fade-down(#db9327);
     color: #000;
     text-align: center;
-    padding: 1em;
+    padding: 5px;
     text-shadow: #fff 1px 1px 2px;
   }
   
@@ -224,7 +225,11 @@ p.score_explanation {
   margin-bottom: 2em;
 }
 
-.gray {
+.small_margin_bottom {
+  margin-bottom: 5px;
+}
+
+.gray, a.gray {
   color: #666;
 }
 

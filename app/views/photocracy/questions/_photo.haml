@@ -5,4 +5,4 @@
     .click_to_vote
       Click to Vote
 -if @earl.flag_enabled?
-  =link_to_function t('vote.flag_as_inappropriate'), "$('#flag_as_inappropriate').dialog('open'); $('#inappropriate_side').val('#{direction}_flag')", :class => 'gray', :class => "#{direction} flag"
+  =link_to_function t('vote.flag_as_inappropriate'), "$('#flag_as_inappropriate').dialog('open'); $('#inappropriate_side').val('#{direction}_flag')", :class => "gray #{direction} flag"

@@ -3,13 +3,13 @@
     #hd.center
       %h1.no_margin
         =h @question.name
-      %p.gray
+      %p.gray.small_margin_bottom
         =t('common.instructions')
         =link_to t('common.how_does_this_work'), '#'
       #prompt
         =render(:partial => 'questions/prompt')
-    .center{:style => 'padding-bottom:10px'}
-      %div{:style => 'margin-bottom:5px'}
+    .center{:style => 'padding-bottom:20px'}
+      .small_margin_bottom
         =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
       =link_to t('vote.add_your_idea_button'), add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
 

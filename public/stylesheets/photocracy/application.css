@@ -26,14 +26,14 @@ h1 {
   font-size: 170%;
   margin-bottom: 5em; }
 
+#prompt {
+  margin-bottom: -20px; }
+
 .photo_frame {
   display: block;
   height: 350px;
   overflow: hidden;
-  text-decoration: none;
-  margin-bottom: 10px;
-  /* border: 1px solid #000; */
-  /* @include box-shadow(1px, 10px, 10px, #ccc); */ }
+  text-decoration: none; }
 
 a.photo_frame:hover {
   /* border: 1px solid #2b6fc0; */
@@ -104,7 +104,7 @@ a.photo_frame:hover {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #b1761e), color-stop(0.8, #db9327));
   color: #000;
   text-align: center;
-  padding: 1em;
+  padding: 5px;
   text-shadow: #fff 1px 1px 2px; }
 #secondary_content img {
   vertical-align: middle; }
@@ -193,7 +193,10 @@ p.score_explanation {
   overflow: hidden;
   margin-bottom: 2em; }
 
-.gray {
+.small_margin_bottom {
+  margin-bottom: 5px; }
+
+.gray, a.gray {
   color: #666; }
 
 .microcopy {

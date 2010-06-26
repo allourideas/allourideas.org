@@ -39,11 +39,6 @@ class QuestionsController < ApplicationController
     current_page = current_page.to_i
     per_page = 50
 
-    if @photocracy
-      per_page = 10
-      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
-    end
-
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
@@ -63,6 +58,17 @@ class QuestionsController < ApplicationController
       choices = Choice.find(:all, :params => {:question_id => @question_id, 
 			                      :limit => 10, 
 					      :offset => 0})
+    end
+
+    if @photocracy
+      per_page = 10
+      choices = Choice.find(:all,
+                            :params => {
+                              :question_id => @question_id,
+			                        :limit => per_page,
+					                    :offset => (current_page - 1) * per_page
+					                  })
+      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
     end
 
     @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|

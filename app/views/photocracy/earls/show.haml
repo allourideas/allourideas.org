@@ -48,7 +48,7 @@
   .clear
 
   #cant_decide_options{:style => 'display:none', :title => t('vote.cant_decide_title')}
-    %form{:action => "#{skip_question_url(@question, :format => :js)}", :id => 'cant_decide_form'}
+    %form{:action => "#{skip_question_prompt_url(@question.id, @prompt.id, :format => :js)}", :id => 'cant_decide_form'}
       -options= %w(like_both dislike_both both_same other user_other)
       %p
         -options.each do |choice|
@@ -64,7 +64,7 @@
 
   -if @earl.flag_enabled?
     #flag_as_inappropriate{:style => 'display:none', :title => t('vote.flag_as_inappropriate')}
-      %form{:action => "#{flag_question_url(@question, :format => :js)}", :id => 'flag_as_inappropriate_form'}
+      %form{:action => "#{flag_question_prompt_url(@question.id, @prompt.id, :format => :js)}", :id => 'flag_as_inappropriate_form'}
         = t('vote.please_explain_flag')
         %p
           = text_area_tag 'inappropriate_reason', "", :style => 'width:100%'

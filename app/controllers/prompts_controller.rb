@@ -33,22 +33,7 @@ class PromptsController < ApplicationController
         :leveling_message  => leveling_message,
       }
 
-      if @photocracy
-        newright_photo = Photo.find(next_prompt['right_choice_text'])
-        newleft_photo = Photo.find(next_prompt['left_choice_text'])
-        result.merge!({
-          :visitor_votes        => next_prompt['visitor_votes'],
-          :newright_photo       => newright_photo.image.url(:medium),
-          :newright_photo_thumb => newright_photo.image.url(:thumb),
-          :newleft_photo        => newleft_photo.image.url(:medium),
-          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
-          :newleft_url          => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :left),
-          :newright_url         => vote_question_prompt_url(params[:question_id], next_prompt['id'], :direction => :right),
-          :voted_at             => Time.now.getutc.iso8601,
-          :voted_prompt_winner  => params[:direction]
-        })
-      end
-
+      result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
       render :json => result.to_json
     else
       render :text => 'Vote unsuccessful.', :status => :unprocessable_entity
@@ -90,22 +75,7 @@ class PromptsController < ApplicationController
         :message => t('vote.cant_decide_message')
       }
 
-      if @photocracy
-        newright_photo = Photo.find(next_prompt['right_choice_text'])
-        newleft_photo = Photo.find(next_prompt['left_choice_text'])
-        result.merge!({
-          :visitor_votes        => next_prompt['visitor_votes'],
-          :newright_photo       => newright_photo.image.url(:medium),
-          :newright_photo_thumb => newright_photo.image.url(:thumb),
-          :newleft_photo        => newleft_photo.image.url(:medium),
-          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
-          :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
-          :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
-          :voted_at             => Time.now.getutc.iso8601,
-          :voted_prompt_winner  => params[:direction]
-        })
-      end
-
+      result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
       render :json => result.to_json
     else
       render :json => '{"error" : "Skip failed"}'
@@ -166,22 +136,7 @@ class PromptsController < ApplicationController
         :message => t('vote.flag_complete_message')
       }
 
-      if @photocracy
-        newright_photo = Photo.find(next_prompt['right_choice_text'])
-        newleft_photo = Photo.find(next_prompt['left_choice_text'])
-        result.merge!({
-          :visitor_votes        => next_prompt['visitor_votes'],
-          :newright_photo       => newright_photo.image.url(:medium),
-          :newright_photo_thumb => newright_photo.image.url(:thumb),
-          :newleft_photo        => newleft_photo.image.url(:medium),
-          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
-          :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
-          :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
-          :voted_at             => Time.now.getutc.iso8601,
-          :voted_prompt_winner  => params[:direction]
-        })
-      end
-
+      result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
       render :json => result.to_json
     else
       render :json => {:error => "Flag of choice failed",
@@ -189,4 +144,22 @@ class PromptsController < ApplicationController
     end
   end
 
+  private
+  def add_photocracy_info(result, next_prompt, question_id)
+    newright_photo = Photo.find(next_prompt['right_choice_text'])
+    newleft_photo = Photo.find(next_prompt['left_choice_text'])
+    result.merge!({
+      :visitor_votes        => next_prompt['visitor_votes'],
+      :newright_photo       => newright_photo.image.url(:medium),
+      :newright_photo_thumb => newright_photo.image.url(:thumb),
+      :newleft_photo        => newleft_photo.image.url(:medium),
+      :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
+      :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
+      :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
+      :flag_url             => flag_question_prompt_url(question_id, next_prompt['id'], :format => :js),
+      :skip_url             => skip_question_prompt_url(question_id, next_prompt['id'], :format => :js),
+      :voted_at             => Time.now.getutc.iso8601,
+      :voted_prompt_winner  => params[:direction]
+    })
+  end
 end

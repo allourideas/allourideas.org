@@ -13,11 +13,9 @@ $(document).ready(function() {
   });
 
 	// uploading a photo
+	// uses ajaxupload.js (AjaxUpload throws an error if button isn't on page)
 	var button = $('#add_photo_button');
-
-	// AjaxUpload throws an error if button isn't on page
 	if (button.length != 0) {
-		// uses ajaxupload.js
 	  new AjaxUpload(button, {
 	    action: button.attr('href'),
 	    name: 'new_idea',
@@ -220,6 +218,10 @@ function loadNextPrompt(data) {
 	// change appearance_lookup and prompt_id hidden fields
 	$('#appearance_lookup').val(data['appearance_lookup']);
 	$('#prompt_id').val(data['prompt_id']);
+
+	// change urls for inappropriate and skip forms
+	$('#flag_as_inappropriate_form').attr('action', data['flag_url']);
+	$('#cant_decide_form').attr('action', data['skip_url']);
 }
 
 function voteError(request, textStatus, errorThrown) {

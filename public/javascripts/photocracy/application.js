@@ -208,7 +208,7 @@ function loadNextPrompt(data) {
 	
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
-		$('a.vote.' + side).css('background', "#fff url('" + data['new' + side + '_photo'] + "') center center no-repeat");
+		$('a.vote.' + side).css('background', " url('" + data['new' + side + '_photo'] + "') center center no-repeat");
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url

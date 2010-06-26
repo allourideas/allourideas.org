@@ -28,17 +28,15 @@ h1 {
 
 .photo_frame {
   display: block;
-  border: 1px solid #000;
   height: 350px;
   overflow: hidden;
   text-decoration: none;
   margin-bottom: 10px;
-  box-shadow: 1px 10px 10px #cccccc;
-  -moz-box-shadow: 1px 10px 10px #cccccc;
-  -webkit-box-shadow: 1px 10px 10px #cccccc; }
+  /* border: 1px solid #000; */
+  /* @include box-shadow(1px, 10px, 10px, #ccc); */ }
 
 a.photo_frame:hover {
-  border: 1px solid #2b6fc0;
+  /* border: 1px solid #2b6fc0; */
   cursor: pointer; }
 
 .click_to_vote {
@@ -170,10 +168,10 @@ p.score_explanation {
   margin-top: 8em; }
 
 .loading {
-  background: white url(../../images/photocracy/spinner.gif) center center no-repeat !important; }
+  background: url(../../images/photocracy/spinner.gif) center center no-repeat !important; }
 
 .chosen {
-  background: white url(../../images/photocracy/chosen.png) center center no-repeat !important; }
+  background: url(../../images/photocracy/chosen.png) center center no-repeat !important; }
 
 .center {
   text-align: center; }

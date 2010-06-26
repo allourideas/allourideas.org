@@ -1,4 +1,4 @@
-%a.photo_frame{:style => "background:#fff url('#{photo.image.url(:medium)}') center center no-repeat;",
+%a.photo_frame{:style => "background: url('#{photo.image.url(:medium)}') center center no-repeat;",
               :href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
               :thumb => photo.image.url(:thumb), :class => "#{direction} vote", :direction => direction}
   -unless session[:has_voted] == true

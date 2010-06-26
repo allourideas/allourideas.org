@@ -23,7 +23,13 @@
         %ul#your_votes
     .grid_4.center
       %h5.no_margin
-        ="#{@question.attributes['votes_count'].to_i} #{t('common.votes_on')} #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} #{t('common.items')}"
+        %span#votes_count
+          =@question.attributes['votes_count'].to_i
+        =t('common.votes_on')
+        %span#item_count
+          =@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]
+        =t('common.items')
+
       .padding
         =link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'button'
 

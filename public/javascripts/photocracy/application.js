@@ -140,6 +140,9 @@ function submitFlag(form) {
 			},
 		  success: function(data, textStatus, request) {
 				loadNextPrompt(data);
+				$('#item_count').text(
+					decrement($('#item_count').text())
+				);
 				PAGE_LOADED_AT = new Date(); // reset the page load time
 			}
 		});
@@ -182,6 +185,9 @@ function castVote(choice) {
 	  success: function(data, textStatus, request) {
 			updateVotingHistory(data);
 			loadNextPrompt(data);
+			$('#votes_count').text(
+				increment($('#votes_count').text())
+			);
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
 	});
@@ -189,7 +195,6 @@ function castVote(choice) {
 
 function updateVotingHistory(data) {
 	var winner = data['voted_prompt_winner']
-	//$('#visitor_votes').text(data['visitor_votes']);
 	$('#your_votes').prepend("\
 		<li>\
 			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
@@ -226,4 +231,11 @@ function loadNextPrompt(data) {
 
 function voteError(request, textStatus, errorThrown) {
 	alert(textStatus);
+}
+
+function increment(number){
+	return parseInt(number) + 1;
+}
+function decrement(number){
+	return parseInt(number) - 1;
 }

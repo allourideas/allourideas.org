@@ -12,7 +12,7 @@
 
     .add-box#the_add_box{:style => 'display:none'}
       .indicator{:style => "display:none;"}= image_tag('indicator.gif')
-      = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
+      = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 1, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
       = hidden_field_tag 'default_text', box_text
       = hidden_field_tag 'question_id', @question_id 
       %br

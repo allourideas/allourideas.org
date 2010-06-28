@@ -526,9 +526,6 @@ table.tablesorter {
 #facebox {
   cursor: move; }
 
-.add_container {
-  height: 12em; }
-
 .new_idea_submit, .flag_submit_button {
   padding: 5px 10px 5px 10px;
   background: #01bb00;
@@ -572,12 +569,18 @@ table.tablesorter {
 #radio_button {
   padding-right: 10px; }
 
+#wide_column {
+  width: 50%; }
+
+#narrow_column {
+  width: 40%; }
+
 #user_cd_reason {
   width: 150px; }
 
 .scrollbar_container {
   width: 425px;
-  height: 455px;
+  height: 380px;
   border: 4px solid #3198c1; }
 
 .bottom_status {
@@ -643,3 +646,6 @@ table.tablesorter {
   font-size: 18px;
   width: 400px;
   color: #555555; }
+
+#new_idea_field {
+  font-size: 12px; }

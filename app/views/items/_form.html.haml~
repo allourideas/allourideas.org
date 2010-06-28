@@ -8,7 +8,7 @@
         /*  %br
         = t('vote.add_your_idea_button')
       
-    - box_text = t('sup')
+    - box_text = t('vote.add_your_idea')
 
     .add-box#the_add_box{:style => 'display:none'}
       .indicator{:style => "display:none;"}= image_tag('indicator.gif')

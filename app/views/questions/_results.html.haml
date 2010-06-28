@@ -19,9 +19,7 @@
           %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
             %td.idea_padding
               = link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-            %td
-              .score{:style => 'text-align: right'}
-                = choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+            %td.score{:style => 'text-align: right'}= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
             %td
               .bar-chart
                 %div{:style => "width:#{choice.attributes['score']}%"}

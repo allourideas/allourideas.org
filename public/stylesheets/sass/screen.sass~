@@ -492,7 +492,8 @@ table.tablesorter
 
 #cant_decide_options
   margin: 20px *$scaleFactor 0px 0px 0px
-  width: 100%
+  width: 95%
+  text-align: center
   font-size: 24px * $scaleFactor    /* har*/
 
 #cant_decide_options table
@@ -666,3 +667,7 @@ table.tablesorter
 .link_color
   color: #008
 
+.question
+  font-size: 36px * $scaleFactor  
+  width: 400px
+  color: #555555

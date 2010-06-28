@@ -63,7 +63,7 @@
     $('.add_idea_button.rounded').show();   /* har*/
     $('.tellmearea').show();
 	  $('.indicator').show();
-    $('.new_idea_field').val(default_text); /* har*/
+    $('.new_idea_field').val('');           /* har... could do default text here, but then the text has to actually be deleted*/
 
     //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
@@ -271,11 +271,12 @@
 	    return false;
 	});
  
+  // bind to can't decide
   $('#cant_decide_btn').bind('click', function() { 
 
     //  hide/show everything necessary
     //  cd stuff
-    $('.vote-footer').hide();      
+    $('.votebox').hide();      
     $('#cant_decide_options').show();
 
     //  idea/other stuff... yes, it seems redundant, but it's all necessary
@@ -283,7 +284,7 @@
 
     $('.close').bind('click', function() {
       //  make the right stuff reappear/rehide/work
-      $('.vote-footer').show();      
+      $('.votebox').show();      
       $('#cant_decide_options').hide();
       $('.add_container').show();   
     });

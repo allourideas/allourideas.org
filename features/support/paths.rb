@@ -1,6 +1,6 @@
 module NavigationHelpers
   def path_to(page_name)
-    case page_name
+    path = case page_name
 
     when /the homepage/i
       root_path
@@ -51,6 +51,11 @@ module NavigationHelpers
     else
       raise "Can't find mapping from \"#{page_name}\" to a path."
     end
+    if @photocracy_mode
+	path += (path.include?("?")) ? "&" : "?"
+        path += "photocracy_mode=true"
+    end 
+    path
   end
 end
 

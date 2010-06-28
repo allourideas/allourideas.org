@@ -145,7 +145,10 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     if I18n.locale != I18n.default_locale
-  	  { :locale => I18n.locale }
+  	  options.merge!({ :locale => I18n.locale })
+    end
+    if Rails.env == "cucumber" && @photocracy
+          options.merge!({:photocracy_mode => true})
     end
   end
 

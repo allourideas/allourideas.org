@@ -60,6 +60,15 @@ Given /^an idea marketplace quickly exists with url '(.*)'$/ do |url|
 	e = Factory.create(:earl, :name => url, :question_id => q.id)
 end
 
+Given /^a photocracy idea marketplace quickly exists with url '(.*)'$/ do |url|
+	q = Question.create(Factory.attributes_for(:question, :ideas => "1\n2\n3\n"))
+	e = Factory.create(:earl, :name => url, :question_id => q.id)
+	3.times do |i|
+		Photo.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i+1}.jpg", "image/jpg")
+	end
+
+end
+
 Given /^an idea marketplace quickly exists with url '(.*)' and (.*) ideas$/ do |url, num_ideas|
 	ideas = ""
 	(1..num_ideas.to_i).to_a.reverse.each do |n|

@@ -41,7 +41,6 @@ class PromptsController < ApplicationController
   end
 
   def skip
-    expire_page :action => :results
     prompt_id = params[:id]
     appearance_lookup = params[:appearance_lookup]
     time_viewed = params[:time_viewed]

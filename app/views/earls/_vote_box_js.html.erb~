@@ -311,7 +311,7 @@
 
     //  make the right stuff reappear/rehide/work
     //  cd stuff
-    $('.vote-footer').show();      
+    $('.votebox').show();      
     $('#cant_decide_options').hide();
 
     //  idea/other stuff... might seem redundant, but it's necessary

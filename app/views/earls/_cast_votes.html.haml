@@ -21,7 +21,8 @@
       %tr
         %td &nbsp; 
         %td.actual_cd_button.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
-          =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn")   #- har don't link to facebox... removed :rel => 'facebox[.wider]')
+          .idkidk
+            =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn")   #- har don't link to facebox... removed :rel => 'facebox[.wider]')
         %td &nbsp;
         /* har... there used to be no &nbsp; on the above line and the below indented block was not commented out (still indented tho)
         /
@@ -74,7 +75,7 @@
     .cd_close_and_submit
       .fleft
         = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
-      .fright
+      .fright{:style => 'margin-right: 10px'}
         .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
 
   /* har... was tabbed one to the left, don't want stack overflow message

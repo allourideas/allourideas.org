@@ -198,38 +198,34 @@ table {
   width: 545px; }
 
 .votebox {
-  width: 90%; }
+  width: 97%;
+  float: center; }
 
 .votebox table {
   text-align: center; }
-  .votebox table td {
-    padding: 0 0 5px; }
-    .votebox table td .borderfg {
-      padding: 30px 20px;
-      font-size: 17.6px;
-      color: #555555; }
-    .votebox table td.idea {
-      cursor: pointer; }
-    .votebox table td.left {
-      padding: 0 5px 0 0; }
-    .votebox table td.right {
-      padding: 0 0 0 5px; }
-    .votebox table td .round-filledfg {
-      font-size: 12.8px;
-      padding: 0 5px; }
-      .votebox table td .round-filledfg a {
+  .votebox table td.idea {
+    cursor: pointer; }
+  .votebox table td.left {
+    padding: 0 2.5px 0 0; }
+  .votebox table td.right {
+    padding: 0 0 0 2.5px; }
+  .votebox table td .round-filledfg {
+    font-size: 12.8px;
+    padding: 0 2px; }
+    .votebox table td .round-filledfg a {
+      color: white;
+      border: none; }
+      .votebox table td .round-filledfg a:hover {
         color: white;
         border: none; }
-        .votebox table td .round-filledfg a:hover {
-          color: white;
-          border: none; }
-    .votebox table td table td {
-      height: 137.5px; }
+  .votebox table td .idkidk {
+    padding: 5px; }
+  .votebox table td table td {
+    height: 107.5px; }
   .votebox table.vote-footer {
     width: 100%;
     margin-top: 10px; }
     .votebox table.vote-footer td {
-      padding: 5px 0 5px;
       width: 33%; }
       .votebox table.vote-footer td:first-child {
         text-align: left;
@@ -580,7 +576,7 @@ table.tablesorter {
 
 .scrollbar_container {
   width: 425px;
-  height: 380px;
+  height: 340px;
   border: 4px solid #3198c1; }
 
 .bottom_status {
@@ -599,7 +595,7 @@ table.tablesorter {
   font-size: 14px; }
 
 .cd_close_and_submit {
-  margin-top: 10px; }
+  margin-top: 5px; }
 
 .bottom_padding {
   padding-left: 5px;
@@ -643,8 +639,8 @@ table.tablesorter {
   color: #000088; }
 
 .question {
-  font-size: 18px;
-  width: 400px;
+  font-size: 16px;
+  width: 395px;
   color: #555555; }
 
 #new_idea_field {

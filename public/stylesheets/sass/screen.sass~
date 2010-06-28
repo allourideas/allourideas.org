@@ -213,40 +213,37 @@ table
   width: 545px
 
 .votebox
-  width: 90%
+  width: 97%
+  float: center
 
 $fontScaleFactor = .8                           /* har */
 
 .votebox table
   text-align: center
   td
-    padding: 0 0 5px
-    .borderfg
-      padding: 30px 20px
-      font-size: 22px * $fontScaleFactor        /* har */
-      color: #555
     &.idea
       cursor: pointer
     &.left
-      padding: 0 5px 0 0
+      padding: 0 2.5px 0 0
     &.right
-      padding: 0 0 0 5px
+      padding: 0 0 0 2.5px
     .round-filledfg
       font-size: 16px * $fontScaleFactor        /* har */
-      padding: 0 5px
+      padding: 0 2px
       a
         color: #FFF
         border: none
         &:hover
           color: #FFF
           border: none
+    .idkidk
+      padding: 5px
     table td
-      height: 275px * $scaleFactor
+      height: 215px * $scaleFactor
   &.vote-footer
     width: 100%
     margin-top: 10px
     td
-      padding: 5px 0 5px
       width: 33%
       &:first-child
         text-align: left
@@ -592,17 +589,17 @@ table.tablesorter
   padding-right: 10px
 
 #wide_column
-  width: 55%
+  width: 50%
 
 #narrow_column 
-  width: 45%
+  width: 40%
 
 #user_cd_reason
   width: 300px * $scaleFactor
 
 .scrollbar_container
   width: 850px * $scaleFactor
-  height: 380px
+  height: 350px
   border: 4px solid #3198c1              /* har, comment out other border code*/
 
 .bottom_status
@@ -625,7 +622,7 @@ table.tablesorter
   font-size: 28px * $scaleFactor
 
 .cd_close_and_submit
-  margin-top: 10px
+  margin-top: 5px
 
 .bottom_padding
   padding-left: 5px
@@ -671,8 +668,8 @@ table.tablesorter
   color: #008
 
 .question
-  font-size: 36px * $scaleFactor  
-  width: 400px
+  font-size: 16px                             /*har*/
+  width: 395px
   color: #555555
 
 #new_idea_field

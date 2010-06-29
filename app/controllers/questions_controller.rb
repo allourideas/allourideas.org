@@ -71,8 +71,6 @@ class QuestionsController < ApplicationController
     @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
     @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
     @available_charts['user_sessions'] = { :title => t('results.user_sessions_over_time_title')}
-
-    render :partial => 'results'
   end
   
   def admin

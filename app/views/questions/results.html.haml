@@ -1,182 +1,163 @@
 = render :partial => 'shared/header_vote'
-
-.scrollbar_container{:style => 'overflow:auto;'}
-  .ninety
-    %table.full
-      %tr.question_row
-        .title.center
-          = @question.attributes['name']
-      %tr.row0
-        %th.idea.header_padding= 'Idea'
-        %th.score.header_padding= t('common.score').titleize
-        %th &nbsp;
-        %th &nbsp;
-      -alt=false
-      -for choice in @choices
-        %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-          %td.title.idea_padding
-            = link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-          %td.votes.center
-            = choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
-            .bar-chart
-              %div{:style => "width:#{choice.attributes['score']}%"}
-      -if !params[:more] && !params[:all] && (@question.attributes['choices_count'].to_i > 10)
-        %tr.row1
-          %td{:colspan => 3}
-            %strong= link_to(t('nav.see_all_ideas'), @all_results_url)
-    /* don't want the dividing line (nothing to divide anymore)
-    /
-      %tr.row0.thin
+.ninety
+  %table.full
+    %tr.row0
+      %th
+        = @question.attributes['name']
+      %th.score= t('common.score').titleize
+      %th &nbsp;
+      %th &nbsp;
+    -alt=false
+    -for choice in @choices
+      %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
+        %td.title= link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
+        %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+        %td
+          .bar-chart
+            %div{:style => "width:#{choice.attributes['score']}%"}
+    -if !params[:more] && !params[:all] && (@question.attributes['choices_count'].to_i > 10)
+      %tr.row1
         %td{:colspan => 3}
-    -if params[:more] && !params[:all]
-      = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next') 
-      -if paginated
-        .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
-    %br    
+          %strong= link_to(t('nav.see_all_ideas'), @all_results_url)
+    %tr.row0.thin
+      %td{:colspan => 3}
+  -if params[:more] && !params[:all]
+    = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next') 
+    -if paginated
+      .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
+  %br
+  %br
 
-  /* Don't do data visualization
-  /
-    %table.full
-      %tr.row0
-        %th=t('results.data_visualizations')
-        %th.score &nbsp;
-      %tr{:class => cycle("row2", "row1")}
-        %td.title= t('results.scatter_ideas_title')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
-      %tr{:class => current_cycle , :style => "display:none;"}
-        %td.title{:colspan => '2'}
-          .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
-      %tr{:class => cycle("row2", "row1")}
-        %td.title
-          = t('results.word_cloud_ideas_title')
-          = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :word_cloud), :class => 'date-chart')
-      %tr{:class => current_cycle , :style => "display:none;"}
-        %td{:colspan => '2'}
-          .wcdiv.chart-container#wcdiv
-      %tr{:class => cycle("row2", "row1")}
-        %td.title
-          = t('results.word_cloud_weighted_title')
-          = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
-      %tr{:class => current_cycle , :style => "display:none;"}
-        %td{:colspan => '2'}
-          .wcdiv.chart-container#wcdiv-weight_by_score
-      %tr{:class => cycle("row2", "row1")}
-        %td.title
-          = t('results.word_cloud_uploaded_title')
-          = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded'), :class => 'date-chart')
-      %tr{:class => current_cycle , :style => "display:none;"}
-        %td{:colspan => '2'}
-          .wcdiv.chart-container#wcdiv-uploaded
-      %tr{:class => cycle("row2", "row1")}
-        %td.title
-          = t('results.word_cloud_uploaded_weighted_title')
-          = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
-        %td.votes
-          = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded_weight_by_score'), :class => 'date-chart')
-      %tr{:class => current_cycle , :style => "display:none;"}
-        %td{:colspan => '2'}
-          .wcdiv.chart-container#wcdiv-uploaded_weight_by_score
-      %tr{:class => cycle("row2", "row1")}
-        %td.title= t('results.world_map_title')
-        %td.votes 
-          = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'votes'), :class => "view_voter_map")
-      -if @available_charts
-        -@available_charts.each do |type, options|
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= options[:title]
-            %td.votes
-              = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
-          %tr{:class => current_cycle , :style => "display:none;"}
-            %td.title{:colspan => '2'}
-              .chart-container{:id => "#{type}-chart-container"}
-        -if current_user && current_user.admin?
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= "View density of votes for this question (super-admin only)"
-            %td.votes
-              = link_to('[View]', url_for(:action => :density_graph, :type => "density"), :class => 'date-chart')
-          %tr{:class => current_cycle , :style => "display:none;"}
-            %td.title{:colspan => '2'}
-              .chart-container{:id => "#{"density"}-chart-container"}
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= "View number of ratings of choices by creation time (super-admin only)"
-            %td.votes
-              = link_to('[View]', url_for(:action => :scatter_num_ratings_by_creation_time, :type => "scatter_num_ideas_by_creation_time"), :class => 'date-chart')
-          %tr{:class => current_cycle , :style => "display:none;"}
-            %td.title{:colspan => '2'}
-              .chart-container{:id => "#{"scatter_num_ideas_by_creation_time"}-chart-container"}
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= "View number of appearances per choice by choice creation date (super-admin only)"
-            %td.votes
-              = link_to('[View]', url_for(:action => :choices_by_creation_date, :type => "choice-by-date"), :class => 'date-chart')
-          %tr{:class => current_cycle , :style => "display:none;"}
-            %td.title{:colspan => '2'}
-              .chart-container{:id => "#{"choice-by-date"}-chart-container"}
-          %tr{:class => cycle("row2", "row1")}
-            %td.title
-              = "World Map of bounces (viewed once and then left) (super-admin only)"
-              = link_to('[?]', '#bounce_explanation', :rel => 'facebox')
+  %table.full
+    %tr.row0
+      %th=t('results.data_visualizations')
+      %th.score &nbsp;
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.scatter_ideas_title')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td.title{:colspan => '2'}
+        .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
+    %tr{:class => cycle("row2", "row1")}
+      %td.title
+        = t('results.word_cloud_ideas_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv
+    %tr{:class => cycle("row2", "row1")}
+      %td.title
+        = t('results.word_cloud_weighted_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv-weight_by_score
+    %tr{:class => cycle("row2", "row1")}
+      %td.title
+        = t('results.word_cloud_uploaded_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded'), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv-uploaded
+    %tr{:class => cycle("row2", "row1")}
+      %td.title
+        = t('results.word_cloud_uploaded_weighted_title')
+        = link_to('[?]', '#word_cloud_exp', :rel => 'facebox')
+      %td.votes
+        = link_to(t('results.view_link'), url_for(:action => :word_cloud, :type => 'uploaded_weight_by_score'), :class => 'date-chart')
+    %tr{:class => current_cycle , :style => "display:none;"}
+      %td{:colspan => '2'}
+        .wcdiv.chart-container#wcdiv-uploaded_weight_by_score
+    %tr{:class => cycle("row2", "row1")}
+      %td.title= t('results.world_map_title')
+      %td.votes 
+        = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'votes'), :class => "view_voter_map")
+    -if @available_charts
+      -@available_charts.each do |type, options|
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= options[:title]
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{type}-chart-container"}
+      -if current_user && current_user.admin?
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View density of votes for this question (super-admin only)"
+          %td.votes
+            = link_to('[View]', url_for(:action => :density_graph, :type => "density"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"density"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of ratings of choices by creation time (super-admin only)"
+          %td.votes
+            = link_to('[View]', url_for(:action => :scatter_num_ratings_by_creation_time, :type => "scatter_num_ideas_by_creation_time"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"scatter_num_ideas_by_creation_time"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of appearances per choice by choice creation date (super-admin only)"
+          %td.votes
+            = link_to('[View]', url_for(:action => :choices_by_creation_date, :type => "choice-by-date"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"choice-by-date"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title
+            = "World Map of bounces (viewed once and then left) (super-admin only)"
+            = link_to('[?]', '#bounce_explanation', :rel => 'facebox')
 
-            %td.votes 
-              = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'bounces'), :class => "view_voter_map")
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= "World Map of uploaded ideas (super-admin only)"
-            %td.votes 
-              = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'uploaded_ideas'), :class => "view_voter_map")
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= "View number of votes per session (super-admin only)"
-            %td.votes
-              = link_to(t('results.view_link'), url_for(:action => :scatter_votes_by_session, :type => "scatter_votes_by_session"), :class => 'date-chart')
-          %tr{:class => current_cycle , :style => "display:none;"}
-            %td.title{:colspan => '2'}
-              .chart-container{:id => "#{"scatter_votes_by_session"}-chart-container"}
-    #explanation{:style => 'display:none;'}
-      %h2= t('items.about_scoring')
-      =t('items.score_explain')
+          %td.votes 
+            = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'bounces'), :class => "view_voter_map")
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "World Map of uploaded ideas (super-admin only)"
+          %td.votes 
+            = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'uploaded_ideas'), :class => "view_voter_map")
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of votes per session (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :scatter_votes_by_session, :type => "scatter_votes_by_session"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"scatter_votes_by_session"}-chart-container"}
+  #explanation{:style => 'display:none;'}
+    %h2= t('items.about_scoring')
+    =t('items.score_explain')
 
-    #word_cloud_exp{:style => 'display:none;'}
-      %h2= t('results.about_word_cloud')
-      =t('results.word_cloud_exp')
-    
-    -if current_user && current_user.admin?
-      #bounce_explanation{:style => 'display:none;'}
-        %h2= "About Bounces"
-        A bounce is defined as a session that has seen exactly one appearance and taken no other action on our site (one 'click' on our site)
-        %br
-        So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
-        %br
-        Another example:  a user that views the voting page, then view results, then leaves, would not be considered a bounce
-        %br 
-        Note that this may not be 100% accurate because of the way that firefox save cookies past their intended expiration date
+  #word_cloud_exp{:style => 'display:none;'}
+    %h2= t('results.about_word_cloud')
+    =t('results.word_cloud_exp')
+  
+  -if current_user && current_user.admin?
+    #bounce_explanation{:style => 'display:none;'}
+      %h2= "About Bounces"
+      A bounce is defined as a session that has seen exactly one appearance and taken no other action on our site (one 'click' on our site)
+      %br
+      So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
+      %br
+      Another example:  a user that views the voting page, then view results, then leaves, would not be considered a bounce
+      %br 
+      Note that this may not be 100% accurate because of the way that firefox save cookies past their intended expiration date
 
-  -content_for :head do
-    = render :partial => "shared/highcharts_header"
-    = render :partial => "shared/google_jsapi"
-    = '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
-    = javascript_include_tag 'google-termcloud.js', 'facebox'
-    = stylesheet_link_tag 'google-termcloud', 'facebox'
-    :javascript
-      var results_view_text = function(){ return "#{t('results.view_link')}";};
-      var results_close_text = function(){ return "#{t('results.close_link')}";};
+-content_for :head do
+  = render :partial => "shared/highcharts_header"
+  = render :partial => "shared/google_jsapi"
+  = '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
+  = javascript_include_tag 'google-termcloud.js', 'facebox'
+  = stylesheet_link_tag 'google-termcloud', 'facebox'
+  :javascript
+    var results_view_text = function(){ return "#{t('results.view_link')}";};
+    var results_close_text = function(){ return "#{t('results.close_link')}";};
 
 
-  -content_for :view_javascript do
-    $('a[rel*=facebox]').facebox();
-    $('#facebox').draggable();
-
-/* Need to add an actual link to more results */
-.bottom_status
-  -@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
-  -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
-  &nbsp
-  .bottom_padding.fleft
-    = link_to('View More Results', @results_url) 
-  .bottom_padding.fright
-    = link_to('Return to Voting', @cast_votes_url) 
-  /*^bad style here; i should probably have this in some file elsewhere*/
+-content_for :view_javascript do
+  $('a[rel*=facebox]').facebox();
+  $('#facebox').draggable();

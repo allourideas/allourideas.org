@@ -59,7 +59,6 @@ class EarlsController < ApplicationController
     else
       redirect_to('/') and return
     end
-
   end
   
   def export_list

@@ -6,19 +6,24 @@ class ApplicationController < ActionController::Base
   
   before_filter :initialize_session, :record_action, :set_locale
 
-  # preprocess photocracy_view_path on boot because
+  # preprocess photocracy_view_path and widget_view_path on boot because
   # doing pathset generation during a request is very costly.
-  before_filter :photocracy_filter
+  before_filter :view_filter
   cattr_accessor :photocracy_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
+  cattr_accessor :widget_view_path
+  @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget"))
   
-  def photocracy_filter
+  def view_filter
     if request.url.include?('photocracy') || @photocracy
 	    @photocracy = true
       prepend_view_path(@@photocracy_view_path)
+    elsif request.url.include?('widget') || @widget
+	    @widget = true
+      prepend_view_path(@@widget_view_path)
     end
   end
-  
+
   def initialize_session
     session[:session_id] # this forces load of the session in Rails 2.3.x
     if signed_in?

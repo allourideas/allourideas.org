@@ -92,6 +92,11 @@ class QuestionsController < ApplicationController
         {:title => :user_sessions_over_time_title, :link => 'timeline_graph', :type => 'user_sessions', :div_id => 'user_sessions-chart-container', :response_type => 'script'}
       ]
     end
+
+    if @widget == true
+      render :layout => false
+    end
+
   end
   
   def admin

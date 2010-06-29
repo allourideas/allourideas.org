@@ -11,4 +11,9 @@ todo
 ideas
 ideas.xml
 .sass-cache
+<<<<<<< HEAD:.gitignore
 capybara*
+tmp/*
+doc/api
+doc/app
+*~

@@ -1,0 +1,34 @@
+-@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
+-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id)
+-@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
+-@manage_url = url_for(:action => :admin, :controller => :questions, :id => @the_id)
+-@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :more => true)
+-@about_url= url_for(:action => :about, :controller => :questions, :id => @the_id)
+
+.vote-nav{:style => "position: relative;"}
+  -# har...this commented block... i think it's irrelevant for widget
+  -#.fleft
+  -#  -if @earl && !@earl.logo_file_name.nil?
+  -#    = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
+  -#    -if local_assigns.has_key?("show_delete")
+  -#      =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
+  -#  -else
+  -#    &nbsp;
+  %ul.tabs
+    %li.about_tab.tab
+      %a{:href => '#page3'}
+        #{t('nav.about_this_page')}
+    %li.results_tab.tab
+      %a{:href => '#page2'}
+        = link_to_remote t('nav.view_results'), :update => :render_spot, :url => @results_url + "?widget=true"
+      -#%a{:href => '#page2'}
+      -#  #{t('nav.view_results')}
+    %li.vote_tab.current_tab.tab
+      %a{:href => '#page1'}
+        #{t('vote.cast_votes')} 
+
+    %div{:style => "position: absolute; bottom: 20px; right: 0px;"}
+      - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
+        = link_to_unless_current(t('nav.manage_question'), @manage_url) do "<strong> #{t('nav.manage_question')} </strong>" end
+  .clear
+

@@ -1,0 +1,38 @@
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
+  %head 
+    %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
+    = stylesheet_link_tag 'widget/screen'
+  %body
+    .scrollbar_container{:style => 'overflow:auto;'}
+      .aboutpage     
+        %p=t('about_page.intro')
+    
+        %h2="1) " + t('about_page.how_many_votes_q')
+        %p= t('about_page.how_many_votes_exp')
+        
+        %h2="2) " + t('about_page.how_many_ideas_q')
+        %p=t('about_page.how_many_ideas_exp')
+
+        %h2="3) " + t('about_page.view_results_q') 
+        %p= t('about_page.view_results_exp')
+    
+        %h2="4) " + t('about_page.make_my_own_q')
+        %p=t('about_page.make_my_own_exp')
+
+      /
+        %p= t('about_page.intro')
+        %ol
+          %li= t('about_page.how_many_votes_q')
+          %li= t('about_page.how_many_ideas_q')
+          %li= t('about_page.view_results_q') 
+          %li= t('about_page.make_my_own_q')
+    .bottom_status
+      -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
+      &nbsp
+      //  add the last two tab classes below to make use of already existing javascript
+      %a{:href => '#page1'}
+        .bottom_padding.fright.link_color.return_voting
+          Return to voting
+      /*^bad style here; i should probably have this text in some file elsewhere*/
+      

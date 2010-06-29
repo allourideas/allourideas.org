@@ -5,23 +5,22 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :passwords, :controller => "clearance/passwords"
 
   map.resources :questions, 
-                :member => {:skip => :post, 
-                            :flag => :post, 
-                            :add_idea => :post, 
+                :member => {:add_idea => :post, 
                             :toggle => :post, 
                             :toggle_autoactivate => :post,
-                            :results => :get,
 			    :delete_logo => :delete } do |question|
 	  question.resources :prompts, 
-		  :only => [:vote],
+		  :only => [:vote, :skip, :flag],
 		  :member => {
-		  	:vote => :post
-	          }
+		  	:vote => :post,
+			:skip => :post,
+                        :flag => :post,
+                  }
 	  question.resources :choices, 
 		  :only => [:show], 
 		  :member => {
 		  	:activate => :get, # these shouldn't be get requests, but they need to work in email
-			:deactivate => :get
+                        :deactivate => :get
 		  },
 		  :path_prefix => '/:question_id'
 	  end

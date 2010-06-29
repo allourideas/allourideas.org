@@ -124,10 +124,31 @@
         %tr{:class => cycle("row2", "row1")}
           %td.title= "View number of votes per session (super-admin only)"
           %td.votes
-            = link_to(t('results.view_link'), url_for(:action => :scatter_votes_by_session, :type => "scatter_votes_by_session"), :class => 'date-chart')
+            = link_to(t('results.view_link'), url_for(:action => :scatter_votes_by_session, :type => "votes"), :class => 'date-chart')
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{"scatter_votes_by_session"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of skips per session (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :scatter_votes_by_session, :type => "skips"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"scatter_skips_by_session"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of votes vs number of skips per session (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :scatter_votes_vs_skips, :type => "skips"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "#{"scatter_votes_vs_skips"}-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View number of skips per day (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => "skips"), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "skips-chart-container"}
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')

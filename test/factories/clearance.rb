@@ -1,5 +1,6 @@
 Factory.sequence :email do |n|
-  "user#{n}@example.com"
+  "test@test.com" if n == 0 # some tests assume this is the email address
+  "user#{n}@example.com" if n > 0
 end
 
 Factory.define :user do |user|

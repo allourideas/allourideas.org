@@ -3,30 +3,38 @@
     #hd.center
       %h1.no_margin
         =h @question.name
-      %p.gray
-        Click on the best photo to vote! 
-        =link_to 'How does this work?', '#'
+      %p.gray.small_margin_bottom
+        =t('common.instructions')
+        =link_to t('common.how_does_this_work'), '#'
       #prompt
         =render(:partial => 'questions/prompt')
-    .center.margin_bottom
-      =link_to 'Add your own Photo', add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
-      <br /><br />
-      =link_to_function "I can't decide", "$('#cant_decide_options').dialog('open');"
+    .center{:style => 'padding-bottom:20px'}
+      .small_margin_bottom
+        =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
+      =link_to t('vote.add_your_idea_button'), add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
+
 .container_12
   #secondary_content
     .grid_4
       %h5.no_margin
-        Your <span id="visitor_votes"></span> votes
-        %span.normal (average is 12)
+        =t('common.your_votes')
+        %span.normal="(#{t('common.average')} is 12)"
       .padding
         %ul#your_votes
     .grid_4.center
       %h5.no_margin
-        ="#{@question.attributes['votes_count'].to_i} votes on #{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]} photos"
+        %span#votes_count
+          =@question.attributes['votes_count'].to_i
+        =t('common.votes_on')
+        %span#item_count
+          =@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]
+        =t('common.items')
+
       .padding
-        =link_to "View all Results", results_question_url(:id => params[:id]), :class => 'button'
+        =link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'button'
+
     .grid_4
-      %h5.no_margin About this survey
+      %h5.no_margin=t('common.about_this_survey')
       .padding
         .margin_bottom.center
           =image_tag "photocracy/alum_logo.png", :width => 100, :height => 100
@@ -39,15 +47,14 @@
           <br />
           %strong
             Powered by 
-            =link_to "photocracy.org", "#"
+            =link_to "photocracy.org", "http://photocracy.org"
           <br />
           Photocracy is supported by grants from Google<br />
           and CITP at Princeton University.
   .clear
 
   #cant_decide_options{:style => 'display:none', :title => t('vote.cant_decide_title')}
-    %form{:action => "#{skip_question_url(@question, :format => :js)}", :id => 'cant_decide_form'}
-      / 'http://photocracy:3001/questions/' + question_id + '/skip.js'
+    %form{:action => "#{skip_question_prompt_url(@question.id, @prompt.id, :format => :js)}", :id => 'cant_decide_form'}
       -options= %w(like_both dislike_both both_same other user_other)
       %p
         -options.each do |choice|
@@ -61,19 +68,28 @@
       %p
         %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
 
-  #upload_status{:style => 'display:none;', :title => 'Adding a photo'}
+  -if @earl.flag_enabled?
+    #flag_as_inappropriate{:style => 'display:none', :title => t('vote.flag_as_inappropriate')}
+      %form{:action => "#{flag_question_prompt_url(@question.id, @prompt.id, :format => :js)}", :id => 'flag_as_inappropriate_form'}
+        = t('vote.please_explain_flag')
+        %p
+          = text_area_tag 'inappropriate_reason', "", :style => 'width:100%'
+          = hidden_field_tag 'inappropriate_side'
+        %p
+          %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
+
+  #upload_status{:style => 'display:none;', :title => t('vote.add_your_idea_button')}
     #upload_status_message
       %p Uploading your photo...
-      =image_tag "photocracy/indicator.gif"
-  
+      =image_tag 'photocracy/indicator.gif'
+
   :javascript
     $(document).ready(function(){
       $('#cant_decide_options').dialog({autoOpen:false, modal:true, width:330});
 
-      $('#upload_status').dialog({
-        autoOpen: false,
-        modal: true,
-        width: 400,
+      $('#flag_as_inappropriate').dialog({autoOpen:false, modal:true, width:450});
+
+      $('#upload_status').dialog({autoOpen: false, modal: true, width: 400,
         close: function(event, ui) {
           $('#upload_status_message').html(
             "<p>Uploading your photo...</p><img src='/images/photocracy/indicator.gif' />"

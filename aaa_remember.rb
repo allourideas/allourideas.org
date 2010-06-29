@@ -9,3 +9,6 @@ AOI:
   
 # start redis
 rake redis:start
+
+# convert .scss to .css
+sass --watch public/stylesheets/photocracy

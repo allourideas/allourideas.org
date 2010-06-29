@@ -11,8 +11,9 @@
 }
 
 @mixin marble-fade($color: #ccc) {
-  background-image: -moz-linear-gradient(lighten($color, 30%), $color);
-  background-image:
+  background: $color;
+  background: -moz-linear-gradient(lighten($color, 30%), $color);
+  background:
 	-webkit-gradient(
 		linear,
 		left bottom,
@@ -23,8 +24,9 @@
 }
 
 @mixin fade-down($color: #ccc) {
-  background-image: -moz-linear-gradient(darken($color, 10%), $color, $color, $color);
-  background-image:
+  background: $color;
+  background: -moz-linear-gradient(darken($color, 10%), $color, $color, $color);
+  background:
 	-webkit-gradient(
 		linear,
 		left bottom,

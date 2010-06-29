@@ -13,7 +13,7 @@
     :javascript 
       var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
-      var LOCALE = '#{I18n.locale}';
+      var RAILS_LOCALE = '#{I18n.locale}';
     :javascript
       $(document).ready(function(){
         $("abbr.timeago").timeago();

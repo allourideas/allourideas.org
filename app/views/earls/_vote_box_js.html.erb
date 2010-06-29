@@ -208,13 +208,12 @@
 		        opacity:         0.0
 		   }});
 	var question_id = $(this).attr("rel");
-	$.post('/questions/' + question_id + '/skip.js',
+	$.post('/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js',
 	       {
-	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-	       'cant_decide_reason' : reason, 
-		'time_viewed' : time_viewed,
-		'prompt_id': prompt_id,
-		'appearance_lookup': appearance_lookup
+		   'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+		   'cant_decide_reason' : reason, 
+		   'time_viewed' : time_viewed,
+		   'appearance_lookup': appearance_lookup
 		},
 
 		function(data){
@@ -268,12 +267,11 @@
 		        opacity:         0.0
 		   }});
 	   var question_id = $(this).attr("rel");
-	   $.post('/questions/' + question_id + '/flag.js', 
+	   $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/flag.js', 
 	       {
 	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
 	       'flag_reason' : user_text,
 		'time_viewed' : time_viewed,
-		'prompt_id': prompt_id,
 		'side': flag_side,
 		'appearance_lookup': appearance_lookup
 		},

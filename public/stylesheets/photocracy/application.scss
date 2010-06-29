@@ -29,22 +29,35 @@ h1 {
   margin-bottom: 5em;
 }
 
+#prompt {
+  margin-bottom: -20px;
+}
+
 .photo_frame {
   display: block;
-  border: 1px solid #000;
   height: 350px;
   overflow: hidden;
-  @include box-shadow(1px, 10px, 10px, #ccc);
+  text-decoration: none;
 }
 
 a.photo_frame:hover {
-  border: 1px solid #2b6fc0;
+  /* border: 1px solid #2b6fc0; */
   cursor: pointer;
 }
 
 .click_to_vote {
-  margin-top: 150px;
   text-align: center;
+  color: #000;
+  background:#fff;
+  opacity: 0.8;
+  width: 160px;
+  margin: 0 auto;
+  margin-top: 150px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  @include box-shadow(2px, 2px, 2px, #000);
+  @include rounded(30px);
 }
 
 .button {
@@ -91,7 +104,7 @@ a.photo_frame:hover {
     @include fade-down(#db9327);
     color: #000;
     text-align: center;
-    padding: 1em;
+    padding: 5px;
     text-shadow: #fff 1px 1px 2px;
   }
   
@@ -120,20 +133,26 @@ ul.results {
   li {
     margin: 0;
     padding: .5em;
-    
+
     a {
       padding: .5em;
-      border: 1px solid #ccc;
       -moz-border-radius: 5px;
       text-decoration: none;
       color: #000;
       display: inline-block;
-      
-      .active, .active:hover {
-        background: #ccc;
-        font-weight: bold;
-      }
+      @include rounded(5px);
     }
+
+    a.active, a.active:hover {
+        background: #DB9327;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    a:hover {
+      background: #ccc;
+    }
+
   }
 }
 
@@ -173,11 +192,11 @@ p.score_explanation {
 }
 
 .loading {
-	background: #fff url(../../images/photocracy/spinner.gif) center center no-repeat !important;
+	background: url(../../images/photocracy/spinner.gif) center center no-repeat !important;
 }
 
 .chosen {
-	background: #fff url(../../images/photocracy/chosen.png) center center no-repeat !important;
+	background: url(../../images/photocracy/chosen.png) center center no-repeat !important;
 }
 
 .center {
@@ -196,12 +215,21 @@ p.score_explanation {
   font-weight: normal;
 }
 
+.float_left {
+  float: left;
+  margin-right: 10px
+}
+
 .margin_bottom {
   overflow: hidden;
   margin-bottom: 2em;
 }
 
-.gray {
+.small_margin_bottom {
+  margin-bottom: 5px;
+}
+
+.gray, a.gray {
   color: #666;
 }
 

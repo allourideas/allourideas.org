@@ -4,18 +4,31 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :record_action, :set_locale
+  before_filter :initialize_session, :set_session_timestamp, :record_action, :photocracy_filter, :set_pairwise_credentials, :set_locale
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
-  before_filter :photocracy_filter
   cattr_accessor :photocracy_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   
   def photocracy_filter
-    if request.url.include?('photocracy') || @photocracy
+    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy
 	    @photocracy = true
       prepend_view_path(@@photocracy_view_path)
+    end
+  end
+  def set_pairwise_credentials
+    if @photocracy
+       username = PHOTOCRACY_USERNAME
+       password = PHOTOCRACY_PASSWORD
+    else
+       username = PAIRWISE_USERNAME
+       password = PAIRWISE_PASSWORD
+    end
+    active_resource_classes = [Choice, Density, Prompt, Question, Session]
+    active_resource_classes.each do |klass|
+      klass.user = username
+      klass.password = password
     end
   end
   
@@ -23,7 +36,6 @@ class ApplicationController < ActionController::Base
     session[:session_id] # this forces load of the session in Rails 2.3.x
     if signed_in?
       logger.info "current user is #{current_user.inspect}"
-      #current_user.set_remote_session_key!(request.session_options[:id])
     end
 
     if white_label_request?
@@ -44,6 +56,14 @@ class ApplicationController < ActionController::Base
 	  @_white_label
   end
 
+  def set_session_timestamp
+      expiration_time = session[:expiration_time]
+      if expiration_time && expiration_time < Time.now
+	   session[:session_id] = ActiveSupport::SecureRandom.hex(16)
+	   request.session_options[:id] = session[:session_id]
+      end
+      session[:expiration_time] = 10.minutes.from_now
+  end
   
   def record_action
     visitor_remember_token = cookies[:visitor_remember_token]
@@ -64,10 +84,6 @@ class ApplicationController < ActionController::Base
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)
-#    if user_session.new_record?
-#	    logger.info "New user, creating job to geolocate ip address #{request.remote_ip}"
-#	    user_session.send_later :geolocate!, request.remote_ip
-#    end
 
     Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
 		 :referrer => request.referrer, :session_info_id => user_session.id)
@@ -87,8 +103,8 @@ class ApplicationController < ActionController::Base
     if (session[:abingo_identity])
 	    Abingo.identity = session[:abingo_identity]
     else
-	    session[:abingo_identity] = user_session.id
-	    Abingo.identity = user_session.id
+	    session[:abingo_identity] = visitor.id
+	    Abingo.identity = visitor.id
     end
       
   end
@@ -115,14 +131,25 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-	  I18n.locale = params[:locale]
+    if @photocracy
+      if params[:locale].blank?
+        I18n.locale = ('photocracy_' + I18n.default_locale.to_s).to_sym
+      else
+	      I18n.locale = "#{'photocracy_' unless params[:locale].starts_with?('photocracy_')}#{params[:locale]}".to_sym
+      end
+    else
+      I18n.locale = params[:locale]
+    end
   end
 
 
   def default_url_options(options={})
-	  if I18n.locale != I18n.default_locale
-		  { :locale => I18n.locale }
-	  end
+    if I18n.locale != I18n.default_locale
+  	  options.merge!({ :locale => I18n.locale })
+    end
+    if Rails.env == "cucumber" && @photocracy
+          options.merge!({:photocracy_mode => true})
+    end
   end
 
 end

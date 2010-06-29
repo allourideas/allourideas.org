@@ -1,0 +1,56 @@
+=render :partial => "shared/highcharts_header"
+
+.container_12
+  #primary_content
+    #hd.center
+      %h1.no_margin
+        %span.normal
+          Results of
+        =h @question.name
+      %p.gray
+        View the results of the survey here or
+        =link_to 'return to voting.',  url_for(:action => :show, :controller => :earls, :id => params[:id])
+    
+    .grid_4
+      %ul#graphs.results
+        %li
+          =link_to 'Top photos', url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'active'
+        -@available_charts.each do |graph|
+          -if !graph[:login_required] || (current_user && current_user.admin?)
+            %li
+              =link_to t("results.#{graph[:title]}"),
+                        url_for(:action => graph[:link], :type => graph[:type]),
+                        :div_id => graph[:div_id], :response_type => graph[:response_type], :class => 'ajax_graph'
+          
+        %br
+        =link_to '« Back to voting', url_for(:action => :show, :controller => :earls, :id => params[:id]), :class => 'blue button'
+    
+    .grid_8
+      .target
+        -@choices.each do |choice|
+          -i = @all_choices.index(choice)
+          -photo = Photo.find(choice.data)
+          %a.float_left.photo_frame{:style => "background: url('#{photo.image.url(:medium)}') center center no-repeat;width:70%;margin-bottom:50px;", :href => photo.image.url, :target => '_blank'}
+            -if i == 0
+              =image_tag('photocracy/blue_ribbon.png')
+        
+          .float_left{:style => 'width:20%'}
+            RANKING
+            %h4 
+              =(i + 1).ordinalize
+
+            VOTES
+            %h4 
+              =choice.attributes["wins"] + choice.attributes["losses"]
+
+            SCORE
+            %h4 
+              =choice.attributes['score'].round.to_s + '%'
+          
+            -if choice == @choices.first
+              .gray
+                %i
+                  The score of a photo is the chance that it will win against a randomly chosen photo.
+          .clear
+        =will_paginate @choices, :previous_label => t('results.previous'), :next_label => t('results.next')
+    .clear

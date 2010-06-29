@@ -60,6 +60,17 @@ class QuestionsController < ApplicationController
 					      :offset => 0})
     end
 
+    if @photocracy
+      per_page = 10
+      choices = Choice.find(:all,
+                            :params => {
+                              :question_id => @question_id,
+			                        :limit => per_page,
+					                    :offset => (current_page - 1) * per_page
+					                  })
+      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
+    end
+
     @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
 	       pager.replace(choices)
 
@@ -71,6 +82,16 @@ class QuestionsController < ApplicationController
     @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
     @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
     @available_charts['user_sessions'] = { :title => t('results.user_sessions_over_time_title')}
+
+    if @photocracy
+      @available_charts = [
+        {:title => :scatter_ideas_title, :link => 'scatter_plot_user_vs_seed_ideas', :type => 'scatter_ideas', :div_id => 'scatter_ideas-chart-container', :response_type => 'script'},
+        {:title => :world_map_title, :link => 'voter_map', :type => 'votes', :response_type => 'html', :div_id => 'voter_map'},
+        {:title => :votes_over_time_title, :link => 'timeline_graph', :type => 'votes', :div_id => 'votes-chart-container', :response_type => 'script'},
+        {:title => :user_ideas_over_time_title, :link => 'timeline_graph', :type => 'user_submitted_ideas', :div_id => 'user_submitted_ideas-chart-container', :response_type => 'script'},
+        {:title => :user_sessions_over_time_title, :link => 'timeline_graph', :type => 'user_sessions', :div_id => 'user_sessions-chart-container', :response_type => 'script'}
+      ]
+    end
   end
   
   def admin
@@ -407,21 +428,87 @@ class QuestionsController < ApplicationController
      end
 
   end
+  
+  def scatter_votes_vs_skips
+        @earl = Earl.find params[:id]
+        @question = Question.new(:id => @earl.question_id)
+        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+
+        skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+
+        chart_data = []
+	max_x = 0
+	max_y = 0
+        votes_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
+	      point = {}
+	      point[:x] = votes
+	      max_x = votes.to_i if votes.to_i > max_x
+	      if skips = skips_by_sids.delete(sid)
+	         point[:y] = skips
+	         max_y = skips.to_i if skips.to_i > max_y
+	      else
+	         point[:y] = 0
+	      end
+		
+	      point[:name] = sid
+	      chart_data << point
+      end
+      # if any sids remain, they have not voted
+      skips_by_sids.each do |sid, skips|
+	      point = {}
+	      point[:x] = 0
+	      point[:y] = skips
+	      max_y = skips.to_i if skips.to_i > max_y
+		
+	      point[:name] = sid
+	      chart_data << point
+      end
+      tooltipformatter = "function() { return  this.x + ' Votes '  + this.y + ' Skips '; }"
+      @votes_chart = Highchart.scatter({
+	    :chart => { :renderTo => "scatter_votes_vs_skips-chart-container",
+		    	:margin => [50, 25, 60, 50],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => false },
+            :title => { :text => "Number of Votes and Skips by session",
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :type => 'linear', :min => 0, :max => max_x,
+			 :title => {:enabled => true, :text => "Votes"}},
+	    :y_axis => { :min => 0, :max => max_y, :type => 'linear' , :title => {:enabled => true, :title => "Skips"}},
+	    :series => [ { :type => 'scatter',
+			   :color => 'rgba( 49,152,193, .5)',
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+      respond_to do |format|
+	format.js { render :text => @votes_chart }
+     end
+  end
 
   def scatter_votes_by_session
       type = params[:type] # should be scatter_votes_by_session
       @earl = Earl.find params[:id]
       @question = Question.new(:id => @earl.question_id)
 
-      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-      bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
-
-      bounce_hash = {}
-      bounces_by_sids.each do |k|
+     
+      case type
+      when "votes"
+        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+        bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
+        bounce_hash = {}
+        bounces_by_sids.each do |k|
 	      bounce_hash[k] = 0
-      end
+        end
 
-      votes_by_sids.merge!(bounce_hash)
+        votes_by_sids.merge!(bounce_hash)
+       when "skips"
+        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+       end
 
       chart_data = []
       jitter = Hash.new(0)
@@ -437,9 +524,9 @@ class QuestionsController < ApplicationController
 	      chart_data << point
       end
       
-      tooltipformatter = "function() { return '<b>' + this.x + ' Votes </b>' ; }"
+      tooltipformatter = "function() { return '<b>' + this.x + ' #{type.titleize} </b>' ; }"
       @votes_chart = Highchart.scatter({
-	    :chart => { :renderTo => "#{type}-chart-container",
+	    :chart => { :renderTo => "scatter_#{type}_by_session-chart-container",
 		    	:margin => [50, 25, 60, 50],
 			:borderColor =>  '#919191',
 			:borderWidth =>  '1',
@@ -447,11 +534,11 @@ class QuestionsController < ApplicationController
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => "Number of votes by session",
+            :title => { :text => "Number of #{type} by session",
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :type => 'linear', :min => 0, :max => max,
-			 :title => {:enabled => true, :text => t('common.votes').titleize}},
+			 :title => {:enabled => true, :text => type.titleize}},
 	    :y_axis => { :min => 0, :type => 'linear' },
 	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
 			   :type => 'scatter',
@@ -478,7 +565,8 @@ class QuestionsController < ApplicationController
         @question = Question.new(:id => @earl.question_id)
       end
       
-      if type == 'votes'
+      case type
+      when 'votes'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'votes')
 	 else
@@ -486,7 +574,15 @@ class QuestionsController < ApplicationController
 	 end
          chart_title = t('results.number_of') +  t('common.votes') + t('results.per_day')
          y_axis_title = t('results.number_of') + t('common.votes')
-      elsif type == 'user_sessions'
+      when 'skips'
+	 if totals == "true"
+             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'skips')
+	 else
+             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'skips')
+	 end
+         chart_title = t('results.number_of') +  t('common.skips') + t('results.per_day')
+         y_axis_title = t('results.number_of') + t('common.skips')
+      when 'user_sessions'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
 	 else
@@ -494,7 +590,7 @@ class QuestionsController < ApplicationController
 	 end
          chart_title = t('results.number_of') +  t('common.user_sessions') + t('results.per_day')
          y_axis_title = t('results.number_of') + t('common.user_sessions')
-      elsif type == 'user_submitted_ideas'
+      when 'user_submitted_ideas'
 	 if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')
 	 else
@@ -502,7 +598,7 @@ class QuestionsController < ApplicationController
 	 end
          chart_title = t('results.number_of') +  t('common.ideas').titleize + t('results.per_day')
          y_axis_title = t('results.number_of') + t('common.ideas')
-      elsif type == 'unique_users'
+       when 'unique_users'
 	 if totals == "true"
                  chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
                  y_axis_title = t('results.number_of') + t('common.users')
@@ -716,124 +812,6 @@ class QuestionsController < ApplicationController
 	format.js { render :text => @votes_chart }
       end
   end
-
-	
-  def skip
-    expire_page :action => :results
-    prompt_id = params[:prompt_id]
-    appearance_lookup = params[:appearance_lookup]
-    time_viewed = params[:time_viewed]
-    reason = params[:cant_decide_reason]
-    question_id = params[:id]
-
-    logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
-    @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:id]})
-
-    if skip = @prompt.post(:skip,
-                           :params => {
-                             'auto' => request.session_options[:id],
-                             'time_viewed' => time_viewed,
-                             'appearance_lookup' => appearance_lookup,
-                             'skip_reason'=> reason
-                           })
-
-      next_prompt = Crack::XML.parse(skip.body)['prompt']
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					                                        :ideas => next_prompt['visitor_ideas'].to_i)
-
-      result = {
-        :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
-        :newright          => truncate(next_prompt['right_choice_text'], {:length => 137}),
-        :appearance_lookup => next_prompt['appearance_id'],
-        :prompt_id         => next_prompt['id'],
-        :leveling_message  => leveling_message,
-        :message => t('vote.cant_decide_message')
-      }
-
-      if @photocracy
-        newright_photo = Photo.find(next_prompt['right_choice_text'])
-        newleft_photo = Photo.find(next_prompt['left_choice_text'])
-        result.merge!({
-          :visitor_votes        => next_prompt['visitor_votes'],
-          :newright_photo       => newright_photo.image.url(:medium),
-          :newright_photo_thumb => newright_photo.image.url(:thumb),
-          :newleft_photo        => newleft_photo.image.url(:medium),
-          :newleft_photo_thumb  => newleft_photo.image.url(:thumb),
-          :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
-          :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
-          :voted_at             => Time.now.getutc.iso8601,
-          :voted_prompt_winner  => params[:direction]
-        })
-      end
-
-      render :json => result.to_json
-    else
-      render :json => '{"error" : "Skip failed"}'
-    end
-  end
-         
-  def flag
-    prompt_id = params[:prompt_id]
-
-    appearance_lookup = params[:appearance_lookup]
-    time_viewed = params[:time_viewed]
-    reason = params[:flag_reason]
-    inappropriate_side = params[:side]
-
-    question_id = params[:id]
-
-    @earl = Earl.find_by_question_id(question_id)
-
-    logger.info "Getting ready to mark #{inappropriate_side} of Prompt #{prompt_id}, Question #{params[:id]}"
-    @prompt = Prompt.find(prompt_id, :params => {:question_id => question_id})
-
-    choice_id = inappropriate_side == "left_flag" ? @prompt.left_choice_id : @prompt.right_choice_id 
-
-    @choice = Choice.new
-    @choice.id = choice_id
-    @choice.prefix_options[:question_id] = question_id
-
-    c = @choice.put(:flag, :visitor_identifier => request.session_options[:id], :explanation => reason)
-
-    new_choice = Crack::XML.parse(c.body)['choice']
-
-    flag_choice_success = (c.code == "201" && new_choice['active'] == false)
-
-    respond_to do |format|
-        format.xml  {  head :ok }
-        format.js  { 
-          begin
-             p = @prompt.post(:skip, :params => {'auto' => request.session_options[:id],
-				                 'time_viewed' => time_viewed, 
-					         'appearance_lookup' => appearance_lookup,
-					         'skip_reason'=> reason})
-	  rescue ActiveResource::ResourceConflict
-	     p = nil
-	     flash[:error] = "You flagged an idea as inappropriate. We have deactivated this idea temporarily and sent a notification to the idea marketplace owner. Currently, this idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
-	  end
-       						
-          if flag_choice_success && p
-            newprompt = Crack::XML.parse(p.body)['prompt']
-
-	    leveling_message = Visitor.leveling_message(:votes => newprompt['visitor_votes'].to_i,
-							:ideas => newprompt['visitor_ideas'].to_i)
-            
-	    render :json => {:votes => 20, 
-		             :newleft => truncate((newprompt['left_choice_text']), :length => 137), 
-			     :newright => truncate((newprompt['right_choice_text']), :length => 137),
-			     :leveling_message => leveling_message,
-			     :prompt_id => newprompt['id'],
-			     :appearance_lookup => newprompt['appearance_id'],
-			     :message => t('vote.flag_complete_message')}.to_json
-
-          else
-            render :json => {:error => "Flag of choice failed", 
-		             :redirect => url_for(:controller => :home, :action => :index )}.to_json
-          end
-	  ::IdeaMailer.send_later :deliver_flag_notification, @earl, new_choice["id"], new_choice["data"], reason
-          }
-      end
-    end
 
     def add_idea
       bingo!('submitted_idea')

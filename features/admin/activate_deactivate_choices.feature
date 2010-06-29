@@ -7,8 +7,8 @@ Feature: Activating and deactivating choices
 	  Given an idea marketplace quickly exists with url 'test' and 5 ideas
 	  And I am on the Cast Votes page for 'test'
 	  And I save the current two choices
-          Given I sign in as "test@test.com/password"
-	
+          And I sign in as the admin for 'test'
+
 	Scenario: Activate
 	  When I deactivate the saved left choice
 	  And I go to the Activate page for the saved left choice

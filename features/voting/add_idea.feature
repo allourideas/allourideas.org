@@ -29,7 +29,7 @@ Feature: Add idea to marketplace
       And the idea count should be 2
       When I go to the View Results page for 'test'
       Then I should not see "blah blah blah"
-      When I sign in as "test@test.com/password"
+      When I sign in as the admin for 'test'
       And I go to the Admin Page for 'test'
       Then I should see "blah blah blah"
 	

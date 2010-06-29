@@ -5,7 +5,7 @@ Feature: Toggling choice activation
 
    Background:
 	Given an idea marketplace quickly exists with url 'test' and 4 ideas
-        And I sign in as "test@test.com/password"
+        And I sign in as the admin for 'test'
         And I am on the Admin page for 'test'
 
 	@selenium

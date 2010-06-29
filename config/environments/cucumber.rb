@@ -30,6 +30,8 @@ config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.
 config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
 config.gem 'email_spec', :lib => 'email_spec'
+config.gem 'timecop',
+   :version => ">=0.3.5"
 
 require 'factory_girl'
 require 'shoulda'
@@ -40,6 +42,8 @@ API_HOST = "http://localhost:4000"
 #
 PAIRWISE_USERNAME = "testing@dkapadia.com"
 PAIRWISE_PASSWORD = "wheatthins"
+PHOTOCRACY_USERNAME = "photocracytest@dkapadia.com"
+PHOTOCRACY_PASSWORD = "saltines"
 IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on stored ip address hashes
 
 require 'redis-store'

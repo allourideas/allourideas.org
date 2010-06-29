@@ -169,6 +169,8 @@
 
 	  var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
 	  var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
+    var loserString = loser_link.html();
+    var winnerString = winner_link.html();
 		
 	  var prompt_id = $('#prompt_id').val()
 	  var appearance_lookup = $('#appearance_lookup').val()
@@ -220,18 +222,23 @@
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
-      var maxLength = 70;
+      var maxLength = 45;
 
-      if (winner.length > maxLength)
-        winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
+      if (winnerString.length > maxLength) {
+        //winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
+        winnerString = winnerString.substring(0, maxLength - 3) + "...";
+      }
 
-      if (loser.length > maxLength)
-        loser = "<a href='" + loser_url + "'>" + loser.substring(0, maxLength - 3) + "..." + "</a>";	
+      if (loserString.length > maxLength) {
+        //loser = "<a href='" + loser_url + "'>" + loser.substring(0, maxLength - 3) + "..." + "</a>";	
+        loserString = loserString.substring(0, maxLength - 3) + "...";
+      }
 
       /* har*/
       $('#newlines').remove();
       /*har... these next lines are me... decided i didn't want view all the results anymore */
-      $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
+      $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div><br/>");
+      //$('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
       $("#tellme_prepended").effect("highlight", {}, 1500);
 
       $("#leveling_message_appended").remove();

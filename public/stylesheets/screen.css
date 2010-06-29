@@ -85,7 +85,8 @@ table {
     table .row0 th.score {
       text-align: right; }
     table .row0 th.idea {
-      width: 200px; }
+      width: 200px;
+      text-align: left; }
   table .row1 {
     background-color: #fafafa; }
   table .row2 {
@@ -198,7 +199,7 @@ table {
   width: 545px; }
 
 .votebox {
-  width: 97%;
+  width: 98.5%;
   float: center; }
 
 .votebox table {
@@ -218,7 +219,7 @@ table {
       .votebox table td .round-filledfg a:hover {
         color: white;
         border: none; }
-  .votebox table td .idkidk {
+  .votebox table td .five_padding {
     padding: 5px; }
   .votebox table td table td {
     height: 107.5px; }
@@ -572,7 +573,10 @@ table.tablesorter {
   width: 40%; }
 
 #user_cd_reason {
-  width: 150px; }
+  width: 145px; }
+
+.user_cd_reason {
+  padding-left: 2px; }
 
 .scrollbar_container {
   width: 425px;
@@ -645,3 +649,6 @@ table.tablesorter {
 
 #new_idea_field {
   font-size: 12px; }
+
+.idea_result {
+  color: #555555; }

@@ -21,7 +21,7 @@
       %tr
         %td &nbsp; 
         %td.actual_cd_button.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
-          .idkidk
+          .five_padding
             =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn")   #- har don't link to facebox... removed :rel => 'facebox[.wider]')
         %td &nbsp;
         /* har... there used to be no &nbsp; on the above line and the below indented block was not commented out (still indented tho)
@@ -62,7 +62,8 @@
           %td{:class => padding_class, :id => 'wide_column'}
             =t('vote.cd_'+col2[index])
             -if col2[index] == 'user_other'
-              =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
+              %span.user_cd_reason
+                =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
           - if choice == 'dont_know_left' 
             %tr
               %td.no_top_padding &nbsp;

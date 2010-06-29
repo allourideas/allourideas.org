@@ -72,10 +72,7 @@ class QuestionsController < ApplicationController
     @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
     @available_charts['user_sessions'] = { :title => t('results.user_sessions_over_time_title')}
 
-    #render 'questions/results.html.haml'
     render :partial => 'results'
-    #render :text => "Hi Welcome" 
-    #render :results
   end
   
   def admin

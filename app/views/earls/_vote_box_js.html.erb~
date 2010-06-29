@@ -1,32 +1,4 @@
-  /* Tabbing functionality */
 
-  /* A general tabbing function: */  
-  switch_tabs = function(event) {
-    $('.current').hide();
-
-    $('.current_tab').removeClass('current_tab');  
-    $('.current').removeClass('current');
-
-    if ($(this).hasClass('about_tab')) {
-      $('#about').addClass('current');
-    }
-    else if ($(this).hasClass('vote_tab')) {
-      $('#cast_votes').addClass('current');
-    }
-    else if ($(this).hasClass('results_tab')) {
-      $('#results').addClass('current');
-    }
-    else {  //  must have clicked return to voting
-      $('.vote_tab').addClass('current_tab');   
-      $('#cast_votes').addClass('current');
-    }
-
-    $(this).addClass('current_tab'); 
-    $('.current').show();
-  };
-
-  $('.tab').click(switch_tabs);
-  $('.return_voting').click(switch_tabs);
 
 
   var loadedTime = new Date();
@@ -169,6 +141,8 @@
 
 	  var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
 	  var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
+    var loserString = loser_link.html();
+    var winnerString = winner_link.html();
 		
 	  var prompt_id = $('#prompt_id').val()
 	  var appearance_lookup = $('#appearance_lookup').val()
@@ -220,18 +194,23 @@
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
-      var maxLength = 70;
+      var maxLength = 45;
 
-      if (winner.length > maxLength)
-        winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
+      if (winnerString.length > maxLength) {
+        //winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
+        winnerString = winnerString.substring(0, maxLength - 3) + "...";
+      }
 
-      if (loser.length > maxLength)
-        loser = "<a href='" + loser_url + "'>" + loser.substring(0, maxLength - 3) + "..." + "</a>";	
+      if (loserString.length > maxLength) {
+        //loser = "<a href='" + loser_url + "'>" + loser.substring(0, maxLength - 3) + "..." + "</a>";	
+        loserString = loserString.substring(0, maxLength - 3) + "...";
+      }
 
       /* har*/
       $('#newlines').remove();
       /*har... these next lines are me... decided i didn't want view all the results anymore */
-      $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
+      $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div><br/>");
+      //$('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
       $("#tellme_prepended").effect("highlight", {}, 1500);
 
       $("#leveling_message_appended").remove();
@@ -276,7 +255,7 @@
 
     //  hide/show everything necessary
     //  cd stuff
-    $('.votebox').hide();      
+    $('.vote-footer').hide();      
     $('#cant_decide_options').show();
 
     //  idea/other stuff... yes, it seems redundant, but it's all necessary
@@ -284,7 +263,7 @@
 
     $('.close').bind('click', function() {
       //  make the right stuff reappear/rehide/work
-      $('.votebox').show();      
+      $('.vote-footer').show();      
       $('#cant_decide_options').hide();
       $('.add_container').show();   
     });
@@ -311,7 +290,7 @@
 
     //  make the right stuff reappear/rehide/work
     //  cd stuff
-    $('.votebox').show();      
+    $('.vote-footer').show();      
     $('#cant_decide_options').hide();
 
     //  idea/other stuff... might seem redundant, but it's necessary

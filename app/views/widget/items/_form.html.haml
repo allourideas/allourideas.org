@@ -16,7 +16,7 @@
       = hidden_field_tag 'default_text', box_text
       = hidden_field_tag 'question_id', @question_id 
       %br
-      .fleft
-        = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
+      %a.close.fleft{:href => '#page1'}
+        = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")
       .fright
         .new_idea_submit.rounded#submit_btn{:rel => @question.id}= t('vote.submit')

@@ -74,8 +74,8 @@
                 %td.no_top_padding
                   %i.rightside=@right_choice_text
     .cd_close_and_submit
-      .fleft
-        = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
+      %a.close.fleft{:href => '#page1'}
+        = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
       .fright{:style => 'margin-right: 10px'}
         .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
 

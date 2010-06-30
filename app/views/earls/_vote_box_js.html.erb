@@ -1,4 +1,19 @@
   var loadedTime = new Date();
+  
+  handle_history_events = function(event){
+    var left_side_text = $('#left_side_text').val();
+    var right_side_text = $('#right_side_text').val();
+
+    // This only takes effect if the page is loaded from back or forward buttons
+    if(left_side_text && left_side_text != "blank_history" && left_side_text != $('.leftside').html()){
+      $('.leftside').html(left_side_text)
+    }
+    if(right_side_text && right_side_text != "blank_history" && right_side_text != $('.rightside').html()){
+      $('.rightside').html(right_side_text)
+    }
+  } 
+  
+  handle_history_events();
 
   on_idea_submit_button_click = function(event){		
     var new_idea = $('#facebox .new_idea_field').val();
@@ -109,7 +124,7 @@
 		       opacity:         0.0
 	       }});
 	   },
-	   timeout: 9999995000,
+	   timeout: 10000,
 	   error: function(request,error) {
 		     $.unblockUI();
 		     $('.indicator').hide();
@@ -128,6 +143,11 @@
 		$('.indicator').hide();
 		$('.leftside').html(data["newleft"]);
 		$('.rightside').html(data["newright"]);
+		
+		//used for fraud detection / back button behavior fixing
+		$('#left_side_text').val(data["newleft"]);
+		$('#right_side_text').val(data["newright"]);
+
 		$('#prompt_id').val(data["prompt_id"]);
 		$('#appearance_lookup').val(data["appearance_lookup"]);
 		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
@@ -222,6 +242,11 @@
 			$.unblockUI();
 			$('.leftside').html(data["newleft"]);
 			$('.rightside').html(data["newright"]);
+		       
+			//used for fraud detection / back button behavior fixing
+		        $('#left_side_text').val(data["newleft"]);
+		        $('#right_side_text').val(data["newright"]);
+
 		        $('#prompt_id').val(data["prompt_id"]);
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 	                //clear the radio buttons somehow?
@@ -286,6 +311,11 @@
 			     $.unblockUI();
 			     $('.leftside').html(data["newleft"]);
 			     $('.rightside').html(data["newright"]);
+		            
+			     //used for fraud detection / back button behavior fixing
+		             $('#left_side_text').val(data["newleft"]);
+		             $('#right_side_text').val(data["newright"]);
+
 			     $('#prompt_id').val(data["prompt_id"]);
 			     $('#appearance_lookup').val(data["appearance_lookup"]);
 			     current_item_count = $('#item_count').html();

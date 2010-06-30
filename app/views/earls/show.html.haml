@@ -106,6 +106,9 @@
 =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
 =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
+=hidden_field_tag 'left_side_text', "blank_history"
+=hidden_field_tag 'right_side_text', "blank_history"
+
 -if params[:just_created]
   = render :partial => 'adwords_conversion'
 

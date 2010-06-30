@@ -93,7 +93,8 @@ When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	prev_auto_activate = @question.it_should_autoactivate_ideas
 	
 	unless prev_auto_activate
-          @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => true}) 
+          @question.it_should_autoactivate_ideas = true
+          @question.save
 	end
         
 
@@ -105,7 +106,9 @@ When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 	end
 
 	unless prev_auto_activate
-          @question.put(:set_autoactivate_ideas_from_abroad, :question => { :it_should_autoactivate_ideas => false}) 
+          @question.reload
+          @question.it_should_autoactivate_ideas = false
+          @question.save
 	end
 end
 

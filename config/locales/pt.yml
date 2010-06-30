@@ -65,6 +65,8 @@ pt:
     cd_both_same: Eu acho que ambas as idéias são as mesmas 
     cd_other: Eu apenas não posso decidir 
     cd_user_other: "Outros"
+    cd_explicit_dont_know_left: Eu não sei o suficiente sobre a idéia de esquerda
+    cd_explicit_dont_know_right: Eu não sei o suficiente sobre a idéia de direito
     cant_decide_message: Você não pode decidir.
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
   results:

@@ -162,6 +162,8 @@ en:
     cd_both_same: I think both ideas are the same
     cd_other: I just can't decide
     cd_user_other: "Other:"
+    cd_explicit_dont_know_left: I don't know enough about the left idea            
+    cd_explicit_dont_know_right: I don't know enough about the right idea
     cant_decide_message: You couldn't decide.
     please_explain_flag: "Please explain why this choice is inappropriate:"
     flag_complete_message: You flagged a choice as inappropriate.

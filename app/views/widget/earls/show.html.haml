@@ -14,7 +14,7 @@
     //-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
     &nbsp
     .bottom_padding.fleft
-      = link_to('View More Results', @results_url) 
+      = link_to('View More Results', @results_url, :target => '_blank') 
     //  add the last two tab classes below to make use of already existing javascript
     %a{:href => '#page1'}
       .bottom_padding.fright.return_voting

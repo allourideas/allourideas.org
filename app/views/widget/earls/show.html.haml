@@ -14,7 +14,8 @@
     //-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
     &nbsp
     .bottom_padding.fleft
-      = link_to('View More Results', @results_url, :target => '_blank', image_tag('widget/outgoing_link.png'))
+      = link_to('View More Results ' + image_tag('widget/outgoing_link.png'), @results_url, :target => '_blank')
+      //= link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
     //  add the last two tab classes below to make use of already existing javascript
     %a{:href => '#page1'}
       .bottom_padding.fright.return_voting

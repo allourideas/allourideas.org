@@ -11,7 +11,7 @@
       %table.full{:style => 'margin-top: 5px'}
         %tr.row0
           %th.idea.header_padding= 'Idea'
-          %th.score{:style => 'text-align: right'}= t('common.score').titleize
+          %th.score{:style => 'text-align: center'}= t('common.score').titleize + ' ' + link_to('[?]', '#explanation', :rel => 'facebox', :class => 'question_mark')
           %th &nbsp
         -alt=false
         -for choice in @choices
@@ -19,7 +19,8 @@
             %td.idea_padding.idea_result
               =truncate(h(choice.data), :length => 137)
               =# link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name    /*har*/
-            %td.score{:style => 'text-align: center;'}= choice.attributes['score'].round.to_s# + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')        /*har*/
+            %td
+              .score{:style => 'text-align: center;'}= choice.attributes['score'].round.to_s # + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')        /*har*/
             %td
               .bar-chart
                 %div{:style => "width:#{choice.attributes['score']}%"}
@@ -38,6 +39,7 @@
         -if paginated
           .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
       %br
-  #explanation{:style => 'display:none;'}
-    %h2= t('items.about_scoring')
-    =t('items.score_explain')    
+      #explanation
+        %h2= t('items.about_scoring')
+        =t('items.score_explain')    
+      %br

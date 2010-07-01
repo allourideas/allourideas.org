@@ -85,7 +85,7 @@ table {
     table .row0 th.score {
       text-align: right; }
     table .row0 th.idea {
-      width: 200px;
+      width: 55%;
       text-align: left; }
   table .row1 {
     background-color: #fafafa; }
@@ -257,13 +257,13 @@ table {
   .footer .triple-right p {
     width: 220px; }
 
-div.bar-chart {
+.bar-chart {
   border: 1px solid #cccccc;
-  width: 110px;
+  width: 100px;
   margin: 0 auto;
   padding: 1px;
   background: white; }
-  div.bar-chart > div {
+  .bar-chart > div {
     background-color: #797979;
     height: 12px;
     margin: 0; }
@@ -652,3 +652,6 @@ table.tablesorter {
 
 .idea_result {
   color: #555555; }
+
+.question_mark {
+  color: #000088; }

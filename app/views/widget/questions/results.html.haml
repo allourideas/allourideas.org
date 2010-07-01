@@ -10,9 +10,10 @@
     .ninety
       %table.full{:style => 'margin-top: 5px'}
         %tr.row0
-          %th.idea.header_padding= 'Idea'
-          %th.score{:style => 'text-align: center'}= t('common.score').titleize + ' ' + link_to('[?]', '#explanation', :rel => 'facebox', :class => 'question_mark')
+          %th.idea.header_padding= t('items.idea')
+          %th.score_header{:style => 'text-align: left'}= t('common.score').titleize + ' ' + link_to('[?]', '#explanation', :rel => 'facebox', :class => 'question_mark')
           %th &nbsp
+      %table.full{:style => 'margin-top: 5px'}
         -alt=false
         -for choice in @choices
           %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
@@ -20,7 +21,7 @@
               =truncate(h(choice.data), :length => 137)
               =# link_to truncate(h(choice.data), :length => 137), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name    /*har*/
             %td
-              .score{:style => 'text-align: center;'}= choice.attributes['score'].round.to_s # + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')        /*har*/
+              .score{:style => 'text-align: left;'}= choice.attributes['score'].round.to_s #+ ' ' + link_to('[?]', '#explanation', :rel => 'facebox')        /*har*/
             %td
               .bar-chart
                 %div{:style => "width:#{choice.attributes['score']}%"}

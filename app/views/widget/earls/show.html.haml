@@ -14,12 +14,10 @@
     //-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
     &nbsp
     .bottom_padding.fleft
-      = link_to('View More Results ' + image_tag('widget/outgoing_link.png'), @results_url, :target => '_blank')
+      = link_to(t('nav.view_more_results_widget') + ' ' + image_tag('widget/outgoing_link.png'), @results_url, :target => '_blank')
       //= link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
     //  add the last two tab classes below to make use of already existing javascript
     %a{:href => '#page1'}
-      .bottom_padding.fright.return_voting
-        Return to Voting
-    -# ^bad style here; i should probably have this text in some file elsewhere*/
+      .bottom_padding.fright.return_voting= t('nav.return_voting_widget');
 #about{:style => 'display:none'}
   = render 'questions/about.html.haml'

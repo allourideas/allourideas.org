@@ -23,6 +23,8 @@ pt:
     see_all_ideas: Veja mais...
     make_your_own: Cria Sua Própria Pergunta
     view_idea: Ver Ideia
+    return_voting_widget: Voltar à votação
+    view_more_results_widget: Ver mais resultados
   items:
     # Text on the item detail view page:
     # For example: http://www.allourideas.org/studentgovernment/choices/68
@@ -62,12 +64,14 @@ pt:
     cd_dont_know_left: "Eu não sei o suficiente sobre:"
     cd_dont_know_right: "Eu não sei o suficiente sobre:"
     cd_dont_know_both: Eu não sei o suficiente sobre qualquer idéia 
+    cd_dont_know_both_widget: Eu não sei o suficiente sobre qualquer
     cd_both_same: Eu acho que ambas as idéias são as mesmas 
     cd_other: Eu apenas não posso decidir 
     cd_user_other: "Outros"
-    cd_explicit_dont_know_left: Eu não sei o suficiente sobre a idéia de esquerda
-    cd_explicit_dont_know_right: Eu não sei o suficiente sobre a idéia de direito
+    cd_explicit_dont_know_left_widget: Eu não sei o suficiente sobre a idéia de esquerda
+    cd_explicit_dont_know_right_widget: Eu não sei o suficiente sobre a idéia de direito
     cant_decide_message: Você não pode decidir.
+    click_idea_to_start_widget: Clique em uma idéia para iniciar a votação.
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
   results:
     # Text that appears on the results page of each idea marketplace

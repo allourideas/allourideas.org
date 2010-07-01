@@ -82,10 +82,8 @@ table {
   table .row0 {
     background-color: #3198c1;
     color: white; }
-    table .row0 th.score {
-      text-align: right; }
     table .row0 th.idea {
-      width: 55%;
+      width: 67.5%;
       text-align: left; }
   table .row1 {
     background-color: #fafafa; }
@@ -102,6 +100,8 @@ table {
     margin: 0; }
   table.signup td {
     max-width: 400px; }
+  table .score {
+    padding-right: 5px; }
 
 .create-question h2 {
   padding-bottom: 0px; }
@@ -259,7 +259,7 @@ table {
 
 .bar-chart {
   border: 1px solid #cccccc;
-  width: 100px;
+  width: 95px;
   margin: 0 auto;
   padding: 1px;
   background: white; }
@@ -654,4 +654,5 @@ table.tablesorter {
   color: #555555; }
 
 .question_mark {
-  color: #000088; }
+  color: #000088;
+  font-weight: bolder; }

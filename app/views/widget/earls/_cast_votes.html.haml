@@ -5,10 +5,10 @@
   .votebox
     %table.full
       %tr.prompt.prompter
-        %td.half.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
+        %td.half.idea.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
           = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
         %td
-        %td.right.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
+        %td.right.idea.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
           = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
       -if @earl.flag_enabled?
         %tr

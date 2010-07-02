@@ -5,13 +5,9 @@
 #cast_votes.current
   = render 'cast_votes.html.haml'
 #results{:style => 'display:none'}
-  #render_spot
+  .scrollbar_container#render_spot{:style => 'overflow:auto;'}
   //  = render 'questions/results.html.haml'
-  /* Need to add an actual link to more results */
-  .bottom_status
-    // for some mysterious reason, these don't work anymore
-    //-@results_url = url_for(:action => :results, :controller => :questions, :id => @the_id)
-    //-@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
+  .bottom_status.link_style
     &nbsp
     .bottom_padding.fleft
       = link_to(t('nav.view_more_results_widget') + ' ' + image_tag('widget/outgoing_link.png'), @results_url, :target => '_blank')

@@ -591,9 +591,12 @@ table.tablesorter {
   background-color: #54afe2;
   color: white; }
 
-.bottom_status a {
+.link_style a {
   color: #000088;
-  font-weight: bolder; }
+  font-weight: bold; }
+  .link_style a:hover {
+    color: white;
+    font-weight: bolder; }
 
 .tellmearea {
   font-size: 14px; }
@@ -639,9 +642,6 @@ table.tablesorter {
   width: 429px;
   font-size: 12px; }
 
-.link_color {
-  color: #000088; }
-
 .question {
   font-size: 16px;
   width: 395px;
@@ -651,8 +651,5 @@ table.tablesorter {
   font-size: 12px; }
 
 .idea_result {
-  color: #555555; }
-
-.question_mark {
-  color: #000088;
-  font-weight: bolder; }
+  color: #555555;
+  width: 67.5%; }

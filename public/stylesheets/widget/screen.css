@@ -311,6 +311,9 @@ input, textarea {
 .vote-notice {
   background-color: #00bb00; }
 
+#initial_notice {
+  text-align: center; }
+
 .border *, .border-thick *, .round-filled *, .round-filled-grey * {
   font-size: 0.01px;
   line-height: 0.01px;
@@ -595,8 +598,8 @@ table.tablesorter {
   color: #000088;
   font-weight: bold; }
   .link_style a:hover {
-    color: white;
-    font-weight: bolder; }
+    font-weight: bolder;
+    text-decoration: underline; }
 
 .tellmearea {
   font-size: 14px; }

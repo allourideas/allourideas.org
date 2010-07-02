@@ -57,6 +57,7 @@
         return false;
     }
 
+    $('#initial_notice').hide();            /* har*/
     $('#the_add_box').hide();               /* har*/
     $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
@@ -141,7 +142,7 @@
     var currentTime = new Date();
 	  var time_viewed = currentTime - loadedTime
 
-
+    $('#initial_notice').hide();            /* har*/
 	  $('.example_notice').hide();
 
 	  // TODO refactor to use url_for in rails
@@ -326,6 +327,7 @@
     $('.tellmearea').show();
     $('#the_add_box').hide();  
     $('#submit_btn').hide();  
+    $('#initial_notice').hide();            /* har*/
 	
 	  jQuery(document).trigger('close.facebox')
     

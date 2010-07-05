@@ -14,9 +14,9 @@ $(document).ready(function() {
 
 	// uploading a photo
 	// uses ajaxupload.js (AjaxUpload throws an error if button isn't on page)
-	var button = $('#add_photo_button');
+	var button = $('#choose_file');
 	if (button.length != 0) {
-	  new AjaxUpload(button, {
+		new AjaxUpload(button, {
 	    action: button.attr('href'),
 	    name: 'new_idea',
 	    data: {
@@ -26,17 +26,23 @@ $(document).ready(function() {
 	    autoSubmit: true,
 	    responseType: "json",
 	    onChange: function(file, extension){
-	      $('#upload_status').dialog('open');
+	      $('#photo_step_1').hide();
+	      $('#photo_step_3').hide();
+	      $('#photo_step_2').show();
 	    },
 	    onSubmit : function(file , ext){
 	      // validate jpg, png, jpeg, or gif
 	      if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
-	        $('#upload_status_message').html('Please select another image. <br />(Only jpg png and gifs allowed)');
+	        $('#photo_step_2').hide();
+	        $('#photo_step_1').show();
+	        $('#file_error').show();
 	        return false;
 	      }
 	    },
-	    onComplete: function(file, response) {
-	      $('#upload_status_message').html('<strong>Thanks!</strong><br />Your photo has been submitted for review.<br />It will appear soon.');
+	    onComplete : function(file){
+	      $('#photo_step_1').hide();
+	      $('#photo_step_2').hide();
+	      $('#photo_step_3').show();
 	    }
 	  });
 	};

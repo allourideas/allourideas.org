@@ -152,6 +152,11 @@ photocracy_en:
   vote:
     add_your_idea: Add your own photo here...
     add_your_idea_button: Add your own photo
+    choose_file: Choose file
+    uploading_photo: Uploading photo...
+    thanks: Thanks!
+    photo_submitted: Your photo has been submitted for review. It will appear soon.
+    photo_format_error: Please select another image. (Only jpg png and gifs allowed)
     cast_votes: Cast Votes
     you_chose: You chose
     you_skipped_both: You skipped

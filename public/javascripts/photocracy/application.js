@@ -90,6 +90,8 @@ function submitCantDecide(form) {
 	if (reasonValid(reason)) {
 		$('a.vote').addClass('loading');
 		$('#cant_decide_options').dialog('close');
+		$('input[name=cant_decide_reason]').attr('checked', false);
+		$('input[name=reason_text]').val('');
 
 		jQuery.ajax({
 			type: 'POST',

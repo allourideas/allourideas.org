@@ -29,24 +29,34 @@ h1 {
 #prompt {
   margin-bottom: -20px; }
 
-.photo_frame {
+a.photo_frame {
   display: block;
   height: 350px;
   overflow: hidden;
   text-decoration: none; }
+  a.photo_frame table {
+    text-align: center;
+    valign: middle;
+    height: 100%;
+    width: 100%; }
+    a.photo_frame table td {
+      vertical-align: middle; }
+  a.photo_frame img {
+    border: 3px solid #000; }
 
 a.photo_frame:hover {
-  /* border: 1px solid #2b6fc0; */
   cursor: pointer; }
 
 .click_to_vote {
+  position: relative;
+  top: -60%;
+  z-index: 5;
   text-align: center;
   color: #000;
   background: #fff;
   opacity: 0.8;
   width: 160px;
   margin: 0 auto;
-  margin-top: 150px;
   padding: 5px;
   font-size: 20px;
   font-weight: bold;

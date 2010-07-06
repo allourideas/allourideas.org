@@ -1,8 +1,11 @@
-%a.photo_frame{:style => "background: url('#{photo.image.url(:medium)}') center center no-repeat;",
-              :href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
+%a.photo_frame{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
               :thumb => photo.image.url(:thumb), :class => "#{direction} vote", :direction => direction}
+  %table
+    %td
+      =image_tag(photo.image.url(:medium))
   -unless session[:has_voted] == true
     .click_to_vote
       Click to Vote
+
 -if @earl.flag_enabled?
   =link_to_function t('vote.flag_as_inappropriate'), "$('#flag_as_inappropriate').dialog('open'); $('#inappropriate_side').val('#{direction}_flag')", :class => "gray #{direction} flag"

@@ -11,7 +11,7 @@
     .center{:style => 'padding-bottom:20px'}
       .small_margin_bottom
         =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
-      =link_to t('vote.add_your_idea_button'), add_idea_question_url(@question, :format => :js), :class => 'blue button', :id => 'add_photo_button', :question_id => @question.id
+      =link_to_function t('vote.add_your_idea_button'), "$('#add_photo').dialog('open');", :class => 'blue button', :id => 'add_photo_button_for_dialog'
 
 .container_12
   #secondary_content
@@ -78,10 +78,27 @@
         %p
           %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
 
-  #upload_status{:style => 'display:none;', :title => t('vote.add_your_idea_button')}
-    #upload_status_message
-      %p Uploading your photo...
-      =image_tag 'photocracy/indicator.gif'
+  #add_photo{:style => 'display:none;', :title => t('vote.add_your_idea_button')}
+    #photo_step_1
+      %p
+        By uploading an image, I agree to place my image in the public domain under a
+        =link_to 'Creative Commons CC0 waiver', "http://creativecommons.org/publicdomain/zero/1.0/", :target => '_blank'
+      %p#file_error{:style => 'display:none;color:red;'}
+        =t('vote.photo_format_error')
+      %p
+        %input{:type => 'submit', :value => t('vote.choose_file'), :href => add_idea_question_url(@question, :format => :js), :id => 'choose_file', :question_id => @question.id}
+
+    #photo_step_2{:style => 'display:none'}
+      %p
+        =t('vote.uploading_photo')
+      =image_tag('/images/photocracy/indicator.gif')
+
+    #photo_step_3{:style => 'display:none'}
+      %p
+        %strong
+          =t('vote.thanks')
+        %br
+        =t('vote.photo_submitted')
 
   :javascript
     $(document).ready(function(){
@@ -89,11 +106,14 @@
 
       $('#flag_as_inappropriate').dialog({autoOpen:false, modal:true, width:450});
 
-      $('#upload_status').dialog({autoOpen: false, modal: true, width: 400,
-        close: function(event, ui) {
-          $('#upload_status_message').html(
-            "<p>Uploading your photo...</p><img src='/images/photocracy/indicator.gif' />"
-          )
+      $('#add_photo').dialog({
+        autoOpen:false,
+        width:400,
+        beforeclose: function(event, ui) {
+          $('#photo_step_1').show();
+          $('#file_error').hide();
+          $('#photo_step_2').hide();
+          $('#photo_step_3').hide();
         }
       });
     });

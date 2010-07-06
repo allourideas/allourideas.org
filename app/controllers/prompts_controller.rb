@@ -12,7 +12,9 @@ class PromptsController < ApplicationController
           :vote => { :direction => params[:direction],
                      :visitor_identifier => request.session_options[:id],
                      :time_viewed => params[:time_viewed],
-                     :appearance_lookup => params[:appearance_lookup]
+                     :appearance_lookup => params[:appearance_lookup],
+                     :tracking => {:x_click_offset => params[:x_click_offset],
+                                   :y_click_offset => params[:y_click_offset]}
                    },
           :next_prompt => { :with_appearance => true,
                             :with_visitor_stats => true,

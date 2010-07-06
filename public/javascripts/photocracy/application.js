@@ -5,18 +5,25 @@ $(document).ready(function() {
 			alert("One sec, we're loading the next pair...");
 		} else {
 			$('.click_to_vote').hide(); // visible if the users hasn't voted
+
+			// record image location before clearning
+			var x_click_offset = calculate_click_offset('x', e, $(this));
+			var y_click_offset = calculate_click_offset('y', e, $(this));
+			clearImages();
+
 			$('a.vote').addClass('loading'); // spinner
 			$(this).addClass('chosen');  // checkmark
-			castVote($(this));
+
+			castVote($(this), x_click_offset, y_click_offset);
 		}
 		e.preventDefault();
   });
 
 	// uploading a photo
 	// uses ajaxupload.js (AjaxUpload throws an error if button isn't on page)
-	var button = $('#add_photo_button');
+	var button = $('#choose_file');
 	if (button.length != 0) {
-	  new AjaxUpload(button, {
+		new AjaxUpload(button, {
 	    action: button.attr('href'),
 	    name: 'new_idea',
 	    data: {
@@ -26,17 +33,23 @@ $(document).ready(function() {
 	    autoSubmit: true,
 	    responseType: "json",
 	    onChange: function(file, extension){
-	      $('#upload_status').dialog('open');
+	      $('#photo_step_1').hide();
+	      $('#photo_step_3').hide();
+	      $('#photo_step_2').show();
 	    },
 	    onSubmit : function(file , ext){
 	      // validate jpg, png, jpeg, or gif
 	      if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
-	        $('#upload_status_message').html('Please select another image. <br />(Only jpg png and gifs allowed)');
+	        $('#photo_step_2').hide();
+	        $('#photo_step_1').show();
+	        $('#file_error').show();
 	        return false;
 	      }
 	    },
-	    onComplete: function(file, response) {
-	      $('#upload_status_message').html('<strong>Thanks!</strong><br />Your photo has been submitted for review.<br />It will appear soon.');
+	    onComplete : function(file){
+	      $('#photo_step_1').hide();
+	      $('#photo_step_2').hide();
+	      $('#photo_step_3').show();
 	    }
 	  });
 	};
@@ -82,8 +95,11 @@ function submitCantDecide(form) {
 	var reason = $('input[name=cant_decide_reason]:checked').val();
 
 	if (reasonValid(reason)) {
+		clearImages();
 		$('a.vote').addClass('loading');
 		$('#cant_decide_options').dialog('close');
+		$('input[name=cant_decide_reason]').attr('checked', false); // clear radio buttons
+		$('input[name=reason_text]').val(''); // clear text box
 
 		jQuery.ajax({
 			type: 'POST',
@@ -118,6 +134,7 @@ function submitFlag(form) {
   	alert("Please include an explanation");
     return false;
  	} else {
+		clearImages();
 		$('a.vote').addClass('loading');
 		$('#flag_as_inappropriate').dialog('close');
 
@@ -165,7 +182,7 @@ function reasonValid(reason) {
 	}
 }
 
-function castVote(choice) {
+function castVote(choice, x, y) {
 	var VOTE_CAST_AT = new Date();
 
 	jQuery.ajax({
@@ -176,7 +193,8 @@ function castVote(choice) {
 	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
 			time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
 	    appearance_lookup: $('#appearance_lookup').val(),
-			locale: RAILS_LOCALE
+			x_click_offset: x,
+			y_click_offset: y
 	  },
 	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {
@@ -191,6 +209,15 @@ function castVote(choice) {
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
 	});
+}
+
+function calculate_click_offset(axis, e, choice) {
+	var offset = $(choice).find('img').offset();
+	if (axis == 'x') {
+		return (e.pageX - offset.left);
+	} else {
+		return (e.pageY - offset.top);
+	}
 }
 
 function updateVotingHistory(data) {
@@ -213,7 +240,7 @@ function loadNextPrompt(data) {
 	
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
-		$('a.vote.' + side).css('background', " url('" + data['new' + side + '_photo'] + "') center center no-repeat");
+		$('a.vote.' + side + ' > table').html("<td><img src='" + data['new' + side + '_photo'] + "'/></td>");
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
@@ -236,6 +263,12 @@ function voteError(request, textStatus, errorThrown) {
 function increment(number){
 	return parseInt(number) + 1;
 }
+
 function decrement(number){
 	return parseInt(number) - 1;
+}
+
+function clearImages() {
+	$('a.vote.right > table').html('');
+	$('a.vote.left > table').html('');
 }

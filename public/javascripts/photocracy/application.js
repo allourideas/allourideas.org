@@ -5,6 +5,8 @@ $(document).ready(function() {
 			alert("One sec, we're loading the next pair...");
 		} else {
 			$('.click_to_vote').hide(); // visible if the users hasn't voted
+			$('a.vote.right > table').html(''); // clear images
+			$('a.vote.left > table').html(''); // clear images
 			$('a.vote').addClass('loading'); // spinner
 			$(this).addClass('chosen');  // checkmark
 			castVote($(this));
@@ -90,8 +92,8 @@ function submitCantDecide(form) {
 	if (reasonValid(reason)) {
 		$('a.vote').addClass('loading');
 		$('#cant_decide_options').dialog('close');
-		$('input[name=cant_decide_reason]').attr('checked', false);
-		$('input[name=reason_text]').val('');
+		$('input[name=cant_decide_reason]').attr('checked', false); // clear radio buttons
+		$('input[name=reason_text]').val(''); // clear text box
 
 		jQuery.ajax({
 			type: 'POST',
@@ -221,7 +223,7 @@ function loadNextPrompt(data) {
 	
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
-		$('a.vote.' + side).css('background', " url('" + data['new' + side + '_photo'] + "') center center no-repeat");
+		$('a.vote.' + side + ' > table').html("<td><img src='" + data['new' + side + '_photo'] + "'/></td>");
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url

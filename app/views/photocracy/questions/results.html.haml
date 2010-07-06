@@ -32,7 +32,7 @@
           -photo = Photo.find(choice.data)
           %a.float_left.photo_frame{:style => "background: url('#{photo.image.url(:medium)}') center center no-repeat;width:70%;margin-bottom:50px;", :href => photo.image.url, :target => '_blank'}
             -if i == 0
-              =image_tag('photocracy/blue_ribbon.png')
+              / =image_tag('photocracy/blue_ribbon.png')
         
           .float_left{:style => 'width:20%'}
             RANKING

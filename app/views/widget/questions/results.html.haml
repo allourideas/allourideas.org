@@ -44,9 +44,8 @@
       -#{:style => 'display:none'}
 
       #explanation
-        .idkcontent
-          %h2= t('items.about_scoring')
-          =t('items.score_explain')    
+        %h2= t('items.about_scoring')
+        =t('items.score_explain')    
       %br
       -# Add enough breaks to push #explanation down, if necessary
       -for i in (@question.attributes['choices_count']..12)

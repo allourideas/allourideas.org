@@ -232,6 +232,12 @@ en:
     add_to_improve_AOI_2: "  You can also vote or add an idea to the"
   about_page: 
     intro: You are participating in an “idea marketplace” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
+    exp_widget: This idea marketplace widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
+    faq_widget: "Here are some frequently asked questions:"
+    open_source_q_widget: Is all of this open-source?
+    open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: I have another question, how can I get in touch with you?
+    contact_exp_widget: Send us an email at info@allourideas.org.
     how_many_votes_q: How many votes can I cast? When does it end?
     how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
     how_many_ideas_q: How many ideas can I add? What happens to my idea once I add it?
@@ -240,6 +246,7 @@ en:
     view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
     make_my_own_q: This is neat. Can I make one of these myself?
     make_my_own_exp: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace here: http://www.allourideas.org/questions/new."
+    make_my_own_exp_widget: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace widget: http://www.allourideas.org"
   admin: 
     user_ideas: User Ideas
     active_user_ideas: Active User Ideas 

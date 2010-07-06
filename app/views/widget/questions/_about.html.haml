@@ -6,21 +6,48 @@
   %body
     .scrollbar_container{:style => 'overflow:auto;'}
       .aboutpage     
-        %p=t('about_page.intro')
-    
-        %h2="1) " + t('about_page.how_many_votes_q')
+        %p= t('about_page.intro')
+
+        %p= t('about_page.exp_widget')
+
+        %p= t('about_page.faq_widget')
+        /* Actual ordered list doesn't work here, for some reason */
+        %ol.faq
+          %li
+            %a{:href => '#about_q1'}="1) " + t('about_page.how_many_votes_q')
+          %li
+            %a{:href => '#about_q2'}="2) " + t('about_page.how_many_ideas_q')
+          %li
+            %a{:href => '#about_q3'}="3) " + t('about_page.view_results_q') 
+          %li
+            %a{:href => '#about_q4'}="4) " + t('about_page.make_my_own_q')
+          %li
+            %a{:href => '#about_q5'}="5) " + t('about_page.open_source_q_widget')
+          %li
+            %a{:href => '#about_q6'}="6) " + t('about_page.contact_q_widget')
+
+        %br
+
+        %h2#about_q1="1) " + t('about_page.how_many_votes_q')
         %p= t('about_page.how_many_votes_exp')
         
-        %h2="2) " + t('about_page.how_many_ideas_q')
+        %h2#about_q2="2) " + t('about_page.how_many_ideas_q')
         %p=t('about_page.how_many_ideas_exp')
 
-        %h2="3) " + t('about_page.view_results_q') 
+        %h2#about_q3="3) " + t('about_page.view_results_q') 
         %p= t('about_page.view_results_exp')
     
-        %h2="4) " + t('about_page.make_my_own_q')
-        %p=t('about_page.make_my_own_exp')
+        %h2#about_q4="4) " + t('about_page.make_my_own_q')
+        %p=t('about_page.make_my_own_exp_widget')
 
-      /
+        %h2#about_q5="5) " + t('about_page.open_source_q_widget')
+        %p=t('about_page.open_source_exp_widget')
+
+        %h2#about_q6="6) " + t('about_page.contact_q_widget')
+        %p=t('about_page.contact_exp_widget')
+
+      / 
+        %p=t('about_page.open_source_exp_widget')
         %p= t('about_page.intro')
         %ol
           %li= t('about_page.how_many_votes_q')

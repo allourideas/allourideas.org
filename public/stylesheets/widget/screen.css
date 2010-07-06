@@ -656,3 +656,6 @@ table.tablesorter {
 .idea_result {
   color: #555555;
   width: 67.5%; }
+
+.faq a {
+  padding-left: 5px; }

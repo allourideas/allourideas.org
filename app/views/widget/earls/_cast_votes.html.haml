@@ -37,7 +37,8 @@
         %br
       #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
       .tellmearea
-        #initial_notice.notice= t('vote.click_idea_to_start_widget')
+        #initial_notice.notice{:style => 'background-color: white; border: none; font-size: 16px'}= t('vote.click_idea_to_start_widget')
+        /* ^^^fix style of this; should be in stylesheet
   /* moved this entire block here
   #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
     %h2= t('vote.cant_decide_title')
@@ -123,6 +124,7 @@
 .bottom_status.leveling_message
   #leveling_message_appended
     /* Use a table here to fix a small issue with a non-linking space after the first link */
-    %table.link_style{:border => 0, :cellpadding => 0}
+    /* Should put this css in a stylesheet. */
+    %table.link_style{:border => 0, :cellpadding => 0, :style => 'color: #008'}
       %td= 'This idea marketplace is powered by ' + link_to('All Our Ideas', 'http://allourideas.org', :target => '_blank')
       %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), 'http://allourideas.org', :target => '_blank')

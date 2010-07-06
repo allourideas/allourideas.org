@@ -1,3 +1,5 @@
+// Note: Replaced all color #919191 with #555555
+
 *
   margin: 0 auto
   padding: 0
@@ -24,7 +26,7 @@ a
   clear: both
 
 .grey, label
-  color: #919191
+  color: #555555
 
 $scaleFactor = .5 /* har */
 
@@ -32,7 +34,7 @@ body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
   width: 850px * $scaleFactor                   /* har */
-  color: #919191                                /* this has the stupid gray... change it?*/
+  color: #555555                                /* this has the stupid gray... change it?*/
   line-height: 16pt
 
 h1, h2, h3, h4, h5, h6, .large-text
@@ -69,7 +71,7 @@ ul li
   width: 90%
 
 input.text
-  border: 1px solid #919191
+  border: 1px solid #555555
   padding: 3px 3px 2px
 
 .padding
@@ -148,7 +150,7 @@ table
           border-top: 1px dotted #54afe2
           border-bottom: 1px dotted #54afe2
         &.down
-          color: #919191
+          color: #555555
   a.logo:hover
     border: none
 
@@ -301,7 +303,7 @@ hr
 
 input, textarea
   font-size: 13px
-  color: #919191
+  color: #555555
   font-family: Arial, Helvetica, sans-serif
 
 .form-btn
@@ -329,6 +331,9 @@ input, textarea
 
 .vote-notice
   background-color: #0B0
+
+#initial_notice
+  text-align: center
 
 .border *, .border-thick *, .round-filled *, .round-filled-grey *
   font-size: 0.01px
@@ -620,8 +625,9 @@ table.tablesorter
   color: #008
   font-weight: bold
   &:hover
-    color: white
+    //color: white
     font-weight: bolder
+    text-decoration: underline
 
 #tellme_prepend_spot
 //  text-align: left
@@ -683,3 +689,7 @@ table.tablesorter
 .idea_result
   color: #555555
   width: 67.5%  
+
+.faq
+  a
+    padding-left: 5px

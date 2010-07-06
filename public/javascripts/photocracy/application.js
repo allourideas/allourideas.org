@@ -5,8 +5,7 @@ $(document).ready(function() {
 			alert("One sec, we're loading the next pair...");
 		} else {
 			$('.click_to_vote').hide(); // visible if the users hasn't voted
-			$('a.vote.right > table').html(''); // clear images
-			$('a.vote.left > table').html(''); // clear images
+			clearImages();
 			$('a.vote').addClass('loading'); // spinner
 			$(this).addClass('chosen');  // checkmark
 			castVote($(this));
@@ -90,6 +89,7 @@ function submitCantDecide(form) {
 	var reason = $('input[name=cant_decide_reason]:checked').val();
 
 	if (reasonValid(reason)) {
+		clearImages();
 		$('a.vote').addClass('loading');
 		$('#cant_decide_options').dialog('close');
 		$('input[name=cant_decide_reason]').attr('checked', false); // clear radio buttons
@@ -128,6 +128,7 @@ function submitFlag(form) {
   	alert("Please include an explanation");
     return false;
  	} else {
+		clearImages();
 		$('a.vote').addClass('loading');
 		$('#flag_as_inappropriate').dialog('close');
 
@@ -246,6 +247,12 @@ function voteError(request, textStatus, errorThrown) {
 function increment(number){
 	return parseInt(number) + 1;
 }
+
 function decrement(number){
 	return parseInt(number) - 1;
+}
+
+function clearImages() {
+	$('a.vote.right > table').html('');
+	$('a.vote.left > table').html('');
 }

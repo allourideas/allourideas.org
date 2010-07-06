@@ -5,10 +5,16 @@ $(document).ready(function() {
 			alert("One sec, we're loading the next pair...");
 		} else {
 			$('.click_to_vote').hide(); // visible if the users hasn't voted
+
+			// record image location before clearning
+			var x_click_offset = calculate_click_offset('x', e, $(this));
+			var y_click_offset = calculate_click_offset('y', e, $(this));
 			clearImages();
+
 			$('a.vote').addClass('loading'); // spinner
 			$(this).addClass('chosen');  // checkmark
-			castVote($(this));
+
+			castVote($(this), x_click_offset, y_click_offset);
 		}
 		e.preventDefault();
   });
@@ -176,7 +182,7 @@ function reasonValid(reason) {
 	}
 }
 
-function castVote(choice) {
+function castVote(choice, x, y) {
 	var VOTE_CAST_AT = new Date();
 
 	jQuery.ajax({
@@ -187,7 +193,8 @@ function castVote(choice) {
 	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
 			time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
 	    appearance_lookup: $('#appearance_lookup').val(),
-			locale: RAILS_LOCALE
+			x_click_offset: x,
+			y_click_offset: y
 	  },
 	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {
@@ -202,6 +209,15 @@ function castVote(choice) {
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
 	});
+}
+
+function calculate_click_offset(axis, e, choice) {
+	var offset = $(choice).find('img').offset();
+	if (axis == 'x') {
+		return (e.pageX - offset.left);
+	} else {
+		return (e.pageY - offset.top);
+	}
 }
 
 function updateVotingHistory(data) {

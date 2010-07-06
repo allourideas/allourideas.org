@@ -32,13 +32,19 @@
             &nbsp;
     .clear
     %center.add_container
-      .add_idea
-        = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
+      .add_idea      
+        - link_to("#the_add_box") do
+          .add_idea_button.rounded
+            = t('vote.add_your_idea_button')  
+        //= link_to(t('vote.add_your_idea_button'), "#the_add_box", :class => "add_idea_button rounded") 
+        //= render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
+      .hideable_white_space
         %br
       #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
       .tellmearea
         #initial_notice.notice{:style => 'background-color: white; border: none; font-size: 16px'}= t('vote.click_idea_to_start_widget')
         /* ^^^fix style of this; should be in stylesheet
+
   /* moved this entire block here
   #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
     %h2= t('vote.cant_decide_title')
@@ -81,14 +87,20 @@
       .fright{:style => 'margin-right: 10px'}
         .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
 
-  /* har... was tabbed one to the left, don't want stack overflow message
-  /
-    -unless session[:has_voted]
-      -ab_test(@ab_test_stackoverflow_name, %w{control first_time no_first_time}, :conversion => 'voted') do |the_choice|
-        - unless the_choice == 'control'
-          .firsttime
-            = t('ab_tests.test_stackoverflow.'+ the_choice)
-            %span{:id => "close", :style => "float: right; padding-right: 15px; cursor: pointer;"}= "X";
+  /* moved this entire block here
+  .add-box#the_add_box{:style => 'display:none'}
+    - box_text = t('vote.add_your_idea')
+    .indicator{:style => "display:none;"}= image_tag('indicator.gif')
+    = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
+    = hidden_field_tag 'default_text', box_text
+    = hidden_field_tag 'question_id', @question_id 
+    %br
+    %a.close.fleft{:href => '#page1'}
+      = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")
+    .fright
+      .new_idea_submit.rounded#submit_btn{:rel => @question.id}= t('vote.submit')
+    %br
+    %br
 
   -if @earl.flag_enabled?
     #flag_inappropriate{:style => 'display:none'}
@@ -125,6 +137,7 @@
   #leveling_message_appended
     /* Use a table here to fix a small issue with a non-linking space after the first link */
     /* Should put this css in a stylesheet. */
+    /* Need to put text in en.yml */
     %table.link_style{:border => 0, :cellpadding => 0, :style => 'color: #008'}
       %td= 'This idea marketplace is powered by ' + link_to('All Our Ideas', 'http://allourideas.org', :target => '_blank')
       %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), 'http://allourideas.org', :target => '_blank')

@@ -34,6 +34,7 @@
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
     $('.add_idea_button.rounded').hide();
+    $('.hideable_white_space').hide();
     $('.tellmearea').hide();
     $('#the_add_box').show();  
     $('#submit_btn').show();  
@@ -63,6 +64,7 @@
     $('.add_idea_button.rounded').show();   /* har*/
     $('.tellmearea').show();
 	  $('.indicator').show();
+    $('.hideable_white_space').show();      /* har*/
     $('.new_idea_field').val('');           /* har... could do default text here, but then the text has to actually be deleted*/
 
     //  append this for scrolling funtionality... har
@@ -122,8 +124,14 @@
   $('.close').bind('click', function(event) {
     $('#the_add_box').hide();               /* har*/
     $('#submit_btn').hide();                /* har*/
+    $('.hideable_white_space').show();      /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
     $('.tellmearea').show();
+
+      $('.vote-footer').show();      
+      $('#cant_decide_options').hide();
+      $('.add_container').show();   
+
   });
 
   //  bind to voting

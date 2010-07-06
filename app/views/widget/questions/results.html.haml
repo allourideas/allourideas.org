@@ -47,6 +47,7 @@
         %h2= t('items.about_scoring')
         =t('items.score_explain')    
       %br
-      -# Add enough breaks to push #explanation down, if necessary
-      -for i in (0..8)
-        %br
+      -# Add enough breaks to make it so that clicking [?] jumps to #explanation, if necessary
+      -if (@question.attributes['choices_count'] < 10)
+        -for i in (0..8)
+          %br

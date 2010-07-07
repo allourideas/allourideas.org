@@ -75,6 +75,8 @@ Rails::Initializer.run do |config|
     :version => '2.0.3'
   config.gem 'haml',
 	  :version => '3.0.9'
+  config.gem 'newrelic_rpm',
+	  :version => '2.12.3'
 end
 
 PRODUCTION_API_HOST = ENV['API_HOST']

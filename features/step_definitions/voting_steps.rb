@@ -124,3 +124,32 @@ end
 When /^I close the facebox$/ do
         page.evaluate_script("$.facebox.close();")
 end
+
+Given /^I save the current appearance lookup?$/ do 
+	#The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
+        begin
+	  @appearance_lookup = page.locate('#appearance_lookup')[:value].to_s
+	rescue Capybara::ElementNotFound
+          @appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
+	end
+	if @appearance_lookup.blank?
+	  raise Capybara::ElementNotFound
+	end
+end
+
+Then /^the current appearance lookup should (not )?match the saved appearance lookup$/ do |negation|
+        begin
+	  @new_appearance_lookup = page.locate('#appearance_lookup')[:value].to_s
+	rescue Capybara::ElementNotFound
+          @new_appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
+	end
+	if @new_appearance_lookup.blank?
+	  raise Capybara::ElementNotFound
+	end
+
+        if negation.blank?
+	   @new_appearance_lookup.should == @appearance_lookup
+        else
+	   @new_appearance_lookup.should_not == @appearance_lookup
+        end
+end

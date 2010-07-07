@@ -56,7 +56,9 @@ class PromptsController < ApplicationController
                            :skip => {
                              :visitor_identifier => request.session_options[:id],
                              :time_viewed => time_viewed,
-                             :skip_reason => reason},
+                             :skip_reason => reason,
+                             :appearance_lookup => params[:appearance_lookup]
+                             },
                            :next_prompt => {
                              :with_appearance => true,
                              :with_visitor_stats => true,

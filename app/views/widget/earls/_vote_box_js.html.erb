@@ -165,8 +165,11 @@
 	  var loser_link = $('a#' + loser_side + 'side');
 	  var winner_link = $('a#' + winner_side + 'side');
 
+    var loserString = loser_link.html();
+    var winnerString = winner_link.html();
+
 	  var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id");
-          var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id");
+    var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id");
 	
 
 	  if(the_locale != 'en'){
@@ -177,8 +180,6 @@
 
 	  var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
 	  var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
-    var loserString = loser_link.html();
-    var winnerString = winner_link.html();
 		
 	  var prompt_id = $('#prompt_id').val()
 	  var appearance_lookup = $('#appearance_lookup').val()
@@ -191,42 +192,47 @@
 		   'time_viewed' : time_viewed,
 		   'prompt_id': prompt_id,
 		   'appearance_lookup': appearance_lookup,
-		   'direction' : winner_side,
+		   'direction' : winner_side
 		   },
 	     beforeSend: function() {
-	      $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-	        backgroundColor:  '#000', 
-		      opacity:          0.0,
-		      cursor:           null
-	      }});
-			  
-        $('.indicator').show();    // was here b4
+	         $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+	                 backgroundColor: '#000', 
+		         opacity:         0.0
+	         }});
 
+        $('.indicator').show();    // was here b4
         //  append this for scrolling funtionality... har
         $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
         $('#newlines').slideDown(1000);
+
 	     },
-	     timeout: 5000,
+	     timeout: 10000,
 	     error: function(request,error) {
-		       $('.indicator').hide();
 		       $.unblockUI();
+		       $('.indicator').hide();
 		       if (error == "timeout") {
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_timeout_error')%></div>");
-             $("#error_prepended").effect("highlight", {color: '#ff0000'}, 1500);
+		         $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
 		       }
 		       else {
 		         $('.tellmearea').prepend("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_other_error')%></div>");
-             $("#error_prepended").effect("highlight", {color: '#ff0000'}, 1500);
+		         $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
 		       }
 
 		       loadedTime = new Date(); //reset loaded time
 
 	     },
 	     success: function(data){
+		  $.unblockUI();
 		  $('.indicator').hide();
 		  $('.leftside').html(data["newleft"]);
 		  $('.rightside').html(data["newright"]);
+		
+		  //used for fraud detection / back button behavior fixing
+		  $('#left_side_text').val(data["newleft"]);
+		  $('#right_side_text').val(data["newright"]);
+
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
@@ -253,11 +259,9 @@
       $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 //      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
-
-
 		  current_vote_count = $('#votes_count').html();
 		  $('#votes_count').html(increment(current_vote_count));
-		  $.unblockUI();
+
 		  $(".votebox tr.prompt td.idea").each(function(el) {
 		        $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
 			          $(this).css("background", "#3198c1");
@@ -282,9 +286,9 @@
 
 		                  loadedTime = new Date() //reset loaded time
 		  }// End success
-	  }); // End ajax method
+	       }); // End ajax method
 	    return false;
-	});
+	  });
  
   // bind to can't decide
   $('#cant_decide_btn').bind('click', function() { 

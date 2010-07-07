@@ -5,10 +5,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :passwords, :controller => "clearance/passwords"
 
   map.resources :questions, 
-                :member => {:add_idea => :post, 
-                            :toggle => :post, 
-                            :toggle_autoactivate => :post,
-			    :delete_logo => :delete } do |question|
+                :member => {
+                  :add_idea => :post,
+                  :toggle => :post,
+                  :toggle_autoactivate => :post,
+			            :delete_logo => :delete,
+			            :add_photos => :get,
+			            :upload_photos => :post
+			          } do |question|
 	  question.resources :prompts, 
 		  :only => [:vote, :skip, :flag],
 		  :member => {

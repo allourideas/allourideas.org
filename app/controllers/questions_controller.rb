@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   require 'geokit'
-  before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export]
+  before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos]
   before_filter :admin_only, :only => [:index]
   #caches_page :results
   
@@ -951,9 +951,9 @@ class QuestionsController < ApplicationController
     if @question.valid?(@photocracy) && (signed_in? || (@user.valid? && @user.save && sign_in(@user)))
       @question.attributes.merge!({'local_identifier' => current_user.id,
   	    			                     'visitor_identifier' => request.session_options[:id]})
-      @question.save
+      return true if @question.save
     else
-      false
+      return false
     end
   end
 
@@ -1047,17 +1047,24 @@ class QuestionsController < ApplicationController
       render :layout => false
   end
 
+  def add_photos
+    @question = Question.find(params[:id])
+  end
 
-  # 
-  # # DELETE /questions/1
-  # # DELETE /questions/1.xml
-  # def destroy
-  #    @question = Question.find_by_name(params[:id])
-  #   @question.destroy
-  # 
-  #   respond_to do |format|
-  #     format.html { redirect_to(questions_url) }
-  #     format.xml  { head :ok }
-  #   end
-  # end
+  protect_from_forgery :except => [:upload_photos] #necessary because the flash isn't sending AUTH_TOKEN
+  def upload_photos
+    new_idea_data = Photo.create(:image => params[:Filedata]).id
+    choice_params = {
+      :visitor_identifier => request.session_options[:id],
+      :data => new_idea_data,
+	    :question_id => params[:id],
+	    :active => true
+	  }
+
+	  if Choice.create(choice_params)
+	    render :text => 'yeah!'
+    else
+      render :text => 'Choice creation failed', :status => 500
+    end
+  end
 end

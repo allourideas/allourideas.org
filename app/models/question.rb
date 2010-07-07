@@ -99,7 +99,7 @@ class Question < ActiveResource::Base
   end
 
   def add_sample_idea
-    i = self.ideas.lines.to_a.delete_if {|i| i.blank?}
+    i = self.ideas.lines.to_a.delete_if {|l| l.blank?}
     self.ideas += "\nsample choice" if i.length == 1
   end
 end

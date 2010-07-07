@@ -55,8 +55,8 @@
           %li= t('about_page.view_results_q') 
           %li= t('about_page.make_my_own_q')
     .bottom_status.link_style
-      -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
-      &nbsp
-      //  add the last two tab classes below to make use of already existing javascript
-      %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget')
+      %span
+        -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
+        //  add the last two tab classes below to make use of already existing javascript
+        %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget')
       

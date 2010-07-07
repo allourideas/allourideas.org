@@ -84,8 +84,8 @@
     .cd_close_and_submit
       %a.close.fleft{:href => '#page1'}
         = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
-      .fright{:style => 'margin-right: 10px'}
-        .cd_submit_button.rounded{:rel => @question.id}= t('vote.submit')
+      %span{:style => 'margin-right: 10px'}
+        .cd_submit_button.rounded.fright{:rel => @question.id}= t('vote.submit')
 
   /* moved this entire block here
   .add-box#the_add_box{:style => 'display:none'}
@@ -97,8 +97,8 @@
     %br
     %a.close.fleft{:href => '#page1'}
       = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")
-    .fright
-      .new_idea_submit.rounded#submit_btn{:rel => @question.id}= t('vote.submit')
+    %span
+      .new_idea_submit.rounded.fright#submit_btn{:rel => @question.id}= t('vote.submit')
     %br
     %br
 

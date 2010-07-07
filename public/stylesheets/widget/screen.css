@@ -499,6 +499,7 @@ table.tablesorter {
     background-color: #b1b1b1; }
 
 .cd_submit_button {
+  width: 40px;
   padding: 5px 10px 5px 10px;
   background: #01bb00;
   cursor: pointer;
@@ -527,6 +528,7 @@ table.tablesorter {
   cursor: move; }
 
 .new_idea_submit, .flag_submit_button {
+  width: 40px;
   padding: 5px 10px 5px 10px;
   background: #01bb00;
   cursor: pointer;
@@ -587,6 +589,7 @@ table.tablesorter {
   border: 4px solid #3198c1; }
 
 .bottom_status {
+  height: 22px;
   border: 4px solid #3198c1;
   border-top: 0px;
   width: 425px;

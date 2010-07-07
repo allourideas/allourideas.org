@@ -53,17 +53,17 @@ class Question < ActiveResource::Base
 	  puts "TEST METHOD"
   end
   
-  def valid?
-    self.validate
+  def valid?(photocracy=false)
+    self.validate(photocracy)
     errors.empty?
   end
   
-  def validate
+  def validate(photocracy)
+    errors.add("Name", "is blank (Step 1)") if name.blank?
     url_format_valid
     url_unique
+    ideas_valid(photocracy)
 
-    errors.add("Name", "is blank (Step 1)") if name.blank?
-    errors.add("Ideas", "are blank (Step 3)") if (ideas.blank? || ideas == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
     return errors
   end
   
@@ -71,10 +71,8 @@ class Question < ActiveResource::Base
   def url_format_valid
     errors.add("URL", "is blank (Step 2)")  if url.blank?
     errors.add("URL", "contains spaces (Step 2)")  if url.include? ' '
-    errors.add("URL", "contains special characters (Step 2)")  if url.include? '+'
-    if url.parameterize != url
-      errors.add("URL", "contains special characters (Step 2)")  
-    end
+    errors.add("URL", "contains special characters (Step 2)") if (url.include?('+') || url.parameterize != url)
+    errors
   end
   
   def url_unique
@@ -91,4 +89,17 @@ class Question < ActiveResource::Base
     end
   end
 
+  def ideas_valid(photocracy)
+    unless photocracy
+      if (ideas.blank? || ideas == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
+        errors.add("Ideas", "are blank (Step 3)")
+      end
+      add_sample_idea
+    end
+  end
+
+  def add_sample_idea
+    i = self.ideas.lines.to_a.delete_if {|i| i.blank?}
+    self.ideas += "\nsample choice" if i.length == 1
+  end
 end

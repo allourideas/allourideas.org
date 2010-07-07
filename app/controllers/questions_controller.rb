@@ -932,46 +932,28 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
-    unless @question.valid?
-      render :action => "new" and return
-    end
-    
-    unless signed_in?
-      #try to register the user before adding the question
-      @user = User.new(:email => params[:question]['email'], 
-                         :password => params[:question]['password'], 
-                         :password_confirmation => params[:question]['password'])
-      if @user.valid?
-	@user.save
-	sign_in @user
-      else
-        render :action => "new" and return
-        #at this point you have a current_user.  if you didn't, we would have redirected back with a validation error.
-      end
-    end
-    
-    @question.attributes.merge!({'local_identifier' => current_user.id, 
-	    			'visitor_identifier' => request.session_options[:id]})
+    @user = User.new(:email => params[:question]['email'],
+                     :password => params[:question]['password'],
+                     :password_confirmation => params[:question]['password']) unless signed_in?
 
-    ideas = @question.ideas.lines.to_a.delete_if {|i| i.blank?}
-
-    if ideas.length == 1
-	    @question.ideas += "\nsample choice" 
+    if question_params_valid
+      earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
+      ClearanceMailer.send_later(:deliver_confirmation, current_user, @question.fq_earl)
+      IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information']) unless params[:question]["information"].blank?
+      session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
+      redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')
+    else
+      render(:action => "new")
     end
-    
-    respond_to do |format|
-        if @question.save
-          earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
-          session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
-          ClearanceMailer.send_later :deliver_confirmation, current_user, @question.fq_earl
-	  IdeaMailer.send_later :deliver_extra_information, current_user, @question.name, params[:question]['information'] unless params[:question]["information"].blank?
-          format.html { redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')}
-          format.xml  { render :xml => @question, :status => :created, :location => @question }
-        else
-          logger.info "Question was not successfully created."
-          format.html { render :action => "new" }
-         format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-        end
+  end
+
+  def question_params_valid
+    if @question.valid?(@photocracy) && (signed_in? || (@user.valid? && @user.save && sign_in(@user)))
+      @question.attributes.merge!({'local_identifier' => current_user.id,
+  	    			                     'visitor_identifier' => request.session_options[:id]})
+      @question.save
+    else
+      false
     end
   end
 

@@ -621,11 +621,11 @@ table.tablesorter
   border-top: 0px
   width: 850px * $scaleFactor
   text-align: center
-  background-color: #54afe2
+  background-color: #3198c1
   color: white
 
 .link_style a
-  color: #008
+  color: white
   font-weight: bold
   &:hover
     //color: white
@@ -653,11 +653,17 @@ table.tablesorter
   margin: 0
   padding: 0  
   list-style: none
-  color: white
+  //color: white
   font-size: 24px * $scaleFactor
   .current_tab
     font-weight: bold
-    background-color: #3198ff                 /* note: i pretty much came up with this color randomly*/ 
+    background-color: #3198c1                 /* note: i pretty much came up with this color randomly*/ 
+    border-color: #3198c1 
+    a
+      color: white
+    &:hover
+      background-color: #3198c1  
+      border-color: #3198c1  
   li
     //height: 44px * $scaleFactor             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
@@ -665,16 +671,18 @@ table.tablesorter
     border-top: 4px solid #3198c1 
     border-left: 4px solid #3198c1 
     border-right: 4px solid #3198c1 
+    border-color: white
     margin: 0 0 0 1px
     padding-left: 5px
     padding-right: 5px
-    background-color: #54afe2
+    //background-color: #54afe2
     a
       outline: none
       display: block
-      color: white
+      color: black
     &:hover
-      background-color: #3198c1
+      background-color: lighten(#3198c1, 30%)
+      border-color: lighten(#3198c1, 30%)
 
 .vote-nav
   width: 858px * $scaleFactor                   /* needs to be same width as scrollbar container*/
@@ -682,6 +690,8 @@ table.tablesorter
   //padding-bottom: 2px                         /* har*/
 
 .question
+  margin-top: 1px
+  margin-bottom: 2px
   font-size: 16px                             /*har*/
   width: 395px
   color: #555555

@@ -594,11 +594,11 @@ table.tablesorter {
   border-top: 0px;
   width: 425px;
   text-align: center;
-  background-color: #54afe2;
+  background-color: #3198c1;
   color: white; }
 
 .link_style a {
-  color: #000088;
+  color: white;
   font-weight: bold; }
   .link_style a:hover {
     font-weight: bolder;
@@ -622,33 +622,41 @@ table.tablesorter {
   margin: 0;
   padding: 0;
   list-style: none;
-  color: white;
   font-size: 12px; }
   .tabs .current_tab {
     font-weight: bold;
-    background-color: #3198ff; }
+    background-color: #3198c1;
+    border-color: #3198c1; }
+    .tabs .current_tab a {
+      color: white; }
+    .tabs .current_tab:hover {
+      background-color: #3198c1;
+      border-color: #3198c1; }
   .tabs li {
     display: inline;
     float: right;
     border-top: 4px solid #3198c1;
     border-left: 4px solid #3198c1;
     border-right: 4px solid #3198c1;
+    border-color: white;
     margin: 0 0 0 1px;
     padding-left: 5px;
-    padding-right: 5px;
-    background-color: #54afe2; }
+    padding-right: 5px; }
     .tabs li a {
       outline: none;
       display: block;
-      color: white; }
+      color: black; }
     .tabs li:hover {
-      background-color: #3198c1; }
+      background-color: #a3d4e8;
+      border-color: #a3d4e8; }
 
 .vote-nav {
   width: 429px;
   font-size: 12px; }
 
 .question {
+  margin-top: 1px;
+  margin-bottom: 2px;
   font-size: 16px;
   width: 395px;
   color: #555555; }

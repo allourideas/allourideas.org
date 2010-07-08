@@ -1,0 +1,25 @@
+<div class="container_16">
+  <canvas id="my_canvas" width="425" height="340" style="background: url(<%= @photo.image.url(:medium) %>) no-repeat;">
+    Fallback content here
+  </canvas>
+  
+  <script type="text/javascript">
+    var canvas = document.getElementById('my_canvas'); 
+    if (canvas.getContext){
+      var context = canvas.getContext('2d');
+      <% @votes.each do |v| %>
+        context.beginPath();
+        context.arc(<%= v['tracking']['x_click_offset'].to_i %>, <%= v['tracking']['y_click_offset'].to_i %>, 10, 0, Math.PI*2, true); 
+        context.closePath();
+        context.fillStyle = "rgba(255,51,51,.7)";
+        context.fill();
+      
+        // context.fillStyle = "rgba(255,51,51,.7)";
+        // context.fillRect (<%= v['tracking']['x_click_offset'].to_i - 10 %>, <%= v['tracking']['y_click_offset'].to_i - 10 %>,  20, 20);
+      <% end %>
+    }else{ 
+      // do something to show the canvas' hidden contents 
+      // or let the browser display the text within the <canvas> element.
+    }
+  </script>
+</div>

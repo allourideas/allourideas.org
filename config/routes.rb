@@ -21,10 +21,11 @@ ActionController::Routing::Routes.draw do |map|
                         :flag => :post,
                   }
 	  question.resources :choices, 
-		  :only => [:show], 
+		  :only => [:show, :votes],
 		  :member => {
 		  	:activate => :get, # these shouldn't be get requests, but they need to work in email
-                        :deactivate => :get
+        :deactivate => :get,
+        :votes => :get
 		  },
 		  :path_prefix => '/:question_id'
 	  end

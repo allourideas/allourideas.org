@@ -7,8 +7,8 @@ $(document).ready(function() {
 			$('.click_to_vote').hide(); // visible if the users hasn't voted
 
 			// record image location before clearning
-			var x_click_offset = calculate_click_offset('x', e, $(this));
-			var y_click_offset = calculate_click_offset('y', e, $(this));
+			var x_click_offset = calculateClickOffset('x', e, $(this));
+			var y_click_offset = calculateClickOffset('y', e, $(this));
 			clearImages();
 
 			$('a.vote').addClass('loading'); // spinner
@@ -211,12 +211,14 @@ function castVote(choice, x, y) {
 	});
 }
 
-function calculate_click_offset(axis, e, choice) {
+function calculateClickOffset(axis, e, choice) {
 	var offset = $(choice).find('img').offset();
+	// there is a 3 pixel border, hence the 3 pixel subtraction
+
 	if (axis == 'x') {
-		return (e.pageX - offset.left);
+		return (e.pageX - offset.left - 3);
 	} else {
-		return (e.pageY - offset.top);
+		return (e.pageY - offset.top - 3);
 	}
 }
 

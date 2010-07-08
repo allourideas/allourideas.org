@@ -31,7 +31,7 @@ class EarlsController < ApplicationController
 
       #reimplement in some way
       rescue ActiveResource::ResourceConflict
-	      if @photocracy && current_user && current_user.admin?
+	      if @photocracy && signed_in?
 	        redirect_to add_photos_question_url(@earl.question_id) and return
         else
           flash[:error] = "This idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"

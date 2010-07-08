@@ -622,11 +622,11 @@ table.tablesorter {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 12px; }
+  font-size: 12px;
+  border-color: #3198c1; }
   .tabs .current_tab {
     font-weight: bold;
-    background-color: #3198c1;
-    border-color: #3198c1; }
+    background-color: #3198c1; }
     .tabs .current_tab a {
       color: white; }
     .tabs .current_tab:hover {
@@ -638,7 +638,6 @@ table.tablesorter {
     border-top: 4px solid #3198c1;
     border-left: 4px solid #3198c1;
     border-right: 4px solid #3198c1;
-    border-color: white;
     margin: 0 0 0 1px;
     padding-left: 5px;
     padding-right: 5px; }

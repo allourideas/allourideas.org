@@ -29,4 +29,3 @@
       - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
         = link_to_unless_current(t('nav.manage_question'), @manage_url) do "<strong> #{t('nav.manage_question')} </strong>" end
   .clear
-

@@ -70,7 +70,8 @@ Rails::Initializer.run do |config|
     :version => '2.2.5'
   config.gem 'sax-machine',
     :version => '0.0.14'
-  config.gem 'i18n'
+  config.gem 'i18n',
+    :version => '0.3.7'
   config.gem 'delayed_job',
     :version => '2.0.3'
   config.gem 'haml',

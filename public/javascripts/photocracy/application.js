@@ -13,6 +13,8 @@ $(document).ready(function() {
 
 			// $('a.vote').addClass('loading'); // spinner
 			// $(this).addClass('chosen');  // checkmark
+			
+			// $(this).addClass('loading'); // spinner
 
 			castVote($(this), x_click_offset, y_click_offset);
 		}
@@ -238,9 +240,6 @@ function updateVotingHistory(data) {
 
 
 function loadNextPrompt(data) {
-	// remove spinner and checkmark
-	$('a.vote').removeClass('loading chosen');
-	
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
 		$('a.vote.' + side + ' > table').html("<td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td>");
@@ -259,6 +258,9 @@ function loadNextPrompt(data) {
 	// change urls for inappropriate and skip forms
 	$('#flag_as_inappropriate_form').attr('action', data['flag_url']);
 	$('#cant_decide_form').attr('action', data['skip_url']);
+	
+	// remove spinner and checkmark
+	$('a.vote').removeClass('loading chosen');
 }
 
 function voteError(request, textStatus, errorThrown) {

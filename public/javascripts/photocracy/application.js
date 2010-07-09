@@ -7,12 +7,14 @@ $(document).ready(function() {
 			$('.click_to_vote').hide(); // visible if the users hasn't voted
 
 			// record image location before clearning
-			var x_click_offset = calculate_click_offset('x', e, $(this));
-			var y_click_offset = calculate_click_offset('y', e, $(this));
+			var x_click_offset = calculateClickOffset('x', e, $(this));
+			var y_click_offset = calculateClickOffset('y', e, $(this));
 			clearImages();
 
-			$('a.vote').addClass('loading'); // spinner
-			$(this).addClass('chosen');  // checkmark
+			// $('a.vote').addClass('loading'); // spinner
+			// $(this).addClass('chosen');  // checkmark
+			
+			// $(this).addClass('loading'); // spinner
 
 			castVote($(this), x_click_offset, y_click_offset);
 		}
@@ -28,7 +30,8 @@ $(document).ready(function() {
 	    name: 'new_idea',
 	    data: {
 	      question_id : button.attr('question_id'),
-	      authenticity_token: AUTH_TOKEN
+	      authenticity_token: AUTH_TOKEN,
+				locale: RAILS_LOCALE
 	    },
 	    autoSubmit: true,
 	    responseType: "json",
@@ -211,12 +214,14 @@ function castVote(choice, x, y) {
 	});
 }
 
-function calculate_click_offset(axis, e, choice) {
+function calculateClickOffset(axis, e, choice) {
 	var offset = $(choice).find('img').offset();
+	// there is a 3 pixel border, hence the 3 pixel subtraction
+
 	if (axis == 'x') {
-		return (e.pageX - offset.left);
+		return (e.pageX - offset.left - 3);
 	} else {
-		return (e.pageY - offset.top);
+		return (e.pageY - offset.top - 3);
 	}
 }
 
@@ -235,12 +240,11 @@ function updateVotingHistory(data) {
 
 
 function loadNextPrompt(data) {
-	// remove spinner and checkmark
-	$('a.vote').removeClass('loading chosen');
-	
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
-		$('a.vote.' + side + ' > table').html("<td><img src='" + data['new' + side + '_photo'] + "'/></td>");
+		$('a.vote.' + side + ' > table').html("<td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td>");
+		// fade in photo
+		$('a.vote.' + side + ' > table').find('img').fadeIn(2000);
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
@@ -254,6 +258,9 @@ function loadNextPrompt(data) {
 	// change urls for inappropriate and skip forms
 	$('#flag_as_inappropriate_form').attr('action', data['flag_url']);
 	$('#cant_decide_form').attr('action', data['skip_url']);
+	
+	// remove spinner and checkmark
+	$('a.vote').removeClass('loading chosen');
 }
 
 function voteError(request, textStatus, errorThrown) {
@@ -269,6 +276,14 @@ function decrement(number){
 }
 
 function clearImages() {
-	$('a.vote.right > table').html('');
-	$('a.vote.left > table').html('');
+	// $('a.vote.right > table > a').html('');
+	// $('a.vote.left > table > a').html('');
+	
+	$('a.vote.right > table').find('img').fadeOut(2000, function() {
+		$(this).remove();
+	});
+	
+	$('a.vote.left > table').find('img').fadeOut(2000, function() {
+		$(this).remove();
+	});
 }

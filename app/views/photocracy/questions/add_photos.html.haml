@@ -1,0 +1,32 @@
+.container_16
+
+  %h1
+    You'll need at least 2 photos to get started
+    %span.normal
+      (you have #{@question.choices_count - @question.inactive_choices_count})
+
+  =stylesheet_link_tag 'photocracy/uploadify'
+  =javascript_include_tag 'photocracy/swfobject.js', 'photocracy/jquery.uploadify.v2.1.0.min.js'
+
+  :javascript
+    $(document).ready(function() {
+    	$("#uploadify").uploadify({
+    		'uploader'       : '/javascripts/photocracy/uploadify.swf',
+    		'script'         : 'upload_photos',
+    		'cancelImg'      : '/images/photocracy/cancel.png',
+    		'queueID'        : 'fileQueue',
+    		'auto'           : true,
+    		'multi'          : true,
+    		'fileDesc'       : 'Only jpg, png, and gif files allowed',
+    		'fileExt'        : '*.jpg;*.jpeg;*.png;*.gif',
+    		'buttonText'     : 'UPLOAD PHOTO'
+    	});
+    });
+
+  .margin_bottom
+    #fileQueue
+    %input{:type => 'file', :name => 'uploadify', :id => 'uploadify'}
+
+  %p
+    You can return to your survey and #{link_to 'start voting', '/' + @question.id.to_s}.
+  / <p><a href="javascript:jQuery('#uploadify').uploadifyClearQueue()">Cancel All Uploads</a></p>

@@ -31,8 +31,12 @@ class EarlsController < ApplicationController
 
       #reimplement in some way
       rescue ActiveResource::ResourceConflict
-	      flash[:error] = "This idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
-	      redirect_to "/" and return
+	      if @photocracy && signed_in?
+	        redirect_to add_photos_question_url(@earl.question_id) and return
+        else
+          flash[:error] = "This idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
+          redirect_to "/" and return
+        end
       end
 
 

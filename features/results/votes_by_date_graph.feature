@@ -19,5 +19,5 @@ Feature: Objects over time graphs
      When I vote 3 times
      And I go to the View Results page for 'test'
      And I follow "votes-datechart-view-link"
-     Then I should see "Number of Votes per day Overall total 488" within ".highcharts-container"
+     Then I should see "Number of Votes per day Overall total - 3" within ".highcharts-container"
     

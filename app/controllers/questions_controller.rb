@@ -496,23 +496,33 @@ class QuestionsController < ApplicationController
   end
 
   def scatter_votes_by_session
-      type = params[:type] # should be scatter_votes_by_session
+      type = params[:type] 
       @earl = Earl.find params[:id]
       @question = Question.new(:id => @earl.question_id)
 
+      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+      bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
+      if bounces_by_sids != "\n"
+          bounce_hash = {}
+          bounces_by_sids.each do |k|
+             bounce_hash[k] = 0
+          end
+          votes_by_sids.merge!(bounce_hash)
+      end
      
       case type
       when "votes"
-        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-        bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
-        bounce_hash = {}
-        bounces_by_sids.each do |k|
-	      bounce_hash[k] = 0
-        end
+        objects_by_sids = votes_by_sids
 
-        votes_by_sids.merge!(bounce_hash)
-       when "skips"
-        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+      when "skips"
+        skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+        
+        skips_by_sids.each do |k,v|
+              votes_by_sids.delete(k)
+        end
+        
+	no_skips_size = votes_by_sids.size
+        objects_by_sids = skips_by_sids
        end
 
       chart_data = []
@@ -520,13 +530,17 @@ class QuestionsController < ApplicationController
 
       jitter_const = 1
       max = 0
-      votes_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
+      objects_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
 	      point = {}
 	      point[:x] = votes
 	      max = votes.to_i if votes.to_i > max
 	      point[:y] = jitter[votes] += jitter_const
 	      point[:name] = sid
 	      chart_data << point
+      end
+      chart_title = "Number of #{type} by session"
+      if no_skips_size
+          chart_title += ". Sessions with no skips: #{no_skips_size}"
       end
       
       tooltipformatter = "function() { return '<b>' + this.x + ' #{type.titleize} </b>' ; }"
@@ -539,7 +553,7 @@ class QuestionsController < ApplicationController
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => "Number of #{type} by session",
+            :title => { :text => chart_title,
 		     	:style => { :color => '#919191' }
 		      },
 	    :x_axis => { :type => 'linear', :min => 0, :max => max,

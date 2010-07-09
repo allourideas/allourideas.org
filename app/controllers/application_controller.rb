@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy
       @photocracy = true
       prepend_view_path(@@photocracy_view_path)
-    elsif request.url.include?('widget') || @widget
+    elsif request.url.include?('widget') || request.url.include?('iphone') || @widget
       @widget= true
       prepend_view_path(@@widget_view_path)
     end

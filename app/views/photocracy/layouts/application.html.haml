@@ -11,7 +11,7 @@
     =stylesheet_link_tag 'photocracy/application'
     =javascript_include_tag 'photocracy/jquery.min', 'photocracy/jquery-ui.min', 'photocracy/application', 'photocracy/jquery.timeago', 'photocracy/ajaxupload.3.9'
     :javascript 
-      var AUTH_TOKEN = '#{CGI::escape(form_authenticity_token.inspect)}';
+      var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
       var RAILS_LOCALE = '#{I18n.locale}';
     :javascript
@@ -28,6 +28,7 @@
         });
       });
   %body
+    %h1
     .container_16
       =yield
     .container_12

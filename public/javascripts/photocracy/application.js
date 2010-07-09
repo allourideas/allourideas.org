@@ -11,8 +11,8 @@ $(document).ready(function() {
 			var y_click_offset = calculateClickOffset('y', e, $(this));
 			clearImages();
 
-			$('a.vote').addClass('loading'); // spinner
-			$(this).addClass('chosen');  // checkmark
+			// $('a.vote').addClass('loading'); // spinner
+			// $(this).addClass('chosen');  // checkmark
 
 			castVote($(this), x_click_offset, y_click_offset);
 		}
@@ -242,7 +242,9 @@ function loadNextPrompt(data) {
 	
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
-		$('a.vote.' + side + ' > table').html("<td><img src='" + data['new' + side + '_photo'] + "'/></td>");
+		$('a.vote.' + side + ' > table').html("<td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td>");
+		// fade in photo
+		$('a.vote.' + side + ' > table').find('img').fadeIn(1000);
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
@@ -271,6 +273,14 @@ function decrement(number){
 }
 
 function clearImages() {
-	$('a.vote.right > table').html('');
-	$('a.vote.left > table').html('');
+	// $('a.vote.right > table > a').html('');
+	// $('a.vote.left > table > a').html('');
+	
+	$('a.vote.right > table').find('img').fadeOut(1000, function() {
+		$(this).remove();
+	});
+	
+	$('a.vote.left > table').find('img').fadeOut(1000, function() {
+		$(this).remove();
+	});
 }

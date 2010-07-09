@@ -84,7 +84,7 @@
         %tr{:class => cycle("row2", "row1")}
           %td.title= options[:title]
           %td.votes
-            = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => type), :class => 'date-chart')
+            = link_to(t('results.view_link'), url_for(:action => :timeline_graph, :type => type), :class => 'date-chart', :id => "#{type}-datechart-view-link")
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{type}-chart-container"}

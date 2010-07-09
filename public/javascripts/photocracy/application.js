@@ -28,7 +28,8 @@ $(document).ready(function() {
 	    name: 'new_idea',
 	    data: {
 	      question_id : button.attr('question_id'),
-	      authenticity_token: AUTH_TOKEN
+	      authenticity_token: AUTH_TOKEN,
+				locale: RAILS_LOCALE
 	    },
 	    autoSubmit: true,
 	    responseType: "json",
@@ -244,7 +245,7 @@ function loadNextPrompt(data) {
 		// change photos
 		$('a.vote.' + side + ' > table').html("<td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td>");
 		// fade in photo
-		$('a.vote.' + side + ' > table').find('img').fadeIn(1000);
+		$('a.vote.' + side + ' > table').find('img').fadeIn(2000);
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
@@ -276,11 +277,11 @@ function clearImages() {
 	// $('a.vote.right > table > a').html('');
 	// $('a.vote.left > table > a').html('');
 	
-	$('a.vote.right > table').find('img').fadeOut(1000, function() {
+	$('a.vote.right > table').find('img').fadeOut(2000, function() {
 		$(this).remove();
 	});
 	
-	$('a.vote.left > table').find('img').fadeOut(1000, function() {
+	$('a.vote.left > table').find('img').fadeOut(2000, function() {
 		$(this).remove();
 	});
 }

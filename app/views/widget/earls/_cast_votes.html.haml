@@ -12,11 +12,13 @@
           = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
       -if @earl.flag_enabled?
         %tr
-          %td.fleft.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
+          %td
+            .fleft.no_bottom_padding
+              = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
           %td.no_bottom_padding
-          %td.fright.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
+          %td
+            .fright.no_bottom_padding
+              = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
     %table.vote-footer{:class => @earl.flag_enabled? ? 'no_top_margin' : 'top_margin'}
       %tr
         %td &nbsp; 
@@ -41,7 +43,7 @@
       .showmespace
         #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
         .tellmearea
-          #initial_notice{:style => 'background-color: white; border: none; font-size: 15px'}= t('vote.click_idea_to_start_widget')
+          #initial_notice{:style => 'background-color: white; border: none; font-size: 14px'}= t('vote.click_idea_to_start_widget')
           /* ^^^fix style of this; should be in stylesheet
 
   /* moved this entire block here
@@ -103,7 +105,7 @@
   -if @earl.flag_enabled?
     #flag_inappropriate.center{:style => 'display:none'}
       = t('vote.please_explain_flag')
-      = rounded(text_area_tag('new_idea', '', :title => '' , :rows => 2, :cols => 55, :class => 'new_text_field', :id => 'new_idea_field'), 'border-thick')
+      = rounded(text_area_tag('new_idea', '', :title => '' , :rows => 2, :cols => 55, :class => 'new_text_field', :id => 'new_flag_field'), 'border-thick')
       .close_and_submit
         %a.close.fleft{:href => '#page1'}
           = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")

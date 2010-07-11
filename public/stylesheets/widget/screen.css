@@ -644,7 +644,8 @@ table.tablesorter {
     .tabs li a {
       outline: none;
       display: block;
-      color: black; }
+      color: #3198c1;
+      font-weight: bold; }
     .tabs li:hover {
       background-color: #a3d4e8;
       border-color: #a3d4e8; }

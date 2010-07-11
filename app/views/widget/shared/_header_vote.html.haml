@@ -5,7 +5,7 @@
 -@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :more => true)
 -@about_url= url_for(:action => :about, :controller => :questions, :id => @the_id)
 
-.vote-nav{:style => "position: relative;"}
+.vote-nav
   -# har..this commented block... i think it's irrelevant for widget
   -#.fleft
   -#  -if @earl && !@earl.logo_file_name.nil?
@@ -14,7 +14,7 @@
   -#      =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete)
   -#  -else
   -#    &nbsp;
-  %ul.tabs.fleft
+  %ul.tabs
     %li.about_tab.tab
       %a{:href => '#page3'}
         #{t('nav.about')}

@@ -38,12 +38,11 @@
             = t('vote.add_your_idea_button')  
         //= link_to(t('vote.add_your_idea_button'), "#the_add_box", :class => "add_idea_button rounded") 
         //= render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
-      .hideable_white_space
-        %br
-      #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
-      .tellmearea
-        #initial_notice.notice{:style => 'background-color: white; border: none; font-size: 16px'}= t('vote.click_idea_to_start_widget')
-        /* ^^^fix style of this; should be in stylesheet
+      .showmespace
+        #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+        .tellmearea
+          #initial_notice.notice{:style => 'background-color: white; border: none; font-size: 16px'}= t('vote.click_idea_to_start_widget')
+          /* ^^^fix style of this; should be in stylesheet
 
   /* moved this entire block here
   #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
@@ -82,7 +81,7 @@
                 %td.no_top_padding &nbsp;
                 %td.no_top_padding
                   %i.rightside=@right_choice_text
-    .cd_close_and_submit
+    .close_and_submit
       %a.close.fleft{:href => '#page1'}
         = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
       %span{:style => 'margin-right: 10px'}
@@ -92,16 +91,14 @@
   .add-box#the_add_box{:style => 'display:none'}
     - box_text = t('vote.add_your_idea')
     .indicator{:style => "display:none;"}= image_tag('indicator.gif')
-    = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
+    = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_text_field', :id => 'new_idea_field'), 'border-thick')
     = hidden_field_tag 'default_text', box_text
     = hidden_field_tag 'question_id', @question_id 
-    %br
-    %a.close.fleft{:href => '#page1'}
-      = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")
-    %span
-      .new_idea_submit.rounded.fright#submit_btn{:rel => @question.id}= t('vote.submit')
-    %br
-    %br
+    .close_and_submit
+      %a.close.fleft{:href => '#page1'}
+        = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")
+      %span
+        .new_idea_submit.rounded.fright#submit_btn{:rel => @question.id}= t('vote.submit')
 
   -if @earl.flag_enabled?
     #flag_inappropriate{:style => 'display:none'}

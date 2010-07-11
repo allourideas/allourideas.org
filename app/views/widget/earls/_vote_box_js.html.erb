@@ -33,16 +33,15 @@
 
   //  har... we want to launch the text area when add idea button is clicked */
   $('.add_idea_button.rounded').click(function() {
-    $('.add_idea_button.rounded').hide();
-    $('.hideable_white_space').hide();
-    $('.tellmearea').hide();
+    $('.vote-footer').hide();      
+    $('.add_container').hide();
     $('#the_add_box').show();  
-    $('#submit_btn').show();  
+
   });
 
   //  modify to eliminate facebox stuff
   on_idea_submit_button_click = function(event){		
-    var new_idea = $('.new_idea_field').val();        // *har* used to have a (#facebox '.new_idea_field  ...  etc
+    var new_idea = $('#new_idea_field').val();        // *har* used to have a (#facebox '#new_idea_field  ...  etc
     var default_text = $('#default_text').val()
     $('.example_notice').hide();
     
@@ -60,19 +59,15 @@
 
     $('#initial_notice').hide();            /* har*/
     $('#the_add_box').hide();               /* har*/
-    $('#submit_btn').hide();                /* har*/
-    $('.add_idea_button.rounded').show();   /* har*/
-    $('.tellmearea').show();
+    $('.vote-footer').show();      
+    $('.add_container').show();
 	  $('.indicator').show();
-    $('.hideable_white_space').show();      /* har*/
-    $('.new_idea_field').val('');           /* har... could do default text here, but then the text has to actually be deleted*/
+    $('#new_idea_field').val('');           /* har... could do default text here, but then the text has to actually be deleted*/
 
     //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
     $('#newlines').slideDown(1000);
 
-    $('#facebox .border-thick').hide();
-    $('#facebox .new_idea_field').hide();
     $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
         backgroundColor: '#000', 
         opacity:         0.0,
@@ -105,7 +100,7 @@
 	           $.facebox.close();
           }
 	  else{
-            $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox .new_idea_field');
+            $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox #new_idea_field');
             $('#facebox .new_idea_submit').html('<%= t('vote.cast_votes') %>');
             $('#facebox .new_idea_submit').unbind('click');
             $('#facebox .new_idea_submit').bind('click', $.facebox.close);
@@ -123,15 +118,8 @@
   //  bind to idea close button
   $('.close').bind('click', function(event) {
     $('#the_add_box').hide();               /* har*/
-    $('#submit_btn').hide();                /* har*/
-    $('.hideable_white_space').show();      /* har*/
-    $('.add_idea_button.rounded').show();   /* har*/
-    $('.tellmearea').show();
-
-      $('.vote-footer').show();      
-      $('#cant_decide_options').hide();
-      $('.add_container').show();   
-
+    $('.vote-footer').show();      
+    $('.add_container').show();
   });
 
   //  bind to voting, this is messed up in ie6
@@ -139,7 +127,6 @@
 
     //  Remove this stuff when somebody votes in case it's still there (add idea stuff)
     $('#the_add_box').hide();               /* har*/
-    $('#submit_btn').hide();                /* har*/
     $('.add_idea_button.rounded').show();   /* har*/
 
     //  Remove in case it's still there... same as above (can't decide stuff)
@@ -297,8 +284,6 @@
     //  cd stuff
     $('.vote-footer').hide();      
     $('#cant_decide_options').show();
-
-    //  idea/other stuff... yes, it seems redundant, but it's all necessary
     $('.add_container').hide();
 
     $('.close').bind('click', function() {
@@ -335,10 +320,6 @@
 
     //  idea/other stuff... might seem redundant, but it's necessary
     $('.add_container').show();
-    $('.add_idea_button.rounded').show();
-    $('.tellmearea').show();
-    $('#the_add_box').hide();  
-    $('#submit_btn').hide();  
     $('#initial_notice').hide();            /* har*/
 	
 	  jQuery(document).trigger('close.facebox')

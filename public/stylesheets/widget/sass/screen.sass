@@ -297,6 +297,7 @@ hr
 /* modified this */
 .add-box
   width: 750px * $scaleFactor   /* har ... was 425px */
+  margin-top: 10px
   textarea
     border: none
     width: 725px * $scaleFactor   /* har ... was 400px */
@@ -635,8 +636,10 @@ table.tablesorter
 #tellme_prepend_spot
 //  text-align: left
 
+
+$tellmearea_fontsize: 14px
 .tellmearea
-  font-size: 28px * $scaleFactor
+  font-size: $tellmearea_fontsize
 
 .close_and_submit
   margin-top: 5px
@@ -705,8 +708,11 @@ table.tablesorter
   a
     padding-left: 5px
 
-.add-box
-  margin-top: 10px
-
 .showmespace
+  margin-top: 20px
+
+.new_text_field
+  height: 32px
+
+.new_tellme_text
   margin-top: 10px

@@ -275,7 +275,8 @@ hr {
 
 /* modified this */
 .add-box {
-  width: 375px; }
+  width: 375px;
+  margin-top: 10px; }
   .add-box textarea {
     border: none;
     width: 362.5px; }
@@ -671,8 +672,11 @@ table.tablesorter {
 .faq a {
   padding-left: 5px; }
 
-.add-box {
-  margin-top: 10px; }
-
 .showmespace {
+  margin-top: 20px; }
+
+.new_text_field {
+  height: 32px; }
+
+.new_tellme_text {
   margin-top: 10px; }

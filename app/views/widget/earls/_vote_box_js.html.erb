@@ -88,6 +88,7 @@
           //  NOTE: NEED TO BREAK UP DATA[MESSAGE] SUCH THAT MESSAGE IS ON ONE LINE AND IDEA IS ON THE NEXT. ALSO NEED TO TRUNCATE IDEA.
           $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
           $("#tellme_prepended").effect("highlight", {}, 1500);
+          count++;
 
           $("#leveling_message_appended").remove();
           $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
@@ -188,9 +189,12 @@
 	         }});
 
         $('.indicator').show();    // was here b4
+
         //  append this for scrolling funtionality... har
-        $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
-        $('#newlines').slideDown(1000);
+        if (count != 0) {
+          $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
+          $('#newlines').slideDown(1000);
+        }
 
 	     },
 	     timeout: 10000,
@@ -200,11 +204,13 @@
 		       if (error == "timeout") {
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_timeout_error')%></div>");
 		         $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+             count++;
 		       }
 		       else {
 		         $('.tellmearea').prepend("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_other_error')%></div>");
 		         $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+             count++;
 		       }
 
 		       loadedTime = new Date(); //reset loaded time
@@ -238,13 +244,16 @@
       /* har*/
       $('#newlines').remove();
       /*har... these next lines are me... decided i didn't want view all the results anymore */
-      $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div><br/>");
-      //$('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + winner + "<br />" + " <%=t('vote.over') %> " + loser + "</a></div><br/>");
+      if (count == 0)   //  don't want line break at end if this is our first prepend
+        $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div>");
+      else
+        $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div><br/>");
+
       $("#tellme_prepended").effect("highlight", {}, 1500);
+      count++;
 
       $("#leveling_message_appended").remove();
       $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
-//      $("#leveling_message_appended").effect("highlight", {}, 1500);
 
 		  current_vote_count = $('#votes_count').html();
 		  $('#votes_count').html(increment(current_vote_count));
@@ -352,11 +361,6 @@
 		   },
 
 		      function(data){
-
-/*           /*har... these next two lines are me
-           $('.tellmearea').prepend("<div id = \"tellme_prepended\">" + data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a></div>");
-           $('#tellme_prepended').effect("highlight", {}, 1500);
-*/
             /*har... these next lines are me... decided i didn't want view all the results anymore */
             $('#newlines').remove();
             $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
@@ -384,70 +388,82 @@
 	});
 
 
-    $('.flag_link').bind("click", function(event){
-       event.stopPropagation();
-       event.preventDefault();
-       $.facebox($("#flag_inappropriate").html());
-       $('#facebox .footer').hide();
-       $('#facebox .close').click($.facebox.close)
+  $('.flag_link').bind("click", function(event){
+    event.stopPropagation();
+    event.preventDefault();
+    $.facebox($("#flag_inappropriate").html());
+    $('#facebox .footer').hide();
+    $('#facebox .close').click($.facebox.close)
 
-       var flag_side = $(this).attr('id');
+    var flag_side = $(this).attr('id');
 
-       $('.flag_submit_button').bind("click", function(event){
-           event.stopPropagation();
-	            user_text = null;
-	   user_text = $('#facebox textarea').val();
-	   if(!user_text){
+    $('.flag_submit_button').bind("click", function(event){
+      event.stopPropagation();
+      user_text = null;
+  	  user_text = $('#facebox textarea').val();
+	    if(!user_text) {
 	      alert("You must include an explanation");
 	      return false;
-	   }
-	   jQuery(document).trigger('close.facebox')
+  	}
 	
-	   var currentTime = new Date();
-	   var time_viewed = currentTime - loadedTime
-	   $('.example_notice').hide();
+    jQuery(document).trigger('close.facebox')
+	
+	  var currentTime = new Date();
+	  var time_viewed = currentTime - loadedTime
+	  $('.example_notice').hide();
 
-	   $('.indicator').show();
-	   var prompt_id = $('#prompt_id').val();
+    //  append this for scrolling funtionality... har
+    $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br></div>");
+    $('#newlines').slideDown(1000);
 
-	   var appearance_lookup = $('#appearance_lookup').val();
-	   $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-		        backgroundColor: '#000', 
-		        opacity:         0.0,
-		    cursor:    null
-		   }});
-	   var question_id = $(this).attr("rel");
-	   $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/flag.js', 
-	       {
-	       'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
-	       'flag_reason' : user_text,
-		'time_viewed' : time_viewed,
-		'prompt_id': prompt_id,
-		'side': flag_side,
-		'appearance_lookup': appearance_lookup
+    $('.indicator').show();
+    var prompt_id = $('#prompt_id').val();
+
+	  var appearance_lookup = $('#appearance_lookup').val();
+	  $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+      backgroundColor: '#000', 
+		  opacity:         0.0,
+	    cursor:    null
+		}});
+
+	  var question_id = $(this).attr("rel");
+    $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/flag.js', 
+    {
+	    'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	    'flag_reason' : user_text,
+	    'time_viewed' : time_viewed,
+	    'prompt_id': prompt_id,
+	    'side': flag_side,
+	    'appearance_lookup': appearance_lookup
 		},
 
-		function(data){
-		        if(data["error"]){
-				window.location.replace(data["redirect"]);
-		        }
-			else{
-			     $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
-			     $('.indicator').hide();
-			     $.unblockUI();
-			     $('.leftside').html(data["newleft"]);
-			     $('.rightside').html(data["newright"]);
-			     $('#prompt_id').val(data["prompt_id"]);
-			     $('#appearance_lookup').val(data["appearance_lookup"]);
-			     current_item_count = $('#item_count').html();
-			     $('#item_count').html(decrement(current_item_count));
-			     loadedTime = new Date() //reset loaded time
+		function(data) {
+		  if(data["error"]){
+    		window.location.replace(data["redirect"]);
+      }
+			else {
+       $('#newlines').remove();
+       $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
+       $("#tellme_prepended").effect("highlight", {}, 1500);
+       count++;
+
+       $("#leveling_message_appended").remove();
+       $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
+
+
+		    $('.indicator').hide();
+			  $.unblockUI();
+			  $('.leftside').html(data["newleft"]);
+			  $('.rightside').html(data["newright"]);
+			  $('#prompt_id').val(data["prompt_id"]);
+			  $('#appearance_lookup').val(data["appearance_lookup"]);
+			  current_item_count = $('#item_count').html();
+			  $('#item_count').html(decrement(current_item_count));
+			  loadedTime = new Date() //reset loaded time
 			}
-			
 		},
 		"json"
 		);
 		return false;
-	});
-    });
-
+  	});
+  });

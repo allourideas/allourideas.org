@@ -11,9 +11,9 @@
     .ninety
       %table.full{:style => 'margin-top: 5px'}
         %tr.row0
-          %th.idea.header_padding= t('items.idea')
-          %th.link_style{:style => 'text-align: left'}= t('common.score').titleize + ' ' + link_to('[?]', '#explanation', :class => 'question_mark')
-          %th &nbsp
+          %td.idea.header_padding= t('items.idea')
+          %td.link_style{:style => 'text-align: left'}= t('common.score').titleize + ' ' + link_to('[?]', '#explanation', :class => 'question_mark')
+          %td &nbsp
       %table.full{:style => 'margin-top: 5px'}
         -alt=false
         -for choice in @choices

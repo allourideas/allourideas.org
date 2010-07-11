@@ -389,14 +389,24 @@
 
 
   $('.flag_link').bind("click", function(event){
+
+    //  hide/show everything necessary
+    //  cd stuff
+    $('.vote-footer').hide();      
+    $('.add_container').hide();
+
+    ("#flag_inappropriate").show();
+    
     event.stopPropagation();
     event.preventDefault();
+    var flag_side = $(this).attr('id');
+
+/*
+
     $.facebox($("#flag_inappropriate").html());
     $('#facebox .footer').hide();
     $('#facebox .close').click($.facebox.close)
-
-    var flag_side = $(this).attr('id');
-
+*/
     $('.flag_submit_button').bind("click", function(event){
       event.stopPropagation();
       user_text = null;
@@ -406,7 +416,7 @@
 	      return false;
   	}
 	
-    jQuery(document).trigger('close.facebox')
+//    jQuery(document).trigger('close.facebox')
 	
 	  var currentTime = new Date();
 	  var time_viewed = currentTime - loadedTime

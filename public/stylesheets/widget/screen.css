@@ -82,9 +82,8 @@ table {
   table .row0 {
     background-color: #3198c1;
     color: white; }
-    table .row0 th.idea {
-      width: 67.5%;
-      text-align: left; }
+    table .row0 td.idea {
+      width: 67.5%; }
   table .row1 {
     background-color: #fafafa; }
   table .row2 {

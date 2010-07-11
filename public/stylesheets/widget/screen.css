@@ -232,7 +232,7 @@ table {
       .votebox table.vote-footer td:last-child {
         text-align: right; }
   .votebox table.top_margin {
-    margin-top: 10px; }
+    margin-top: 5px; }
 
 .skip {
   margin: 10px 0; }
@@ -509,7 +509,7 @@ table.tablesorter {
     background-color: #228b53; }
 
 .add_idea {
-  margin: 10px 0px 0px 0px; }
+  margin: 5px 0px 0px 0px; }
   .add_idea .add_idea_button {
     padding: 5px 10px 5px 10px;
     width: 132.5px;
@@ -656,8 +656,8 @@ table.tablesorter {
   font-size: 12px; }
 
 .question {
-  margin-top: 2px;
-  margin-bottom: 5px;
+  margin-top: 12.5px;
+  margin-bottom: 12.5px;
   font-size: 16px;
   width: 395px;
   color: black; }
@@ -673,13 +673,13 @@ table.tablesorter {
   padding-left: 5px; }
 
 .showmespace {
-  margin-top: 20px; }
+  margin-top: 10px; }
 
 .new_text_field {
   height: 32px; }
 
 .new_tellme_text {
-  margin-top: 10px; }
+  margin-top: 5px; }
 
 #flag_inappropriate {
   width: 375px; }

@@ -17,7 +17,7 @@
           %td.no_bottom_padding
           %td.fright.no_bottom_padding
             = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
-    %table.vote-footer
+    %table.vote-footer{:class => @earl.flag_enabled? ? 'no_top_margin' : 'top_margin'}
       %tr
         %td &nbsp; 
         %td.actual_cd_button.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
@@ -100,15 +100,15 @@
       %span
         .new_idea_submit.rounded.fright#submit_btn{:rel => @question.id}= t('vote.submit')
 
-  /*-if @earl.flag_enabled?
-  #flag_inappropriate{:style => 'display:none'}
-    = t('vote.please_explain_flag')
-    =text_area_tag 'inappropriate_reason', "", :cols => 55
-    %br
-    .fleft
-      = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
-    .fright
-      .flag_submit_button.rounded{:rel => @question.id}= t('vote.submit')
+  -if @earl.flag_enabled?
+    #flag_inappropriate.center{:style => 'display:none'}
+      = t('vote.please_explain_flag')
+      = rounded(text_area_tag('new_idea', '', :title => '' , :rows => 2, :cols => 55, :class => 'new_text_field', :id => 'new_idea_field'), 'border-thick')
+      .close_and_submit
+        %a.close.fleft{:href => '#page1'}
+          = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")
+        %span
+          .flag_submit_button.rounded.fright{:rel => @question.id}= t('vote.submit')
 
   =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
   =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']

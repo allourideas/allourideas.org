@@ -245,7 +245,6 @@ $fontScaleFactor = .8                           /* har */
       height: 215px * $scaleFactor
   &.vote-footer
     width: 100%
-    margin-top: 10px
     td
       width: 33%
       &:first-child
@@ -253,6 +252,8 @@ $fontScaleFactor = .8                           /* har */
         width: 33.5%
       &:last-child
         text-align: right
+  &.top_margin
+    margin-top: 10px
 
 .skip
   margin: 10px 0
@@ -715,3 +716,9 @@ $tellmearea_fontsize: 14px
 
 .new_tellme_text
   margin-top: 10px
+
+#flag_inappropriate
+  width: 750px * $scaleFactor   /* har ... was 425px */
+  textarea
+    border: none
+    width: 725px * $scaleFactor   /* har ... was 400px */

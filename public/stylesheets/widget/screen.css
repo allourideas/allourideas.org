@@ -223,8 +223,7 @@ table {
   .votebox table td table td {
     height: 107.5px; }
   .votebox table.vote-footer {
-    width: 100%;
-    margin-top: 10px; }
+    width: 100%; }
     .votebox table.vote-footer td {
       width: 33%; }
       .votebox table.vote-footer td:first-child {
@@ -232,6 +231,8 @@ table {
         width: 33.5%; }
       .votebox table.vote-footer td:last-child {
         text-align: right; }
+  .votebox table.top_margin {
+    margin-top: 10px; }
 
 .skip {
   margin: 10px 0; }
@@ -679,3 +680,9 @@ table.tablesorter {
 
 .new_tellme_text {
   margin-top: 10px; }
+
+#flag_inappropriate {
+  width: 375px; }
+  #flag_inappropriate textarea {
+    border: none;
+    width: 362.5px; }

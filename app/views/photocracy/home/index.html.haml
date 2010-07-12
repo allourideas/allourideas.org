@@ -7,18 +7,22 @@
     %p
       =t('home.whats_this_txt')
       %br
-      =link_to(t('home.learn_more'), about_path)
+      / =link_to(t('home.learn_more'), about_path)
   
     %h6.no_margin= t('home.how_does')
     %p
       =t('home.how_does_txt')
       %br
-      =link_to(t('home.see_an_example'), "/example")
+      / =link_to(t('home.see_an_example'), "/example")
       
-  .grid_6{:style => 'padding-top:0'}
-    %p=link_to(t('home.get_started'), new_question_path, :class => 'button blue')
+  .grid_6{:style => 'padding-top:0', :class => 'center'}
+    %p
+      / =link_to(t('home.get_started'), new_question_path, :class => 'button blue')
+      %span{:class => 'button blue'} Coming Soon!
 
     %p
-      =t('home.get_started_txt')
+      Photocracy will be launching shortly, in the meantime checkout our platform for prioritizing text ideas:
+      =link_to 'All Our Ideas', "http://www.allourideas.org"
+      / =t('home.get_started_txt')
   
   .clear

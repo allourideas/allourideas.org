@@ -124,6 +124,11 @@
     $('.add_container').show();
   });
 
+  $('.flag_close').bind('click', function(event) {
+    //  Remove in case it's still there (flag stuff)
+    $('#new_flag_field').val('');
+  });
+
   //  bind to voting, this is messed up in ie6
   $('.vote_cell').bind('click',function(event){
 
@@ -135,6 +140,9 @@
     $('.add_container').show();
     $('.vote-footer').show();
     $('#cant_decide_options').hide();
+
+    //  Remove in case it's still there... same as above (flag stuff)
+    $('#new_flag_field').val('');
 
     var currentTime = new Date();
 	  var time_viewed = currentTime - loadedTime
@@ -331,6 +339,9 @@
     //  idea/other stuff... 
     $('.add_container').show();
     $('#initial_notice').hide();            /* har*/
+
+    //  Remove in case it's still there (flag stuff)
+    $('#new_flag_field').val('');
 	
 	  jQuery(document).trigger('close.facebox')
     

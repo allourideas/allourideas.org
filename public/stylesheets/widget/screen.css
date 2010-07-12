@@ -635,7 +635,7 @@ table.tablesorter {
       border-color: #3198c1; }
   .tabs li {
     display: inline;
-    float: right;
+    float: left;
     border-top: 4px solid #3198c1;
     border-left: 4px solid #3198c1;
     border-right: 4px solid #3198c1;
@@ -652,7 +652,7 @@ table.tablesorter {
       border-color: #a3d4e8; }
 
 .vote-nav {
-  width: 429px;
+  width: 434px;
   font-size: 12px; }
 
 .question {

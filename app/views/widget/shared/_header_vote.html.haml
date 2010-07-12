@@ -7,13 +7,13 @@
 
 .vote-nav
   %ul.tabs
-    %li.about_tab.tab
-      %a{:href => '#page3'}
-        #{t('nav.about')}
-    %li.results_tab.tab
-      %a{:href => '#page2'}
-        = link_to_remote t('nav.view_results'), :update => :render_spot, :url => @results_url + '?widget=true' + '&locale=' + I18n.locale.to_s
     %li.vote_tab.current_tab.tab
       %a{:href => '#page1'}
         #{t('vote.cast_votes')} 
+    %li.results_tab.tab
+      %a{:href => '#page2'}
+        = link_to_remote t('nav.view_results'), :update => :render_spot, :url => @results_url + '?widget=true' + '&locale=' + I18n.locale.to_s
+    %li.about_tab.tab
+      %a{:href => '#page3'}
+        #{t('nav.about')}
   .clear

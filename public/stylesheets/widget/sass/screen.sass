@@ -1,4 +1,5 @@
 // Note: Replaced all color #919191 with #555555
+$margin: 5px
 
 *
   margin: 0 auto
@@ -33,7 +34,7 @@ $scaleFactor = .5 /* har */
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
-  width: 850px * $scaleFactor                   /* har */
+  width: 875px * $scaleFactor                   /* har */
   color: #555555                                /* this has the stupid gray... change it?*/
   line-height: 16pt
 
@@ -87,9 +88,8 @@ table
   .row0
     background-color: #3198c1
     color: white
-    th.idea
+    td.idea
       width: 67.5%
-      text-align: left
   .row1
     background-color: #fafafa
   .row2
@@ -246,7 +246,6 @@ $fontScaleFactor = .8                           /* har */
       height: 215px * $scaleFactor
   &.vote-footer
     width: 100%
-    margin-top: 10px
     td
       width: 33%
       &:first-child
@@ -254,6 +253,8 @@ $fontScaleFactor = .8                           /* har */
         width: 33.5%
       &:last-child
         text-align: right
+  &.top_margin
+    margin-top: $margin
 
 .skip
   margin: 10px 0
@@ -297,6 +298,7 @@ hr
 /* modified this */
 .add-box
   width: 750px * $scaleFactor   /* har ... was 425px */
+  margin-top: 10px
   textarea
     border: none
     width: 725px * $scaleFactor   /* har ... was 400px */
@@ -533,7 +535,7 @@ table.tablesorter
     background-color: #228b53  /* har*/
 
 .add_idea
-  margin: 20px *$scaleFactor 0px 0px 0px /* har... was 35px originally*/
+  margin: $margin 0px 0px 0px /* har... was 35px originally*/
   .add_idea_button
     padding: 5px 10px 5px 10px
     width: 265px * $scaleFactor
@@ -610,22 +612,21 @@ table.tablesorter
   padding-left: 2px
 
 .scrollbar_container
-  width: 850px * $scaleFactor
+  width: 425px
   height: 340px
   border: 4px solid #3198c1              /* har, comment out other border code*/
 
 .bottom_status
   height: 22px
-  //margin-top: 490px
   border: 4px solid #3198c1              /* har, comment out other border code*/
   border-top: 0px
   width: 850px * $scaleFactor
   text-align: center
-  background-color: #54afe2
+  background-color: #3198c1
   color: white
 
 .link_style a
-  color: #008
+  color: white
   font-weight: bold
   &:hover
     //color: white
@@ -635,10 +636,13 @@ table.tablesorter
 #tellme_prepend_spot
 //  text-align: left
 
-.tellmearea
-  font-size: 28px * $scaleFactor
 
-.cd_close_and_submit
+$tellmearea_fontsize: 14px
+
+.tellmearea
+  font-size: $tellmearea_fontsize
+
+.close_and_submit
   margin-top: 5px
 
 .bottom_padding
@@ -653,38 +657,46 @@ table.tablesorter
   margin: 0
   padding: 0  
   list-style: none
-  color: white
   font-size: 24px * $scaleFactor
+  border-color: #3198c1 
   .current_tab
     font-weight: bold
-    background-color: #3198ff                 /* note: i pretty much came up with this color randomly*/ 
+    background-color: #3198c1                 
+    a
+      color: white
+    &:hover
+      background-color: #3198c1  
+      border-color: #3198c1  
   li
     //height: 44px * $scaleFactor             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
-    float: right
+    float: left
     border-top: 4px solid #3198c1 
     border-left: 4px solid #3198c1 
     border-right: 4px solid #3198c1 
-    margin: 0 0 0 1px
+    margin: 0 1px 0 0px
     padding-left: 5px
     padding-right: 5px
-    background-color: #54afe2
+    //background-color: #54afe2
     a
       outline: none
       display: block
-      color: white
+      color: #3198c1 
+      font-weight: bold
     &:hover
-      background-color: #3198c1
+      background-color: lighten(#3198c1, 30%)
+      border-color: lighten(#3198c1, 30%)
 
 .vote-nav
-  width: 858px * $scaleFactor                   /* needs to be same width as scrollbar container*/
+  width: 433px                   /* needs to be same width as scrollbar container + its borders*/
   font-size: 24px * $scaleFactor
-  //padding-bottom: 2px                         /* har*/
 
 .question
+  margin-top: $margin * 2.5
+  margin-bottom: $margin * 2.5
   font-size: 16px                             /*har*/
   width: 395px
-  color: #555555
+  color: black
 
 #new_idea_field
   font-size: 12px
@@ -696,3 +708,18 @@ table.tablesorter
 .faq
   a
     padding-left: 5px
+
+.showmespace
+  margin-top: $margin * 2
+
+.new_text_field
+  height: 32px
+
+.new_tellme_text
+  margin-top: $margin
+
+#flag_inappropriate
+  width: 750px * $scaleFactor   /* har ... was 425px */
+  textarea
+    border: none
+    width: 725px * $scaleFactor   /* har ... was 400px */

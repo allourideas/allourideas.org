@@ -28,7 +28,7 @@ a {
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  width: 425px;
+  width: 437.5px;
   color: #555555;
   line-height: 16pt; }
 
@@ -82,9 +82,8 @@ table {
   table .row0 {
     background-color: #3198c1;
     color: white; }
-    table .row0 th.idea {
-      width: 67.5%;
-      text-align: left; }
+    table .row0 td.idea {
+      width: 67.5%; }
   table .row1 {
     background-color: #fafafa; }
   table .row2 {
@@ -224,8 +223,7 @@ table {
   .votebox table td table td {
     height: 107.5px; }
   .votebox table.vote-footer {
-    width: 100%;
-    margin-top: 10px; }
+    width: 100%; }
     .votebox table.vote-footer td {
       width: 33%; }
       .votebox table.vote-footer td:first-child {
@@ -233,6 +231,8 @@ table {
         width: 33.5%; }
       .votebox table.vote-footer td:last-child {
         text-align: right; }
+  .votebox table.top_margin {
+    margin-top: 5px; }
 
 .skip {
   margin: 10px 0; }
@@ -275,7 +275,8 @@ hr {
 
 /* modified this */
 .add-box {
-  width: 375px; }
+  width: 375px;
+  margin-top: 10px; }
   .add-box textarea {
     border: none;
     width: 362.5px; }
@@ -508,7 +509,7 @@ table.tablesorter {
     background-color: #228b53; }
 
 .add_idea {
-  margin: 10px 0px 0px 0px; }
+  margin: 5px 0px 0px 0px; }
   .add_idea .add_idea_button {
     padding: 5px 10px 5px 10px;
     width: 132.5px;
@@ -594,11 +595,11 @@ table.tablesorter {
   border-top: 0px;
   width: 425px;
   text-align: center;
-  background-color: #54afe2;
+  background-color: #3198c1;
   color: white; }
 
 .link_style a {
-  color: #000088;
+  color: white;
   font-weight: bold; }
   .link_style a:hover {
     font-weight: bolder;
@@ -607,7 +608,7 @@ table.tablesorter {
 .tellmearea {
   font-size: 14px; }
 
-.cd_close_and_submit {
+.close_and_submit {
   margin-top: 5px; }
 
 .bottom_padding {
@@ -622,36 +623,44 @@ table.tablesorter {
   margin: 0;
   padding: 0;
   list-style: none;
-  color: white;
-  font-size: 12px; }
+  font-size: 12px;
+  border-color: #3198c1; }
   .tabs .current_tab {
     font-weight: bold;
-    background-color: #3198ff; }
+    background-color: #3198c1; }
+    .tabs .current_tab a {
+      color: white; }
+    .tabs .current_tab:hover {
+      background-color: #3198c1;
+      border-color: #3198c1; }
   .tabs li {
     display: inline;
-    float: right;
+    float: left;
     border-top: 4px solid #3198c1;
     border-left: 4px solid #3198c1;
     border-right: 4px solid #3198c1;
-    margin: 0 0 0 1px;
+    margin: 0 1px 0 0px;
     padding-left: 5px;
-    padding-right: 5px;
-    background-color: #54afe2; }
+    padding-right: 5px; }
     .tabs li a {
       outline: none;
       display: block;
-      color: white; }
+      color: #3198c1;
+      font-weight: bold; }
     .tabs li:hover {
-      background-color: #3198c1; }
+      background-color: #a3d4e8;
+      border-color: #a3d4e8; }
 
 .vote-nav {
-  width: 429px;
+  width: 433px;
   font-size: 12px; }
 
 .question {
+  margin-top: 12.5px;
+  margin-bottom: 12.5px;
   font-size: 16px;
   width: 395px;
-  color: #555555; }
+  color: black; }
 
 #new_idea_field {
   font-size: 12px; }
@@ -662,3 +671,18 @@ table.tablesorter {
 
 .faq a {
   padding-left: 5px; }
+
+.showmespace {
+  margin-top: 10px; }
+
+.new_text_field {
+  height: 32px; }
+
+.new_tellme_text {
+  margin-top: 5px; }
+
+#flag_inappropriate {
+  width: 375px; }
+  #flag_inappropriate textarea {
+    border: none;
+    width: 362.5px; }

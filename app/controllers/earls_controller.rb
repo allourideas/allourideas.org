@@ -54,6 +54,18 @@ class EarlsController < ApplicationController
           @right_choice_photo = Photo.find(@right_choice_text)
           @left_choice_photo = Photo.find(@left_choice_text)
        end
+
+       if @widget
+         if (width = params[:width]) && (height = params[:height]) 
+           if @@widget_supported_sizes.include?("#{width}x#{height}")    
+              @widget_stylesheet = "widget/screen_#{width}_#{height}"
+	   else
+	    render :text => "This is not a supported size. Currently supported: 450x410" and return
+	   end
+         else
+	  render :text => "You must specify a size when requesting a widget. Add ?width=450&height=410 to your url" and return
+         end
+       end
        
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       

@@ -24,7 +24,7 @@
         %td &nbsp; 
         %td.actual_cd_button.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
           .five_padding
-            =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn")   #- har don't link to facebox... removed :rel => 'facebox[.wider]')
+            =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn")
         %td &nbsp;
         /* har... there used to be no &nbsp; on the above line and the below indented block was not commented out (still indented tho)
         /
@@ -116,21 +116,11 @@
   =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
   -content_for :head do
-    = javascript_include_tag 'facebox', 'jquery.corner'
-    = stylesheet_link_tag 'facebox'
+    = javascript_include_tag 'jquery.corner'
         
 
   -content_for :view_javascript do
-    $.facebox.settings.opacity = 0.5;
-    $('a[rel*=facebox]').facebox();
     $('.rounded').corner('5px');
-    $('#facebox').draggable();
-    -unless session[:has_voted]
-      :plain
-        $('.firsttime').fadeIn(2000)
-        $('.firsttime, #close, .vote_cell').bind("click", function() {
-          $(".firsttime").fadeOut(500);
-        });
     =render :partial => 'vote_box_js' 
 
 .bottom_status.leveling_message

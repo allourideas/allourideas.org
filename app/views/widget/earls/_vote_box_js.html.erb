@@ -23,6 +23,8 @@
 
     $(this).addClass('current_tab'); 
     $('.current').show();
+
+    return false;
   };
 
   $('.tab').click(switch_tabs);
@@ -309,6 +311,7 @@
       $('#cant_decide_options').hide();
       $('.add_container').show();   
     });
+    return false;
   });
       
   $('.cd_submit_button').bind('click',function(event) {

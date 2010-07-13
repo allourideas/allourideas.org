@@ -20,15 +20,6 @@ class ApplicationController < ActionController::Base
       prepend_view_path(@@photocracy_view_path)
     elsif request.url.include?('widget') || request.url.include?('iphone') || @widget
       @widget= true
-      if (width = params[:width]) && (height = params[:height]) 
-         if @@widget_supported_sizes.include?("#{width}x#{height}")    
-            @widget_stylesheet = "widget/screen_#{width}_#{height}"
-	 else
-	    render :text => "This is not a supported size. Currently supported: 450x410" and return
-	 end
-      else
-	    render :text => "You must specify a size when requesting a widget. Add ?width=450&height=410 to your url" and return
-      end
       prepend_view_path(@@widget_view_path)
     end
   end

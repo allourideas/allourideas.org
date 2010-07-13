@@ -37,11 +37,12 @@
     $('.add_container').hide();
     $('#the_add_box').show();  
 
+    return false;
   });
 
   //  modify to eliminate facebox stuff
   on_idea_submit_button_click = function(event){		
-    var new_idea = $('#new_idea_field').val();        // *har* used to have a (#facebox '#new_idea_field  ...  etc
+    var new_idea = $('#new_idea_field').val();        
     var default_text = $('#default_text').val()
     $('.example_notice').hide();
     
@@ -98,13 +99,11 @@
           if (data['choice_status'] == 'active') {
             current_item_count = $('#item_count').html();
             $('#item_count').html(increment(current_item_count));
-	           $.facebox.close();
           }
 	  else{
             $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox #new_idea_field');
             $('#facebox .new_idea_submit').html('<%= t('vote.cast_votes') %>');
             $('#facebox .new_idea_submit').unbind('click');
-            $('#facebox .new_idea_submit').bind('click', $.facebox.close);
           }
 
         },
@@ -343,7 +342,6 @@
     //  Remove in case it's still there (flag stuff)
     $('#new_flag_field').val('');
 	
-	  jQuery(document).trigger('close.facebox')
     
     var currentTime = new Date();
     var time_viewed = currentTime - loadedTime
@@ -411,12 +409,6 @@
     event.stopPropagation();
     event.preventDefault();
 
-/*
-
-    $.facebox($("#flag_inappropriate").html());
-    $('#facebox .footer').hide();
-    $('#facebox .close').click($.facebox.close)
-*/
   });
 
   $('.flag_submit_button').bind("click", function(event) {

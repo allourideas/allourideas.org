@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   cattr_accessor :widget_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget")) 
+  @@widget_supported_sizes = ["450x410"]
 
   def view_filter
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy
@@ -19,6 +20,15 @@ class ApplicationController < ActionController::Base
       prepend_view_path(@@photocracy_view_path)
     elsif request.url.include?('widget') || request.url.include?('iphone') || @widget
       @widget= true
+      if (width = params[:width]) && (height = params[:height]) 
+         if @@widget_supported_sizes.include?("#{width}x#{height}")    
+            @widget_stylesheet = "widget/screen_#{width}_#{height}"
+	 else
+	    render :text => "This is not a supported size. Currently supported: 450x410" and return
+	 end
+      else
+	    render :text => "You must specify a size when requesting a widget. Add ?width=450&height=410 to your url" and return
+      end
       prepend_view_path(@@widget_view_path)
     end
   end

@@ -4,7 +4,6 @@
     %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
     <script src="/javascripts/widget/results_page.js" type="text/javascript"></script>
     <script src="/javascripts/widget/jquery.scrollTo-1.4.2-min.js" type="text/javascript"></script>
-    //= stylesheet_link_tag 'widget/screen'
 %body
   .results_content{:style => 'overflow:auto;', :id => 'results_content'}
     .question.center
@@ -14,8 +13,8 @@
         %tr.row0
           %td.idea.header_padding= t('items.idea')
           %td.link_style{:style => 'text-align: left'}
-            %a.question_mark{:href => '#page1'}
-              = t('common.score').titleize + ' ' 
+            %span= t('common.score').titleize + ' '
+            %a.question_mark{:href => '#null'}= '[?]'
           %td &nbsp
       %table.full{:style => 'margin-top: 5px'}
         -alt=false

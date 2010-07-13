@@ -1,8 +1,7 @@
-  /* Show 'About the Scoring' and make the widget scroll down to it */
+  /* Make the widget scroll down to 'About the Scoring' */
   
   $('.question_mark').click(function() {
-    $('#explanation').hide();
-    //document.getElementById('explanation').scrollIntoView(true);
-    $.scrollTo('10px');
+    $('#render_spot').scrollTo('#explanation');
+    return false;
   });
 

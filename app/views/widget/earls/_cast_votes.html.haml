@@ -116,7 +116,7 @@
   =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
   -content_for :head do
-    = javascript_include_tag 'jquery.corner'
+    = javascript_include_tag 'jquery.corner', 'widget/jquery.scrollTo'
         
 
   -content_for :view_javascript do

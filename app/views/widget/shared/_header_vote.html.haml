@@ -11,7 +11,7 @@
       %a{:href => '#page1'}
         #{t('vote.cast_votes')} 
     %li.results_tab.tab
-      = link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => @the_id), :id => 'view_results_link'
+      = link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => @the_id, :widget => true), :id => 'view_results_link'
     %li.about_tab.tab
       %a{:href => '#page3'}
         #{t('nav.about')}

@@ -31,11 +31,15 @@
   $('.return_voting').click(switch_tabs);
 
   $('#view_results_link').click(function(event) {
-     alert($(this).attr("href"));
+     //alert($(this).attr("href"));
      $.get($(this).attr("href"), function(data) { 
          $('#render_spot').html(data)
 	 });
     //This is where we should bind the question mark  
+    $('.question_mark').click(function() {
+      $('#render_spot').scrollTo('#explanation');
+      return false;
+    });
   })
 
   var loadedTime = new Date();

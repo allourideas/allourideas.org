@@ -113,11 +113,11 @@ a.photo_frame:hover {
     background: #fff;
     width: 32.93%;
     margin: 0 .2%;
-    border-bottom: 1px solid #db9327;
+    border-bottom: 1px solid #fa7f00;
   }
   
   h5 {
-    @include fade-down(#db9327);
+    @include fade-down(#fa7f00);
     color: #000;
     text-align: center;
     padding: 5px;
@@ -160,7 +160,7 @@ ul.results {
     }
 
     a.active, a.active:hover {
-        background: #DB9327;
+        background: #fa7f00;
         font-weight: bold;
         color: #fff;
     }

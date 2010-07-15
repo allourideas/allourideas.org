@@ -224,13 +224,12 @@
 		       $('.indicator').hide();
 		       if (error == "timeout") {
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_timeout_error')%></div>");
-		         $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+             $('#error_prepended').effect("highlight", {color: '#ff0000'}, 1500);     
              count++;
 		       }
 		       else {
-		         $('.tellmearea').prepend("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_other_error')%></div>");
-		         $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+		         $('#error_prepended').effect("highlight", {color: '#ff0000'}, 1500);
              count++;
 		       }
 
@@ -307,6 +306,12 @@
 	    return false;
 	  });
  
+  // for reloading can't decide buttons:
+  reload_cd_table = function() {
+    var newHTML = $('#options_table').html();
+    document.getElementById("options_table").innerHTML = newHTML;
+  }
+
   // bind to can't decide
   $('#cant_decide_btn').bind('click', function() { 
 
@@ -402,9 +407,7 @@
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 	          //clear the radio buttons somehow?
 		        loadedTime = new Date() //reset loaded time
-
-            $('radio_button:checked').val(false);
-			
+            reload_cd_table();
 		      },
 		      "json"
     );
@@ -535,5 +538,6 @@
     $('.scrollbar_container').scrollTo('#about_q6');
     return false;
   });
+
 
 

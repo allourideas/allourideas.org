@@ -19,20 +19,11 @@
           %td
             .fright.no_bottom_padding
               = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
-    %table.vote-footer{:class => @earl.flag_enabled? ? 'no_top_margin' : 'top_margin'}
-      %tr
-        %td &nbsp; 
-        %td.actual_cd_button.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
-          .five_padding
-            =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn")
-        %td &nbsp;
-        /* har... there used to be no &nbsp; on the above line and the below indented block was not commented out (still indented tho)
-        /
-          - if !@earl.flag_enabled?
-            = render :partial => 'vote_idea_count', :locals => {:question => @question}
-          -else
-            &nbsp;
-    .clear
+    .cd_container.center
+      .vote-footer{:class => @earl.flag_enabled? ? 'no_top_margin' : 'top_margin'}
+        - link_to("#cant_decide_options", :id => "cant_decide_btn") do
+          %span.actual_cd_button.rounded#cd_button
+            = t('vote.cant_decide') 
     %center.add_container
       .add_idea      
         - link_to("#the_add_box") do

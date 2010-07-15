@@ -224,15 +224,10 @@ table {
     height: 107.5px; }
   .votebox table.vote-footer {
     width: 100%; }
-    .votebox table.vote-footer td {
-      width: 33%; }
-      .votebox table.vote-footer td:first-child {
-        text-align: left;
-        width: 33.5%; }
-      .votebox table.vote-footer td:last-child {
-        text-align: right; }
-  .votebox table.top_margin {
-    margin-top: 5px; }
+    .votebox table.vote-footer td:first-child {
+      text-align: left; }
+    .votebox table.vote-footer td:last-child {
+      text-align: right; }
 
 .skip {
   margin: 10px 0; }
@@ -481,7 +476,7 @@ table.tablesorter {
 
 #cd_button {
   background: #c5c5c5;
-  width: 17%; }
+  padding: 5px 10px 5px 10px; }
   #cd_button a {
     color: white;
     display: block;
@@ -490,8 +485,7 @@ table.tablesorter {
     background-color: #b1b1b1; }
 
 #cd_button_fr {
-  background: #c5c5c5;
-  width: 21%; }
+  background: #c5c5c5; }
   #cd_button_fr a {
     color: white;
     display: block;
@@ -686,3 +680,11 @@ table.tablesorter {
   #flag_inappropriate textarea {
     border: none;
     width: 362.5px; }
+
+.vote-footer {
+  margin: 5px 0px 0px 0px; }
+  .vote-footer a {
+    color: white; }
+
+.top_margin {
+  margin-top: 5px; }

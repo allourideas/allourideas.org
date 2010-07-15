@@ -104,6 +104,12 @@ fr:
     next: Prochain >>
   about_page: 
     intro: Vous participez à un "marché idée" qui permet aux groupes de recueillir des idées et établir des priorités dans un processus démocratique, ouverte et efficace. En combinant un processus de vote simple avec le téléchargement d'idées, les meilleures idées dans le groupe fera des bulles vers le haut.
+    exp_widget: Ce widget marché idée est alimenté par www.allourideas.org, un projet de recherche dirigée par le professeur Matthew Salganik, Département de sociologie, Université de Princeton. 
+    faq_widget: "Voici quelques questions fréquemment posées:" 
+    open_source_q_widget: Est-ce tout cela open-source? 
+    open_source_exp_widget: Absolument. Voici cible <a href="http://github.com/allourideas" target = blank_>le code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: J'ai une autre question, comment puis-je entrer en contact avec vous? 
+    contact_exp_widget: Envoyez-nous un courriel à info@allourideas.org.
     how_many_votes_q: Combien de votes exprimés puis-je? Quand finit-elle? 
     how_many_votes_exp: Vous pouvez voter que peu ou autant que vous le souhaitez, et vous pouvez arrêter de vote à tout moment.
     how_many_ideas_q: Combien d'idées que je peux ajouter? Qu'advient-il de mon idée une fois que je l'ajouter?
@@ -112,6 +118,7 @@ fr:
     view_results_exp: Oui, il suffit de cliquer sur "Afficher les résultats" de l'isoloir. Ce processus est complètement transparent.
     make_my_own_q: Ceci est soignée. Puis-je faire un de ces moi-même?
     make_my_own_exp: "Bien sûr. Il est facile de configurer votre propre idée du marché, et il est offert gratuitement à notre Merci subventions de Google et le Centre de technologie de l'information politique à l'Université Princeton. Vous pouvez créer votre propre idée du marché ici: http://www.allourideas.org/questions/new"
+    make_my_own_exp_widget: "Bien sûr. Il est facile de configurer votre propre idée du marché, et il est offert gratuitement à notre Merci subventions de Google et le Centre de technologie de l'information politique à l'Université Princeton. Vous pouvez créer votre propre widget marché idée: http://www.allourideas.org."
   user:
     # User information that appears in a few places, most importantly the footer
     email: Courrier électronique

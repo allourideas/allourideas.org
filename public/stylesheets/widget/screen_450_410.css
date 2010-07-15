@@ -222,12 +222,6 @@ table {
     padding: 5px; }
   .votebox table td table td {
     height: 107.5px; }
-  .votebox table.vote-footer {
-    width: 100%; }
-    .votebox table.vote-footer td:first-child {
-      text-align: left; }
-    .votebox table.vote-footer td:last-child {
-      text-align: right; }
 
 .skip {
   margin: 10px 0; }
@@ -476,7 +470,7 @@ table.tablesorter {
 
 #cd_button {
   background: #c5c5c5;
-  padding: 5px 10px 5px 10px; }
+  padding: 7.5px 12px 7.5px 12px; }
   #cd_button a {
     color: white;
     display: block;
@@ -484,51 +478,26 @@ table.tablesorter {
   #cd_button:hover {
     background-color: #b1b1b1; }
 
-#cd_button_fr {
-  background: #c5c5c5; }
-  #cd_button_fr a {
-    color: white;
-    display: block;
-    font-size: 12.8px; }
-  #cd_button_fr:hover {
-    background-color: #b1b1b1; }
-
-.cd_submit_button {
-  width: 40px;
-  padding: 5px 10px 5px 10px;
-  background: #01bb00;
+.add_idea .add_idea_button {
+  padding: 7.5px 20px 7.5px 20px;
+  color: white;
+  font-size: 12.8px;
   cursor: pointer;
-  color: white; }
-  .cd_submit_button:hover {
-    background-color: #228b53; }
-
-.add_idea {
-  margin: 5px 0px 0px 0px; }
-  .add_idea .add_idea_button {
-    padding: 5px 10px 5px 10px;
-    width: 132.5px;
-    height: 1.5em;
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    font-size: 12.8px;
-    cursor: pointer;
-    background: #01bb00; }
-    .add_idea .add_idea_button a {
-      color: white; }
-    .add_idea .add_idea_button:hover {
-      background: #228b53; }
+  background: #01bb00; }
+  .add_idea .add_idea_button a {
+    color: white; }
+  .add_idea .add_idea_button:hover {
+    background: #228b53; }
 
 #facebox {
   cursor: move; }
 
-.new_idea_submit, .flag_submit_button {
-  width: 40px;
+.new_idea_submit, .flag_submit_button, .cd_submit_button {
   padding: 5px 10px 5px 10px;
   background: #01bb00;
   cursor: pointer;
   color: white; }
-  .new_idea_submit:hover, .flag_submit_button:hover {
+  .new_idea_submit:hover, .flag_submit_button:hover, .cd_submit_button:hover {
     background-color: #228b53; }
 
 .no_bottom_padding {
@@ -667,7 +636,7 @@ table.tablesorter {
   padding-left: 5px; }
 
 .showmespace {
-  margin-top: 10px; }
+  margin-top: 20px; }
 
 .new_text_field {
   height: 32px; }
@@ -681,10 +650,14 @@ table.tablesorter {
     border: none;
     width: 362.5px; }
 
-.vote-footer {
-  margin: 5px 0px 0px 0px; }
-  .vote-footer a {
-    color: white; }
+.vote-footer a {
+  color: white; }
 
 .top_margin {
   margin-top: 5px; }
+
+.double_top_margin {
+  margin-top: 10px; }
+
+.add_container {
+  margin-top: 15px; }

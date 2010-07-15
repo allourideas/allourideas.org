@@ -19,15 +19,15 @@
           %td
             .fright.no_bottom_padding
               = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
-    .cd_container.center
-      .vote-footer{:class => @earl.flag_enabled? ? 'no_top_margin' : 'top_margin'}
+    .cd_container.center{:class => @earl.flag_enabled? ? 'no_top_margin' : 'double_top_margin'}
+      .vote-footer
         - link_to("#cant_decide_options", :id => "cant_decide_btn") do
           %span.actual_cd_button.rounded#cd_button
             = t('vote.cant_decide') 
     %center.add_container
       .add_idea      
         - link_to("#the_add_box") do
-          .add_idea_button.rounded
+          %span.add_idea_button.rounded
             = t('vote.add_your_idea_button')  
         //= link_to(t('vote.add_your_idea_button'), "#the_add_box", :class => "add_idea_button rounded") 
         //= render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}

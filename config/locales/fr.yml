@@ -6,6 +6,7 @@ fr:
    items:  des idées
    ideas:  idées
    title:  Toutes Nos Idées - Une boite à suggestions pour l’ère du numérique
+   title_widget: Toutes Nos Idées 
    characters:  caratères
    idea_marketplace:  L’idée de marché
    votes:  Votes
@@ -73,6 +74,7 @@ fr:
     cant_decide_message: Vous ne pouvez pas décider.
     click_idea_to_start_widget: Cliquez sur une idée de commencer le vote.
     idea_sent_for_review: Votre idée a été soumis pour examen. Il apparaîtra bientôt.
+    powered_widget: "Ce marché est alimenté par l'idée "
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results

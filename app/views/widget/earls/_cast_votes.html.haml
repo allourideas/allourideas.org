@@ -120,5 +120,5 @@
     /* Should put this css in a stylesheet. */
     /* Need to put text in en.yml */
     %table.link_style{:border => 0, :cellpadding => 0}
-      %td= 'This idea marketplace is powered by ' + link_to('All Our Ideas', 'http://allourideas.org', :target => '_blank')
+      %td= t('vote.powered_widget') + link_to(t('common.title_widget'), 'http://allourideas.org', :target => '_blank')
       %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), 'http://allourideas.org', :target => '_blank')

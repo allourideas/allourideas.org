@@ -6,6 +6,7 @@ es:
    items: ideas
    ideas: ideas
    title: Todas nuestras ideas - un buzón de sugerencias para la nueva época digital 
+   title_widget: Todas Nuestras Ideas
    characters: caracteres
    idea_marketplace: Un Mercado de Ideas
    votes: Votos
@@ -73,6 +74,7 @@ es:
     cant_decide_message: No se podría decidir.
     click_idea_to_start_widget: Haga clic en una idea para empezar a votar.
     idea_sent_for_review: Su idea ha sido presentada para su revisión. Se van a aparecer pronto.
+    powered_widget: "Este mercado está alimentado por la idea "
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results

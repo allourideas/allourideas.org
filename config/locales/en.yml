@@ -8,6 +8,7 @@ en:
    active: active
    inactive: inactive
    title: All Our Ideas - A Suggestion Box for the Digital Age
+   title_widget: All Our Ideas   
    characters: characters
    idea_marketplace: Idea Marketplace
    votes: Votes
@@ -181,6 +182,7 @@ en:
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
     idea_sent_for_review: Your idea has been submitted for review. It will appear soon.
+    powered_widget: "This idea marketplace is powered by " 
   results:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes

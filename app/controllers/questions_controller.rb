@@ -954,7 +954,6 @@ class QuestionsController < ApplicationController
       fq_earl = ("http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{earl.name}" rescue nil)
       ClearanceMailer.send_later(:deliver_confirmation, current_user, fq_earl, @photocracy)
       IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
-      IdeaMailer.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
       session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
       redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')
     else

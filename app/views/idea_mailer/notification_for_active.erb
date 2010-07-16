@@ -1,21 +1,13 @@
 <%= t('items.email.hello') %>
-<%= t('items.email.someone_has') +  "'#{@choice_text}'" + t('items.email.to_your_question') + "'#{@question_name}'" %>
+<%= t('items.email.someone_has') %> <%= "'#{@choice_text}'" unless @photocracy %> <%= t('items.email.to_your_question') + "'#{@question_name}'" %>
 
 <%= t('items.email.we_auto_activated_idea') %>
-
-
-<%= "http://#{HOST}/#{@earl.name}/choices/#{@choice_id}/deactivate" %>
-
+<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}/choices/#{@choice_id}/deactivate" %>
 
 <%= t('items.email.if_you_want') %>
 
-
-<%= t('items.email.see_current_results') + " http://#{HOST}/#{@earl.name}" %>
+<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
 
 
 Thanks,
-All Our Ideas
-145 Wallace Hall
-Princeton, NJ 08544
-info@allourideas.org
-<%= t('items.email.follow_us_on_twitter') + "http://twitter.com/allourideas" %>
+<%= render :partial => 'idea_mailer/signature' %>

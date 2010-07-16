@@ -73,8 +73,8 @@ photocracy_en:
     you_have_successfully_deactivated: You have successfully deactivated the photo
     email:
       hello: "Hello,"
-      someone_has: "Someone has uploaded the photo " 
-      someone_has_flagged: Someone has flagged the photo '{{idea_data}}' in your photo marketplace at {{question_url}} as inappropriate.
+      someone_has: "Someone has uploaded a photo " 
+      someone_has_flagged: Someone has flagged a photo in your photo marketplace at {{question_url}} as inappropriate.
       provided_explanation_is: "The user that flagged this photo provided the following text as explanation:"
       we_have_auto_deactivated: "We have automatically deactivated this photo from your photo marketplace. If you believe this photo is not inappropriate, you can re-enable it by visiting the following url:"
       to_your_question: " to your question " 

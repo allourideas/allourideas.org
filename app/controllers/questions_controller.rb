@@ -862,11 +862,10 @@ class QuestionsController < ApplicationController
                                :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
 
 	      @earl = Earl.find_by_question_id(@question.id)
-              case @choice.active?
-              when false
-                IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id
-              when true
-                IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id
+              if @choice.active?
+                IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id, @photocracy
+              else
+                IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id, @photocracy
               end
             else
               render :json => '{"error" : "Addition of new idea failed"}'
@@ -952,8 +951,10 @@ class QuestionsController < ApplicationController
 
     if question_params_valid
       earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
-      ClearanceMailer.send_later(:deliver_confirmation, current_user, @question.fq_earl)
-      IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information']) unless params[:question]["information"].blank?
+      fq_earl = ("http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{earl.name}" rescue nil)
+      ClearanceMailer.send_later(:deliver_confirmation, current_user, fq_earl, @photocracy)
+      IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
+      IdeaMailer.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
       session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
       redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')
     else
@@ -1043,7 +1044,7 @@ class QuestionsController < ApplicationController
     if params[:type].nil?
 	    render :text => "An error has occured! Please try again later." and return
     else
-       @earl.send_later :export_and_notify, :type => params[:type], :email => current_user.email
+      @earl.send_later :export_and_notify, :type => params[:type], :email => current_user.email, :photocracy => @photocracy
     end
       
     

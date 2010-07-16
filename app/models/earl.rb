@@ -21,6 +21,7 @@ class Earl < ActiveRecord::Base
 	  @question = Question.find(self.question_id)
 	  type = options[:type]
 	  email = options[:email]
+	  @photocracy = options[:photocracy]
 
 	  # delayed job doesn't like passing the user as parameter
 	  # so we do this manually
@@ -115,7 +116,7 @@ class Earl < ActiveRecord::Base
 	  
 	  File.send_at(3.days.from_now, :delete, dest_filename)
 	  url = "/system/exports/#{self.question_id}/#{File.basename(dest_filename)}"
-	  ::IdeaMailer.deliver_export_data_ready(email, url)
+	  ::IdeaMailer.deliver_export_data_ready(email, url, @photocracy)
 
 	  dest_filename
   end

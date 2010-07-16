@@ -116,4 +116,7 @@
           $('#photo_step_3').hide();
         }
       });
+
+      jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');
+      
     });

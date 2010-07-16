@@ -249,7 +249,10 @@ function loadNextPrompt(data) {
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
+		// preload future images
+                jQuery.preLoadImages(data["future_" + side + "_photo"]);
 	});
+
 
 	// change appearance_lookup and prompt_id hidden fields
 	$('#appearance_lookup').val(data['appearance_lookup']);
@@ -287,3 +290,17 @@ function clearImages() {
 		$(this).remove();
 	});
 }
+
+(function($) {
+  var cache = [];
+  // Arguments are image paths relative to the current page.
+  $.preLoadImages = function() {
+    var args_len = arguments.length;
+    for (var i = args_len; i--;) {
+      var cacheImage = document.createElement('img');
+      cacheImage.src = arguments[i];
+      cache.push(cacheImage);
+    }
+  }
+})(jQuery)
+

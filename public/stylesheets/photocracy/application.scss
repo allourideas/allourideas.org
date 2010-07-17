@@ -212,6 +212,15 @@ p.score_explanation {
   }
 }
 
+#flash {
+  color:red;
+}
+
+#flash .notice{
+  padding: 10px;
+  background: #ffffcb;
+}
+
 #results #primary_content {
   margin-top: 8em;
 }

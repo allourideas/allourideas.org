@@ -184,6 +184,13 @@ p.score_explanation {
   #ft a {
     color: #666; }
 
+#flash {
+  color: red; }
+
+#flash .notice {
+  padding: 10px;
+  background: #ffffcb; }
+
 #results #primary_content {
   margin-top: 8em; }
 

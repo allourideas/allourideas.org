@@ -1,3 +1,4 @@
+FADE_TIME = 2000
 $(document).ready(function() {
 	// voting
   $('a.vote').live('click', function(e) {
@@ -10,11 +11,8 @@ $(document).ready(function() {
 			var x_click_offset = calculateClickOffset('x', e, $(this));
 			var y_click_offset = calculateClickOffset('y', e, $(this));
 			clearImages();
-
-			// $('a.vote').addClass('loading'); // spinner
-			// $(this).addClass('chosen');  // checkmark
 			
-			// $(this).addClass('loading'); // spinner
+			$('a.vote').addClass('loading'); // prevent double clicking
 
 			castVote($(this), x_click_offset, y_click_offset);
 		}
@@ -300,7 +298,10 @@ function loadNextPrompt(data) {
 		// change photos
 		$('a.vote.' + side + ' > table').html("<td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td>");
 		// fade in photo
-		$('a.vote.' + side + ' > table').find('img').fadeIn(2000);
+		$('a.vote.' + side + ' > table').find('img').fadeIn(FADE_TIME, function() {
+			// remove spinner and checkmark
+			$('a.vote.' + side).removeClass('loading');
+		});
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
@@ -317,9 +318,6 @@ function loadNextPrompt(data) {
 	// change urls for inappropriate and skip forms
 	$('#flag_as_inappropriate_form').attr('action', data['flag_url']);
 	$('#cant_decide_form').attr('action', data['skip_url']);
-	
-	// remove spinner and checkmark
-	$('a.vote').removeClass('loading chosen');
 }
 
 function voteError(request, textStatus, errorThrown) {
@@ -335,14 +333,11 @@ function decrement(number){
 }
 
 function clearImages() {
-	// $('a.vote.right > table > a').html('');
-	// $('a.vote.left > table > a').html('');
-	
-	$('a.vote.right > table').find('img').fadeOut(2000, function() {
+	$('a.vote.right > table').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 	
-	$('a.vote.left > table').find('img').fadeOut(2000, function() {
+	$('a.vote.left > table').find('img').fadeOut(FADE_TIME, function() {
 		$(this).remove();
 	});
 }

@@ -1,10 +1,6 @@
 @import "mixins";
 
-body {
-  background: -moz-linear-gradient(#fff, #eee);
-}
-
-html {
+html, body {
   background: #eee;
 }
 
@@ -108,6 +104,18 @@ a.photo_frame:hover {
   text-shadow: #235a9b -2px 0px 5px;
 }
 
+.button.green {
+  font-size:20px;
+  @include marble-fade(#698D00);
+  border: 1px solid #698D00;
+  color: #fff;
+  text-shadow: #666 -2px 0px 10px;
+}
+
+.button.green:hover {
+  border: 1px solid #fff;
+}
+
 #secondary_content {
   .grid_4 {
     background: #fff;
@@ -200,7 +208,7 @@ p.score_explanation {
   padding: 1em;
   
   a {
-    color: #999;
+    color: #666;
   }
 }
 
@@ -225,6 +233,11 @@ table.admin {
   img {
     vertical-align: middle;
   }
+}
+
+.blue_fade {
+  color: #fff;
+  @include fade(#354F68, #637F96);
 }
 
 strong, .strong {

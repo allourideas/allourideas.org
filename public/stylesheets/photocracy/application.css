@@ -1,7 +1,4 @@
-body {
-  background: -moz-linear-gradient(white, #eeeeee); }
-
-html {
+html, body {
   background: #eee; }
 
 #hd {
@@ -103,6 +100,18 @@ a.photo_frame:hover {
   border: 1px solid #235a9b;
   text-shadow: #235a9b -2px 0px 5px; }
 
+.button.green {
+  font-size: 20px;
+  background: #698d00;
+  background: -moz-linear-gradient(#c8ff27, #698d00);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #c8ff27), color-stop(0, #698d00));
+  border: 1px solid #698D00;
+  color: #fff;
+  text-shadow: #666 -2px 0px 10px; }
+
+.button.green:hover {
+  border: 1px solid #fff; }
+
 #secondary_content .grid_4 {
   background: #fff;
   width: 32.93%;
@@ -173,7 +182,7 @@ p.score_explanation {
   text-align: center;
   padding: 1em; }
   #ft a {
-    color: #999; }
+    color: #666; }
 
 #results #primary_content {
   margin-top: 8em; }
@@ -188,6 +197,12 @@ table.admin td {
   padding: 10px; }
 table.admin img {
   vertical-align: middle; }
+
+.blue_fade {
+  color: #fff;
+  background: #354f68;
+  background: -moz-linear-gradient(#354f68, #637f96);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #354f68), color-stop(0, #637f96)); }
 
 strong, .strong {
   font-weight: bold; }

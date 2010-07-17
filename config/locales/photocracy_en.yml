@@ -48,7 +48,7 @@ photocracy_en:
     get_started_txt: Click on the link below to get started with Photocracy. It is free, easy, and built on open source technology. Create your own interactive suggestion box and start discovering.
     create_a_question: Create a question
     student_government_explanation: This example is based on a site that the Undergraduate Student Government at Princeton University used to discover the best photos for improving campus. In just a few weeks, more than 2,000 students contributed more than 40,000 votes and 100 new photos. You can create a question like this to discover the best photos in your group or organization.
-    see_an_example: See an example
+    see_an_example: See an example site
     learn_more: Learn more
   items:
     new:
@@ -109,9 +109,9 @@ photocracy_en:
         header: errors prohibited this website from being created.
       header: Create your website and get ready to discover the best photos...
       step1: "Step 1: Create your website"
-      step1_exp:   "For example, \"Which do you want more from the student government?\""
+      step1_exp:   "For example, \"Which photo is more Princeton?\""
       step2: "Step 2: Choose your URL"
-      step2_exp: studentgovernment
+      step2_exp: princeton
       step3: "Step 3: Upload lots of photos to seed the site"
       step3_ist: Upload lots of photos here. You should put one per line.
       step3_ist2: You can copy and paste from a list that you've already created.

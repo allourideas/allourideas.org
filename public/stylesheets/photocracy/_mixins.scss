@@ -23,6 +23,19 @@
 	);
 }
 
+@mixin fade($color1: #ccc, $color2: #666) {
+  background: $color1;
+  background: -moz-linear-gradient($color1, $color2);
+  background:
+	-webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1.00, $color1),
+		color-stop(0.00, $color2)
+	);
+}
+
 @mixin fade-down($color: #ccc) {
   background: $color;
   background: -moz-linear-gradient(darken($color, 10%), $color, $color, $color);

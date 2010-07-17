@@ -30,6 +30,20 @@
   $('.tab').click(switch_tabs);
   $('.return_voting').click(switch_tabs);
 
+  // for reloading can't decide buttons:
+  reload_cd_table = function() {
+    var cdHTML = $('#options_table').html();
+    document.getElementById("options_table").innerHTML = cdHTML;
+  }
+
+  // for reloading the "add your own idea here" field:
+  //var addHTML = $('#add_text_area').html();
+  reload_add_idea_field = function() {
+    //var addHTML = $('#the_add_box').html();
+    //document.getElementById("the_add_box").innerHTML = addHTML;
+    $('#new_idea_field').val("");
+  }
+
   $('#view_results_link').click(function(event) {
      //alert($(this).attr("href"));
      $.get($(this).attr("href"), function(data) { 
@@ -38,8 +52,7 @@
              $('#render_spot').scrollTo('#explanation');
              return false;
           });
-	 });
-    //This is where we should bind the question mark  
+	 }); 
   })
 
   var loadedTime = new Date();
@@ -59,6 +72,7 @@
     var new_idea = $('#new_idea_field').val();        
     var default_text = $('#default_text').val()
     $('.example_notice').hide();
+    reload_add_idea_field();
     
     //if new idea is blank or longer than 140 characters, do not allow it to submit
     if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
@@ -77,7 +91,6 @@
     $('.vote-footer').show();      
     $('.add_container').show();
 	  $('.indicator').show();
-    $('#new_idea_field').val('');           /* har... could do default text here, but then the text has to actually be deleted*/
 
     //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
@@ -114,7 +127,7 @@
             current_item_count = $('#item_count').html();
             $('#item_count').html(increment(current_item_count));
           }
-	  else{
+	        else {
             $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox #new_idea_field');
             $('#facebox .new_idea_submit').html('<%= t('vote.cast_votes') %>');
             $('#facebox .new_idea_submit').unbind('click');
@@ -225,13 +238,12 @@
 		       $('.indicator').hide();
 		       if (error == "timeout") {
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_timeout_error')%></div>");
-		         $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+             $('#error_prepended').effect("highlight", {color: '#ff0000'}, 1500);     
              count++;
 		       }
 		       else {
-		         $('.tellmearea').prepend("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
 		         $('.tellmearea').prepend("<div id = \"error_prepended\"> <%= t('vote.vote_other_error')%></div>");
-		         $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+		         $('#error_prepended').effect("highlight", {color: '#ff0000'}, 1500);
              count++;
 		       }
 
@@ -403,9 +415,7 @@
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 	          //clear the radio buttons somehow?
 		        loadedTime = new Date() //reset loaded time
-
-            $('radio_button:checked').val(false);
-			
+            reload_cd_table();
 		      },
 		      "json"
     );
@@ -536,5 +546,6 @@
     $('.scrollbar_container').scrollTo('#about_q6');
     return false;
   });
+
 
 

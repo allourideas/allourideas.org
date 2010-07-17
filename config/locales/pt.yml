@@ -6,6 +6,7 @@ pt:
    items: ideias
    ideas: ideias
    title: All Our Ideas - Uma Caixa de Sugestões para a Era Digital
+   title_widget: All Our Ideas
    characters: caracteres
    idea_marketplace: Mercado de Ideias
    votes: Votos
@@ -73,6 +74,7 @@ pt:
     cant_decide_message: Você não pode decidir.
     click_idea_to_start_widget: Clique em uma idéia para iniciar a votação.
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
+    powered_widget: "Este mercado é alimentado pela ideia "
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
@@ -104,6 +106,12 @@ pt:
     next: Próximo >>
   about_page: 
     intro: Você está participando em um mercado de "idéias" que permite que grupos de coletar e priorizar idéias em um processo democrático, aberto e eficiente. Ao combinar um processo de votação simples, com carregamento aberto de idéias, as melhores idéias em seu grupo de bolhas para o topo.
+    exp_widget: Este widget mercado idéia é alimentado por www.allourideas.org, um projecto de investigação liderado pelo Professor Matthew Salganik, Departamento de Sociologia da Universidade de Princeton.
+    faq_widget: "Aqui estão algumas perguntas freqüentes:"
+    open_source_q_widget: É todo este código-fonte aberto?
+    open_source_exp_widget: Absolutamente. Aqui está o alvo <a href="http://github.com/allourideas" target = blank_>o código<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: Eu tenho outra pergunta, como posso entrar em contato com você?
+    contact_exp_widget: Envie-nos um email para info@allourideas.org.
     how_many_votes_q: Quantos votos eu posso elenco? Quando ele termina?
     how_many_votes_exp: Você pode votar tão pouco ou tanto quanto você quer, e você pode parar de voto a qualquer momento.
     how_many_ideas_q: Quantas idéias eu posso acrescentar? O que acontece com a minha ideia uma vez que eu adicioná-lo?
@@ -112,6 +120,7 @@ pt:
     view_results_exp: Sim, simplesmente clique em "Exibir Resultados" da tela de votação. Este processo é completamente transparente.
     make_my_own_q: Posso fazer uma dessas mim?
     make_my_own_exp: "Claro. É fácil de configurar sua própria idéia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar seu próprio mercado idéia aqui: http://www.allourideas.org/questions/new"
+    make_my_own_exp_widget: "Claro. É fácil de configurar sua própria idéia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar o seu widget próprio mercado idéia: http://www.allourideas.org."
   user:
     # User information that appears in a few places, most importantly the footer
     email: Email

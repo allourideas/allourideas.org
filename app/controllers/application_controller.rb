@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale
+  before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
@@ -156,6 +156,10 @@ class ApplicationController < ActionController::Base
     if Rails.env == "cucumber" && @photocracy
           options.merge!({:photocracy_mode => true})
     end
+  end
+
+  def set_p3p_header
+    response.headers['P3P'] = 'policyref="/w3c/p3p.xml", CP="NOI CURa ADMa DEVa PSAa OUR SAMa IND NAV CNT LOC OTC"'
   end
 
 end

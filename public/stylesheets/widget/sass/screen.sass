@@ -244,17 +244,6 @@ $fontScaleFactor = .8                           /* har */
       padding: 5px
     table td
       height: 215px * $scaleFactor
-  &.vote-footer
-    width: 100%
-    td
-      width: 33%
-      &:first-child
-        text-align: left
-        width: 33.5%
-      &:last-child
-        text-align: right
-  &.top_margin
-    margin-top: $margin
 
 .skip
   margin: 10px 0
@@ -507,41 +496,19 @@ table.tablesorter
 
 #cd_button
   background: #C5C5C5
-  width: 17%
+  padding: 7.5px 12px 7.5px 12px
   a
     color: #FFFFFF
     display: block
     font-size: 16px * $fontScaleFactor
   &:hover
     background-color: #B1B1B1
-
-#cd_button_fr
-  background: #C5C5C5
-  width: 21%
-  a
-    color: #FFFFFF
-    display: block
-    font-size: 16px * $fontScaleFactor
-  &:hover
-    background-color: #B1B1B1
-
-.cd_submit_button
-  width: 40px
-  padding: 5px 10px 5px 10px
-  background: #01bb00       /* har*/
-  cursor: pointer
-  color: #FFFFFF
-  &:hover
-    background-color: #228b53  /* har*/
 
 .add_idea
-  margin: $margin 0px 0px 0px /* har... was 35px originally*/
   .add_idea_button
-    padding: 5px 10px 5px 10px
-    width: 265px * $scaleFactor
-    height: 3em * $scaleFactor
-    display: table-cell
-    vertical-align: middle
+    padding: 7.5px 20px 7.5px 20px
+    //width: 265px * $scaleFactor
+    //height: 3em * $scaleFactor
     color: #FFFFFF
     font-size: 16px * $fontScaleFactor
     cursor: pointer
@@ -554,8 +521,7 @@ table.tablesorter
 #facebox
   cursor: move
 
-.new_idea_submit, .flag_submit_button
-  width: 40px
+.new_idea_submit, .flag_submit_button, .cd_submit_button
   padding: 5px 10px 5px 10px
   background: #01bb00
   cursor: pointer
@@ -710,7 +676,7 @@ $tellmearea_fontsize: 14px
     padding-left: 5px
 
 .showmespace
-  margin-top: $margin * 2
+  margin-top: $margin * 4
 
 .new_text_field
   height: 32px
@@ -723,3 +689,16 @@ $tellmearea_fontsize: 14px
   textarea
     border: none
     width: 725px * $scaleFactor   /* har ... was 400px */
+
+.vote-footer
+  a
+    color: white
+
+.top_margin
+  margin-top: $margin
+
+.double_top_margin
+  margin-top: $margin * 2
+
+.add_container
+  margin-top: $margin * 3

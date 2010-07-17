@@ -6,6 +6,7 @@ es:
    items: ideas
    ideas: ideas
    title: Todas nuestras ideas - un buzón de sugerencias para la nueva época digital 
+   title_widget: Todas Nuestras Ideas
    characters: caracteres
    idea_marketplace: Un Mercado de Ideas
    votes: Votos
@@ -73,6 +74,7 @@ es:
     cant_decide_message: No se podría decidir.
     click_idea_to_start_widget: Haga clic en una idea para empezar a votar.
     idea_sent_for_review: Su idea ha sido presentada para su revisión. Se van a aparecer pronto.
+    powered_widget: "Este mercado está alimentado por la idea "
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
@@ -104,6 +106,15 @@ es:
     next: Próximo >>
   about_page: 
     intro: Estás participando en un mercado "idea" que permite a los grupos para recoger y dar prioridad a las ideas en un proceso democrático, abierto y eficiente. Mediante la combinación de un proceso de votación simple con carga abierto de ideas, las mejores ideas de su grupo saldrán a la parte superior. 
+
+    exp_widget: Este widget mercado idea es alimentado por www.allourideas.org, un proyecto de investigación dirigido por el Prof. Mateo Salganik, Departamento de Sociología de la Universidad de Princeton.
+    faq_widget: "Aquí están algunas preguntas frecuentes:"
+    open_source_q_widget: ¿Es todo esto de código abierto?
+    open_source_exp_widget: Por supuesto. Aquí está <a href="http://github.com/allourideas" target = blank_>el código<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: Tengo otra pregunta, ¿cómo puedo ponerme en contacto con usted?
+    contact_exp_widget: Envíanos un correo electrónico a info@allourideas.org.
+
+
     how_many_votes_q: ¿Cuántos votos emitidos puedo? Cuando se termina?
     how_many_votes_exp: Puedes votar tan poco o tanto como usted desee, y podrá dejar de votar en cualquier momento. 
     how_many_ideas_q: ¿Cuántas ideas se puede añadir? ¿Qué sucede con mi idea una vez que lo agregue? 
@@ -112,6 +123,7 @@ es:
     view_results_exp: Sí, simplemente haga clic en "Ver resultados" en la pantalla de votación. Este proceso es totalmente transparente. 
     make_my_own_q: Este es limpio. ¿Puedo hacer una de esas yo mismo? 
     make_my_own_exp: "Claro que sí. Es fácil de configurar su mercado propia idea, y es totalmente gratuita gracias a nuestros subvenciones de Google y el Centro de Tecnologías de la Información Política de la Universidad de Princeton. Usted puede crear su propia idea mercado aquí: http://www.allourideas.org/questions/new."
+    make_my_own_exp_widget: "Claro que sí. Es fácil de configurar su mercado propia idea, y es totalmente gratuita gracias a nuestros subvenciones de Google y el Centro de Tecnologías de la Información Política de la Universidad de Princeton. Usted puede crear su propio widget mercado idea: http://www.allourideas.org."
   user:
     # User information that appears in a few places, most importantly the footer
     email: Correo electronico

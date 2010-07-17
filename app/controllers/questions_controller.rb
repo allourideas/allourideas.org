@@ -950,7 +950,9 @@ class QuestionsController < ApplicationController
                      :password_confirmation => params[:question]['password']) unless signed_in?
 
     if question_params_valid
-      earl = current_user.earls.create(:question_id => @question.id, :name => params[:question]['url'].strip)
+      earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip}
+      earl_options.merge!(:flag_enabled => true) if @photocracy # flag is enabled by default for photocracy
+      earl = current_user.earls.create(earl_options)
       fq_earl = ("http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{earl.name}" rescue nil)
       ClearanceMailer.send_later(:deliver_confirmation, current_user, fq_earl, @photocracy)
       IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?

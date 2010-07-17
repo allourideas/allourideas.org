@@ -37,13 +37,9 @@
             %h4 
               =(i + 1).ordinalize
 
-            VOTES
-            %h4 
-              =choice.attributes["wins"] + choice.attributes["losses"]
-
             SCORE
             %h4 
-              =choice.attributes['score'].round.to_s + '%'
+              =choice.attributes['score'].round.to_s
           
             -if choice == @choices.first
               .gray

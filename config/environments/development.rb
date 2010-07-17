@@ -27,5 +27,6 @@ PAIRWISE_PASSWORD = "wheatthins"
 
 PHOTOCRACY_USERNAME = "photocracytest@dkapadia.com"
 PHOTOCRACY_PASSWORD = "saltines"
+PHOTOCRACY_HOST = 'photocracy:3001'
 
 IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on stored ip address hashes

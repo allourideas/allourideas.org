@@ -107,7 +107,8 @@ a.photo_frame:hover {
   background: #fff;
   width: 32.93%;
   margin: 0 .2%;
-  border-bottom: 1px solid #fa7f00; }
+  border-bottom: 1px solid #fa7f00;
+  min-height: 200px; }
 #secondary_content h5 {
   background: #fa7f00;
   background: -moz-linear-gradient(#c76500, #fa7f00, #fa7f00, #fa7f00);
@@ -183,6 +184,17 @@ p.score_explanation {
 .chosen {
   background: url(../../images/photocracy/chosen.png) center center no-repeat !important; }
 
+table.admin th {
+  padding: 10px; }
+table.admin td {
+  line-height: 50px;
+  padding: 10px; }
+table.admin img {
+  vertical-align: middle; }
+
+strong, .strong {
+  font-weight: bold; }
+
 .center {
   text-align: center; }
 
@@ -206,7 +218,7 @@ p.score_explanation {
 .small_margin_bottom {
   margin-bottom: 5px; }
 
-.gray, a.gray {
+.gray, a.gray, .Deactivated, .deactivated {
   color: #666; }
 
 .microcopy {

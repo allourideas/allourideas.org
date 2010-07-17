@@ -1,27 +1,42 @@
-<div class="container_16">
-  <canvas id="my_canvas" width="425" height="340" style="background: url(<%= @photo.image.url(:medium) %>) no-repeat;">
-    Fallback content here
-  </canvas>
+<div class="container_12">
+  <%= render :partial => 'photocracy/questions/results_header'%>
   
-  <script type="text/javascript">
-    var canvas = document.getElementById('my_canvas'); 
-    if (canvas.getContext){
-      var context = canvas.getContext('2d');
-      <% @votes.each do |v| %>
-        <% unless v['tracking'].blank? %>
-          context.beginPath();
-          context.arc(<%= v['tracking']['x_click_offset'].to_i %>, <%= v['tracking']['y_click_offset'].to_i %>, 10, 0, Math.PI*2, true); 
-          context.closePath();
-          context.fillStyle = "rgba(255,51,51,.7)";
-          context.fill();
-      
-          // context.fillStyle = "rgba(255,51,51,.7)";
-          // context.fillRect (<%= v['tracking']['x_click_offset'].to_i - 10 %>, <%= v['tracking']['y_click_offset'].to_i - 10 %>,  20, 20);
+  <div class="grid_7">
+    <canvas id="my_canvas" width="425" height="340" style="background: url(<%= @photo.image.url(:medium) %>) no-repeat;">
+      &nbsp;
+    </canvas>
+
+    <script type="text/javascript">
+      var canvas = document.getElementById('my_canvas');
+      if (canvas.getContext){
+        var context = canvas.getContext('2d');
+        <% @votes.each do |v| %>
+          <% unless v['tracking'].blank? %>
+            context.beginPath();
+            context.arc(<%= v['tracking']['x_click_offset'].to_i %>, <%= v['tracking']['y_click_offset'].to_i %>, 10, 0, Math.PI*2, true);
+            context.closePath();
+            context.fillStyle = "rgba(255,255,0,.7)";
+            context.fill();
+          <% end %>
         <% end %>
-      <% end %>
-    }else{ 
-      // do something to show the canvas' hidden contents 
-      // or let the browser display the text within the <canvas> element.
-    }
-  </script>
+      }else{
+        // do something to show the canvas' hidden contents
+        // or let the browser display the text within the <canvas> element.
+      }
+    </script>
+  </div>
+  <div class="grid_6">
+    <%= t('items.added_on').upcase %>
+    <h4><%= @choice.created_at.getlocal.strftime("%D") %></h4>
+
+    <%= t('items.number_of_votes').upcase %>
+    <h4><%= @choice.attributes["wins_plus_losses"] %></h4>
+
+    <%= t('items.score').upcase %>
+    <h4><%= @choice.score.round.to_s %></h4>
+    <p class="gray"><i>
+      <%=t('items.score_explain')%>
+    </i></p>
+  </div>
+  <div class="clear"></div>
 </div>

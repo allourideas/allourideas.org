@@ -1,0 +1,15 @@
+<%= t('items.email.hello') %>
+
+You requested an export of data from the <%= @photocracy ? 'Photocracy' : 'All Our Ideas'%> site. Our servers have done some serious computation and your file is available now.
+
+<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}#{@url}" %>
+
+
+This file will be available at the URL above for the next three days. You can always request another copy of the data at any point in the future.
+
+
+The data at this url is public, so only share this link with people that you wish to have access to your data.
+
+
+<%= t('items.email.thanks') %>
+<%= render :partial => 'idea_mailer/signature' %>

@@ -12,7 +12,7 @@ class Clearance::PasswordsController < ApplicationController
   def create
     if user = ::User.find_by_email(params[:password][:email])
       user.forgot_password!
-      ::ClearanceMailer.send_later :deliver_change_password, user
+      ClearanceMailer.send_later :deliver_change_password, user, @photocracy
       flash_notice_after_create
       redirect_to(url_after_create)
     else

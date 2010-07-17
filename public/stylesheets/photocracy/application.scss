@@ -114,6 +114,7 @@ a.photo_frame:hover {
     width: 32.93%;
     margin: 0 .2%;
     border-bottom: 1px solid #fa7f00;
+    min-height: 200px;
   }
   
   h5 {
@@ -215,6 +216,25 @@ p.score_explanation {
 	background: url(../../images/photocracy/chosen.png) center center no-repeat !important;
 }
 
+table.admin {
+  th {
+    padding: 10px;
+  }
+
+  td {
+    line-height: 50px;
+    padding: 10px;
+  }
+  
+  img {
+    vertical-align: middle;
+  }
+}
+
+strong, .strong {
+  font-weight:bold;
+}
+
 .center {
   text-align: center;
 }
@@ -245,7 +265,7 @@ p.score_explanation {
   margin-bottom: 5px;
 }
 
-.gray, a.gray {
+.gray, a.gray, .Deactivated, .deactivated {
   color: #666;
 }
 

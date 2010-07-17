@@ -1,0 +1,13 @@
+<%= t('items.email.hello') %>
+<%= t('items.email.someone_has') %> <%= "'#{@choice_text}'" unless @photocracy %> <%= t('items.email.to_your_question') + "'#{@question_name}'" %>
+
+<%= t('items.email.we_auto_activated_idea') %>
+<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}/choices/#{@choice_id}/deactivate" %>
+
+<%= t('items.email.if_you_want') %>
+
+<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
+
+
+Thanks,
+<%= render :partial => 'idea_mailer/signature' %>

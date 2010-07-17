@@ -24,10 +24,15 @@ class EarlsController < ApplicationController
       end
 
       begin
-      @question = Question.find(@earl.question_id, :params => {:with_prompt => true, 
-						   :with_appearance => true, 
-						   :with_visitor_stats => true,
-						   :visitor_identifier => request.session_options[:id]})
+      
+      show_params = {:with_prompt => true, 
+		     :with_appearance => true, 
+		     :with_visitor_stats => true,
+		     :visitor_identifier => request.session_options[:id]}
+
+      show_params.merge!(:future_prompts => {:number => 1}) if @photocracy
+
+      @question = Question.find(@earl.question_id, :params => show_params)
 
       #reimplement in some way
       rescue ActiveResource::ResourceConflict
@@ -53,6 +58,8 @@ class EarlsController < ApplicationController
        if @photocracy
           @right_choice_photo = Photo.find(@right_choice_text)
           @left_choice_photo = Photo.find(@left_choice_text)
+          @future_right_choice_photo = Photo.find(@question.attributes['future_right_choice_text_1'])
+          @future_left_choice_photo = Photo.find(@question.attributes['future_left_choice_text_1'])
        end
 
        if @widget

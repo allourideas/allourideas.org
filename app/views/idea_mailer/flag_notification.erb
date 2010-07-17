@@ -1,0 +1,18 @@
+<%= t('items.email.hello') %>
+
+<%= t('items.email.someone_has_flagged', :idea_data => @choice_data.strip, :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}") %>
+
+<%= t('items.email.provided_explanation_is') %>
+
+<%= @explanation %>
+
+<%= t('items.email.we_have_auto_deactivated') %>
+
+<%= @photocracy ? "http://#{PHOTOCRACY_HOST}/#{@earl.name}/admin" : "http://#{HOST}/#{@earl.name}/choices/#{@choice_id}/activate" %>
+
+<%= t('items.email.if_you_dont_want') %>
+
+<%= t('items.email.see_current_results') + " http://#{HOST}/#{@earl.name}" %>
+
+<%= t('items.email.thanks') %>
+<%= render :partial => 'idea_mailer/signature' %>

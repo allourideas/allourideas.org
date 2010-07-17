@@ -37,20 +37,17 @@
       %h5.no_margin=t('common.about_this_survey')
       .padding
         .margin_bottom.center
-          =image_tag "photocracy/alum_logo.png", :width => 100, :height => 100
-          <br />
-          Organized by<br />
-          %strong Princeton Alumni Association
-        .clear
-        .center
-          =image_tag "photocracy/footer_logos.png", :width => 113, :height => 50
-          <br />
-          %strong
-            Powered by 
-            =link_to "photocracy.org", "http://photocracy.org"
-          <br />
-          Photocracy is supported by grants from Google<br />
-          and CITP at Princeton University.
+          -if @earl && !@earl.logo_file_name.blank?
+            = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
+          -else
+            =image_tag "photocracy/footer_logos.png", :width => 113, :height => 50
+            <br />
+            %strong
+              Powered by 
+              =link_to "photocracy.org", "http://photocracy.org"
+            <br />
+            Photocracy is supported by grants from Google<br />
+            and CITP at Princeton University.
   .clear
 
   #cant_decide_options{:style => 'display:none', :title => t('vote.cant_decide_title')}
@@ -116,4 +113,7 @@
           $('#photo_step_3').hide();
         }
       });
+
+      jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');
+      
     });

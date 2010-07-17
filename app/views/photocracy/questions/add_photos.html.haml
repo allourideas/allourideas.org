@@ -3,7 +3,7 @@
   %h1
     You'll need at least 2 photos to get started
     %span.normal
-      (you have #{@question.choices_count - @question.inactive_choices_count})
+      (you have <span id="photo_count">#{@question.choices_count - @question.inactive_choices_count}</span>)
 
   =stylesheet_link_tag 'photocracy/uploadify'
   =javascript_include_tag 'photocracy/swfobject.js', 'photocracy/jquery.uploadify.v2.1.0.min.js'
@@ -19,7 +19,16 @@
     		'multi'          : true,
     		'fileDesc'       : 'Only jpg, png, and gif files allowed',
     		'fileExt'        : '*.jpg;*.jpeg;*.png;*.gif',
-    		'buttonText'     : 'UPLOAD PHOTO'
+    		'buttonText'     : 'UPLOAD PHOTO',
+    		scriptData       : {
+          'session_identifier' : "#{request.session_options[:id]}",
+          'authenticity_token'  : AUTH_TOKEN
+        },
+        onComplete       : function() {
+          $('#photo_count').text(
+    				increment($('#photo_count').text())
+    			);
+        }
     	});
     });
 

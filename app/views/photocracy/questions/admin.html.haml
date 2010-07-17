@@ -31,7 +31,7 @@
         = check_box_tag :auto_activate, @question.id, @question.it_should_autoactivate_ideas?, :class => 'auto_activation', :href => toggle_autoactivate_question_url(@question, :format => :js)
         %span= t('admin.auto_activate_exp')
   
-    %div{:style => 'border:1px solid #ccc;padding:10px;margin-bottom:20px;'}
+    %div{:style => 'border:1px solid #ccc;padding:10px;margin-bottom:20px;float:left;'}
       %h6=t('admin.additional_settings')
       -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
         -unless f.error_messages.blank?
@@ -65,6 +65,7 @@
         / = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
       
         = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
+    .clear
 
     %h7.strong= t('admin.download_idea_marketplace_data')
     %ul

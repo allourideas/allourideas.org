@@ -206,6 +206,7 @@ table.admin img {
   vertical-align: middle; }
 
 .blue_fade {
+  zoom: 1;
   color: #fff;
   background: #354f68;
   background: -moz-linear-gradient(#354f68, #637f96);

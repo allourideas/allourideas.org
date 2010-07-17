@@ -245,6 +245,7 @@ table.admin {
 }
 
 .blue_fade {
+  zoom: 1;
   color: #fff;
   @include fade(#354F68, #637F96);
 }

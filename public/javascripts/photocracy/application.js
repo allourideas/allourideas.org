@@ -1,3 +1,7 @@
+$.ajaxSetup({
+	timeout: 10000
+});
+
 FADE_TIME = 2000
 $(document).ready(function() {
 	// voting
@@ -32,7 +36,7 @@ $(document).ready(function() {
 				locale: RAILS_LOCALE
 	    },
 	    autoSubmit: true,
-	    responseType: "json",
+	    responseType: false,
 	    onChange: function(file, extension){
 	      $('#photo_step_1').hide();
 	      $('#photo_step_3').hide();
@@ -123,7 +127,6 @@ function submitCantDecide(form) {
 				authenticity_token: encodeURIComponent(AUTH_TOKEN),
 				locale: RAILS_LOCALE
 		  },
-		  timeout: 10000,
 		  error: function(request, textStatus, errorThrown) {
 				voteError(request, textStatus, errorThrown);
 			},
@@ -161,7 +164,6 @@ function submitFlag(form) {
 				authenticity_token: encodeURIComponent(AUTH_TOKEN),
 				locale: RAILS_LOCALE
 		  },
-		  timeout: 10000,
 		  error: function(request, textStatus, errorThrown) {
 				voteError(request, textStatus, errorThrown);
 			},
@@ -206,12 +208,11 @@ function castVote(choice, x, y) {
 			x_click_offset: x,
 			y_click_offset: y
 	  },
-	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {
 			voteError(request, textStatus, errorThrown);
 		},
 	  success: function(data, textStatus, request) {
-			updateVotingHistory(data);
+			//updateVotingHistory(data);
 			loadNextPrompt(data);
 			$('#votes_count').text(
 				increment($('#votes_count').text())
@@ -231,9 +232,8 @@ function toggleChoiceActivation(checkbox) {
 		dataType: 'json',
 	  url: checkbox.attr('href'),
 	  data: {
-	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+	  	authenticity_token: encodeURIComponent(AUTH_TOKEN)
 	  },
-	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {
 			voteError(request, textStatus, errorThrown);
 		},
@@ -256,9 +256,8 @@ function toggleQuestionAutoActivation(checkbox) {
 		dataType: 'json',
 	  url: checkbox.attr('href'),
 	  data: {
-	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+	  	authenticity_token: encodeURIComponent(AUTH_TOKEN)
 	  },
-	  timeout: 10000,
 	  error: function(request, textStatus, errorThrown) {
 			voteError(request, textStatus, errorThrown);
 		},
@@ -296,18 +295,21 @@ function updateVotingHistory(data) {
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
 		// change photos
-		$('a.vote.' + side + ' > table').html("<td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td>");
+		$('a.vote.' + side + ' > table').html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
 		// fade in photo
 		$('a.vote.' + side + ' > table').find('img').fadeIn(FADE_TIME, function() {
-			// remove spinner and checkmark
-			$('a.vote.' + side).removeClass('loading');
+			// uncomment this if you want to wait
+			// until fade-in completes before allowing voting
+			// $('a.vote.' + side).removeClass('loading');
 		});
+		// allow voting before fully faded in (see alternative above)
+		$('a.vote.' + side).removeClass('loading');
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
 		// preload future images
-    jQuery.preLoadImages(data["future_" + side + "_photo"]);
+		jQuery.preLoadImages(data["future_" + side + "_photo"]);
 	});
 
 

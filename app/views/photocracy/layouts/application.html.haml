@@ -17,15 +17,6 @@
     :javascript
       $(document).ready(function(){
         $("abbr.timeago").timeago();
-        column_heights = new Array();
-          $("#secondary_content .grid_4").each(function(index) {
-          column_heights[index] = $(this).height();
-        });
-        
-        tallest = Math.max.apply(null,column_heights);
-        $("#secondary_content .grid_4").each(function(index) {
-          $(this).css('min-height', tallest);
-        });
       });
   %body
     %h1
@@ -33,15 +24,15 @@
       =yield
     .container_12
       #ft
-        / Powered by
-        / =link_to "Photocracy.org", '#'
-        / \-
-        / =link_to "About this project", '#'
-        / \-
-        / =link_to "View open source code", '#'
-        / \-
-        / =link_to "Privacy Policy", '#'
-        / \-
-        / =link_to "Help", '#'
-        / \-
-        / =link_to "Create your own survey", '#'
+        Powered by
+        =link_to "Photocracy.org", '#'
+        \-
+        =link_to "About this project", '#'
+        \-
+        =link_to "View open source code", '#'
+        \-
+        =link_to "Privacy Policy", '#'
+        \-
+        =link_to "Help", '#'
+        \-
+        =link_to "Create your own survey", '#'

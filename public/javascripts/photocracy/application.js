@@ -91,6 +91,15 @@ $(document).ready(function() {
 
 		e.preventDefault();
 	});
+
+	// toggle activation on admin
+	$('input.activation').live('click', function(e) {
+		toggleChoiceActivation($(this));
+	});
+
+	$('input.auto_activation').live('click', function(e) {
+		toggleQuestionAutoActivation($(this));
+	});
 });
 
 function submitCantDecide(form) {
@@ -214,6 +223,53 @@ function castVote(choice, x, y) {
 	});
 }
 
+function toggleChoiceActivation(checkbox) {
+	var span = checkbox.next()
+	var label = checkbox.parents('label')
+	span.text('...')
+
+	jQuery.ajax({
+		type: 'POST',
+		dataType: 'json',
+	  url: checkbox.attr('href'),
+	  data: {
+	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+	  },
+	  timeout: 10000,
+	  error: function(request, textStatus, errorThrown) {
+			voteError(request, textStatus, errorThrown);
+		},
+	  success: function(data, textStatus, request) {
+			label.removeClass('Deactivated');
+			span.text(data['verb']);
+			label.addClass(data['verb']);
+		}
+	});
+}
+
+function toggleQuestionAutoActivation(checkbox) {
+	var span = checkbox.next();
+	var label = checkbox.parents('label');
+	var saved_text = span.text();
+	span.text('...');
+
+	jQuery.ajax({
+		type: 'POST',
+		dataType: 'json',
+	  url: checkbox.attr('href'),
+	  data: {
+	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+	  },
+	  timeout: 10000,
+	  error: function(request, textStatus, errorThrown) {
+			voteError(request, textStatus, errorThrown);
+		},
+	  success: function(data, textStatus, request) {
+			span.text(saved_text);
+		}
+	});
+}
+
 function calculateClickOffset(axis, e, choice) {
 	var offset = $(choice).find('img').offset();
 	// there is a 3 pixel border, hence the 3 pixel subtraction
@@ -250,7 +306,7 @@ function loadNextPrompt(data) {
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
 		// preload future images
-                jQuery.preLoadImages(data["future_" + side + "_photo"]);
+    jQuery.preLoadImages(data["future_" + side + "_photo"]);
 	});
 
 

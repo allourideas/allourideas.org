@@ -17,8 +17,8 @@
     		'queueID'        : 'fileQueue',
     		'auto'           : true,
     		'multi'          : true,
-    		'fileDesc'       : 'Only jpg, png, and gif files allowed',
-    		'fileExt'        : '*.jpg;*.jpeg;*.png;*.gif',
+        'fileDesc'       : 'Only jpg, png, and gif files allowed',
+        'fileExt'        : '*.jpg;*.jpeg;*.png;*.gif',
     		'buttonText'     : 'UPLOAD PHOTO',
     		scriptData       : {
           'session_identifier' : "#{request.session_options[:id]}",
@@ -34,7 +34,8 @@
 
   .margin_bottom
     #fileQueue
-    %input{:type => 'file', :name => 'uploadify', :id => 'uploadify'}
+    %form
+      %input{:type => 'file', :name => 'uploadify', :id => 'uploadify'}
 
   %p
     You can return to your survey and #{link_to 'start voting', '/' + @question.id.to_s}.

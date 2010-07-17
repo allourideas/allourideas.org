@@ -846,31 +846,34 @@ class QuestionsController < ApplicationController
 
       choice_params.merge!(:local_identifier => current_user.id) if signed_in?
 
-      respond_to do |format|
-          format.xml  {  head :ok }
-          format.js  { 
-            if @choice = Choice.create(choice_params)
-              @question = Question.find(params[:id], :params => {
-						   :with_visitor_stats => true,
-						   :visitor_identifier => request.session_options[:id]})
 
-	      leveling_message = Visitor.leveling_message(:votes => @question.attributes['visitor_votes'].to_i,
-							:ideas => @question.attributes['visitor_ideas'].to_i)
-              render :json => {
-                               :choice_status => @choice.active? ? 'active' : 'inactive',
-			       :leveling_message => leveling_message,
-                               :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"}.to_json
+        if @choice = Choice.create(choice_params)
+          @question = Question.find(params[:id], :params => {
+                                      :with_visitor_stats => true,
+                                      :visitor_identifier => request.session_options[:id]
+                                    })
 
-	      @earl = Earl.find_by_question_id(@question.id)
-              if @choice.active?
-                IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id, @photocracy
-              else
-                IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id, @photocracy
-              end
-            else
-              render :json => '{"error" : "Addition of new idea failed"}'
-            end
-            }
+          leveling_message = Visitor.leveling_message(:votes => @question.attributes['visitor_votes'].to_i,
+                                                      :ideas => @question.attributes['visitor_ideas'].to_i)
+
+          @earl = Earl.find_by_question_id(@question.id)
+          if @choice.active?
+            IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id, @photocracy
+          else
+            IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id, @photocracy
+          end
+
+          if @photocracy
+            render :text => 'success', :content_type => 'text/html'
+          else
+            render :json => {
+                     :choice_status => @choice.active? ? 'active' : 'inactive',
+                     :leveling_message => leveling_message,
+                     :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"
+                   }.to_json
+          end
+        else
+          render :json => '{"error" : "Addition of new idea failed"}'
         end
       end
       

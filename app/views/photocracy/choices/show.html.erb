@@ -3,7 +3,7 @@
   
   <div class="grid_7">
     <canvas id="my_canvas" width="425" height="340" style="background: url(<%= @photo.image.url(:medium) %>) no-repeat;">
-      &nbsp;
+      <%= image_tag(@photo.image.url(:medium)) %>
     </canvas>
 
     <script type="text/javascript">

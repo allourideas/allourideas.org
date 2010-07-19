@@ -212,7 +212,7 @@ function castVote(choice, x, y) {
 			voteError(request, textStatus, errorThrown);
 		},
 	  success: function(data, textStatus, request) {
-			//updateVotingHistory(data);
+			updateVotingHistory(data);
 			loadNextPrompt(data);
 			$('#votes_count').text(
 				increment($('#votes_count').text())
@@ -284,11 +284,11 @@ function updateVotingHistory(data) {
 		<li>\
 			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
 			<img src='" + $('.right').attr('thumb') + "' class='" + (winner == 'right' ? 'winner' : 'loser') + "'/>\
-			<abbr class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</abbr>\
+			<div class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</div>\
 		</li>\
 		");
 	$('#your_votes').children(":first").effect("highlight", {}, 3000);
-	$("abbr.timeago").timeago();
+	$(".timeago").timeago();
 }
 
 

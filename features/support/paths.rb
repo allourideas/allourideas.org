@@ -28,6 +28,8 @@ module NavigationHelpers
 	"/"+ $1 + "/admin"
     when /the Control Panel page/i
 	 admin_path
+    when /the widget Cast Votes page for '([^'].*)'/i
+	"/"+ $1 + '?widget&width=450&height=410'
 
     when /the Deactivate page for the saved (.*) choice/
 	 @earl = Earl.find_by_question_id(@question_id)

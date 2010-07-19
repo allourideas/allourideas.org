@@ -30,10 +30,7 @@
           %p.notice.example_notice#notice= session[:standard_flash]
           -session[:standard_flash] = nil
         -unless session[:has_voted]
-          -if session[:on_example]
-            %p.notice.example_notice#notice= t('home.student_government_explanation')
-            -session[:on_example] = nil
-          -elsif session[:welcome_msg]
+          -if session[:welcome_msg]
             %p.notice.example_notice#notice= h(session[:welcome_msg])
             -session[:welcome_msg] = nil
         = yield

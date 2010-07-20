@@ -12,7 +12,7 @@
 
 <%= t('items.email.if_you_dont_want') %>
 
-<%= t('items.email.see_current_results') + " http://#{HOST}/#{@earl.name}" %>
+<%= t('items.email.see_current_results') + " http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
 
 <%= t('items.email.thanks') %>
 <%= render :partial => 'idea_mailer/signature' %>

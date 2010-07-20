@@ -38,5 +38,5 @@
       %input{:type => 'file', :name => 'uploadify', :id => 'uploadify'}
 
   %p
-    You can return to your survey and #{link_to 'start voting', '/' + @question.id.to_s}.
+    You can return to your survey and #{link_to 'start voting', '/' + @earl.name.to_s}.
   / <p><a href="javascript:jQuery('#uploadify').uploadifyClearQueue()">Cancel All Uploads</a></p>

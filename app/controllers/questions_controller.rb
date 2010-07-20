@@ -1073,6 +1073,7 @@ class QuestionsController < ApplicationController
 
   def add_photos
     @question = Question.find(params[:id])
+    @earl = Earl.find_by_question_id(params[:id])
   end
 
   protect_from_forgery :except => [:upload_photos] #necessary because the flash isn't sending AUTH_TOKEN correctly for some reason

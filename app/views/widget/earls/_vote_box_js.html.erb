@@ -420,6 +420,7 @@
 
 
   $('.flag_link').bind("click", function(event){
+    flag_side = $(this).attr('id');
 
     //  hide/show everything necessary
     //  cd stuff
@@ -433,8 +434,6 @@
   });
 
   $('.flag_submit_button').bind("click", function(event) {
-
-    var flag_side = $(this).attr('id');
     event.stopPropagation();
     user_text = null;
     user_text = $('#flag_inappropriate textarea').val();
@@ -504,6 +503,10 @@
 		   current_item_count = $('#item_count').html();
 		   $('#item_count').html(decrement(current_item_count));
 		   loadedTime = new Date() //reset loaded time
+
+			 //used for fraud detection / back button behavior fixing
+		   $('#left_side_text').val(data["newleft"]);
+		   $('#right_side_text').val(data["newright"]);
 		 }
 		},
   "json"

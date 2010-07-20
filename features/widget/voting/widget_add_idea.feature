@@ -5,8 +5,9 @@ Feature: Add idea to marketplace
   
   Background: 
     Given an idea marketplace quickly exists with url 'test'
-    Given I am on the widget Cast Votes page for 'test'
+    And I am on the WIDGET Cast Votes page for 'test'
 
+    @widget
     @selenium
     Scenario: Adding choice to unmoderated marketplace
       Given idea marketplace 'test' has enabled idea autoactivation
@@ -16,6 +17,7 @@ Feature: Add idea to marketplace
       When I go to the View Results page for 'test'
       Then I should see "blah blah blah"
 
+    @widget
     @selenium
     Scenario: Adding choice to moderated marketplace
       When I upload an idea titled 'blah blah blah'

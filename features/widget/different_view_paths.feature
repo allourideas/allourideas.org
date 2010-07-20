@@ -7,9 +7,9 @@ Feature: Change view paths for widget
   Background: 
     Given an idea marketplace quickly exists with url 'test'
 
-    @widget  
+    @widget
     Scenario: User visits http://widget.allourideas.org/test?width=450&height=410
-      Given I am on the widget Cast Votes page for 'test'
+      Given I am on the WIDGET Cast Votes page for 'test'
       Then I should not see "Log in"
       And show me the page
 

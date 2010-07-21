@@ -75,6 +75,7 @@ pt:
     click_idea_to_start_widget: Clique em uma idéia para iniciar a votação.
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
     powered_widget: "Este mercado é alimentado pela ideia "
+    flag_complete_message: Está marcada como uma escolha inadequada.
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results

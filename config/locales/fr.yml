@@ -75,6 +75,7 @@ fr:
     click_idea_to_start_widget: Cliquez sur une idée de commencer le vote.
     idea_sent_for_review: Votre idée a été soumis pour examen. Il apparaîtra bientôt.
     powered_widget: "Ce marché est alimenté par l'idée "
+    flag_complete_message: Vous battant pavillon d'un choix inapproprié.
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results

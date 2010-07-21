@@ -5,11 +5,13 @@ pt:
    votes_on: vota em
    items: ideias
    ideas: ideias
+   idea: idéia
    title: All Our Ideas - Uma Caixa de Sugestões para a Era Digital
    title_widget: All Our Ideas
    characters: caracteres
    idea_marketplace: Mercado de Ideias
    votes: Votos
+   vote: Voto
    user_sessions: Sessões de usuário
    score: pontuação
   nav:
@@ -76,6 +78,18 @@ pt:
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
     powered_widget: "Este mercado é alimentado pela ideia "
     flag_complete_message: Está marcada como uma escolha inadequada.
+    leveling:
+       leveling_message: "Agora você tem um elenco %{vote_num} %{vote_noun} e adição de %{idea_num} %{idea_noun}: %{adjective}"
+       adjective_0: bom
+       adjective_1: agradável
+       adjective_2: surpreendente
+       adjective_3: fabuloso
+       adjective_4: maravilhoso
+       adjective_5: super
+       adjective_6: fantástico
+       adjective_7: incrível
+       adjective_8: terrível
+       adjective_9: opa
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results

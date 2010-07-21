@@ -5,6 +5,7 @@ en:
    votes_on: votes on
    items: ideas
    ideas: ideas
+   idea: idea
    active: active
    inactive: inactive
    title: All Our Ideas - A Suggestion Box for the Digital Age
@@ -12,6 +13,7 @@ en:
    characters: characters
    idea_marketplace: Idea Marketplace
    votes: Votes
+   vote: vote
    skips: Skips
    user_sessions: User sessions
    users: users
@@ -183,6 +185,18 @@ en:
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
     idea_sent_for_review: Your idea has been submitted for review. It will appear soon.
     powered_widget: "This idea marketplace is powered by " 
+    leveling:
+       leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
+       adjective_0: good
+       adjective_1: nice
+       adjective_2: amazing
+       adjective_3: fabulous
+       adjective_4: marvelous
+       adjective_5: super
+       adjective_6: fantastic
+       adjective_7: incredible
+       adjective_8: awesome
+       adjective_9: wow
   results:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes

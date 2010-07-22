@@ -1,23 +1,24 @@
 $.ajaxSetup({
 	timeout: 10000
 });
-
 FADE_TIME = 2000
+
 $(document).ready(function() {
 	// voting
   $('a.vote').live('click', function(e) {
 		if ($(this).hasClass('loading')) {
 			alert("One sec, we're loading the next pair...");
 		} else {
-			$('.click_to_vote').hide(); // visible if the users hasn't voted
+			// visible if the users hasn't voted
+			$('.click_to_vote').hide();
 
-			// record image location before clearning
+			// prevent double clicking
+			$('a.vote').addClass('loading');
+
+			// store image location
 			var x_click_offset = calculateClickOffset('x', e, $(this));
 			var y_click_offset = calculateClickOffset('y', e, $(this));
-			clearImages();
 			
-			$('a.vote').addClass('loading'); // prevent double clicking
-
 			castVote($(this), x_click_offset, y_click_offset);
 		}
 		e.preventDefault();
@@ -197,6 +198,14 @@ function reasonValid(reason) {
 function castVote(choice, x, y) {
 	var VOTE_CAST_AT = new Date();
 
+	// a/b test transition animation
+	if (VOTE_CROSSFADE_TRANSITION) {
+		clearImagesToShowNextPair();
+	} else {
+		clearImages();
+	}
+
+
 	jQuery.ajax({
 		type: 'POST',
 		dataType: 'json',
@@ -212,14 +221,25 @@ function castVote(choice, x, y) {
 			voteError(request, textStatus, errorThrown);
 		},
 	  success: function(data, textStatus, request) {
+			preloadFuturePhotos(data);
 			updateVotingHistory(data);
-			loadNextPrompt(data);
-			$('#votes_count').text(
-				increment($('#votes_count').text())
-			);
+
+			// the ordering of these functions is important
+			// because some rely on attrs of the a.vote
+			// and others modify those attrs
+			if (!VOTE_CROSSFADE_TRANSITION) { loadNextPrompt(data); };
+			updateUrlsAndHiddenFields(data);
+			if (VOTE_CROSSFADE_TRANSITION) { $('a.vote').removeClass('loading'); }
+			incrementVoteCount();
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
 	});
+}
+
+function incrementVoteCount() {
+	$('#votes_count').text(
+		increment($('#votes_count').text())
+	);
 }
 
 function toggleChoiceActivation(checkbox) {
@@ -269,12 +289,13 @@ function toggleQuestionAutoActivation(checkbox) {
 
 function calculateClickOffset(axis, e, choice) {
 	var offset = $(choice).find('img').offset();
-	// there is a 3 pixel border, hence the 3 pixel subtraction
 
+	// if there is any border on the image
+	// you need to subtract it from the offset here
 	if (axis == 'x') {
-		return (e.pageX - offset.left - 3);
+		return (e.pageX - offset.left);
 	} else {
-		return (e.pageY - offset.top - 3);
+		return (e.pageY - offset.top);
 	}
 }
 
@@ -304,14 +325,49 @@ function loadNextPrompt(data) {
 		});
 		// allow voting before fully faded in (see alternative above)
 		$('a.vote.' + side).removeClass('loading');
+	});
+}
+
+// a variation of the clearImages method being a/b tested
+function clearImagesToShowNextPair() {
+	jQuery.each(['left', 'right'], function(index, side) {
+		var photo_link = $('a.vote.' + side).attr('future_photo');
+		var image = $('a.vote.' + side + ' > table').find('img');
+		var table = $('a.vote.' + side + ' > table');
+
+		// assign next photo to the background of this image
+		table.css('background', 'url(' + photo_link + ') center center no-repeat');
+
+		// animate fade out
+		image.animate({
+		  	opacity: 0
+			}, FADE_TIME, function() {
+				// change src to reference new photo
+		    image.attr('src', photo_link);
+
+				// make full opacity
+				image.css('opacity', 1);
+
+				// clear image background
+				table.css('background', '');
+		});
+	});
+}
+
+function preloadFuturePhotos(data) {
+	jQuery.preLoadImages(data["future_left_photo"]);
+	jQuery.preLoadImages(data["future_right_photo"]);
+}
+
+function updateUrlsAndHiddenFields(data) {
+	jQuery.each(['left', 'right'], function(index, side) {
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
+		// change future photo
+		$('a.vote.' + side).attr('future_photo', data['future_' + side + '_photo']);
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
-		// preload future images
-		jQuery.preLoadImages(data["future_" + side + "_photo"]);
 	});
-
 
 	// change appearance_lookup and prompt_id hidden fields
 	$('#appearance_lookup').val(data['appearance_lookup']);

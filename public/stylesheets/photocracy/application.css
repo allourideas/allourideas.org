@@ -29,17 +29,18 @@ h1 {
 a.photo_frame {
   display: block;
   height: 350px;
+  width: 100%;
   overflow: hidden;
   text-decoration: none; }
   a.photo_frame table {
     text-align: center;
     valign: middle;
     height: 100%;
-    width: 100%; }
-    a.photo_frame table td {
+    width: 100%;
+    border: none;
+    padding: none; }
+    a.photo_frame table td, a.photo_frame table tr {
       vertical-align: middle; }
-  a.photo_frame img {
-    border: 3px solid #000; }
 
 a.photo_frame:hover {
   cursor: pointer; }

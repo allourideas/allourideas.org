@@ -32,22 +32,26 @@ h1 {
 a.photo_frame {
   display: block;
   height: 350px;
+  width: 100%;
   overflow: hidden;
   text-decoration: none;
+  // background: url(../../images/photocracy/spinner.gif) center center no-repeat;
 
   table {
     text-align:center;
     valign:middle;
     height:100%;
     width:100%;
+    border:none;
+    padding:none;
 
-    td {
+    td, tr {
       vertical-align:middle;
     }
   }
 
   img {
-    border: 3px solid #000;
+    // border: 3px solid #000;
   }
 }
 

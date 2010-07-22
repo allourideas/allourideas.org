@@ -284,7 +284,7 @@ function updateVotingHistory(data) {
 		<li>\
 			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
 			<img src='" + $('.right').attr('thumb') + "' class='" + (winner == 'right' ? 'winner' : 'loser') + "'/>\
-			<span class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</span>\
+			<!-- <span class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</span> -->\
 		</li>\
 		");
 	$('#your_votes').children(":first").effect("highlight", {}, 3000);

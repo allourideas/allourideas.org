@@ -119,9 +119,9 @@ class PromptsController < ApplicationController
 
   private
   def add_photocracy_info(result, next_prompt, question_id)
-    newright_photo = Photo.find(next_prompt['right_choice_text'])
-    newleft_photo = Photo.find(next_prompt['left_choice_text'])
-    future_left_photo = Photo.find(next_prompt['future_left_choice_text_1'])
+    newright_photo     = Photo.find(next_prompt['right_choice_text'])
+    newleft_photo      = Photo.find(next_prompt['left_choice_text'])
+    future_left_photo  = Photo.find(next_prompt['future_left_choice_text_1'])
     future_right_photo = Photo.find(next_prompt['future_right_choice_text_1'])
     result.merge!({
       :visitor_votes        => next_prompt['visitor_votes'],

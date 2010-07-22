@@ -112,27 +112,23 @@
           /* har*/
           $('#newlines').remove();
           /*har... these next lines are me... decided i didn't want view all the results anymore */
+
+          if (data['choice_status'] == 'active') {
+            $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
+          }
+	        else {
+            //$('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox #new_idea_field');
+              $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + '<%= t('vote.idea_sent_for_review') %>' + "</a></div><br/>");
+          }
   
           //  NOTE: NEED TO BREAK UP DATA[MESSAGE] SUCH THAT MESSAGE IS ON ONE LINE AND IDEA IS ON THE NEXT. ALSO NEED TO TRUNCATE IDEA.
-          $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
           $("#tellme_prepended").effect("highlight", {}, 1500);
           count++;
 
           $("#leveling_message_appended").remove();
           $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
-          $('.indicator').hide();
-        
-          if (data['choice_status'] == 'active') {
-            current_item_count = $('#item_count').html();
-            $('#item_count').html(increment(current_item_count));
-          }
-	        else {
-            $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox #new_idea_field');
-            $('#facebox .new_idea_submit').html('<%= t('vote.cast_votes') %>');
-            $('#facebox .new_idea_submit').unbind('click');
-          }
-
+          $('.indicator').hide();        
         },
         "json"
       );
@@ -424,6 +420,7 @@
 
 
   $('.flag_link').bind("click", function(event){
+    flag_side = $(this).attr('id');
 
     //  hide/show everything necessary
     //  cd stuff
@@ -437,8 +434,6 @@
   });
 
   $('.flag_submit_button').bind("click", function(event) {
-
-    var flag_side = $(this).attr('id');
     event.stopPropagation();
     user_text = null;
     user_text = $('#flag_inappropriate textarea').val();
@@ -508,6 +503,10 @@
 		   current_item_count = $('#item_count').html();
 		   $('#item_count').html(decrement(current_item_count));
 		   loadedTime = new Date() //reset loaded time
+
+			 //used for fraud detection / back button behavior fixing
+		   $('#left_side_text').val(data["newleft"]);
+		   $('#right_side_text').val(data["newright"]);
 		 }
 		},
   "json"

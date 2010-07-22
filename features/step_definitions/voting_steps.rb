@@ -37,6 +37,8 @@ When /^I click the (.*) button$/ do |button_name|
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
 	find("#facebox .flag_submit_button").click
+      when "widget flag submit"
+	find(".flag_submit_button").click
       when "idea auto activation toggle"
 	find(".toggle_autoactivate_status").click
       end

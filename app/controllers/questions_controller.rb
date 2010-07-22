@@ -908,13 +908,12 @@ class QuestionsController < ApplicationController
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip}
       earl_options.merge!(:flag_enabled => true) if @photocracy # flag is enabled by default for photocracy
       earl = current_user.earls.create(earl_options)
-      fq_earl = ("http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{earl.name}" rescue nil)
-      ClearanceMailer.send_later(:deliver_confirmation, current_user, fq_earl, @photocracy)
+      ClearanceMailer.send_later(:deliver_confirmation, current_user, earl.name, @photocracy)
       IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
       session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"      
 
       if @photocracy
-        redirect_to add_photos_question_url(@question)
+        redirect_to add_photos_url(earl.name)
       else
         redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')
       end
@@ -1024,17 +1023,20 @@ class QuestionsController < ApplicationController
   end
 
   def add_photos
-    @question = Question.find(params[:id])
-    @earl = Earl.find_by_question_id(params[:id])
+    @earl = Earl.find_by_name!(params[:id])
+    @question = Question.find(@earl.question_id)
   end
-
-  protect_from_forgery :except => [:upload_photos] #necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
+  
+  # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
+  protect_from_forgery :except => [:upload_photos]
   def upload_photos
+    @earl = Earl.find_by_name!(params[:id])
+
     new_idea_data = Photo.create(:image => params[:Filedata]).id
     choice_params = {
       :visitor_identifier => params[:session_identifier],
       :data => new_idea_data,
-	    :question_id => params[:id],
+	    :question_id => @earl.question_id,
 	    :active => true
 	  }
 

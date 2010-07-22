@@ -10,7 +10,7 @@ class ClearanceMailer < ActionMailer::Base
                :photocracy => photocracy
   end
 
-  def confirmation(user, earl = 'http://www.allourideas.org', photocracy=false)
+  def confirmation(user, earl_name='http://www.allourideas.org', photocracy=false)
     default_url_options[:host] = (photocracy ? PHOTOCRACY_HOST : HOST)
 
     from       DO_NOT_REPLY
@@ -19,7 +19,7 @@ class ClearanceMailer < ActionMailer::Base
     recipients user.email
     subject    "Account confirmation"
     body      :user => user, 
-              :marketplace_url => earl,
+              :earl_name => earl_name,
               :photocracy => photocracy
   end
 

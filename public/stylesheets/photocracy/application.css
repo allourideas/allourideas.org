@@ -98,8 +98,10 @@ a.photo_frame:hover {
   text-shadow: #235a9b -2px 0px 10px; }
 
 .button.blue:hover {
-  border: 1px solid #235a9b;
-  text-shadow: #235a9b -2px 0px 5px; }
+  background: #337bd1;
+  background: -moz-linear-gradient(#b0cced, #337bd1);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #b0cced), color-stop(0, #337bd1));
+  border: 1px solid #235a9b; }
 
 .button.green {
   font-size: 20px;
@@ -111,6 +113,9 @@ a.photo_frame:hover {
   text-shadow: #666 -2px 0px 10px; }
 
 .button.green:hover {
+  background: #7ca700;
+  background: -moz-linear-gradient(#ceff41, #7ca700);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #ceff41), color-stop(0, #7ca700));
   border: 1px solid #fff; }
 
 #secondary_content .grid_4 {

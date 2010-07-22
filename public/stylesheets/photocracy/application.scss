@@ -104,8 +104,8 @@ a.photo_frame:hover {
 }
 
 .button.blue:hover {
+  @include marble-fade(lighten(#2b6fc0, 5%));
   border: 1px solid #235a9b;
-  text-shadow: #235a9b -2px 0px 5px;
 }
 
 .button.green {
@@ -117,6 +117,7 @@ a.photo_frame:hover {
 }
 
 .button.green:hover {
+  @include marble-fade(lighten(#698D00, 5%));
   border: 1px solid #fff;
 }
 

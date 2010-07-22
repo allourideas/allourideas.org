@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
                   :toggle => :post,
                   :toggle_autoactivate => :post,
 			            :delete_logo => :delete,
-			            :add_photos => :get,
+			            :addphotos => :get,
 			            :upload_photos => :post
 			          } do |question|
 	  question.resources :prompts, 
@@ -48,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
    
   
   map.connect '/:id', :controller => 'earls', :action => 'show'
+  map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'
   map.connect '/:id/:action', :controller => 'questions'
   
 

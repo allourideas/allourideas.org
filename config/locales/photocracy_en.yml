@@ -107,8 +107,9 @@ photocracy_en:
       error:
         registration: Sorry, we couldn't register you.
         header: errors prohibited this website from being created.
-      header: Create your website and get ready to discover the best photos...
-      step1: "Step 1: Create your website"
+      header: Create your site
+      sidebar: Discover the best photos
+      step1: "Step 1: Question for your visitors"
       step1_exp:   "For example, \"Which photo is more Princeton?\""
       step2: "Step 2: Choose your URL"
       step2_exp: princeton
@@ -117,14 +118,14 @@ photocracy_en:
       step3_ist2: You can copy and paste from a list that you've already created.
       step3_ist3: The maximum length of an photo is
       step3_exp: "Add your own photos here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores"
-      step4: "Step 3: Create an Account"
+      step4: "Step 3: Create your account"
       new_account_exp: Please give us your e-mail and pick a password so that you can get the results and administer your website.
-      display_text: Text of question for your visitors
+      display_text: Which photo is cuter? Which photo is more Philly? etc...
       success_flash: Congratulations. You are about to discover some great photos.
       success_flash2: Send out your URL
       success_flash3: and watch what happens.
       success_flash4: You can further customize this site by following this link
-      exp: You are about to create your own website where your visitors can vote on existing photos and upload new ones. You can either
+      exp: You are about to create your own website where your visitors can vote on existing photos and upload new ones.
       see_an: see an example
       exp2: or get started using the steps below.
       if_you_have_an_account: If you already have an account, please login
@@ -132,8 +133,9 @@ photocracy_en:
       your_email_address: Your Email Address  
       optional: Optional
       help_us_out: Help Us Out
-      tell_us_why: Please tell us a bit about what you are trying to accomplish with Photocracy.
-      tell_us_why2: "Also, feel free to let us know anything else we might find interesting (e.g. how you heard about us, how many visitors you're expecting)"
+      tell_us_why: What are you using Photocracy for?
+      tell_us_why2: How did you find us? How many visitors are you expecting? etc...
+      next_step_upload_photos: "Next Step: Upload Photos &raquo;"
     enter_a_new_short_url: Enter a new short URL
     edit: edit
     short_url_success: Short URL updated succesfully.

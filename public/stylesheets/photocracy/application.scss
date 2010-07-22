@@ -166,13 +166,12 @@ ul.results {
     a {
       padding: .5em;
       -moz-border-radius: 5px;
-      text-decoration: none;
-      color: #000;
       display: inline-block;
       @include rounded(5px);
     }
 
     a.active, a.active:hover {
+        text-decoration: none;
         background: #fa7f00;
         font-weight: bold;
         color: #fff;

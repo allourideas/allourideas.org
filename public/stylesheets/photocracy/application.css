@@ -147,13 +147,12 @@ ul.results {
     ul.results li a {
       padding: .5em;
       -moz-border-radius: 5px;
-      text-decoration: none;
-      color: #000;
       display: inline-block;
       border-radius: 5px;
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px; }
     ul.results li a.active, ul.results li a.active:hover {
+      text-decoration: none;
       background: #fa7f00;
       font-weight: bold;
       color: #fff; }

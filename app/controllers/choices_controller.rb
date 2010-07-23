@@ -18,6 +18,12 @@ class ChoicesController < ApplicationController
     if @photocracy
       @photo = Photo.find(@choice.data.strip)
       @votes = @choice.get(:votes)
+
+      if params[:login_reminder]
+          unless (current_user && (current_user.owns?(@earl) || current_user.admin?))
+    	      deny_access(t('user.deny_access_error')) and return
+          end
+      end
     end
 
     if @choice

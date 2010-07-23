@@ -97,11 +97,19 @@ Then /^the notification in the tell me area should not contain links$/ do
 end
 
 Given /^I save the current (.*) choices?$/ do |side|
-	@question_id = page.locate('#leftside')[:rel].to_i
+	if @photocracy_mode
+	   Capybara.ignore_hidden_elements = false
+	   @question_id = page.locate('#choose_file')[:question_id].to_i
+	   Capybara.ignore_hidden_elements = true 
+	else
+	   @question_id = page.locate('#leftside')[:rel].to_i
+	end
+
+
 	
-	#The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
         begin
 	  @prompt_id = page.locate('#prompt_id')[:value].to_s
+	  #The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
 	rescue Capybara::ElementNotFound
           @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
 	end
@@ -112,11 +120,9 @@ Given /^I save the current (.*) choices?$/ do |side|
         @prompt = Prompt.find(@prompt_id, :params => {:question_id => @question_id})
 
 	if side == "left" or side == "two"
-	  @left_choice_text = page.locate('#leftside').text.to_s
           @left_choice = Choice.find(@prompt.left_choice_id, :params => {:question_id => @question_id})
 	end
 	if side == "right" or side == "two"
-	  @right_choice_text= page.locate('#rightside').text.to_s
           @right_choice = Choice.find(@prompt.right_choice_id, :params => {:question_id => @question_id})
 	end
 end

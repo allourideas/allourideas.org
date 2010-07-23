@@ -20,7 +20,6 @@ Feature: Prevent skip by reloading the page
 		Then the left choice text should match the saved left choice text
 		And the right choice text should match the saved right choice text
 	
-  @focus
 	Scenario: User's last prompt becomes deactivated
 		When I deactivate the saved left choice
 		And I go to the Cast Votes page for 'test' 

@@ -10,6 +10,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
     @body[:photocracy] = photocracy
+    @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
   end
   
   def notification_for_active(earl, question_name, choice_text, choice_id, photocracy=false)
@@ -20,6 +21,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
     @body[:photocracy] = photocracy
+    @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
   end
 
   def flag_notification(earl, choice_id, choice_data, explanation, photocracy=false)
@@ -65,6 +67,7 @@ class IdeaMailer < ActionMailer::Base
       @sent_on     = Time.now
       @body[:user] = user
       @body[:host] = "www.#{photocracy ? 'photocracy' : 'allourideas'}.org"
+
     end
 
 end

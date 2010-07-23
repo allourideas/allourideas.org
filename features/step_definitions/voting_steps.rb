@@ -34,10 +34,13 @@ When /^I click the (.*) button$/ do |button_name|
 	find(".cd_submit_button").click
       when "add new idea"
 	find(".add_idea_button").click
+      when "add new photo"
+	find("#add_photo_button_for_dialog").click
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
 	find("#facebox .flag_submit_button").click
       when "widget flag submit"
+        page.evaluate_script('window.alert = function() { return true; }')
 	find(".flag_submit_button").click
       when "idea auto activation toggle"
 	find(".toggle_autoactivate_status").click

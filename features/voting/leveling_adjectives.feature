@@ -1,4 +1,3 @@
-@focus
 Feature: Leveling Adjectives
 	In order to be encouraged to submit more votes
 	A user

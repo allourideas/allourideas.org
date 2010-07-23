@@ -14,6 +14,7 @@ class ChoicesController < ApplicationController
 		      :question_id => params[:question_id], :id => params[:id]  and return
     end
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
+    @num_votes = @choice.wins + @choice.losses
 
     if @photocracy
       @photo = Photo.find(@choice.data.strip)
@@ -27,7 +28,6 @@ class ChoicesController < ApplicationController
     end
 
     if @choice
-      @votes_count = @choice.attributes['wins_plus_losses']
       respond_to do |format|
         format.html # show.html.erb
       end

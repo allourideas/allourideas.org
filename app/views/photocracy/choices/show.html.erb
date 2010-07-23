@@ -36,7 +36,7 @@
     <h4><%= @choice.created_at.getlocal.strftime("%D") %></h4>
 
     <%= t('items.number_of_votes').upcase %>
-    <h4><%= @choice.attributes["wins_plus_losses"] %></h4>
+    <h4><%= @num_votes %></h4>
 
     <%= t('items.score').upcase %>
     <h4><%= @choice.score.round.to_s %></h4>

@@ -30,8 +30,6 @@ module NavigationHelpers
 	 admin_path
     when /the WIDGET Cast Votes page for '([^'].*)'/i
 	"/"+ $1 + '?widget&width=450&height=410'
-	#"widget.allourideas.org/"+ $1 + '?width=450&height=410'
-	 #cattr_accessor :widget_view_path
 
     when /the Deactivate page for the saved (.*) choice/
 	 @earl = Earl.find_by_question_id(@question_id)

@@ -28,19 +28,20 @@ end
 When /^I click the (.*) button$/ do |button_name|
       case button_name
       when "I can't decide"
-	find("#cant_decide_btn").click
+        find("#cant_decide_btn").click
       when "I can't decide submit"
         page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
-	find(".cd_submit_button").click
+      	find(".cd_submit_button").click
       when "add new idea"
-	find(".add_idea_button").click
+      	find(".add_idea_button").click
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
-	find("#facebox .flag_submit_button").click
-      when "widget flag submit"
-	find(".flag_submit_button").click
+      	find("#facebox .flag_submit_button").click
+      when "WIDGET flag submit"
+        page.evaluate_script('window.alert = function() { return true; }')
+      	find(".flag_submit_button").click
       when "idea auto activation toggle"
-	find(".toggle_autoactivate_status").click
+      	find(".toggle_autoactivate_status").click
       end
 end
 

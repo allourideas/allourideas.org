@@ -11,10 +11,8 @@ Feature: Change view paths for widget
     Scenario: User visits http://widget.allourideas.org/test?width=450&height=410
       Given I am on the WIDGET Cast Votes page for 'test'
       Then I should not see "Log in"
-      And show me the page
 
     @widget
     Scenario: User visits allourideas.org/test
       Given I am on the Cast Votes page for 'test'
       Then I should see "Log In"
-      And show me the page

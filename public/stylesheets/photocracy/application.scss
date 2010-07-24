@@ -144,11 +144,13 @@ a.photo_frame:hover {
 }
 
 ul#your_votes {
-  line-height: 75px;
   margin: 0;
   list-style-type: none;
+  zoom: 1;
   
   li {
+    zoom: 1;
+    padding: 5px;
     margin: 0;
   }
   

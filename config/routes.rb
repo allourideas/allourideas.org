@@ -4,15 +4,18 @@ ActionController::Routing::Routes.draw do |map|
   map.signout '/sign_out', :controller => "clearance/sessions", :action => :destroy
   map.resource :passwords, :controller => "clearance/passwords"
 
-  map.resources :questions, 
-                :member => {
-                  :add_idea => :post,
-                  :toggle => :post,
-                  :toggle_autoactivate => :post,
-			            :delete_logo => :delete,
-			            :addphotos => :get,
-			            :upload_photos => :post
-			          } do |question|
+  map.resources :questions,
+    :collection => {
+      :visitor_voting_history => :get
+    },
+    :member => {
+      :add_idea => :post,
+      :toggle => :post,
+      :toggle_autoactivate => :post,
+      :delete_logo => :delete,
+      :addphotos => :get,
+      :upload_photos => :post
+    } do |question|
 	  question.resources :prompts, 
 		  :only => [:vote, :skip, :flag],
 		  :member => {

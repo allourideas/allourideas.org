@@ -300,7 +300,9 @@ function calculateClickOffset(axis, e, choice) {
 }
 
 function updateVotingHistory(data) {
-	var winner = data['voted_prompt_winner']
+	var winner = data['voted_prompt_winner'];
+	updateVisitorVotes(data['visitor_votes']);
+
 	$('#your_votes').prepend("\
 		<li>\
 			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
@@ -310,6 +312,14 @@ function updateVotingHistory(data) {
 		");
 	$('#your_votes').children(":first").effect("highlight", {}, 3000);
 	$(".timeago").timeago();
+}
+
+function updateVisitorVotes(number_of_votes) {
+	// update vote count
+	$('#visitor_votes').text(number_of_votes);
+
+	// your voteS unless you've only voted once
+	(number_of_votes == 1) ? $('#s').hide() : $('#s').show();
 }
 
 

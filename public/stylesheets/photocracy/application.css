@@ -136,10 +136,12 @@ a.photo_frame:hover {
   vertical-align: middle; }
 
 ul#your_votes {
-  line-height: 75px;
   margin: 0;
-  list-style-type: none; }
+  list-style-type: none;
+  zoom: 1; }
   ul#your_votes li {
+    zoom: 1;
+    padding: 5px;
     margin: 0; }
   ul#your_votes img.loser {
     opacity: 0.5; }

@@ -1046,4 +1046,16 @@ class QuestionsController < ApplicationController
       render :text => 'Choice creation failed', :status => 500
     end
   end
+
+  def visitor_voting_history
+    @votes = Session.new(:id => request.session_options[:id]).get(:votes)
+
+    if @photocracy
+      @votes['votes'].each do |vote|
+        vote[:left_choice_thumb]  = Photo.find(vote['left_choice_data']).image.url(:thumb)
+        vote[:right_choice_thumb] = Photo.find(vote['right_choice_data']).image.url(:thumb)
+      end
+    end
+    render :json => @votes.to_json
+  end
 end

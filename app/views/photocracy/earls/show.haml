@@ -17,8 +17,8 @@
   #secondary_content
     .grid_4
       %h5.no_margin
-        =t('common.your_votes')
-        %span.normal="(#{t('common.average')} is 12)"
+        Your <span id="visitor_votes"></span> vote<span id="s">s</span>
+        %span.normal (average is <span id="average_votes">12</span>)
       .padding
         %ul#your_votes
     .grid_4.center
@@ -114,6 +114,20 @@
         }
       });
 
+      // load the visitor's voting history
+      jQuery.get('/questions/visitor_voting_history.json', function(data){
+
+        updateVisitorVotes(data['votes'].length);
+
+        jQuery.each(data['votes'], function() {
+          $('#your_votes').append("\
+        		<li>\
+        			<img src='" + this['left_choice_thumb'] + "' class='" + (this['winner'] == 'left' ? 'winner' : 'loser') + "'/>\
+        			<img src='" + this['right_choice_thumb'] + "' class='" + (this['winner'] == 'right' ? 'winner' : 'loser') + "'/>\
+        			<!-- <span class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</span> -->\
+        		</li>\
+        	");
+        });
+    	});
       jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');
-      
     });

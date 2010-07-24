@@ -51,8 +51,11 @@ class EarlsController < ApplicationController
        @right_choice_id = @prompt.right_choice_id
 
        if @photocracy
-          @vote_crossfade_transition = ab_test("vote_crossfade_transition", nil, :conversion => "voted")
-          # @vote_crossfade_transition = true
+          if params[:crossfade]
+            @vote_crossfade_transition = eval(params[:crossfade]) rescue true
+          else
+            @vote_crossfade_transition = ab_test("#{@earl.name}_#{@earl.question_id}_vote_crossfade_transition", nil, :conversion => "voted")
+          end
           @right_choice_photo = Photo.find(@right_choice_text)
           @left_choice_photo = Photo.find(@left_choice_text)
           @future_right_choice_photo = Photo.find(@question.attributes['future_right_choice_text_1'])

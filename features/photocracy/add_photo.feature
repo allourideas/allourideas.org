@@ -23,10 +23,12 @@ Feature: Add photo to marketplace
       When they click the first link in the email
       Then I should see "Activated"
 
+    @focus
     @photocracy
     @selenium
     Scenario: Moderated marketplace
       When I upload a photo
+      Then I should see "Your photo has been submitted for review. It will appear soon." 
       Then "test@example.com" should receive an email 
       When "test@example.com" opens the email
       Then they should see "[Photocracy] photo added to question: test name" in the email subject

@@ -18,7 +18,7 @@
     .grid_4
       %h5.no_margin
         Your <span id="visitor_votes"></span> vote<span id="s">s</span>
-        %span.normal (average is <span id="average_votes">12</span>)
+        %span.normal= "(average is <span id='average_votes'>#{@question.attributes['average_votes']}</span>)"
       .padding
         %ul#your_votes
     .grid_4.center

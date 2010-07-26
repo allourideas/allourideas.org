@@ -23,7 +23,6 @@ Feature: Add photo to marketplace
       When they click the first link in the email
       Then I should see "Activated"
 
-    @focus
     @photocracy
     @selenium
     Scenario: Moderated marketplace

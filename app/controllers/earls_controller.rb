@@ -29,7 +29,7 @@ class EarlsController < ApplicationController
 		     :with_visitor_stats => true,
 		     :visitor_identifier => request.session_options[:id]}
 
-      show_params.merge!(:future_prompts => {:number => 1}) if @photocracy
+      show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
 
       @question = Question.find(@earl.question_id, :params => show_params)
 

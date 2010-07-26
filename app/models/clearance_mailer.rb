@@ -3,7 +3,9 @@ class ClearanceMailer < ActionMailer::Base
   def change_password(user, photocracy)
     default_url_options[:host] = (photocracy ? PHOTOCRACY_HOST : HOST)
 
-    from       DO_NOT_REPLY
+    from_address = photocracy ? "Photocracy Support <#{DO_NOT_REPLY}>" : DO_NOT_REPLY
+
+    from       from_address
     recipients user.email
     subject    "Change your password"
     body       :user => user,
@@ -13,7 +15,9 @@ class ClearanceMailer < ActionMailer::Base
   def confirmation(user, earl_name='http://www.allourideas.org', photocracy=false)
     default_url_options[:host] = (photocracy ? PHOTOCRACY_HOST : HOST)
 
-    from       DO_NOT_REPLY
+    from_address = photocracy ? "Photocracy Support <#{DO_NOT_REPLY}>" : DO_NOT_REPLY
+
+    from       from_address
     bcc        SIGNUPS
     cc         SIGNUPS
     recipients user.email

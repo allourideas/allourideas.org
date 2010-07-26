@@ -20,16 +20,14 @@
             .fright.no_bottom_padding
               = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
     -# a better check below would if width < some number then do the margin stuff
-    %center.cd_container.center{:class => @earl.flag_enabled? ? 'top_margin' : 'double_top_margin'}   
+    %center.cd_container{:class => @earl.flag_enabled? ? 'top_margin' : 'double_top_margin'}   
       .vote-footer
-        - link_to("#cant_decide_options", :id => "cant_decide_btn") do
-          %span.actual_cd_button.rounded#cd_button
-            = t('vote.cant_decide') 
+        %span.rounded#cd_button
+          = t('vote.cant_decide') 
     %center.add_container
       .add_idea      
-        - link_to("#the_add_box") do
-          %span.add_idea_button.rounded
-            = t('vote.add_your_idea_button')  
+        %span.add_idea_button.rounded
+          = t('vote.add_your_idea_button')  
       .showmespace
         #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
         .tellmearea
@@ -74,7 +72,6 @@
       %span{:style => 'margin-right: 10px'}
         .cd_submit_button.rounded.fright{:rel => @question.id}= t('vote.submit')
 
-  /* moved this entire block here
   .add-box#the_add_box{:style => 'display:none'}
     - box_text = t('vote.add_your_idea')
     .indicator{:style => "display:none;"}= image_tag('indicator.gif')

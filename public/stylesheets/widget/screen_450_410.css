@@ -475,10 +475,9 @@ table.tablesorter {
 #cd_button {
   background: #c5c5c5;
   padding: 7.5px 12px 7.5px 12px;
-  font-size: 12.8px; }
-  #cd_button a {
-    color: white;
-    display: block; }
+  font-size: 12.8px;
+  color: white;
+  cursor: pointer; }
   #cd_button:hover {
     background-color: #b1b1b1; }
 

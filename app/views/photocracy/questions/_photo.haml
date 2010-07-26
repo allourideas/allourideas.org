@@ -1,9 +1,10 @@
 %a.photo_frame{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => direction),
               :thumb => photo.image.url(:thumb), :class => "#{direction} vote", :direction => direction, :future_photo => future_photo.image.url(:medium)}
-  %table
+  %table.current
     %tr
       %td
         =image_tag(photo.image.url(:medium))
+
   -unless session[:has_voted] == true
     .click_to_vote
       Click to Vote

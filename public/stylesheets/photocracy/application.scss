@@ -35,7 +35,7 @@ a.photo_frame {
   width: 100%;
   overflow: hidden;
   text-decoration: none;
-  // background: url(../../images/photocracy/spinner.gif) center center no-repeat;
+  position:relative;
 
   table {
     text-align:center;
@@ -44,14 +44,33 @@ a.photo_frame {
     width:100%;
     border:none;
     padding:none;
+    position:absolute;
+    top:0px;
+    left:0px;
+
+    &.fade {
+      z-index:2;
+    }
+    
+    &.current {
+      z-index:1;
+    }
 
     td, tr {
       vertical-align:middle;
     }
   }
-
+  
   img {
-    // border: 3px solid #000;
+    border: 3px solid #000;
+  }
+  
+  &.loading img {
+    border: none;
+  }
+  
+  &.checked .fade img {
+    border: 3px solid #fa7f00;
   }
 }
 

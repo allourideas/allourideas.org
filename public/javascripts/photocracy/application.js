@@ -12,6 +12,8 @@ $(document).ready(function() {
 			// visible if the users hasn't voted
 			$('.click_to_vote').hide();
 
+			$(this).addClass('checked');
+
 			// prevent double clicking
 			$('a.vote').addClass('loading');
 
@@ -200,7 +202,7 @@ function castVote(choice, x, y) {
 
 	// a/b test transition animation
 	if (VOTE_CROSSFADE_TRANSITION) {
-		clearImagesToShowNextPair();
+		clearImagesCrossfade();
 	} else {
 		clearImages();
 	}
@@ -229,8 +231,9 @@ function castVote(choice, x, y) {
 			// and others modify those attrs
 			if (!VOTE_CROSSFADE_TRANSITION) { loadNextPrompt(data); };
 			updateUrlsAndHiddenFields(data);
-			if (VOTE_CROSSFADE_TRANSITION) { $('a.vote').removeClass('loading'); }
+			if (VOTE_CROSSFADE_TRANSITION) { $('a.vote').removeClass('loading'); };
 			incrementVoteCount();
+			choice.removeClass('checked');
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
 	});
@@ -291,11 +294,11 @@ function calculateClickOffset(axis, e, choice) {
 	var offset = $(choice).find('img').offset();
 
 	// if there is any border on the image
-	// you need to subtract it from the offset here
+	// you need to subtract it from the offset here (ie 3 px)
 	if (axis == 'x') {
-		return (e.pageX - offset.left);
+		return (e.pageX - offset.left - 3);
 	} else {
-		return (e.pageY - offset.top);
+		return (e.pageY - offset.top - 3);
 	}
 }
 
@@ -325,41 +328,39 @@ function updateVisitorVotes(number_of_votes) {
 
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
+		var current_table = $('a.vote.' + side + ' > table.current');
+
 		// change photos
-		$('a.vote.' + side + ' > table').html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
+		current_table.html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
+
 		// fade in photo
-		$('a.vote.' + side + ' > table').find('img').fadeIn(FADE_TIME, function() {
-			// uncomment this if you want to wait
-			// until fade-in completes before allowing voting
-			// $('a.vote.' + side).removeClass('loading');
+		current_table.find('img').fadeIn(FADE_TIME, function() {
+			// allow voting after fully faded in
+			$('a.vote.' + side).removeClass('loading');
 		});
-		// allow voting before fully faded in (see alternative above)
-		$('a.vote.' + side).removeClass('loading');
 	});
 }
 
 // a variation of the clearImages method being a/b tested
-function clearImagesToShowNextPair() {
+function clearImagesCrossfade() {
 	jQuery.each(['left', 'right'], function(index, side) {
-		var photo_link = $('a.vote.' + side).attr('future_photo');
-		var image = $('a.vote.' + side + ' > table').find('img');
-		var table = $('a.vote.' + side + ' > table');
+		// current table
+		var link = $('a.vote.' + side);
+		var current_table = $('a.vote.' + side + ' > table');
+		var current_image = current_table.find('img');
 
-		// assign next photo to the background of this image
-		table.css('background', 'url(' + photo_link + ') center center no-repeat');
+		// duplicate the table holding the image
+		// add the class 'fade' to it and remove 'current'
+		$('a.vote.' + side).prepend($('a.vote.' + side).html());
+		var fade_table = $('a.vote.' + side + ' > table:first');
+		fade_table.removeClass('current').addClass('fade');
 
-		// animate fade out
-		image.animate({
-		  	opacity: 0
-			}, FADE_TIME, function() {
-				// change src to reference new photo
-		    image.attr('src', photo_link);
+		// switch the current_tables img to the next photo
+		current_image.attr('src', link.attr('future_photo'));
 
-				// make full opacity
-				image.css('opacity', 1);
-
-				// clear image background
-				table.css('background', '');
+		// fade out and remove the fade_table
+		fade_table.animate({opacity: 0}, FADE_TIME, function() {
+			fade_table.remove();
 		});
 	});
 }

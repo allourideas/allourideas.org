@@ -66,7 +66,7 @@ class IdeaMailer < ActionMailer::Base
       if user
         @recipients  = user.email
       end
-      @from        = "info@allourideas.org"
+      @from        = photocracy ? "info@allourideas.org" : "Photocracy Support <info@allourideas.org>"
       @subject     = photocracy ? "[Photocracy] " : "[All Our Ideas] "
       @sent_on     = Time.now
       @body[:user] = user

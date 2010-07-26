@@ -11,6 +11,7 @@
         %p= t('about_page.exp_widget')
 
         %p= t('about_page.faq_widget')
+
         /* Actual ordered list doesn't work here, for some reason */
         %ol.faq
           %li
@@ -46,17 +47,8 @@
         %h2#about_q6="6) " + t('about_page.contact_q_widget')
         %p=t('about_page.contact_exp_widget')
 
-      / 
-        %p=t('about_page.open_source_exp_widget')
-        %p= t('about_page.intro')
-        %ol
-          %li= t('about_page.how_many_votes_q')
-          %li= t('about_page.how_many_ideas_q')
-          %li= t('about_page.view_results_q') 
-          %li= t('about_page.make_my_own_q')
     .bottom_status.link_style
-      %span
-        -@cast_votes_url = url_for(:action => :show, :controller => :earls, :id => @the_id) 
-        //  add the last two tab classes below to make use of already existing javascript
-        %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget')
+      %span.bottom_padding
+        %a.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget');
+
       

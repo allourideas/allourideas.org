@@ -1,6 +1,9 @@
-  /* Tabbing functionality */
+var loadedTime = new Date();
+var count = 0;
 
-  /* A general tabbing function: */  
+/*  TABBING FUNCTIONALITY  */
+
+  //  a general tabbing function
   switch_tabs = function(event) {
     $('.current').hide();
 
@@ -30,35 +33,47 @@
   $('.tab').click(switch_tabs);
   $('.return_voting').click(switch_tabs);
 
-  // for reloading can't decide buttons:
+
+/*  ELEMENT RELOADING FUNCTIONALITY  */
+
+  //  for reloading can't decide reason buttons:
   reload_cd_table = function() {
     var cdHTML = $('#options_table').html();
     document.getElementById("options_table").innerHTML = cdHTML;
   }
 
-  // for reloading the "add your own idea here" field:
-  //var addHTML = $('#add_text_area').html();
+  //  for reloading the "add your own idea here" field:
+  //  this doesn't currently work properly
   reload_add_idea_field = function() {
     //var addHTML = $('#the_add_box').html();
     //document.getElementById("the_add_box").innerHTML = addHTML;
     $('#new_idea_field').val("");
   }
 
+/*  VIEW RESULTS TAB LOADING FUNCTIONALITY */
+
   $('#view_results_link').click(function(event) {
-     //alert($(this).attr("href"));
-     $.get($(this).attr("href"), function(data) { 
-         $('#render_spot').html(data)
-         $('.question_mark').click(function() {
-             $('#render_spot').scrollTo('#explanation');
-             return false;
-          });
-	 }); 
+    $.get($(this).attr("href"), function(data) { 
+      $('#render_spot').html(data)
+      $('.question_mark').click(function() {
+        $('#render_spot').scrollTo('#explanation');
+        return false;
+      });
+	  }); 
   })
 
-  var loadedTime = new Date();
-  var count = 0;
+/*  CLOSE BUTTON FUNCTIONALITY */
 
-  //  har... we want to launch the text area when add idea button is clicked */
+  $('.close').bind('click', function(event) {
+    $('#the_add_box').hide();               
+    $('#flag_inappropriate').hide();
+    $('#cant_decide_options').hide();
+    $('.vote-footer').show();      
+    $('.add_container').show();
+  });
+
+/*  ADDING AN IDEA FUNCTIONALITY  */
+
   $('.add_idea_button.rounded').click(function() {
     $('.vote-footer').hide();      
     $('.add_container').hide();
@@ -67,14 +82,13 @@
     return false;
   });
 
-  //  modify to eliminate facebox stuff
   on_idea_submit_button_click = function(event){		
     var new_idea = $('#new_idea_field').val();        
     var default_text = $('#default_text').val()
     $('.example_notice').hide();
     reload_add_idea_field();
     
-    //if new idea is blank or longer than 140 characters, do not allow it to submit
+    //  if new idea is blank or longer than 140 characters, do not allow it to submit
     if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
         event.returnValue = false;
       	alert('<%=t('vote.submit_idea_default_error') %>');
@@ -86,13 +100,14 @@
         return false;
     }
 
-    $('#initial_notice').hide();            /* har*/
-    $('#the_add_box').hide();               /* har*/
+    //  hide/show the necessary elements
+    $('#initial_notice').hide();           
+    $('#the_add_box').hide();              
     $('.vote-footer').show();      
     $('.add_container').show();
 	  $('.indicator').show();
 
-    //  append this for scrolling funtionality... har
+    //  prepend this for scrolling funtionality
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
     $('#newlines').slideDown(1000);
 
@@ -109,22 +124,22 @@
         function(data){
           $.unblockUI();
 
-          /* har*/
+          //  remove these now that the scrolling is complete and they aren't wanted
           $('#newlines').remove();
-          /*har... these next lines are me... decided i didn't want view all the results anymore */
 
+          //  prepend a different message depending on whether idea submissions need approval
           if (data['choice_status'] == 'active') {
             $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
           }
 	        else {
-            //$('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox #new_idea_field');
-              $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + '<%= t('vote.idea_sent_for_review') %>' + "</a></div><br/>");
+            $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + '<%= t('vote.idea_sent_for_review') %>' + "</a></div><br/>");
           }
   
-          //  NOTE: NEED TO BREAK UP DATA[MESSAGE] SUCH THAT MESSAGE IS ON ONE LINE AND IDEA IS ON THE NEXT. ALSO NEED TO TRUNCATE IDEA.
+          //  highlight the most recently prepended message
           $("#tellme_prepended").effect("highlight", {}, 1500);
           count++;
 
+          //  update the leveling message
           $("#leveling_message_appended").remove();
           $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
@@ -135,42 +150,30 @@
       return false;
     };
 
-  //  bind to idea submit button
   $('#submit_btn').bind('click', on_idea_submit_button_click);
 
-  //  bind to idea close and flag inappropriate close button
-  $('.close').bind('click', function(event) {
-    $('#the_add_box').hide();               /* har*/
-    $('#flag_inappropriate').hide();
-    $('.vote-footer').show();      
-    $('.add_container').show();
-  });
+/*  VOTING FUNCTIONALITY  */
 
-  $('.flag_close').bind('click', function(event) {
-    //  Remove in case it's still there (flag stuff)
-    $('#new_flag_field').val('');
-  });
-
-  //  bind to voting, this is messed up in ie6
   $('.vote_cell').bind('click',function(event){
 
-    //  Remove this stuff when somebody votes in case it's still there (add idea stuff)
-    $('#the_add_box').hide();               /* har*/
-    $('.add_idea_button.rounded').show();   /* har*/
+    //  Remove this stuff when somebody votes in case it's still there... add idea stuff
+    $('#the_add_box').hide();               
+    $('.add_idea_button.rounded').show();   
 
-    //  Remove in case it's still there... same as above (can't decide stuff)
+    //  Remove in case it's still there... can't decide stuff
     $('.add_container').show();
     $('.vote-footer').show();
     $('#cant_decide_options').hide();
 
-    //  Remove in case it's still there... same as above (flag stuff)
+    //  Remove in case it's still there... flag stuff
     $('#new_flag_field').val('');
+
+    //  Remove in case it's still there... other stuff
+    $('#initial_notice').hide();           
+	  $('.example_notice').hide();
 
     var currentTime = new Date();
 	  var time_viewed = currentTime - loadedTime
-
-    $('#initial_notice').hide();            /* har*/
-	  $('.example_notice').hide();
 
 	  // TODO refactor to use url_for in rails
 	  var the_id = $(this).attr("id");
@@ -219,9 +222,9 @@
 		         opacity:         0.0
 	         }});
 
-        $('.indicator').show();    // was here b4
+        $('.indicator').show();    
 
-        //  append this for scrolling funtionality... har
+        //  append this for scrolling funtionality
         if (count != 0) {
           $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br><br></div>");
           $('#newlines').slideDown(1000);
@@ -243,7 +246,7 @@
              count++;
 		       }
 
-		       loadedTime = new Date(); //reset loaded time
+		       loadedTime = new Date(); //  reset loaded time
 
 	     },
 	     success: function(data){
@@ -252,28 +255,24 @@
 		  $('.leftside').html(data["newleft"]);
 		  $('.rightside').html(data["newright"]);
 		
-		  //used for fraud detection / back button behavior fixing
+		  //  used for fraud detection / back button behavior fixing
 		  $('#left_side_text').val(data["newleft"]);
 		  $('#right_side_text').val(data["newright"]);
 
 		  $('#prompt_id').val(data["prompt_id"]);
 		  $('#appearance_lookup').val(data["appearance_lookup"]);
 
-      var maxLength = 45;
-
+      //  truncate idea text that will go in tellmearea
+      var maxLength = 45;  
       if (winnerString.length > maxLength) {
-        //winner = "<a href='" + winner_url + "'>" + winner.substring(0, maxLength - 3) + "..." + "</a>";	
         winnerString = winnerString.substring(0, maxLength - 3) + "...";
       }
-
       if (loserString.length > maxLength) {
-        //loser = "<a href='" + loser_url + "'>" + loser.substring(0, maxLength - 3) + "..." + "</a>";	
         loserString = loserString.substring(0, maxLength - 3) + "...";
       }
 
-      /* har*/
       $('#newlines').remove();
-      /*har... these next lines are me... decided i didn't want view all the results anymore */
+
       if (count == 0)   //  don't want line break at end if this is our first prepend
         $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div>");
       else
@@ -310,27 +309,21 @@
 				      });
 				  });
 
-		                  loadedTime = new Date() //reset loaded time
+		    loadedTime = new Date() //reset loaded time
 		  }// End success
 	       }); // End ajax method
 	    return false;
 	  });
  
-  // bind to can't decide
+/* CAN'T DECIDE FUNCTIONALITY  */
+
   $('#cant_decide_btn').bind('click', function() { 
 
     //  hide/show everything necessary
-    //  cd stuff
     $('.vote-footer').hide();      
     $('#cant_decide_options').show();
     $('.add_container').hide();
 
-    $('.close').bind('click', function() {
-      //  make the right stuff reappear/rehide/work
-      $('.vote-footer').show();      
-      $('#cant_decide_options').hide();
-      $('.add_container').show();   
-    });
     return false;
   });
       
@@ -338,7 +331,7 @@
       
     var reason = $('input[name=cant_decide_reason]:checked').val();
 
-    //check that some radio button is selected before closing facebox...
+    //  check that some radio button is selected before closing can't decide area
   	if (!reason) {
       alert("You must select a reason");
       return -1;
@@ -360,20 +353,18 @@
 
     //  idea/other stuff... 
     $('.add_container').show();
-    $('#initial_notice').hide();            /* har*/
+    $('#initial_notice').hide();            
 
     //  Remove in case it's still there (flag stuff)
     $('#new_flag_field').val('');
-	
     
     var currentTime = new Date();
     var time_viewed = currentTime - loadedTime
     $('.example_notice').hide();
-   //$.setFragment({ "page" : $.queryString(this.href).page });
+    //$.setFragment({ "page" : $.queryString(this.href).page });
 
     $('.indicator').show();
 
-    //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br></div>");
     $('#newlines').slideDown(1000);
 
@@ -394,7 +385,6 @@
 		   },
 
 		      function(data){
-            /*har... these next lines are me... decided i didn't want view all the results anymore */
             $('#newlines').remove();
             $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
             $("#tellme_prepended").effect("highlight", {}, 1500);
@@ -409,21 +399,20 @@
 			      $('.rightside').html(data["newright"]);
 		        $('#prompt_id').val(data["prompt_id"]);
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
-	          //clear the radio buttons somehow?
-		        loadedTime = new Date() //reset loaded time
-            reload_cd_table();
+		        loadedTime = new Date() //  reset loaded time
+            reload_cd_table();      //  clear the radio buttons
 		      },
 		      "json"
     );
 	return false;
 	});
 
+/* FLAG AS INAPPROPRIATE FUNCTIONALITY  */
 
   $('.flag_link').bind("click", function(event){
     flag_side = $(this).attr('id');
 
     //  hide/show everything necessary
-    //  cd stuff
     $('.vote-footer').hide();      
     $('.add_container').hide();
     $('#flag_inappropriate').show();
@@ -443,20 +432,16 @@
   	}
 
     //  make the right stuff reappear/rehide/work
-    //  cd stuff
     $('.vote-footer').show();      
     $('#flag_inappropriate').hide();
     $('#new_flag_field').val('');
-
-    //  idea/other stuff... 
     $('.add_container').show();
-    $('#initial_notice').hide();            /* har*/
-	
+    $('#initial_notice').hide();            
+
     var currentTime = new Date();
     var time_viewed = currentTime - loadedTime
 	  $('.example_notice').hide();
 
-    //  append this for scrolling funtionality... har
     $('.tellmearea').prepend("<div id = \"newlines\" style=\"display:none\"> <br></div>");
     $('#newlines').slideDown(1000);
 
@@ -502,9 +487,9 @@
 		   $('#appearance_lookup').val(data["appearance_lookup"]);
 		   current_item_count = $('#item_count').html();
 		   $('#item_count').html(decrement(current_item_count));
-		   loadedTime = new Date() //reset loaded time
+		   loadedTime = new Date() //  reset loaded time
 
-			 //used for fraud detection / back button behavior fixing
+			 //  used for fraud detection / back button behavior fixing
 		   $('#left_side_text').val(data["newleft"]);
 		   $('#right_side_text').val(data["newright"]);
 		 }
@@ -514,7 +499,13 @@
 	return false;
  	});
 
-  /* About page scrolling */
+  //  Note that most of flag as inappropriate close functionality is the same as closing an idea or can't decide
+  //  The extra text needs to be cleared here because we don't want text that was typed when the left flag button is clicked to reappear when the right flag button is clicked
+  $('.flag_close').bind('click', function(event) {
+    $('#new_flag_field').val('');
+  });
+
+/*  ABOUT PAGE SCROLLING FUNCTIONALITY  */
 
   $('#faq_q1').click(function() {
     $('.scrollbar_container').scrollTo('#about_q1');

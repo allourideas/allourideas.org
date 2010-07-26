@@ -19,7 +19,8 @@
           %td
             .fright.no_bottom_padding
               = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
-    .cd_container.center{:class => @earl.flag_enabled? ? 'no_top_margin' : 'double_top_margin'}
+    -# a better check below would if width < some number then do the margin stuff
+    .cd_container.center{:class => @earl.flag_enabled? ? 'top_margin' : 'double_top_margin'}   
       .vote-footer
         - link_to("#cant_decide_options", :id => "cant_decide_btn") do
           %span.actual_cd_button.rounded#cd_button
@@ -29,18 +30,13 @@
         - link_to("#the_add_box") do
           %span.add_idea_button.rounded
             = t('vote.add_your_idea_button')  
-        //= link_to(t('vote.add_your_idea_button'), "#the_add_box", :class => "add_idea_button rounded") 
-        //= render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
       .showmespace
         #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
         .tellmearea
-          #initial_notice{:style => 'background-color: white; border: none; font-size: 14px'}= t('vote.click_idea_to_start_widget')
-          /* ^^^fix style of this; should be in stylesheet
+          #initial_notice= t('vote.click_idea_to_start_widget')
 
-  /* moved this entire block here
   #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
     %h2= t('vote.cant_decide_title')
-    -#cd_options= ['like_both', 'dislike_both', 'explicit_dont_know_left_widget', 'other', 'both_same', 'dont_know_both_widget', 'explicit_dont_know_right_widget', 'user_other']
     -cd_options= ['like_both', 'dislike_both', 'dont_know_both_widget', 'user_other']
     -col1, col2 = cd_options.enum_slice((cd_options.size.to_f/2.0).ceil).to_a
     %table#options_table
@@ -115,8 +111,6 @@
 .bottom_status.leveling_message
   #leveling_message_appended
     /* Use a table here to fix a small issue with a non-linking space after the first link */
-    /* Should put this css in a stylesheet. */
-    /* Need to put text in en.yml */
-    %table.link_style{:border => 0, :cellpadding => 0}
+    %table.link_style
       %td= t('vote.powered_widget') + link_to(t('common.title_widget'), 'http://allourideas.org', :target => '_blank')
       %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), 'http://allourideas.org', :target => '_blank')

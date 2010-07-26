@@ -28,9 +28,13 @@ a {
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  width: 437.5px;
+  width: 300px;
   color: #555555;
-  line-height: 16pt; }
+  line-height: 16pt;
+  border: 1px solid black; }
+
+html {
+  font-size: 100%; }
 
 h1, h2, h3, h4, h5, h6, .large-text {
   color: #797979; }
@@ -90,7 +94,7 @@ table {
     background-color: #fefefe; }
   table .thin td {
     padding: 2px 5px;
-    height: 2px; }
+    height: 1.373px; }
   table.recent-winners td {
     text-align: center; }
   table.item td:last-child {
@@ -98,7 +102,7 @@ table {
   table.left {
     margin: 0; }
   table.signup td {
-    max-width: 400px; }
+    max-width: 274.6px; }
   table .score {
     padding-right: 5px; }
 
@@ -162,12 +166,12 @@ table {
 
 .image-example {
   border: 2px solid #eeeeee;
-  width: 250px;
+  width: 171.625px;
   margin: 0px 0px 10px; }
 
 .button {
   border: 1px solid #3198c1;
-  width: 125px;
+  width: 85.812px;
   padding: 2px 0px;
   background-color: #54afe2;
   text-align: center;
@@ -182,20 +186,20 @@ table {
 .triple-left {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 0px;
-  width: 264px; }
+  width: 181.236px; }
 
 .triple-center {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 15px;
-  width: 249px; }
+  width: 170.938px; }
 
 .triple-right {
   padding: 0px 0px 2px 15px;
-  width: 265px; }
+  width: 181.922px; }
 
 .double-left {
   padding: 0px 15px 2px 0px;
-  width: 545px; }
+  width: 374.142px; }
 
 .votebox {
   width: 98.5%;
@@ -221,7 +225,7 @@ table {
   .votebox table td .five_padding {
     padding: 5px; }
   .votebox table td table td {
-    height: 107.5px; }
+    height: 190.588px; }
 
 .skip {
   margin: 10px 0; }
@@ -240,21 +244,21 @@ table {
     float: right;
     padding: 0; }
   .footer .triple-left p {
-    width: 153px; }
+    width: 105.034px; }
   .footer .triple-center p {
-    width: 205px; }
+    width: 140.732px; }
   .footer .triple-right p {
-    width: 220px; }
+    width: 151.03px; }
 
 .bar-chart {
   border: 1px solid #cccccc;
-  width: 95px;
+  width: 65.217px;
   margin: 0 auto;
   padding: 1px;
   background: white; }
   .bar-chart > div {
     background-color: #797979;
-    height: 12px;
+    height: 8.238px;
     margin: 0; }
 
 hr {
@@ -264,11 +268,11 @@ hr {
 
 /* modified this */
 .add-box {
-  width: 375px;
+  width: 257.437px;
   margin-top: 10px; }
   .add-box textarea {
     border: none;
-    width: 362.5px; }
+    width: 249.199px; }
 
 input, textarea {
   font-size: 13px;
@@ -470,11 +474,11 @@ table.tablesorter {
 
 #cd_button {
   background: #c5c5c5;
-  padding: 7.5px 12px 7.5px 12px; }
+  padding: 7.5px 12px 7.5px 12px;
+  font-size: 12.8px; }
   #cd_button a {
     color: white;
-    display: block;
-    font-size: 12.8px; }
+    display: block; }
   #cd_button:hover {
     background-color: #b1b1b1; }
 
@@ -542,21 +546,21 @@ table.tablesorter {
   width: 40%; }
 
 #user_cd_reason {
-  width: 145px; }
+  width: 99.542px; }
 
 .user_cd_reason {
   padding-left: 2px; }
 
 .scrollbar_container {
-  width: 425px;
-  height: 340px;
+  width: 291.762px;
+  height: 411.899px;
   border: 4px solid #3198c1; }
 
 .bottom_status {
-  height: 22px;
+  line-height: 16px;
   border: 4px solid #3198c1;
   border-top: 0px;
-  width: 425px;
+  width: 291.762px;
   text-align: center;
   background-color: #3198c1;
   color: white; }
@@ -615,14 +619,14 @@ table.tablesorter {
       border-color: #a3d4e8; }
 
 .vote-nav {
-  width: 433px;
+  width: 299.762px;
   font-size: 12px; }
 
 .question {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
   font-size: 16px;
-  width: 395px;
+  width: 271.167px;
   color: black; }
 
 #new_idea_field {
@@ -639,16 +643,16 @@ table.tablesorter {
   margin-top: 20px; }
 
 .new_text_field {
-  height: 32px; }
+  height: 21.968px; }
 
 .new_tellme_text {
   margin-top: 5px; }
 
 #flag_inappropriate {
-  width: 375px; }
+  width: 257.437px; }
   #flag_inappropriate textarea {
     border: none;
-    width: 362.5px; }
+    width: 249.199px; }
 
 .vote-footer a {
   color: white; }
@@ -661,3 +665,12 @@ table.tablesorter {
 
 .add_container {
   margin-top: 15px; }
+
+#initial_notice {
+  background-color: white;
+  border: none;
+  font-size: 14px; }
+
+.bottom_status table {
+  border: 0;
+  cellpadding: 0; }

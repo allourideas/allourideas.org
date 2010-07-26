@@ -1,4 +1,11 @@
 // Note: Replaced all color #919191 with #555555
+
+$body_width: 300px          //  437px for this widget size
+$body_height: 402px         //  402px
+$sc_height: 600px           //  340px height of scrollbar container
+$_sw: $body_width / 437px   //  this is my scale factor for width
+$_sh: $sc_height / 340px    //  this is my scale factor for height
+
 $margin: 5px
 
 *
@@ -29,14 +36,17 @@ a
 .grey, label
   color: #555555
 
-$scaleFactor = .5 /* har */
-
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
-  width: 875px * $scaleFactor                   /* har */
+  width: $body_width                   /* har */
+  //height: $body_height
   color: #555555                                /* this has the stupid gray... change it?*/
-  line-height: 16pt
+  line-height: 16pt     
+  border: 1px solid black                           /* STUPID BORDER HERE*/
+
+html
+  font-size: 100%
 
 h1, h2, h3, h4, h5, h6, .large-text
   color: #797979
@@ -96,7 +106,7 @@ table
     background-color: #fefefe
   .thin td
     padding: 2px 5px
-    height: 2px
+    height: 2px * $_sw
   &.recent-winners td
     text-align: center
   &.item td:last-child
@@ -104,7 +114,7 @@ table
   &.left
     margin: 0
   &.signup td
-    max-width: 400px
+    max-width: 400px * $_sw
   .score 
     padding-right: 5px  
   
@@ -167,10 +177,10 @@ table
   .center img
     padding: 0px 0px 30px 0px
   .triple-left
-    min-height: 150px
+    min-height: 150px * $_sw
   #body
     .triple-center, .triple-right
-      min-height: 150px
+      min-height: 150px * $_sw
 
 
 .triple-left, .triple-center, .triple-right, .double-left
@@ -181,12 +191,12 @@ table
 
 .image-example
   border: 2px solid #eeeeee
-  width: 250px
+  width: 250px * $_sw
   margin: 0px 0px 10px
 
 .button
   border: 1px solid #3198c1
-  width: 125px
+  width: 125px * $_sw
   padding: 2px 0px
   background-color: #54afe2
   text-align: center
@@ -201,20 +211,20 @@ table
 .triple-left
   border-right: 1px dotted #d8dbdc
   padding: 0px 15px 2px 0px
-  width: 264px
+  width: 264px * $_sw
 
 .triple-center
   border-right: 1px dotted #d8dbdc
   padding: 0px 15px 2px 15px
-  width: 249px
+  width: 249px * $_sw
 
 .triple-right
   padding: 0px 0px 2px 15px
-  width: 265px
+  width: 265px * $_sw
 
 .double-left
   padding: 0px 15px 2px 0px
-  width: 545px
+  width: 545px * $_sw
 
 .votebox
   width: 98.5%
@@ -243,7 +253,7 @@ $fontScaleFactor = .8                           /* har */
     .five_padding
       padding: 5px
     table td
-      height: 215px * $scaleFactor
+      height: 108px * $_sh
 
 .skip
   margin: 10px 0
@@ -262,21 +272,21 @@ $fontScaleFactor = .8                           /* har */
     float: right
     padding: 0
   .triple-left p
-    width: 153px
+    width: 153px  * $_sw
   .triple-center p
-    width: 205px
+    width: 205px * $_sw
   .triple-right p
-    width: 220px
+    width: 220px * $_sw
 
 .bar-chart
   border: 1px solid #ccc
-  width: 190px * $scaleFactor
+  width: 95px * $_sw
   margin: 0 auto
   padding: 1px
   background: white
   > div
     background-color: #797979
-    height: 12px
+    height: 12px * $_sw
     margin: 0
 
 hr
@@ -286,11 +296,11 @@ hr
 
 /* modified this */
 .add-box
-  width: 750px * $scaleFactor   /* har ... was 425px */
+  width: 375px * $_sw   /* har ... was 425px */
   margin-top: 10px
   textarea
     border: none
-    width: 725px * $scaleFactor   /* har ... was 400px */
+    width: 363px * $_sw   /* har ... was 400px */
 
 input, textarea
   font-size: 13px
@@ -486,26 +496,27 @@ table.tablesorter
     color: #3198c1
 
 #cant_decide_options
-  //margin: 20px *$scaleFactor 0px 0px 0px
   width: 95%
   text-align: center
-  font-size: 24px * $scaleFactor    /* har*/
+  font-size: 12px    /* har*/
 
 #cant_decide_options table
   text-align: left
 
 #cd_button
   background: #C5C5C5
+  //padding: 7.5px * $_sw 12px * $_sw 7.5px * $_sw 12px * $_sw
   padding: 7.5px 12px 7.5px 12px
+  font-size: 16px * $fontScaleFactor
   a
     color: #FFFFFF
     display: block
-    font-size: 16px * $fontScaleFactor
   &:hover
     background-color: #B1B1B1
 
 .add_idea
   .add_idea_button
+    //padding: 7.5px * $_sw 20px * $_sw 7.5px 20px
     padding: 7.5px 20px 7.5px 20px
     //width: 265px * $scaleFactor
     //height: 3em * $scaleFactor
@@ -572,21 +583,23 @@ table.tablesorter
   width: 40%
 
 #user_cd_reason
-  width: 290px * $scaleFactor
+  width: 145px * $_sw
 
 .user_cd_reason
   padding-left: 2px
 
 .scrollbar_container
-  width: 425px
-  height: 340px
+  width: 425px * $_sw
+  height: $sc_height * $_sw
   border: 4px solid #3198c1              /* har, comment out other border code*/
 
 .bottom_status
-  height: 22px
+  //height: 22px * $_sw
+  //font-size: dunnowhathisshouldbepx * $_sw
+  line-height: 16px
   border: 4px solid #3198c1              /* har, comment out other border code*/
   border-top: 0px
-  width: 850px * $scaleFactor
+  width: 425px * $_sw
   text-align: center
   background-color: #3198c1
   color: white
@@ -623,7 +636,7 @@ $tellmearea_fontsize: 14px
   margin: 0
   padding: 0  
   list-style: none
-  font-size: 24px * $scaleFactor
+  font-size: 12px
   border-color: #3198c1 
   .current_tab
     font-weight: bold
@@ -634,7 +647,7 @@ $tellmearea_fontsize: 14px
       background-color: #3198c1  
       border-color: #3198c1  
   li
-    //height: 44px * $scaleFactor             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
+    //height: 22px * $_sw             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
     float: left
     border-top: 4px solid #3198c1 
@@ -654,14 +667,14 @@ $tellmearea_fontsize: 14px
       border-color: lighten(#3198c1, 30%)
 
 .vote-nav
-  width: 433px                   /* needs to be same width as scrollbar container + its borders*/
-  font-size: 24px * $scaleFactor
+  width: 425px * $_sw + 8                  /* needs to be same width as scrollbar container + its borders*/
+  font-size: 12px
 
 .question
   margin-top: $margin * 2.5
   margin-bottom: $margin * 2.5
   font-size: 16px                             /*har*/
-  width: 395px
+  width: 395px * $_sw
   color: black
 
 #new_idea_field
@@ -679,16 +692,16 @@ $tellmearea_fontsize: 14px
   margin-top: $margin * 4
 
 .new_text_field
-  height: 32px
+  height: 32px * $_sw
 
 .new_tellme_text
   margin-top: $margin
 
 #flag_inappropriate
-  width: 750px * $scaleFactor   /* har ... was 425px */
+  width: 375px * $_sw  /* har ... was 425px */
   textarea
     border: none
-    width: 725px * $scaleFactor   /* har ... was 400px */
+    width: 363px * $_sw   /* har ... was 400px */
 
 .vote-footer
   a
@@ -702,3 +715,12 @@ $tellmearea_fontsize: 14px
 
 .add_container
   margin-top: $margin * 3
+
+#initial_notice
+  background-color: white
+  border: none
+  font-size: 14px
+
+.bottom_status table
+  border: 0 
+  cellpadding: 0

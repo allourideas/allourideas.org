@@ -154,6 +154,7 @@ ul#your_votes {
   list-style-type: none;
   zoom: 1; }
   ul#your_votes li {
+    text-align: center;
     zoom: 1;
     padding: 5px;
     margin: 0; }

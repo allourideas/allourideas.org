@@ -148,13 +148,10 @@
         updateVisitorVotes(data['votes'].length);
 
         jQuery.each(data['votes'], function() {
-          $('#your_votes').append("\
-        		<li>\
-        			<img src='" + this['left_choice_thumb'] + "' class='" + (this['winner'] == 'left' ? 'winner' : 'loser') + "'/>\
-        			<img src='" + this['right_choice_thumb'] + "' class='" + (this['winner'] == 'right' ? 'winner' : 'loser') + "'/>\
-        			<!-- <span class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</span> -->\
-        		</li>\
-        	");
+          var left_url = "/#{@earl.name}/choices/" + this['left_choice_id'] + RAILS_LOCALE;
+          var right_url = "/#{@earl.name}/choices/" + this['right_choice_id'] + RAILS_LOCALE;
+
+          addThumbnailsToHistory(this['left_choice_thumb'], left_url, this['right_choice_thumb'], right_url, data['voted_at'], this['winner']);
         });
     	});
       jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');

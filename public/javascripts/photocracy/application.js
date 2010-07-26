@@ -306,15 +306,20 @@ function updateVotingHistory(data) {
 	var winner = data['voted_prompt_winner'];
 	updateVisitorVotes(data['visitor_votes']);
 
-	$('#your_votes').prepend("\
-		<li>\
-			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
-			<img src='" + $('.right').attr('thumb') + "' class='" + (winner == 'right' ? 'winner' : 'loser') + "'/>\
-			<!-- <span class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</span> -->\
-		</li>\
-		");
+	addThumbnailsToHistory($('.left').attr('thumb'), $('.left').attr('choice_url'), $('.right').attr('thumb'), $('.left').attr('choice_url'), data['voted_at'], winner);
+
 	$('#your_votes').children(":first").effect("highlight", {}, 3000);
 	$(".timeago").timeago();
+}
+
+function addThumbnailsToHistory(left_thumb, left_url, right_thumb, right_url, voted_at, winner){
+	$('#your_votes').prepend("\
+		<li>\
+			<a href='" + left_url + "'<img src='" + left_thumb + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/></a>\
+			<a href='" + right_url + "'<img src='" + right_thumb + "' class='" + (winner == 'right' ? 'winner' : 'loser') + "'/></a>\
+			<!-- <span class='timeago' title='" + voted_at + "'>" + voted_at + "</span> -->\
+		</li>\
+	");
 }
 
 function updateVisitorVotes(number_of_votes) {

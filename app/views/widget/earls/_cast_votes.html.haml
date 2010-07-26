@@ -20,7 +20,7 @@
             .fright.no_bottom_padding
               = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
     -# a better check below would if width < some number then do the margin stuff
-    .cd_container.center{:class => @earl.flag_enabled? ? 'top_margin' : 'double_top_margin'}   
+    %center.cd_container.center{:class => @earl.flag_enabled? ? 'top_margin' : 'double_top_margin'}   
       .vote-footer
         - link_to("#cant_decide_options", :id => "cant_decide_btn") do
           %span.actual_cd_button.rounded#cd_button

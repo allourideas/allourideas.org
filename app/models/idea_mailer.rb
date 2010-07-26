@@ -4,13 +4,16 @@ class IdeaMailer < ActionMailer::Base
 
   def notification(earl, question_name, choice_text, choice_id, photocracy=false)
     setup_email(earl.user, photocracy)
+
     @subject += "#{photocracy ? 'photo' : 'idea'} added to question: #{question_name}"
     @body[:question_name] = question_name
     @body[:earl] = earl
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
+    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, true)
     @body[:photocracy] = photocracy
     @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
+
   end
   
   def notification_for_active(earl, question_name, choice_text, choice_id, photocracy=false)
@@ -20,6 +23,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:earl] = earl
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
+    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, false)
     @body[:photocracy] = photocracy
     @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
   end
@@ -68,6 +72,27 @@ class IdeaMailer < ActionMailer::Base
       @body[:user] = user
       @body[:host] = "www.#{photocracy ? 'photocracy' : 'allourideas'}.org"
 
+    end
+
+    def get_choice_url(earl_name, choice_id, photocracy, activate)
+       url_options = {:question_id => earl_name, :id => choice_id}
+       url_options.merge!(:photocracy_mode => true) if photocracy && Rails.env == "cucumber"
+       url_options.merge!(:login_reminder => true) if photocracy
+
+       if photocracy
+           choice_path = question_choice_path(url_options)
+       elsif activate
+           choice_path = activate_question_choice_path(url_options)
+       else
+           choice_path = deactivate_question_choice_path(url_options)
+       end
+
+       if photocracy
+	       choice_url = "http://#{PHOTOCRACY_HOST}#{choice_path}"
+       else
+	       choice_url = "http://#{HOST}#{choice_path}"
+       end
+       choice_url
     end
 
 end

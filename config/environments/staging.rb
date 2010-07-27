@@ -22,14 +22,6 @@ config.gem "rubaidh-google_analytics",
   :version => "1.1.4",
   :source  => "http://gems.github.com"
  
-config.action_mailer.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
- :address => "smtp.sendgrid.net",
-  :port => '25',
-  :authentication => :plain,
-  :user_name => ENV['SENDGRID_USERNAME'],
-  :password => ENV['SENDGRID_PASSWORD']
-}
 
 
 #pains me to do this, but can't seem to get environment variables set in EY

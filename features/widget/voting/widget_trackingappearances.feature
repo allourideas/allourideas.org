@@ -8,7 +8,7 @@ Feature: Tracking appearances
     And I am on the WIDGET Cast Votes page for 'test'
     And I save the current appearance lookup
  
-    @widget
+    @widget2
     @selenium
     Scenario: User gets a new appearance after submitting a cant decide
       When I click the I can't decide button

@@ -19,9 +19,7 @@
       });
   %body
     =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
-    .content{:style => white_label_request? ? "overflow:hidden": ""}
-      -#- unless white_label_request?  
-      -#  =render :partial => "shared/header"         
+    .content{:style => white_label_request? ? "overflow:hidden": ""}      
       .body{:class => white_label_request? ? 'noborder' : ''} 
         = render :partial => "shared/flashes"
         -if session[:standard_flash]
@@ -31,14 +29,8 @@
           -if session[:on_example]
             %p.notice.example_notice#notice= t('home.student_government_explanation')
             -session[:on_example] = nil
-          /*  har... comment this out, don't want welcome message*/
-          -#-elsif session[:welcome_msg]
-          -#  %p.notice.example_notice#notice= h(session[:welcome_msg])
-          -#  -session[:welcome_msg] = nil
         = yield
-        .clear
-      -#- unless white_label_request?  
-      -#  = render :partial => "shared/footer"         
+        .clear      
       = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'jquery.blockUI.js','label_over', 'application'
       = yield :crazyegg
       -if RAILS_ENV['production']

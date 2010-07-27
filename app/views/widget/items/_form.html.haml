@@ -1,6 +1,6 @@
 -form_tag "items_path" do
 
   -ab_test(the_ab_test_name, %w{control make_your_voice_heard help_your_community}, :conversion => 'submitted_idea') do |choice|
-    -link_to("#the_add_box") do                                 # har don't link to facebox... was :rel => 'facebox[.wider]') do
+    -link_to("#the_add_box") do                                
       .add_idea_button.rounded
         = t('vote.add_your_idea_button')

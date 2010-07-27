@@ -28,7 +28,7 @@ a {
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  width: 300px;
+  width: 340px;
   color: #555555;
   line-height: 16pt;
   border: 1px solid black; }
@@ -94,7 +94,7 @@ table {
     background-color: #fefefe; }
   table .thin td {
     padding: 2px 5px;
-    height: 1.373px; }
+    height: 1.556px; }
   table.recent-winners td {
     text-align: center; }
   table.item td:last-child {
@@ -102,7 +102,7 @@ table {
   table.left {
     margin: 0; }
   table.signup td {
-    max-width: 274.6px; }
+    max-width: 311.213px; }
   table .score {
     padding-right: 5px; }
 
@@ -166,12 +166,12 @@ table {
 
 .image-example {
   border: 2px solid #eeeeee;
-  width: 171.625px;
+  width: 194.508px;
   margin: 0px 0px 10px; }
 
 .button {
   border: 1px solid #3198c1;
-  width: 85.812px;
+  width: 97.254px;
   padding: 2px 0px;
   background-color: #54afe2;
   text-align: center;
@@ -186,20 +186,20 @@ table {
 .triple-left {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 0px;
-  width: 181.236px; }
+  width: 205.4px; }
 
 .triple-center {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 15px;
-  width: 170.938px; }
+  width: 193.73px; }
 
 .triple-right {
   padding: 0px 0px 2px 15px;
-  width: 181.922px; }
+  width: 206.178px; }
 
 .double-left {
   padding: 0px 15px 2px 0px;
-  width: 374.142px; }
+  width: 424.027px; }
 
 .votebox {
   width: 98.5%;
@@ -244,21 +244,21 @@ table {
     float: right;
     padding: 0; }
   .footer .triple-left p {
-    width: 105.034px; }
+    width: 119.039px; }
   .footer .triple-center p {
-    width: 140.732px; }
+    width: 159.497px; }
   .footer .triple-right p {
-    width: 151.03px; }
+    width: 171.167px; }
 
 .bar-chart {
   border: 1px solid #cccccc;
-  width: 65.217px;
+  width: 73.913px;
   margin: 0 auto;
   padding: 1px;
   background: white; }
   .bar-chart > div {
     background-color: #797979;
-    height: 8.238px;
+    height: 9.336px;
     margin: 0; }
 
 hr {
@@ -268,11 +268,11 @@ hr {
 
 /* modified this */
 .add-box {
-  width: 257.437px;
+  width: 291.762px;
   margin-top: 10px; }
   .add-box textarea {
     border: none;
-    width: 249.199px; }
+    width: 282.426px; }
 
 input, textarea {
   font-size: 13px;
@@ -472,13 +472,13 @@ table.tablesorter {
 #cant_decide_options table {
   text-align: left; }
 
-#cd_button {
+#cant_decide_btn {
   background: #c5c5c5;
   padding: 7.5px 12px 7.5px 12px;
   font-size: 12.8px;
   color: white;
   cursor: pointer; }
-  #cd_button:hover {
+  #cant_decide_btn:hover {
     background-color: #b1b1b1; }
 
 .add_idea .add_idea_button {
@@ -545,21 +545,21 @@ table.tablesorter {
   width: 40%; }
 
 #user_cd_reason {
-  width: 99.542px; }
+  width: 112.815px; }
 
 .user_cd_reason {
   padding-left: 2px; }
 
 .scrollbar_container {
-  width: 291.762px;
-  height: 411.899px;
+  width: 330.664px;
+  height: 466.819px;
   border: 4px solid #3198c1; }
 
 .bottom_status {
   line-height: 16px;
   border: 4px solid #3198c1;
   border-top: 0px;
-  width: 291.762px;
+  width: 330.664px;
   text-align: center;
   background-color: #3198c1;
   color: white; }
@@ -618,14 +618,14 @@ table.tablesorter {
       border-color: #a3d4e8; }
 
 .vote-nav {
-  width: 299.762px;
+  width: 338.664px;
   font-size: 12px; }
 
 .question {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
   font-size: 16px;
-  width: 271.167px;
+  width: 307.323px;
   color: black; }
 
 #new_idea_field {
@@ -642,16 +642,16 @@ table.tablesorter {
   margin-top: 20px; }
 
 .new_text_field {
-  height: 21.968px; }
+  height: 24.897px; }
 
 .new_tellme_text {
   margin-top: 5px; }
 
 #flag_inappropriate {
-  width: 257.437px; }
+  width: 291.762px; }
   #flag_inappropriate textarea {
     border: none;
-    width: 249.199px; }
+    width: 282.426px; }
 
 .vote-footer a {
   color: white; }

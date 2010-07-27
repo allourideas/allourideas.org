@@ -3,7 +3,6 @@
 
 # heroku config:add GMAIL_EMAIL=dcroak@example.com GMAIL_PASSWORD=password
 
-config.action_mailer.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
  :address => "smtp.sendgrid.net",
   :port => '25',

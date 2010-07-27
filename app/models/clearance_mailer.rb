@@ -1,9 +1,10 @@
+include SendGrid
 class ClearanceMailer < ActionMailer::Base
 
   def change_password(user, photocracy)
     default_url_options[:host] = (photocracy ? PHOTOCRACY_HOST : HOST)
 
-    from_address = photocracy ? "Photocracy Support <#{DO_NOT_REPLY}>" : DO_NOT_REPLY
+    from_address = photocracy ? "Photocracy Support <info@photocracy.org>" : "AllOurIdeas Support <info@allourideas.org>"
 
     from       from_address
     recipients user.email
@@ -15,7 +16,7 @@ class ClearanceMailer < ActionMailer::Base
   def confirmation(user, earl_name='http://www.allourideas.org', photocracy=false)
     default_url_options[:host] = (photocracy ? PHOTOCRACY_HOST : HOST)
 
-    from_address = photocracy ? "Photocracy Support <#{DO_NOT_REPLY}>" : DO_NOT_REPLY
+    from_address = photocracy ? "Photocracy Support <info@photocracy.org>" : "AllOurIdeas Support <info@allourideas.org>"
 
     from       from_address
     bcc        SIGNUPS

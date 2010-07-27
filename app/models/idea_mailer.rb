@@ -1,3 +1,4 @@
+include SendGrid
 class IdeaMailer < ActionMailer::Base
 
   default_url_options[:host] = HOST
@@ -66,7 +67,7 @@ class IdeaMailer < ActionMailer::Base
       if user
         @recipients  = user.email
       end
-      @from        = photocracy ? "info@allourideas.org" : "Photocracy Support <info@allourideas.org>"
+      @from        = photocracy ? "Photocracy Support <info@photocracy.org>" : "AllOurIdeas Support <info@allourideas.org>"
       @subject     = photocracy ? "[Photocracy] " : "[All Our Ideas] "
       @sent_on     = Time.now
       @body[:user] = user

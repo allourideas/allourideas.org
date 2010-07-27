@@ -5,7 +5,7 @@ class Photo < ActiveRecord::Base
                            :thumb => "x50" 
                          }
                       }
-  unless Rails.env == "cucumber"
+  unless ["cucumber", "development"].include?(Rails.env)
     paperclip_options.merge!({ :path => ":attachment/:id/:style.:extension",
                                :storage => :s3,
                                :s3_credentials => "#{RAILS_ROOT}/config/s3.yml"

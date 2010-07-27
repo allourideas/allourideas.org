@@ -231,7 +231,10 @@ function castVote(choice, x, y) {
 			// and others modify those attrs
 			if (!VOTE_CROSSFADE_TRANSITION) { loadNextPrompt(data); };
 			updateUrlsAndHiddenFields(data);
-			if (VOTE_CROSSFADE_TRANSITION) { $('a.vote').removeClass('loading'); };
+			if (VOTE_CROSSFADE_TRANSITION) { 
+				$('table.fade').remove(); 
+				$('a.vote').removeClass('loading'); 
+			};
 			incrementVoteCount();
 			choice.removeClass('checked');
 			PAGE_LOADED_AT = new Date(); // reset the page load time

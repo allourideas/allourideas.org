@@ -7,7 +7,7 @@
 
 <%= t('items.email.if_you_dont_want', :object => @object_type) %>
 
-<%= t('items.email.see_current_results') %>
+<%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results) %>
 <%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
 
 <%= t('items.email.thanks') %>

@@ -306,7 +306,7 @@ function updateVotingHistory(data) {
 	var winner = data['voted_prompt_winner'];
 	updateVisitorVotes(data['visitor_votes']);
 
-	addThumbnailsToHistory($('.left').attr('thumb'), $('.left').attr('choice_url'), $('.right').attr('thumb'), $('.left').attr('choice_url'), data['voted_at'], winner);
+	addThumbnailsToHistory($('.left').attr('thumb'), $('.left').attr('choice_url'), $('.right').attr('thumb'), $('.right').attr('choice_url'), data['voted_at'], winner);
 
 	$('#your_votes').children(":first").effect("highlight", {}, 3000);
 	$(".timeago").timeago();

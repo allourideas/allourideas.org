@@ -29,8 +29,17 @@
        viewportheight = document.getElementsByTagName('body')[0].clientHeight
  }
 
+window.onload = function() {
 
+//alert($('.scrollbar_container').css('height'));
+//alert($('.bottom_status').css("background-color"));
+var newHeight = viewportheight - 16 - 25.4 - 14;
+//alert(newHeight);
+$('.scrollbar_container').height(newHeight + 'px');
+//alert($('.scrollbar_container').css('height'));
+$('.bottom_status').show();
 
+};
 
 
 /*

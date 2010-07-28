@@ -3,8 +3,8 @@
 $body_width:100%          //  437px for the 450x410 widget... I suspect 340 is about the minimum width without causing overflow with "marvelous" or "incredible" and double digit ideas/votes
 $body_height: 100%         //  402px
 
-$cv_height: 90%           // cast votes height
-$sc_height: 90%          //  height of scrollbar container... 340px for the 450x410 widget
+$cv_height: 93%           // cast votes height
+$sc_height: 93%          //  height of scrollbar container... 340px for the 450x410 widget
 
 $vn_height: 100% - $cv_height   //  vote nav height
 $bs_height: 100% - $sc_height   //  bottom status height
@@ -59,14 +59,17 @@ body
 
 html
   font-size: 100%
-  height: $body_height
+  //height: $body_height
+  min-height: $body_height
 
-.content
-  height: $body_height 
 
-#cast_votes
-  height: $cv_height
+//.content
+//  height: $body_height 
+
+//#cast_votes
+//  height: $cv_height
   //min-height: 100%
+
 
 h1, h2, h3, h4, h5, h6, .large-text
   color: #797979
@@ -611,14 +614,15 @@ table.tablesorter
   // width: 425px * $_sw
   height: $sc_height
   border: 4px solid $border_color              /* har, comment out other border code*/
+  border-bottom: 0px
   overflow: auto
 
 .bottom_status
   //height: 16px //  100% - $sc_height                                    //22px * $_sw
-  height: $vn_height
+  height: 16px                                 //  cool, so this tihng is 16px big
   line-height: 16px
   border: 4px solid $border_color              /* har, comment out other border code*/
-  border-top: 0px
+  //border-top: 0px
   // width: 425px * $_sw
   text-align: center
   background-color: $border_color
@@ -687,7 +691,7 @@ $tellmearea_fontsize: 14px
 
 .vote-nav
   //width: 425px * $_sw + 8                  /* needs to be same width as scrollbar container + its borders*/
-  height: $vn_height
+  height: 25.4px                             //  cool, so this thing is 25.4px big
   font-size: 12px
 
 .question

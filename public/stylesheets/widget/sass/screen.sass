@@ -250,11 +250,13 @@ table
 .votebox
   width: 98.5%
   float: center
+  height: 85%
 
 $fontScaleFactor = .8                           /* har */
 
 .votebox table
   text-align: center
+  height: 50%   // 108px * $_sh
   td
     &.idea
       cursor: pointer
@@ -273,8 +275,6 @@ $fontScaleFactor = .8                           /* har */
           border: none
     .five_padding
       padding: 5px
-    table td
-      height: 108px * $_sh
 
 .skip
   margin: 10px 0
@@ -695,11 +695,13 @@ $tellmearea_fontsize: 14px
   font-size: 12px
 
 .question
-  margin-top: $margin * 2.5
-  margin-bottom: $margin * 2.5
+  //margin-top: $margin * 2.5
+  //margin-bottom: $margin * 2.5
+  padding-top: $margin * 2.5
   font-size: 16px                             /*har*/
   width: 90%            //  395px * $_sw
   color: black
+  height: 15%
 
 #new_idea_field
   font-size: 12px

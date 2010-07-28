@@ -212,10 +212,12 @@ table {
 
 .votebox {
   width: 98.5%;
-  float: center; }
+  float: center;
+  height: 85%; }
 
 .votebox table {
-  text-align: center; }
+  text-align: center;
+  height: 50%; }
   .votebox table td.idea {
     cursor: pointer; }
   .votebox table td.left {
@@ -233,8 +235,6 @@ table {
         border: none; }
   .votebox table td .five_padding {
     padding: 5px; }
-  .votebox table td table td {
-    height: 29.541%; }
 
 .skip {
   margin: 10px 0; }
@@ -631,11 +631,11 @@ table.tablesorter {
   font-size: 12px; }
 
 .question {
-  margin-top: 12.5px;
-  margin-bottom: 12.5px;
+  padding-top: 12.5px;
   font-size: 16px;
   width: 90%;
-  color: black; }
+  color: black;
+  height: 15%; }
 
 #new_idea_field {
   font-size: 12px; }

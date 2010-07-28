@@ -28,13 +28,21 @@ a {
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  width: 340px;
+  width: 100%;
+  height: 100%;
   color: #555555;
   line-height: 16pt;
-  border: 1px solid black; }
+  float: left; }
 
 html {
-  font-size: 100%; }
+  font-size: 100%;
+  height: 100%; }
+
+.content {
+  height: 100%; }
+
+#cast_votes {
+  height: 90%; }
 
 h1, h2, h3, h4, h5, h6, .large-text {
   color: #797979; }
@@ -94,7 +102,7 @@ table {
     background-color: #fefefe; }
   table .thin td {
     padding: 2px 5px;
-    height: 1.556px; }
+    height: 0.458%; }
   table.recent-winners td {
     text-align: center; }
   table.item td:last-child {
@@ -102,7 +110,7 @@ table {
   table.left {
     margin: 0; }
   table.signup td {
-    max-width: 311.213px; }
+    max-width: 91.533%; }
   table .score {
     padding-right: 5px; }
 
@@ -155,8 +163,15 @@ table {
 
 /* ended up adding border to scrollbar div at bottom */
 .body {
+  height: 100%;
   margin: 1px 0px;
   padding: 0px 0px 0px; }
+  .body .center img {
+    padding: 0px 0px 30px 0px; }
+  .body .triple-left {
+    min-height: 34.325%; }
+  .body #body .triple-center, .body #body .triple-right {
+    min-height: 34.325%; }
 
 .triple-left, .triple-center, .triple-right, .double-left {
   float: left; }
@@ -166,12 +181,12 @@ table {
 
 .image-example {
   border: 2px solid #eeeeee;
-  width: 194.508px;
+  width: 57.208%;
   margin: 0px 0px 10px; }
 
 .button {
   border: 1px solid #3198c1;
-  width: 97.254px;
+  width: 28.604%;
   padding: 2px 0px;
   background-color: #54afe2;
   text-align: center;
@@ -186,20 +201,20 @@ table {
 .triple-left {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 0px;
-  width: 205.4px; }
+  width: 60.412%; }
 
 .triple-center {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 15px;
-  width: 193.73px; }
+  width: 56.979%; }
 
 .triple-right {
   padding: 0px 0px 2px 15px;
-  width: 206.178px; }
+  width: 60.641%; }
 
 .double-left {
   padding: 0px 15px 2px 0px;
-  width: 424.027px; }
+  width: 124.714%; }
 
 .votebox {
   width: 98.5%;
@@ -225,7 +240,7 @@ table {
   .votebox table td .five_padding {
     padding: 5px; }
   .votebox table td table td {
-    height: 190.588px; }
+    height: 28.588%; }
 
 .skip {
   margin: 10px 0; }
@@ -244,21 +259,21 @@ table {
     float: right;
     padding: 0; }
   .footer .triple-left p {
-    width: 119.039px; }
+    width: 35.011%; }
   .footer .triple-center p {
-    width: 159.497px; }
+    width: 46.911%; }
   .footer .triple-right p {
-    width: 171.167px; }
+    width: 50.343%; }
 
 .bar-chart {
   border: 1px solid #cccccc;
-  width: 73.913px;
+  width: 21.739%;
   margin: 0 auto;
   padding: 1px;
   background: white; }
   .bar-chart > div {
     background-color: #797979;
-    height: 9.336px;
+    height: 2.746%;
     margin: 0; }
 
 hr {
@@ -268,11 +283,11 @@ hr {
 
 /* modified this */
 .add-box {
-  width: 291.762px;
+  width: 85.812%;
   margin-top: 10px; }
   .add-box textarea {
     border: none;
-    width: 282.426px; }
+    width: 83.066%; }
 
 input, textarea {
   font-size: 13px;
@@ -545,22 +560,21 @@ table.tablesorter {
   width: 40%; }
 
 #user_cd_reason {
-  width: 112.815px; }
+  width: 33.181%; }
 
 .user_cd_reason {
   padding-left: 2px; }
 
 .scrollbar_container {
-  width: 330.664px;
-  height: 466.819px;
+  height: 90%;
   border: 4px solid #3198c1;
   overflow: auto; }
 
 .bottom_status {
+  height: 10%;
   line-height: 16px;
   border: 4px solid #3198c1;
   border-top: 0px;
-  width: 330.664px;
   text-align: center;
   background-color: #3198c1;
   color: white; }
@@ -619,14 +633,14 @@ table.tablesorter {
       border-color: #a3d4e8; }
 
 .vote-nav {
-  width: 338.664px;
+  height: 10%;
   font-size: 12px; }
 
 .question {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
   font-size: 16px;
-  width: 307.323px;
+  width: 90%;
   color: black; }
 
 #new_idea_field {
@@ -643,16 +657,16 @@ table.tablesorter {
   margin-top: 20px; }
 
 .new_text_field {
-  height: 24.897px; }
+  height: 7.323%; }
 
 .new_tellme_text {
   margin-top: 5px; }
 
 #flag_inappropriate {
-  width: 291.762px; }
+  width: 85.812%; }
   #flag_inappropriate textarea {
     border: none;
-    width: 282.426px; }
+    width: 83.066%; }
 
 .vote-footer a {
   color: white; }

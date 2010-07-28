@@ -1,2 +1,5 @@
+/* in ie6 and ie7, the add your own idea and i can't decide buttons scroll for some reason.
+   it wasn't obvious how to fix this, so i just decide to disable scrolling on the cast votes
+   page in those browsers. */
 #ie6_no_scrollbar {
   overflow: hidden; }

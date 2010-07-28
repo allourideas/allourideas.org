@@ -1,10 +1,21 @@
-// Note: Replaced all color #919191 with #555555
+// Note: Replaced all color #919191 with $text_color
 
-$body_width: 340px          //  437px for the 450x410 widget... I suspect 340 is about the minimum width without causing overflow with "marvelous" or "incredible" and double digit ideas/votes
-$body_height: 402px         //  402px
-$sc_height: 600px           //  340px height of scrollbar container
-$_sw: $body_width / 437px   //  this is my scale factor for width
-$_sh: $sc_height / 340px    //  this is my scale factor for height
+$body_width:100%          //  437px for the 450x410 widget... I suspect 340 is about the minimum width without causing overflow with "marvelous" or "incredible" and double digit ideas/votes
+$body_height: 100%         //  402px
+
+$cv_height: 90%           // cast votes height
+$sc_height: 90%          //  height of scrollbar container... 340px for the 450x410 widget
+
+$vn_height: 100% - $cv_height   //  vote nav height
+$bs_height: 100% - $sc_height   //  bottom status height
+
+$_sw: $body_width / 437px   //  scale factor for width
+$_sh: $sc_height / 340px    //  scale factor for height
+
+$text_color: #555555
+$border_color: #3198c1
+$button_color: #3198c1  //  #3198c1
+
 
 $margin: 5px
 
@@ -34,19 +45,28 @@ a
   clear: both
 
 .grey, label
-  color: #555555
+  color: $text_color
 
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
   width: $body_width                   /* har */
-  //height: $body_height
-  color: #555555                                /* this has the stupid gray... change it?*/
+  height: 100%
+  color: $text_color                                
   line-height: 16pt     
-  border: 1px solid black                           /* STUPID BORDER HERE*/
+  //border: 1px solid black                           /* STUPID BORDER HERE*/
+  float: left
 
 html
   font-size: 100%
+  height: $body_height
+
+.content
+  height: $body_height 
+
+#cast_votes
+  height: $cv_height
+  //min-height: 100%
 
 h1, h2, h3, h4, h5, h6, .large-text
   color: #797979
@@ -82,7 +102,7 @@ ul li
   width: 90%
 
 input.text
-  border: 1px solid #555555
+  border: 1px solid $text_color
   padding: 3px 3px 2px
 
 .padding
@@ -96,7 +116,7 @@ table
   .idea_padding
     padding: 2.5px 5px 2.5px 5px 
   .row0
-    background-color: #3198c1
+    background-color: $border_color
     color: white
     td.idea
       width: 67.5%
@@ -160,7 +180,7 @@ table
           border-top: 1px dotted #54afe2
           border-bottom: 1px dotted #54afe2
         &.down
-          color: #555555
+          color: $text_color
   a.logo:hover
     border: none
 
@@ -169,11 +189,9 @@ table
 
 /* ended up adding border to scrollbar div at bottom*/
 .body
+  height: 100%
   margin: 1px 0px
   padding: 0px 0px 0px                  /* har, was   padding: 20px 5px 30px */
-//  border: 4px solid #3198c1              /* har, comment out below border code*/
-//  border-top: 80px solid #d8dbdc
-//  border-bottom: 1px solid #d8dbdc
   .center img
     padding: 0px 0px 30px 0px
   .triple-left
@@ -195,7 +213,7 @@ table
   margin: 0px 0px 10px
 
 .button
-  border: 1px solid #3198c1
+  border: 1px solid $button_color
   width: 125px * $_sw
   padding: 2px 0px
   background-color: #54afe2
@@ -206,7 +224,7 @@ table
   color: white
 
 .button:hover
-  border: 1px solid #3198c1
+  border: 1px solid $button_color
 
 .triple-left
   border-right: 1px dotted #d8dbdc
@@ -304,7 +322,7 @@ hr
 
 input, textarea
   font-size: 13px
-  color: #555555
+  color: $text_color
   font-family: Arial, Helvetica, sans-serif
 
 .form-btn
@@ -379,9 +397,9 @@ input, textarea
 .round-filled-top, .round-filled-bottom
   margin-left: 3px
   margin-right: 3px
-  border-left: 1px solid #3198c1
-  border-right: 1px solid #3198c1
-  background: #3198c1
+  border-left: 1px solid $button_color
+  border-right: 1px solid $button_color
+  background: $button_color
 
 .round-filled-grey-top, .round-filled-grey-bottom
   margin-left: 3px
@@ -397,9 +415,9 @@ input, textarea
   color: #686868
 
 .round-filled2, .round-filled3, .round-filled4, .round-filled5, .round-filledfg
-  border-left: 1px solid #3198c1
-  border-right: 1px solid #3198c1
-  background: #3198c1
+  border-left: 1px solid $button_color
+  border-right: 1px solid $button_color
+  background: $button_color
 
 .round-filled2, .round-filled3, .round-filled-grey2, .round-filled-grey3
   margin-left: 1px
@@ -493,7 +511,7 @@ table.tablesorter
       vertical-align: top
   h2
     font-weight: bold
-    color: #3198c1
+    color: $border_color
 
 #cant_decide_options
   width: 95%
@@ -560,7 +578,7 @@ table.tablesorter
     text-decoration: none
     &:hover, &:focus
       border-color: #003366
-      background: #3198c1
+      background: $border_color
       color: white
   .page_info
     color: #aaa
@@ -590,20 +608,20 @@ table.tablesorter
   padding-left: 2px
 
 .scrollbar_container
-  width: 425px * $_sw
-  height: $sc_height * $_sw
-  border: 4px solid #3198c1              /* har, comment out other border code*/
+  // width: 425px * $_sw
+  height: $sc_height
+  border: 4px solid $border_color              /* har, comment out other border code*/
   overflow: auto
 
 .bottom_status
-  //height: 22px * $_sw
-  //font-size: dunnowhathisshouldbepx * $_sw
+  //height: 16px //  100% - $sc_height                                    //22px * $_sw
+  height: $vn_height
   line-height: 16px
-  border: 4px solid #3198c1              /* har, comment out other border code*/
+  border: 4px solid $border_color              /* har, comment out other border code*/
   border-top: 0px
-  width: 425px * $_sw
+  // width: 425px * $_sw
   text-align: center
-  background-color: #3198c1
+  background-color: $border_color
   color: white
 
 .link_style a
@@ -639,51 +657,51 @@ $tellmearea_fontsize: 14px
   padding: 0  
   list-style: none
   font-size: 12px
-  border-color: #3198c1 
+  border-color: $border_color 
   .current_tab
     font-weight: bold
-    background-color: #3198c1                 
+    background-color: $border_color                 
     a
       color: white
     &:hover
-      background-color: #3198c1  
-      border-color: #3198c1  
+      background-color: $border_color  
+      border-color: $border_color  
   li
-    //height: 22px * $_sw             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
+    //height: 100% - $cv_height      //height: 22px * $_sw             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
     float: left
-    border-top: 4px solid #3198c1 
-    border-left: 4px solid #3198c1 
-    border-right: 4px solid #3198c1 
+    border-top: 4px solid $border_color 
+    border-left: 4px solid $border_color 
+    border-right: 4px solid $border_color 
     margin: 0 1px 0 0px
     padding-left: 5px
     padding-right: 5px
-    //background-color: #54afe2
     a
       outline: none
       display: block
-      color: #3198c1 
+      color: $border_color 
       font-weight: bold
     &:hover
-      background-color: lighten(#3198c1, 30%)
-      border-color: lighten(#3198c1, 30%)
+      background-color: lighten($border_color, 30%)
+      border-color: lighten($border_color, 30%)
 
 .vote-nav
-  width: 425px * $_sw + 8                  /* needs to be same width as scrollbar container + its borders*/
+  //width: 425px * $_sw + 8                  /* needs to be same width as scrollbar container + its borders*/
+  height: $vn_height
   font-size: 12px
 
 .question
   margin-top: $margin * 2.5
   margin-bottom: $margin * 2.5
   font-size: 16px                             /*har*/
-  width: 395px * $_sw
+  width: 90%            //  395px * $_sw
   color: black
 
 #new_idea_field
   font-size: 12px
 
 .idea_result
-  color: #555555
+  color: $text_color
   width: 67.5%  
 
 .faq

@@ -386,6 +386,8 @@ function updateUrlsAndHiddenFields(data) {
 		$('a.vote.' + side).attr('future_photo', data['future_' + side + '_photo']);
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
+		// change choice url
+		$('a.vote.' + side).attr('choice_url', data['new' + side + '_choice_url']);
 	});
 
 	// change appearance_lookup and prompt_id hidden fields

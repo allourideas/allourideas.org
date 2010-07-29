@@ -29,69 +29,11 @@
        viewportheight = document.getElementsByTagName('body')[0].clientHeight
  }
 
-window.onload = function() {
-
-//alert($('.scrollbar_container').css('height'));
-//alert($('.bottom_status').css("background-color"));
-var newHeight = viewportheight - 16 - 25.4 - 14;
-//alert(newHeight);
-$('.scrollbar_container').height(newHeight + 'px');
-//alert($('.scrollbar_container').css('height'));
-$('.bottom_status').show();
-
+resize_widget = function () {
+  var newHeight = viewportheight - 16 - 25.4 - 14;
+  $('.scrollbar_container').height(newHeight + 'px');
+  $('.bottom_status').show();
 };
 
 
-/*
- do_shit = function(event) {
-
-  //alert('Your viewport width is '+viewportwidth+'x'+viewportheight);
-
-  //newHeight = viewportheight - $('.scrollbar_container').offsetTop;// - $('.bottom_status').height();
-  var d = $('.add-box');
-  var topPos = d.offsetTop;
-
-  alert(topPos);
-
-  var offset = d.offset();
-  alert(offset.top)
-
-  newHeight = viewportheight - topPos;
-
-  alert(newHeight);
-  //$('.scrollbar_container').style.height = viewportheight - $('.vote-nav').height() - $('.bottom_status').height()
- };
-
-alert('a');
-window.onload = do_shit();
-$('#cant_decide_btn').bind('click', do_shit());
-alert('b');
-*/
-
-/*
-alert('a');
-
-function pageY(elem) {
-    return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
-}
-
-alert('b');
-
-var buffer = 20; //scroll bar buffer
-
-function resizeIframe() {
-    var height = document.documentElement.clientHeight;
-    height -= pageY(document.getElementById('ifm'))+ buffer ;
-    height = (height < 0) ? 0 : height;
-    alert(height);
-    document.getElementById('ifm').style.height = height + 'px';
-    //resizeDebug();
-}
-
-alert('c');
-
-document.getElementById('ifm').onload=resizeIframe;
-window.onresize = resizeIframe;
-
-alert('d');
-*/
+window.onload = resize_widget;

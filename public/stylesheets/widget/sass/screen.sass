@@ -250,14 +250,18 @@ table
 .votebox
   width: 98.5%
   float: center
-  height: 85%
+  height: 80%
 
 $fontScaleFactor = .8                           /* har */
 
 .votebox table
   text-align: center
-  height: 50%   // 108px * $_sh
+  //height: 50%   // 108px * $_sh
+  height: 40%
+  tbody
+    height: 100%
   td
+    min-height: 100%
     &.idea
       cursor: pointer
     &.left
@@ -267,6 +271,9 @@ $fontScaleFactor = .8                           /* har */
     .round-filledfg
       font-size: 16px * $fontScaleFactor        /* har */
       padding: 0 2px
+      height: 90%
+      table
+        height: 100%
       a
         color: #FFF
         border: none
@@ -275,6 +282,9 @@ $fontScaleFactor = .8                           /* har */
           border: none
     .five_padding
       padding: 5px
+    table tr
+      &.prompt
+        height: 100%
 
 .skip
   margin: 10px 0
@@ -697,11 +707,11 @@ $tellmearea_fontsize: 14px
 .question
   //margin-top: $margin * 2.5
   //margin-bottom: $margin * 2.5
-  padding-top: $margin * 2.5
+  //padding-top: 1%
   font-size: 16px                             /*har*/
-  width: 90%            //  395px * $_sw
+  width: 85%            //  395px * $_sw
   color: black
-  height: 15%
+  height: 20%
 
 #new_idea_field
   font-size: 12px
@@ -736,8 +746,11 @@ $tellmearea_fontsize: 14px
 .top_margin
   margin-top: $margin
 
-.double_top_margin
+.two_top_margin
   margin-top: $margin * 2
+
+.six_top_margin
+  margin-top: $margin * 6
 
 .add_container
   margin-top: $margin * 3
@@ -750,3 +763,12 @@ $tellmearea_fontsize: 14px
 .bottom_status table
   border: 0 
   cellpadding: 0
+
+.results_data
+  height: 80%
+
+#full_height
+  height: 100%
+
+.no_padding
+  padding: 0 0 0 0

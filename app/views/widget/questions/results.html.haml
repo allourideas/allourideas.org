@@ -5,9 +5,10 @@
     <script src="/javascripts/widget/jquery.scrollTo-1.4.2-min.js" type="text/javascript"></script>
 %body
   .results_content{:style => 'overflow:auto;', :id => 'results_content'}
-    .question.center
-      = @question.attributes['name']
-    .ninety
+    %table.question.center.no_padding
+      %tr.question_text
+        %td= @question.attributes['name']
+    .results_data.ninety
       %table.full{:style => 'margin-top: 5px'}
         %tr.row0
           %td.idea.header_padding= t('items.idea')

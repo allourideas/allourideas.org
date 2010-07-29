@@ -1,6 +1,30 @@
 var loadedTime = new Date();
 var count = 0;
 
+/*  WIDGET DYNAMIC SIZING AND SPACING ONLOAD FUNCTIONALITY*/
+
+  //  move "I can't decide" down farther if the "Flag as Inappropriate" button will get in its way
+  //  viewportwidth comes from widget.js
+  move_down_cant_decide = function() {
+    var flag_enabled = "<%= @earl.flag_enabled? %>";
+    if (viewportwidth < 401 && flag_enabled == "true")
+    {
+      if ($('.cd_container').hasClass('.two_top_margin'))
+      {
+        $('.cd_container').removeClass('two_top_margin').addClass('six_top_margin');
+      }
+    }
+  };
+
+  //  bind these functions to window onload
+  //  resize_widget() comes from widget.js
+  function start() { 
+    resize_widget();
+	  move_down_cant_decide(); 
+	} 
+
+  window.onload = start;
+
 /*  TABBING FUNCTIONALITY  */
 
   //  a general tabbing function

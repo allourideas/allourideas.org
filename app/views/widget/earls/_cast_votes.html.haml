@@ -1,7 +1,8 @@
 -@item_data, @item_ids = [], []
-.scrollbar_container#ifm
-  .question.center
-    = @question.attributes['name']
+.scrollbar_container
+  %table.question.center.no_padding
+    %tr.question_text
+      %td= @question.attributes['name']
   .votebox
     %table.full
       %tr.prompt.prompter
@@ -10,17 +11,16 @@
         %td
         %td.right.idea.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
           = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
-      -if @earl.flag_enabled?
-        %tr
-          %td
-            .fleft.no_bottom_padding
-              = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
-          %td.no_bottom_padding
-          %td
-            .fright.no_bottom_padding
-              = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
+    -if @earl.flag_enabled?
+      .flag_row
+        .fleft.no_bottom_padding
+          = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
+      .no_bottom_padding
+        .fright.no_bottom_padding
+          = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
     -# a better check below would if width < some number then do the margin stuff
-    %center.cd_container{:class => @earl.flag_enabled? ? 'top_margin' : 'double_top_margin'}   
+    -# {:class => @earl.flag_enabled? ? 'six_top_margin' : 'two_top_margin'}   
+    %center.cd_container.two_top_margin
       .vote-footer
         %span.rounded#cant_decide_btn
           = t('vote.cant_decide') 

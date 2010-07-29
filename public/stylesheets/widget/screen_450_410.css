@@ -213,28 +213,37 @@ table {
 .votebox {
   width: 98.5%;
   float: center;
-  height: 85%; }
+  height: 80%; }
 
 .votebox table {
   text-align: center;
-  height: 50%; }
-  .votebox table td.idea {
-    cursor: pointer; }
-  .votebox table td.left {
-    padding: 0 2.5px 0 0; }
-  .votebox table td.right {
-    padding: 0 0 0 2.5px; }
-  .votebox table td .round-filledfg {
-    font-size: 12.8px;
-    padding: 0 2px; }
-    .votebox table td .round-filledfg a {
-      color: white;
-      border: none; }
-      .votebox table td .round-filledfg a:hover {
+  height: 40%; }
+  .votebox table tbody {
+    height: 100%; }
+  .votebox table td {
+    min-height: 100%; }
+    .votebox table td.idea {
+      cursor: pointer; }
+    .votebox table td.left {
+      padding: 0 2.5px 0 0; }
+    .votebox table td.right {
+      padding: 0 0 0 2.5px; }
+    .votebox table td .round-filledfg {
+      font-size: 12.8px;
+      padding: 0 2px;
+      height: 90%; }
+      .votebox table td .round-filledfg table {
+        height: 100%; }
+      .votebox table td .round-filledfg a {
         color: white;
         border: none; }
-  .votebox table td .five_padding {
-    padding: 5px; }
+        .votebox table td .round-filledfg a:hover {
+          color: white;
+          border: none; }
+    .votebox table td .five_padding {
+      padding: 5px; }
+    .votebox table td table tr.prompt {
+      height: 100%; }
 
 .skip {
   margin: 10px 0; }
@@ -631,11 +640,10 @@ table.tablesorter {
   font-size: 12px; }
 
 .question {
-  padding-top: 12.5px;
   font-size: 16px;
-  width: 90%;
+  width: 85%;
   color: black;
-  height: 15%; }
+  height: 20%; }
 
 #new_idea_field {
   font-size: 12px; }
@@ -668,8 +676,11 @@ table.tablesorter {
 .top_margin {
   margin-top: 5px; }
 
-.double_top_margin {
+.two_top_margin {
   margin-top: 10px; }
+
+.six_top_margin {
+  margin-top: 30px; }
 
 .add_container {
   margin-top: 15px; }
@@ -682,3 +693,12 @@ table.tablesorter {
 .bottom_status table {
   border: 0;
   cellpadding: 0; }
+
+.results_data {
+  height: 80%; }
+
+#full_height {
+  height: 100%; }
+
+.no_padding {
+  padding: 0 0 0 0; }

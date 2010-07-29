@@ -152,6 +152,7 @@ class PromptsController < ApplicationController
      case request_type
        when :vote
            options.merge!({:direction => params[:direction],
+		     :skip_fraud_protection => true,
                      :tracking => {:x_click_offset => params[:x_click_offset],
                                    :y_click_offset => params[:y_click_offset]}
 	       })

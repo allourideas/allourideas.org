@@ -37,3 +37,4 @@ resize_widget = function () {
 
 
 window.onload = resize_widget;
+

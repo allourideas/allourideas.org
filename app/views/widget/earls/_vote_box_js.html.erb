@@ -528,38 +528,28 @@ var count = 0;
   $('.flag_close').bind('click', function(event) {
     $('#new_flag_field').val('');
   });
+ 
+/*  ABOUT PAGE SCROLLING AND HIGHLIGHTING FUNCTIONALITY */
 
-/*  ABOUT PAGE SCROLLING FUNCTIONALITY  */
+  for (var i = 1; i < 7; i++)
+  {
+    var faq_q = '#faq_q' + i;
 
-  $('#faq_q1').click(function() {
-    $('.scrollbar_container').scrollTo('#about_q1');
-    return false;
+    $(faq_q).click(function(num) {
+        return function() {
+          var about_q = '#about_q' + num;
+          $('.scrollbar_container').scrollTo(about_q);
+          $(about_q).effect("highlight", {}, 1500);
+          return false;
+        };
+    }(i)); 
+  } 
+
+/*  ABOUT THE SCORING HIGHLIGHTING FUNCTIONALITY */
+//  Note: This does not currently work. Should be tweaked in future.
+
+  $('.question_mark').click(function() {
+    $('.exp_header').effect("highlight", {}, 1500);
   });
-
-  $('#faq_q2').click(function() {
-    $('.scrollbar_container').scrollTo('#about_q2');
-    return false;
-  });
-
-  $('#faq_q3').click(function() {
-    $('.scrollbar_container').scrollTo('#about_q3');
-    return false;
-  });
-
-  $('#faq_q4').click(function() {
-    $('.scrollbar_container').scrollTo('#about_q4');
-    return false;
-  });
-
-  $('#faq_q5').click(function() {
-    $('.scrollbar_container').scrollTo('#about_q5');
-    return false;
-  });
-
-  $('#faq_q6').click(function() {
-    $('.scrollbar_container').scrollTo('#about_q6');
-    return false;
-  });
-
 
 

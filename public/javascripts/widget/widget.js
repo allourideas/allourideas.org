@@ -29,8 +29,10 @@
        viewportheight = document.getElementsByTagName('body')[0].clientHeight
  }
 
+var newHeight;
+
 resize_widget = function () {
-  var newHeight = viewportheight - 16 - 25.4 - 14;
+  newHeight = viewportheight - 16 - 25.4 - 14;
   $('.scrollbar_container').height(newHeight + 'px');
   $('.bottom_status').show();
 };

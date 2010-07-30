@@ -704,3 +704,6 @@ table.tablesorter {
 
 .no_padding {
   padding: 0 0 0 0; }
+
+.results_content {
+  min-height: 100%; }

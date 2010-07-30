@@ -1,5 +1,5 @@
 -@item_data, @item_ids = [], []
-.scrollbar_container
+.scrollbar_container#ie6_no_scrollbar 
   %table.question.center.no_padding
     %tr.question_text
       %td= @question.attributes['name']
@@ -99,8 +99,7 @@
   =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
   -content_for :head do
-    = javascript_include_tag 'jquery.corner', 'widget/jquery.scrollTo'
-        
+    = javascript_include_tag 'jquery.corner', 'widget/jquery.scrollTo'        
 
   -content_for :view_javascript do
     $('.rounded').corner('5px');

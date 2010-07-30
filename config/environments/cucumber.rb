@@ -44,6 +44,8 @@ PHOTOCRACY_USERNAME = "photocracytest@dkapadia.com"
 PHOTOCRACY_PASSWORD = "saltines"
 IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on stored ip address hashes
 
+PHOTOCRACY_HOST = 'photocracy.org'
+
 require 'redis-store'
 #use a different redis store for testing
 Abingo.cache = ActiveSupport::Cache::RedisStore.new "localhost:6379/2"

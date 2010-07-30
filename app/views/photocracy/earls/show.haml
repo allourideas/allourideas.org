@@ -5,7 +5,7 @@
         =h @question.name
       %p.gray.small_margin_bottom
         =t('common.instructions')
-        =link_to t('common.how_does_this_work'), '#'
+        =link_to_function t('common.how_does_this_work'), "$('#how_does_this_work').dialog('open');"
       #prompt
         =render(:partial => 'questions/prompt')
     .center{:style => 'padding-bottom:20px'}
@@ -17,8 +17,8 @@
   #secondary_content
     .grid_4
       %h5.no_margin
-        =t('common.your_votes')
-        %span.normal="(#{t('common.average')} is 12)"
+        Your <span id="visitor_votes"></span> vote<span id="s">s</span>
+        %span.normal= "(average is <span id='average_votes'>#{@question.attributes['average_votes']}</span>)"
       .padding
         %ul#your_votes
     .grid_4.center
@@ -96,6 +96,32 @@
           =t('vote.thanks')
         %br
         =t('vote.photo_submitted')
+  
+  #how_does_this_work{:style => 'display:none;'}
+    %p
+      You are participating in a "photocracy" (photo + democracy) that enables groups to collect and prioritize photos in a democratic, open, and efficient process. By combining open uploading of photos with a simple voting process, the best photos in your group will “bubble up” to the top.
+
+    %h6 1. How do I participate?
+    %p 
+      There are two ways you can participate.  You can vote on the photo you prefer in each pair by clicking on that photo.  You can also upload your own photos to be voted on by other people.
+
+    %h6 2. How many votes can I cast?  When does it end?
+    %p 
+      You can vote as little or as much as you want, and you can stop voting at any time.
+
+    %h6 3. How many photos can I add?  What happens to my photo once I add it?
+    %p
+      You can add as many photos as you wish.  Once you add a photo, it may be reviewed by the person who created the photocracy in order to assure that it is not inappropriate.  Once the idea has been reviewed, it will start appearing for people to vote on it.
+    %p
+      By uploading your photo, you agree to place it in the public domain under a <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 waiver</a>.
+
+    %h6 4. Can I see what everyone else thinks?
+    %p
+      Yes – simply click on “View Results” at the bottom of the voting screen.  This process is completely transparent.
+
+    %h6 5. This is neat.  Can I make one of these myself?
+    %p
+      Sure.  It’s easy to set up your own photocracy, and it’s completely free, thanks to our grants from Google and the Center for Information Technology Policy at Princeton University.  You can create your own photocracy here: <a href="http://photocracy.org">photocracy.org</a>
 
   :javascript
     $(document).ready(function(){
@@ -113,7 +139,20 @@
           $('#photo_step_3').hide();
         }
       });
-
-      jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');
       
+      $('#how_does_this_work').dialog({autoOpen:false, width:600, height: 800});
+
+      // load the visitor's voting history
+      jQuery.get('/questions/visitor_voting_history.json', function(data){
+
+        updateVisitorVotes(data['votes'].length);
+
+        jQuery.each(data['votes'], function() {
+          var left_url = "/#{@earl.name}/choices/" + this['left_choice_id'] + "?locale=" + RAILS_LOCALE;
+          var right_url = "/#{@earl.name}/choices/" + this['right_choice_id'] + "?locale=" + RAILS_LOCALE;
+
+          addThumbnailsToHistory(this['left_choice_thumb'], left_url, this['right_choice_thumb'], right_url, data['voted_at'], this['winner']);
+        });
+    	});
+      jQuery.preLoadImages('#{@future_left_choice_photo.image.url(:medium)}','#{@future_right_choice_photo.image.url(:medium)}');
     });

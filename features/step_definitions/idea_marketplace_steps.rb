@@ -55,18 +55,38 @@ When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 	end
 end
 
-Given /^an idea marketplace quickly exists with url '(.*)'$/ do |url|
+Given /^an idea marketplace quickly exists with url '([^\']*)'$/ do |url|
 	q = Question.create(Factory.attributes_for(:question))
 	e = Factory.create(:earl, :name => url, :question_id => q.id)
 end
 
-Given /^a photocracy idea marketplace quickly exists with url '(.*)'$/ do |url|
-	q = Question.create(Factory.attributes_for(:question, :ideas => "1\n2\n3\n"))
-	e = Factory.create(:earl, :name => url, :question_id => q.id)
-	3.times do |i|
-		Photo.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i+1}.jpg", "image/jpg")
-	end
+Given /^an idea marketplace quickly exists with url '([^\']*)' and admin '(.*)\/(.*)'$/ do |url, email, password|
+	u = Factory.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)
+	Given "an idea marketplace quickly exists with url '#{url}'"
+	e = Earl.last
+	e.user = u
+	e.save
+end
 
+Given /^a photocracy idea marketplace quickly exists with url '([^\']*)'$/ do |url|
+	photos = []
+	3.times do |i|
+		p = Photo.create! :image => ActionController::TestUploadedFile.new("#{Rails.root}/db/seed-images/princeton/#{i+1}.jpg", "image/jpg")
+
+		photos << p.id
+	end
+	
+	q = Question.create(Factory.attributes_for(:question, :ideas => photos.join("\n")))
+	e = Factory.create(:earl, :name => url, :question_id => q.id)
+end
+
+Given /^a photocracy idea marketplace quickly exists with url '([^\']*)' and admin '(.*)\/(.*)'$/ do |url, email, password|
+	u = Factory.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)
+
+	Given "a photocracy idea marketplace quickly exists with url '#{url}'"
+	e = Earl.last
+	e.user = u
+	e.save
 end
 
 Given /^an idea marketplace quickly exists with url '(.*)' and (.*) ideas$/ do |url, num_ideas|
@@ -77,6 +97,7 @@ Given /^an idea marketplace quickly exists with url '(.*)' and (.*) ideas$/ do |
 	q = Question.create(Factory.attributes_for(:question, :ideas => ideas))
 	e = Factory.create(:earl, :name => url, :question_id => q.id)
 end
+
 
 Given /^an idea marketplace quickly exists with question title '(.*)' and admin '(.*)\/(.*)'$/ do |title, email, password|
 	u = Factory.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)

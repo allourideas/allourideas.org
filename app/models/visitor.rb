@@ -8,16 +8,21 @@ class Visitor < ActiveRecord::Base
 	D = 25
 	E = 0
 	F = 0.7
-	LEVEL_ADJECTIVES = ["good", "nice", "amazing", "fabulous", "marvelous",
-		              "super", "fantastic", "incredible", "awesome", "wow"]
 
 	def self.leveling_message(params = {:votes => 0, :ideas => 0})
 		score = self.level_score(params)
 
-		message = "Now you have cast " + 
-		                "#{params[:votes]} #{params[:votes] == 1 ? "votes".singularize : "votes"} "+ 
-		                "and added #{params[:ideas]} #{params[:ideas] == 1 ? "ideas".singularize : "ideas"}: "+
-			        LEVEL_ADJECTIVES[(score/10).truncate]	
+		vote_noun = params[:votes] == 1 ? I18n.t('common.vote').downcase : I18n.t('common.votes').downcase
+		idea_noun = params[:ideas] == 1 ? I18n.t('common.idea').downcase : I18n.t('common.ideas').downcase
+
+		adjective_key = "vote.leveling.adjective_" + (score/10).truncate.to_s
+
+		message = I18n.translate('vote.leveling.leveling_message', 
+					 :vote_num => params[:votes], 
+					 :vote_noun => vote_noun, 
+					 :idea_num => params[:ideas], 
+					 :idea_noun => idea_noun, 
+					 :adjective => I18n.t(adjective_key))
 		          
 
 	end

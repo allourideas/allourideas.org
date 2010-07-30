@@ -1,72 +1,71 @@
 .container_12
-  %h1.no_margin= t('questions.new.header')
+  .grid_8
+    %h4= t('questions.new.header')
 
-  %p
-    = t('questions.new.exp')
-    = link_to(t('questions.new.see_an'), "/princetondemo")
-    = t('questions.new.exp2')
-    
-    -unless signed_in?
-      ="#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.'
-  %left.create-question
     -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
       %p
         = f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
         - if @user && @user.errors.any?
           #errorExplanation.errorExplanation
-            %h5=t('questions.new.error.registration')
+            %h6{:style => 'color:red;'}=t('questions.new.error.registration')
 
             %ul
               -@user.errors.each do |error|
                 %li= error.join(' ').capitalize
-  
-      %h5.no_margin= t('questions.new.step1')
+
+      %h6.no_margin= t('questions.new.step1')
       %p
         == #{t('questions.new.display_text')} <br />
 
         = f.text_field 'name', :size => 80, :title => t('questions.new.step1_exp'), :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH, :placeholder => t('questions.new.step1_exp') 
-    
 
-      %h5.no_margin= t('questions.new.step2')
+
+      %h6.no_margin= t('questions.new.step2')
       %p
         http://www.photocracy.org/
         = f.text_field 'url', :class => 'required', :title => (@question && @question.url) || t('questions.new.step2_exp'), :placeholder => t('questions.new.step2_exp')
       .clear
 
       -unless signed_in?
-        %h5.no_margin= t('questions.new.step4')
+        %h6.no_margin= t('questions.new.step4')
         %p
           = t('questions.new.new_account_exp')
+          ="#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.'
         %p
           = "#{t('user.email')} <br />"
           = f.text_field 'email', :class => 'required email', :title => t('questions.new.your_email_address')
-        
+
         %p
           = "#{t('user.password')} <br />"
           = f.password_field 'password', :class => 'required'
 
-      %h5.no_margin
-        -if signed_in?
-          ="Step 4 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
-        -else
-          ="Step 5 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
+      %h6.no_margin
+        ="Step #{signed_in? ? 3 : 4}: #{t('questions.new.help_us_out')} (#{t('questions.new.optional')})"
       %p
         = t('questions.new.tell_us_why')
         %br
         = t('questions.new.tell_us_why2')
+        %br
+        = f.text_area 'information', :cols => 60, :rows => 12
 
-        = f.text_area 'information', :cols => 85, :rows => 12
-    
-      %p= submit_tag t('form.create'), :class => 'form-btn', :id => "question_create_button"
-    
+      %p= submit_tag t('questions.new.next_step_upload_photos'), :class => 'button blue', :id => "question_create_button"
 
-  #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+      #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+
+  .grid_4
+    %div{:style => 'margin-top:30px;padding:10px;border:1px solid #ccc;'}
+      %h6= t('questions.new.sidebar')
+      %p
+        = t('questions.new.exp')
+        = link_to(t('questions.new.see_an'), "/princetondemo")
+
+  .clear
+
 
   :javascript
     $(document).ready(function(){
       $('#new_question_form').submit(function(){
         $('#indicator').show();
-        $('#question_create_button').attr('disabled', 'disabled');
-        $('#question_create_button').attr( 'value', 'loading...');
+        $('#question_create_button').hide();
       });
     });

@@ -295,143 +295,95 @@ class QuestionsController < ApplicationController
      end 
   end
 
-  def scatter_num_ratings_by_creation_time
-      type = params[:type] # should be scatter_num_ratings_by_date_added
-      @earl = Earl.find params[:id]
-      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
-
-      @choices.sort!{|a, b| a.created_at <=> b.created_at}
-
-      chart_data = []
-      @choices.each_with_index do |c, i|
-	      point = {}
-	      point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s + "@@@" + c.created_at.to_s
-	      point[:x] = i
-	      point[:y] = c.wins + c.losses
-	      chart_data << point
-      end
-      
-      choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
-      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
-                                        var name = splitresult[0];
-					var id = splitresult[1];
-					var created = splitresult[2]
-
-      				        return '<b>' + name + '</b>: '+ this.y + ' ratings <br /> Created: ' + created; }"
-
-      moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
-                                        var name = splitresult[0];
-					var id = splitresult[1];
-					var created = splitresult[2]
-
-					var fake_url= '#{choice_url}';
-					var the_url = fake_url.replace('fakeid',id);
-
-      				        location.href=the_url;}"
-      @votes_chart = Highchart.spline({
-	    :chart => { :renderTo => "#{type}-chart-container",
-		    	:margin => [50, 25, 60, 100],
-			:borderColor =>  '#919191',
-			:borderWidth =>  '1',
-			:borderRadius => '0',
-			:backgroundColor => '#FFFFFF'
-#			:height => '500'
-		      },
-	    :legend => { :enabled => false },
-            :title => { :text => "Number of ratings per idea by creation date", 
-		     	:style => { :color => '#919191' }
-		      },
-			      :x_axis => {:type => 'linear', 
-					   :title => {:enabled => true, :text => "Non Uniform Date Intervals"}},
-			      :y_axis => {:type => 'linear', :min => 0,
-					   :title => {:enabled => true, :text => "Number of ratings"}},
-	    :plotOptions => {:scatter => { :point => {:events => {:click => moreinfoclickfn }}}},
-	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
-			   :type => 'scatter',
-			   :color => 'rgba( 49,152,193, .5)',
-	                   :data => chart_data }],
-	    :tooltip => { :formatter => tooltipformatter }
-
-      })
-     
-      respond_to do |format|
-	format.js { render :text => @votes_chart }
-     end
-
-
-  end
-
   def scatter_plot_user_vs_seed_ideas
-      type = params[:type] # should be scatter_ideas
-      @earl = Earl.find params[:id]
-      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+    type = params[:type] # should be scatter_ideas
+    @earl = Earl.find params[:id]
+    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
-      chart_data = []
-      jitter = {}
-      jitter[0] = Hash.new(0)
-      jitter[1] = Hash.new(0)
-      @choices.each_with_index do |c, i|
-	      point = {}
-	      point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s
-	      point[:x] = c.score.round
-	      point[:y] = c.attributes['user_created'] ? 1 : 0
-	      if i % 2 == 1
-	        jitter[point[:y]][point[:x]] += 0.04
-	      end
-	      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
-	      if i % 2 == 0
-	         point[:y] += thejitter 
-	      else
-	         point[:y] -= thejitter
-	      end
+    chart_data = []
+    jitter = {}
+    jitter[0] = Hash.new(0)
+    jitter[1] = Hash.new(0)
+    @choices.each_with_index do |c, i|
 
-	      chart_data << point
+      point = {}
+      if @photocracy
+        point[:name] = "<img src='#{Photo.find(c.data).image.url(:thumb)}' width='50' height='50' />"
+      else
+        point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s
       end
-      
-      choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
-      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
-                                        var name = splitresult[0];
-					var id = splitresult[1];
-      				        return '<b>' + name + '</b>: '+ this.x; }"
+      point[:x] = c.score.round
+      point[:y] = c.attributes['user_created'] ? 1 : 0
 
-      moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
-                                        var name = splitresult[0];
-					var id = splitresult[1];
+      if i % 2 == 1
+        jitter[point[:y]][point[:x]] += 0.04
+      end
+      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
+      if i % 2 == 0
+        point[:y] += thejitter 
+      else
+        point[:y] -= thejitter
+      end
 
-					var fake_url= '#{choice_url}';
-					var the_url = fake_url.replace('fakeid',id);
+      chart_data << point
+    end
 
-      				        location.href=the_url;}"
-      @votes_chart = Highchart.spline({
-	    :chart => { :renderTo => "#{type}-chart-container",
-		    	:margin => [50, 25, 60, 100],
-			:borderColor =>  '#919191',
-			:borderWidth =>  '1',
-			:borderRadius => '0',
-			:backgroundColor => '#FFFFFF',
-			:height => '500'
-		      },
-	    :legend => { :enabled => false },
-            :title => { :text => t('results.scores_of') + " " + t('results.uploaded_ideas')+ " "+   t('common.and') +  " " + t('results.original_ideas'), 
-		     	:style => { :color => '#919191' }
-		      },
-			      :x_axis => { :min => '0', :max => '100', :endOnTick => true, :showLastLabel => true,
-				      	   :type => 'linear', 
-					   :title => {:enabled => true, :text => t('common.score').titleize}},
-	    :y_axis => { :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], :max => 1, :min => 0},
-	    :plotOptions => {:scatter => { :point => {:events => {:click => moreinfoclickfn }}}},
-	    :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
-			   :type => 'scatter',
-			   :color => 'rgba( 49,152,193, .5)',
-	                   :data => chart_data }],
-	    :tooltip => { :formatter => tooltipformatter }
+    choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
 
-      })
-     
-      respond_to do |format|
-	format.js { render :text => @votes_chart }
-     end
+    tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
+                        var name = splitresult[0];
+                        var id = splitresult[1];
+                        return '<b>' + name + '</b>: '+ this.x; }"
 
+    moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
+                      var name = splitresult[0];
+                      var id = splitresult[1];
+                      var fake_url= '#{choice_url}';
+                      var the_url = fake_url.replace('fakeid',id);
+                      location.href=the_url;}"
+
+    @votes_chart = Highchart.spline({
+      :chart => { 
+        :renderTo => "#{type}-chart-container",
+        :margin => [50, 25, 60, 100],
+        :borderColor =>  '#919191',
+        :borderWidth =>  '1',
+        :borderRadius => '0',
+        :backgroundColor => '#FFFFFF',
+        :height => '500'
+      },
+      :legend => { :enabled => false },
+      :title => { 
+        :text => [t('results.scores_of'), t('results.uploaded_ideas'), ('common.and'), t('results.original_ideas')].join(' '), 
+        :style => { :color => '#919191' }
+      },
+      :x_axis => { 
+        :min => '0', 
+        :max => '100', 
+        :endOnTick => true, 
+        :showLastLabel => true,
+        :type => 'linear', 
+        :title => {:enabled => true, :text => t('common.score').titleize}
+      },
+      :y_axis => { 
+        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], 
+        :max => 1, 
+        :min => 0
+      },
+      :plotOptions => {
+        :scatter => {:point => {:events => {:click => moreinfoclickfn }}}
+      },
+      :series => [{
+        :name => "#{type.gsub("_", " ").capitalize}",
+        :type => 'scatter',
+        :color => 'rgba( 49,152,193, .5)',
+        :data => chart_data 
+      }],
+
+      :tooltip => { :formatter => tooltipformatter }
+    })
+
+    render :text => @votes_chart
   end
   
   def scatter_votes_vs_skips
@@ -956,13 +908,12 @@ class QuestionsController < ApplicationController
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip}
       earl_options.merge!(:flag_enabled => true) if @photocracy # flag is enabled by default for photocracy
       earl = current_user.earls.create(earl_options)
-      fq_earl = ("http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{earl.name}" rescue nil)
-      ClearanceMailer.send_later(:deliver_confirmation, current_user, fq_earl, @photocracy)
+      ClearanceMailer.send_later(:deliver_confirmation, current_user, earl.name, @photocracy)
       IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
       session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"      
 
       if @photocracy
-        redirect_to add_photos_question_url(@question)
+        redirect_to add_photos_url(earl.name)
       else
         redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')
       end
@@ -1072,17 +1023,20 @@ class QuestionsController < ApplicationController
   end
 
   def add_photos
-    @question = Question.find(params[:id])
-    @earl = Earl.find_by_question_id(params[:id])
+    @earl = Earl.find_by_name!(params[:id])
+    @question = Question.find(@earl.question_id)
   end
-
-  protect_from_forgery :except => [:upload_photos] #necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
+  
+  # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
+  protect_from_forgery :except => [:upload_photos]
   def upload_photos
+    @earl = Earl.find_by_name!(params[:id])
+
     new_idea_data = Photo.create(:image => params[:Filedata]).id
     choice_params = {
       :visitor_identifier => params[:session_identifier],
       :data => new_idea_data,
-	    :question_id => params[:id],
+	    :question_id => @earl.question_id,
 	    :active => true
 	  }
 
@@ -1091,5 +1045,17 @@ class QuestionsController < ApplicationController
     else
       render :text => 'Choice creation failed', :status => 500
     end
+  end
+
+  def visitor_voting_history
+    @votes = Session.new(:id => request.session_options[:id]).get(:votes)
+
+    if @photocracy
+      @votes['votes'].each do |vote|
+        vote[:left_choice_thumb]  = Photo.find(vote['left_choice_data']).image.url(:thumb)
+        vote[:right_choice_thumb] = Photo.find(vote['right_choice_data']).image.url(:thumb)
+      end
+    end
+    render :json => @votes.to_json
   end
 end

@@ -49,6 +49,8 @@
       
         %h7.strong.no_margin
           -if @earl.logo_file_name
+            =link_to("Delete existing logo", delete_logo_question_path(:id => @earl.name), :method => :delete)
+            %br
             =t('admin.replace_logo_exp')
           -else
             =t('admin.upload_logo_exp')

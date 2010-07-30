@@ -42,9 +42,13 @@ module NavigationHelpers
 	 activate_question_choice_path(:question_id => @earl, :id => choice.id)
 
     
-    when /the Idea Detail page for the saved left choice/i
+    when /the Idea Detail page for the saved left choice(.*)?/i
 	 @earl = Earl.find_by_question_id(@question_id)
-	 question_choice_path(:question_id => @earl, :id => @left_choice.id)
+	 url_opts = {:question_id => @earl, :id => @left_choice.id}
+	 if($1 =~ /with login reminder/i)
+		 url_opts.merge!(:login_reminder => true)
+	 end
+	 question_choice_path(url_opts)
     when /the Idea Detail page for the saved right choice/i
 	 @earl = Earl.find_by_question_id(@question_id)
 	 question_choice_path(:question_id => @earl, :id => @right_choice.id)

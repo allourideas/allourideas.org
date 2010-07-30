@@ -14,14 +14,20 @@ class ChoicesController < ApplicationController
 		      :question_id => params[:question_id], :id => params[:id]  and return
     end
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
+    @num_votes = @choice.wins + @choice.losses
 
     if @photocracy
       @photo = Photo.find(@choice.data.strip)
       @votes = @choice.get(:votes)
+
+      if params[:login_reminder]
+          unless (current_user && (current_user.owns?(@earl) || current_user.admin?))
+    	      deny_access(t('user.deny_access_error')) and return
+          end
+      end
     end
 
     if @choice
-      @votes_count = @choice.attributes['wins_plus_losses']
       respond_to do |format|
         format.html # show.html.erb
       end

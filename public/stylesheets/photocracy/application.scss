@@ -32,22 +32,45 @@ h1 {
 a.photo_frame {
   display: block;
   height: 350px;
+  width: 100%;
   overflow: hidden;
   text-decoration: none;
+  position:relative;
 
   table {
     text-align:center;
     valign:middle;
     height:100%;
     width:100%;
+    border:none;
+    padding:none;
+    position:absolute;
+    top:0px;
+    left:0px;
 
-    td {
+    &.fade {
+      z-index:2;
+    }
+    
+    &.current {
+      z-index:1;
+    }
+
+    td, tr {
       vertical-align:middle;
     }
   }
-
+  
   img {
     border: 3px solid #000;
+  }
+  
+  &.loading img {
+    border: none;
+  }
+  
+  &.checked .fade img {
+    border: 3px solid #fa7f00;
   }
 }
 
@@ -100,8 +123,8 @@ a.photo_frame:hover {
 }
 
 .button.blue:hover {
+  @include marble-fade(lighten(#2b6fc0, 5%));
   border: 1px solid #235a9b;
-  text-shadow: #235a9b -2px 0px 5px;
 }
 
 .button.green {
@@ -113,6 +136,7 @@ a.photo_frame:hover {
 }
 
 .button.green:hover {
+  @include marble-fade(lighten(#698D00, 5%));
   border: 1px solid #fff;
 }
 
@@ -139,11 +163,14 @@ a.photo_frame:hover {
 }
 
 ul#your_votes {
-  line-height: 75px;
   margin: 0;
   list-style-type: none;
+  zoom: 1;
   
   li {
+    text-align:center;
+    zoom: 1;
+    padding: 5px;
     margin: 0;
   }
   
@@ -162,13 +189,12 @@ ul.results {
     a {
       padding: .5em;
       -moz-border-radius: 5px;
-      text-decoration: none;
-      color: #000;
       display: inline-block;
       @include rounded(5px);
     }
 
     a.active, a.active:hover {
+        text-decoration: none;
         background: #fa7f00;
         font-weight: bold;
         color: #fff;
@@ -291,4 +317,8 @@ strong, .strong {
 .microcopy {
   color: #666;
   font-size: .8em
+}
+
+.errorExplanation {
+  color: red;
 }

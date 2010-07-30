@@ -1,42 +1,61 @@
 <div class="container_12">
   <%= render :partial => 'photocracy/questions/results_header'%>
+  <!-- Internet explorer needs excanvas.js to render canvas graphics -->
+    <!--[if IE]><%= javascript_include_tag('photocracy/excanvas.js') %><![endif]-->
   
   <div class="grid_7">
-    <canvas id="my_canvas" width="425" height="340" style="background: url(<%= @photo.image.url(:medium) %>) no-repeat;">
-      <%= image_tag(@photo.image.url(:medium)) %>
-    </canvas>
-
     <script type="text/javascript">
-      var canvas = document.getElementById('my_canvas');
-      if (canvas.getContext){
-        var context = canvas.getContext('2d');
-        <% @votes.each do |v| %>
-          <% unless v['tracking'].blank? %>
-            context.beginPath();
-            context.arc(<%= v['tracking']['x_click_offset'].to_i %>, <%= v['tracking']['y_click_offset'].to_i %>, 10, 0, Math.PI*2, true);
-            context.closePath();
-            context.fillStyle = "rgba(255,255,0,.7)";
-            context.fill();
+      $(document).ready(function(){
+        var canvas = document.getElementById('my_canvas');
+        if (canvas.getContext){
+          var context = canvas.getContext('2d');
+          <% @votes.each do |v| %>
+            <% unless v['tracking'].blank? %>
+              context.beginPath();
+              context.arc(<%= v['tracking']['x_click_offset'].to_i %>, <%= v['tracking']['y_click_offset'].to_i %>, 10, 0, Math.PI*2, true);
+              context.closePath();
+              context.fillStyle = "rgba(255,255,0,.7)";
+              context.fill();
+            <% end %>
           <% end %>
-        <% end %>
-      }else{
-        // do something to show the canvas' hidden contents
-        // or let the browser display the text within the <canvas> element.
-      }
+        }else{
+          // do something to show the canvas' hidden contents
+          // or let the browser display the text within the <canvas> element.
+        }
+      });
     </script>
+    
+    <div style="width:425;height:340;background: url(<%= @photo.image.url(:medium) %>) no-repeat;"> 
+      <canvas id="my_canvas" width="425" height="340">
+        <%= image_tag(@photo.image.url(:medium)) %>
+      </canvas>
+    </div>
   </div>
   <div class="grid_6">
     <%= t('items.added_on').upcase %>
     <h4><%= @choice.created_at.getlocal.strftime("%D") %></h4>
 
     <%= t('items.number_of_votes').upcase %>
-    <h4><%= @choice.attributes["wins_plus_losses"] %></h4>
+    <h4><%= @num_votes %></h4>
 
     <%= t('items.score').upcase %>
     <h4><%= @choice.score.round.to_s %></h4>
+
+    <%- if signed_in? %>
+       <%= t('items.list.status').upcase %>
+       <h4>
+        <label class="<%= 'Deactivated' unless @choice.active? %>">
+          <%= check_box_tag :choice_active, @choice.id, @choice.active?, :class => 'activation', :href => toggle_choice_status_url(@earl.id, @choice.id, :format => :js) %>
+          <span> <%= @choice.active? ? t('items.list.activated') : t('items.list.deactivated') %></span>
+        </label>
+       </h4>
+    <% end %>
+
     <p class="gray"><i>
       <%=t('items.score_explain')%>
     </i></p>
+    
+    <%= link_to '« Back to voting',  url_for(:action => :show, :controller => :earls, :id => params[:question_id]), :class => 'button blue' %>
   </div>
   <div class="clear"></div>
 </div>

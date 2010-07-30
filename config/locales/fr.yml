@@ -5,11 +5,13 @@ fr:
    votes_on: votes sur
    items:  des idées
    ideas:  idées
+   ideas:  idée
    title:  Toutes Nos Idées - Une boite à suggestions pour l’ère du numérique
    title_widget: Toutes Nos Idées 
    characters:  caratères
    idea_marketplace:  L’idée de marché
    votes:  Votes
+   votes:  vote
    user_sessions:  sessions d’utilisateur
    score:  Evaluation
   nav:
@@ -75,6 +77,19 @@ fr:
     click_idea_to_start_widget: Cliquez sur une idée de commencer le vote.
     idea_sent_for_review: Votre idée a été soumis pour examen. Il apparaîtra bientôt.
     powered_widget: "Ce marché est alimenté par l'idée "
+    flag_complete_message: Vous battant pavillon d'un choix inapproprié.
+    leveling:
+       leveling_message: "Maintenant que vous avez exprimés %{vote_num} %{vote_noun} et ajouté %{idea_num} %{idea_noun}: %{adjective}"
+       adjective_0: bon
+       adjective_1: gentil
+       adjective_2: incroyable
+       adjective_3: fabuleux
+       adjective_4: merveilleux
+       adjective_5: super
+       adjective_6: fantastique
+       adjective_7: incroyable
+       adjective_8: impressionnant
+       adjective_9: wow
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: FR-http://www.allourideas.org/studentgovernment/results

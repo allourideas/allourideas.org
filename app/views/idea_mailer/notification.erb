@@ -1,13 +1,13 @@
 <%= t('items.email.hello') %>
 
-<%= t('items.email.someone_has') %> <%= "'#{@choice_text}'" unless @photocracy %> <%= t('items.email.to_your_question') + "'#{@question_name}'" %>
+<%= t('items.email.someone_has_uploaded') %> <%= @photocracy ? t('items.email.a_photo') : t('items.email.the_idea', :idea_text => @choice_text ) %> <%= t('items.email.to_your_question') + " '#{@question_name}'" %>
 
-<%= t('items.email.if_you_want_to_activate') %>
-<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}/choices/#{@choice_id}/activate" %>
+<%= t('items.email.if_you_want_to_activate', :object => @object_type) %>
+<%= @choice_url %>
 
-<%= t('items.email.if_you_dont_want') %>
+<%= t('items.email.if_you_dont_want', :object => @object_type) %>
 
-<%= t('items.email.see_current_results') %>
+<%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %>
 <%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
 
 <%= t('items.email.thanks') %>

@@ -1,23 +1,26 @@
 $.ajaxSetup({
 	timeout: 10000
 });
-
 FADE_TIME = 2000
+
 $(document).ready(function() {
 	// voting
   $('a.vote').live('click', function(e) {
 		if ($(this).hasClass('loading')) {
 			alert("One sec, we're loading the next pair...");
 		} else {
-			$('.click_to_vote').hide(); // visible if the users hasn't voted
+			// visible if the users hasn't voted
+			$('.click_to_vote').hide();
 
-			// record image location before clearning
+			$(this).addClass('checked');
+
+			// prevent double clicking
+			$('a.vote').addClass('loading');
+
+			// store image location
 			var x_click_offset = calculateClickOffset('x', e, $(this));
 			var y_click_offset = calculateClickOffset('y', e, $(this));
-			clearImages();
 			
-			$('a.vote').addClass('loading'); // prevent double clicking
-
 			castVote($(this), x_click_offset, y_click_offset);
 		}
 		e.preventDefault();
@@ -197,6 +200,14 @@ function reasonValid(reason) {
 function castVote(choice, x, y) {
 	var VOTE_CAST_AT = new Date();
 
+	// a/b test transition animation
+	if (VOTE_CROSSFADE_TRANSITION) {
+		clearImagesCrossfade();
+	} else {
+		clearImages();
+	}
+
+
 	jQuery.ajax({
 		type: 'POST',
 		dataType: 'json',
@@ -212,14 +223,29 @@ function castVote(choice, x, y) {
 			voteError(request, textStatus, errorThrown);
 		},
 	  success: function(data, textStatus, request) {
+			preloadFuturePhotos(data);
 			updateVotingHistory(data);
-			loadNextPrompt(data);
-			$('#votes_count').text(
-				increment($('#votes_count').text())
-			);
+
+			// the ordering of these functions is important
+			// because some rely on attrs of the a.vote
+			// and others modify those attrs
+			if (!VOTE_CROSSFADE_TRANSITION) { loadNextPrompt(data); };
+			updateUrlsAndHiddenFields(data);
+			if (VOTE_CROSSFADE_TRANSITION) { 
+				$('table.fade').remove(); 
+				$('a.vote').removeClass('loading'); 
+			};
+			incrementVoteCount();
+			choice.removeClass('checked');
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
 	});
+}
+
+function incrementVoteCount() {
+	$('#votes_count').text(
+		increment($('#votes_count').text())
+	);
 }
 
 function toggleChoiceActivation(checkbox) {
@@ -269,8 +295,9 @@ function toggleQuestionAutoActivation(checkbox) {
 
 function calculateClickOffset(axis, e, choice) {
 	var offset = $(choice).find('img').offset();
-	// there is a 3 pixel border, hence the 3 pixel subtraction
 
+	// if there is any border on the image
+	// you need to subtract it from the offset here (ie 3 px)
 	if (axis == 'x') {
 		return (e.pageX - offset.left - 3);
 	} else {
@@ -279,39 +306,89 @@ function calculateClickOffset(axis, e, choice) {
 }
 
 function updateVotingHistory(data) {
-	var winner = data['voted_prompt_winner']
-	$('#your_votes').prepend("\
-		<li>\
-			<img src='" + $('.left').attr('thumb') + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/>\
-			<img src='" + $('.right').attr('thumb') + "' class='" + (winner == 'right' ? 'winner' : 'loser') + "'/>\
-			<span class='timeago' title='" + data['voted_at'] + "'>" + data['voted_at'] + "</span>\
-		</li>\
-		");
+	var winner = data['voted_prompt_winner'];
+	updateVisitorVotes(data['visitor_votes']);
+
+	addThumbnailsToHistory($('.left').attr('thumb'), $('.left').attr('choice_url'), $('.right').attr('thumb'), $('.right').attr('choice_url'), data['voted_at'], winner);
+
 	$('#your_votes').children(":first").effect("highlight", {}, 3000);
 	$(".timeago").timeago();
+}
+
+function addThumbnailsToHistory(left_thumb, left_url, right_thumb, right_url, voted_at, winner){
+	$('#your_votes').prepend("\
+		<li>\
+			<a href='" + left_url + "'<img src='" + left_thumb + "' class='" + (winner == 'left' ? 'winner' : 'loser') + "'/></a>\
+			<a href='" + right_url + "'<img src='" + right_thumb + "' class='" + (winner == 'right' ? 'winner' : 'loser') + "'/></a>\
+			<!-- <span class='timeago' title='" + voted_at + "'>" + voted_at + "</span> -->\
+		</li>\
+	");
+}
+
+function updateVisitorVotes(number_of_votes) {
+	// update vote count
+	$('#visitor_votes').text(number_of_votes);
+
+	// your voteS unless you've only voted once
+	(number_of_votes == 1) ? $('#s').hide() : $('#s').show();
 }
 
 
 function loadNextPrompt(data) {
 	jQuery.each(['left', 'right'], function(index, side) {
+		var current_table = $('a.vote.' + side + ' > table.current');
+
 		// change photos
-		$('a.vote.' + side + ' > table').html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
+		current_table.html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
+
 		// fade in photo
-		$('a.vote.' + side + ' > table').find('img').fadeIn(FADE_TIME, function() {
-			// uncomment this if you want to wait
-			// until fade-in completes before allowing voting
-			// $('a.vote.' + side).removeClass('loading');
+		current_table.find('img').fadeIn(FADE_TIME, function() {
+			// allow voting after fully faded in
+			$('a.vote.' + side).removeClass('loading');
 		});
-		// allow voting before fully faded in (see alternative above)
-		$('a.vote.' + side).removeClass('loading');
+	});
+}
+
+// a variation of the clearImages method being a/b tested
+function clearImagesCrossfade() {
+	jQuery.each(['left', 'right'], function(index, side) {
+		// current table
+		var link = $('a.vote.' + side);
+		var current_table = $('a.vote.' + side + ' > table');
+		var current_image = current_table.find('img');
+
+		// duplicate the table holding the image
+		// add the class 'fade' to it and remove 'current'
+		$('a.vote.' + side).prepend($('a.vote.' + side).html());
+		var fade_table = $('a.vote.' + side + ' > table:first');
+		fade_table.removeClass('current').addClass('fade');
+
+		// switch the current_tables img to the next photo
+		current_image.attr('src', link.attr('future_photo'));
+
+		// fade out and remove the fade_table
+		fade_table.animate({opacity: 0}, FADE_TIME, function() {
+			fade_table.remove();
+		});
+	});
+}
+
+function preloadFuturePhotos(data) {
+	jQuery.preLoadImages(data["future_left_photo"]);
+	jQuery.preLoadImages(data["future_right_photo"]);
+}
+
+function updateUrlsAndHiddenFields(data) {
+	jQuery.each(['left', 'right'], function(index, side) {
 		// change photo thumb
 		$('a.vote.' + side).attr('thumb', data['new' + side + '_photo_thumb']);
+		// change future photo
+		$('a.vote.' + side).attr('future_photo', data['future_' + side + '_photo']);
 		// change href url
 		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
-		// preload future images
-		jQuery.preLoadImages(data["future_" + side + "_photo"]);
+		// change choice url
+		$('a.vote.' + side).attr('choice_url', data['new' + side + '_choice_url']);
 	});
-
 
 	// change appearance_lookup and prompt_id hidden fields
 	$('#appearance_lookup').val(data['appearance_lookup']);

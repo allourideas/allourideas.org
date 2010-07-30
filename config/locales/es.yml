@@ -5,11 +5,13 @@ es:
    votes_on: votos en
    items: ideas
    ideas: ideas
+   idea: idea
    title: Todas nuestras ideas - un buzón de sugerencias para la nueva época digital 
    title_widget: Todas Nuestras Ideas
    characters: caracteres
    idea_marketplace: Un Mercado de Ideas
    votes: Votos
+   vote: voto
    user_sessions: Sesiones de usuario
    score: Resultados
   nav:
@@ -75,6 +77,19 @@ es:
     click_idea_to_start_widget: Haga clic en una idea para empezar a votar.
     idea_sent_for_review: Su idea ha sido presentada para su revisión. Se van a aparecer pronto.
     powered_widget: "Este mercado está alimentado por la idea "
+    flag_complete_message: Has marcado una opción como inapropiada.
+    leveling:
+       leveling_message: "Ahora han puesto %{vote_num} %{vote_noun} y agregó  %{idea_num} %{idea_noun}: %{adjective}"
+       adjective_0: bueno
+       adjective_1: agradable
+       adjective_2: asombroso
+       adjective_3: fabuloso
+       adjective_4: maravilloso
+       adjective_5: súper
+       adjective_6: fantástico
+       adjective_7: increíble
+       adjective_8: impresionante
+       adjective_9: wow
   results:
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results

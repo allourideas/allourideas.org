@@ -21,6 +21,7 @@ config.gem "rubaidh-google_analytics",
   :lib     => "rubaidh/google_analytics",
   :version => "1.1.4",
   :source  => "http://gems.github.com"
+ 
 
 
 #pains me to do this, but can't seem to get environment variables set in EY
@@ -32,5 +33,7 @@ PAIRWISE_PASSWORD = ENV['STAGING_PAIRWISE_PASSWORD']
 
 PHOTOCRACY_USERNAME = ENV['STAGING_PHOTOCRACY_USERNAME']
 PHOTOCRACY_PASSWORD = ENV['STAGING_PHOTOCRACY_PASSWORD']
+
+PHOTOCRACY_HOST = 'photocracy.org'
 
 IP_ADDR_HASH_SALT = ENV['IP_ADDR_HASH_SALT'] #prevent dictionary attacks on stored ip address hashes

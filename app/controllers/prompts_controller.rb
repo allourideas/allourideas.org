@@ -119,10 +119,12 @@ class PromptsController < ApplicationController
 
   private
   def add_photocracy_info(result, next_prompt, question_id)
-    newright_photo = Photo.find(next_prompt['right_choice_text'])
-    newleft_photo = Photo.find(next_prompt['left_choice_text'])
-    future_left_photo = Photo.find(next_prompt['future_left_choice_text_1'])
+    newright_photo     = Photo.find(next_prompt['right_choice_text'])
+    newleft_photo      = Photo.find(next_prompt['left_choice_text'])
+    future_left_photo  = Photo.find(next_prompt['future_left_choice_text_1'])
     future_right_photo = Photo.find(next_prompt['future_right_choice_text_1'])
+
+    earl = Earl.find_by_question_id(question_id)
     result.merge!({
       :visitor_votes        => next_prompt['visitor_votes'],
       :newright_photo       => newright_photo.image.url(:medium),
@@ -133,6 +135,8 @@ class PromptsController < ApplicationController
       :future_right_photo   => future_right_photo.image.url(:medium),
       :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
       :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
+      :newleft_choice_url   => question_choice_url(earl.name, next_prompt['left_choice_id']), 
+      :newright_choice_url  => question_choice_url(earl.name, next_prompt['right_choice_id']),
       :flag_url             => flag_question_prompt_url(question_id, next_prompt['id'], :format => :js),
       :skip_url             => skip_question_prompt_url(question_id, next_prompt['id'], :format => :js),
       :voted_at             => Time.now.getutc.iso8601,
@@ -148,6 +152,7 @@ class PromptsController < ApplicationController
      case request_type
        when :vote
            options.merge!({:direction => params[:direction],
+		     :skip_fraud_protection => true,
                      :tracking => {:x_click_offset => params[:x_click_offset],
                                    :y_click_offset => params[:y_click_offset]}
 	       })

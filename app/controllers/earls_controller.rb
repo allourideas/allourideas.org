@@ -8,7 +8,6 @@ class EarlsController < ApplicationController
 
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
-    session[:on_example] = (params[:id] == 'studentgovernment')
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
     if @earl
@@ -30,7 +29,7 @@ class EarlsController < ApplicationController
 		     :with_visitor_stats => true,
 		     :visitor_identifier => request.session_options[:id]}
 
-      show_params.merge!(:future_prompts => {:number => 1}) if @photocracy
+      show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
 
       @question = Question.find(@earl.question_id, :params => show_params)
 
@@ -52,6 +51,11 @@ class EarlsController < ApplicationController
        @right_choice_id = @prompt.right_choice_id
 
        if @photocracy
+          if params[:crossfade]
+            @vote_crossfade_transition = eval(params[:crossfade]) rescue true
+          else
+            @vote_crossfade_transition = ab_test("#{@earl.name}_#{@earl.question_id}_vote_crossfade_transition", nil, :conversion => "voted")
+          end
           @right_choice_photo = Photo.find(@right_choice_text)
           @left_choice_photo = Photo.find(@left_choice_text)
           @future_right_choice_photo = Photo.find(@question.attributes['future_right_choice_text_1'])

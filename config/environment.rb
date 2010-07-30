@@ -78,8 +78,6 @@ Rails::Initializer.run do |config|
 	  :version => '3.0.9'
   config.gem 'newrelic_rpm',
 	  :version => '2.12.3'
-  config.gem 'sendgrid',
-	  :version => '0.1.4'
 end
 
 PRODUCTION_API_HOST = ENV['API_HOST']

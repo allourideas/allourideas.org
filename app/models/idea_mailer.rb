@@ -1,4 +1,6 @@
-include SendGrid
+unless Rails.env == "development"
+   include SendGrid
+end
 class IdeaMailer < ActionMailer::Base
 
   default_url_options[:host] = HOST

@@ -21,6 +21,8 @@ config.gem "rubaidh-google_analytics",
   :lib     => "rubaidh/google_analytics",
   :version => "1.1.4",
   :source  => "http://gems.github.com"
+config.gem 'sendgrid',
+	  :version => '0.1.4'
 
 
 #pains me to do this, but can't seem to get environment variables set in EY

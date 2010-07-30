@@ -12,7 +12,7 @@
       %table.full{:style => 'margin-top: 5px'}
         %tr.row0
           %td.idea.header_padding= t('items.idea')
-          %td.score_header.link_style{:style => 'text-align: left'}
+          %td.score_header.link_style{:style => 'text-align: left;'}
             %span= t('common.score').titleize + ' '
             %a.question_mark{:href => '#score_link'}= '[?]'
           %td.above_barcharts &nbsp
@@ -22,9 +22,9 @@
           %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
             %td.idea_padding.idea_result
               =truncate(h(choice.data), :length => 137)
-            %td
-              .score{:style => 'text-align: left;'}= choice.attributes['score'].round.to_s
-            %td
+            %td{:style => 'text-align: left; width: 20px;'}
+              .score= choice.attributes['score'].round.to_s
+            %td{:style => 'text-align: left; width: 30%;'}
               .bar-chart
                 %div{:style => "width:#{choice.attributes['score']}%"}
       -if params[:more] && !params[:all]

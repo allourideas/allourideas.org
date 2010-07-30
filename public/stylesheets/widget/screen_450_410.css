@@ -90,6 +90,8 @@ table {
     color: white; }
     table .row0 td.idea {
       width: 67.5%; }
+    table .row0 td.score_header {
+      width: 55px; }
   table .row1 {
     background-color: #fafafa; }
   table .row2 {
@@ -270,13 +272,13 @@ table {
 
 .bar-chart {
   border: 1px solid #cccccc;
-  width: 21.739%;
+  width: 100%;
   margin: 0 auto;
   padding: 1px;
   background: white; }
   .bar-chart > div {
     background-color: #797979;
-    height: 2.746%;
+    height: 12px;
     margin: 0; }
 
 hr {
@@ -702,3 +704,6 @@ table.tablesorter {
 
 .no_padding {
   padding: 0 0 0 0; }
+
+.results_content {
+  height: 100%; }

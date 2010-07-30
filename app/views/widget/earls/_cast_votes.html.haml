@@ -73,6 +73,7 @@
           .cd_submit_button.rounded.fright{:rel => @question.id}= t('vote.submit')
 
     .add-box#the_add_box{:style => 'display:none'}
+      %br
       - box_text = t('vote.add_your_idea')
       .indicator{:style => "display:none;"}= image_tag('indicator.gif')
       = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_text_field', :id => 'new_idea_field'), 'border-thick')

@@ -12,10 +12,10 @@
       %table.full{:style => 'margin-top: 5px'}
         %tr.row0
           %td.idea.header_padding= t('items.idea')
-          %td.link_style{:style => 'text-align: left'}
+          %td.score_header.link_style{:style => 'text-align: left'}
             %span= t('common.score').titleize + ' '
             %a.question_mark{:href => '#score_link'}= '[?]'
-          %td &nbsp
+          %td.above_barcharts &nbsp
       %table.full{:style => 'margin-top: 5px'}
         -alt=false
         -for choice in @choices

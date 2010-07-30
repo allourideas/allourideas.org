@@ -74,15 +74,17 @@ var count = 0;
     $('#new_idea_field').val("");
   }
 
-/*  VIEW RESULTS TAB LOADING FUNCTIONALITY */
+/*  VIEW RESULTS TAB LOADING AND QUESTION MARK FUNCTIONALITY */
 
   $('#view_results_link').click(function(event) {
     $.get($(this).attr("href"), function(data) { 
       $('#render_spot').html(data)
       $('.question_mark').click(function() {
         $('#render_spot').scrollTo('#explanation');
+        $('.exp_header').effect("highlight", {}, 1500);
         return false;
       });
+      $('.results_content').css('height', '1000px');
 	  }); 
   })
 
@@ -544,12 +546,5 @@ var count = 0;
         };
     }(i)); 
   } 
-
-/*  ABOUT THE SCORING HIGHLIGHTING FUNCTIONALITY */
-//  Note: This does not currently work. Should be tweaked in future.
-
-  $('.question_mark').click(function() {
-    $('.exp_header').effect("highlight", {}, 1500);
-  });
 
 

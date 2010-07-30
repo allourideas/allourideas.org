@@ -4,6 +4,10 @@ When /^I click on the left choice$/ do
 	Then "I should see \"You chose\" within \".tellmearea\""
 end
 
+When /^I click on the left photo$/ do
+	When "I follow \"leftside\""
+end
+
 When /^I click on the right choice$/ do
 	When "I follow \"rightside\""
 	Capybara.default_wait_time = 10
@@ -40,6 +44,9 @@ When /^I click the (.*) button$/ do |button_name|
       when "WIDGET flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
       	find(".flag_submit_button").click
+      when "photocracy flag submit"
+        page.evaluate_script('window.alert = function() { return true; }')
+	find(".flag_submit_button").click
       when "add new photo"
       	find("#add_photo_button_for_dialog").click
       when "idea auto activation toggle"
@@ -96,7 +103,12 @@ Then /^the notification in the tell me area should not contain links$/ do
 	page.should_not have_css('.tellmearea a')
 end
 
-Given /^I save the current (.*) choices?$/ do |side|
+Given /^I save the current (.*) (choices|photos)?$/ do |side,type|
+	puts "the type is #{type}"
+	if type == "photos"
+	   @photocracy_mode = true
+           set_active_resource_credentials
+	end
 	if @photocracy_mode
 	   Capybara.ignore_hidden_elements = false
 	   @question_id = page.locate('#choose_file')[:question_id].to_i
@@ -104,9 +116,8 @@ Given /^I save the current (.*) choices?$/ do |side|
 	else
 	   @question_id = page.locate('#leftside')[:rel].to_i
 	end
-
-
 	
+	@earl = Earl.find_by_question_id(@question_id)
         begin
 	  @prompt_id = page.locate('#prompt_id')[:value].to_s
 	  #The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
@@ -163,4 +174,32 @@ Then /^the current appearance lookup should (not )?match the saved appearance lo
         else
 	   @new_appearance_lookup.should_not == @appearance_lookup
         end
+end
+
+
+Then /^I should see thumbnails of the two saved choices in the voting history area$/ do
+	  @first_thumbnail = page.locate('#your_votes li a')
+	  @second_thumbnail = page.locate('#your_votes li a:last')
+
+	  @first_url = @first_thumbnail[:href]
+	  @second_url = @second_thumbnail[:href]
+
+	  @first_url.should include(question_choice_path(@earl.name, @left_choice.id))
+	  @second_url.should include(question_choice_path(@earl.name, @right_choice.id))
+end
+
+Then /^I should not see thumbnails of the two saved choices in the voting history area$/ do
+	  lambda {page.locate('#your_votes li a')}.should raise_error(Capybara::ElementNotFound)
+	  lambda {page.locate('#your_votes li a:last')}.should raise_error(Capybara::ElementNotFound)
+end
+
+Then /^the left thumbnail should be a winner$/ do
+	page.locate('#your_votes li a img')[:class].should include("winner")
+end
+Then /^the left thumbnail should be a loser$/ do
+	page.locate('#your_votes li a img')[:class].should include("loser")
+end
+
+Then /^the right thumbnail should be a loser$/ do
+	page.locate('#your_votes li a:last img')[:class].should include("loser")
 end

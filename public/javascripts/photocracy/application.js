@@ -134,7 +134,10 @@ function submitCantDecide(form) {
 				voteError(request, textStatus, errorThrown);
 			},
 		  success: function(data, textStatus, request) {
+			        preloadFuturePhotos(data);
+			        updateVotingHistory(data);
 				loadNextPrompt(data);
+			        updateUrlsAndHiddenFields(data);
 				PAGE_LOADED_AT = new Date(); // reset the page load time
 			}
 		});
@@ -171,7 +174,9 @@ function submitFlag(form) {
 				voteError(request, textStatus, errorThrown);
 			},
 		  success: function(data, textStatus, request) {
+			        preloadFuturePhotos(data);
 				loadNextPrompt(data);
+			        updateUrlsAndHiddenFields(data);
 				$('#item_count').text(
 					decrement($('#item_count').text())
 				);

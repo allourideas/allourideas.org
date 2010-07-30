@@ -76,7 +76,6 @@ var count = 0;
 
 /*  VIEW RESULTS TAB LOADING AND QUESTION MARK FUNCTIONALITY */
 
-  var firstTime = true;
   $('#view_results_link').click(function(event) {
     $.get($(this).attr("href"), function(data) { 
       $('#render_spot').html(data)
@@ -85,11 +84,7 @@ var count = 0;
         $('.exp_header').effect("highlight", {}, 1500);
         return false;
       });    
-
-      if (firstTime == true) {
-        $('#results_question').height(.2 * newHeight + 'px');
-        firstTime = false;
-      }
+      $('#results_question').height(.2 * newHeight + 'px');   
 	  }); 
   })
 

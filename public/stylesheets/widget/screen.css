@@ -91,7 +91,7 @@ table {
     table .row0 td.idea {
       width: 67.5%; }
     table .row0 td.score_header {
-      width: 55px; }
+      width: 80px; }
   table .row1 {
     background-color: #fafafa; }
   table .row2 {
@@ -226,6 +226,8 @@ table {
     min-height: 100%; }
     .votebox table td.idea {
       cursor: pointer; }
+    .votebox table td.vote_cell {
+      height: 100%; }
     .votebox table td.left {
       padding: 0 2.5px 0 0; }
     .votebox table td.right {
@@ -645,6 +647,9 @@ table.tablesorter {
   font-size: 16px;
   width: 85%;
   color: black;
+  height: 100%; }
+
+.question_container {
   height: 20%; }
 
 #new_idea_field {

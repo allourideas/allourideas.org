@@ -1,8 +1,10 @@
 -@item_data, @item_ids = [], []
+
 .scrollbar_container#ie6_no_scrollbar 
-  %table.question.center.no_padding
-    %tr.question_text
-      %td= @question.attributes['name']
+  .question_container
+    %table.question.center.no_padding
+      %tr
+        %td#cv_question= @question.attributes['name']
   .votebox
     %table.full
       %tr.prompt.prompter

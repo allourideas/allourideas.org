@@ -7,7 +7,7 @@
   .results_content{:style => 'overflow:auto;', :id => 'results_content'}
     .wrapper
       %table.question.center.no_padding#results_question
-        %tr.question_text
+        %tr
           %td= @question.attributes['name']
       .results_data.ninety
         %table.full{:style => 'margin-top: 5px'}

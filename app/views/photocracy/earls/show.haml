@@ -10,7 +10,7 @@
         =render(:partial => 'questions/prompt')
     .center{:style => 'padding-bottom:20px'}
       .small_margin_bottom
-        =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');"
+        =link_to_function t('vote.cant_decide'), "$('#cant_decide_options').dialog('open');", :id => "cant_decide_btn"
       =link_to_function t('vote.add_your_idea_button'), "$('#add_photo').dialog('open');", :class => 'blue button', :id => 'add_photo_button_for_dialog'
 
 .container_12
@@ -63,7 +63,7 @@
             =text_field_tag 'reason_text', {}, :maxlength => 140, :id => 'user_cd_reason'
           %br
       %p
-        %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
+        %input.button{:type => 'submit', :value => "#{t('vote.submit')}", :class => "cd_submit_button"}
 
   -if @earl.flag_enabled?
     #flag_as_inappropriate{:style => 'display:none', :title => t('vote.flag_as_inappropriate')}
@@ -73,7 +73,7 @@
           = text_area_tag 'inappropriate_reason', "", :style => 'width:100%'
           = hidden_field_tag 'inappropriate_side'
         %p
-          %input.button{:type => 'submit', :value => "#{t('vote.submit')}"}
+          %input.flag_submit_button.button{:type => 'submit', :value => "#{t('vote.submit')}"}
 
   #add_photo{:style => 'display:none;', :title => t('vote.add_your_idea_button')}
     #photo_step_1

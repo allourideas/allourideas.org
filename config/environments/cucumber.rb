@@ -31,6 +31,9 @@ config.gem 'rspec-rails',      :lib => false, :version => '1.3.2' unless File.di
 config.gem 'email_spec', :lib => 'email_spec', :version => '0.4.0'
 config.gem 'timecop',                         :version => '0.3.5'
 
+config.gem 'sendgrid',
+	  :version => '0.1.4'
+
 require 'factory_girl'
 require 'shoulda'
 

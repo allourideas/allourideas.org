@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   cattr_accessor :widget_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget")) 
-  @@widget_supported_sizes = ["450x410"]
 
   def view_filter
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy

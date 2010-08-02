@@ -1,6 +1,21 @@
 var loadedTime = new Date();
 var count = 0;
 
+/*  ELEMENT RELOADING FUNCTIONALITY  */
+
+  reload_element_by_id = function(selector) {
+    var reload_html = $('#' + selector).html();
+    document.getElementById(selector).innerHTML = reload_html;
+  }
+
+  //  for reloading the "add your own idea here" field:
+  //  this doesn't currently work properly
+  reload_add_idea_field = function() {
+    //var addHTML = $('#the_add_box').html();
+    //document.getElementById("the_add_box").innerHTML = addHTML;
+    $('#new_idea_field').val("");
+  }
+
 /*  WIDGET DYNAMIC SIZING AND SPACING ONLOAD FUNCTIONALITY*/
 
   //  move "I can't decide" down farther if the "Flag as Inappropriate" button will get in its way
@@ -21,6 +36,11 @@ var count = 0;
   function start() { 
     resize_widget();
 	  move_down_cant_decide(); 
+
+    //  reload the vote page (for ie)
+    if ($.browser.msie) {
+      reload_element_by_id('ie6_no_scrollbar');
+    } 
 	} 
 
   window.onload = start;
@@ -56,23 +76,6 @@ var count = 0;
 
   $('.tab').click(switch_tabs);
   $('.return_voting').click(switch_tabs);
-
-
-/*  ELEMENT RELOADING FUNCTIONALITY  */
-
-  //  for reloading can't decide reason buttons:
-  reload_cd_table = function() {
-    var cdHTML = $('#options_table').html();
-    document.getElementById("options_table").innerHTML = cdHTML;
-  }
-
-  //  for reloading the "add your own idea here" field:
-  //  this doesn't currently work properly
-  reload_add_idea_field = function() {
-    //var addHTML = $('#the_add_box').html();
-    //document.getElementById("the_add_box").innerHTML = addHTML;
-    $('#new_idea_field').val("");
-  }
 
 /*  VIEW RESULTS TAB LOADING AND QUESTION MARK FUNCTIONALITY */
 
@@ -426,7 +429,7 @@ var count = 0;
 		        $('#prompt_id').val(data["prompt_id"]);
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 		        loadedTime = new Date() //  reset loaded time
-            reload_cd_table();      //  clear the radio buttons
+            reload_element_by_id('options_table');      //  clear the radio buttons
 		      },
 		      "json"
     );

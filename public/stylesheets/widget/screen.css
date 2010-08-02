@@ -226,22 +226,21 @@ table {
     min-height: 100%; }
     .votebox table td.idea {
       cursor: pointer; }
-    .votebox table td.vote_cell {
-      height: 100%; }
     .votebox table td.left {
       padding: 0 2.5px 0 0; }
     .votebox table td.right {
       padding: 0 0 0 2.5px; }
-    .votebox table td .round-filledfg {
+    .votebox table td.vote_cell {
       font-size: 12.8px;
-      padding: 0 2px;
-      height: 90%; }
-      .votebox table td .round-filledfg table {
+      color: white;
+      height: 90%;
+      background: #3198c1; }
+      .votebox table td.vote_cell table {
         height: 100%; }
-      .votebox table td .round-filledfg a {
+      .votebox table td.vote_cell a {
         color: white;
         border: none; }
-        .votebox table td .round-filledfg a:hover {
+        .votebox table td.vote_cell a:hover {
           color: white;
           border: none; }
     .votebox table td .five_padding {

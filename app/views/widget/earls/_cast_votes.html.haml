@@ -8,11 +8,13 @@
   .votebox
     %table.full
       %tr.prompt.prompter
-        %td.half.idea.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
-          = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
-        %td
-        %td.right.idea.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
-          = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
+        %td.half.idea.left.vote_cell.rounded{:rel => @question.id, :id => "left_choice_cell"}
+          //= rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
+          = link_to(truncate(@left_choice_text, :length => 137), "#", :rel => @question.id, :class => 'leftside', :id => 'leftside', :choice_id => @left_choice_id, :question_slug => @question.slug)
+        %td{:style => 'width: 4px'}
+        %td.right.idea.vote_cell.rounded{:rel => @question.id, :id => "right_choice_cell"}
+          //= rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
+          = link_to(truncate(@right_choice_text, :length => 137), "#", :rel => @question.id, :class => 'rightside', :id => 'rightside', :choice_id => @right_choice_id, :question_slug => @question.slug)
     -if @earl.flag_enabled?
       .flag_row
         .fleft.no_bottom_padding

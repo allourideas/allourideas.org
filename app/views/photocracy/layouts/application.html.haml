@@ -30,7 +30,7 @@
         Powered by
         =link_to "Photocracy.org", '/'
         \-
-        =link_to "About this project", '/about'
+        =link_to "About", '/about'
         \-
         =link_to "Open source code", 'http://www.github.com/allourideas'
         \-
@@ -39,6 +39,15 @@
         =link_to "Create your own survey", '/questions/new'
         \-
         =link_to "See an example", '/princetondemo'
+        -if signed_in?
+          \-
+          = link_to t('user.logout'), '/sign_out'
+          \-
+          = link_to t('user.control_panel'), admin_path
+        -else
+          \-
+          = link_to t('user.login'), sign_in_path
+
     -if RAILS_ENV['production']
       .analytics
         = render :partial => '/layouts/google_analytics'

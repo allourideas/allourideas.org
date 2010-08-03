@@ -97,7 +97,10 @@
             %strong
               =t('vote.thanks')
             %br
-            =t('vote.photo_submitted')
+            -if @question.attributes['it_should_autoactivate_ideas']
+              =t('vote.photo_accepted')
+            -else
+              =t('vote.photo_submitted')
         .float_right{:style => 'width:40%;'}
           %img{:id => 'uploaded_thumbnail', :style => 'display:none'}
       %br

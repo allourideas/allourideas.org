@@ -1,6 +1,5 @@
 @photocracy
 @selenium
-@focus
 Feature: Flag as inappropriate
 	In order to prevent unsavory materials from being displayed on our site
 	A user

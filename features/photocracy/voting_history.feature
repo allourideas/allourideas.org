@@ -22,7 +22,6 @@ Feature: Voting history
     And the left thumbnail should be a loser
     And the right thumbnail should be a loser
     
-@focus
 @photocracy
 @selenium
  Scenario: User flags a photo as inappropriate

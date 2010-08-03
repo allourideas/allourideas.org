@@ -1,23 +1,33 @@
--@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
+  %head 
+    %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
+    :css
+      .bottom_status {
+        background-color: red;
+        border-color: red
+      } 
+%body
+  -@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
 
-= render :partial => 'shared/header_vote', :locals => {:question => @question}
+  = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-#cast_votes.current
-  = render 'cast_votes.html.haml'
+  #cast_votes.current
+    = render 'cast_votes.html.haml'
 
-#results{:style => 'display:none'}
-  .scrollbar_container#render_spot
-    %center
-      %br
-      = 'Loading results...'
-  .bottom_status.link_style
-    %span.bottom_padding
-      /* Use a table here to fix a small issue with a non-linking space after the first link */
-      %table.fleft
-        %td{:style => 'padding-left: 5px;'}= link_to(t('nav.view_more_results_widget'),"http://www.allourideas.org" +  @results_url, :target => '_blank', :id => 'view_more_results')
-        %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), "http://www.allourideas.org" + @results_url, :target => '_blank')
-    %span
-      %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget');
+  #results{:style => 'display:none'}
+    .scrollbar_container#render_spot
+      %center
+        %br
+        = 'Loading results...'
+    .bottom_status.link_style
+      %span.bottom_padding
+        /* Use a table here to fix a small issue with a non-linking space after the first link */
+        %table.fleft
+          %td{:style => 'padding-left: 5px;'}= link_to(t('nav.view_more_results_widget'),"http://www.allourideas.org" +  @results_url, :target => '_blank', :id => 'view_more_results')
+          %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), "http://www.allourideas.org" + @results_url, :target => '_blank')
+      %span
+        %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget');
 
-#about{:style => 'display:none'}
-  = render 'questions/about.html.haml'
+  #about{:style => 'display:none'}
+    = render 'questions/about.html.haml'

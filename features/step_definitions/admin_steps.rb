@@ -70,6 +70,7 @@ Then /^I should see the saved (.*) choice text$/ do |side|
 end
 
 Given /^idea marketplace '(.*)' has enabled idea autoactivation$/ do |url|
+ set_active_resource_credentials
  @earl = Earl.find(url)
  @question = Question.find(@earl.question_id)
  @question.it_should_autoactivate_ideas = true

@@ -154,6 +154,7 @@ photocracy_en:
   vote:
     add_your_idea: Add your own photo here...
     add_your_idea_button: Add your own photo
+    add_another_idea_button: Add another photo
     choose_file: Choose file
     uploading_photo: Uploading photo...
     thanks: Thanks!

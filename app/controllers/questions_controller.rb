@@ -789,7 +789,8 @@ class QuestionsController < ApplicationController
       new_idea_data = params[:new_idea]
       
       if @photocracy
-        new_idea_data = Photo.create(:image => params[:new_idea]).id
+	new_photo = Photo.create(:image => params[:new_idea])
+        new_idea_data = new_photo.id
       end
 
       choice_params = {:visitor_identifier => request.session_options[:id], 
@@ -816,7 +817,7 @@ class QuestionsController < ApplicationController
           end
 
           if @photocracy
-            render :text => 'success', :content_type => 'text/html'
+            render :text => {'thumbnail_url' => new_photo.image.url(:thumb)}.to_json #text content_type is important with ajaxupload
           else
             render :json => {
                      :choice_status => @choice.active? ? 'active' : 'inactive',

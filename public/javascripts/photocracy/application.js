@@ -39,7 +39,7 @@ $(document).ready(function() {
 				locale: RAILS_LOCALE
 	    },
 	    autoSubmit: true,
-	    responseType: false,
+	    responseType: "json",
 	    onChange: function(file, extension){
 	      $('#photo_step_1').hide();
 	      $('#photo_step_3').hide();
@@ -54,7 +54,12 @@ $(document).ready(function() {
 	        return false;
 	      }
 	    },
-	    onComplete : function(file){
+	    onComplete : function(file, response){
+	      thumbnail_url = response.thumbnail_url;
+
+	      $('#uploaded_thumbnail').attr('src', thumbnail_url);
+	      $('#uploaded_thumbnail').show();
+	      
 	      $('#photo_step_1').hide();
 	      $('#photo_step_2').hide();
 	      $('#photo_step_3').show();

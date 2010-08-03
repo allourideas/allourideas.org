@@ -91,11 +91,19 @@
       =image_tag('/images/photocracy/indicator.gif')
 
     #photo_step_3{:style => 'display:none'}
-      %p
-        %strong
-          =t('vote.thanks')
-        %br
-        =t('vote.photo_submitted')
+      .photo_container
+        .float_left{:style => 'width:40%;'}
+          %p
+            %strong
+              =t('vote.thanks')
+            %br
+            =t('vote.photo_submitted')
+        .float_right{:style => 'width:40%;'}
+          %img{:id => 'uploaded_thumbnail', :style => 'display:none'}
+      %br
+      %br
+      %br
+      =link_to_function t('vote.add_another_idea_button'), "$('#add_photo').dialog('close'); $('#add_photo').dialog('open');", :class => 'blue button float_right', :id => 'add_photo_button_for_dialog', :style => 'font-size:0.8em;'
   
   #how_does_this_work{:style => 'display:none;'}
     %p

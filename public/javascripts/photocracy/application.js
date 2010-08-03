@@ -229,7 +229,7 @@ function castVote(choice, x, y) {
 		},
 	  success: function(data, textStatus, request) {
 			preloadFuturePhotos(data);
-			updateVotingHistory(data);
+			updateVotingHistory(data,false);
 
 			// the ordering of these functions is important
 			// because some rely on attrs of the a.vote
@@ -241,6 +241,7 @@ function castVote(choice, x, y) {
 				$('a.vote').removeClass('loading'); 
 			};
 			incrementVoteCount();
+			incrementVisitorVoteCount(); 
 			choice.removeClass('checked');
 			PAGE_LOADED_AT = new Date(); // reset the page load time
 		}
@@ -250,6 +251,12 @@ function castVote(choice, x, y) {
 function incrementVoteCount() {
 	$('#votes_count').text(
 		increment($('#votes_count').text())
+	);
+}
+
+function incrementVisitorVoteCount() {
+	$('#visitor_votes').text(
+		increment($('#visitor_votes').text())
 	);
 }
 
@@ -310,9 +317,17 @@ function calculateClickOffset(axis, e, choice) {
 	}
 }
 
-function updateVotingHistory(data) {
+function updateVotingHistory(data, update_visitor_votes) {
+
+	if(update_visitor_votes == undefined){
+	   update_visitor_votes = true  //update visitor_votes by default
+	}
+		
+
 	var winner = data['voted_prompt_winner'];
-	updateVisitorVotes(data['visitor_votes']);
+	
+	if(update_visitor_votes)
+		updateVisitorVotes(data['visitor_votes']);
 
 	addThumbnailsToHistory($('.left').attr('thumb'), $('.left').attr('choice_url'), $('.right').attr('thumb'), $('.right').attr('choice_url'), data['voted_at'], winner);
 

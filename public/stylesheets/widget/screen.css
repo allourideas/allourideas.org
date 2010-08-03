@@ -235,6 +235,8 @@ table {
       color: white;
       height: 90%;
       background: #3198c1; }
+      .votebox table td.vote_cell:hover {
+        background: #2b88ad; }
       .votebox table td.vote_cell table {
         height: 100%; }
       .votebox table td.vote_cell a {

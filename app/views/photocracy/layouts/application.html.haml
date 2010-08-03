@@ -39,3 +39,6 @@
         =link_to "Create your own survey", '/questions/new'
         \-
         =link_to "See an example", '/princetondemo'
+    -if RAILS_ENV['production']
+      .analytics
+        = render :partial => '/layouts/google_analytics'

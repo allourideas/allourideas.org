@@ -39,6 +39,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:choice_data] = choice_data
     @body[:explanation] = explanation
     @body[:photocracy] = photocracy
+    @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
   end
   
   def extra_information(user, question_name, information, photocracy=false)

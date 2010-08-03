@@ -19,3 +19,8 @@ Feature: Ignore votes immediately after skips
     And the vote count should be 1
     When I go to the Cast Votes page for 'test'
     Then the vote count should be 0
+    When I go to the View Results page for 'test'
+    Then I should see "50"
+    And I should not see "67"
+    And I should not see "66"
+    And I should not see "33"

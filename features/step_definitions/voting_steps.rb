@@ -103,7 +103,7 @@ Then /^the notification in the tell me area should not contain links$/ do
 	page.should_not have_css('.tellmearea a')
 end
 
-Given /^I save the current (.*) (choices|photos)?$/ do |side,type|
+Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	puts "the type is #{type}"
 	if type == "photos"
 	   @photocracy_mode = true

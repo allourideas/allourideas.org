@@ -1,18 +1,19 @@
 <%= t('items.email.hello') %>
 
-<%= t('items.email.someone_has_flagged', :idea_data => @choice_data.strip, :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}") %>
+<%= t('items.email.photocracy_someone_has_flagged', :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}") %>
 
-<%= t('items.email.provided_explanation_is') %>
+<%= t('items.email.provided_explanation_is', :object => @object_type) %>
 
 <%= @explanation %>
 
-<%= t('items.email.we_have_auto_deactivated') %>
+<%= t('items.email.photocracy_we_have_auto_deactivated') %>
 
-<%= @photocracy ? "http://#{PHOTOCRACY_HOST}/#{@earl.name}/admin" : "http://#{HOST}/#{@earl.name}/choices/#{@choice_id}/activate" %>
+<%= @photocracy ? "http://#{PHOTOCRACY_HOST}/#{@earl.name}/choices/#{@choice_id}" : "http://#{HOST}/#{@earl.name}/choices/#{@choice_id}/activate" %>
 
-<%= t('items.email.if_you_dont_want') %>
+<%= t('items.email.if_you_dont_want', :object => @object_type) %>
 
-<%= t('items.email.see_current_results') + " http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
+<%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %>
+<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
 
 <%= t('items.email.thanks') %>
 <%= render :partial => 'idea_mailer/signature' %>

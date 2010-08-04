@@ -23,11 +23,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def widget_color_filter
-    if request.url.include?('text')
-      
-
-
   def set_pairwise_credentials
     if @photocracy
        username = PHOTOCRACY_USERNAME

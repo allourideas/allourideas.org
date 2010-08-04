@@ -3,17 +3,69 @@
     %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
     %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
     :css
-      .bottom_status {
-        background-color: red;
-        border-color: red;
-        color: white;
-      } 
       .body {
-        color: purple;
-      }
+        color: #{@text_color}; }
+
+      .idea_result {
+        color: #{@text_color}; }
+
+      h1, h2, h3, h4, h5, h6, .large-text {
+        color: #{@lighter_text_color}; }
+
+      a {
+        color: #{@flag_color}; }
+
+      .bar-chart > div {
+        background-color: #{@lighter_text_color}; }
+
+      .bottom_status {
+        background-color: #{@vote_button_color};
+        border-color: #{@vote_button_color}; } 
+
       table .row0 {
-        background-color: red;
-        color: white; }
+        background-color: #{@vote_button_color}; }
+
+      .scrollbar_container {
+        border-color: #{@vote_button_color}; }
+
+      .tabs {
+        border-color: #{@vote_button_color}; }
+        .tabs .current_tab {
+          background-color: #{@vote_button_color}; }
+          .tabs .current_tab:hover {
+            background-color: #{@vote_button_color};
+            border-color: #{@vote_button_color}; }
+        .tabs li {
+          border-top-color: #{@vote_button_color};
+          border-left-color: #{@vote_button_color};
+          border-right-color: #{@vote_button_color}; }
+          .tabs li a {
+            color: #{@vote_button_color}; }
+          .tabs li:hover {
+            background-color: #{@tab_hover_color};
+            border-color: #{@tab_hover_color}; }
+
+        .votebox table td.vote_cell {
+          background: #{@vote_button_color}; }
+          .votebox table td.vote_cell:hover {
+            background: #{@vote_hover_color}; }
+
+        .new_idea_submit, .flag_submit_button, .cd_submit_button {
+          background: #{@submit_color}; }
+          .new_idea_submit:hover, .flag_submit_button:hover, .cd_submit_button:hover {
+            background-color: #{@submit_hover_color}; }
+
+        #cant_decide_btn {
+          background: #{@cd_color}; }
+          #cant_decide_btn:hover {
+            background-color: #{@cd_hover_color}; }
+
+        .add_idea .add_idea_button {
+          background: #{@add_color}; }
+          .add_idea .add_idea_button:hover {
+            background: #{@add_hover_color}; }
+
+
 %body
   -@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
 

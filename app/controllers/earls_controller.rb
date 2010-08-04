@@ -64,6 +64,44 @@ class EarlsController < ApplicationController
 
        if @widget    
          @widget_stylesheet = "widget/screen"
+
+         if (text = params[:text])
+           lighter = alter_color(text, 1.1);
+           @text_color = "##{text}"  
+           @lighter_text_color = "##{lighter}" 
+	       end
+
+         if (button = params[:button])
+           vote_hover = alter_color(button, 0.8)
+           @vote_button_color = "##{button}"          
+           @vote_hover_color = "##{vote_hover}"
+	       end
+
+         if (tab_hover = params[:tab_hover])
+           @tab_hover_color = "##{tab_hover}"
+         end
+
+         if (flag = params[:flag])
+           @flag_color = "##{flag}"    
+	       end
+
+         if (submit = params[:submit])
+           submit_hover = alter_color(submit, 0.8)
+           @submit_color = "##{submit}"  
+           @submit_hover_color = "##{submit_hover}"  
+	       end
+
+         if (cd = params[:cd])
+           cd_hover = alter_color(cd, 0.8)
+           @cd_color = "##{cd}"  
+           @cd_hover_color = "##{cd_hover}"  
+	       end
+
+         if (add = params[:add])
+           add_hover = alter_color(add, 0.8)
+           @add_color = "##{add}"  
+           @add_hover_color = "##{add_hover}"  
+	       end
        end
        
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
@@ -73,6 +111,33 @@ class EarlsController < ApplicationController
     else
       redirect_to('/') and return
     end
+  end
+
+  # Perhaps this function should be moved somewhere else?
+  # Darkens or lightens color by amount
+  def alter_color(color, amount)
+    # Parse hex color, convert to int, add amount, convert back to hex, concatenate to reform color
+     r = color[0..1].to_i(16) * amount
+     g = color[2..3].to_i(16) * amount
+     b = color[4..5].to_i(16) * amount
+
+     if (r < 0)
+      r = 0;
+     elsif (r > 255)
+      r = 255;
+     end
+     if (g < 0)
+      g = 0;
+     elsif (g > 255)
+      g = 255; 
+     end
+     if (b < 0)
+      b = 0;
+     elsif (b > 255)
+      b = 255;   
+     end
+
+     return r.floor.to_s(16).rjust(2, '0') + g.floor.to_s(16).rjust(2, '0') + b.floor.to_s(16).rjust(2, '0')
   end
   
   def export_list

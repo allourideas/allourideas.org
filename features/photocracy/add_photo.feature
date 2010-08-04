@@ -1,4 +1,3 @@
-@focus
 Feature: Add photo to marketplace
   In order to have photos from the community be considered 
   A user

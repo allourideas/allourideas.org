@@ -914,7 +914,7 @@ class QuestionsController < ApplicationController
 
     if question_params_valid
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip}
-      earl_options.merge!(:flag_enabled => true) if @photocracy # flag is enabled by default for photocracy
+      earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
       earl = current_user.earls.create(earl_options)
       ClearanceMailer.send_later(:deliver_confirmation, current_user, earl.name, @photocracy)
       IdeaMailer.send_later(:deliver_extra_information, current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?

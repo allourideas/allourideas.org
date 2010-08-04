@@ -28,7 +28,12 @@ class HomeController < ApplicationController
   def admin
     @questions_hash = {}
     if current_user.admin?
-	@earls = Earl.find(:all)
+
+	if @photocracy
+	  @earls = Earl.find(:all, :conditions => {:photocracy => true})
+	else
+	  @earls = Earl.find(:all, :conditions => {:photocracy => false})
+	end
 	@questions = Question.find(:all, :order => 'votes_count')
 	@recent_votes_by_question_id = Question.get(:recent_votes_by_question_id)
 	@user_submitted_idea_info = Question.get(:object_info_totals_by_question_id)

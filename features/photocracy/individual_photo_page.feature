@@ -6,7 +6,7 @@ Feature: View individual photo page
    Background: 
       Given a photocracy idea marketplace quickly exists with url 'test' and admin 'test@example.com/password'
       And I am on the Cast Votes page for 'test'
-      Given I save the current two choices
+      And I save the current two photos
    
    @photocracy
    Scenario: User goes to idea page

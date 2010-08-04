@@ -8,12 +8,16 @@ Feature: Voting history
     And I am on the Cast Votes page for 'test'
     And I save the current two photos
 
+ @photocracy
+ @selenium
  Scenario: User votes on a photo, should see winner and loser
     When I click on the left photo
     Then I should see thumbnails of the two saved choices in the voting history area
     And the left thumbnail should be a winner
     And the right thumbnail should be a loser
 
+ @photocracy
+ @selenium
  Scenario: User skips a prompt
     When I click the I can't decide button
     And I pick "I like both ideas"

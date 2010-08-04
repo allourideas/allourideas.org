@@ -37,6 +37,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:earl] = earl
     @body[:choice_id] = choice_id
     @body[:choice_data] = choice_data
+    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, true)
     @body[:explanation] = explanation
     @body[:photocracy] = photocracy
     @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')

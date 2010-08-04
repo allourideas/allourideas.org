@@ -382,9 +382,10 @@ function clearImagesCrossfade() {
 		var current_table = $('a.vote.' + side + ' > table');
 		var current_image = current_table.find('img');
 
+		text = $('a.vote.' + side).html().trim();
 		// duplicate the table holding the image
 		// add the class 'fade' to it and remove 'current'
-		$('a.vote.' + side).prepend($('a.vote.' + side).html());
+		$('a.vote.' + side).prepend(text);
 		var fade_table = $('a.vote.' + side + ' > table:first');
 		fade_table.removeClass('current').addClass('fade');
 
@@ -393,7 +394,7 @@ function clearImagesCrossfade() {
 
 		// fade out and remove the fade_table
 		fade_table.animate({opacity: 0}, FADE_TIME, function() {
-			fade_table.remove();
+			$(this).remove();
 		});
 	});
 }

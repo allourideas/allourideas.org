@@ -8,7 +8,7 @@
 
 <%= t('items.email.photocracy_we_have_auto_deactivated') %>
 
-<%= @photocracy ? "http://#{PHOTOCRACY_HOST}/#{@earl.name}/choices/#{@choice_id}" : "http://#{HOST}/#{@earl.name}/choices/#{@choice_id}/activate" %>
+<%= @choice_url %>
 
 <%= t('items.email.if_you_dont_want', :object => @object_type) %>
 

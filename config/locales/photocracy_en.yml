@@ -150,7 +150,7 @@ photocracy_en:
     active_items: active photos
     source: Source
     not_active_error: Sorry, that question is not active.
-    owner_password_exp: The owner of this question has required authentication
+    owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
   vote:
     add_your_idea: Add your own photo here...
     add_your_idea_button: Add your own photo

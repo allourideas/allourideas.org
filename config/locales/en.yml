@@ -30,6 +30,7 @@ en:
     back: Back
     about: About
     create: Create
+    blog: Blog
     view_results: View Results
     about_this_page: About this page
     manage_question: Manage this page
@@ -248,7 +249,8 @@ en:
     oss_2: software. Feel free to review, remix, or redesign. Also, you can use our
     oss_api: API
     oss_3: to create your own pairwise comparison site.
-    twitter: For more frequent updates on the project, you can
+    for_more_frequent_updates: For more frequent updates on the project, you can
+    read our blog: read our blog
     twitter_link: follow us on Twitter.
     add_to_improve_AOI_1: "  You can also vote or add an idea to the"
     add_to_improve_AOI_2: "  You can also vote or add an idea to the"

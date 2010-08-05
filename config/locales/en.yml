@@ -303,6 +303,7 @@ en:
     download: Download
     request: Request
     and_registered_to: and it is registered to
+    google_analytics_code: Google Analytics code
   footer:
     support: This project is supported by grants from Google and CITP at Princeton University.
     open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.

@@ -56,7 +56,7 @@
           = "#{t('admin.username')}: #{@earl.name}"
           %br
           = f.label :pass, "#{t('user.password')}:"
-          = f.text_field :pass, :id => "passfield"
+          = f.text_field :pass, :id => "passfield", :class => 'highlight_change'
           %tr.row2
             %td 
               -if @earl.logo_file_name
@@ -82,6 +82,13 @@
               =link_to('[?]', '#allow_flag_as_inappropriate_exp', :rel => 'facebox')
             %td 
               = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
+          - if current_user.admin?
+            %tr.row2
+              %td
+                = t('admin.google_analytics_code') 
+                =link_to('[?]', 'http://blog.allourideas.org', :target=> '_blank')
+              %td 
+                = f.text_field :ga_code, :class => 'highlight_change'
           %tr.row2
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
@@ -136,7 +143,7 @@
   $('.tablesorter thead tr th').hover(function() { $(this).addClass("headerOver"); } , function() { $(this).removeClass("headerOver"); });
   $('a[rel*=facebox]').facebox();
   $('#facebox').draggable();
-  $('#passfield').change(function(){ $('#savebutton').addClass("active")});
+  $('.highlight_change').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_flag_enabled').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_default_lang').change(function(){ $('#savebutton').addClass("active")});

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100617164530) do
+ActiveRecord::Schema.define(:version => 20100805232919) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20100617164530) do
     t.string   "default_lang",                     :default => "en"
     t.string   "logo_size",                        :default => "medium"
     t.boolean  "flag_enabled",                     :default => false
+    t.string   "ga_code"
   end
 
   create_table "experiments", :force => true do |t|

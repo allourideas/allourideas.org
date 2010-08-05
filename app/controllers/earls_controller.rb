@@ -65,8 +65,8 @@ class EarlsController < ApplicationController
        if @widget    
          @widget_stylesheet = "widget/screen"
 
-         if (text_on_white = params[:text_on_white] & lighter = params[:lighter])
-           lighter_text = alter_color(text_on_white, lighter);
+         if (text_on_white = params[:text_on_white] & brighter = params[:brighter])
+           lighter_text = alter_color(text_on_white, brighter);
            @text_on_white = "##{text_on_white}"  
            @lighter_text_on_white = "##{lighter_text}" 
 	       end

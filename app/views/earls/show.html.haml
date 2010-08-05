@@ -49,13 +49,6 @@
         = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
       %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
 
--unless session[:has_voted]
-  -ab_test(@ab_test_stackoverflow_name, %w{control first_time no_first_time}, :conversion => 'voted') do |the_choice|
-    - unless the_choice == 'control'
-      .firsttime
-        = t('ab_tests.test_stackoverflow.'+ the_choice)
-        %span{:id => "close", :style => "float: right; padding-right: 15px; cursor: pointer;"}= "X";
-   
 #cant_decide_options{:style => 'display:none'}
   %h2= t('vote.cant_decide_title')
   -cd_options= ['like_both','dislike_both', 'dont_know_both', 'dont_know_left','both_same', 'other', 'user_other', 'dont_know_right']

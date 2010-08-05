@@ -6,6 +6,7 @@ class PromptsController < ApplicationController
     voted_prompt = Prompt.find(params[:id], :params => {:question_id => params[:question_id]})
     session[:has_voted] = true
 
+    @earl = Earl.find_by_question_id(params[:question_id])
     if params[:direction] &&
       vote = voted_prompt.post(:vote,
         :question_id => params[:question_id],
@@ -15,8 +16,11 @@ class PromptsController < ApplicationController
       )
 
       next_prompt = Crack::XML.parse(vote.body)['prompt']
+
+      ab_test_name = get_leveling_feedback_abtest_name
+
       leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					                                        :ideas => next_prompt['visitor_ideas'].to_i)
+					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
       result = {
         :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
@@ -40,12 +44,15 @@ class PromptsController < ApplicationController
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:question_id]})
     
+    @earl = Earl.find_by_question_id(params[:question_id])
     if skip = @prompt.post(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
       next_prompt = Crack::XML.parse(skip.body)['prompt']
+      
+      ab_test_name = get_leveling_feedback_abtest_name
       leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					                                        :ideas => next_prompt['visitor_ideas'].to_i)
+					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
       result = {
         :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
@@ -97,8 +104,10 @@ class PromptsController < ApplicationController
 
     if flag_choice_success && skip
       next_prompt = Crack::XML.parse(skip.body)['prompt']
+      
+      ab_test_name = get_leveling_feedback_abtest_name
       leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					                                        :ideas => next_prompt['visitor_ideas'].to_i)
+					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
       result = {
         :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
@@ -124,7 +133,6 @@ class PromptsController < ApplicationController
     future_left_photo  = Photo.find(next_prompt['future_left_choice_text_1'])
     future_right_photo = Photo.find(next_prompt['future_right_choice_text_1'])
 
-    earl = Earl.find_by_question_id(question_id)
     result.merge!({
       :visitor_votes        => next_prompt['visitor_votes'],
       :newright_photo       => newright_photo.image.url(:medium),
@@ -135,8 +143,8 @@ class PromptsController < ApplicationController
       :future_right_photo   => future_right_photo.image.url(:medium),
       :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
       :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
-      :newleft_choice_url   => question_choice_url(earl.name, next_prompt['left_choice_id']), 
-      :newright_choice_url  => question_choice_url(earl.name, next_prompt['right_choice_id']),
+      :newleft_choice_url   => question_choice_url(@earl.name, next_prompt['left_choice_id']), 
+      :newright_choice_url  => question_choice_url(@earl.name, next_prompt['right_choice_id']),
       :flag_url             => flag_question_prompt_url(question_id, next_prompt['id'], :format => :js),
       :skip_url             => skip_question_prompt_url(question_id, next_prompt['id'], :format => :js),
       :voted_at             => Time.now.getutc.iso8601,
@@ -173,5 +181,14 @@ class PromptsController < ApplicationController
                           }
     next_prompt_params.merge!(:future_prompts => {:number => 1}) if @photocracy
     next_prompt_params
+  end
+      
+  def get_leveling_feedback_abtest_name
+      if !@photocracy
+         ab_test_name = "#{@earl.name}_#{@earl.question_id}_leveling_feedback"
+      else
+	 ab_test_name = nil
+      end
+      ab_test_name
   end
 end

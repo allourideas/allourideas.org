@@ -805,9 +805,16 @@ class QuestionsController < ApplicationController
                                       :with_visitor_stats => true,
                                       :visitor_identifier => request.session_options[:id]
                                     })
+	  @earl = Earl.find_by_question_id(params[:id])
+
+          if !@photocracy
+             ab_test_name = "#{@earl.name}_#{@earl.question_id}_leveling_feedback"
+          else
+	    ab_test_name = nil
+          end
 
           leveling_message = Visitor.leveling_message(:votes => @question.attributes['visitor_votes'].to_i,
-                                                      :ideas => @question.attributes['visitor_ideas'].to_i)
+                                                      :ideas => @question.attributes['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
           @earl = Earl.find_by_question_id(@question.id)
           if @choice.active?

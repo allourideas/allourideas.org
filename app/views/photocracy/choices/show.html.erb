@@ -30,6 +30,10 @@
         <%= image_tag(@photo.image.url(:medium)) %>
       </canvas>
     </div>
+
+    <div>
+	    <%= link_to(t('items.view_original_size'), @photo.image.url(:original), :target => "_blank") %>
+    </div>
   </div>
   <div class="grid_6">
     <%= t('items.added_on').upcase %>

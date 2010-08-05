@@ -14,4 +14,3 @@ ActionMailer::Base.smtp_settings = {
 
 DO_NOT_REPLY = "info@allourideas.org"
 MONITORS = ["info@allourideas.org"]
-SIGNUPS = ["signups@allourideas.org"]

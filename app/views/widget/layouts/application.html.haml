@@ -47,4 +47,7 @@
         try {
         var pageTracker = _gat._getTracker("UA-11703548-1");
         pageTracker._trackPageview();
+        - if @earl && @earl.ga_code != ""
+          = "var pageTracker = _gat._getTracker('#{h(@earl.ga_code)}');"
+          pageTracker._trackPageview();
         } catch(err) {}</script>

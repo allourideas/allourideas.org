@@ -71,6 +71,7 @@ photocracy_en:
     you_just_submitted: You just added an photo for people to vote on
     you_have_successfully_activated: You have successfully activated the photo
     you_have_successfully_deactivated: You have successfully deactivated the photo
+    view_original_size: View Original Size
     email:
       hello: "Hello,"
       someone_has: "Someone has uploaded a photo " 

@@ -9,7 +9,17 @@ class Visitor < ActiveRecord::Base
 	E = 0
 	F = 0.7
 
-	def self.leveling_message(params = {:votes => 0, :ideas => 0})
+	def self.leveling_message(params = {:votes => 0, :ideas => 0, :ab_test_name => nil})
+		if params[:ab_test_name].nil? || Rails.env == "cucumber"
+		  treatment = "with_adjective"
+		else
+		  treatment = Abingo.test(params[:ab_test_name], ["no_feedback", "no_adjective", "with_adjective"]) 
+		end
+
+		if treatment == "no_feedback"
+			return ""
+		end
+
 		score = self.level_score(params)
 
 		vote_noun = params[:votes] == 1 ? I18n.t('common.vote').downcase : I18n.t('common.votes').downcase
@@ -23,8 +33,11 @@ class Visitor < ActiveRecord::Base
 					 :idea_num => params[:ideas], 
 					 :idea_noun => idea_noun, 
 					 :adjective => I18n.t(adjective_key))
-		          
 
+		if treatment == "no_adjective"
+			message = message.split(":")[0]
+		end
+		message
 	end
 
 	def self.level_score(params = {:votes => 0, :ideas => 0})

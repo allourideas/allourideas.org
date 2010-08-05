@@ -15,6 +15,7 @@
       var PAGE_LOADED_AT = new Date();
       var RAILS_LOCALE = '#{I18n.locale}';
       var VOTE_CROSSFADE_TRANSITION = #{@vote_crossfade_transition.nil? ? 'false' : @vote_crossfade_transition};
+      var FADE_TIME = #{@crossfade_time.nil? ? 1100 : @crossfade_time};
     =javascript_include_tag 'photocracy/jquery.min', 'photocracy/jquery-ui.min', 'photocracy/application', 'photocracy/jquery.timeago', 'photocracy/ajaxupload.3.9'
     :javascript
       $(document).ready(function(){

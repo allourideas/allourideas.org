@@ -1,7 +1,6 @@
 $.ajaxSetup({
 	timeout: 10000
 });
-FADE_TIME = 1200
 
 $(document).ready(function() {
 	// voting

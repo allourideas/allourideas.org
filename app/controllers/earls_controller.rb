@@ -53,8 +53,14 @@ class EarlsController < ApplicationController
        if @photocracy
           if params[:crossfade]
             @vote_crossfade_transition = eval(params[:crossfade]) rescue true
+	    if params[:crossfade_time]
+	       @crossfade_time = params[:crossfade_time]
+	    end
           else
-            @vote_crossfade_transition = ab_test("#{@earl.name}_#{@earl.question_id}_vote_crossfade_transition", nil, :conversion => "voted")
+	    crossfade_treatments = ["true_500", "true_1000", "true_15000", "false_500", "false_1000", "false_1500"]
+	    crossfade, time = ab_test("#{@earl.name}_#{@earl.question_id}_vote_crossfade_and_time_transition", crossfade_treatments, :conversion => "voted").split("_")
+            @vote_crossfade_transition = eval(crossfade) 
+	    @crossfade_time = time
           end
 
 	  if params[:show_average_votes]

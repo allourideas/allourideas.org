@@ -48,7 +48,10 @@
         'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
         function(data){
           $.unblockUI();
-	  $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+          leveling_text = "";
+          if(data["leveling_message"] != "")
+		leveling_text = " <br /> " + data["leveling_message"];
+	  $('.tellmearea').html(data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
           $('.indicator').hide();
         
@@ -150,7 +153,11 @@
 
 		$('#prompt_id').val(data["prompt_id"]);
 		$('#appearance_lookup').val(data["appearance_lookup"]);
-		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+		
+		leveling_text = "";
+		if(data["leveling_message"] != "")
+		     leveling_text = " <br /> " + data["leveling_message"];
+		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count));
 		$(".votebox tr.prompt td.idea").each(function(el) {
@@ -237,7 +244,12 @@
 		},
 
 		function(data){
-		        $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+		        leveling_text = "";
+		        if(data["leveling_message"] != "")
+		           leveling_text = " <br /> " + data["leveling_message"];
+			feedback = data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+
+		        $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
 			$('.indicator').hide();
 			$.unblockUI();
 			$('.leftside').html(data["newleft"]);
@@ -306,7 +318,10 @@
 				window.location.replace(data["redirect"]);
 		        }
 			else{
-			     $('.tellmearea').html(data["message"] + " <br /> " + data["leveling_message"] + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+		             leveling_text = "";
+		             if(data["leveling_message"] != "")
+		                    leveling_text = " <br /> " + data["leveling_message"];
+			     $('.tellmearea').html(data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 			     $('.indicator').hide();
 			     $.unblockUI();
 			     $('.leftside').html(data["newleft"]);

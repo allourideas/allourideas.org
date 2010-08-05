@@ -65,8 +65,24 @@ class EarlsController < ApplicationController
        if @widget    
          @widget_stylesheet = "widget/screen"
 
+         # Define these here because of bug with ie6 css when color parameters are not defined
+         @text_on_white = "#555555"
+         @lighter_text_on_white = "#797979"
+         @vote_button_hover_color = "#2B88AD"
+         @tab_hover_color = "#A3D4E8"
+         @flag_text_color = "#54AFE2"
+         @vote_button_color = "#3198c1" 
+         @submit_button_color = "#01bb00"
+         @submit_button_hover_color = "#228b53"
+         @cant_decide_button_color = "#C5C5C5"
+         @submit_button_hover_color = "#B1B1B1"
+         @add_idea_button_color = "#01bb00"
+         @add_idea_button_hover_color = "#228b53"
+         @question_text_color = "#000000"
+         @text_on_color = "#FFFFFF"
+
          if (text_on_white = params[:text_on_white])
-           lighter_text = alter_color(text_on_white, 1.1);  
+           lighter_text = alter_color(text_on_white, 1.1)  
            @text_on_white = "##{text_on_white}"  
            @lighter_text_on_white = "##{lighter_text}" 
 	       end

@@ -8,12 +8,9 @@ var count = 0;
     document.getElementById(selector).innerHTML = reload_html;
   }
 
-  //  for reloading the "add your own idea here" field:
-  //  this doesn't currently work properly
   reload_add_idea_field = function() {
-    //var addHTML = $('#the_add_box').html();
-    //document.getElementById("the_add_box").innerHTML = addHTML;
     $('#new_idea_field').val("");
+    $('#new_idea_field').hint();
   }
 
 /*  WIDGET DYNAMIC SIZING AND SPACING ONLOAD FUNCTIONALITY*/

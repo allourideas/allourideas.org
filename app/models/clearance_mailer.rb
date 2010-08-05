@@ -19,10 +19,10 @@ class ClearanceMailer < ActionMailer::Base
     default_url_options[:host] = (photocracy ? PHOTOCRACY_HOST : HOST)
 
     from_address = photocracy ? "info@photocracy.org" : "info@allourideas.org"
+    signup_address = photocracy ? ["signups@photocracy.org"] : ["signups@allourideas.org"]
 
     from       from_address
-    bcc        SIGNUPS
-    cc         SIGNUPS
+    bcc        signup_address
     recipients user.email
     subject    "Account confirmation"
     body      :user => user, 

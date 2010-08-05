@@ -61,7 +61,7 @@ a.photo_frame:hover {
 
 .click_to_vote {
   position: relative;
-  top: -60%;
+  top: 40%;
   z-index: 5;
   text-align: center;
   color: #000;

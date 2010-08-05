@@ -100,4 +100,19 @@ class Abingo::Experiment < ActiveRecord::Base
     end
   end
 
+  def get_session_list(admin_user_list=[])
+	session_list = []
+	alternatives.each do |alt|
+		alt.session_infos.each do |sess|
+			if sess.user_id and admin_user_list.include?(sess.user_id)
+				next
+			else
+			 	session_list << sess.session_id
+			end
+		end
+	end
+	session_list
+  end
+
+
 end

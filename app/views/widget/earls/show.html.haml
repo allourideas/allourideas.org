@@ -19,6 +19,7 @@
         background-color: #{@lighter_text_on_white}; }
 
       .bottom_status {
+        color: #{@text_on_color};
         background-color: #{@vote_button_color};
         border-color: #{@vote_button_color}; } 
 
@@ -26,6 +27,7 @@
         color: #{@question_text_color}; }
 
       table .row0 {
+        color: #{@text_on_color};
         background-color: #{@vote_button_color}; }
 
       .scrollbar_container {
@@ -48,25 +50,38 @@
             background-color: #{@tab_hover_color};
             border-color: #{@tab_hover_color}; }
 
-        .votebox table td.vote_cell {
-          background: #{@vote_button_color}; }
-          .votebox table td.vote_cell:hover {
-            background: #{@vote_button_hover_color}; }
+      .votebox table td.vote_cell {
+        color: #{@text_on_color};
+        background: #{@vote_button_color}; }
+        .votebox table td.vote_cell:hover {
+          background: #{@vote_button_hover_color}; }
+        .votebox table td.vote_cell a {
+          color: #{@text_on_color}; }
+          .votebox table td.vote_cell a:hover {
+            color: #{@text_on_color}; }
 
-        .new_idea_submit, .flag_submit_button, .cd_submit_button {
-          background: #{@submit_button_color}; }
-          .new_idea_submit:hover, .flag_submit_button:hover, .cd_submit_button:hover {
-            background-color: #{@submit_button_hover_color}; }
+      .new_idea_submit, .flag_submit_button, .cd_submit_button {
+        color: #{@text_on_color};
+        background: #{@submit_button_color}; }
+        .new_idea_submit:hover, .flag_submit_button:hover, .cd_submit_button:hover {
+          background-color: #{@submit_button_hover_color}; }
 
-        #cant_decide_btn {
-          background: #{@cant_decide_button_color}; }
-          #cant_decide_btn:hover {
-            background-color: #{@cant_decide_button_hover_color}; }
+      #cant_decide_btn {
+        color: #{@text_on_color};
+        background: #{@cant_decide_button_color}; }
+        #cant_decide_btn:hover {
+          background-color: #{@cant_decide_button_hover_color}; }
 
-        .add_idea .add_idea_button {
-          background: #{@add_idea_button_color}; }
-          .add_idea .add_idea_button:hover {
-            background: #{@add_idea_button_hover_color}; }
+      .add_idea .add_idea_button {
+        color: #{@text_on_color};
+        background: #{@add_idea_button_color}; }
+        .add_idea .add_idea_button a {
+          color: #{@text_on_color}; }
+        .add_idea .add_idea_button:hover {
+          background: #{@add_idea_button_hover_color}; }
+
+      .link_style a {
+        color: #{@text_on_color}; }
 
 
 %body

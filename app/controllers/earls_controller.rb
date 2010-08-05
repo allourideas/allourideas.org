@@ -65,14 +65,14 @@ class EarlsController < ApplicationController
        if @widget    
          @widget_stylesheet = "widget/screen"
 
-         if (text_on_white = params[:text_on_white] & brighter = params[:brighter])
-           lighter_text = alter_color(text_on_white, brighter);
+         if (text_on_white = params[:text_on_white])
+           lighter_text = alter_color(text_on_white, 1.1);  
            @text_on_white = "##{text_on_white}"  
            @lighter_text_on_white = "##{lighter_text}" 
 	       end
 
-         if (vote_button = params[:vote_button] & darker = params[:darker])
-           vote_button_hover = alter_color(vote_button, darker)
+         if (vote_button = params[:vote_button])
+           vote_button_hover = alter_color(vote_button, 0.8)
            @vote_button_color = "##{vote_button}"          
            @vote_button_hover_color = "##{vote_button_hover}"
 	       end
@@ -85,20 +85,20 @@ class EarlsController < ApplicationController
            @flag_text_color = "##{flag_text}"    
 	       end
 
-         if (submit_button = params[:submit_button] & darker = params[:darker])
-           submit_button_hover = alter_color(submit_button, darker)
+         if (submit_button = params[:submit_button])
+           submit_button_hover = alter_color(submit_button, 0.8)
            @submit_button_color = "##{submit_button}"  
            @submit_button_hover_color = "##{submit_button_hover}"  
 	       end
 
-         if (cant_decide_button = params[:cant_decide_button] & darker = params[:darker])
-           cant_decide_button_hover = alter_color(cant_decide_button, darker)
+         if (cant_decide_button = params[:cant_decide_button])
+           cant_decide_button_hover = alter_color(cant_decide_button, 0.8)
            @cant_decide_button_color = "##{cant_decide_button}"  
            @cant_decide_button_hover_color = "##{cant_decide_button_hover}"  
 	       end
 
-         if (add_idea_button = params[:add_idea_button] & darker = params[:darker])
-           add_idea_button_hover = alter_color(add_idea_button, darker)   #darker = 0.8
+         if (add_idea_button = params[:add_idea_button])
+           add_idea_button_hover = alter_color(add_idea_button, 0.8)  
            @add_idea_button_color = "##{add_idea_button}"  
            @add_idea_button_hover_color = "##{add_idea_button_hover}"  
 	       end
@@ -106,6 +106,10 @@ class EarlsController < ApplicationController
          if (question_text = params[:question_text])
            @question_text_color = "##{question_text}"  
 	       end
+
+         if (text_on_color = params[:text_on_color])
+           @text_on_color = "##{text_on_color}"  
+         end
 
        end
        

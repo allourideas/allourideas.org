@@ -109,9 +109,10 @@ class ApplicationController < ActionController::Base
     if (session[:abingo_identity])
 	    Abingo.identity = session[:abingo_identity]
     else
-	    session[:abingo_identity] = visitor.id
-	    Abingo.identity = visitor.id
+	    session[:abingo_identity] = user_session.id
+	    Abingo.identity = user_session.id
     end
+
       
   end
 
@@ -174,8 +175,7 @@ class ApplicationController < ActionController::Base
 
   def render_not_found(exception)
     log_error(exception)
-    notify_hoptoad(exception)
-
+    #notify_hoptoad(exception) 
     render :template => "errors/404.html.haml", :status => 404
   end
   

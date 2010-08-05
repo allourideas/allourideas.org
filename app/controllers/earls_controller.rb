@@ -56,6 +56,13 @@ class EarlsController < ApplicationController
           else
             @vote_crossfade_transition = ab_test("#{@earl.name}_#{@earl.question_id}_vote_crossfade_transition", nil, :conversion => "voted")
           end
+
+	  if params[:show_average_votes]
+            @show_average_votes = eval(params[:crossfade]) rescue true
+	  else
+	    @show_average_votes = ab_test("#{@earl.name}_#{@earl.question_id}_show_average_votes", [false, true], :conversion => "voted")
+	  end
+
           @right_choice_photo = Photo.find(@right_choice_text)
           @left_choice_photo = Photo.find(@left_choice_text)
           @future_right_choice_photo = Photo.find(@question.attributes['future_right_choice_text_1'])

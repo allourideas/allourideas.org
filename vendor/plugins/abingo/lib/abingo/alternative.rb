@@ -20,7 +20,6 @@ class Abingo::Alternative < ActiveRecord::Base
     viewed_alternative = Abingo.find_alternative_for_user(test_name,
       Abingo::Experiment.alternatives_for_test(test_name))
      
-    logger.info("i'm inside score_participation!!!")
 
     lookup = self.calculate_lookup(test_name, viewed_alternative)
     chosen_alt = Abingo::Alternative.find_by_lookup(lookup)

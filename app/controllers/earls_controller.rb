@@ -123,9 +123,9 @@ class EarlsController < ApplicationController
   end
 
   # Perhaps this function should be moved somewhere else?
-  # Darkens or lightens color by amount
+  # Darkens or lightens "color" (hex string) by a factor of "amount"
   def alter_color(color, amount)
-    # Parse hex color, convert to int, add amount, convert back to hex, prepend any necessary 0's, concatenate to reform color
+    # Parse hex color, convert to int, multiply by amount, convert back to hex, prepend any necessary 0's, concatenate to reform color
      r = color[0..1].to_i(16) * amount
      g = color[2..3].to_i(16) * amount
      b = color[4..5].to_i(16) * amount

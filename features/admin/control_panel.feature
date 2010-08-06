@@ -18,6 +18,8 @@ Feature: Control Panel
 	   Then I should see "Which animal is strongest?"
 	   And I should not see "What adjective is better?"
 	   And I should not see "Active User Ideas"
+	   When I follow "Which animal is strongest?"
+	   Then I should see "Which animal is strongest?"
 
 	Scenario: User is an admin
 	   Given an idea marketplace quickly exists with question title 'Which super admin is best?' and admin 'super@admin.com/blah'
@@ -28,3 +30,5 @@ Feature: Control Panel
 	   And I should see "What adjective is better?"
 	   And I should see "Which super admin is best?"
 	   And I should see "Active User Ideas"
+	   When I follow "What adjective is better?"
+	   Then I should see "What adjective is better?"

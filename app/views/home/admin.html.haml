@@ -19,7 +19,7 @@
         -else
           -q = @questions_hash[earl.question_id.to_s]
         %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-          %td.title= link_to truncate(h(q.attributes['name']), :length => 137), url_for(:controller => :questions, :action => :admin, :id => q.earl)
+          %td.title= link_to truncate(h(q.attributes['name']), :length => 137), url_for(:controller => :questions, :action => :admin, :id => earl.name)
         
           %td= q.votes_count
           %td= @recent_votes_by_question_id[q.id.to_s] 

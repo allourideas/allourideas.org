@@ -291,11 +291,11 @@ hr {
 
 /* modified this */
 .add-box {
-  width: 85.812%;
+  width: 90%;
   margin-top: 10px; }
   .add-box textarea {
     border: none;
-    width: 83.066%; }
+    width: 100%; }
 
 input, textarea {
   font-size: 13px;
@@ -667,16 +667,17 @@ table.tablesorter {
   margin-top: 20px; }
 
 .new_text_field {
-  height: 7.323%; }
+  height: 7.323%;
+  width: 800px; }
 
 .new_tellme_text {
   margin-top: 5px; }
 
 #flag_inappropriate {
-  width: 85.812%; }
+  width: 90%; }
   #flag_inappropriate textarea {
     border: none;
-    width: 83.066%; }
+    width: 100%; }
 
 .vote-footer a {
   color: white; }
@@ -713,3 +714,6 @@ table.tablesorter {
 
 .results_content {
   min-height: 100%; }
+
+.text_field_border {
+  border: 2px solid #e9e9e9; }

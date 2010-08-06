@@ -13,7 +13,7 @@ Feature: About
 	  Scenario: User clicks About
 		  When I click the WIDGET About tab
       Then I should see "1)" within ".aboutpage"
-		  And I should not see ".bar-chart"
+		  And I should not see ".results_content"
 	  	And I should not see ".left_choice_cell"
 
 

@@ -88,7 +88,7 @@
     -if @earl.flag_enabled?
       #flag_inappropriate.center{:style => 'display:none'}
         = t('vote.please_explain_flag')
-        = rounded(text_area_tag('new_idea', '', :title => '' , :rows => 2, :cols => 55, :class => 'new_text_field', :id => 'new_flag_field'), 'border-thick')
+        .text_field_border.rounded= text_area_tag('new_idea', '', :title => '' , :rows => 2, :cols => 55, :class => 'new_text_field', :id => 'new_flag_field')
         .close_and_submit
           %a.close.flag_close.fleft{:href => '#page1'}
             = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")

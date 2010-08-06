@@ -39,16 +39,14 @@ a
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
-  width: $body_width                   /* har */
+  width: $body_width   
   height: 100%
   color: $text_color                                
   line-height: 16pt     
-  //border: 1px solid black                           /* STUPID BORDER HERE*/
   float: left
 
 html
   font-size: 100%
-  //height: $body_height
   min-height: $body_height
 
 h1, h2, h3, h4, h5, h6, .large-text
@@ -172,11 +170,10 @@ table
 .bread-crumb
   color: #54afe2
 
-/* ended up adding border to scrollbar div at bottom*/
 .body
   height: 100%
   margin: 1px 0px
-  padding: 0px 0px 0px                  /* har, was   padding: 20px 5px 30px */
+  padding: 0px 0px 0px                
   .center img
     padding: 0px 0px 30px 0px
   .triple-left
@@ -234,7 +231,7 @@ table
   float: center
   height: 80%
 
-$fontScaleFactor = .8                           /* har */
+$fontScaleFactor = .8                      
 
 .votebox table
   text-align: center
@@ -250,9 +247,8 @@ $fontScaleFactor = .8                           /* har */
     &.right
       padding: 0 0 0 2.5px
     &.vote_cell
-      font-size: 16px * $fontScaleFactor        /* har */
+      font-size: 16px * $fontScaleFactor        
       color: white
-      //padding: 0 2px
       height: 90%
       background: $button_color
       &:hover
@@ -310,7 +306,6 @@ hr
   border-bottom: 1px dotted #BBB
   margin: 0 0 15px 0
 
-/* modified this */
 .add-box
   width: 90%     
   margin-top: 10px
@@ -514,7 +509,7 @@ table.tablesorter
 #cant_decide_options
   width: 95%
   text-align: center
-  font-size: 12px    /* har*/
+  font-size: 12px  
   
 
 #cant_decide_options table
@@ -534,8 +529,6 @@ table.tablesorter
   .add_idea_button
     display:inline
     padding: 7.5px 20px 7.5px 20px
-    //width: 265px * $scaleFactor
-    //height: 3em * $scaleFactor
     color: #FFFFFF
     font-size: 16px * $fontScaleFactor
     cursor: pointer
@@ -587,8 +580,6 @@ table.tablesorter
   .next_page
     margin-left: 1em
 
-/* this is all me after this...*/
-
 #radio_button
   padding-right: 10px
 
@@ -603,14 +594,14 @@ table.tablesorter
 
 .scrollbar_container
   height: 93%
-  border: 4px solid $border_color              /* har, comment out other border code*/
+  border: 4px solid $border_color             
   border-bottom: 0px
   overflow: auto
 
 .bottom_status
-  height: 16px                                 //  cool, so this tihng is 16px big
+  height: 16px                               
   line-height: 16px
-  border: 4px solid $border_color              /* har, comment out other border code*/
+  border: 4px solid $border_color              
   text-align: center
   background-color: $border_color
   color: white
@@ -619,18 +610,11 @@ table.tablesorter
   color: white
   font-weight: bold
   &:hover
-    //color: white
     font-weight: bolder
     text-decoration: underline
 
-#tellme_prepend_spot
-//  text-align: left
-
-
-$tellmearea_fontsize: 14px
-
 .tellmearea
-  font-size: $tellmearea_fontsize
+  font-size: 14px
 
 .close_and_submit
   margin-top: 5px
@@ -676,14 +660,11 @@ $tellmearea_fontsize: 14px
       border-color: lighten($border_color, 30%)
 
 .vote-nav
-  height: 25.4px                             //  cool, so this thing is 25.4px big
+  height: 25.4px                          
   font-size: 12px
 
 .question
-  //margin-top: $margin * 2.5
-  //margin-bottom: $margin * 2.5
-  //padding-top: 1%
-  font-size: 16px                             /*har*/
+  font-size: 16px                       
   width: 85%           
   color: black
   height: 100%

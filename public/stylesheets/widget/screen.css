@@ -157,7 +157,6 @@ table {
 .bread-crumb {
   color: #54afe2; }
 
-/* ended up adding border to scrollbar div at bottom */
 .body {
   height: 100%;
   margin: 1px 0px;
@@ -289,7 +288,6 @@ hr {
   border-bottom: 1px dotted #bbbbbb;
   margin: 0 0 15px 0; }
 
-/* modified this */
 .add-box {
   width: 90%;
   margin-top: 10px; }
@@ -557,7 +555,6 @@ table.tablesorter {
   .pagination .next_page {
     margin-left: 1em; }
 
-/* this is all me after this... */
 #radio_button {
   padding-right: 10px; }
 

@@ -30,7 +30,7 @@ Feature: Leveling Adjectives
 		  And I click on the left choice
 		  Then I should see "Now you have cast 2 votes and added 0 ideas: good" within ".bottom_status"
 
-    @widget2	
+    @widget	
 	  @selenium
 	  Scenario Outline: User submits a combination of votes and ideas
 		  When I vote on the WIDGET <num_votes> times

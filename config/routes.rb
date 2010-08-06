@@ -6,7 +6,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :questions,
     :collection => {
-      :visitor_voting_history => :get
     },
     :member => {
       :add_idea => :post,
@@ -14,7 +13,8 @@ ActionController::Routing::Routes.draw do |map|
       :toggle_autoactivate => :post,
       :delete_logo => :delete,
       :addphotos => :get,
-      :upload_photos => :post
+      :upload_photos => :post,
+      :visitor_voting_history => :get
     } do |question|
 	  question.resources :prompts, 
 		  :only => [:vote, :skip, :flag],

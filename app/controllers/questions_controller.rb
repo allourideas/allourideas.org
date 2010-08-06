@@ -1056,7 +1056,7 @@ class QuestionsController < ApplicationController
   end
 
   def visitor_voting_history
-    @votes = Session.new(:id => request.session_options[:id]).get(:votes)
+    @votes = Session.new(:id => request.session_options[:id]).get(:votes, :question_id => params[:id])
 
     if @photocracy
       @votes['votes'].each do |vote|

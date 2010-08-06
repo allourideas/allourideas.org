@@ -155,7 +155,7 @@
       $('#how_does_this_work').dialog({autoOpen:false, width:600, height: 800});
 
       // load the visitor's voting history
-      jQuery.get('/questions/visitor_voting_history.json', function(data){
+      jQuery.get('/questions/#{@question.id}/visitor_voting_history.json', function(data){
 
         updateVisitorVotes(data['votes'].length);
 

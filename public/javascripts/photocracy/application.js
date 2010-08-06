@@ -381,7 +381,7 @@ function clearImagesCrossfade() {
 		var current_table = $('a.vote.' + side + ' > table');
 		var current_image = current_table.find('img');
 
-		text = $('a.vote.' + side).html().trim();
+		text = jQuery.trim($('a.vote.' + side).html());
 		// duplicate the table holding the image
 		// add the class 'fade' to it and remove 'current'
 		$('a.vote.' + side).prepend(text);

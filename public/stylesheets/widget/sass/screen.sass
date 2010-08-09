@@ -1,20 +1,9 @@
-// Note: Replaced all color #919191 with $text_color
-
-$body_width:100%          //  437px for the 450x410 widget... I suspect 340 is about the minimum width without causing overflow with "marvelous" or "incredible" and double digit ideas/votes
-$body_height: 100%         //  402px
-
-$cv_height: 93%           // cast votes height
-$sc_height: 93%          //  height of scrollbar container... 340px for the 450x410 widget
-
-$vn_height: 100% - $cv_height   //  vote nav height
-$bs_height: 100% - $sc_height   //  bottom status height
-
-$_sw: $body_width / 437px   //  scale factor for width
-$_sh: $sc_height / 340px    //  scale factor for height
+$body_width:100%          
+$body_height: 100%        
 
 $text_color: #555555
 $border_color: #3198c1
-$button_color: #3198c1  //  #3198c1
+$button_color: #3198c1
 $button_hover_color: #2B88AD
 
 $margin: 5px
@@ -50,26 +39,15 @@ a
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
-  width: $body_width                   /* har */
+  width: $body_width   
   height: 100%
   color: $text_color                                
   line-height: 16pt     
-  //border: 1px solid black                           /* STUPID BORDER HERE*/
   float: left
 
 html
   font-size: 100%
-  //height: $body_height
   min-height: $body_height
-
-
-//.content
-//  height: $body_height 
-
-//#cast_votes
-//  height: $cv_height
-  //min-height: 100%
-
 
 h1, h2, h3, h4, h5, h6, .large-text
   color: #797979
@@ -131,7 +109,7 @@ table
     background-color: #fefefe
   .thin td
     padding: 2px 5px
-    height: 2px * $_sw
+    height: 2px
   &.recent-winners td
     text-align: center
   &.item td:last-child
@@ -139,7 +117,7 @@ table
   &.left
     margin: 0
   &.signup td
-    max-width: 400px * $_sw
+    max-width: 400px
   .score 
     padding-right: 5px  
   
@@ -192,18 +170,17 @@ table
 .bread-crumb
   color: #54afe2
 
-/* ended up adding border to scrollbar div at bottom*/
 .body
   height: 100%
   margin: 1px 0px
-  padding: 0px 0px 0px                  /* har, was   padding: 20px 5px 30px */
+  padding: 0px 0px 0px                
   .center img
     padding: 0px 0px 30px 0px
   .triple-left
-    min-height: 150px * $_sw
+    min-height: 150px
   #body
     .triple-center, .triple-right
-      min-height: 150px * $_sw
+      min-height: 150px
 
 
 .triple-left, .triple-center, .triple-right, .double-left
@@ -214,12 +191,12 @@ table
 
 .image-example
   border: 2px solid #eeeeee
-  width: 250px * $_sw
+  width: 250px
   margin: 0px 0px 10px
 
 .button
   border: 1px solid $button_color
-  width: 125px * $_sw
+  width: 125px
   padding: 2px 0px
   background-color: #54afe2
   text-align: center
@@ -234,31 +211,30 @@ table
 .triple-left
   border-right: 1px dotted #d8dbdc
   padding: 0px 15px 2px 0px
-  width: 264px * $_sw
+  width: 264px
 
 .triple-center
   border-right: 1px dotted #d8dbdc
   padding: 0px 15px 2px 15px
-  width: 249px * $_sw
+  width: 249px
 
 .triple-right
   padding: 0px 0px 2px 15px
-  width: 265px * $_sw
+  width: 265px
 
 .double-left
   padding: 0px 15px 2px 0px
-  width: 545px * $_sw
+  width: 545px
 
 .votebox
   width: 98.5%
   float: center
   height: 80%
 
-$fontScaleFactor = .8                           /* har */
+$fontScaleFactor = .8                      
 
 .votebox table
   text-align: center
-  //height: 50%   // 108px * $_sh
   height: 40%
   tbody
     height: 100%
@@ -271,9 +247,8 @@ $fontScaleFactor = .8                           /* har */
     &.right
       padding: 0 0 0 2.5px
     &.vote_cell
-      font-size: 16px * $fontScaleFactor        /* har */
+      font-size: 16px * $fontScaleFactor        
       color: white
-      //padding: 0 2px
       height: 90%
       background: $button_color
       &:hover
@@ -309,11 +284,11 @@ $fontScaleFactor = .8                           /* har */
     float: right
     padding: 0
   .triple-left p
-    width: 153px  * $_sw
+    width: 153px
   .triple-center p
-    width: 205px * $_sw
+    width: 205px
   .triple-right p
-    width: 220px * $_sw
+    width: 220px
 
 .bar-chart
   border: 1px solid #ccc
@@ -331,13 +306,12 @@ hr
   border-bottom: 1px dotted #BBB
   margin: 0 0 15px 0
 
-/* modified this */
 .add-box
-  width: 375px * $_sw   /* har ... was 425px */
+  width: 90%     
   margin-top: 10px
   textarea
     border: none
-    width: 363px * $_sw   /* har ... was 400px */
+    width: 100%       
 
 input, textarea
   font-size: 13px
@@ -535,14 +509,14 @@ table.tablesorter
 #cant_decide_options
   width: 95%
   text-align: center
-  font-size: 12px    /* har*/
+  font-size: 12px  
+  
 
 #cant_decide_options table
   text-align: left
 
 #cant_decide_btn
   background: #C5C5C5
-  //padding: 7.5px * $_sw 12px * $_sw 7.5px * $_sw 12px * $_sw
   display:inline
   padding: 7.5px 12px 7.5px 12px
   font-size: 16px * $fontScaleFactor
@@ -554,10 +528,7 @@ table.tablesorter
 .add_idea
   .add_idea_button
     display:inline
-    //padding: 7.5px * $_sw 20px * $_sw 7.5px 20px
     padding: 7.5px 20px 7.5px 20px
-    //width: 265px * $scaleFactor
-    //height: 3em * $scaleFactor
     color: #FFFFFF
     font-size: 16px * $fontScaleFactor
     cursor: pointer
@@ -609,8 +580,6 @@ table.tablesorter
   .next_page
     margin-left: 1em
 
-/* this is all me after this...*/
-
 #radio_button
   padding-right: 10px
 
@@ -620,26 +589,19 @@ table.tablesorter
 #narrow_column 
   width: 40%
 
-#user_cd_reason
-  width: 145px * $_sw
-
 .user_cd_reason
   padding-left: 2px
 
 .scrollbar_container
-  // width: 425px * $_sw
-  height: $sc_height
-  border: 4px solid $border_color              /* har, comment out other border code*/
+  height: 93%
+  border: 4px solid $border_color             
   border-bottom: 0px
   overflow: auto
 
 .bottom_status
-  //height: 16px //  100% - $sc_height                                    //22px * $_sw
-  height: 16px                                 //  cool, so this tihng is 16px big
+  height: 16px                               
   line-height: 16px
-  border: 4px solid $border_color              /* har, comment out other border code*/
-  //border-top: 0px
-  // width: 425px * $_sw
+  border: 4px solid $border_color              
   text-align: center
   background-color: $border_color
   color: white
@@ -648,18 +610,11 @@ table.tablesorter
   color: white
   font-weight: bold
   &:hover
-    //color: white
     font-weight: bolder
     text-decoration: underline
 
-#tellme_prepend_spot
-//  text-align: left
-
-
-$tellmearea_fontsize: 14px
-
 .tellmearea
-  font-size: $tellmearea_fontsize
+  font-size: 14px
 
 .close_and_submit
   margin-top: 5px
@@ -687,7 +642,6 @@ $tellmearea_fontsize: 14px
       background-color: $border_color  
       border-color: $border_color  
   li
-    //height: 100% - $cv_height      //height: 22px * $_sw             /* if i ever had a compelling desire to change the tab height, this is where i'd change it*/
     display: inline
     float: left
     border-top: 4px solid $border_color 
@@ -706,16 +660,12 @@ $tellmearea_fontsize: 14px
       border-color: lighten($border_color, 30%)
 
 .vote-nav
-  //width: 425px * $_sw + 8                  /* needs to be same width as scrollbar container + its borders*/
-  height: 25.4px                             //  cool, so this thing is 25.4px big
+  height: 25.4px                          
   font-size: 12px
 
 .question
-  //margin-top: $margin * 2.5
-  //margin-bottom: $margin * 2.5
-  //padding-top: 1%
-  font-size: 16px                             /*har*/
-  width: 85%            //  395px * $_sw
+  font-size: 16px                       
+  width: 85%           
   color: black
   height: 100%
   
@@ -736,17 +686,14 @@ $tellmearea_fontsize: 14px
 .showmespace
   margin-top: $margin * 4
 
-.new_text_field
-  height: 32px * $_sw
-
 .new_tellme_text
   margin-top: $margin
 
 #flag_inappropriate
-  width: 375px * $_sw  /* har ... was 425px */
+  width: 90%
   textarea
     border: none
-    width: 363px * $_sw   /* har ... was 400px */
+    width: 100%      
 
 .vote-footer
   a
@@ -784,3 +731,6 @@ $tellmearea_fontsize: 14px
 
 .results_content
   min-height: 100%
+
+.text_field_border
+  border: 2px solid #E9E9E9

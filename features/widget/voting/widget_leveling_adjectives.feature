@@ -33,7 +33,7 @@ Feature: Leveling Adjectives
     @widget	
 	  @selenium
 	  Scenario Outline: User submits a combination of votes and ideas
-		  When I vote <num_votes> times
+		  When I vote on the WIDGET <num_votes> times
 		  And I upload <num_ideas> ideas
 		  Then I should see "Now you have cast <num_votes> votes and added <num_ideas> ideas: <adjective>" within ".bottom_status"
 		  Scenarios: combination

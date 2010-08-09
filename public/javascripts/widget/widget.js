@@ -1,4 +1,5 @@
 /*  Resize the scrollbar container to fill the remaining space between the vote nav bar and the bottom status footer */
+/*  Resize the user_cd_reason text area semi-intelligently */
 
  var viewportwidth;
  var viewportheight;
@@ -30,10 +31,16 @@
  }
 
 var newHeight;
+var user_cd_reason_width = viewportwidth * .35 - 20;
+
+if (user_cd_reason_width > 150)
+  user_cd_reason_width = 150;
 
 resize_widget = function () {
   newHeight = viewportheight - 16 - 25.4 - 14;
+  
   $('.scrollbar_container').height(newHeight + 'px');
+  $('#user_cd_reason').width(user_cd_reason_width + 'px');
   $('.bottom_status').show();
 };
 

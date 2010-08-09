@@ -195,6 +195,7 @@ var count = 0;
 
     //  Remove in case it's still there... flag stuff
     $('#new_flag_field').val('');
+    $('#flag_inappropriate').hide();
 
     //  Remove in case it's still there... other stuff
     $('#initial_notice').hide();           
@@ -421,6 +422,8 @@ var count = 0;
     //  hide/show everything necessary
     $('.vote-footer').hide();      
     $('.add_container').hide();
+    $('.add-box').hide();
+    $('#cant_decide_options').hide();
     $('#flag_inappropriate').show();
     
     event.stopPropagation();

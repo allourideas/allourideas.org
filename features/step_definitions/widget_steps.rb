@@ -28,3 +28,16 @@ end
 And /^I wait (.*) seconds$/ do |wait_time|
   sleep wait_time.to_i
 end
+
+When /^I vote on the WIDGET (\d*) times$/ do |num_votes|
+	num_votes.to_i.times do
+    sleep 0.5
+		if rand(2) == 1
+		   When "I click on the left choice" 
+		else
+		   When "I click on the right choice"
+		end
+
+	end
+end
+

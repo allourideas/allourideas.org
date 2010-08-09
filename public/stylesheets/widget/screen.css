@@ -98,7 +98,7 @@ table {
     background-color: #fefefe; }
   table .thin td {
     padding: 2px 5px;
-    height: 0.458%; }
+    height: 2px; }
   table.recent-winners td {
     text-align: center; }
   table.item td:last-child {
@@ -106,7 +106,7 @@ table {
   table.left {
     margin: 0; }
   table.signup td {
-    max-width: 91.533%; }
+    max-width: 400px; }
   table .score {
     padding-right: 5px; }
 
@@ -157,7 +157,6 @@ table {
 .bread-crumb {
   color: #54afe2; }
 
-/* ended up adding border to scrollbar div at bottom */
 .body {
   height: 100%;
   margin: 1px 0px;
@@ -165,9 +164,9 @@ table {
   .body .center img {
     padding: 0px 0px 30px 0px; }
   .body .triple-left {
-    min-height: 34.325%; }
+    min-height: 150px; }
   .body #body .triple-center, .body #body .triple-right {
-    min-height: 34.325%; }
+    min-height: 150px; }
 
 .triple-left, .triple-center, .triple-right, .double-left {
   float: left; }
@@ -177,12 +176,12 @@ table {
 
 .image-example {
   border: 2px solid #eeeeee;
-  width: 57.208%;
+  width: 250px;
   margin: 0px 0px 10px; }
 
 .button {
   border: 1px solid #3198c1;
-  width: 28.604%;
+  width: 125px;
   padding: 2px 0px;
   background-color: #54afe2;
   text-align: center;
@@ -197,20 +196,20 @@ table {
 .triple-left {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 0px;
-  width: 60.412%; }
+  width: 264px; }
 
 .triple-center {
   border-right: 1px dotted #d8dbdc;
   padding: 0px 15px 2px 15px;
-  width: 56.979%; }
+  width: 249px; }
 
 .triple-right {
   padding: 0px 0px 2px 15px;
-  width: 60.641%; }
+  width: 265px; }
 
 .double-left {
   padding: 0px 15px 2px 0px;
-  width: 124.714%; }
+  width: 545px; }
 
 .votebox {
   width: 98.5%;
@@ -267,11 +266,11 @@ table {
     float: right;
     padding: 0; }
   .footer .triple-left p {
-    width: 35.011%; }
+    width: 153px; }
   .footer .triple-center p {
-    width: 46.911%; }
+    width: 205px; }
   .footer .triple-right p {
-    width: 50.343%; }
+    width: 220px; }
 
 .bar-chart {
   border: 1px solid #cccccc;
@@ -289,13 +288,12 @@ hr {
   border-bottom: 1px dotted #bbbbbb;
   margin: 0 0 15px 0; }
 
-/* modified this */
 .add-box {
-  width: 85.812%;
+  width: 90%;
   margin-top: 10px; }
   .add-box textarea {
     border: none;
-    width: 83.066%; }
+    width: 100%; }
 
 input, textarea {
   font-size: 13px;
@@ -557,7 +555,6 @@ table.tablesorter {
   .pagination .next_page {
     margin-left: 1em; }
 
-/* this is all me after this... */
 #radio_button {
   padding-right: 10px; }
 
@@ -566,9 +563,6 @@ table.tablesorter {
 
 #narrow_column {
   width: 40%; }
-
-#user_cd_reason {
-  width: 33.181%; }
 
 .user_cd_reason {
   padding-left: 2px; }
@@ -666,17 +660,14 @@ table.tablesorter {
 .showmespace {
   margin-top: 20px; }
 
-.new_text_field {
-  height: 7.323%; }
-
 .new_tellme_text {
   margin-top: 5px; }
 
 #flag_inappropriate {
-  width: 85.812%; }
+  width: 90%; }
   #flag_inappropriate textarea {
     border: none;
-    width: 83.066%; }
+    width: 100%; }
 
 .vote-footer a {
   color: white; }
@@ -713,3 +704,6 @@ table.tablesorter {
 
 .results_content {
   min-height: 100%; }
+
+.text_field_border {
+  border: 2px solid #e9e9e9; }

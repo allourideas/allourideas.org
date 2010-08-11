@@ -365,8 +365,8 @@ function loadNextPrompt(data) {
 		// change photos
 		current_table.html("<tr><td><img style='display:none;' src='" + data['new' + side + '_photo'] + "'/></td></tr>");
 
-		// fade in photo
-		current_table.find('img').fadeIn(FADE_TIME, function() {
+		// fade in photo - don't vary fade in time
+		current_table.find('img').fadeIn(FADE_IN_TIME, function() {
 			// allow voting after fully faded in
 			$('a.vote.' + side).removeClass('loading');
 		});

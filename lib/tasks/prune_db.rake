@@ -17,4 +17,22 @@ namespace :prune_db do
 	   end
 
    end
+
+   task(:hash_ip_addresses => :environment) do
+       
+	counter = 0
+	bad_counter = 0
+        SessionInfo.all.each do |s|
+	    if s.ip_addr =~ /\d+[.]\d+[.]\d+[.]\d+/
+	       counter += 1
+	       s.ip_addr = Digest::MD5.hexdigest([s.ip_addr, IP_ADDR_HASH_SALT].join(""))
+	       s.save!
+	    else
+	       bad_counter += 1
+	       print s.ip_addr
+	    end
+	end
+
+	print bad_counter
+   end
 end

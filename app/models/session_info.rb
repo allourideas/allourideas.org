@@ -37,6 +37,7 @@ class SessionInfo< ActiveRecord::Base
 
 	      self.loc_info_2 = {} if self.loc_info_2.blank? || loc_info_2[:latitude].nil? || loc_info_2[:longitude].nil?
 
+              self.ip_addr = Digest::MD5.hexdigest([ip_address, IP_ADDR_HASH_SALT].join(""))
 	      self.save
 	end
 

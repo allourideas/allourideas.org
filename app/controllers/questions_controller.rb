@@ -359,6 +359,10 @@ class QuestionsController < ApplicationController
         :text => [t('results.scores_of'), t('results.uploaded_ideas'), t('common.and'), t('results.original_ideas')].join(' '), 
         :style => { :color => '#919191' }
       },
+      :subtitle => { 
+        :text => t('results.rollover_to_see_more'), 
+        :style => { :color => '#919191' }
+      },
       :x_axis => { 
         :min => '0', 
         :max => '100', 

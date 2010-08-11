@@ -119,6 +119,7 @@ fr:
     vote_map_geo_error: "Nous n’avons pas pu trouver l’emplacement du "
     previous: << Précédent
     next: Prochain >>
+    rollover_to_see_more: Passez la souris sur chaque point pour en savoir plus
   about_page: 
     intro: Vous participez à un "marché idée" qui permet aux groupes de recueillir des idées et établir des priorités dans un processus démocratique, ouverte et efficace. En combinant un processus de vote simple avec le téléchargement d'idées, les meilleures idées dans le groupe fera des bulles vers le haut.
     exp_widget: Ce widget marché idée est alimenté par www.allourideas.org, un projet de recherche dirigée par le professeur Matthew Salganik, Département de sociologie, Université de Princeton. 

@@ -119,6 +119,7 @@ es:
     vote_map_geo_error: "No se pudo ubicar la localización de"
     previous: << Anterior
     next: Próximo >>
+    rollover_to_see_more: Mueva el cursor sobre cada punto para obtener más información
   about_page: 
     intro: Estás participando en un mercado "idea" que permite a los grupos para recoger y dar prioridad a las ideas en un proceso democrático, abierto y eficiente. Mediante la combinación de un proceso de votación simple con carga abierto de ideas, las mejores ideas de su grupo saldrán a la parte superior. 
 

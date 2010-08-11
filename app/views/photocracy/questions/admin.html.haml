@@ -46,6 +46,11 @@
           = "#{t('admin.username')}: #{@earl.name} <br />"
           = f.label :pass, "#{t('user.password')}:"
           = f.text_field :pass, :id => "passfield"
+        %h7.strong.no_margin= t('admin.google_analytics_code')
+        %p
+          = t('admin.google_analytics_code') 
+          = link_to('[?]', 'http://blog.allourideas.org', :target=> '_blank')
+          = f.text_field :ga_code
       
         -#%h7.strong.no_margin
           -if @earl.logo_file_name

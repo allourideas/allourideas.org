@@ -82,14 +82,13 @@
               =link_to('[?]', '#allow_flag_as_inappropriate_exp', :rel => 'facebox')
             %td 
               = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
-          - if current_user.admin?
-            %tr.row2
-              %td
-                = t('admin.google_analytics_code') 
-                =link_to('[?]', 'http://blog.allourideas.org', :target=> '_blank')
-              %td 
-                = f.text_field :ga_code, :class => 'highlight_change'
           %tr.row2
+            %td
+              = t('admin.google_analytics_code') 
+              =link_to('[?]', 'http://blog.allourideas.org', :target=> '_blank')
+            %td 
+              = f.text_field :ga_code, :class => 'highlight_change'
+          %tr.row1
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
   %b

@@ -9,5 +9,9 @@
 		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
+      <%- if @earl && @earl.ga_code != "" -%>
+	 <%= "var pageTracker = _gat._getTracker('#{h(@earl.ga_code)}');" %>
+          pageTracker._trackPageview();
+      <%- end -%>
 
 </script>

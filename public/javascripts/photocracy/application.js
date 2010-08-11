@@ -54,14 +54,26 @@ $(document).ready(function() {
 	      }
 	    },
 	    onComplete : function(file, response){
-	      thumbnail_url = response.thumbnail_url;
-
-	      $('#uploaded_thumbnail').attr('src', thumbnail_url);
-	      $('#uploaded_thumbnail').show();
 	      
 	      $('#photo_step_1').hide();
 	      $('#photo_step_2').hide();
 	      $('#photo_step_3').show();
+	      
+	      if(response.response_status == "200"){
+	          thumbnail_url = response.thumbnail_url;
+
+	          $('#uploaded_thumbnail').attr('src', thumbnail_url);
+	          $('#uploaded_thumbnail').show();
+	          $('.photo_success_message').show();
+	          $('.photo_error_message').hide();
+	      }
+	      else{
+	          $('#uploaded_thumbnail').hide();
+	          $('.photo_success_message').hide();
+	          $('.photo_error_message').show();
+	          $('#photo_details_message').html(response.errors);
+	      }
+	      
 	    }
 	  });
 	};

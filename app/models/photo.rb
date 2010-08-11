@@ -14,6 +14,9 @@ class Photo < ActiveRecord::Base
   end
 
   has_attached_file :image, paperclip_options
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', "image/png", "image/gif"], :message => "Not a supported image type (jpg, png, gif only)"
+  validates_attachment_size :image, :less_than => 5.megabytes, :message => "size needs to be less than 5 megabytes"
+
   attr_accessor :rotation_degrees, :rotate
 
   def rotate!(degrees = 90)

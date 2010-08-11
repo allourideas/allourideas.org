@@ -94,14 +94,21 @@
     #photo_step_3{:style => 'display:none'}
       .photo_container
         .float_left{:style => 'width:40%;'}
-          %p
-            %strong
-              =t('vote.thanks')
-            %br
-            -if @question.attributes['it_should_autoactivate_ideas']
-              =t('vote.photo_accepted')
-            -else
-              =t('vote.photo_submitted')
+          .photo_success_message
+            %p
+              %strong
+                =t('vote.thanks')
+              %br
+              -if @question.attributes['it_should_autoactivate_ideas']
+                =t('vote.photo_accepted')
+              -else
+                =t('vote.photo_submitted')
+          .photo_error_message
+            Whoops! There was a problem uploading this image.
+            #photo_details_message
+              Please try again
+
+
         .float_right{:style => 'width:40%;'}
           %img{:id => 'uploaded_thumbnail', :style => 'display:none'}
       %br

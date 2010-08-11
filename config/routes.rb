@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 		  :member => {
 		  	:activate => :get, # these shouldn't be get requests, but they need to work in email
         :deactivate => :get,
+        :rotate => :post,
         :votes => :get
 		  },
 		  :path_prefix => '/:question_id'

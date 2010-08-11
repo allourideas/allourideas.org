@@ -53,6 +53,10 @@
           <span> <%= @choice.active? ? t('items.list.activated') : t('items.list.deactivated') %></span>
         </label>
        </h4>
+       <h4>
+          <%= link_to('Rotate Image', rotate_question_choice_path(:deg => 90), :method => :post) %>
+          <%= image_tag 'photocracy/rotate.png', :size => '30x30' %>
+       </h4>
     <% end %>
 
     <p class="gray"><i>

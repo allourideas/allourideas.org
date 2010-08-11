@@ -1,7 +1,7 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
   before_filter :authenticate, :only => [:toggle]
-  before_filter :earl_owner_or_admin_only, :only => [:activate, :deactivate]
+  before_filter :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
 
   def show
     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
@@ -67,6 +67,20 @@ class ChoicesController < ApplicationController
   
   def deactivate
     set_choice_active(false, t('items.you_have_successfully_deactivated'))
+  end
+
+  def rotate
+    if @photocracy
+       @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
+       @image = Photo.find(@choice.data.strip)
+       rotation = params[:deg].to_f
+       rotation ||= 90 # Optional, otherwise, check for nil!
+    
+       @image.rotate!(rotation)
+       flash[:notice] = "The image has been rotated"
+    end
+     
+    redirect_to question_choice_path
   end
   
   protected 

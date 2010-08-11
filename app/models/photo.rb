@@ -3,7 +3,8 @@ class Photo < ActiveRecord::Base
                          { :large => "600x600>",
                            :medium => "425x340>",
                            :thumb => "x50" 
-                         }
+                         },
+			:processors => [:rotator]
                       }
   unless ["cucumber", "development"].include?(Rails.env)
     paperclip_options.merge!({ :path => ":attachment/:id/:style.:extension",
@@ -13,4 +14,20 @@ class Photo < ActiveRecord::Base
   end
 
   has_attached_file :image, paperclip_options
+  attr_accessor :rotation_degrees, :rotate
+
+  def rotate!(degrees = 90)
+    self.rotation += degrees
+    self.rotation -= 360 if self.rotation >= 360
+    self.rotation += 360 if self.rotation <= -360
+    
+    self.rotate = true
+    self.image.reprocess!
+    self.save
+  end
+  
+  def rotating?
+    !self.rotation.nil? and self.rotate
+  end
+
 end

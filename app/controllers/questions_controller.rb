@@ -782,10 +782,10 @@ class QuestionsController < ApplicationController
 			:backgroundColor => '#FFFFFF'
 		      },
 	    :legend => { :enabled => false },
-            :title => { :text => 'Number of Appearances per Choice by creation date', 
+            :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation', 
 		     	:style => { :color => '#919191' }
 		      },
-	    :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since creation",:enabled => true} },
+	    :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since idea marketplace creation",:enabled => true} },
 	    :y_axis => { :type => 'linear', :min => 0, :title => {:text => 'Number of Appearances'}},
 	    :series => [ { :name => "Data",
 			   :type => 'scatter',

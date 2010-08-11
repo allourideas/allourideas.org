@@ -114,6 +114,9 @@ en:
       error:
         registration: Sorry, we couldn't register you.
         header: errors prohibited this website from being created.
+        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.photocracy.org? You can 
+        already_taken_link: log-in with your photocracy.org account
+
       header: Create your website and get ready to discover the best ideas...
       step1: "Step 1: Create your website"
       step1_exp:   "For example, \"Which do you want more from the student government?\""

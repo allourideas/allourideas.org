@@ -11,7 +11,10 @@
 
             %ul
               -@user.errors.each do |error|
-                %li= error.join(' ').capitalize
+                - if error.join(' ') =~ /Email has already been taken/i
+                  %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
+                - else
+                  %li= error.join(' ').capitalize
 
       %h6.no_margin= t('questions.new.step1')
       %p

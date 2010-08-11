@@ -108,6 +108,8 @@ photocracy_en:
       error:
         registration: Sorry, we couldn't register you.
         header: errors prohibited this website from being created.
+        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.allourideas.org? You can 
+        already_taken_link: log-in with your allourideas.org account
       header: Create your site
       sidebar: Discover the best photos
       step1: "Step 1: Question for your visitors"

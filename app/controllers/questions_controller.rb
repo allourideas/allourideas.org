@@ -300,7 +300,8 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
-    chart_data = []
+    seed_data = []
+    user_data = []
     jitter = {}
     jitter[0] = Hash.new(0)
     jitter[1] = Hash.new(0)
@@ -312,20 +313,21 @@ class QuestionsController < ApplicationController
       else
         point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s
       end
+      point[:color] = c.attributes['user_created'] ? '#BF0B23' : '#0C89F0'
       point[:x] = c.score.round
       point[:y] = c.attributes['user_created'] ? 1 : 0
 
-      if i % 2 == 1
-        jitter[point[:y]][point[:x]] += 0.04
-      end
-      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
-      if i % 2 == 0
-        point[:y] += thejitter 
-      else
-        point[:y] -= thejitter
-      end
+      jitter[point[:y]][point[:x]] += 0.04 
 
-      chart_data << point
+      thejitter = [jitter[point[:y]][point[:x]], 0.5].min
+      
+      point[:y] += thejitter 
+
+      if c.attributes['user_created']
+	      user_data << point
+      else
+              seed_data << point
+      end
     end
 
     choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
@@ -354,7 +356,7 @@ class QuestionsController < ApplicationController
       },
       :legend => { :enabled => false },
       :title => { 
-        :text => [t('results.scores_of'), t('results.uploaded_ideas'), ('common.and'), t('results.original_ideas')].join(' '), 
+        :text => [t('results.scores_of'), t('results.uploaded_ideas'), t('common.and'), t('results.original_ideas')].join(' '), 
         :style => { :color => '#919191' }
       },
       :x_axis => { 
@@ -367,18 +369,29 @@ class QuestionsController < ApplicationController
       },
       :y_axis => { 
         :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], 
-        :max => 1, 
-        :min => 0
+        :showLastLabel => false,
+        :gridLineWidth => 0,
+        :max => 1.4, 
+        :min => 0, 
+        :plotLines => [{ :id => 1, :color => "#000000", :value => 1, :width => 1 }]
       },
       :plotOptions => {
         :scatter => {:point => {:events => {:click => moreinfoclickfn }}}
       },
       :series => [{
-        :name => "#{type.gsub("_", " ").capitalize}",
+        :name => "Uploaded Ideas",
         :type => 'scatter',
-        :color => 'rgba( 49,152,193, .5)',
-        :data => chart_data 
-      }],
+	:color => 'rgba(223, 83, 83, .5)',
+        :data => user_data 
+      },
+      {
+        :name => "Original Ideas",
+        :type => 'scatter',
+	:color => 'rgba( 49,152,193, .5)',
+        :data => seed_data 
+      }
+	 
+      ],
 
       :tooltip => { :formatter => tooltipformatter }
     })

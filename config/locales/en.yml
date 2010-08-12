@@ -197,6 +197,7 @@ en:
     powered_widget: "This idea marketplace is powered by " 
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
+       leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
        adjective_0: good
        adjective_1: nice
        adjective_2: amazing

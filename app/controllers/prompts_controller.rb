@@ -185,7 +185,7 @@ class PromptsController < ApplicationController
       
   def get_leveling_feedback_abtest_name
       if !@photocracy
-         ab_test_name = "#{@earl.name}_#{@earl.question_id}_leveling_feedback"
+         ab_test_name = "#{@earl.name}_#{@earl.question_id}_leveling_feedback_with_5_treatments"
       else
 	 ab_test_name = nil
       end

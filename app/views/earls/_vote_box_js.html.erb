@@ -157,6 +157,10 @@
 		leveling_text = "";
 		if(data["leveling_message"] != "")
 		     leveling_text = " <br /> " + data["leveling_message"];
+
+		     if(SHOW_AVERAGE_VOTES == "with_average")
+		        leveling_text += " " + $('#average_votes').html()
+		        
 		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count));
@@ -247,6 +251,9 @@
 		        leveling_text = "";
 		        if(data["leveling_message"] != "")
 		           leveling_text = " <br /> " + data["leveling_message"];
+		        
+			if(SHOW_AVERAGE_VOTES == "with_average")
+		           leveling_text += " " + $('#average_votes').html()
 			feedback = data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
 
 		        $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
@@ -321,6 +328,8 @@
 		             leveling_text = "";
 		             if(data["leveling_message"] != "")
 		                    leveling_text = " <br /> " + data["leveling_message"];
+			     if(SHOW_AVERAGE_VOTES == "with_average")
+		                    leveling_text += " " + $('#average_votes').html()
 			     $('.tellmearea').html(data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
 			     $('.indicator').hide();
 			     $.unblockUI();

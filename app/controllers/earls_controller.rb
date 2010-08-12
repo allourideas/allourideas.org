@@ -15,6 +15,7 @@ class EarlsController < ApplicationController
         flash[:notice] = t('questions.not_active_error')
         redirect_to '/' and return
       end
+      
 
       if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
@@ -30,6 +31,11 @@ class EarlsController < ApplicationController
 		     :visitor_identifier => request.session_options[:id]}
 
       show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
+
+      if !@photocracy
+              @ab_show_average = Abingo.test("#{@earl.name}_#{@earl.question_id}_leveling_feedback_with_5_treatments", ["no_feedback", "no_adjective", "with_adjective", "with_votes_only", "with_average"]) 
+	      show_params.merge!({:with_average_votes => true}) if @ab_show_average == "with_average"
+      end
 
       @question = Question.find(@earl.question_id, :params => show_params)
 
@@ -141,7 +147,6 @@ class EarlsController < ApplicationController
          end
 
        end
-       
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
        @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_add_idea_button"	       

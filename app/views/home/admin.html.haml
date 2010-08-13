@@ -14,19 +14,15 @@
     %tbody
       -alt=false
       -for earl in @earls
-        -if @questions_hash.empty? 
-          -q = Question.find(earl.question_id)
-        -else
-          -q = @questions_hash[earl.question_id.to_s]
+        -q = @questions_map[earl.question_id] or break
         %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
           %td.title= link_to truncate(h(q.attributes['name']), :length => 137), url_for(:controller => :questions, :action => :admin, :id => earl.name)
-        
           %td= q.votes_count
-          %td= @recent_votes_by_question_id[q.id.to_s] 
+          %td= q.recent_votes
           -if current_user.admin?
-            %td= @user_submitted_idea_info[q.id.to_s]["total_ideas"]
-            %td= @user_submitted_idea_info[q.id.to_s]["active_ideas"]
-          %td= "#{earl.created_at.to_date}"
+            %td= q.user_ideas
+            %td= q.active_user_ideas
+          %td= earl.created_at.to_date
           %td.votes{:id => "question_#{earl.id}_status"}
             .toggle_question_status{:rel => earl.id, :id => "question_#{earl.id}_toggle", :status => "#{earl.active?}" }
               =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')

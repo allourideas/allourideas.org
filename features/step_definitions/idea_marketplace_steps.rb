@@ -102,7 +102,7 @@ end
 Given /^an idea marketplace quickly exists with question title '(.*)' and admin '(.*)\/(.*)'$/ do |title, email, password|
 	u = Factory.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)
 
-	q = Question.create(Factory.attributes_for(:question, :name => title))
+	q = Question.create(Factory.attributes_for(:question, :name => title, :local_identifier => u.id))
 	e = Factory.create(:earl, :user => u, :question_id => q.id)
 end
 

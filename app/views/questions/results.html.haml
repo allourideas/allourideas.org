@@ -149,6 +149,13 @@
         %tr{:class => current_cycle , :style => "display:none;"}
           %td.title{:colspan => '2'}
             .chart-container{:id => "skips-chart-container"}
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= "View choice score vs total votes (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :scatter_score_vs_votes), :class => 'date-chart')
+        %tr{:class => current_cycle , :style => "display:none;"}
+          %td.title{:colspan => '2'}
+            .chart-container{:id => "scatter_score_vs_votes-chart-container"}
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')
     =t('items.score_explain')

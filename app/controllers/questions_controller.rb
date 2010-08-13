@@ -463,6 +463,47 @@ class QuestionsController < ApplicationController
 	format.js { render :text => @votes_chart }
      end
   end
+  
+  def scatter_score_vs_votes
+        @earl = Earl.find params[:id]
+        @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+        
+	chart_data = []
+
+	@choices.each do |choice|
+	      point = {}
+	      point[:x] = choice.score
+	      point[:y] = choice.wins + choice.losses
+
+	      point[:name] = choice.data.strip.gsub("'","")
+	      chart_data << point
+      end
+      tooltipformatter = "function() { return  this.point.name + ' Score: ' +  this.x + ' Votes: '  + this.y; }"
+      @votes_chart = Highchart.scatter({
+	    :chart => { :renderTo => "scatter_score_vs_votes-chart-container",
+		    	:margin => [50, 25, 60, 50],
+			:borderColor =>  '#919191',
+			:borderWidth =>  '1',
+			:borderRadius => '0',
+			:backgroundColor => '#FFFFFF'
+		      },
+	    :legend => { :enabled => false },
+            :title => { :text => "Choice Score vs Number of Votes",
+		     	:style => { :color => '#919191' }
+		      },
+	    :x_axis => { :type => 'linear', :min => 0, :max => 100,
+			 :title => {:enabled => true, :text => "Score"}},
+	    :y_axis => { :type => 'linear', :title => {:enabled => true, :title => "Total Votes - wins + losses"}},
+	    :series => [ { :type => 'scatter',
+			   :color => 'rgba( 49,152,193, .5)',
+	                   :data => chart_data }],
+	    :tooltip => { :formatter => tooltipformatter }
+
+      })
+      respond_to do |format|
+	format.js { render :text => @votes_chart }
+     end
+  end
 
   def scatter_votes_by_session
       type = params[:type] 

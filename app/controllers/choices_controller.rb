@@ -77,7 +77,7 @@ class ChoicesController < ApplicationController
        rotation ||= 90 # Optional, otherwise, check for nil!
     
        @image.rotate!(rotation)
-       flash[:notice] = "The image has been rotated"
+       flash[:notice] = "The image has been rotated. If it does not appear rotated on your screen, please hit the reload button on your browser."
     end
      
     redirect_to question_choice_path

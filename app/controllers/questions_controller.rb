@@ -1098,6 +1098,10 @@ class QuestionsController < ApplicationController
     @question = Question.find(@earl.question_id)
   end
   
+  def intro
+    @earl = Earl.find_by_name!(params[:id])
+  end
+  
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos

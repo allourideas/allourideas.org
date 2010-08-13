@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20100811163431) do
     t.string   "default_lang",                     :default => "en"
     t.string   "logo_size",                        :default => "medium"
     t.boolean  "flag_enabled",                     :default => false
-    t.boolean  "photocracy",                       :default => false
     t.string   "ga_code"
+    t.boolean  "photocracy",                       :default => false
   end
 
   create_table "experiments", :force => true do |t|

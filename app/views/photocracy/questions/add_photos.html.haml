@@ -12,7 +12,7 @@
     Tip: Hold down your 'shift' key when selecting photos<br /> to upload more than one at a time.
 
   #done_button{:style => "#{'display:none;' if @question.active_choices < 3}"}
-    #{button_to 'Done uploading, go to survey &raquo;', '/' + @earl.name.to_s}
+    #{button_to 'done uploading, create my photocracy &raquo;', '/' + @earl.name.to_s + '/intro'}
 
   =stylesheet_link_tag 'photocracy/uploadify'
   =javascript_include_tag 'photocracy/swfobject.js', 'photocracy/jquery.uploadify.v2.1.0.min.js'

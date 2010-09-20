@@ -89,6 +89,10 @@ Then /^the idea count should be (.*)$/ do |num_ideas|
 	Then "I should see \"#{num_ideas}\" within \"#item_count\""
 end
 
+Then /^there should be only two "Click To Vote" elements$/ do
+	Capybara.ignore_hidden_elements = false
+  2.should == all(:css, "div.click_to_vote").length
+end
 
 Then /^I should see a javascript alert$/ do
 

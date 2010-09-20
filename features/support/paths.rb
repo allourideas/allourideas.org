@@ -20,6 +20,8 @@ module NavigationHelpers
     
     when /the Cast Votes page for '([^'].*)'/i
 	"/"+ $1
+    when /the Crossfade Cast Votes page for '([^'].*)'/i
+	"/"+ $1 + "?crossfade=true"
     when /the Just Created Cast Votes page for '([^'].*)'/i
 	"/"+ $1 + "?just_created=true"
     when /the View Results page for '([^'].*)'/i

@@ -22,9 +22,11 @@ end
 def set_active_resource_credentials
    puts "Changing credentials to something"
     if @photocracy_mode
+       $PHOTOCRACY = true
        username = PHOTOCRACY_USERNAME
        password = PHOTOCRACY_PASSWORD
     else
+       $PHOTOCRACY = false
        username = PAIRWISE_USERNAME
        password = PAIRWISE_PASSWORD
     end

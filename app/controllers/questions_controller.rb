@@ -1107,16 +1107,21 @@ class QuestionsController < ApplicationController
   def upload_photos
     @earl = Earl.find_by_name!(params[:id])
 
-    new_idea_data = Photo.create(:image => params[:Filedata]).id
-    choice_params = {
-      :visitor_identifier => params[:session_identifier],
-      :data => new_idea_data,
-	    :question_id => @earl.question_id,
-	    :active => true
-	  }
+    new_photo = Photo.create(:image => params[:Filedata])
+    if new_photo.valid?
+      choice_params = {
+        :visitor_identifier => params[:session_identifier],
+        :data => new_photo.id,
+	      :question_id => @earl.question_id,
+	      :active => true
+	    }
+    
 
-	  if Choice.create(choice_params)
-	    render :text => 'yeah!'
+      choice = Choice.create(choice_params)
+    end
+
+	  if new_photo.valid? && choice.valid?
+	    render :text => "yeah!"
     else
       render :text => 'Choice creation failed', :status => 500
     end

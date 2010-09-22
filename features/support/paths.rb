@@ -28,6 +28,8 @@ module NavigationHelpers
 	"/"+ $1 + "/results"
     when /the Admin page for '([^'].*)'/i
 	"/"+ $1 + "/admin"
+    when /the Owner Add Photos page for '([^'].*)'/i
+	"/"+ $1 + "/addphotos"
     when /the Control Panel page/i
 	 admin_path
     when /the WIDGET Cast Votes page for '([^'].*)'/i

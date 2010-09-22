@@ -6,8 +6,9 @@
       You need to upload <span id="photos_needed">3</span> more photos <span class="normal">(minimum)</span>.
 
   #fileQueue
-  %form
-    %input{:type => 'file', :name => 'uploadify', :id => 'uploadify'}
+  %form{:action => "/#{@earl.name.to_s}/upload_photos", :method => 'POST', :enctype => 'multipart/form-data'}
+    %input{:type => 'file', :name => 'Filedata', :id => 'uploadify'}
+    %input{:type => 'submit', :id => 'upload_submit', :value => "Upload"}
   %p
     Tip: Hold down your 'shift' key when selecting photos<br /> to upload more than one at a time.
 
@@ -19,6 +20,7 @@
 
   :javascript
     $(document).ready(function() {
+      $('#upload_submit').hide();
     	$("#uploadify").uploadify({
     		'uploader'       : '/javascripts/photocracy/uploadify.swf',
     		'script'         : "upload_photos",

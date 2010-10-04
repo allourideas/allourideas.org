@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget")) 
 
   def view_filter
-    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || $PHOTOCRACY
+    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (RAILS_ENV == 'test' && $PHOTOCRACY)
       @photocracy = true
       prepend_view_path(@@photocracy_view_path)
     elsif request.url.include?('widget') || request.url.include?('iphone') || @widget
@@ -27,11 +27,9 @@ class ApplicationController < ActionController::Base
     if @photocracy
        username = PHOTOCRACY_USERNAME
        password = PHOTOCRACY_PASSWORD
-       $PHOTOCRACY = true
     else
        username = PAIRWISE_USERNAME
        password = PAIRWISE_PASSWORD
-       $PHOTOCRACY = false
     end
     active_resource_classes = [Choice, Density, Prompt, Question, Session]
     active_resource_classes.each do |klass|

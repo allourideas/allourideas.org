@@ -139,13 +139,15 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     if @photocracy
-      if params[:locale].blank?
-        I18n.locale = ('photocracy_' + I18n.default_locale.to_s).to_sym
-      else
-	      I18n.locale = "#{'photocracy_' unless params[:locale].starts_with?('photocracy_')}#{params[:locale]}".to_sym
-      end
+      I18n.load_path = Dir[Rails.root.join('config', 'locales', 'photocracy', '*.{rb,yml}')]
     else
-      I18n.locale = params[:locale]
+      I18n.load_path = Dir[Rails.root.join('config', 'locales', 'allourideas', '*.{rb,yml}')]
+    end
+
+    if params[:locale].blank?
+      I18n.locale = I18n.default_locale
+    else
+	    I18n.locale = params[:locale]
     end
   end
 

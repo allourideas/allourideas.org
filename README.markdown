@@ -1,7 +1,7 @@
 All Our Ideas
 -------------------
 
-All Our Ideas 2.0.
+All Our Ideas 2.0.  This codebase runs two sites photocracy.org and allourideas.org.
 
 Ownership
 -------------------

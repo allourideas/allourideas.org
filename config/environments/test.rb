@@ -23,6 +23,14 @@ config.action_mailer.delivery_method = :test
 
 # rake gems:install RAILS_ENV=test
 
+config.gem 'cucumber',
+  :version => '=0.8.5'
+config.gem 'cucumber-rails',
+  :version => '=0.3.0'
+config.gem 'database_cleaner',
+  :version => '=0.5.0'
+config.gem 'capybara',
+  :version => '=0.3.7'
 config.gem 'thoughtbot-factory_girl', 
   :lib     => 'factory_girl',
   :source  => 'http://gems.github.com',
@@ -35,6 +43,14 @@ config.gem 'jtrupiano-timecop',
   :lib     => 'timecop',
   :source  => 'http://gems.github.com',
   :version => '0.2.1'
+config.gem 'timecop',
+  :version => '=0.3.5'
+config.gem 'rspec',
+  :version => '=1.3.0'
+config.gem 'rspec-rails',
+  :version => '=1.3.2'
+config.gem 'email_spec',
+  :version => '=0.4.0'
 config.gem 'fakeweb',
   :version => '>= 1.2.5'
 config.gem 'jferris-mocha',
@@ -54,6 +70,3 @@ begin
   require 'fakeweb'
 rescue LoadError
 end
-
-
-  config.gem 'rspec-rails', :version => '>= 1.3.2', :lib => false unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))

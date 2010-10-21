@@ -25,6 +25,25 @@ Feature: Voting history
     Then I should see thumbnails of the two saved choices in the voting history area
     And the left thumbnail should be a loser
     And the right thumbnail should be a loser
+
+  @photocracy
+  @selenium
+  Scenario: User skips a prompt and vote count does not go down
+    When I click the I can't decide button
+    And I pick "I like both ideas"
+    And I click the I can't decide submit button
+    Then I should see thumbnails of the two saved choices in the voting history area
+    And the left thumbnail should be a loser
+    And the right thumbnail should be a loser
+    And the vote count should be 0
+    When I click on the left photo
+    Then I should see thumbnails of the two saved choices in the voting history area
+    And the vote count should be 1
+    When I click the I can't decide button
+    And I pick "I like both ideas"
+    And I click the I can't decide submit button
+    Then I should see thumbnails of the two saved choices in the voting history area
+    And the vote count should be 1
     
 @photocracy
 @selenium

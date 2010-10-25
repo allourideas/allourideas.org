@@ -263,6 +263,8 @@ strong, .strong {
 
 .small_margin_bottom {
   margin-bottom: 5px; }
+.small_margin_top {
+  margin-top: 5px; }
 
 .gray, a.gray, .Deactivated, .deactivated {
   color: #666; }

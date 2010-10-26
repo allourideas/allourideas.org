@@ -34,7 +34,7 @@
       .padding
         =link_to t('nav.view_results'), url_for(:action => :results, :controller => :questions, :id => params[:id]), :class => 'button'
         .admin-link.small_margin_top
-          -if current_user.owns?(@earl) || current_user.admin?
+          -if !current_user.nil? && (current_user.owns?(@earl) || current_user.admin?)
             =link_to t('nav.manage_question'), url_for(:controller => :questions, :action => :admin, :id => @earl.name)
 
     .grid_4

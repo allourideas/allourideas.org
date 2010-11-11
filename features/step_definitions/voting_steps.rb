@@ -29,6 +29,12 @@ When /^I upload an idea titled '(.*)'$/ do |ideatext|
 	find("#submit_btn").click
 end
 
+When /^I upload an idea titled$/ do |ideatext|
+	When "I click the add new idea button"
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\""
+	find("#submit_btn").click
+end
+
 When /^I click the (.*) button$/ do |button_name|
       case button_name
       when "I can't decide"

@@ -853,6 +853,11 @@ class QuestionsController < ApplicationController
       else
         render :text => {'errors' => new_photo.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
       end
+    else
+      # remove new lines from new ideas
+      if new_idea_data.class == String
+        new_idea_data.gsub!(/[\n\r]/, ' ')
+      end
     end
 
     choice_params = {:visitor_identifier => request.session_options[:id], 

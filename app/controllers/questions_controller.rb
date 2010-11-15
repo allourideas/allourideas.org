@@ -847,7 +847,7 @@ class QuestionsController < ApplicationController
     new_idea_data = params[:new_idea]
       
     if @photocracy
-      new_photo = Photo.create(:image => params[:new_idea])
+      new_photo = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
       if new_photo.valid?
         new_idea_data = new_photo.id
       else
@@ -1112,7 +1112,7 @@ class QuestionsController < ApplicationController
   def upload_photos
     @earl = Earl.find_by_name!(params[:id])
 
-    new_photo = Photo.create(:image => params[:Filedata])
+    new_photo = Photo.create(:image => params[:Filedata], :original_file_name => params[:Filedata].original_filename)
     if new_photo.valid?
       choice_params = {
         :visitor_identifier => params[:session_identifier],

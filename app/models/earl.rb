@@ -18,10 +18,12 @@ class Earl < ActiveRecord::Base
   #TODO Add a reasonable timeout
   def export_and_notify(options = {})
 
-	  @question = Question.find(self.question_id)
 	  type = options[:type]
 	  email = options[:email]
 	  @photocracy = options[:photocracy]
+    SiteConfig.set_pairwise_credentials(@photocracy)
+
+	  @question = Question.find(self.question_id)
 
 	  # delayed job doesn't like passing the user as parameter
 	  # so we do this manually

@@ -9,7 +9,7 @@ class Earl < ActiveRecord::Base
   belongs_to :user
   
   def self.reserved_names
-	  @@reserved_names
+    @@reserved_names
   end
 
 
@@ -18,108 +18,108 @@ class Earl < ActiveRecord::Base
   #TODO Add a reasonable timeout
   def export_and_notify(options = {})
 
-	  type = options[:type]
-	  email = options[:email]
-	  @photocracy = options[:photocracy]
+    type = options[:type]
+    email = options[:email]
+    @photocracy = options[:photocracy]
     SiteConfig.set_pairwise_credentials(@photocracy)
 
-	  @question = Question.find(self.question_id)
+    @question = Question.find(self.question_id)
 
-	  # delayed job doesn't like passing the user as parameter
-	  # so we do this manually
-	  current_user = User.find_by_email(email)
+    # delayed job doesn't like passing the user as parameter
+    # so we do this manually
+    current_user = User.find_by_email(email)
 
-	  r = Redis.new
+    r = Redis.new
 
-	  redis_key = "export_filename_notification_#{self.question_id}_#{type}_#{Time.now.to_i}_#{rand(10)}"
+    redis_key = "export_filename_notification_#{self.question_id}_#{type}_#{Time.now.to_i}_#{rand(10)}"
 
-	  @question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
+    @question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
 
-	  thekey, source_filename = r.blpop(redis_key, (60*60*3).to_s) #Timeout after 3 hours
+    thekey, source_filename = r.blpop(redis_key, (60*60*3).to_s) #Timeout after 3 hours
 
-	  r.del(redis_key) # client is responsible for deleting key
+    r.del(redis_key) # client is responsible for deleting key
 
 
-	  dest_filename= File.join(File.expand_path(Rails.root), "public", "system", "exports", 
-				   self.question_id.to_s, File.basename(source_filename))                
+    dest_filename= File.join(File.expand_path(Rails.root), "public", "system", "exports", 
+           self.question_id.to_s, File.basename(source_filename))                
 
-	  FileUtils::mkdir_p(File.dirname(dest_filename))                              
+    FileUtils::mkdir_p(File.dirname(dest_filename))                              
           
-	  
-	  #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
-	  @sessions = {}
-	  @url_alias = {}
+    
+    #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
+    @sessions = {}
+    @url_alias = {}
 
-	  num_slugs = self.slugs.size
-	  FasterCSV.open(dest_filename, "w") do |csv|
-		  FasterCSV.foreach(source_filename, {:headers => :first_row, :return_headers => true}) do |row|
+    num_slugs = self.slugs.size
+    FasterCSV.open(dest_filename, "w") do |csv|
+      FasterCSV.foreach(source_filename, {:headers => :first_row, :return_headers => true}) do |row|
 
-			  if row.header_row?
-				  case type
-				  when "votes", "non_votes"
-					  #We need this to look up SessionInfos, but the user doesn't need to see it
-					  row.delete('Session Identifier')
+        if row.header_row?
+          case type
+            when "votes", "non_votes"
+              #We need this to look up SessionInfos, but the user doesn't need to see it
+              row.delete('Session Identifier')
 
-					  row << ['Hashed IP Address', 'Hashed IP Address']
-					  row << ['URL Alias', 'URL Alias']
-					  if current_user.admin?
-					     row << ['Geolocation Info', 'Geolocation Info']
-					  end
-				  end
-			          csv << row
-		          else
-			     case type
-			     when "votes", "non_votes"
+              row << ['Hashed IP Address', 'Hashed IP Address']
+              row << ['URL Alias', 'URL Alias']
+              if current_user.admin?
+                row << ['Geolocation Info', 'Geolocation Info']
+              end
+          end
+          csv << row
+        else
+          case type
+            when "votes", "non_votes"
 
-			       sid = row['Session Identifier']
-			       row.delete('Session Identifier')
+              sid = row['Session Identifier']
+              row.delete('Session Identifier')
 
-			       user_session = @sessions[sid]
-			       if user_session.nil?
-			         user_session = SessionInfo.find_by_session_id(sid)
-				 @sessions[sid] = user_session
-			       end
+              user_session = @sessions[sid]
+              if user_session.nil?
+                user_session = SessionInfo.find_by_session_id(sid)
+                @sessions[sid] = user_session
+              end
 
-			       unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
-				       # Some marketplaces can be accessed via more than one url
-				       if num_slugs > 1
-					       url_alias = @url_alias[sid]
+              unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
+                # Some marketplaces can be accessed via more than one url
+                if num_slugs > 1
+                  url_alias = @url_alias[sid]
 
-					       if url_alias.nil?
-						       max = 0
-						       self.slugs.each do |slug|
-							       num = user_session.clicks.count(:conditions => ['url like ?', '%' + slug.name + '%' ])
+                  if url_alias.nil?
+                    max = 0
+                    self.slugs.each do |slug|
+                      num = user_session.clicks.count(:conditions => ['url like ?', '%' + slug.name + '%' ])
 
-							       if num > max
-								       url_alias = slug.name
-								       max = num
-							       end
-						       end
+                      if num > max
+                        url_alias = slug.name
+                        max = num
+                      end
+                    end
 
-						       @url_alias[sid] = url_alias
-					       end
-				       else
-					       url_alias = self.name
-				       end
+                    @url_alias[sid] = url_alias
+                  end
+                else
+                  url_alias = self.name
+                end
 
 
-				       row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, IP_ADDR_HASH_SALT].join(""))]
-				       row << ['URL Alias', url_alias]
-				       if current_user.admin?
-				         row << ['Geolocation Info', user_session.loc_info.to_s]
-				       end
-			       end
-			     end
-			     csv << row
+                row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, IP_ADDR_HASH_SALT].join(""))]
+                row << ['URL Alias', url_alias]
+                if current_user.admin?
+                  row << ['Geolocation Info', user_session.loc_info.to_s]
+                end
+              end
+            end
+            csv << row
 
-			  end
-		  end
-	  end
-	  
-	  File.send_at(3.days.from_now, :delete, dest_filename)
-	  url = "/system/exports/#{self.question_id}/#{File.basename(dest_filename)}"
-	  ::IdeaMailer.deliver_export_data_ready(email, url, @photocracy)
+        end
+      end
+    end
+    
+    File.send_at(3.days.from_now, :delete, dest_filename)
+    url = "/system/exports/#{self.question_id}/#{File.basename(dest_filename)}"
+    ::IdeaMailer.deliver_export_data_ready(email, url, @photocracy)
 
-	  dest_filename
+    dest_filename
   end
 end

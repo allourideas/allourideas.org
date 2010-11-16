@@ -55,6 +55,18 @@ class Earl < ActiveRecord::Base
       FasterCSV.foreach(source_filename, {:headers => :first_row, :return_headers => true}) do |row|
 
         if row.header_row?
+          if @photocracy
+            if type == 'votes'
+              row << ['Winner Photo Name', 'Winner Photo Name']
+              row << ['Loser Photo Name', 'Loser Photo Name']
+            elsif type == 'non_votes'
+              row << ['Left Photo Name', 'Left Photo Name']
+              row << ['Right Photo Name', 'Right Photo Name']
+            elsif type == 'ideas'
+              row << ['Photo Name', 'Photo Name']
+            end
+          end
+
           case type
             when "votes", "non_votes"
               #We need this to look up SessionInfos, but the user doesn't need to see it
@@ -68,6 +80,23 @@ class Earl < ActiveRecord::Base
           end
           csv << row
         else
+          if @photocracy
+            if    type == 'votes'
+              p1 = Photo.find_by_id(row['Winner Text'])
+              p2 = Photo.find_by_id(row['Loser Text'])
+              row << [ 'Winner Photo Name', p1 ? p1.photo_name : 'N/A' ]
+              row << [ 'Loser Photo Name',  p2 ? p2.photo_name : 'N/A' ]
+            elsif type == 'non_votes'
+              p1 = Photo.find_by_id(row['Left Choice Text'])
+              p2 = Photo.find_by_id(row['Right Choice Text'])
+              row << [ 'Left Photo Name',  p1 ? p1.photo_name : 'N/A' ]
+              row << [ 'Right Photo Name', p2 ? p2.photo_name : 'N/A' ]
+            elsif type == 'ideas'
+              p1 = Photo.find_by_id(row['Idea Text'])
+              row << [ 'Photo Name', p1 ? p1.photo_name : 'N/A' ]
+            end
+          end
+
           case type
             when "votes", "non_votes"
 

@@ -33,4 +33,9 @@ class Photo < ActiveRecord::Base
     !self.rotation.nil? and self.rotate
   end
 
+  # return original_file_name if available, otherwise name from paperclip
+  def photo_name
+    (original_file_name.blank?) ? self.image.original_filename : original_file_name
+  end
+
 end

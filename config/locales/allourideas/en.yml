@@ -25,7 +25,7 @@ en:
     save: Save
   nav:
     # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
-    privacy_policy: Privacy Policy
+    privacy_policy: Privacy and Consent Policy
     home: Home
     back: Back
     about: About
@@ -358,6 +358,7 @@ en:
    p6: Occasionally, at our discretion, we may include links to third party websites. These third party sites have separate and independent privacy policies. We, therefore, have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.
    h7: Your consent
    p7: By using our site, you consent to our privacy policy.
+   p7_1: "In compliance with our obligations to the Princeton University Institutional Review Board for Human Subjects, we reserve the right to remove, at any time, any content that we deem objectionable in any way, or which creates any physical, legal, social, or psychological risk to individuals."
    h8: Changes to our Privacy Policy
    p8: If we decide to change our privacy policy, we will post those changes on this page, and update the Privacy Policy modification date below.
    p8_1: This policy was last modified on July 6, 2009.

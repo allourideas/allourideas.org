@@ -52,11 +52,9 @@ Rails::Initializer.run do |config|
     :lib     => 'fastercsv',
     :version => '1.5.1'
   config.gem  'redis-store',
-    :version => '0.3.7'
-  config.gem "ezmobius-redis-rb",
-    :lib => false,
-    :source  => 'http://gems.github.com',
-    :version => '0.1'
+    :version => '0.3.9'
+  config.gem "redis",
+    :version => '1.0.7'
   config.gem "will_paginate",
 	  :version => '2.3.14',
 	  :source => 'http://gemcutter.org'

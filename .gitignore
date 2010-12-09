@@ -16,3 +16,4 @@ tmp/*
 doc/api
 doc/app
 *~
+.rvmrc

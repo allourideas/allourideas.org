@@ -14,6 +14,9 @@ class Earl < ActiveRecord::Base
 
   # Triggers pairwise export of CSV
   # also inserts new delayed_job for munge_and_notify
+  # We separate export and munge_and_notify so that the call to trigger 
+  # export in pairwise doesn't happen again if something later on (now
+  # munge_and_notify) fails.
   def export(options = {})
     type = options[:type]
     email = options[:email]

@@ -13,7 +13,7 @@ Feature: Export data to CSV files
 		When I click on the request button for the Votes CSV file
 		Then I should see "You have requested a data export"
 		And a background job should have been created
-		And the the background job should call 'Earl#export_and_notify'
+		And the the background job should call 'Earl#export'
 		#When all delayed jobs have finished
 		#Then an email should be sent to 'test@dkapdaia.com"
 		#And 

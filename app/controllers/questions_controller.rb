@@ -1080,7 +1080,7 @@ class QuestionsController < ApplicationController
     if params[:type].nil?
       render :text => "An error has occured! Please try again later." and return
     else
-      @earl.send_later :export_and_notify, :type => params[:type], :email => current_user.email, :photocracy => @photocracy
+      @earl.send_later :export, :type => params[:type], :email => current_user.email, :photocracy => @photocracy
     end
       
     

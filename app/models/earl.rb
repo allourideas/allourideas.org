@@ -96,16 +96,16 @@ class Earl < ActiveRecord::Base
             if    type == 'votes'
               p1 = Photo.find_by_id(row['Winner Text'])
               p2 = Photo.find_by_id(row['Loser Text'])
-              row << [ 'Winner Photo Name', p1 ? p1.photo_name : 'N/A' ]
-              row << [ 'Loser Photo Name',  p2 ? p2.photo_name : 'N/A' ]
+              row << [ 'Winner Photo Name', p1 ? p1.photo_name : 'NA' ]
+              row << [ 'Loser Photo Name',  p2 ? p2.photo_name : 'NA' ]
             elsif type == 'non_votes'
               p1 = Photo.find_by_id(row['Left Choice Text'])
               p2 = Photo.find_by_id(row['Right Choice Text'])
-              row << [ 'Left Photo Name',  p1 ? p1.photo_name : 'N/A' ]
-              row << [ 'Right Photo Name', p2 ? p2.photo_name : 'N/A' ]
+              row << [ 'Left Photo Name',  p1 ? p1.photo_name : 'NA' ]
+              row << [ 'Right Photo Name', p2 ? p2.photo_name : 'NA' ]
             elsif type == 'ideas'
               p1 = Photo.find_by_id(row['Idea Text'])
-              row << [ 'Photo Name', p1 ? p1.photo_name : 'N/A' ]
+              row << [ 'Photo Name', p1 ? p1.photo_name : 'NA' ]
             end
           end
 

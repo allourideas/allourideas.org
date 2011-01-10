@@ -87,7 +87,7 @@ class Earl < ActiveRecord::Base
               row << ['Hashed IP Address', 'Hashed IP Address']
               row << ['URL Alias', 'URL Alias']
               if current_user.admin?
-                row << ['Geolocation Info', 'Geolocation Info']
+                #row << ['Geolocation Info', 'Geolocation Info']
               end
           end
           csv << row
@@ -147,7 +147,7 @@ class Earl < ActiveRecord::Base
                 row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, IP_ADDR_HASH_SALT].join(""))]
                 row << ['URL Alias', url_alias]
                 if current_user.admin?
-                  row << ['Geolocation Info', user_session.loc_info.to_s]
+                  #row << ['Geolocation Info', user_session.loc_info.to_s]
                 end
               end
             end

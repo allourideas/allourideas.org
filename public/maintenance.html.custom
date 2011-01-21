@@ -10,6 +10,10 @@
         font-weight: normal;
         font-size: 18px;
     }
+    a {
+        text-decoration: none;
+        color: #54AFE2;
+    }
 </style>
 <body>
 <center>
@@ -19,6 +23,6 @@ src="data:image/gif;base64,R0lGODdh+gAyAOf8AC96wS57uzp4ui98vDF7wjt5uzJ8wzF9vT16v
 
 <h1>All Our Ideas and Photocracy are down for maintenance.</h1>
 <h1>We'll be back online as quickly as we can.</h1>
-<h1>Questions? Email us: info@allourideas.org</h1>
+<h1>Questions? Email us: <a href="mailto:info@allourideas.org">info@allourideas.org</a></h1>
 </center>
 </body></html>

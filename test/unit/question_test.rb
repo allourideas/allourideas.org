@@ -8,8 +8,6 @@ class QuestionTest < ActiveSupport::TestCase
   should "be valid with factories" do
     q = Question.new(Factory.attributes_for(:question)) # we'll probably have to use this method for active resource objects
     assert_valid q
-    q.validate_me # active resource objects check validity by looking for attached errors
-    assert_valid q
     
   end
   
@@ -19,7 +17,6 @@ class QuestionTest < ActiveSupport::TestCase
 
     invalid_urls.each do |url|
     	q = Question.new(Factory.attributes_for(:question, :url => url)) 
-    	q.validate_me
     	assert !q.valid?
     end
 
@@ -27,7 +24,6 @@ class QuestionTest < ActiveSupport::TestCase
   
   should "validate names correctly" do
       q = Question.new(Factory.attributes_for(:question, :name  => "")) 
-      q.validate_me
       assert !q.valid?
   end
 
@@ -35,8 +31,74 @@ class QuestionTest < ActiveSupport::TestCase
     e = Factory.create(:earl)
 
     q = Question.new(Factory.attributes_for(:question, :url => e.name))
-    q.validate_me
     assert !q.valid?
+  end
+
+  context "question with view results of true" do
+    setup do
+      @q = Question.new(Factory.attributes_for(:question)) # we'll probably have to use this method for active resource objects
+      @q.show_results = true
+      @q.save
+
+      @e = Factory.create(:earl)
+      @e.question_id = @q.id
+      @e.save
+    end
+
+    should "allow non-user to view results" do
+      assert @q.user_can_view_results?(nil, @e)
+    end
+
+    should "allow non-creator user to view results" do
+      user = Factory.create(:email_confirmed_user)
+      assert @q.user_can_view_results?(user, @e)
+    end
+
+    should "allow creator to view results" do
+      assert @q.user_can_view_results?(@e.user, @e)
+    end
+
+    should "allow admin to view results" do
+      user = Factory.create(:email_confirmed_user)
+      user.admin = true
+      user.save
+      assert @q.user_can_view_results?(user, @e)
+    end
+
+  end
+
+  context "question with view results of false" do
+    setup do
+      @q = Question.new(Factory.attributes_for(:question)) # we'll probably have to use this method for active resource objects
+      @q.save
+      @q.show_results = false
+      @q.save
+
+      @e = Factory.create(:earl)
+      @e.question_id = @q.id
+      @e.save
+    end
+
+    should "not allow non-user to view results" do
+      assert_equal false, @q.user_can_view_results?(nil, @e)
+    end
+
+    should "not allow non-creator user to view results" do
+      user = Factory.create(:email_confirmed_user)
+      assert_equal false, @q.user_can_view_results?(user, @e)
+    end
+
+    should "allow creator to view results" do
+      assert @q.user_can_view_results?(@e.user, @e)
+    end
+
+    should "allow admin to view results" do
+      user = Factory.create(:email_confirmed_user)
+      user.admin = true
+      user.save
+      assert @q.user_can_view_results?(user, @e)
+    end
+
   end
 
 end

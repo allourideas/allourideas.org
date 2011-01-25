@@ -17,7 +17,7 @@ class Question < ActiveResource::Base
     if self.show_results?
       return true
     else
-      return (user && (user.owns?(earl) || user.admin?))
+      return (!user.nil? && (user.owns?(earl) || user.admin?))
     end
   end
   

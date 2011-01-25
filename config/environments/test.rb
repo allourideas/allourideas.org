@@ -25,8 +25,6 @@ config.action_mailer.delivery_method = :test
 
 config.gem 'cucumber',
   :version => '=0.8.5'
-config.gem 'cucumber-rails',
-  :version => '=0.3.0'
 config.gem 'database_cleaner',
   :version => '=0.5.0'
 config.gem 'capybara',
@@ -46,9 +44,7 @@ config.gem 'jtrupiano-timecop',
 config.gem 'timecop',
   :version => '=0.3.5'
 config.gem 'rspec',
-  :version => '=1.3.0'
-config.gem 'rspec-rails',
-  :version => '=1.3.2'
+  :version => '>=1.3.0'
 config.gem 'email_spec',
   :version => '=0.4.0'
 config.gem 'fakeweb',

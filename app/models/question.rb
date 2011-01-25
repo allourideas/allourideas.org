@@ -12,6 +12,14 @@ class Question < ActiveResource::Base
   def earl
     "/#{Earl.find_by_question_id(id).name}" rescue nil
   end
+
+  def user_can_view_results?(user, earl)
+    if self.show_results?
+      return true
+    else
+      return (user && (user.owns?(earl) || user.admin?))
+    end
+  end
   
   def fq_earl
     "http://#{HOST}/#{Earl.find_by_question_id(id).name}" rescue nil

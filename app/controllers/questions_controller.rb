@@ -35,6 +35,12 @@ class QuestionsController < ApplicationController
     @question = Question.find(@earl.question_id)
     @question_id = @question.id
 
+    unless (@question.user_can_view_results?(current_user, @earl))
+      logger.info("Current user is: #{current_user.inspect}")
+      flash[:notice] = t('user.not_authorized_error')
+      redirect_to( "/#{params[:id]}") and return
+    end
+
     current_page = params[:page] || 1
     current_page = current_page.to_i
     per_page = 50

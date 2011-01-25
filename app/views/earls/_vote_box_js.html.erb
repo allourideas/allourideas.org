@@ -51,7 +51,11 @@
           leveling_text = "";
           if(data["leveling_message"] != "")
 		leveling_text = " <br /> " + data["leveling_message"];
-	  $('.tellmearea').html(data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+    var results_text = '';
+    <%- if @question.user_can_view_results?(current_user, @earl) -%>
+    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+    <%- end -%>
+	  $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
           $('#new_idea_field').val("");
           $('.indicator').hide();
         
@@ -160,8 +164,12 @@
 
 		     if(SHOW_AVERAGE_VOTES == "with_average")
 		        leveling_text += " " + $('#average_votes').html()
+    var results_text = '';
+    <%- if @question.user_can_view_results?(current_user, @earl) -%>
+    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+    <%- end -%>
 		        
-		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + leveling_text + results_text).effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count));
 		$(".votebox tr.prompt td.idea").each(function(el) {
@@ -254,7 +262,11 @@
 		        
 			if(SHOW_AVERAGE_VOTES == "with_average")
 		           leveling_text += " " + $('#average_votes').html()
-			feedback = data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+    var results_text = '';
+    <%- if @question.user_can_view_results?(current_user, @earl) -%>
+    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+    <%- end -%>
+			feedback = data["message"] + leveling_text + results_text;
 
 		        $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
 			$('.indicator').hide();
@@ -330,7 +342,11 @@
 		                    leveling_text = " <br /> " + data["leveling_message"];
 			     if(SHOW_AVERAGE_VOTES == "with_average")
 		                    leveling_text += " " + $('#average_votes').html()
-			     $('.tellmearea').html(data["message"] + leveling_text + " <br /> " + "<a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>").effect("highlight", {}, 1500);
+    var results_text = '';
+    <%- if @question.user_can_view_results?(current_user, @earl) -%>
+    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+    <%- end -%>
+			     $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
 			     $('.indicator').hide();
 			     $.unblockUI();
 			     $('.leftside').html(data["newleft"]);

@@ -45,7 +45,7 @@ class Earl < ActiveRecord::Base
     # so we do this manually
     current_user = User.find_by_email(email)
 
-    r = Redis.new
+    r = Redis.new(:host => REDIS_CONFIG['hostname'])
 
     thekey, source_filename = r.blpop(redis_key, (60*60*3).to_s) #Timeout after 3 hours
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110120215415) do
+ActiveRecord::Schema.define(:version => 20110127215723) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(:version => 20110120215415) do
   end
 
   add_index "experiments", ["test_name"], :name => "index_experiments_on_test_name"
+
+  create_table "exports", :force => true do |t|
+    t.binary   "data"
+    t.string   "name",       :default => ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "exports", ["name"], :name => "index_exports_on_name"
 
   create_table "photos", :force => true do |t|
     t.string   "image_file_name",    :default => ""

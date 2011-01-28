@@ -51,6 +51,8 @@ ActionController::Routing::Routes.draw do |map|
   map.googletracking "/no_google_tracking", :controller=> :home, :action => :no_google_tracking
    
   
+  map.connect '/export/:name', :controller => 'exports', :action => 'download'
+
   map.connect '/:id', :controller => 'earls', :action => 'show'
   map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'
   map.connect '/:id/:action', :controller => 'questions'

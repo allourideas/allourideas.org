@@ -25,7 +25,8 @@ class Earl < ActiveRecord::Base
 
     @question = Question.find(self.question_id)
 
-    redis_key = "export_filename_notification_#{self.question_id}_#{type}_#{Time.now.to_i}_#{rand(10)}"
+    redis_key  = "export_#{self.question_id}_#{type}_#{Time.now.to_i}"
+    redis_key += "_#{Digest::SHA1.hexdigest(redis_key + rand(10000000).to_s)}"
 
     @question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
 
@@ -47,24 +48,22 @@ class Earl < ActiveRecord::Base
 
     r = Redis.new(:host => REDIS_CONFIG['hostname'])
 
-    thekey, source_filename = r.blpop(redis_key, (60*60*3).to_s) #Timeout after 3 hours
+    thekey, zlibcsv = r.blpop(redis_key, (60*60*3).to_s) #Timeout after 3 hours
 
     r.del(redis_key) # client is responsible for deleting key
 
+    zstream = Zlib::Inflate.new
+    csvdata = zstream.inflate(zlibcsv)
+    zstream.finish
+    zstream.close
 
-    dest_filename= File.join(File.expand_path(Rails.root), "public", "system", "exports", 
-           self.question_id.to_s, File.basename(source_filename))                
-
-    FileUtils::mkdir_p(File.dirname(dest_filename))                              
-          
-    
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
     @sessions = {}
     @url_alias = {}
 
     num_slugs = self.slugs.size
-    FasterCSV.open(dest_filename, "w") do |csv|
-      FasterCSV.foreach(source_filename, {:headers => :first_row, :return_headers => true}) do |row|
+    modified_csv = FasterCSV.generate do |csv|
+      FasterCSV.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
 
         if row.header_row?
           if @photocracy
@@ -156,11 +155,13 @@ class Earl < ActiveRecord::Base
         end
       end
     end
-    
-    File.send_at(3.days.from_now, :delete, dest_filename)
-    url = "/system/exports/#{self.question_id}/#{File.basename(dest_filename)}"
-    ::IdeaMailer.deliver_export_data_ready(email, url, @photocracy)
 
-    dest_filename
+    e = Export.create(:data => modified_csv, :name => redis_key)
+    
+    e.send_at(Time.now + 3.days, :destroy)
+    url = "/export/#{e.name}"
+    IdeaMailer.deliver_export_data_ready(email, url, @photocracy)
+
+    e
   end
 end

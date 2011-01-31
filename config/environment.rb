@@ -71,7 +71,7 @@ Rails::Initializer.run do |config|
   config.gem 'i18n',
     :version => '0.3.7'
   config.gem 'delayed_job',
-    :version => '2.0.3'
+    :version => '2.0.6'
   config.gem 'haml',
 	  :version => '3.0.9'
   config.gem 'newrelic_rpm',

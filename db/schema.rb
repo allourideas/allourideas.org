@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110127215723) do
+ActiveRecord::Schema.define(:version => 20110131154228) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20110127215723) do
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
     t.text     "handler"
-    t.string   "last_error"
+    t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20110127215723) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "earls", :force => true do |t|
     t.string   "name"

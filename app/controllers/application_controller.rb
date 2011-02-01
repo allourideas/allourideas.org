@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (RAILS_ENV == 'test' && $PHOTOCRACY)
       @photocracy = true
       prepend_view_path(@@photocracy_view_path)
-    elsif request.url.include?('widget') || request.url.include?('iphone') || @widget
+    elsif request.url.include?('widget') || request.env['SERVER_NAME'].include?('iphone') || @widget
       @widget= true
       prepend_view_path(@@widget_view_path)
     end

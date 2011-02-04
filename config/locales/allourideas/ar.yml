@@ -2,7 +2,7 @@ ar:
   common:
    # Common text elements across the application
    and: and
-   votes_on: votes on
+   votes_on: صوتا في
    items: الأفكار
    ideas: الأفكار
    idea: فكرة

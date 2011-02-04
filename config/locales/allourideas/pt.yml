@@ -63,11 +63,11 @@ pt:
     cant_decide_title: Eu não posso decidir porque...
     cant_decide: "Não consigo decidir"
     cd_like_both: Eu gosto de ambas as idéias
-    cd_dislike_both: Eu não gosto nem idéia
+    cd_dislike_both: Eu não gosto de nenhuma delas
     cd_dont_know_left: "Eu não sei o suficiente sobre:"
     cd_dont_know_right: "Eu não sei o suficiente sobre:"
     cd_dont_know_both: Eu não sei o suficiente sobre qualquer idéia 
-    cd_dont_know_both_widget: Eu não sei o suficiente sobre qualquer
+    cd_dont_know_both_widget: Eu não sei o suficiente sobre qualquer delas
     cd_both_same: Eu acho que ambas as idéias são as mesmas 
     cd_other: Eu apenas não posso decidir 
     cd_user_other: "Outros"
@@ -76,7 +76,7 @@ pt:
     cant_decide_message: Você não pode decidir.
     click_idea_to_start_widget: Clique em uma idéia para iniciar a votação.
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
-    powered_widget: "Este mercado é alimentado pela ideia "
+    powered_widget: "Essa forma de participação foi desenvolvida pelo "
     flag_complete_message: Está marcada como uma escolha inadequada.
     leveling:
        leveling_message: "Agora você tem um elenco %{vote_num} %{vote_noun} e adição de %{idea_num} %{idea_noun}: %{adjective}"

@@ -28,7 +28,7 @@ ar:
     privacy_policy: Privacy and Consent Policy
     home: Home
     back: Back
-    about: About
+    about: مزيد من المعلومات
     create: Create
     blog: Blog
     view_results: ينظر النتيجات
@@ -36,7 +36,7 @@ ar:
     manage_question: إدارة هذه الصفحة
     see_all_ideas: رؤية المزيد
     feedback: Feedback
-    make_your_own: Create Your Own Question
+    make_your_own: إنشاء السؤال الخاص بك
     view_idea: View Idea
     signup: sign up
     return_voting_widget: Return to Voting
@@ -95,7 +95,7 @@ ar:
   user:
     close: Close
     email: Email
-    login: Log In
+    login: سجل في
     control_panel: Control Panel
     password: Password
     password_confirmation: Password Confirmation
@@ -229,14 +229,14 @@ ar:
     scores_of: Scores of
     view_link: "[عرض]"
     close_link: "[إغلاق]"
-    per_day: " per day"
-    number_of: "Number of "
+    per_day: " يوميا"
+    number_of: "عدد من "
     no_data_error: "Cannot make chart, no data"
     overall_total: "Overall total - "
     vote_map_geo_error: "We were unable to find the location of "
     previous: << Previous 
     next: Next >>
-    rollover_to_see_more: Roll over each point to learn more
+    rollover_to_see_more: يتدحرج كل نقطة لمعرفة المزيد
   about:
     about: About this project
     p1: All Our Ideas is a research project to develop a new form of social data collection that combines the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups.
@@ -336,8 +336,8 @@ ar:
         make_your_choice: Make your choice and see what comes next
         please_click: Please click on your choice
      test_ideasubmit:
-        make_your_voice_heard: "Make your voice heard"
-        help_your_community: "Help your community"
+        make_your_voice_heard: "جعل صوتك مسموعا"
+        help_your_community: "مساعدة مجتمعك"
      test_stackoverflow:
         first_time: First time here? Click on the choice you like more to start voting!
         no_first_time: Click on the choice you like more to start voting!

@@ -1,0 +1,364 @@
+ar:
+  common:
+   # Common text elements across the application
+   and: and
+   votes_on: votes on
+   items: الأفكار
+   ideas: الأفكار
+   idea: فكرة
+   photo: photo
+   active: active
+   inactive: inactive
+   title: All Our Ideas - A Suggestion Box for the Digital Age
+   title_widget: All Our Ideas   
+   characters: characters
+   idea_marketplace: Idea Marketplace
+   votes: الأصوات
+   vote: صوت
+   skips: Skips
+   user_sessions: User sessions
+   users: users
+   score: score
+  form:
+    create: Create
+    submit: Submit
+    save: Save
+  nav:
+    # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
+    privacy_policy: Privacy and Consent Policy
+    home: Home
+    back: Back
+    about: About
+    create: Create
+    blog: Blog
+    view_results: ينظر النتيجات
+    about_this_page: About this page
+    manage_question: Manage this page
+    see_all_ideas: See more...
+    feedback: Feedback
+    make_your_own: Create Your Own Question
+    view_idea: View Idea
+    signup: sign up
+    return_voting_widget: Return to Voting
+    view_more_results_widget: View More Results
+  home:
+    whats_this: What is this?
+    whats_this_txt:   All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.
+    how_does: How does it work?
+    how_does_txt: You can use All Our Ideas to create a website where visitors can vote on ideas and upload new ones. The intuitive and fun voting process yields powerful results.
+    get_started: Get started!
+    get_started_txt: Click on the link below to get started with All Our Ideas. It is free, easy, and built on open source technology. Create your own interactive suggestion box and start discovering.
+    create_a_question: Create a question
+    student_government_explanation: This example is based on a site that the Undergraduate Student Government at Princeton University used to discover the best ideas for improving campus. In just a few weeks, more than 2,000 students contributed more than 40,000 votes and 100 new ideas. You can create a question like this to discover the best ideas in your group or organization.
+    see_an_example: See an example
+    learn_more: Learn more
+  items:
+    new:
+      too_long: Idea text too long. Max length is
+    list:
+      content: displayed text
+      status: status
+      change_status: change status
+      activated: Activated
+      deactivated: Deactivated
+      toggle: Toggle
+    items: Ideas
+    idea: Idea
+    score: Score
+    added_on: Added on
+    number_of_votes: Number of Votes
+    about_scoring: About the Scoring
+    score_explain: The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
+    toggle_error: Sorry, we could not change the status of this choice because you do not own the question.
+    you_just_submitted: You just added an idea for people to vote on
+    you_have_successfully_activated: You have successfully activated the idea
+    you_have_successfully_deactivated: You have successfully deactivated the idea
+    email:
+      hello: "Hello,"
+      someone_has_uploaded: Someone has uploaded
+      the_idea: the idea '%{idea_text}'
+      a_photo: "a new photo"
+      someone_has_flagged: Someone has flagged the idea '{{idea_data}}' in your idea marketplace at {{question_url}} as inappropriate.
+      photocracy_someone_has_flagged: Someone has flagged a photo at %{question_url} as inappropriate.
+      provided_explanation_is: "The user that flagged this %{object} provided the following text as explanation:"
+      we_have_auto_deactivated: "We have automatically deactivated this idea from your idea marketplace. If you believe this idea is not inappropriate, you can re-enable it by visiting the following url:"
+      photocracy_we_have_auto_deactivated: "We have automatically deactivated this photo from being shown. You can review this photo and can re-enable it by visiting the following url:"
+      to_your_question: to your question
+      if_you_want_to_activate: "If you want others to be able to vote on this %{object}, please activate it by visiting the following url:"
+      if_you_dont_want: If you do not want others to vote on this %{object}, no action is required.
+      if_you_want: If you want others to see this %{object}, no action is required.
+      see_current_results: "To see current results, or to vote further, you may want to visit the idea marketplace that you created: "
+      see_current_results_photocracy: "To see current results, or to vote further, visit: "
+      we_auto_activated_idea: "Based on your settings, we have auto-activated the %{object} so that it may be seen and voted upon immediately.  If for whatever reason you need to de-activate this %{object}, go to the following url:"
+      thanks: "Thanks,"
+      follow_us_on_twitter: "Follow us on twitter: "
+  user:
+    close: Close
+    email: Email
+    login: Log In
+    control_panel: Control Panel
+    password: Password
+    password_confirmation: Password Confirmation
+    logout: Logout
+    forgot_password: Forgot your password?
+    reset_password_header: Reset your password
+    reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password. 
+    reset_password_button: Reset password
+    save_password_button: Save this password
+    change_your_password: Change your password
+    choose_password_below: Your password has been reset. Choose a new password below.
+    deny_access_error: You must be logged in to perform this action
+    not_authorized_error: You do not have permission to modify this question
+  questions:
+    new:
+      error:
+        registration: Sorry, we couldn't register you.
+        header: errors prohibited this website from being created.
+        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.photocracy.org? You can 
+        already_taken_link: log-in with your photocracy.org account
+
+      header: Create your website and get ready to discover the best ideas...
+      step1: "Step 1: Create your website"
+      step1_exp:   "For example, \"Which do you want more from the student government?\""
+      step2: "Step 2: Choose your URL"
+      step2_exp: studentgovernment
+      step3: "Step 3: Upload lots of ideas to seed the site"
+      step3_ist: Upload lots of ideas here. You should put one per line.
+      step3_ist2: You can copy and paste from a list that you've already created.
+      step3_ist3: The maximum length of an idea is
+      step3_exp: "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores"
+      step4: "Step 4: Create an Account"
+      new_account_exp: Please give us your e-mail and pick a password so that you can get the results and administer your website.
+      display_text: Text of question for your visitors
+      success_flash: Congratulations. You are about to discover some great ideas.
+      success_flash2: Send out your URL
+      success_flash3: and watch what happens.
+      success_flash4: You can further customize this site by following this link
+      exp: You are about to create your own website where your visitors can vote on existing ideas and upload new ones. You can either
+      see_an: see an example
+      exp2: or get started using the steps below.
+      if_you_have_an_account: If you already have an account, please login
+      here: here
+      your_email_address: Your Email Address  
+      optional: Optional
+      help_us_out: Help Us Out
+      tell_us_why: Please tell us a bit about what you are trying to accomplish with All Our Ideas.
+      tell_us_why2: "Also, feel free to let us know anything else we might find interesting (e.g. how you heard about us, how many visitors you're expecting)"
+    enter_a_new_short_url: Enter a new short URL
+    edit: edit
+    short_url_success: Short URL updated succesfully.
+    current_short_url: current short URL
+    export_item_votes: Export votes
+    votes: votes
+    voting_page: Voting Page
+    question: Question
+    create_a_question: Create a question
+    existing_questions: Existing questions
+    list_questions: List My Other Questions
+    active_items: active ideas
+    source: Source
+    not_active_error: Sorry, that question is not active.
+    owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
+  vote:
+    add_your_idea: Add your own idea here...
+    add_your_idea_button: إضم فكرتك
+    cast_votes: اقتراع
+    you_chose: اختارت
+    you_skipped_both: You skipped
+    skip: skip
+    flag_as_inappropriate: Flag as inappropriate
+    cant_decide_title: I can't decide because...
+    cant_decide: لا يمكنني ان اقرر
+    cd_like_both: I like both ideas
+    cd_dislike_both: I don't like either idea
+    cd_dont_know_left: "I don't know enough about:"
+    cd_dont_know_right: "I don't know enough about:"
+    cd_dont_know_both: I don't know enough about either idea
+    cd_dont_know_both_widget: I don't know enough about either
+    cd_both_same: I think both ideas are the same
+    cd_other: I just can't decide
+    cd_user_other: "Other:"
+    cd_explicit_dont_know_left_widget: I don't know enough about the left idea            
+    cd_explicit_dont_know_right_widget: I don't know enough about the right idea
+    cant_decide_message: You couldn't decide.
+    click_idea_to_start_widget: Click on an idea to start voting.
+    please_explain_flag: "Please explain why this choice is inappropriate:"
+    flag_complete_message: You flagged a choice as inappropriate.
+    over: بدلا من
+    submit: Submit
+    view_all_the_results: ينظر كل النتيجات
+    others_thought: Click to see what others thought.
+    submit_idea_default_error: Sorry, blank ideas are not allowed. 
+    submit_idea_too_long_error: Sorry, ideas need to be less than 140 characters.
+    submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
+    vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
+    vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
+    idea_sent_for_review: Your idea has been submitted for review. It will appear soon.
+    powered_widget: "This idea marketplace is powered by " 
+    leveling:
+       leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
+       leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
+       adjective_0: good
+       adjective_1: nice
+       adjective_2: amazing
+       adjective_3: fabulous
+       adjective_4: marvelous
+       adjective_5: super
+       adjective_6: fantastic
+       adjective_7: incredible
+       adjective_8: awesome
+       adjective_9: wow
+  results:
+    data_visualizations: Data Visualizations
+    world_map_title: World map of all votes
+    world_map_ideas_title: World map of all uploaded ideas
+    world_map_creators: World map of all idea marketplace creators
+    votes_over_time_title: Number of votes over time
+    user_ideas_over_time_title: Number of submitted ideas over time
+    user_sessions_over_time_title: Number of unique user sessions per day
+    word_cloud_ideas_title: Word cloud of ideas
+    word_cloud_weighted_title: Word cloud of ideas weighted by score
+    word_cloud_uploaded_title: Word cloud of uploaded ideas
+    word_cloud_uploaded_weighted_title: Word cloud of uploaded ideas weighted by score
+    about_word_cloud: About word clouds
+    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this idea marketplace. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
+    scatter_ideas_title: Compare uploaded ideas with original ideas
+    scatter_ideas_subtitle: Roll over each point to learn more
+    uploaded_ideas: Uploaded Ideas
+    original_ideas: Original Ideas
+    scores_of: Scores of
+    view_link: "[View]"
+    close_link: "[Close]"
+    per_day: " per day"
+    number_of: "Number of "
+    no_data_error: "Cannot make chart, no data"
+    overall_total: "Overall total - "
+    vote_map_geo_error: "We were unable to find the location of "
+    previous: << Previous 
+    next: Next >>
+    rollover_to_see_more: Roll over each point to learn more
+  about:
+    about: About this project
+    p1: All Our Ideas is a research project to develop a new form of social data collection that combines the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups.
+    p2: "The All Our Ideas team is lead by Matthew Salganik from the Department of Sociology at Princeton University. Current and former team members include: Dhruv Kapadia, Nadia Heninger, Bill Zeller, Karen Levy, Calvin Lee, Peter Lubell-Doughtie, Pius Uzamere, Josh Weinstein, Dhwani Shah, Bambi Tsui, and Adam Sanders."
+    p3: Because All Our Ideas is a research project, we will be analyzing the data that you create. However, we will respect your privacy, and we will never sell your data to anyone. These issues are described more fully in our privacy policy.
+    please_send_to: Please send us an email with any questions that you have to
+    contact: Contact Us
+    copy_1: All Our Ideas is an attempt to create a new form of social data collection that combines the best features of quantitative and qualitative research methods. That is, we try to create a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, focus groups, and participant observation.
+    current_contributors: Current Contributors
+    past_contributors: Past Contributors
+    you_can_add: "You can add your own ideas about All Our Ideas using our site"
+    or_send_us: or send us an email with any questions that you have
+    oss_1: All Our Ideas is powered by
+    oss_link: open source
+    oss_2: software. Feel free to review, remix, or redesign. Also, you can use our
+    oss_api: API
+    oss_3: to create your own pairwise comparison site.
+    for_more_frequent_updates: For more frequent updates on the project, you can
+    read our blog: read our blog
+    twitter_link: follow us on Twitter.
+    add_to_improve_AOI_1: "  You can also vote or add an idea to the"
+    add_to_improve_AOI_2: "  You can also vote or add an idea to the"
+  about_page: 
+    intro: You are participating in an “idea marketplace” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
+    exp_widget: This idea marketplace widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
+    faq_widget: "Here are some frequently asked questions:"
+    open_source_q_widget: Is all of this open-source?
+    open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: I have another question, how can I get in touch with you?
+    contact_exp_widget: Send us an email at info@allourideas.org.
+    how_many_votes_q: How many votes can I cast? When does it end?
+    how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
+    how_many_ideas_q: How many ideas can I add? What happens to my idea once I add it?
+    how_many_ideas_exp: You can add as many ideas as you have. Once an idea is added, it may be reviewed by the person who created the idea marketplace in order to ensure that it is not inappropriate. Once the idea has been reviewed, it will start appearing for people to vote on it.
+    view_results_q: Can I see what everyone else thinks? 
+    view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
+    make_my_own_q: This is neat. Can I make one of these myself?
+    make_my_own_exp: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace here: http://www.allourideas.org/questions/new."
+    make_my_own_exp_widget: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace widget: http://www.allourideas.org."
+  admin: 
+    user_ideas: User Ideas
+    active_user_ideas: Active User Ideas 
+    num_votes: Votes
+    num_votes_today: "Votes (Today)"
+    created: Created
+    user: User
+    seed: Seed
+    this_question_created: This question created 
+    ago: ago
+    optional_question_settings: Optional Question Settings
+    auto_activate_exp: Allow ideas by users to be automatically activated, without prior approval
+    enabled: Enabled
+    disabled: Disabled 
+    additional_settings: Additional Settings
+    password_protect_exp: Require users to enter the following user/password combination before voting
+    username: Username
+    replace_logo_exp: Replace logo above with another file
+    upload_logo_exp: Upload a logo to be displayed on your idea market place page
+    welcome_msg_exp: Add a welcome message for new voters
+    welcome_msg_long_exp: You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
+    welcome_msg_long_exp2: For example, it may be useful to explain who is leading the idea marketplace or what will be done with the feedback gathered from this question. 
+    allow_flag_as_inappropriate: Allow users to flag individual ideas as inappropriate. 
+    allow_flag_as_inappropriate_exp: This setting will allow users to flag ideas as inappropriate or offtopic. After a user submits a flag request, the idea will be automatically deactivated and an email will be sent to the owner of the idea marketplace. The email will contain whatever explanation the user provided along with the option to quickly re-activate an idea.
+    default_lang_exp: Change the default language of the voting page interface
+    download_idea_marketplace_data: Download Idea Marketplace Data
+    list_of_ideas_csv: List of Ideas (CSV File)
+    list_of_votes_csv: List of Votes (CSV File)
+    list_of_non_votes_csv: List of Non Vote Actions (CSV File)
+    download: Download
+    request: Request
+    and_registered_to: and it is registered to
+    google_analytics_code: Google Analytics code
+  footer:
+    support: This project is supported by grants from Google and CITP at Princeton University.
+    open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.
+    logged_in: Logged in
+    my_questions: My Questions
+  tour:
+    collect: Collect and sort suggestions effectively
+    p1: Just as Wikipedia is a platform that allows groups to collaboratively write an encyclopedia, All Our Ideas is a platform that allows groups to collect and prioritize ideas in a transparent, democratic, and bottom-up process. It’s a suggestion box for the digital age.
+    p2: To see how All Our Ideas works, we’ll walk through a specific example. Imagine that you are the president of the Undergraduate Student Government at Princeton and you need to find the issues of greatest concern to the student body. Everyone is telling you what they want, but nobody fills out surveys so you don’t know how widespread the support for any of these ideas really is. Plus, how do you even know if your student priority survey includes all the important ideas?
+    p3: This is a natural problem for All Our Ideas system of voting and soliciting suggestions. Once the platform for collaboration was created, more than 2,000 students contributed more than 40,000 votes and uploaded more than 100 new suggestions.
+    p4: "You can create such a platform for collaboration for your group in a few easy steps. In the end we are going to help you create something that looks like this:"
+    step1: "Step 1: Create a website"
+    step1_txt: 'Pick a question that voters see. For example, "Which do you want more?"'
+    step2: "Step 2: Pick a URL"
+    step2_txt: 'Pick a "quick url" that will take visitors to your site. For example, if the undergraduate student government wanted people to go to www.allourideas.org/usg they would have picked the quick url "usg".'
+    step3: "Step 3: Upload Ideas"
+    step3_txt: Upload some ideas. For example, the student government started about 200 with ideas such as lower textbook prices, extend library hours, and outdoor hammocks. The more ideas the better because the voting process will help you find the best ones.
+    step4: "Step 4: Spread your URL"
+    step4_txt: "Spread your url and watch what happens. You can get an idea of what the final product looks like by trying it below:"
+    see_an_example: See an example
+  login:
+    header: Log in to your account
+  ab_tests:
+     test_showmespace:
+        make_your_choice: Make your choice and see what comes next
+        please_click: Please click on your choice
+     test_ideasubmit:
+        make_your_voice_heard: "Make your voice heard"
+        help_your_community: "Help your community"
+     test_stackoverflow:
+        first_time: First time here? Click on the choice you like more to start voting!
+        no_first_time: Click on the choice you like more to start voting!
+  privacy: 
+   h1: What information do we collect?
+   p1: We collect information from you when you interact with All Our Ideas. Also, when creating a question, you will be required to enter your email address. You may, however, vote on questions anonymously. All visitors to the site will have their IP address recorded.
+   p1_1: Further, like most websites, we use cookies to enhance your experience, gather general visitor information, and track visits to our website. Please refer to the "do we use cookies?" section below for information about cookies and how we use them.
+   h2: How do we use your information?
+   p2: Any of the information that we collect may be used for research proposes and to improve All Our Ideas.
+   h3: How do we protect your information?
+   p3: We implement a variety of security measures to maintain the safety of your personal information.
+   h4: Do we use cookies?
+   p4: "Yes. Cookies are small files that a site or its service provider transfers to your computer's hard drive through your web browser (if you allow) that enables the sites or service providers systems to recognize your browser and capture and remember certain information."
+   p4_1: In order to offer you a better site experience, we use cookies to understand and save your preferences for future visits and to compile aggregate data about site traffic.
+   h5: Do we disclose any information to outside parties?
+   p5: "We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. This does not include trusted third parties who assist us in operating our website, conducting research, or servicing you, so long as those parties agree to keep this information confidential. We may also release your information when we believe release is appropriate to comply with the law, enforce our site policies, or protect ours or others' rights, property, or safety."
+   h6: Third party links
+   p6: Occasionally, at our discretion, we may include links to third party websites. These third party sites have separate and independent privacy policies. We, therefore, have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.
+   h7: Your consent
+   p7: By using our site, you consent to our privacy policy.
+   p7_1: "In compliance with our obligations to the Princeton University Institutional Review Board for Human Subjects, we reserve the right to remove, at any time, any content that we deem objectionable in any way, or which creates any physical, legal, social, or psychological risk to individuals."
+   h8: Changes to our Privacy Policy
+   p8: If we decide to change our privacy policy, we will post those changes on this page, and update the Privacy Policy modification date below.
+   p8_1: This policy was last modified on July 6, 2009.

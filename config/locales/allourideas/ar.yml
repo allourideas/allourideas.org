@@ -32,15 +32,15 @@ ar:
     create: Create
     blog: Blog
     view_results: ينظر النتيجات
-    about_this_page: About this page
-    manage_question: Manage this page
-    see_all_ideas: See more...
+    about_this_page: حول هذه الصفحة
+    manage_question: إدارة هذه الصفحة
+    see_all_ideas: رؤية المزيد
     feedback: Feedback
     make_your_own: Create Your Own Question
     view_idea: View Idea
     signup: sign up
     return_voting_widget: Return to Voting
-    view_more_results_widget: View More Results
+    view_more_results_widget: عرض مزيد من النتائج
   home:
     whats_this: What is this?
     whats_this_txt:   All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.
@@ -64,11 +64,11 @@ ar:
       toggle: Toggle
     items: Ideas
     idea: Idea
-    score: Score
+    score: نتيجة
     added_on: Added on
     number_of_votes: Number of Votes
     about_scoring: About the Scoring
-    score_explain: The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
+    score_explain: النتيجة فكرة هو فرصة يقدر أنه سيفوز ضد فكرة اختيارها عشوائيا. على سبيل المثال ، على درجة من 100 يعني توقع فكرة للفوز في كل مرة وبنتيجة 0 يعني توقع فكرة أن تفقد في كل مرة.
     toggle_error: Sorry, we could not change the status of this choice because you do not own the question.
     you_just_submitted: You just added an idea for people to vote on
     you_have_successfully_activated: You have successfully activated the idea
@@ -160,41 +160,41 @@ ar:
     not_active_error: Sorry, that question is not active.
     owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
   vote:
-    add_your_idea: Add your own idea here...
+    add_your_idea: أضف فكرة الخاصة بك هنا
     add_your_idea_button: إضم فكرتك
     cast_votes: اقتراع
     you_chose: اختارت
     you_skipped_both: You skipped
     skip: skip
     flag_as_inappropriate: Flag as inappropriate
-    cant_decide_title: I can't decide because...
+    cant_decide_title: لا يمكنني ان اقرر بسبب...
     cant_decide: لا يمكنني ان اقرر
-    cd_like_both: I like both ideas
-    cd_dislike_both: I don't like either idea
-    cd_dont_know_left: "I don't know enough about:"
-    cd_dont_know_right: "I don't know enough about:"
-    cd_dont_know_both: I don't know enough about either idea
-    cd_dont_know_both_widget: I don't know enough about either
-    cd_both_same: I think both ideas are the same
-    cd_other: I just can't decide
-    cd_user_other: "Other:"
-    cd_explicit_dont_know_left_widget: I don't know enough about the left idea            
-    cd_explicit_dont_know_right_widget: I don't know enough about the right idea
-    cant_decide_message: You couldn't decide.
-    click_idea_to_start_widget: Click on an idea to start voting.
+    cd_like_both: أنا أحب كل الأفكار
+    cd_dislike_both: أنا لا أحب فكرة إما
+    cd_dont_know_left: "أنا لا أعرف ما يكفي عن:"
+    cd_dont_know_right: "أنا لا أعرف ما يكفي عن:"
+    cd_dont_know_both: أنا لا أعرف ما يكفي عن أي فكرة
+    cd_dont_know_both_widget: أنا لا أعرف ما يكفي عن إما
+    cd_both_same: وأعتقد أن كلا الأفكار هي نفسها
+    cd_other: أنا فقط لا يمكن أن تقرر
+    cd_user_other: "أخرى:"
+    cd_explicit_dont_know_left_widget: أنا لا أعرف ما يكفي عن فكرة اليسار            
+    cd_explicit_dont_know_right_widget: أنا لا أعرف ما يكفي عن فكرة الحق
+    cant_decide_message: أنت لا تستطيع أن تقرر.
+    click_idea_to_start_widget: انقر على فكرة لبدء التصويت
     please_explain_flag: "Please explain why this choice is inappropriate:"
     flag_complete_message: You flagged a choice as inappropriate.
     over: بدلا من
     submit: Submit
     view_all_the_results: ينظر كل النتيجات
     others_thought: Click to see what others thought.
-    submit_idea_default_error: Sorry, blank ideas are not allowed. 
-    submit_idea_too_long_error: Sorry, ideas need to be less than 140 characters.
-    submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
+    submit_idea_default_error: عذرا لا يسمح للأفكار فارغة
+    submit_idea_too_long_error: عذرا، والأفكار بحاجة إلى أن يكون أقل من 140 حرفا.
+    submit_idea_thankyou: شكرا لك. تمت إضافة فكرتك. الرجاء إضافة بعض مزيد من الأفكار.
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
-    idea_sent_for_review: Your idea has been submitted for review. It will appear soon.
-    powered_widget: "This idea marketplace is powered by " 
+    idea_sent_for_review: وقد قدم فكرة الخاص بك للمراجعة. وسوف تظهر قريبا.
+    powered_widget: "هو مدعوم من هذا السوق الفكرة " 
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
        leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}

@@ -26,8 +26,8 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     zstream.close
 
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
-    @sessions = {}
-    @url_alias = {}
+    sessions = {}
+    url_aliases = {}
 
     num_slugs = earl.slugs.size
     modified_csv = FasterCSV.generate do |csv|
@@ -82,16 +82,16 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
               sid = row['Session Identifier']
               row.delete('Session Identifier')
 
-              user_session = @sessions[sid]
+              user_session = sessions[sid]
               if user_session.nil?
                 user_session = SessionInfo.find_by_session_id(sid)
-                @sessions[sid] = user_session
+                #sessions[sid] = user_session
               end
 
               unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
                 # Some marketplaces can be accessed via more than one url
                 if num_slugs > 1
-                  url_alias = @url_alias[sid]
+                  url_alias = url_aliases[sid]
 
                   if url_alias.nil?
                     max = 0
@@ -104,7 +104,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                       end
                     end
 
-                    @url_alias[sid] = url_alias
+                    #url_aliases[sid] = url_alias
                   end
                 else
                   url_alias = earl.name

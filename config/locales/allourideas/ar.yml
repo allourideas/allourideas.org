@@ -310,8 +310,8 @@ ar:
     and_registered_to: and it is registered to
     google_analytics_code: Google Analytics code
   footer:
-    support: This project is supported by grants from Google and CITP at Princeton University.
-    open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.
+    support: هذا المشروع يتم بدعم من المنح المقدمة من جوجل وجامعة برينستون.
+    open_source: كل أفكارنا والبرمجيات مفتوحة المصدر. لا تتردد في استعراض، ريميكس، إعادة تصميم، أو المساهمة.
     logged_in: Logged in
     my_questions: My Questions
   tour:

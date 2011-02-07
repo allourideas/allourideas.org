@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110131154228) do
+ActiveRecord::Schema.define(:version => 20110207181733) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20110131154228) do
   add_index "experiments", ["test_name"], :name => "index_experiments_on_test_name"
 
   create_table "exports", :force => true do |t|
-    t.binary   "data"
-    t.string   "name",       :default => ""
+    t.binary   "data",       :limit => 2147483647
+    t.string   "name",                             :default => ""
     t.datetime "created_at"
     t.datetime "updated_at"
   end

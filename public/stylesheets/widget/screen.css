@@ -706,4 +706,13 @@ table.tablesorter {
   min-height: 100%; }
 
 .text_field_border {
-  border: 2px solid #e9e9e9; }
+  padding: 2px;
+  background-color: #e9e9e9;
+}
+.text_field_border textarea#new_idea_field:focus {
+  outline: none;
+}
+
+textarea {
+  overflow: auto;
+}

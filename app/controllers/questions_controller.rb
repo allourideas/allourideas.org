@@ -1086,7 +1086,7 @@ class QuestionsController < ApplicationController
     if params[:type].nil?
       render :text => "An error has occured! Please try again later." and return
     else
-      Delayed::Job.enqueue ExportJob.new(@earl.id, params[:type], current_user.email, @photocracy)
+      Delayed::Job.enqueue ExportJob.new(@earl.id, params[:type], current_user.email, @photocracy), 15
     end
       
     

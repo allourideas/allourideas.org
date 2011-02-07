@@ -20,7 +20,7 @@ class ExportJob < Struct.new(:earl_id, :type, :email, :photocracy)
 
     question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
 
-    Delayed::Job.enqueue MungeAndNotifyJob.new(earl_id, type, email, photocracy, redis_key), Delayed::Worker.default_priority, 5.minutes.from_now
+    Delayed::Job.enqueue MungeAndNotifyJob.new(earl_id, type, email, photocracy, redis_key), 15, 5.minutes.from_now
   end
 
 end

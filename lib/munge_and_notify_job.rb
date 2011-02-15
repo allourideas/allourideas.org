@@ -140,7 +140,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     end
 
     export.delay(:run_at => 3.days.from_now).destroy
-    url = "/export/#{e.name}"
+    url = "/export/#{export.name}"
     IdeaMailer.deliver_export_data_ready(email, url, photocracy)
 
     return true

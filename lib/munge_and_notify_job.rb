@@ -29,7 +29,14 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     sessions = {}
     url_aliases = {}
 
+    # instead of building up entire CSV and then inserting into DB
+    # update CSV data by concatenating current data with bunches
+    # of rows at a time.  This is a temporary holder of our batches.
+    rows = []
+
     num_slugs = earl.slugs.size
+    export = Export.create(:name => redis_key, :data => '')
+
     modified_csv = FasterCSV.generate do |csv|
       FasterCSV.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
 
@@ -58,6 +65,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
               end
           end
           csv << row
+          rows << row.to_csv
         else
           if photocracy
             if    type == 'votes'
@@ -85,7 +93,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
               user_session = sessions[sid]
               if user_session.nil?
                 user_session = SessionInfo.find_by_session_id(sid)
-                #sessions[sid] = user_session
+                sessions[sid] = user_session
               end
 
               unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
@@ -104,7 +112,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                       end
                     end
 
-                    #url_aliases[sid] = url_alias
+                    url_aliases[sid] = url_alias
                   end
                 else
                   url_alias = earl.name
@@ -118,19 +126,23 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                 end
               end
             end
-            csv << row
-
+            rows << row.to_csv
+        end
+        # limit number of updates to MySQL by
+        # updating with concat 50000 rows at a time
+        if rows.length > 50000
+          Export.update_concat(export.id, rows.join(""))
+          rows = []
         end
       end
+      # update with concat any remaining rows
+      Export.update_concat(export.id, rows.join("")) if rows.length > 0
     end
 
-    e = Export.create(:data => modified_csv, :name => redis_key)
-    
-    
-    e.delay(:run_at => 3.days.from_now).destroy
+    export.delay(:run_at => 3.days.from_now).destroy
     url = "/export/#{e.name}"
     IdeaMailer.deliver_export_data_ready(email, url, photocracy)
 
-    e
+    return true
   end
 end

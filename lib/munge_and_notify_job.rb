@@ -25,6 +25,10 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     zstream.finish
     zstream.close
 
+    # for creating zlibed CSV at the end
+    zoutput = Zlib::Deflate.new
+    znewcsv = ''
+
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
     sessions = {}
     url_aliases = {}
@@ -35,7 +39,6 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     rows = []
 
     num_slugs = earl.slugs.size
-    export = Export.create(:name => redis_key, :data => '')
 
     modified_csv = FasterCSV.generate do |csv|
       FasterCSV.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
@@ -65,7 +68,8 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
               end
           end
           csv << row
-          rows << row.to_csv
+          # Zlib the CSV as we create it
+          znewcsv << zoutput.deflate(row.to_csv, Zlib::SYNC_FLUSH)
         else
           if photocracy
             if    type == 'votes'
@@ -126,19 +130,15 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                 end
               end
             end
-            rows << row.to_csv
-        end
-        # limit number of updates to MySQL by
-        # updating with concat 50000 rows at a time
-        if rows.length > 50000
-          Export.update_concat(export.id, rows.join(""))
-          rows = []
+            # Zlib the CSV as we create it
+            znewcsv << zoutput.deflate(row.to_csv, Zlib::SYNC_FLUSH)
         end
       end
-      # update with concat any remaining rows
-      Export.update_concat(export.id, rows.join("")) if rows.length > 0
     end
+    znewcsv << zoutput.finish
+    zoutput.close
 
+    export = Export.create(:name => redis_key, :data => znewcsv, :compressed => true)
     export.delay(:run_at => 3.days.from_now).destroy
     url = "/export/#{export.name}"
     IdeaMailer.deliver_export_data_ready(email, url, photocracy)

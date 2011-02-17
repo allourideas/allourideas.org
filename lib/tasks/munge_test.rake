@@ -4,6 +4,12 @@ namespace :munge_test do
   # useful for testing large CSV files
   desc "test CSV with large data"
   task :large_data => :environment do
+    earl_id = 836
+    type = 'votes'
+    email = 'noreply@allourideas.org'
+    photocracy = false
+    redis_key = 'large_data_test'
+
     file = File.open("861_votes.csv", "rb")
     #file = File.open("861_votes-head.csv", "rb")
     csv_data = file.read
@@ -12,9 +18,10 @@ namespace :munge_test do
     zlib.close
 
     redis = Redis.new(:host => REDIS_CONFIG['hostname'])
-    redis.lpush('large_data_test', zlibcsv)
+    redis.lpush(redis_key, zlibcsv)
   
-    job = MungeAndNotifyJob.new(836, 'votes', 'noreply@allourideas.org', false, 'large_data_test')
-    job.perform
+    Delayed::Job.enqueue MungeAndNotifyJob.new(earl_id, type, email, photocracy, redis_key), 15
+    #job = MungeAndNotifyJob.new(earl_id, type, email, photocracy, redis_key)
+    #job.perform
   end
 end

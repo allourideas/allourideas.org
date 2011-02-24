@@ -1,6 +1,6 @@
 -@item_data, @item_ids = [], []
 
-.scrollbar_container#ie6_no_scrollbar 
+.scrollbar_container
   .question_container
     %table.question.center.no_padding
       %tr
@@ -102,7 +102,6 @@
     = javascript_include_tag 'jquery.corner', 'widget/jquery.scrollTo'        
 
   -content_for :view_javascript do
-    $('.rounded').corner('5px');
     =render :partial => 'vote_box_js' 
 
 .bottom_status.leveling_message{:style => 'display:none'}

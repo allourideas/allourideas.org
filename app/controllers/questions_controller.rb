@@ -192,96 +192,9 @@ class QuestionsController < ApplicationController
 
   def voter_map
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-    type = params[:type]
+    data = Earl.voter_map(params[:id], params[:type])
 
-    if type == "all"
-      votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "all_votes")
-    elsif type == "all_creators"
-      votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "creators")
-    elsif type == "uploaded_ideas"
-         
-      @earl = Earl.find params[:id]
-      @question = Question.new
-      @question.id = @earl.question_id
-      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'uploaded_ideas')
-    elsif type == "bounces"
-      @earl = Earl.find params[:id]
-      @question = Question.new
-      @question.id = @earl.question_id
-      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
-
-    elsif type == "votes"
-      @earl = Earl.find params[:id]
-      @question = Question.new
-      @question.id = @earl.question_id
-      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-    end
-     
-    @votes_by_geoloc= {}
-    object_total = 0
-    votes_by_sids.each do|sid, num_votes|
-      num_votes = num_votes.to_i
-      session = SessionInfo.find_by_session_id(sid)
-
-      if type == "bounces" &&  session.clicks.size > 1
-        next
-      end
-
-      object_total += num_votes
-      if session.nil? || session.loc_info.nil? 
-        if @votes_by_geoloc["Unknown Location"].nil?
-          @votes_by_geoloc["Unknown Location"] = {}
-          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
-        else 
-          @votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
-        end
-
-        next
-      end
-
-   #   if session.loc_info.empty?
-   #     loc = Geokit::Geocoders::MultiGeocoder.geocode(session.ip_addr)
-   #     if loc.success
-   #       session.loc_info= {}
-   #       session.loc_info[:city] = loc.city
-   #       session.loc_info[:state] = loc.state
-   #       session.loc_info[:country] = loc.country
-   #       session.loc_info[:lat] = loc.lat
-   #       session.loc_info[:lng] = loc.lng
-   #       session.save
-   #     end
-   #   end
-       
-      if !session.loc_info.empty?
-        display_fields = [:city, :region, :country_code]
-
-        display_text = []
-        display_fields.each do|key|
-          if session.loc_info[key] && !(/^[0-9]+$/ =~ session.loc_info[key])
-            display_text << session.loc_info[key] 
-          end
-        end
-
-        city_state_string = display_text.join(", ")
-        if @votes_by_geoloc[city_state_string].nil?
-          @votes_by_geoloc[city_state_string] = {}
-          @votes_by_geoloc[city_state_string][:lat] = session.loc_info[:latitude]
-          @votes_by_geoloc[city_state_string][:lng] = session.loc_info[:longitude]
-          @votes_by_geoloc[city_state_string][:num_votes] = num_votes
-        else
-          @votes_by_geoloc[city_state_string][:num_votes] += num_votes
-        end
-      else
-        if @votes_by_geoloc["Unknown Location"].nil?
-          @votes_by_geoloc["Unknown Location"] = {}
-          @votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
-        else 
-          @votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
-        end
-      end
-    end
-
-    case type
+    case params[:type]
       when "votes" then
         @object_type = t('common.votes')
       when "uploaded_ideas" then
@@ -294,7 +207,8 @@ class QuestionsController < ApplicationController
         @object_type = "questions"
     end
 
-    @total = object_total
+    @total = data[:total]
+    @votes_by_geoloc = data[:votes_by_geoloc]
     respond_to do |format|
       format.html {render :layout => false}
       format.js

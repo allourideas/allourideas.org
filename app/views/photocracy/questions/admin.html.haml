@@ -78,14 +78,17 @@
     %ul
       %li
         = t('admin.list_of_ideas_csv')
+        = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
         = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :rel => 'facebox', :id => 'ideas_request_link')
   
       %li
         = t('admin.list_of_votes_csv')
+        = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
         = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox',:id => 'votes_request_link')
   
       %li
         = t('admin.list_of_non_votes_csv')
+        = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
         = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
   .grid_2
     &nbsp;

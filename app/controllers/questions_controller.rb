@@ -197,6 +197,10 @@ class QuestionsController < ApplicationController
     case params[:type]
       when "votes" then
         @object_type = t('common.votes')
+      when "all_photocracy_votes" then
+        @object_type = t('common.votes')
+      when "all_aoi_votes" then
+        @object_type = t('common.votes')
       when "uploaded_ideas" then
         @object_type = t('results.uploaded_ideas')
       when "bounces" then

@@ -15,6 +15,10 @@ class Earl < ActiveRecord::Base
   def self.voter_map(earl_name, type)
     if type == "all"
       votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "all_votes")
+    elsif type == 'all_photocracy_votes'
+      votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => type)
+    elsif type == 'all_aoi_votes'
+      votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => type)
     elsif type == "all_creators"
       votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "creators")
     elsif type == "uploaded_ideas"

@@ -63,6 +63,8 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
 
               row << ['Hashed IP Address', 'Hashed IP Address']
               row << ['URL Alias', 'URL Alias']
+              row << ['User Agent', 'User Agent']
+              row << ['Referrer', 'Referrer']
               if current_user.admin?
                 #row << ['Geolocation Info', 'Geolocation Info']
               end
@@ -122,9 +124,24 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                   url_alias = earl.name
                 end
 
+                
+
 
                 row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, IP_ADDR_HASH_SALT].join(""))]
                 row << ['URL Alias', url_alias]
+                row << ['User Agent', user_session.user_agent]
+
+                # grab most recent referrer from clicks
+                # that is older than this current vote
+                # and belongs to this earl
+                slugs = earl.slugs
+                slugw = slugs.map {|s| "url like ?"}.join(" OR ")
+                slugv = slugs.map {|s| "%/#{s.name}%"}
+                conditions = ["controller = 'earls' AND action = 'show' AND created_at < ? AND (#{slugw})", row['Created at']]
+                conditions += slugv
+                session_start = user_session.clicks.find(:first, :conditions => conditions, :order => 'created_at DESC')
+                referrer = (session_start) ? session_start.referrer : ''
+                row << ['Referrer', referrer]
                 if current_user.admin?
                   #row << ['Geolocation Info', user_session.loc_info.to_s]
                 end

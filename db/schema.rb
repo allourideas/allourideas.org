@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217180552) do
+ActiveRecord::Schema.define(:version => 20110304211014) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20110217180552) do
     t.string   "referrer"
     t.integer  "session_info_id"
   end
+
+  add_index "clicks", ["session_info_id"], :name => "index_clicks_on_session_info_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

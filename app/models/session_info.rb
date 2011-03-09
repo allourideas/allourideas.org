@@ -42,7 +42,7 @@ class SessionInfo< ActiveRecord::Base
 	end
 
   def find_click_for_vote(vote)
-    conditions = ["controller = 'prompts' AND action = 'vote' AND created_at <= ?", vote['Created at']]
+    conditions = ["controller = 'prompts' AND (action = 'vote' OR action='skip') AND created_at <= ?", vote['Created at']]
     vote_click = clicks.find(:first, :conditions => conditions, :order => 'id DESC')
     vote_click = Click.new unless vote_click
     return vote_click

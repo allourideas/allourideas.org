@@ -66,6 +66,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
               row << ['User Agent', 'User Agent']
               row << ['Referrer', 'Referrer']
               row << ['Widget', 'Widget']
+              row << ['Tracking', 'Tracking']
               if current_user.admin?
                 #row << ['Geolocation Info', 'Geolocation Info']
               end
@@ -147,6 +148,10 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                 vote_click = user_session.find_click_for_vote(row)
                 widget = (vote_click.widget?) ? 'TRUE' : 'FALSE'
                 row << ['Widget', widget]
+
+                tracking = user_session.find_tracking_value(row)
+                tracking = 'NA' unless tracking
+                row << ['Tracking', tracking]
 
                 if current_user.admin?
                   #row << ['Geolocation Info', user_session.loc_info.to_s]

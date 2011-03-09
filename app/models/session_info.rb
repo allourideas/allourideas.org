@@ -48,5 +48,18 @@ class SessionInfo< ActiveRecord::Base
     return vote_click
   end
 
+  def find_tracking_value(vote)
+    conditions = ["created_at <= ? AND referrer LIKE '%tracking=%'", vote['Created at']]
+    ref_ts = clicks.find(:all, :conditions => conditions, :order => 'id DESC')
+    
+    tracking = ref_ts.map do |ref|
+      begin
+        CGI.parse(URI.parse(ref.referrer).query)['tracking']
+      rescue
+        nil
+      end
+    end.flatten.compact.first
+  end
+
 end
 

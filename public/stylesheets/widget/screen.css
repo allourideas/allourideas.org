@@ -571,7 +571,8 @@ table.tablesorter {
   height: 93%;
   border: 4px solid #3198c1;
   border-bottom: 0px;
-  overflow: auto; }
+  overflow: auto;
+  overflow-x: hidden; }
 
 .bottom_status {
   height: 16px;

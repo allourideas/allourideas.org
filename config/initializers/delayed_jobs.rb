@@ -2,7 +2,7 @@ Delayed::Worker.backend = :active_record
 Delayed::Worker.destroy_failed_jobs = false
 Delayed::Worker.sleep_delay = 60
 Delayed::Worker.max_attempts = 5
-Delayed::Worker.max_run_time = 40.minutes
+Delayed::Worker.max_run_time = 4.hours
 Delayed::Worker.default_priority = 20
 
 class Delayed::Worker

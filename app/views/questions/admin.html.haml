@@ -88,6 +88,12 @@
               =link_to('[?]', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank')
             %td 
               = f.text_field :ga_code, :class => 'highlight_change'
+          %tr.row2
+            %td
+              = t('admin.widget_embed_code') 
+              =link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
+            %td 
+              %input{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
           %tr.row1
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}

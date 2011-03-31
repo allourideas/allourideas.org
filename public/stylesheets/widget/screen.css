@@ -696,6 +696,9 @@ table.tablesorter {
 
 .results_data {
   height: 80%; }
+  .results_data .vote_count {
+    text-align: right;
+    color: #919191; }
 
 #full_height {
   height: 100%; }

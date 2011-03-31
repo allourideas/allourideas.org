@@ -990,7 +990,7 @@ class QuestionsController < ApplicationController
   end
   
   def export
-
+    type = params[:type]
     @earl = Earl.find params[:id]
     unless ((current_user.owns?(@earl)) || current_user.admin? )
        response = "You are not authorized to export data from this idea marketplace, please contact us at info@allouridea.org if you think this is a mistake"
@@ -1001,10 +1001,17 @@ class QuestionsController < ApplicationController
     #  does some work to add ip address and click information to csv file, store in public/
     #  create delayed job to delete file in 3 days, sends email to user with link
    
-    if params[:type].nil?
+    if type.nil?
       render :text => "An error has occured! Please try again later." and return
     else
-      Delayed::Job.enqueue ExportJob.new(@earl.id, params[:type], current_user.email, @photocracy), 15
+      question = Question.find(@earl.question_id)
+
+      redis_key  = "export_#{@earl.question_id}_#{type}_#{Time.now.to_i}"
+      redis_key += "_#{Digest::SHA1.hexdigest(redis_key + rand(10000000).to_s)}"
+
+      question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
+
+      Delayed::Job.enqueue MungeAndNotifyJob.new(@earl.id, type, current_user.email, @photocracy, redis_key), 15, 5.minutes.from_now
     end
       
     

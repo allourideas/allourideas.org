@@ -82,8 +82,6 @@ class EarlsController < ApplicationController
        end
 
        if @widget    
-         @widget_stylesheet = "widget/screen"
-
          # Define these here because of bug with ie6 css when color parameters are not defined
          @text_on_white = "#555555"
          @lighter_text_on_white = "#797979"
@@ -210,7 +208,7 @@ class EarlsController < ApplicationController
   protected
 
   def dumb_cleartext_authentication
-    @earl = Earl.find(params[:id])
+    @earl = Earl.find_by_name(params[:id])
     redirect_to('/') and return unless @earl
     unless @earl.pass.blank?
       authenticate_or_request_with_http_basic(t('questions.owner_password_exp')) do |user_name, password|

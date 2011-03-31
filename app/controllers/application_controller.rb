@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
       prepend_view_path(@@photocracy_view_path)
     elsif request.url.include?('widget') || request.env['SERVER_NAME'].include?('iphone') || @widget
       @widget= true
+      @widget_stylesheet = "widget/screen"
       prepend_view_path(@@widget_view_path)
     end
   end

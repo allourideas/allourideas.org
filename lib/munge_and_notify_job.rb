@@ -143,7 +143,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                 conditions += slugv
                 session_start = user_session.clicks.find(:first, :conditions => conditions, :order => 'created_at DESC')
                 referrer = (session_start) ? session_start.referrer : 'REFERRER_NOT_FOUND'
-                referrer = 'DIRECT_VISIT' if referrer = '/'
+                referrer = 'DIRECT_VISIT' if referrer == '/'
                 row << ['Referrer', referrer]
 
                 vote_click = user_session.find_click_for_vote(row)

@@ -37,7 +37,6 @@
       - unless white_label_request?  
         = render :partial => "shared/footer"
       = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'label_over', 'application'
-      = yield :crazyegg
       -if RAILS_ENV['production']
         %script{:type =>"text/javascript"}
           / Google.gaSSDSLoad("UA-8796271-2");

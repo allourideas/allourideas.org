@@ -83,10 +83,6 @@
 
 #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
 
--if RAILS_ENV['production']
-  -content_for :crazyegg do
-    <script type="text/javascript" src="http://s3.amazonaws.com/new.cetrk.com/pages/scripts/0010/7235.js"> </script>
-
 -content_for :view_javascript do
   :plain
     $('#new_question_form').submit(function(){

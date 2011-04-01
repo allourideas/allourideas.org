@@ -7,7 +7,6 @@ class EarlsController < ApplicationController
   before_filter :dumb_cleartext_authentication, :except => :export_list
 
   def show
-    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
     if @earl

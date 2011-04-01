@@ -1,3 +1,5 @@
+= content_for :meta do
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 = render :partial => 'shared/header_vote', :locals => {"show_delete" => true, :question => @question}
 .ninety
   %table.full.tablesorter

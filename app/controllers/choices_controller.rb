@@ -4,7 +4,6 @@ class ChoicesController < ApplicationController
   before_filter :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
 
   def show
-    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     @earl = Earl.find params[:question_id]
     @question = Question.find(@earl.question_id)
     

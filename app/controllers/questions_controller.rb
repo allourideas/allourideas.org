@@ -9,7 +9,6 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.xml
   def index
-    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     @questions = Question.find(:all)
 
     respond_to do |format|
@@ -29,7 +28,6 @@ class QuestionsController < ApplicationController
   #   end
   # end
   def results
-    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     @earl = Earl.find params[:id]
 
     @question = Question.find(@earl.question_id)
@@ -106,7 +104,6 @@ class QuestionsController < ApplicationController
   end
   
   def admin
-    @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
 
@@ -935,7 +932,6 @@ class QuestionsController < ApplicationController
   # # PUT /questions/1
   # # PUT /questions/1.xml
   def update
-     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
      @earl = Earl.find params[:id]
      @question = Question.find(@earl.question_id)
      
@@ -963,7 +959,6 @@ class QuestionsController < ApplicationController
      end
   end
   def delete_logo
-     @meta = '<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">'
      @earl = Earl.find params[:id]
     
      unless ((current_user.owns?(@earl)) || current_user.admin? )

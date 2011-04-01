@@ -10,7 +10,7 @@
         %tr
           %td= @question.attributes['name']
       .results_data.ninety
-        .vote_count
+        .vote_count.center
           = "<span id='votes_count'>#{@question.attributes['votes_count'].to_i}</span> #{t('common.votes_on')} <span id='item_count'>#{@question.attributes['item_count'] - @question.attributes["inactive_choices_count"]}</span> #{t('common.ideas')}"
         %table.full{:style => 'margin-top: 5px'}
           %tr.row0

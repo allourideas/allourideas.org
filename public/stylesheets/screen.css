@@ -472,6 +472,21 @@ table.tablesorter {
 
 #cant_decide_options {
   width: 500px; }
+  #cant_decide_options .cd_options {
+    width: 100%;
+    overflow: auto; }
+    #cant_decide_options .cd_options .cd_option {
+      width: 50%;
+      float: left; }
+      #cant_decide_options .cd_options .cd_option .cd_box {
+        margin: 5px 10px; }
+        #cant_decide_options .cd_options .cd_option .cd_box a {
+          background-color: #3198c1;
+          color: white;
+          display: block;
+          padding: 5px 10px; }
+          #cant_decide_options .cd_options .cd_option .cd_box a:hover {
+            background-color: #2b88ad; }
 
 .wider {
   color: black; }

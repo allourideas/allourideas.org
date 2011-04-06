@@ -338,24 +338,10 @@ var count = 0;
     return false;
   });
       
-  $('.cd_submit_button').bind('click',function(event) {
+  $('.cd_box a').click(function(event) {
+    event.preventDefault();
       
-    var reason = $('input[name=cant_decide_reason]:checked').val();
-
-    //  check that some radio button is selected before closing can't decide area
-  	if (!reason) {
-      alert("You must select a reason");
-      return -1;
-  	}
-      
-  	if(reason == 'user_other'){
-      user_text = $('input[name=reason_text]').val()
-      if(!user_text){
-        alert("You must include an explanation");
-        return -1;
-      }
-    reason += ":" + user_text;
-  	}
+    var reason = $(event.target).attr('href').replace(/^#*/, '');
 
     //  make the right stuff reappear/rehide/work
     //  cd stuff
@@ -386,7 +372,7 @@ var count = 0;
 	           opacity:         0.0,
 	           cursor:    null
 	      }});
-	  var question_id = $(this).attr("rel");
+	  var question_id = $(event.target).attr("data-questionid");
 	  $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js'+ '?locale=<%= I18n.locale %>',
 	     {
 		   'authenticity_token' : encodeURIComponent(AUTH_TOKEN),

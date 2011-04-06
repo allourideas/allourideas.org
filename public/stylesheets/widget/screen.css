@@ -716,3 +716,14 @@ table.tablesorter {
 
 textarea {
   overflow: auto; }
+
+.cd_option .cd_box {
+  margin: 5px 10px; }
+  .cd_option .cd_box a {
+    background: #b1b1b1;
+    color: white;
+    display: block;
+    width: 40%;
+    padding: 5px 10px; }
+    .cd_option .cd_box a:hover {
+      background: #c5c5c5; }

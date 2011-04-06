@@ -80,3 +80,5 @@ end
 
 PRODUCTION_API_HOST = ENV['API_HOST']
 STAGING_API_HOST = ENV['STAGING_API_HOST']
+
+Sass::Plugin.add_template_location(Rails.root + 'public/stylesheets/widget/sass/', Rails.root + 'public/stylesheets/widget/')

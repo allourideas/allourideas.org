@@ -483,10 +483,11 @@ table.tablesorter {
         #cant_decide_options .cd_options .cd_option .cd_box a {
           background-color: #3198c1;
           color: white;
-          display: block;
-          padding: 5px 10px; }
+          display: block; }
           #cant_decide_options .cd_options .cd_option .cd_box a:hover {
             background-color: #2b88ad; }
+          #cant_decide_options .cd_options .cd_option .cd_box a .cd_choice_text {
+            padding: 5px 10px; }
 
 .wider {
   color: black; }

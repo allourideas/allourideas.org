@@ -60,14 +60,15 @@
     - cd_options.each do |choice|
       .cd_option
         .cd_box
-          %a.rounded{:href=> "##{choice}", 'data-questionid' => @question.id}
-            =t('vote.cd_'+choice)
-            - if choice == 'dont_know_left' 
-              .leftside
-                %em= @left_choice_text
-            - elsif choice == 'dont_know_right'
-              .rightside
-                %em= @right_choice_text
+          %a.rounded-facebox{:href=> "##{choice}", 'data-questionid' => @question.id}
+            .cd_choice_text
+              =t('vote.cd_'+choice)
+              - if choice == 'dont_know_left' 
+                .leftside
+                  %em= @left_choice_text
+              - elsif choice == 'dont_know_right'
+                .rightside
+                  %em= @right_choice_text
   %br
   .fleft
     = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
@@ -104,6 +105,10 @@
   $.facebox.settings.opacity = 0.5;
   $('a[rel*=facebox]').facebox();
   $('.rounded').corner('5px');
+  if (!($.browser.msie && parseInt($.browser.version, 10) < 8)) {
+  // IE 6 and 7 have problems with the rounded corners and facebox
+  $('.rounded-facebox').corner('5px');
+  }
   $('#facebox').draggable();
   = "var SHOW_AVERAGE_VOTES = '#{@ab_show_average}';"
   -unless session[:has_voted]

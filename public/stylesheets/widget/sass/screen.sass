@@ -1,10 +1,10 @@
-$body_width:100%          
-$body_height: 100%        
+$body_width: 100%
+$body_height: 100%
 
 $text_color: #555555
 $border_color: #3198c1
 $button_color: #3198c1
-$button_hover_color: #2B88AD
+$button_hover_color: #2b88ad
 
 $margin: 5px
 
@@ -39,10 +39,10 @@ a
 body
   font-family: Arial, Helvetica, sans-serif
   font-size: 12px
-  width: $body_width   
+  width: $body_width
   height: 100%
-  color: $text_color                                
-  line-height: 16pt     
+  color: $text_color
+  line-height: 16pt
   float: left
 
 html
@@ -95,7 +95,7 @@ table
   .header_padding
     padding: 5px
   .idea_padding
-    padding: 2.5px 5px 2.5px 5px 
+    padding: 2.5px 5px 2.5px 5px
   .row0
     background-color: $border_color
     color: white
@@ -118,9 +118,8 @@ table
     margin: 0
   &.signup td
     max-width: 400px
-  .score 
-    padding-right: 5px  
-  
+  .score
+    padding-right: 5px
 
 .create-question
   h2
@@ -136,12 +135,12 @@ table
     border: 1px solid #ff6464
 
 .errorExplanation
-  color: #FFF
+  color: white
   background: #ff6464
   padding: 8px 5px
-  border: 1px solid #000
+  border: 1px solid black
   h2
-    color: #FFF
+    color: white
   ul li
     margin-left: 40px
 
@@ -173,7 +172,7 @@ table
 .body
   height: 100%
   margin: 1px 0px
-  padding: 0px 0px 0px                
+  padding: 0px 0px 0px
   .center img
     padding: 0px 0px 30px 0px
   .triple-left
@@ -181,7 +180,6 @@ table
   #body
     .triple-center, .triple-right
       min-height: 150px
-
 
 .triple-left, .triple-center, .triple-right, .double-left
   float: left
@@ -231,7 +229,7 @@ table
   float: center
   height: 80%
 
-$fontScaleFactor = .8                      
+$fontScaleFactor: 0.8
 
 .votebox table
   text-align: center
@@ -247,7 +245,7 @@ $fontScaleFactor = .8
     &.right
       padding: 0 0 0 2.5px
     &.vote_cell
-      font-size: 16px * $fontScaleFactor        
+      font-size: 16px * $fontScaleFactor
       color: white
       height: 90%
       background: $button_color
@@ -256,10 +254,10 @@ $fontScaleFactor = .8
       table
         height: 100%
       a
-        color: #FFF
+        color: white
         border: none
         &:hover
-          color: #FFF
+          color: white
           border: none
     .five_padding
       padding: 5px
@@ -276,7 +274,7 @@ $fontScaleFactor = .8
   .triple-left, .triple-center, .triple-right
     font-size: 10px
     line-height: 12pt
-    color: #AAA
+    color: #aaaaaa
   img
     padding-right: 10px
     float: left
@@ -291,7 +289,7 @@ $fontScaleFactor = .8
     width: 220px
 
 .bar-chart
-  border: 1px solid #ccc
+  border: 1px solid #cccccc
   width: 97%
   margin: 0 auto
   padding: 1px
@@ -303,15 +301,15 @@ $fontScaleFactor = .8
 
 hr
   border: none
-  border-bottom: 1px dotted #BBB
+  border-bottom: 1px dotted #bbbbbb
   margin: 0 0 15px 0
 
 .add-box
-  width: 90%     
+  width: 90%
   margin-top: 10px
   textarea
     border: none
-    width: 100%       
+    width: 100%
 
 input, textarea
   font-size: 13px
@@ -319,17 +317,17 @@ input, textarea
   font-family: Arial, Helvetica, sans-serif
 
 .form-btn
-  color: #000
+  color: black
 
 .error, .notice, .vote-notice
-  color: #FFF
+  color: white
   background-color: #ff6464
   margin: -10px 10em 25px
   text-align: center
   font-size: 13px
 
 .notice
-  background-color: #FFC
+  background-color: #ffffcc
   border: 1px solid #797979
   color: #797979
   text-align: left
@@ -342,7 +340,7 @@ input, textarea
       border: none
 
 .vote-notice
-  background-color: #0B0
+  background-color: #00bb00
 
 #initial_notice
   text-align: center
@@ -418,7 +416,7 @@ input, textarea
 
 .toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status
   text-align: center
-  color: #ffffff
+  color: white
   cursor: pointer
   line-height: 14px
 
@@ -427,7 +425,7 @@ div.form_field
   float: left
 
 label.over-apply
-  color: #ccc
+  color: #cccccc
   position: absolute
   top: 0px
   left: 5px
@@ -439,17 +437,17 @@ table.tablesorter
   width: 100%
   text-align: left
   thead tr th, tfoot tr th
-    border: 1px solid #FFF
+    border: 1px solid white
     font-size: 8pt
     padding: 4px 20px 4px 4px
   thead tr .header
-    background-image: url('/images/bg.gif')
+    background-image: url("/images/bg.gif")
     background-repeat: no-repeat
     background-position: center right
     cursor: pointer
   tbody
     td
-      color: #3D3D3D
+      color: #3d3d3d
       padding: 4px
       vertical-align: top
     tr
@@ -459,9 +457,9 @@ table.tablesorter
         background-color: #fefefe
   thead tr
     .headerSortUp
-      background-image: url('/images/asc.gif')
+      background-image: url("/images/asc.gif")
     .headerSortDown
-      background-image: url('/images/desc.gif')
+      background-image: url("/images/desc.gif")
     .headerOver
       background-color: #8dbdd8
 
@@ -475,7 +473,7 @@ table.tablesorter
   font-size: 12px
 
 .active
-  color: #000000
+  color: black
 
 .firsttime
   position: fixed
@@ -494,7 +492,7 @@ table.tablesorter
   display: none
 
 .wider
-  color: #000000
+  color: black
   td
     padding: 5px !important
     &.no_bottom_padding
@@ -509,32 +507,31 @@ table.tablesorter
 #cant_decide_options
   width: 95%
   text-align: center
-  font-size: 12px  
-  
+  font-size: 12px
 
 #cant_decide_options table
   text-align: left
 
 #cant_decide_btn
-  background: #C5C5C5
+  background: #c5c5c5
   display:inline
   padding: 7.5px 12px 7.5px 12px
   font-size: 16px * $fontScaleFactor
-  color: #FFFFFF
+  color: white
   cursor: pointer
   &:hover
-    background-color: #B1B1B1
+    background-color: #b1b1b1
 
 .add_idea
   .add_idea_button
     display:inline
     padding: 7.5px 20px 7.5px 20px
-    color: #FFFFFF
+    color: white
     font-size: 16px * $fontScaleFactor
     cursor: pointer
     background: #01bb00
     a
-      color: #FFFFFF
+      color: white
     &:hover
       background: #228b53
 
@@ -545,7 +542,7 @@ table.tablesorter
   padding: 5px 10px 5px 10px
   background: #01bb00
   cursor: pointer
-  color: #FFFFFF
+  color: white
   &:hover
     background-color: #228b53
 
@@ -554,25 +551,25 @@ table.tablesorter
 
 .pagination
   text-align: center
-  padding: .3em
+  padding: 0.3em
   a
-    padding: .2em .5em
+    padding: 0.2em 0.5em
   span
-    padding: .2em .5em
+    padding: 0.2em 0.5em
     &.disabled
-      color: #AAA
+      color: #aaaaaa
     &.current
       font-weight: bold
   a
-    border: 1px solid #DDDDDD
+    border: 1px solid #dddddd
     text-decoration: none
     &:hover, &:focus
       border-color: #003366
       background: $border_color
       color: white
   .page_info
-    color: #aaa
-    padding-top: .8em
+    color: #aaaaaa
+    padding-top: 0.8em
   .prev_page, .next_page
     border-width: 2px
   .prev_page
@@ -586,7 +583,7 @@ table.tablesorter
 #wide_column
   width: 50%
 
-#narrow_column 
+#narrow_column
   width: 40%
 
 .user_cd_reason
@@ -594,15 +591,15 @@ table.tablesorter
 
 .scrollbar_container
   height: 93%
-  border: 4px solid $border_color             
+  border: 4px solid $border_color
   border-bottom: 0px
   overflow: auto
   overflow-x: hidden
 
 .bottom_status
-  height: 16px                               
+  height: 16px
   line-height: 16px
-  border: 4px solid $border_color              
+  border: 4px solid $border_color
   text-align: center
   background-color: $border_color
   color: white
@@ -630,46 +627,46 @@ table.tablesorter
 
 .tabs
   margin: 0
-  padding: 0  
+  padding: 0
   list-style: none
   font-size: 12px
-  border-color: $border_color 
+  border-color: $border_color
   .current_tab
     font-weight: bold
-    background-color: $border_color                 
+    background-color: $border_color
     a
       color: white
     &:hover
-      background-color: $border_color  
-      border-color: $border_color  
+      background-color: $border_color
+      border-color: $border_color
   li
     display: inline
     float: left
-    border-top: 4px solid $border_color 
-    border-left: 4px solid $border_color 
-    border-right: 4px solid $border_color 
+    border-top: 4px solid $border_color
+    border-left: 4px solid $border_color
+    border-right: 4px solid $border_color
     margin: 0 1px 0 0px
     padding-left: 5px
     padding-right: 5px
     a
       outline: none
       display: block
-      color: $border_color 
+      color: $border_color
       font-weight: bold
     &:hover
       background-color: lighten($border_color, 30%)
       border-color: lighten($border_color, 30%)
 
 .vote-nav
-  height: 25.4px                          
+  height: 25.4px
   font-size: 12px
 
 .question
-  font-size: 16px                       
-  width: 85%           
+  font-size: 16px
+  width: 85%
   color: black
   height: 100%
-  
+
 .question_container
   height: 20%
 
@@ -678,7 +675,7 @@ table.tablesorter
 
 .idea_result
   color: $text_color
-  width: 67.5%  
+  width: 67.5%
 
 .faq
   a
@@ -694,7 +691,7 @@ table.tablesorter
   width: 90%
   textarea
     border: none
-    width: 100%      
+    width: 100%
 
 .vote-footer
   a
@@ -718,7 +715,7 @@ table.tablesorter
   font-size: 14px
 
 .bottom_status table
-  border: 0 
+  border: 0
   cellpadding: 0
 
 .results_data
@@ -736,4 +733,10 @@ table.tablesorter
   min-height: 100%
 
 .text_field_border
-  border: 2px solid #E9E9E9
+  padding: 2px
+  background-color: #e9e9e9
+  textarea#new_idea_field:focus
+    outline: none
+
+textarea
+  overflow: auto

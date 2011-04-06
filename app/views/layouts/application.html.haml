@@ -5,7 +5,7 @@
     = yield :meta
     <meta name="keywords" content="ideation, online suggestion box, open source suggestion box, crowdsourcing ideas, social suggestion, idea comparison, prioritize ideas, nonprofit, free idea management" /> 
     <meta name="description" content="All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age." />
-    %meta{:property => 'og:image', :content => image_path('favicon.png')}
+    %meta{:property => 'og:image', :content => "#{request.protocol}#{request.host_with_port}" + image_path('favicon.png')}
     <meta property="og:site_name" content="All Our Ideas"/>
     <meta property="og:description" content="All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age." />
     %link{:rel => "shortcut icon", :href => "http://www.allourideas.org/favicon.ico"}

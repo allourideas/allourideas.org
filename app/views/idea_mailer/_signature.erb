@@ -2,4 +2,13 @@
 145 Wallace Hall
 Princeton, NJ 08544
 <%= @photocracy ? 'info@photocracy.org' : 'info@allourideas.org' %>
-Follow us on twitter: <%= @photocracy ? 'http://twitter.com/photocracy' : 'http://twitter.com/allourideas' %>
+
+<% if @photocracy -%>
+For more about Photocracy:
+Twitter: http://twitter.com/photocracy
+<% else -%>
+For more about All Our Ideas:
+Blog: http://blog.allourideas.org
+Twitter: http://twitter.com/allourideas
+Facebook: http://www.facebook.com/allourideas
+<% end -%>

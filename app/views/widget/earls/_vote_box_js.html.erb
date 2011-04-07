@@ -16,6 +16,9 @@ var count = 0;
     $('#new_idea_field').val("");
     $('#new_idea_field').hint();
   }
+  $(document).ready(function() {
+    $('#new_idea_field').jqEasyCounter({target: '.new_idea_counter'});
+  });
 
 /*  WIDGET DYNAMIC SIZING AND SPACING ONLOAD FUNCTIONALITY*/
 

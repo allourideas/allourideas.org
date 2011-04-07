@@ -59,6 +59,7 @@
       .text_field_border.rounded= text_area_tag('new_idea', '', :title => box_text ,:rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_text_field', :id => 'new_idea_field')
       = hidden_field_tag 'default_text', box_text
       = hidden_field_tag 'question_id', @question_id 
+      .new_idea_counter
       .close_and_submit
         %a.close.fleft{:href => '#page1'}
           = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image")

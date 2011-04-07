@@ -210,6 +210,7 @@
    // if popup is for add_idea_submit 
       $('#facebox .new_idea_submit').bind('click', on_idea_submit_button_click);
       $('#facebox .new_idea_field').hint();
+      $('#facebox .new_idea_field').jqEasyCounter({target: '#facebox .new_idea_counter'});
 
     //if popup is for cant_decide_submit
     $('.cd_option a').click(function(event) {

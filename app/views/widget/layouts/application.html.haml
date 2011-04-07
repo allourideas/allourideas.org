@@ -30,7 +30,7 @@
             -session[:on_example] = nil
         = yield
         .clear      
-      = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'jquery.blockUI.js','label_over', 'application'
+      = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'jquery.blockUI.js','label_over', 'jquery.jqEasyCharCounter.js', 'application'
       -if RAILS_ENV['production']
         %script{:type =>"text/javascript"}
           / Google.gaSSDSLoad("UA-8796271-2");

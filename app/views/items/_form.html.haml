@@ -16,6 +16,7 @@
       = hidden_field_tag 'default_text', box_text
       = hidden_field_tag 'question_id', @question_id 
       %br
+      .new_idea_counter
       .fleft
         = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
       .fright

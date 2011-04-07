@@ -45,7 +45,7 @@
 
 		
     $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
-        'authenticity_token='+encodeURIComponent(AUTH_TOKEN)+'&new_idea='+new_idea,
+        {authenticity_token : AUTH_TOKEN, new_idea: new_idea},
         function(data){
           $.unblockUI();
           leveling_text = "";

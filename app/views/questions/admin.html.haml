@@ -95,7 +95,7 @@
               = t('admin.widget_embed_code') 
               =link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
             %td 
-              %input{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
+              %input.widget-embed-code{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
           %tr.row1
             %td{:colspan => 2}
               = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
@@ -160,4 +160,5 @@
   $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_flag_enabled').change(function(){ $('#savebutton').addClass("active")});
   $('#earl_default_lang').change(function(){ $('#savebutton').addClass("active")});
+  $('input.widget-embed-code').focus(function(ev) { $(this).select(); ev.preventDefault();});
 

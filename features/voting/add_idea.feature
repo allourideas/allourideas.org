@@ -12,20 +12,20 @@ Feature: Add idea to marketplace
     @selenium
     Scenario: Adding choice to unmoderated marketplace
       Given idea marketplace 'test' has enabled idea autoactivation
-      When I upload an idea titled 'blah blah blah'
-      Then I should see "You just added an idea for people to vote on: blah blah blah" within ".tellmearea"
+      When I upload an idea titled 'blah blah & blah'
+      Then I should see "You just added an idea for people to vote on: blah blah & blah" within ".tellmearea"
       Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
       And the vote count should be 0
       And the idea count should be 3
       When I go to the View Results page for 'test'
-      Then I should see "blah blah blah"
+      Then I should see "blah blah & blah"
       And "test@example.com" should receive an email 
       When "test@example.com" opens the email
       Then they should see "[All Our Ideas] idea added to question: test name" in the email subject
-      And they should see "Someone has uploaded the idea 'blah blah blah' to your question" in the email body
+      And they should see "Someone has uploaded the idea 'blah blah & blah' to your question" in the email body
       And they should see "Based on your settings, we have auto-activated the idea" in the email body
       When they click the first link in the email
-      Then I should see "You have successfully deactivated the idea 'blah blah blah'"
+      Then I should see "You have successfully deactivated the idea 'blah blah & blah'"
 
      
     @selenium

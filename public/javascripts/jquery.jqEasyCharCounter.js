@@ -53,7 +53,11 @@ $.fn.extend({
 			
 			// bind events to this element
 			$this
-				.bind('keydown keyup keypress focus', doCount);
+				.bind('keydown keyup keypress focus',function() {
+                    // allow chance for other events to modify value first
+                    // e.g., hint plugins that clear the value on focus
+                    setTimeout(doCount, 1);
+                });
 			function doCount(){
 				var val = $this.val(),
 					length = val.length;

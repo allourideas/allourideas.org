@@ -45,6 +45,7 @@ $.fn.extend({
 			// append counter element to DOM
 			if (options.target) {
                 jqEasyCounterMsg.appendTo($(options.target));
+                $(options.target).show();
             }
             else {
 			    jqEasyCounterMsg[options.msgAppendMethod]($this);

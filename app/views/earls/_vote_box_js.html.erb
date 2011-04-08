@@ -18,6 +18,7 @@
   on_idea_submit_button_click = function(event){		
     var new_idea = $('#facebox .new_idea_field').val();
     var default_text = $('#default_text').val()
+    $('#facebox .new_idea_counter').hide();
     $('.example_notice').hide();
     
     //if new idea is blank or longer than 140 characters, do not allow it to submit

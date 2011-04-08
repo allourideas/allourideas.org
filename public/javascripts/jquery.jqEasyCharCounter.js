@@ -21,7 +21,7 @@ $.fn.extend({
             var $this = $(this),
                 options = $.extend({
                     maxChars: 140,
-					maxCharsWarning: 80,
+					maxCharsWarning: 130,
 					msgFontSize: '100%',
 					msgFontColor: '#000',
 					msgFontFamily: 'inherit',

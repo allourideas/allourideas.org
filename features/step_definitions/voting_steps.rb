@@ -63,7 +63,7 @@ end
 When /^I pick "(.*)"$/ do |radio_label|
 	case radio_label 
 	when "I like both ideas"
-           When "I choose \"cant_decide_reason_like_both\""
+    find('.cd_box a.like_both').click
 	when "Other"
            When "I choose \"cant_decide_reason_user_other\""
 	end

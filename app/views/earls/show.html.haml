@@ -60,7 +60,7 @@
     - cd_options.each do |choice|
       .cd_option
         .cd_box
-          %a.rounded-facebox{:href=> "##{choice}", 'data-questionid' => @question.id}
+          %a.rounded-facebox{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
             .cd_choice_text
               =t('vote.cd_'+choice)
               - if choice == 'dont_know_left' 

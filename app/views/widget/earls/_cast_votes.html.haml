@@ -40,7 +40,7 @@
         - cd_options.each do |choice|
           .cd_option
             .cd_box
-              %a.rounded{:href=> "##{choice}", 'data-questionid' => @question.id}
+              %a.rounded{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
                 =t('vote.cd_'+choice)
                 - if choice == 'dont_know_left'
                   .leftside

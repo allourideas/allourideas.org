@@ -213,10 +213,10 @@
       $('#facebox .new_idea_field').jqEasyCounter({target: '#facebox .new_idea_counter'});
 
     //if popup is for cant_decide_submit
-    $('.cd_option a').click(function(event) {
+    $('.cd_box a').click(function(event) {
         event.preventDefault();
     
-        var reason = $(event.target).attr('href').replace(/^#*/, '');
+        var reason = $(event.currentTarget).attr('href').replace(/^#*/, '');
 
 	      jQuery(document).trigger('close.facebox')
 	
@@ -232,7 +232,7 @@
 		        backgroundColor: '#000', 
 		        opacity:         0.0
 		   }});
-	var question_id = $(event.target).attr("data-questionid");
+	var question_id = $(event.currentTarget).attr("data-questionid");
 	$.post('/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>',
 	       {
 		   'authenticity_token' : encodeURIComponent(AUTH_TOKEN),

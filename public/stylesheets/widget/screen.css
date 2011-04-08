@@ -720,10 +720,10 @@ textarea {
 .cd_option .cd_box {
   margin: 5px 10px; }
   .cd_option .cd_box a {
-    background: #b1b1b1;
+    background: #c5c5c5;
     color: white;
     display: block;
     width: 40%;
     padding: 5px 10px; }
     .cd_option .cd_box a:hover {
-      background: #c5c5c5; }
+      background: #b1b1b1; }

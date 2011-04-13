@@ -1,6 +1,8 @@
 = content_for :meta do
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
   %meta{:property => 'og:title', :content => "#{h @question.name}"}
+  -if @earl && !@earl.logo_file_name.nil?
+    %meta{:property => 'og:image', :content => "#{request.protocol}#{request.host_with_port}" + image_path(@earl.logo.url)}
   
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}

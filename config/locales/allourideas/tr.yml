@@ -36,7 +36,7 @@ tr:
     manage_question: Bu sayfayı yönet
     see_all_ideas: Diğerlerini gör...
     feedback: Geribildirim
-    make_your_own: Kendi sorunu yarat
+    make_your_own: Bir fikir de sen ekle
     view_idea: Fikri gör
     signup: kaydol
     return_voting_widget: Oy vermeye geri dön
@@ -57,7 +57,7 @@ tr:
     added_on: Eklendi
     number_of_votes: Oy sayısı
     about_scoring: Puanlama Hakkında
-    score_explain: Bir fikrin aldığı puan o fikrin rastgele seçilen başka bir fikre karşı tahmini kazanma şansı. Örneğin, 100 puan bu fikrin her seferinde kazanacağının tahmin edildiği ve 0 puan bu fikrin her seferinde kaybedeceğinin tahmin edildiği anlamına gelir.
+    score_explain: Bir fikrin aldığı puan o fikrin rastgele seçilen başka bir fikre karşı tahmini kazanma şansını gösterir.
     toggle_error: Üzgünüz, bu seçeneğin durumunu değiştiremedik çünkü bu soru size ait değil.
     you_just_submitted: Başkalarının oylayabileceği bir fikir eklediniz.
     you_have_successfully_activated: Fikri başarıyla etkinleştirdiniz
@@ -140,16 +140,16 @@ tr:
        adjective_9: vay be
   results:
     data_visualizations: Veri görüntüleme
-    world_map_title: tüm oyların dünya haritası
+    world_map_title: Tüm oyların dünya haritası
     world_map_ideas_title: Yüklenen tüm fikirlerin dünya haritası
     world_map_creators: Tüm fikir pazarı yaratıcılarının dünya haritası
     votes_over_time_title: Zaman içinde oy sayısı
     user_ideas_over_time_title: Zaman içinde yüklenen fikir sayısı
     user_sessions_over_time_title: Gün başına birey kullanıcı oturum sayısı
-    word_cloud_ideas_title: fikir sözcük bulutu
-    word_cloud_weighted_title: puana göre ağırlıklı fikir sözcük bulutu
+    word_cloud_ideas_title: Fikir sözcük bulutu
+    word_cloud_weighted_title: Puana göre ağırlıklı fikir sözcük bulutu
     word_cloud_uploaded_title: Yüklenen fikirlerin sözcük bulutu
-    word_cloud_uploaded_weighted_title: puana göre ağırlıklı yüklenen fikirlerin sözcük bulutu
+    word_cloud_uploaded_weighted_title: Puana göre ağırlıklı yüklenen fikirlerin sözcük bulutu
     about_word_cloud: Sözcük bulutları hakkında
     word_cloud_exp: Bu sayfada görüntülenen sözcük bulutları bu fikir pazarında en sık olarak görülen sözcüklerin görsel tasviridir. Puana göre ağırlıklandırıldığında, ortaya çıkan sözcük bulutu o fikrin mevcut puanını kullanarak o sözcüğün popülerliğini belirler. Yaratılan sözcük bulutuna sıradan sözcükler veya seyrek kullanılan sözcükler dahil edilmeyebilir..
     scatter_ideas_title: Yüklenen fikirleri ilk fikirlerle karşılaştır
@@ -185,7 +185,7 @@ tr:
     make_my_own_exp: "Tabi ki. Kendi fikir pazarını kurmak çok kolay ve Google ile Princeton Üniversitesi'ndeki Bilgi Teknoloji Politikaları Merkezi'nden aldığımız fonlar sayesinde ücretsiz. Kendi fikir pazarını şu adreste yaratabilirsin: http://www.allourideas.org/questions/new."
     make_my_own_exp_widget: "Tabi ki. Kendi fikir pazarını kurmak çok kolay ve Google ile Princeton Üniversitesi'ndeki Bilgi Teknoloji Politikaları Merkezi'nden aldığımız fonlar sayesinde ücretsiz. Kendi fikir pazarı aracını şu adreste yaratabilirsin: http://www.allourideas.org."
   footer:
-    support: Bu proje Google ile Princeton Üniversitesi CITP'nin verdiği fonlar tarafından desteklenmetedir.
+    support: Bu proje Google ve Princeton Üniversitesi CITP’nin verdiği fonlarla desteklenmektedir.
     open_source: All Our Ideas bir açık kaynak yazılımıdır. İstediğiniz gibi inceleyin, karıştırın, yeniden tasarlayın veya katkıda bulunun.
     logged_in: Giriş yapıldı
     my_questions: Sorularım
@@ -195,7 +195,7 @@ tr:
         please_click: Lütfen seçiminizi tıklayınız
      test_ideasubmit:
         make_your_voice_heard: "Sesinizi duyurun"
-        help_your_community: "Çevrenize yardım edin"
+        help_your_community: Sen de katkıda bulun
      test_stackoverflow:
         first_time: İlk kez mi buradasınız? Daha çok beğendiğiniz seçeneğe tıklayarak oy vermeye başlayın!
         no_first_time: Oy vermeye başlamak için daha çok beğendiğiniz seçeneğe tıklayınız!

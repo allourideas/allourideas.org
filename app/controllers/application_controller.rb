@@ -133,6 +133,7 @@ class ApplicationController < ActionController::Base
     else
       I18n.load_path = Dir[Rails.root.join('config', 'locales', 'allourideas', '*.{rb,yml}')]
     end
+    I18n.load_path.concat Dir[Rails.root.join('config', 'locales', 'rails', '*.{rb,yml}')]
     I18n.reload!
 
     if params[:locale].blank?

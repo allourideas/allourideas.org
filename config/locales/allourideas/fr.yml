@@ -3,9 +3,10 @@ fr:
    # Common text elements across the application
    and: et
    votes_on: votes sur
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} votes sur %{2}%{ideas_count}%{_2} idées
    items:  des idées
    ideas:  idées
-   ideas:  idée
+   idea:  idée
    title:  Toutes Nos Idées - Une boite à suggestions pour l’ère du numérique
    title_widget: Toutes Nos Idées 
    characters:  caratères

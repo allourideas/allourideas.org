@@ -1,4 +1,10 @@
 %p
   = link_to(t('nav.feedback'), feedback_vote_path(:question_id => @question_id))
-  == #{@votes_count} #{t('common.votes_on')} #{@items_count} #{t('common.items')}
+  = t('common.X_votes_on_Y_ideas',
+      :votes_count => @votes_count,
+      :ideas_count => @items_count,
+      :"1" => '',
+      :"_1" => "",
+      :"2" => '',
+      :"_2" => '')
 

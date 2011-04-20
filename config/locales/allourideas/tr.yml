@@ -3,6 +3,7 @@ tr:
    # Common text elements across the application
    and: ve
    votes_on: verilen oylar
+   X_votes_on_Y_ideas: "Verilen oy sayısı: %{1}%{votes_count}%{_1} Toplam fikir sayısı: %{2}%{ideas_count}%{_2}"
    items: fikirler
    ideas: fikirler
    idea: fikir

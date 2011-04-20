@@ -3,6 +3,7 @@ ar:
    # Common text elements across the application
    and: and
    votes_on: صوتا في
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} ﺹﻮﺗﺍ ﻒﻳ %{2}%{ideas_count}%{_2} ﺍﻸﻔﻛﺍﺭ
    items: الأفكار
    ideas: الأفكار
    idea: فكرة

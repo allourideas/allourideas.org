@@ -3,6 +3,7 @@ pt:
    # Common text elements across the application
    and: e
    votes_on: vota em
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} vota em %{2}%{ideas_count}%{_2} ideias
    items: ideias
    ideas: ideias
    idea: idéia

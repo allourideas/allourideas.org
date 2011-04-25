@@ -539,7 +539,7 @@ class QuestionsController < ApplicationController
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
    end
          chart_title = t('results.number_of') +  t('common.user_sessions') + t('results.per_day')
-         y_axis_title = t('results.number_of') + t('common.user_sessions')
+         y_axis_title = t('results.number_of_user_sessions')
       when 'user_submitted_ideas'
    if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')

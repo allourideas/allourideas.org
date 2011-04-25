@@ -94,6 +94,7 @@ pt:
   results:
     number_of_votes_per_day: "Número de Votos por dia"
     number_of_ideas: Número de ideias
+    number_of_user_sessions: Número de Sessões de usuário
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
     data_visualizations: Visualizações de Dados

@@ -93,6 +93,7 @@ es:
        adjective_9: wow
   results:
     number_of_ideas: "Número de ideas"
+    number_of_user_sessions: "Número de Sesiones de usuario"
     number_of_votes_per_day: "Número de Votos por día"
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results

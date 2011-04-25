@@ -546,7 +546,7 @@ class QuestionsController < ApplicationController
    else
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
    end
-         chart_title = t('results.number_of') +  t('common.ideas').titleize + t('results.per_day')
+         chart_title = t('results.number_of_ideas_per_day')
          y_axis_title = t('results.number_of_ideas')
        when 'unique_users'
    if totals == "true"

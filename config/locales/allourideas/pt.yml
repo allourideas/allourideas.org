@@ -94,6 +94,7 @@ pt:
   results:
     number_of_votes_per_day: "Número de Votos por dia"
     number_of_ideas: Número de ideias
+    number_of_ideas_per_day: Número de ideias por dia
     number_of_user_sessions: Número de Sessões de usuário
     number_of_user_sessions: Número de Sessões de usuário por dia
     # Text that appears on the results page of each idea marketplace

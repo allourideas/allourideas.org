@@ -213,6 +213,7 @@ ar:
     number_of_user_sessions: "عدد من User sessions"
     number_of_user_sessions_per_day: "عدد من User sessions يوميا"
     number_of_ideas: "عدد من الأفكار"
+    number_of_ideas_per_day: "عدد من الأفكار ﻱﻮﻤﻳﺍ"
     number_of_votes_per_day: "عدد من الأصوات يوميا"
     data_visualizations: تصورات البيانات
     world_map_title: خريطة العالم من كل الأصوات

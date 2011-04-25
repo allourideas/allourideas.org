@@ -213,6 +213,7 @@ en:
     number_of_user_sessions: Number of User Sessions
     number_of_user_sessions_per_day: Number of User Sessions per day
     number_of_ideas: Number of ideas
+    number_of_ideas_per_day: Number of ideas per day
     date: Date
     number_of_votes_per_day: Number of Votes per day
     data_visualizations: Data Visualizations

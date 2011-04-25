@@ -211,6 +211,7 @@ en:
        adjective_9: wow
   results:
     number_of_user_sessions: Number of User Sessions
+    number_of_user_sessions_per_day: Number of User Sessions per day
     number_of_ideas: Number of ideas
     date: Date
     number_of_votes_per_day: Number of Votes per day

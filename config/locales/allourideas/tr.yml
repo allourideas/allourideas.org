@@ -143,6 +143,7 @@ tr:
     date: Tarih
     number_of_ideas: fikirlerin sayısı
     number_of_user_sessions: Kullanıcı oturumları sayısı
+    number_of_user_sessions_per_day: Gün başına kullanıcı oturumları sayısı
     number_of_votes_per_day: Gün başına oy sayısı
     data_visualizations: Veri görüntüleme
     world_map_title: Tüm oyların dünya haritası

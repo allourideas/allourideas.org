@@ -92,6 +92,7 @@ es:
        adjective_8: impresionante
        adjective_9: wow
   results:
+    number_of_votes_per_day: "Número de Votos por día"
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
     data_visualizations: Visualizaciónes de datos

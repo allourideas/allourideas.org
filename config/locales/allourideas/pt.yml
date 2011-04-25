@@ -92,6 +92,7 @@ pt:
        adjective_8: terrível
        adjective_9: opa
   results:
+    number_of_votes_per_day: "Número de Votos por dia"
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
     data_visualizations: Visualizações de Dados

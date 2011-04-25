@@ -46,7 +46,7 @@
         -if @skip
           == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
         -else
-          == #{t('vote.you_chose')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('vote.over')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}.
+          = t('vote.you_chose_winner_over_loser', :winner => link_to(@winner, item_path(@winner_id, :question_id => @question_id)), :loser => link_to(@loser, item_path(@loser_id, :question_id => @question_id))) + '.'
       -elsif flash[:v_notice]
         %p.vote-notice#v_notice= flash[:v_notice]
         = javascript_tag "setTimeout(function() { $('#v_notice').fadeOut(1000); }, 3000);"

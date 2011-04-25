@@ -49,7 +49,7 @@ es:
     add_your_idea: Incluya su idea aquí...
     add_your_idea_button: Registra tu propia idea
     cast_votes: Votar aquí
-    you_chose: Escojiste
+    you_chose_winner_over_loser: Escojiste %{winner} sobre %{loser}
     you_skipped_both: Omitiste
     flag_as_inappropriate: Marcar como inadecuado
     skip: Omitir

@@ -164,7 +164,7 @@ ar:
     add_your_idea: أضف فكرة الخاصة بك هنا
     add_your_idea_button: إضم فكرتك
     cast_votes: اقتراع
-    you_chose: اختارت
+    you_chose_winner_over_loser: اختارت %{winner} بدلا من %{loser}
     you_skipped_both: You skipped
     skip: skip
     flag_as_inappropriate: Flag as inappropriate

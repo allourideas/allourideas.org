@@ -310,10 +310,11 @@ var count = 0;
 
       $('#newlines').remove();
 
-      if (count == 0)   //  don't want line break at end if this is our first prepend
-        $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div>");
-      else
-        $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose')%> " + "<span class = \"idea_result\">" + winnerString + "</span><br />" + " <%=t('vote.over') %> " + "<span class = \"idea_result\">"  + loserString + "</span></div><br/>");
+      var prependText = "<div id = \"tellme_prepended\"" + count + ">" + "<%= t('vote.you_chose_winner_over_loser', :winner => '%winner%', :loser => '%loser%')%>".replace('%winner%', "<span class='idea_result'>" + winnerString + "</span><br />").replace('%loser%', "<span class='idea_result'>"  + loserString + "</span>") + "</div>";
+      if (count > 0) {
+        prependText += "<br/>";
+      }
+      $('.tellmearea').prepend(prependText);
 
       $("#tellme_prepended").effect("highlight", {}, 1500);
       count++;

@@ -49,7 +49,7 @@ fr:
     add_your_idea: Ajouter votre idée ici…
     add_your_idea_button: Ajouter votre propre idée
     cast_votes: Nombre de Votants
-    you_chose: vous avez choisi
+    you_chose_winner_over_loser: vous avez choisi %{winner} plus de %{loser}
     you_skipped_both: vous vous avez sauté les deux
     flag_as_inappropriate: Signaler comme inapproprié
     skip: Eviter

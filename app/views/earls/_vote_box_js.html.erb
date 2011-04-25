@@ -170,7 +170,7 @@
     results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
     <%- end -%>
 		        
-		$('.tellmearea').html("<%= t('vote.you_chose')%> " + winner + " <%=t('vote.over') %> " + loser + leveling_text + results_text).effect("highlight", {}, 1500);
+		$('.tellmearea').html("<%= t('vote.you_chose_winner_over_loser', :winner => '%winner%', :loser => '%loser%')%>".replace('%winner%',  winner).replace('%loser%', loser) + leveling_text + results_text).effect("highlight", {}, 1500);
 		current_vote_count = $('#votes_count').html();
 		$('#votes_count').html(increment(current_vote_count));
 		$(".votebox tr.prompt td.idea").each(function(el) {

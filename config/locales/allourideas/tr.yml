@@ -94,7 +94,7 @@ tr:
     add_your_idea: Fikrinizi buraya ekleyiniz...
     add_your_idea_button: Kendi fikrini ekle
     cast_votes: Oy ver
-    you_chose: Seçim yaptın
+    you_chose_winner_over_loser: %{winner} seçeneğini %{loser} seçeneğine tercih ettin
     you_skipped_both: Atladın
     skip: atla
     flag_as_inappropriate: Uygun olmayan içerik bildir

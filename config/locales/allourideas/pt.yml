@@ -49,7 +49,7 @@ pt:
     add_your_idea: Adicione sua ideia aqui...
     add_your_idea_button: Adicione sua ideia
     cast_votes: Votar
-    you_chose: Você achou
+    you_chose_winner_over_loser: Você achou %{winner} melhor do que %{loser}
     you_skipped_both: Você pulou
     flag_as_inappropriate: Marcar como inapropriado 
     skip: pular

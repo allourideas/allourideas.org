@@ -547,7 +547,7 @@ class QuestionsController < ApplicationController
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
    end
          chart_title = t('results.number_of') +  t('common.ideas').titleize + t('results.per_day')
-         y_axis_title = t('results.number_of') + t('common.ideas')
+         y_axis_title = t('results.number_of_ideas')
        when 'unique_users'
    if totals == "true"
                  chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
@@ -601,7 +601,7 @@ class QuestionsController < ApplicationController
             :title => { :text => chart_title + " " +  t('results.overall_total') + overalltotal.to_s,
           :style => { :color => '#919191' }
           },
-      :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
+      :x_axis => { :type => 'datetime', :title => {:text => t('results.date')}},
       :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
       :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
          :type => 'line',
@@ -680,7 +680,7 @@ class QuestionsController < ApplicationController
             :title => { :text => chart_title,
           :style => { :color => '#919191' }
           },
-      :x_axis => { :type => 'datetime', :title => {:text => "Date"}},
+      :x_axis => { :type => 'datetime', :title => {:text => t('results.date')}},
       :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
       :series => the_series,
       :tooltip => { :formatter => tooltipformatter }

@@ -140,6 +140,8 @@ tr:
        adjective_8: muhteşem
        adjective_9: vay be
   results:
+    date: Tarih
+    number_of_ideas: fikirlerin sayısı
     number_of_votes_per_day: Gün başına oy sayısı
     data_visualizations: Veri görüntüleme
     world_map_title: Tüm oyların dünya haritası

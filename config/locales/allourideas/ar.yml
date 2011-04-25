@@ -210,6 +210,7 @@ ar:
        adjective_8: awesome
        adjective_9: wow
   results:
+    number_of_ideas: "عدد من الأفكار"
     number_of_votes_per_day: "عدد من الأصوات يوميا"
     data_visualizations: تصورات البيانات
     world_map_title: خريطة العالم من كل الأصوات

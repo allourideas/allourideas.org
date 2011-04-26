@@ -122,6 +122,8 @@ es:
     number_of: "Número de"
     no_data_error: "No se puede construir un gráfico, no hay datos"
     overall_total: "Total"
+    overall_total_votes: "Total %{count} votos"
+    unable_to_find_location_of_X_votes: "No se pudo ubicar la localización de %{count} votos"
     vote_map_geo_error: "No se pudo ubicar la localización de"
     previous: << Anterior
     next: Próximo >>

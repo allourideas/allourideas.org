@@ -170,6 +170,8 @@ tr:
     number_of: " sayısı"
     no_data_error: "Tablo yapılamamaktadır, veri yok"
     overall_total: "Genel toplam - "
+    overall_total_votes: "Genel toplam - %{count} oy"
+    unable_to_find_location_of_X_votes: "  'nin yerini bulamadır %{count} oy"
     vote_map_geo_error: " 'nin yerini bulamadır"
     previous: << Önceki 
     next: Sonraki >>

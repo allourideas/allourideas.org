@@ -239,6 +239,8 @@ ar:
     number_of: "عدد من "
     no_data_error: "Cannot make chart, no data"
     overall_total: "Overall total - "
+    overall_total_votes: "Overall total - %{count} الأصوات"
+    unable_to_find_location_of_X_votes: "We were unable to find the location of %{count} votes"
     vote_map_geo_error: "We were unable to find the location of "
     previous: << Previous 
     next: Next >>

@@ -122,6 +122,8 @@ fr:
     number_of: "Nombre de "
     no_data_error: "impossible de faire des cartes, pas de données"
     overall_total: "Total dans l’ensemble - " 
+    overall_total_votes: "Total dans l’ensemble - %{count} votes" 
+    unable_to_find_location_of_X_votes: "Nous n’avons pas pu trouver l’emplacement du %{count} votes"
     vote_map_geo_error: "Nous n’avons pas pu trouver l’emplacement du "
     previous: << Précédent
     next: Prochain >>

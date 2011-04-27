@@ -277,7 +277,7 @@ class QuestionsController < ApplicationController
       },
       :legend => { :enabled => false },
       :title => { 
-        :text => [t('results.scores_of'), t('results.uploaded_ideas'), t('common.and'), t('results.original_ideas')].join(' '), 
+        :text => t('results.scores_of_uploaded_and_orginal_ideas'),
         :style => { :color => '#919191' }
       },
       :subtitle => { 

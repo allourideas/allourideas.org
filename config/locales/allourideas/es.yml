@@ -93,6 +93,7 @@ es:
        adjective_8: impresionante
        adjective_9: wow
   results:
+    scores_of_uploaded_and_orginal_ideas: Resultados de Ideas Cargadas y Ideas Originales
     number_of_ideas: "Número de ideas"
     number_of_ideas_per_day: "Número de ideas por día"
     number_of_user_sessions: "Número de Sesiones de usuario"

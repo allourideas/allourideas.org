@@ -140,6 +140,7 @@ tr:
        adjective_8: muhteşem
        adjective_9: vay be
   results:
+    scores_of_uploaded_and_orginal_ideas: Yüklenen Fikirler ve İlk Fikirlerin Puanları
     date: Tarih
     number_of_ideas: Fikir sayısı
     number_of_ideas_per_day: Gün başına fikir sayısı

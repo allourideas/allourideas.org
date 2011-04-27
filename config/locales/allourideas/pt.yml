@@ -93,6 +93,7 @@ pt:
        adjective_8: terrível
        adjective_9: opa
   results:
+    scores_of_uploaded_and_orginal_ideas: Pontuações das Ideias Submetidas e Ideias Originais
     number_of_votes_per_day: "Número de Votos por dia"
     number_of_ideas: Número de ideias
     number_of_ideas_per_day: Número de ideias por dia

@@ -210,6 +210,7 @@ en:
        adjective_8: awesome
        adjective_9: wow
   results:
+    scores_of_uploaded_and_orginal_ideas: Scores of Uploaded Ideas and Original Ideas
     number_of_user_sessions: Number of User Sessions
     number_of_user_sessions_per_day: Number of User Sessions per day
     number_of_ideas: Number of ideas

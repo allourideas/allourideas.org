@@ -321,6 +321,7 @@ ar:
     support: هذا المشروع يتم بدعم من المنح المقدمة من جوجل وجامعة برينستون.
     open_source: كل أفكارنا والبرمجيات مفتوحة المصدر. لا تتردد في استعراض، ريميكس، إعادة تصميم، أو المساهمة.
     logged_in: Logged in
+    logged_in_as: Logged in as %{user}
     my_questions: My Questions
   tour:
     collect: Collect and sort suggestions effectively

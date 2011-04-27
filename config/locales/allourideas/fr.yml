@@ -43,6 +43,7 @@ fr:
     # Text in the footer of each page
     support: Ce projet est soutenu par des subventions de Google et le PACI (CITP) à l’Université Princeton.
     open_source: Toutes Nos Idées est un logiciel source ouvetter. N'hésitez pas à revoir, remix, refonte, ou de contribuer 
+    logged_in_as: Logged in as %{user}
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment

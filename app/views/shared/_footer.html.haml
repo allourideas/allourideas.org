@@ -11,7 +11,7 @@
     = link_to(image_tag('logo-check.jpg', :id => 'logo-check'), 'http://www.allourideas.org')
     -if signed_in?
       %p
-        = "#{t('footer.logged_in')} as #{current_user.email}"
+        = t('footer.logged_in_as', :user => current_user.email)
         %br
         = link_to t('user.logout'), '/sign_out'
         %br

@@ -43,6 +43,7 @@ es:
     # Text in the footer of each page
     support: Este proyecto es financiado con donaciones de Google y de CITP de la Universidad de Princeton.
     open_source: Todas Nuestras Ideas es un paquete de software de código abierto.  Siéntase libre de revisar, mezclar o cambiar el diseño.
+    logged_in_as: Logged in as %{user}
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment

@@ -197,6 +197,7 @@ tr:
     support: Bu proje Google ve Princeton Üniversitesi CITP’nin verdiği fonlarla desteklenmektedir.
     open_source: All Our Ideas bir açık kaynak yazılımıdır. İstediğiniz gibi inceleyin, karıştırın, yeniden tasarlayın veya katkıda bulunun.
     logged_in: Giriş yapıldı
+    logged_in_as: %{user} olarak giriş yapıldı
     my_questions: Sorularım
   ab_tests:
      test_showmespace:

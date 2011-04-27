@@ -43,6 +43,7 @@ pt:
     # Text in the footer of each page
     support: Este projeto é patrocinado por bolsas do Google e do CITP da Universidade de Princeton.
     open_source: All Our Ideas é software livre. Fique à vontade para rever, remixar ou modificar. Você também pode usar nossa API para criar seu próprio site.
+    logged_in_as: Logged in as %{user}
   vote:
     # Text that appears on the main voting page of each idea marketplace
     # For example http://www.allourideas.org/studentgovernment

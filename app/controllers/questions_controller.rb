@@ -523,7 +523,7 @@ class QuestionsController < ApplicationController
              votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
    end
          chart_title = t('results.number_of_votes_per_day')
-         y_axis_title = t('results.number_of') + t('common.votes')
+         y_axis_title = t('items.number_of_votes')
       when 'skips'
    if totals == "true"
              votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'skips')

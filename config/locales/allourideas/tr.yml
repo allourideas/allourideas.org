@@ -127,7 +127,7 @@ tr:
     idea_sent_for_review: Fikriniz değerlendirme için gönderildi. Kısa zamanda görebilirsiniz.
     powered_widget: "Bu fikir pazarı   tarafından desteklenmektedir" 
     leveling:
-       leveling_message: "Verdiğiniz oy %{vote_num} %{vote_noun} ve eklediğiniz fikir  %{idea_num} %{idea_noun}: %{adjective}"
+       leveling_message: "Verdiğiniz oy sayısı %{vote_num}, eklediğiniz fikir sayısı %{idea_num}: %{adjective}"
        leveling_message_votes_only: Verdiğiniz oy %{vote_num} %{vote_noun}
        adjective_0: iyi
        adjective_1: güzel

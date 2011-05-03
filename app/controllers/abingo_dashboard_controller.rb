@@ -105,7 +105,7 @@ class AbingoDashboardController < ApplicationController
         else
           flash[:notice] = "This experiment is already ended."
         end
-        redirect_to :action => "index"
+        redirect_to :action => "index" and return
       end
       def mean(array)
 	 array.inject(0) { |sum, x| sum += x } / array.size.to_f

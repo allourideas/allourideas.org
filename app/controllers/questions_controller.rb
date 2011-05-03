@@ -910,9 +910,9 @@ class QuestionsController < ApplicationController
       session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: #{@question.fq_earl} #{t('questions.new.success_flash3')}. <br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"      
 
       if @photocracy
-        redirect_to add_photos_url(earl.name)
+        redirect_to add_photos_url(earl.name) and return
       else
-        redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls')
+        redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls') and return
       end
     else
       render(:action => "new")
@@ -947,7 +947,7 @@ class QuestionsController < ApplicationController
       logger.info("Saving new information on earl")
       flash[:notice] = 'Question settings saved successfully!'
       logger.info("Saved new information on earl")
-      format.html {redirect_to(:action => 'admin', :id => @earl.name)}
+      format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
         # format.xml  { head :ok }
   else 
             @partial_results_url = "#{@earl.name}/results"
@@ -974,7 +974,7 @@ class QuestionsController < ApplicationController
 
       logger.info("Deleting Logo from earl")
       flash[:notice] = 'Question settings saved successfully!'
-      format.html {redirect_to :action => "admin"}
+      format.html {redirect_to :action => "admin" and return }
         # format.xml  { head :ok }
   else 
       format.html { render :action => "admin"}

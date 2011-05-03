@@ -3,7 +3,7 @@ ar:
    # Common text elements across the application
    and: and
    votes_on: صوتا في
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} ﺹﻮﺗﺍ ﻒﻳ %{2}%{ideas_count}%{_2} ﺍﻸﻔﻛﺍﺭ
+   X_votes_on_Y_ideas: %{1}%{ideas_count}%{_1} ﺹﻮﺗﺍ ﻒﻳ %{2}%{votes_count}%{_2} ﺍﻸﻔﻛﺍﺭ
    items: الأفكار
    ideas: الأفكار
    idea: فكرة
@@ -32,7 +32,7 @@ ar:
     about: مزيد من المعلومات
     create: Create
     blog: Blog
-    view_results: ينظر النتيجات
+    view_results: اظهار النتائج
     about_this_page: حول هذه الصفحة
     manage_question: إدارة هذه الصفحة
     see_all_ideas: رؤية المزيد
@@ -161,15 +161,17 @@ ar:
     not_active_error: Sorry, that question is not active.
     owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
   vote:
-    add_your_idea: أضف فكرة الخاصة بك هنا
+    add_your_idea: أضف فكرة من عندك
+
     add_your_idea_button: إضم فكرتك
-    cast_votes: اقتراع
+    cast_votes: تصويت
     you_chose_winner_over_loser: اختارت %{winner} بدلا من %{loser}
     you_skipped_both: You skipped
     skip: skip
     flag_as_inappropriate: Flag as inappropriate
     cant_decide_title: لا يمكنني ان اقرر بسبب...
-    cant_decide: لا يمكنني ان اقرر
+    cant_decide: لا يمكنني اتخاذ قرار
+
     cd_like_both: أنا أحب كل الأفكار
     cd_dislike_both: أنا لا أحب فكرة إما
     cd_dont_know_left: "أنا لا أعرف ما يكفي عن:"
@@ -346,7 +348,8 @@ ar:
         make_your_choice: Make your choice and see what comes next
         please_click: Please click on your choice
      test_ideasubmit:
-        make_your_voice_heard: "جعل صوتك مسموعا"
+        make_your_voice_heard: إجعل صوتك مسموعاً
+
         help_your_community: "مساعدة مجتمعك"
      test_stackoverflow:
         first_time: First time here? Click on the choice you like more to start voting!

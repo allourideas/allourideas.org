@@ -75,7 +75,9 @@
             %td
               = f.text_area :welcome_message, :rows => 4, :cols => 65
           %tr.row2
-            %td= t('admin.default_lang_exp')
+            %td
+              = t('admin.default_lang_exp')
+              = link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank')
             %td
               = f.select :default_lang, [["English", "en"], ["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"]]
           %tr.row1

@@ -33,7 +33,9 @@ class IdeaMailer < ActionMailer::Base
 
   def flag_notification(earl, choice_id, choice_data, explanation, photocracy=false)
     setup_email(earl.user, photocracy)
+    
     @subject += "Possible inappropriate #{photocracy ? 'photo' : 'idea'} flagged by user"
+    @bcc = photocracy ? "info@photocracy.org" : "info@allourideas.org"
     @body[:earl] = earl
     @body[:choice_id] = choice_id
     @body[:choice_data] = choice_data

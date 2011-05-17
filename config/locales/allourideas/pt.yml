@@ -3,7 +3,7 @@ pt:
    # Common text elements across the application
    and: e
    votes_on: vota em
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} vota em %{2}%{ideas_count}%{_2} ideias
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} votos em %{2}%{ideas_count}%{_2} ideias
    items: ideias
    ideas: ideias
    idea: idéia
@@ -98,7 +98,7 @@ pt:
     number_of_ideas: Número de ideias
     number_of_ideas_per_day: Número de ideias por dia
     number_of_user_sessions: Número de Sessões de usuário
-    number_of_user_sessions: Número de Sessões de usuário por dia
+    number_of_user_sessions_per_day: Número de Sessões de usuário por dia
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
     data_visualizations: Visualizações de Dados
@@ -129,7 +129,7 @@ pt:
     vote_map_geo_error: "Não conseguimos determinar a localização de "
     previous: << Anterior
     next: Próximo >>
-    rollover_to_see_more: Roll over cada ponto para saber mais
+    rollover_to_see_more: passe o mouse in cada ponto para saber mais
   about_page: 
     intro: Você está participando em um mercado de "idéias" que permite que grupos de coletar e priorizar idéias em um processo democrático, aberto e eficiente. Ao combinar um processo de votação simples, com carregamento aberto de idéias, as melhores idéias em seu grupo de bolhas para o topo.
     exp_widget: Este widget mercado idéia é alimentado por www.allourideas.org, um projecto de investigação liderado pelo Professor Matthew Salganik, Departamento de Sociologia da Universidade de Princeton.

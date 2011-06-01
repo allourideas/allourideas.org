@@ -33,11 +33,6 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     sessions = {}
     url_aliases = {}
 
-    # instead of building up entire CSV and then inserting into DB
-    # update CSV data by concatenating current data with bunches
-    # of rows at a time.  This is a temporary holder of our batches.
-    rows = []
-
     num_slugs = earl.slugs.size
 
     modified_csv = FasterCSV.generate do |csv|
@@ -167,9 +162,9 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
     znewcsv << zoutput.finish
     zoutput.close
 
-    export = Export.create(:name => redis_key, :data => znewcsv, :compressed => true)
-    export.delay(:run_at => 3.days.from_now).destroy
-    url = "/export/#{export.name}"
+    export_id = Export.connection.insert("INSERT INTO `exports` (`name`, `data`, `compressed`) VALUES (#{Export.connection.quote(redis_key)}, #{Export.connection.quote(znewcsv)}, 1)")
+    Delayed::Job.enqueue DestroyOldExportJob.new(export_id), 20, 3.days.from_now
+    url = "/export/#{redis_key}"
     IdeaMailer.deliver_export_data_ready(email, url, photocracy)
 
     return true

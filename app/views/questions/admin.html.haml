@@ -7,6 +7,10 @@
       %tr.row0
         %th
           = @question.attributes['name']
+          - if @question.votes_count > 0
+            = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :rel => 'facebox')
+          - else
+            = link_to("[#{t('questions.edit')}]", '#edit-question', :rel => 'facebox')
         %th.score=  t('items.score')
         %th.score=  t('questions.source')
         %th.score= t('items.list.status').titleize
@@ -131,6 +135,20 @@
       %td
         = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
       
+  #cant-edit-question.add-box{:style => 'display:none;'}
+    %p
+      = t('questions.cant_edit_question')
+  #edit-question.add-box{:style => 'display:none;'}
+    %h2= t('questions.edit_question')
+    %p
+      =t('questions.your_current_question_text', :question_text => @question.attributes['name'])
+    %p
+      = rounded(text_area_tag('new_idea', '', :title => 'test', :rows => 2, :maxlength => 255, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
+    %p
+      .new_idea_counter
+    .fright
+      .new_idea_submit.rounded#submit_btn{:rel => @question.id}= t('vote.submit')
+    .clear
     
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')

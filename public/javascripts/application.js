@@ -1,5 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+//
+
 
 function validate_idea_form() //mark for deletion
 {
@@ -8,16 +10,16 @@ function validate_idea_form() //mark for deletion
 	var url = $('#question_url').val();
 	var new_ideas = $('#question_question_ideas').val();
 	alert(new_ideas);
-	if ((new_ideas == "Add your own ideas here...&#x000A;&#x000A;For example:&#x000A;More hammocks on campus&#x000A;Improve student advising&#x000A;More outdoor tables and benches&#x000A;Video game tournaments&#x000A;Start late dinner at 8PM&#x000A;Lower textbook prices&#x000A;Bring back parking for sophomores") || (new_ideas == '')) {
+	if ((new_ideas === "Add your own ideas here...&#x000A;&#x000A;For example:&#x000A;More hammocks on campus&#x000A;Improve student advising&#x000A;More outdoor tables and benches&#x000A;Video game tournaments&#x000A;Start late dinner at 8PM&#x000A;Lower textbook prices&#x000A;Bring back parking for sophomores") || (new_ideas === '')) {
 		event.returnValue = false;
 		errors[errors.length] = 'Blank ideas are not allowed.';
 	}
-	if ((name == 'Add your own idea here...') || (name == '')) {
+	if ((name === 'Add your own idea here...') || (name === '')) {
 		event.returnValue = false;
 		errors[errors.length] = 'Blank question names are not allowed.';
 	}
 	
-	if ((url == 'Add your own idea here...') || (url == '')) {
+	if ((url === 'Add your own idea here...') || (url === '')) {
 		event.returnValue = false;
 		errors[errors.length] = 'Blank question urls are not allowed.';
 	}
@@ -28,16 +30,18 @@ function sleep(ms)
 {
 	var dt = new Date();
 	dt.setTime(dt.getTime() + ms);
-	while (new Date().getTime() < dt.getTime());
+	while (new Date().getTime() < dt.getTime()) {
+        1+1;
+    }
 }
 
 function increment(number)
 {
-	return parseInt(number) + 1;
+	return parseInt(number, 10) + 1;
 }
 function decrement(number)
 {
-	return parseInt(number) - 1;
+	return parseInt(number, 10) - 1;
 }
 function iframe_loaded(){
 	   $('.voter_map_indicator').hide();
@@ -79,7 +83,7 @@ jQuery(document).ready(function() {
         $(this).css("border-left", "1px solid #3198c1");
         $(this).css("border-right", "1px solid #3198c1");
       });
-    });})
+    });});
   
 
 	 // $("#item").bind("click", function() {
@@ -157,12 +161,10 @@ jQuery(document).ready(function() {
 			$('.indicator').hide();
 			$.unblockUI();
 			
-			if(data['error']) { 
-			}
-			else {
+			if(!data['error']) { 
             if (data['verb'] == "Activated") {
                $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled-greyfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).removeAttr("style")
+                     $(this).removeAttr("style");
                });
                $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "true");
                $("#question_"+earl_id+"_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
@@ -190,7 +192,7 @@ jQuery(document).ready(function() {
             }
             else if (data['verb'] == "Deactivated") {
                $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filledfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).removeAttr("style")
+                     $(this).removeAttr("style");
                });
                $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "false");
                $("#question_"+earl_id+"_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
@@ -243,12 +245,10 @@ jQuery(document).ready(function() {
 			$('.indicator').hide();
 			$.unblockUI();
 			//humanMsg.displayMsg(data['message']);
-			if(data['error']) { 
-			}
-			else {
-            if (data['active'] == true) {
+			if(!data['error']) { 
+            if (data['active'] === true) {
                $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-greyfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).removeAttr("style")
+                     $(this).removeAttr("style");
                });
                $("#choice_"+choice_id+"_status .toggle_choice_status").attr("status", "true");
                $("#choice_"+choice_id+"_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
@@ -274,9 +274,9 @@ jQuery(document).ready(function() {
                   });
                });
             }
-            else if (data['active'] == false) {
+            else if (data['active'] === false) {
                $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filledfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).removeAttr("style")
+                     $(this).removeAttr("style");
                });
                $("#choice_"+choice_id+"_status .toggle_choice_status").attr("status", "false");
                $("#choice_"+choice_id+"_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
@@ -330,13 +330,10 @@ jQuery(document).ready(function() {
 			$('.indicator').hide();
 			$.unblockUI();
 			//humanMsg.displayMsg(data['message']);
-			if(data['error']) {
-				//no-op
-			}
-			else {
+			if(!data['error']) {
 			   if (data['verb'] == "Enabled") {
                $([$("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled-greyfg"), $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).removeAttr("style")
+                     $(this).removeAttr("style");
                });
                $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").attr("status", "true");
                $("#question_"+question_id+"_autoactivate_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
@@ -364,7 +361,7 @@ jQuery(document).ready(function() {
             }
             else if (data['verb'] == "Disabled") {
                $([$("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filledfg"), $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).removeAttr("style")
+                     $(this).removeAttr("style");
                });
                $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").attr("status", "false");
                $("#question_"+question_id+"_autoactivate_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
@@ -447,11 +444,11 @@ jQuery(document).ready(function() {
 			event.preventDefault();
 			event.stopPropagation();
 			
-			var current_row = $(this).parent().parent()
+			var current_row = $(this).parent().parent();
 			var target_row = $(this).parent().parent().next();
 			if(!toggleLinkTextandTargetElement($(this), target_row))
 			{
-			        var iframe_html= "<tr id=voter_map_row class='row1'><td class='title' colspan='2' height=370px><div class='voter_map_indicator'><img src='/images/indicator.gif' /></div><iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' onload='iframe_loaded();' width='746px' height='370px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>"
+			        var iframe_html= "<tr id=voter_map_row class='row1'><td class='title' colspan='2' height=370px><div class='voter_map_indicator'><img src='/images/indicator.gif' /></div><iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' onload='iframe_loaded();' width='746px' height='370px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>";
 				current_row.after(iframe_html);
 //				$('#view_voter_map_row').after("<tr id=voter_map_row class='row1'><td class='title' height=360px colspan='2' style='text-align:center'><div id='geo_map_canvas'><img src=/images/indicator.gif /></div></td></tr>")
 //				$.get($(this).attr("href")+".js", null, null, "script");
@@ -487,11 +484,11 @@ jQuery(document).ready(function() {
 			event.stopPropagation();
 			
 			var target_row = $(this).parent().parent().next();
-			var target_div = $(this).parent().parent().next().find('div')
+			var target_div = $(this).parent().parent().next().find('div');
 			if(!toggleLinkTextandTargetElement($(this), target_row))
 			{
 				target_row.show();
-				target_div.html('<img src=/images/indicator.gif />')
+				target_div.html('<img src=/images/indicator.gif />');
 				$.get($(this).attr("href"), null, null, "script");
 				$(this).attr('isLoaded', true);
 				

@@ -147,6 +147,8 @@
     - form_tag update_name_question_path(@earl), :method => :put, :multipart => true do |f|
       %p
         =t('questions.your_current_question_text', :question_text => @question.attributes['name'], :"1" => '<span class="question-name">', :"_1" => '</span>')
+      %p 
+        =t('questions.type_question_prompt')
       %p
         = rounded(text_area_tag('question[name]', '', :title => 'test', :rows => 2, :maxlength => 255, :class => 'new_idea_field', :id => 'edit_question_text'), 'border-thick')
       %p

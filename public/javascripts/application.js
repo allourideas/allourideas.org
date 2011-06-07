@@ -16,6 +16,11 @@ AOI.admin = (function($) {
     };
 
     function editQuestion() {
+        $(document).bind('reveal.facebox', function() {
+            if ($('#facebox .edit-question').length > 0) {
+                $('#facebox .new_idea_field').jqEasyCounter({target: '#facebox .new_idea_counter', maxChars : 255, maxCharsWarning: 245});
+            }
+        });
         $('.edit-question .new_idea_submit').live('click', function(ev) {
             var form = $(ev.target).closest('form');
             form.ajaxSubmit({

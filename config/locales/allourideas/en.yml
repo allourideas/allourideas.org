@@ -149,6 +149,7 @@ en:
     edit: edit
     edit_question: Edit Question
     your_current_question_text: "Your current question text is: %{1}%{question_text}%{_1}"
+    type_question_prompt: "Please type your new question text here (limit 255 characters):"
     cant_edit_question: We are sorry, but you cannot edit the question text once voting has started. If you want to change the question text at this point you need to create a new idea marketplace.
     question_saved: Your question has been saved.
     short_url_success: Short URL updated succesfully.

@@ -2,6 +2,42 @@
 // This file is automatically included by javascript_include_tag :defaults
 //
 
+window.AOI = window.AOI || {};
+jQuery(function () {
+    AOI.admin.initialize();
+});
+
+// Admin related functions
+AOI.admin = (function($) {
+    var that = {};
+
+    that.initialize = function() {
+        editQuestion();
+    };
+
+    function editQuestion() {
+        $('.edit-question .new_idea_submit').live('click', function(ev) {
+            var form = $(ev.target).closest('form');
+            form.ajaxSubmit({
+                dataType : 'json',
+                success : function(rt, st, xhr) {
+                    form.find('textarea').val('');
+
+                    if (rt.status === 'success') {
+                        $('.question-name').text(rt.question.name);
+                        $.facebox({div: '#question-saved'});
+                    }
+                    else {
+                        $.facebox({div: '#cant-edit-question'});
+                    }
+                }
+            });
+        });
+    }
+
+    return that;
+}(jQuery));
+
 
 function validate_idea_form() //mark for deletion
 {

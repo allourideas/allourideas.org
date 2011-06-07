@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => {
     },
     :member => {
+      :update_name => :put,
       :add_idea => :post,
       :toggle => :post,
       :toggle_autoactivate => :post,

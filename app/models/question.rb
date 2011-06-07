@@ -3,7 +3,7 @@ class Question < ActiveResource::Base
   self.user = PAIRWISE_USERNAME
   self.password = PAIRWISE_PASSWORD
 
-  attr_accessor :name, :question_text, :ideas, :url, :information, :email, :password
+  attr_accessor :question_text, :ideas, :url, :information, :email, :password
   
   def self.find_id_by_name(name)
     Earl.find(name).question_id rescue nil

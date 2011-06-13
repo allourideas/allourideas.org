@@ -1,150 +1,150 @@
 it:
   common:
    # Common text elements across the application
-   and: and
-   votes_on: votes on
+   and: e
+   votes_on: voti su
    X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} voti su %{2}%{ideas_count}%{_2} risposte
-   items: ideas
-   ideas: ideas
-   idea: idea
-   photo: photo
-   active: active
-   inactive: inactive
-   title: All Our Ideas - A Suggestion Box for the Digital Age
+   items: risposte
+   ideas: risposte
+   idea: risposta
+   photo: foto
+   active: attivata
+   inactive: disattivata
+   title: All Our Ideas - Una "Cassetta dei Suggerimenti" per l'era digitale
    title_widget: All Our Ideas   
-   characters: characters
-   idea_marketplace: Idea Marketplace
-   votes: Votes
-   vote: vote
-   skips: Skips
-   user_sessions: User sessions
-   users: users
-   score: score
+   characters: caratteri
+   idea_marketplace: Raccoglitore di Idee
+   votes: Voti
+   vote: voto
+   skips: saltati
+   user_sessions: sessioni utente
+   users: utenti
+   score: punteggio
   form:
-    create: Create
+    create: Crea
     submit: Conferma
-    save: Save
+    save: Salva
   nav:
     # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
-    privacy_policy: Privacy and Consent Policy
+    privacy_policy: Policy sulla Privacy e Consenso dati
     home: Home
-    back: Back
+    back: Indietro
     about: About
-    create: Create
+    create: Crea
     blog: Blog
-    view_results: Guarda i risultati
+    view_results: Visualizza Risultati
     about_this_page: Informazioni su questa pagina
     manage_question: Gestisci questa pagina
-    see_all_ideas: See more...
-    feedback: Feedback
-    make_your_own: Create Your Own Question
-    view_idea: View Idea
-    signup: sign up
-    return_voting_widget: Return to Voting
-    view_more_results_widget: View More Results
+    see_all_ideas: Altre idee...
+    feedback: Pareri
+    make_your_own: Crea La Tua Domanda
+    view_idea: Vedi Risposta
+    signup: Iscriviti
+    return_voting_widget: Ritorna alla Votazione
+    view_more_results_widget: Guarda Altri Risultati
   items:
     new:
-      too_long: Idea text too long. Max length is
+      too_long: Risposta troppo lunga. Il massimo è
     list:
-      content: displayed text
-      status: status
-      change_status: change status
-      activated: Activated
-      deactivated: Deactivated
-      toggle: Toggle
-    items: Ideas
-    idea: Idea
+      content: testo mostrato
+      status: stato
+      change_status: cambia stato
+      activated: Attivata
+      deactivated: Disattivata
+      toggle: Inverti
+    items: Risposte
+    idea: Risposta
     score: Punteggio
-    added_on: Added on
-    number_of_votes: Number of Votes
-    about_scoring: About the Scoring
-    score_explain: The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
-    toggle_error: Sorry, we could not change the status of this choice because you do not own the question.
+    added_on: Aggiunta il
+    number_of_votes: Numero di Voti
+    about_scoring: Info sul Punteggio
+    score_explain: Il punteggio di una risposta è la probabilità stimata di vittoria contro una altra Risposta scelta a caso. Ad esempio, un punteggio di 100 significa che si prevede la Risposta vincerà sempre ed un punteggio di 0 significa che si prevede che la risposta perda sempre.
+    toggle_error: Spiacenti, non abbiamo potuto cambiare lo stato di questa scelta, perché non si è amministratori di questa domanda.
     you_just_submitted: Hai appena aggiunto questa risposta su cui si potrà votare:
-    you_have_successfully_activated: You have successfully activated the idea
-    you_have_successfully_deactivated: You have successfully deactivated the idea
+    you_have_successfully_activated: E' stata attivata la risposta
+    you_have_successfully_deactivated: E' stata attivata la risposta
   user:
     close: Chiudi
     email: Email
     login: Log In
-    control_panel: Control Panel
+    control_panel: Pannello di Controllo
     password: Password
-    password_confirmation: Password Confirmation
+    password_confirmation: Conferma Password
     logout: Logout
-    forgot_password: Forgot your password?
-    reset_password_header: Reset your password
-    reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password. 
+    forgot_password: Password dimenticata?
+    reset_password_header: Reimposta la tua password
+    reset_password_explain: Hai dimenticato la tua password? Inserisci il tuo indirizzo email qui sotto. Ti invieremo una mail con un link per reimpostare la password.
     reset_password_button: Reset password
-    save_password_button: Save this password
-    change_your_password: Change your password
-    choose_password_below: Your password has been reset. Choose a new password below.
-    deny_access_error: You must be logged in to perform this action
-    not_authorized_error: You do not have permission to modify this question
+    save_password_button: Salva questa password
+    change_your_password: Cambia la tua password
+    choose_password_below: La tua password è stata reimpostata. Scegli una nuova password qui sotto.
+    deny_access_error: Devi essere registrato per eseguire questa azione
+    not_authorized_error: Non hai il permesso di modificare questa domanda
   questions:
     new:
       error:
-        registration: Sorry, we couldn't register you.
-        header: errors prohibited this website from being created.
-        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.photocracy.org? You can 
-        already_taken_link: log-in with your photocracy.org account
+        registration: Spiacenti, non possiamo registrarti.
+        header: alcuni errori hanno proibito la creazione di questo sito.
+        already_taken: Spiacenti, ma questo indirizzo di posta elettronica è già stato utilizzato. Hai un account su http://www.photocracy.org? Puoi 
+        already_taken_link: effettuare il login con il tuo photocracy.org account
 
-    not_active_error: Sorry, that question is not active.
-    owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
+    not_active_error: Spiacenti, questa domanda non è attiva.
+    owner_password_exp: Il proprietario di questa domanda ha reso la votazione protetta da password. Si prega di contattare il proprietario per ottenere il nome utente e password necessari per poter partecipare.
   vote:
-    add_your_idea: Add your own idea here...
-    add_your_idea_button: Add your own idea
+    add_your_idea: Aggiungi la tua domanda qui...
+    add_your_idea_button: Aggiungi la tua domanda
     cast_votes: Votazioni
     you_chose_winner_over_loser: Hai scelto %{winner} rispetto a %{loser}
-    you_chose: You chose
-    you_skipped_both: You skipped
-    skip: skip
+    you_chose: Hai scelto
+    you_skipped_both: Hai saltato
+    skip: salta
     flag_as_inappropriate: Segnala Risposta come Inappropriata
     cant_decide_title: Non riesco a decidere perché ...
     cant_decide: Non riesco a decidere
     cd_like_both: Mi piacciono entrambe le risposte
-    cd_dislike_both: Io non ne so abbastanza di entrambe le scelte
+    cd_dislike_both: Non mi piace nessuna delle due opzioni
     cd_dont_know_left: "Io non ne so abbastanza di:"
     cd_dont_know_right: "Io non ne so abbastanza di:"
-    cd_dont_know_both: I don't know enough about either idea
-    cd_dont_know_both_widget: I don't know enough about either
+    cd_dont_know_both: Io non ne so abbastanza di entrambe le scelte
+    cd_dont_know_both_widget: Io non ne so abbastanza di entrambe
     cd_both_same: Penso che entrambe le risposte siano identiche
     cd_other: Non riesco proprio a decidere
-    cd_user_other: "Other:"
-    cd_explicit_dont_know_left_widget: I don't know enough about the left idea            
-    cd_explicit_dont_know_right_widget: I don't know enough about the right idea
-    cant_decide_message: You couldn't decide.
-    click_idea_to_start_widget: Click on an idea to start voting.
+    cd_user_other: "Altro:"
+    cd_explicit_dont_know_left_widget: Io non ne so abbastanza della risposta di sinistra            
+    cd_explicit_dont_know_right_widget: Io non ne so abbastanza della risposta di destra
+    cant_decide_message: Non si poteva decidere.
+    click_idea_to_start_widget: Clicca su una risposta per iniziare a votare.
     please_explain_flag: "Per favore spiega perché questa risposta è inappropriata:"
     flag_complete_message: Hai segnalato una risposta come inappropriata.
-    over: over
+    over: finito
     submit: Conferma
-    view_all_the_results: View all the results
-    others_thought: Click to see what others thought.
-    submit_idea_default_error: Sorry, blank ideas are not allowed. 
-    submit_idea_too_long_error: Sorry, ideas need to be less than 140 characters.
-    submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
-    vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
-    vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
-    idea_sent_for_review: La tua risposta è sotto approvazione. Apparità a breve.
+    view_all_the_results: Visualizza tutti i risultati
+    others_thought: Clicca per vedere quello que pensano gli altri.
+    submit_idea_default_error: Siamo spiacenti, risposte vuote non sono consentite. 
+    submit_idea_too_long_error: Spiacenti, le risposte devono essere lunghe meno di 140 caratteri.
+    submit_idea_thankyou: Grazie. La tua risposta è stata aggiunta. Si prega di aggiungere altre risposte.
+    vote_timeout_error: "Ci dispiace, la tua votazione ha impiegato troppo tempo ... troppo traffico!"
+    vote_other_error: "Spiacenti, il tuo voto non è stato conteggiato ... è avvenuto un errore"
+    idea_sent_for_review: La tua risposta è sotto approvazione. Apparirà a breve.
     powered_widget: "This idea marketplace is powered by " 
     leveling:
        leveling_message: "Ora hai espresso %{vote_num} votazioni e aggiunto %{idea_num} risposte: %{adjective}"
-       leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
-       adjective_0: good
-       adjective_1: nice
-       adjective_2: amazing
-       adjective_3: fabulous
-       adjective_4: marvelous
+       leveling_message_votes_only: Ora hai votato %{vote_num} %{vote_noun}
+       adjective_0: bene
+       adjective_1: buono
+       adjective_2: sorprendente
+       adjective_3: favoloso
+       adjective_4: meraviglioso
        adjective_5: super
-       adjective_6: fantastic
-       adjective_7: incredible
-       adjective_8: awesome
+       adjective_6: fantastico
+       adjective_7: sbalorditivo
+       adjective_8: allucinante
        adjective_9: wow
   results:
     data_visualizations: Visualizzazioni
     world_map_title: La mappa mondiale di tutte le votazioni
-    world_map_ideas_title: World map of all uploaded ideas
-    world_map_creators: World map of all idea marketplace creators
+    world_map_ideas_title: Mappa mondiale di tutte le votazioni caricate
+    world_map_creators: Mappa mondiale di tutti i creatori di domande
     votes_over_time_title: Numero di votazioni nel corso del tempo
     user_ideas_over_time_title: Numero di Risposte aggiunte nel corso del tempo
     user_sessions_over_time_title: Numero di sessioni utente univoche al giorno
@@ -152,52 +152,52 @@ it:
     word_cloud_weighted_title: Word cloud delle risposte ponderate per punteggio
     word_cloud_uploaded_title: Word cloud delle risposte caricate
     word_cloud_uploaded_weighted_title: Word cloud delle risposte caricate ponderate per punteggio
-    about_word_cloud: About word clouds
-    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this idea marketplace. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
+    about_word_cloud: Info su Word Clouds
+    word_cloud_exp: Le Word Clouds visualizzate in questa pagina sono una rappresentazione visiva delle parole che più frequentemente appaiono in questa votazione. Quando ponderata per punteggio, per generare la Word Cloud verrà utilizzato il punteggio attuale di una risposta per determinarne la popolarità. Nota che alcune parole comuni o rare possono venir filtrate dalla Word Cloud.
     scatter_ideas_title: Confronta le risposte caricate con le risposte originali
-    scatter_ideas_subtitle: Roll over each point to learn more
-    uploaded_ideas: Uploaded Ideas
-    original_ideas: Original Ideas
-    scores_of: Scores of
-    view_link: "[View]"
+    scatter_ideas_subtitle: Passa il mouse su ogni punto per saperne di più
+    uploaded_ideas: Risposte aggiunte
+    original_ideas: Risposte originali
+    scores_of: Punteggio di
+    view_link: "[Visualizza]"
     close_link: "[Chiudi]"
-    per_day: " per day"
-    number_of: "Number of "
-    no_data_error: "Cannot make chart, no data"
-    overall_total: "Overall total - "
-    vote_map_geo_error: "We were unable to find the location of "
-    previous: << Previous 
-    next: Next >>
-    rollover_to_see_more: Roll over each point to learn more
+    per_day: " al giorno"
+    number_of: "Nummero di "
+    no_data_error: "Impossibile creare il grafico, dati mancanti"
+    overall_total: "Totale generale - "
+    vote_map_geo_error: "Non siamo riusciti a trovare la posizione di "
+    previous: << Precedente 
+    next: Seguente >>
+    rollover_to_see_more: Passa il mouse su ogni punto per saperne di più
   about_page: 
-    intro: You are participating in an “idea marketplace” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
-    exp_widget: This idea marketplace widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
-    faq_widget: "Here are some frequently asked questions:"
-    open_source_q_widget: Is all of this open-source?
-    open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
-    contact_q_widget: I have another question, how can I get in touch with you?
-    contact_exp_widget: Send us an email at info@allourideas.org.
-    how_many_votes_q: How many votes can I cast? When does it end?
-    how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
-    how_many_ideas_q: How many ideas can I add? What happens to my idea once I add it?
-    how_many_ideas_exp: You can add as many ideas as you have. Once an idea is added, it may be reviewed by the person who created the idea marketplace in order to ensure that it is not inappropriate. Once the idea has been reviewed, it will start appearing for people to vote on it.
-    view_results_q: Can I see what everyone else thinks? 
-    view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
-    make_my_own_q: This is neat. Can I make one of these myself?
-    make_my_own_exp: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace here: http://www.allourideas.org/questions/new."
-    make_my_own_exp_widget: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace widget: http://www.allourideas.org."
+    intro: State partecipando ad un "MarketPlace di Idee" che permette a gruppi di persone di raccogliere idee e darne la priorità utilizzando un processo democratico, aperto ed efficiente. Grazie alla combinazione di un semplice processo di voto con il caricamento di possibili nuove risposte, le idee migliori del gruppo scaleranno la classifica fino alla cima.
+    exp_widget: Questo widget è frutto di www.allourideas.org, un progetto di ricerca diretto dal Prof. Matthew Salganik, Dipartimento di Sociologia, Università di Princeton.
+    faq_widget: "Ecco alcune domande frequenti:"
+    open_source_q_widget: Tutto questo è open-source?
+    open_source_exp_widget: Certamente.  Eccone <a href="http://github.com/allourideas" target = blank_>i sorgenti<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: Ho un'altra domanda, come posso mettermi in contatto con voi?
+    contact_exp_widget: Scrivici pure via email all'indirizzo info@allourideas.org.
+    how_many_votes_q: Quanti voti posso esprimere? Quando finisce la votazione?
+    how_many_votes_exp: Tu puoi votare sia poche volte che tantissime, quante ne preferisci, e puoi smettere di votare in ogni momento.
+    how_many_ideas_q: Quante Idee/Risposte posso aggiungere? Cosa succede alla mia idea una volta che viene aggiunta?
+    how_many_ideas_exp: È possibile aggiungere tutte le risposte che si vogliono. Una volta che un'idea viene aggiunta, questa può essere riesaminata dalla persona che ha creato la domanda in modo da garantire che risulti appropriata. Una volta che l'idea è stata approvata, essa inizierà a comparire alle persone che potranno votare su di essa.
+    view_results_q: Posso vedere quello che pensano gli altri? 
+    view_results_exp: Sì, basta cliccare su "Visualizza Risultati" dalla schermata di voto. Questo processo è completamente trasparente.
+    make_my_own_q: E' fantastico. Posso creare una mia domanda per conto mio?
+    make_my_own_exp: "Ma Certo, E' facile impostare la propria domanda, ed è completamente gratuito grazie alle sovvenzioni da parte di Google ed il Center for Information Technology Policy della Princeton University. È possibile creare una propria votazione da qui: http://www.allourideas.org/questions/new."
+    make_my_own_exp_widget: "Ma Certo, E' facile impostare la propria Votazione, ed è completamente gratuito grazie alle sovvenzioni da parte di Google ed il Center for Information Technology Policy della Princeton University. È possibile creare un proprio widget di votazione da qui: http://www.allourideas.org."
   footer:
-    support: This project is supported by grants from Google and CITP at Princeton University.
-    open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.
-    logged_in: Logged in
-    my_questions: My Questions
+    support: Questo progetto è sostenuto anche da finanziamenti di Google e CITP della Princeton University.
+    open_source: All Our Ideas è un software open source. Sentitevi liberi di revisionare, mixare, riprogettare o contribuire.
+    logged_in: Autenticato
+    my_questions: Le Mie Domande
   ab_tests:
      test_showmespace:
-        make_your_choice: Make your choice and see what comes next
-        please_click: Please click on your choice
+        make_your_choice: Fai la tua scelta ed osserva quello che avviene dopo
+        please_click: Per favore, clicca sulla tua scelta
      test_ideasubmit:
-        make_your_voice_heard: "Make your voice heard"
-        help_your_community: "Help your community"
+        make_your_voice_heard: "Fate sentire la vostra voce"
+        help_your_community: "Aiuta la tua community"
      test_stackoverflow:
-        first_time: First time here? Click on the choice you like more to start voting!
-        no_first_time: Click on the choice you like more to start voting!
+        first_time: Prima volta qui? Clicca sulla scelta che ti piace di più per iniziare a votare!
+        no_first_time: Clicca sulla scelta che ti piace di più per iniziare a votare!

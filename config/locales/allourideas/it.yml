@@ -1,0 +1,203 @@
+it:
+  common:
+   # Common text elements across the application
+   and: and
+   votes_on: votes on
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} voti su %{2}%{ideas_count}%{_2} risposte
+   items: ideas
+   ideas: ideas
+   idea: idea
+   photo: photo
+   active: active
+   inactive: inactive
+   title: All Our Ideas - A Suggestion Box for the Digital Age
+   title_widget: All Our Ideas   
+   characters: characters
+   idea_marketplace: Idea Marketplace
+   votes: Votes
+   vote: vote
+   skips: Skips
+   user_sessions: User sessions
+   users: users
+   score: score
+  form:
+    create: Create
+    submit: Conferma
+    save: Save
+  nav:
+    # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
+    privacy_policy: Privacy and Consent Policy
+    home: Home
+    back: Back
+    about: About
+    create: Create
+    blog: Blog
+    view_results: Guarda i risultati
+    about_this_page: Informazioni su questa pagina
+    manage_question: Gestisci questa pagina
+    see_all_ideas: See more...
+    feedback: Feedback
+    make_your_own: Create Your Own Question
+    view_idea: View Idea
+    signup: sign up
+    return_voting_widget: Return to Voting
+    view_more_results_widget: View More Results
+  items:
+    new:
+      too_long: Idea text too long. Max length is
+    list:
+      content: displayed text
+      status: status
+      change_status: change status
+      activated: Activated
+      deactivated: Deactivated
+      toggle: Toggle
+    items: Ideas
+    idea: Idea
+    score: Punteggio
+    added_on: Added on
+    number_of_votes: Number of Votes
+    about_scoring: About the Scoring
+    score_explain: The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
+    toggle_error: Sorry, we could not change the status of this choice because you do not own the question.
+    you_just_submitted: Hai appena aggiunto questa risposta su cui si potrà votare:
+    you_have_successfully_activated: You have successfully activated the idea
+    you_have_successfully_deactivated: You have successfully deactivated the idea
+  user:
+    close: Chiudi
+    email: Email
+    login: Log In
+    control_panel: Control Panel
+    password: Password
+    password_confirmation: Password Confirmation
+    logout: Logout
+    forgot_password: Forgot your password?
+    reset_password_header: Reset your password
+    reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password. 
+    reset_password_button: Reset password
+    save_password_button: Save this password
+    change_your_password: Change your password
+    choose_password_below: Your password has been reset. Choose a new password below.
+    deny_access_error: You must be logged in to perform this action
+    not_authorized_error: You do not have permission to modify this question
+  questions:
+    new:
+      error:
+        registration: Sorry, we couldn't register you.
+        header: errors prohibited this website from being created.
+        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.photocracy.org? You can 
+        already_taken_link: log-in with your photocracy.org account
+
+    not_active_error: Sorry, that question is not active.
+    owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
+  vote:
+    add_your_idea: Add your own idea here...
+    add_your_idea_button: Add your own idea
+    cast_votes: Votazioni
+    you_chose_winner_over_loser: Hai scelto %{winner} rispetto a %{loser}
+    you_chose: You chose
+    you_skipped_both: You skipped
+    skip: skip
+    flag_as_inappropriate: Segnala Risposta come Inappropriata
+    cant_decide_title: Non riesco a decidere perché ...
+    cant_decide: Non riesco a decidere
+    cd_like_both: Mi piacciono entrambe le risposte
+    cd_dislike_both: Io non ne so abbastanza di entrambe le scelte
+    cd_dont_know_left: "Io non ne so abbastanza di:"
+    cd_dont_know_right: "Io non ne so abbastanza di:"
+    cd_dont_know_both: I don't know enough about either idea
+    cd_dont_know_both_widget: I don't know enough about either
+    cd_both_same: Penso che entrambe le risposte siano identiche
+    cd_other: Non riesco proprio a decidere
+    cd_user_other: "Other:"
+    cd_explicit_dont_know_left_widget: I don't know enough about the left idea            
+    cd_explicit_dont_know_right_widget: I don't know enough about the right idea
+    cant_decide_message: You couldn't decide.
+    click_idea_to_start_widget: Click on an idea to start voting.
+    please_explain_flag: "Per favore spiega perché questa risposta è inappropriata:"
+    flag_complete_message: Hai segnalato una risposta come inappropriata.
+    over: over
+    submit: Conferma
+    view_all_the_results: View all the results
+    others_thought: Click to see what others thought.
+    submit_idea_default_error: Sorry, blank ideas are not allowed. 
+    submit_idea_too_long_error: Sorry, ideas need to be less than 140 characters.
+    submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
+    vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
+    vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
+    idea_sent_for_review: La tua risposta è sotto approvazione. Apparità a breve.
+    powered_widget: "This idea marketplace is powered by " 
+    leveling:
+       leveling_message: "Ora hai espresso %{vote_num} votazioni e aggiunto %{idea_num} risposte: %{adjective}"
+       leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
+       adjective_0: good
+       adjective_1: nice
+       adjective_2: amazing
+       adjective_3: fabulous
+       adjective_4: marvelous
+       adjective_5: super
+       adjective_6: fantastic
+       adjective_7: incredible
+       adjective_8: awesome
+       adjective_9: wow
+  results:
+    data_visualizations: Visualizzazioni
+    world_map_title: La mappa mondiale di tutte le votazioni
+    world_map_ideas_title: World map of all uploaded ideas
+    world_map_creators: World map of all idea marketplace creators
+    votes_over_time_title: Numero di votazioni nel corso del tempo
+    user_ideas_over_time_title: Numero di Risposte aggiunte nel corso del tempo
+    user_sessions_over_time_title: Numero di sessioni utente univoche al giorno
+    word_cloud_ideas_title: Word cloud delle risposte
+    word_cloud_weighted_title: Word cloud delle risposte ponderate per punteggio
+    word_cloud_uploaded_title: Word cloud delle risposte caricate
+    word_cloud_uploaded_weighted_title: Word cloud delle risposte caricate ponderate per punteggio
+    about_word_cloud: About word clouds
+    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this idea marketplace. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
+    scatter_ideas_title: Confronta le risposte caricate con le risposte originali
+    scatter_ideas_subtitle: Roll over each point to learn more
+    uploaded_ideas: Uploaded Ideas
+    original_ideas: Original Ideas
+    scores_of: Scores of
+    view_link: "[View]"
+    close_link: "[Chiudi]"
+    per_day: " per day"
+    number_of: "Number of "
+    no_data_error: "Cannot make chart, no data"
+    overall_total: "Overall total - "
+    vote_map_geo_error: "We were unable to find the location of "
+    previous: << Previous 
+    next: Next >>
+    rollover_to_see_more: Roll over each point to learn more
+  about_page: 
+    intro: You are participating in an “idea marketplace” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
+    exp_widget: This idea marketplace widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
+    faq_widget: "Here are some frequently asked questions:"
+    open_source_q_widget: Is all of this open-source?
+    open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: I have another question, how can I get in touch with you?
+    contact_exp_widget: Send us an email at info@allourideas.org.
+    how_many_votes_q: How many votes can I cast? When does it end?
+    how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
+    how_many_ideas_q: How many ideas can I add? What happens to my idea once I add it?
+    how_many_ideas_exp: You can add as many ideas as you have. Once an idea is added, it may be reviewed by the person who created the idea marketplace in order to ensure that it is not inappropriate. Once the idea has been reviewed, it will start appearing for people to vote on it.
+    view_results_q: Can I see what everyone else thinks? 
+    view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
+    make_my_own_q: This is neat. Can I make one of these myself?
+    make_my_own_exp: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace here: http://www.allourideas.org/questions/new."
+    make_my_own_exp_widget: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace widget: http://www.allourideas.org."
+  footer:
+    support: This project is supported by grants from Google and CITP at Princeton University.
+    open_source: All Our Ideas is open source software. Feel free to review, remix, redesign, or contribute.
+    logged_in: Logged in
+    my_questions: My Questions
+  ab_tests:
+     test_showmespace:
+        make_your_choice: Make your choice and see what comes next
+        please_click: Please click on your choice
+     test_ideasubmit:
+        make_your_voice_heard: "Make your voice heard"
+        help_your_community: "Help your community"
+     test_stackoverflow:
+        first_time: First time here? Click on the choice you like more to start voting!
+        no_first_time: Click on the choice you like more to start voting!

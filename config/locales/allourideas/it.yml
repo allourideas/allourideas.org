@@ -59,8 +59,8 @@ it:
     number_of_votes: Numero di Voti
     about_scoring: Info sul Punteggio
     score_explain: Il punteggio di una risposta è la probabilità stimata di vittoria contro una altra Risposta scelta a caso. Ad esempio, un punteggio di 100 significa che si prevede la Risposta vincerà sempre ed un punteggio di 0 significa che si prevede che la risposta perda sempre.
-    toggle_error: Spiacenti, non abbiamo potuto cambiare lo stato di questa scelta, perché non si è amministratori di questa domanda.
-    you_just_submitted: Hai appena aggiunto questa risposta su cui si potrà votare:
+    toggle_error: "Spiacenti, non abbiamo potuto cambiare lo stato di questa scelta, perché non si è amministratori di questa domanda."
+    you_just_submitted: "Hai appena aggiunto questa risposta su cui si potrà votare:"
     you_have_successfully_activated: E' stata attivata la risposta
     you_have_successfully_deactivated: E' stata attivata la risposta
   user:

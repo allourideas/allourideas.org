@@ -26,7 +26,8 @@ config.action_mailer.delivery_method = :test
 config.gem 'cucumber',
   :version => '=0.8.5'
 config.gem 'cucumber-rails',
-  :version => '=0.3.0'
+  :lib => false,
+  :version => '0.3.0'
 config.gem 'sqlite3',
   :version => '>=1.3.3'
 config.gem 'database_cleaner',

@@ -26,8 +26,8 @@ config.gem 'cucumber-rails',   :lib => false, :version => '0.3.0' unless File.di
 config.gem 'database_cleaner', :lib => false, :version => '0.5.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
 #config.gem 'webrat',           :lib => false, :version => '>=0.7.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
 config.gem 'capybara',         :lib => false, :version => '0.3.7' unless File.directory?(File.join(Rails.root, 'vendor/plugins/capybara'))
-config.gem 'rspec',            :lib => false, :version => '1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
-config.gem 'rspec-rails',      :lib => false, :version => '1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+config.gem 'rspec',            :lib => false, :version => '1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
+config.gem 'rspec-rails',      :lib => false, :version => '1.3.4' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 config.gem 'email_spec', :lib => 'email_spec', :version => '0.4.0'
 config.gem 'timecop',                         :version => '0.3.5'
 

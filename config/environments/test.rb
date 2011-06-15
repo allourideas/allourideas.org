@@ -25,6 +25,10 @@ config.action_mailer.delivery_method = :test
 
 config.gem 'cucumber',
   :version => '=0.8.5'
+config.gem 'cucumber-rails',
+  :version => '=0.3.0'
+config.gem 'sqlite3',
+  :version => '>=1.3.3'
 config.gem 'database_cleaner',
   :version => '=0.5.0'
 config.gem 'capybara',
@@ -43,10 +47,19 @@ config.gem 'jtrupiano-timecop',
   :version => '0.2.1'
 config.gem 'timecop',
   :version => '=0.3.5'
+config.gem 'mysql'
 config.gem 'rspec',
-  :version => '>=1.3.0'
+  :lib => false,
+  :version => '=1.3.2'
+config.gem 'rspec-rails',
+  :lib => false,
+  :version => '=1.3.4'
 config.gem 'email_spec',
   :version => '=0.4.0'
+config.gem 'sendgrid',
+  :version => '0.1.4'
+config.gem 'pickle',
+  :version => '0.4.7'
 config.gem 'fakeweb',
   :version => '>= 1.2.5'
 config.gem 'jferris-mocha',

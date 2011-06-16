@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'crack'
   require 'geokit'
-  before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos]
+  before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_filter :admin_only, :only => [:index]
   #caches_page :results
   
@@ -929,34 +929,53 @@ class QuestionsController < ApplicationController
     end
   end
 
+
+  def update_name
+    @earl = Earl.find params[:id]
+    @question = Question.find(@earl.question_id)
+    respond_to do |format|
+      if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
+        if params[:question][:name]
+          @question.name = params[:question][:name]
+          if @question.save
+            format.json { render :json => { :status => 'success', :question => @question}, :status => 200 }
+          else
+            format.json { render :json => { :status => 'failed', :question => @question}, :status => 403 }
+          end
+        end
+      else
+        format.json { render :json => { :status => 'failed', :question => @question}, :status => 403 }
+      end
+    end
+  end
+
   # # PUT /questions/1
   # # PUT /questions/1.xml
   def update
-     @earl = Earl.find params[:id]
-     @question = Question.find(@earl.question_id)
+    @earl = Earl.find params[:id]
+    @question = Question.find(@earl.question_id)
      
-     unless ( (current_user.owns? @earl) || current_user.admin?)
+    unless ( (current_user.owns? @earl) || current_user.admin?)
       flash[:notice] = "You are not authorized to view that page"
       redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
-     end
+    end
 
      
-     respond_to do |format|
-        if @earl.update_attributes(params[:earl])
-
-      logger.info("Saving new information on earl")
-      flash[:notice] = 'Question settings saved successfully!'
-      logger.info("Saved new information on earl")
-      format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
+    respond_to do |format|
+      if @earl.update_attributes(params[:earl])
+        logger.info("Saving new information on earl")
+        flash[:notice] = 'Question settings saved successfully!'
+        logger.info("Saved new information on earl")
+        format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
         # format.xml  { head :ok }
-  else 
-            @partial_results_url = "#{@earl.name}/results"
-            @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+      else 
+        @partial_results_url = "#{@earl.name}/results"
+        @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
-      format.html { render :action => 'admin'}
+        format.html { render :action => 'admin'}
         #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-        end
-     end
+      end
+    end
   end
   def delete_logo
      @earl = Earl.find params[:id]

@@ -6,7 +6,12 @@
     %thead 
       %tr.row0
         %th
-          = @question.attributes['name']
+          %span.question-name
+            = @question.attributes['name']
+          - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
+            = link_to("[#{t('questions.edit')}]", '#edit-question', :rel => 'facebox')
+          - else
+            = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :rel => 'facebox')
         %th.score=  t('items.score')
         %th.score=  t('questions.source')
         %th.score= t('items.list.status').titleize
@@ -131,6 +136,26 @@
       %td
         = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
       
+  #cant-edit-question.add-box{:style => 'display:none;'}
+    %p
+      = t('questions.cant_edit_question')
+  #question-saved.add-box{:style => 'display:none;'}
+    %p
+      = t('questions.question_saved')
+  #edit-question.add-box.edit-question{:style => 'display:none;'}
+    %h2= t('questions.edit_question')
+    - form_tag update_name_question_path(@earl), :method => :put, :multipart => true do |f|
+      %p
+        =t('questions.your_current_question_text', :question_text => @question.attributes['name'], :"1" => '<span class="question-name">', :"_1" => '</span>')
+      %p 
+        =t('questions.type_question_prompt')
+      %p
+        = rounded(text_area_tag('question[name]', '', :title => 'test', :rows => 2, :maxlength => 255, :class => 'new_idea_field', :id => 'edit_question_text'), 'border-thick')
+      %p
+        .new_idea_counter
+      .fright
+        .new_idea_submit.rounded#edit_question_submit{:rel => @question.id}= t('vote.submit')
+      .clear
     
   #explanation{:style => 'display:none;'}
     %h2= t('items.about_scoring')

@@ -144,7 +144,7 @@
       = t('questions.question_saved')
   #edit-question.add-box.edit-question{:style => 'display:none;'}
     %h2= t('questions.edit_question')
-    - form_tag update_name_question_path(@earl), :method => :put, :multipart => true do |f|
+    - form_tag update_name_question_path(@earl), :method => :put do |f|
       %p
         =t('questions.your_current_question_text', :question_text => @question.attributes['name'], :"1" => '<span class="question-name">', :"_1" => '</span>')
       %p 

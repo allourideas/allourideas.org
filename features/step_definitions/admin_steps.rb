@@ -20,6 +20,10 @@ When /^I click on the request button for the (.*) CSV file$/ do |type|
 
 end
 
+When /^I click "([^"]*)"$/ do |arg1|
+  find(arg1).click
+end
+
 Then /^a background job should have been created$/ do
 	Delayed::Job.count.should == 1
 end
@@ -27,6 +31,10 @@ end
 Then /^the the background job should call '(.*)'$/ do |method|
 	Delayed::Job.last.name == method
 	
+end
+
+When /^I click on the edit link for the question$/ do 
+	find('.row0 .header:first a').click
 end
 
 When /^I click on the toggle link for the first choice$/ do 

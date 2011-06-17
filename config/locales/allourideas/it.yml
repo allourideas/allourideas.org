@@ -35,7 +35,7 @@ it:
     view_results: Visualizza Risultati
     about_this_page: Informazioni su questa pagina
     manage_question: Gestisci questa pagina
-    see_all_ideas: Altre idee...
+    see_all_ideas: Altre risposte...
     feedback: Pareri
     make_your_own: Crea La Tua Domanda
     view_idea: Vedi Risposta
@@ -91,8 +91,8 @@ it:
     not_active_error: Spiacenti, questa domanda non è attiva.
     owner_password_exp: Il proprietario di questa domanda ha reso la votazione protetta da password. Si prega di contattare il proprietario per ottenere il nome utente e password necessari per poter partecipare.
   vote:
-    add_your_idea: Aggiungi la tua domanda qui...
-    add_your_idea_button: Aggiungi la tua domanda
+    add_your_idea: Aggiungi la tua risposta qui...
+    add_your_idea_button: Aggiungi la tua risposta
     cast_votes: Votazioni
     you_chose_winner_over_loser: Hai scelto %{winner} rispetto a %{loser}
     you_chose: Hai scelto
@@ -129,7 +129,7 @@ it:
     powered_widget: "This idea marketplace is powered by " 
     leveling:
        leveling_message: "Ora hai espresso %{vote_num} votazioni e aggiunto %{idea_num} risposte: %{adjective}"
-       leveling_message_votes_only: Ora hai votato %{vote_num} %{vote_noun}
+       leveling_message_votes_only: Ora hai espresso %{vote_num} %{vote_noun}
        adjective_0: bene
        adjective_1: buono
        adjective_2: sorprendente
@@ -179,7 +179,7 @@ it:
     contact_exp_widget: Scrivici pure via email all'indirizzo info@allourideas.org.
     how_many_votes_q: Quanti voti posso esprimere? Quando finisce la votazione?
     how_many_votes_exp: Tu puoi votare sia poche volte che tantissime, quante ne preferisci, e puoi smettere di votare in ogni momento.
-    how_many_ideas_q: Quante Idee/Risposte posso aggiungere? Cosa succede alla mia idea una volta che viene aggiunta?
+    how_many_ideas_q: Quante Risposte posso aggiungere? Cosa succede alla mia idea una volta che viene aggiunta?
     how_many_ideas_exp: È possibile aggiungere tutte le risposte che si vogliono. Una volta che un'idea viene aggiunta, questa può essere riesaminata dalla persona che ha creato la domanda in modo da garantire che risulti appropriata. Una volta che l'idea è stata approvata, essa inizierà a comparire alle persone che potranno votare su di essa.
     view_results_q: Posso vedere quello che pensano gli altri? 
     view_results_exp: Sì, basta cliccare su "Visualizza Risultati" dalla schermata di voto. Questo processo è completamente trasparente.
@@ -196,7 +196,7 @@ it:
         make_your_choice: Fai la tua scelta ed osserva quello che avviene dopo
         please_click: Per favore, clicca sulla tua scelta
      test_ideasubmit:
-        make_your_voice_heard: "Fate sentire la vostra voce"
+        make_your_voice_heard: "Fai sentire la tua voce"
         help_your_community: "Aiuta la tua community"
      test_stackoverflow:
         first_time: Prima volta qui? Clicca sulla scelta che ti piace di più per iniziare a votare!

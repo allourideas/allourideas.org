@@ -51,13 +51,14 @@ class SessionInfo< ActiveRecord::Base
     slugv = slugs.map {|s| "%/#{s.name}%"}
     conditions  = ["controller = 'earls' AND action = 'show' AND (#{slugw})"]
     conditions += slugv
-    @session_starts = self.clicks.find(:all, :select => "id, referrer, created_at", :conditions => conditions, :order => 'created_at DESC')
+    @marketplace_entrances = self.clicks.find(:all, :select => "id, referrer, created_at", :conditions => conditions, :order => 'created_at DESC')
   end
 
   # find the entrance referrer that is newest, but older than date
   def entrance_referrer(slugs, date)
     entrances = marketplace_entrances(slugs)
     # entrances are sorted by created_at DESC
+    # this could be optimized with binary a search
     entrances.each do |entrance|
       return entrance.referrer if entrance.created_at < date
     end

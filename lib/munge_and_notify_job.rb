@@ -131,13 +131,8 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
                 # grab most recent referrer from clicks
                 # that is older than this current vote
                 # and belongs to this earl
-                slugs = earl.slugs
-                slugw = slugs.map {|s| "url like ?"}.join(" OR ")
-                slugv = slugs.map {|s| "%/#{s.name}%"}
-                conditions = ["controller = 'earls' AND action = 'show' AND created_at < ? AND (#{slugw})", row['Created at']]
-                conditions += slugv
-                session_start = user_session.clicks.find(:first, :conditions => conditions, :order => 'created_at DESC')
-                referrer = (session_start) ? session_start.referrer : 'REFERRER_NOT_FOUND'
+                entrance_referrer = user_session.entrance_referrer(earl.slugs, row['Created at'])
+                referrer = (entrance_referrer) ? entrance_referrer : 'REFERRER_NOT_FOUND'
                 referrer = 'DIRECT_VISIT' if referrer == '/'
                 row << ['Referrer', referrer]
 

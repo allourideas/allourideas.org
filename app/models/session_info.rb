@@ -7,7 +7,7 @@ class SessionInfo< ActiveRecord::Base
 	belongs_to :visitor
 	belongs_to :user
 
-  attr_accessor :session_starts
+  attr_accessor :marketplace_entrances
 
 	after_create :do_geolocate
 
@@ -43,13 +43,25 @@ class SessionInfo< ActiveRecord::Base
 	      self.save
 	end
 
-  def get_session_starts(slugs)
-    return @session_starts if @session_starts
+  # gets all clicks that are entrances to the earl that is
+  # identified by the array of slugs
+  def marketplace_entrances(slugs)
+    return @marketplace_entrances if @marketplace_entrances
     slugw = slugs.map {|s| "url like ?"}.join(" OR ")
     slugv = slugs.map {|s| "%/#{s.name}%"}
     conditions  = ["controller = 'earls' AND action = 'show' AND (#{slugw})"]
     conditions += slugv
     @session_starts = self.clicks.find(:all, :select => "id, referrer, created_at", :conditions => conditions, :order => 'created_at DESC')
+  end
+
+  # find the entrance referrer that is newest, but older than date
+  def entrance_referrer(slugs, date)
+    entrances = marketplace_entrances(slugs)
+    # entrances are sorted by created_at DESC
+    entrances.each do |entrance|
+      return entrance.referrer if entrance.created_at < date
+    end
+    nil
   end
 
   def find_click_for_vote(vote)

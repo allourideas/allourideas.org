@@ -7,6 +7,8 @@ class SessionInfo< ActiveRecord::Base
 	belongs_to :visitor
 	belongs_to :user
 
+  attr_accessor :session_starts
+
 	after_create :do_geolocate
 
 	def do_geolocate
@@ -40,6 +42,15 @@ class SessionInfo< ActiveRecord::Base
               self.ip_addr = Digest::MD5.hexdigest([ip_address, IP_ADDR_HASH_SALT].join(""))
 	      self.save
 	end
+
+  def get_session_starts(slugs)
+    return @session_starts if @session_starts
+    slugw = slugs.map {|s| "url like ?"}.join(" OR ")
+    slugv = slugs.map {|s| "%/#{s.name}%"}
+    conditions  = ["controller = 'earls' AND action = 'show' AND (#{slugw})"]
+    conditions += slugv
+    @session_starts = self.clicks.find(:all, :select => "id, referrer, created_at", :conditions => conditions, :order => 'created_at DESC')
+  end
 
   def find_click_for_vote(vote)
     conditions = ["controller = 'prompts' AND (action = 'vote' OR action='skip') AND created_at <= ?", vote['Created at']]

@@ -1,4 +1,9 @@
 namespace :munge_test do
+  task :specific_job => :environment do
+    job = Delayed::Job.find ENV['job_id']
+    job.invoke_job
+  end
+
   # expects a CSV file to open that is the result of the Pairwise CSV
   # generation process. Runs MungeAndNotify 
   # useful for testing large CSV files

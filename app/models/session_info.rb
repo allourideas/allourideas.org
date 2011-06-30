@@ -7,8 +7,6 @@ class SessionInfo< ActiveRecord::Base
 	belongs_to :visitor
 	belongs_to :user
 
-  attr_accessor :marketplace_entrances
-
 	after_create :do_geolocate
 
 	def do_geolocate
@@ -65,11 +63,18 @@ class SessionInfo< ActiveRecord::Base
     nil
   end
 
+  def vote_clicks
+    return @vote_clicks if @vote_clicks
+    conditions = ["controller = 'prompts' AND (action = 'vote' OR action='skip')"]
+    @vote_clicks = clicks.find(:all, :select => "id, created_at, referrer", :conditions => conditions, :order => 'created_at DESC')
+  end
+
   def find_click_for_vote(vote)
-    conditions = ["controller = 'prompts' AND (action = 'vote' OR action='skip') AND created_at <= ?", vote['Created at']]
-    vote_click = clicks.find(:first, :conditions => conditions, :order => 'id DESC')
-    vote_click = Click.new unless vote_click
-    return vote_click
+    # could be optimized with binary search
+    vote_clicks.each do |click|
+      return click if click.created_at <= vote['Created at']
+    end
+    return Click.new
   end
 
   def find_tracking_value(vote)

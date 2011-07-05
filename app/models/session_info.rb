@@ -70,11 +70,9 @@ class SessionInfo< ActiveRecord::Base
   end
 
   def find_click_for_vote(vote)
-    # could be optimized with binary search
-    vote_clicks.each do |click|
-      return click if click.created_at <= vote['Created at']
-    end
-    return Click.new
+    vc = vote_clicks
+    click = bSearch(vc, vote['Created at'], 0, vc.length)
+    return (click) ? click : Click.new
   end
 
   def clicks_with_tracking
@@ -96,5 +94,23 @@ class SessionInfo< ActiveRecord::Base
     end.flatten.compact.first
   end
 
+  private
+    def bSearch(arr, val, low, high)
+      return nil if low > high
+      mid = low + ((high - low) / 2).to_i
+      return nil if mid > arr.length - 1
+
+      if arr[mid].created_at > val
+        return bSearch(arr, val, mid+1, high)
+      elsif arr[mid].created_at <= val
+        # we've found the value if it is less than or equal
+        # and we're at beginning of array or value before this one is greater
+        if (mid == 0 || arr[mid-1].created_at > val)
+          return arr[mid]
+        else
+          return bSearch(arr, val, low, mid-1)
+        end
+      end
+    end
 end
 

@@ -65,6 +65,9 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
               if current_user.admin?
                 #row << ['Geolocation Info', 'Geolocation Info']
               end
+            when "ideas"
+              row.delete('Session Identifier')
+              row << ['Info', 'Info']
           end
           csv << row
           # Zlib the CSV as we create it
@@ -88,6 +91,19 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
           end
 
           case type
+            when 'ideas'
+              sid = row['Session Identifier']
+              row.delete('Session Identifier')
+              user_session = sessions[sid]
+              if user_session.nil?
+                user_session = SessionInfo.find_by_session_id(sid)
+                sessions[sid] = user_session
+              end
+              unless user_session.nil?
+                info = user_session.find_info_value(row)
+                info = 'NA' unless info 
+                row << ['Info', info]
+              end
             when "votes", "non_votes"
 
               sid = row['Session Identifier']

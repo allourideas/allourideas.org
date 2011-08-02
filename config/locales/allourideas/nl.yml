@@ -1,0 +1,187 @@
+nl:
+  common:
+   # Common text elements across the application
+   and: en
+   votes_on: stemmen op
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} stemmen op %{2}%{ideas_count}%{_2} ideeën
+   items: ideeën
+   ideas: ideeën
+   idea: idee
+   photo: foto
+   active: actief
+   inactive: inactief
+   title: All Our Ideas - Een ideeënbus voor het digitale tijdperk
+   title_widget: All Our Ideas   
+   characters: tekens
+   idea_marketplace: Marktplaats voor ideeën
+   votes: Stemmen
+   vote: stem
+   skips: Overgeslagen
+   user_sessions: gebruikerssessies
+   users: gebruikers
+   score: score
+  form:
+    create: Aanmaken
+    submit: Versturen
+    save: Opslaan
+  nav:
+    # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
+    privacy_policy: Privacy- en instemmingsbeleid
+    home: Home
+    back: Terug
+    about: Over
+    create: Maken
+    blog: Blog
+    view_results: Bekijk resultaten
+    about_this_page: Over deze pagina
+    manage_question: Beheer deze pagina
+    see_all_ideas: Bekijk meer...
+    feedback: Feedback
+    make_your_own: Maak je eigen vraag
+    view_idea: Bekijk idee
+    signup: aanmelden
+    return_voting_widget: Terug naar Stemmen
+    view_more_results_widget: Bekijk meer resultaten
+  items:
+    new:
+      too_long: Ideeomschrijving is te lang. De maximale lengte is 
+    list:
+      content: getoonde tekst
+      status: status
+      change_status: wijzig status
+      activated: Geactiveerd
+      deactivated: Gedeactiveerd
+      toggle: Omzetten
+    items: Ideeën
+    idea: Idee
+    score: Score
+    added_on: Toegevoegd op
+    number_of_votes: Aantal stemmen
+    about_scoring: Over de scores
+    score_explain: De score voor een idee is de geschatte kans dat het van een willekeurig gekozen idee zal winnen. Bijvoorbeeld, een score van 100 betekent dat voorspeld wordt dat het idee iedere keer wint en een score van 0 dat het iedere keer verliest.
+    toggle_error: Sorry, we konden de status van deze keuze niet wijzigen omdat je niet de eigenaar bent van deze vraag.
+    you_just_submitted: Je hebt zojuist een idee toegevoegd waar mensen op kunnen stemmen
+    you_have_successfully_activated: Je hebt het idee met succes geactiveerd
+    you_have_successfully_deactivated: Je hebt het idee met succes gedeactiveerd
+  user:
+    close: Sluiten
+    email: Email
+    login: Inloggen
+    control_panel: Controlepaneel
+    password: Wachtwoord
+    password_confirmation: Wachtwoordbevestiging
+    logout: Uitloggen
+    forgot_password: Wachtwoord vergeten?
+    reset_password_header: Wachtwoord resetten
+    reset_password_explain: Je wachtwoord vergeten? Vul hieronder het emailadres in waarmee je inlogt. We sturen je dan een email met een link om je wachtwoord te resetten. 
+    reset_password_button: Wachtwoord resetten
+    save_password_button: Dit wachtwoord opslaan
+    change_your_password: Wachtwoord wijzigen
+    choose_password_below: Je wachtwoord is gereset. Kies hieronder een nieuw wachtwoord.
+    deny_access_error: Om deze actie uit te voeren moet je ingelogd zijn
+    not_authorized_error: Je hebt geen rechten om deze vraag te wijzigen
+  vote:
+    add_your_idea: Voeg hier je eigen idee toe...
+    add_your_idea_button: Voeg je eigen idee toe
+    cast_votes: Stemmen uitbrengen
+    you_chose_winner_over_loser: Je hebt gekozen voor %{winner} boven %{loser}
+    you_skipped_both: Je hebt overgeslagen
+    skip: overslaan
+    flag_as_inappropriate: Markeren als ongepast
+    cant_decide_title: Ik kan niet kiezen omdat...
+    cant_decide: Ik kan niet kiezen
+    cd_like_both: Beide ideeën spreken mij aan
+    cd_dislike_both: Geen van beide ideeën spreekt mij aan
+    cd_dont_know_left: "Ik weet niet genoeg over:"
+    cd_dont_know_right: "Ik weet niet genoeg over:"
+    cd_dont_know_both: Ik weet over geen van beide ideeën genoeg
+    cd_dont_know_both_widget: Ik weet over geen van beide genoeg
+    cd_both_same: Ik denk dat beide ideeën hetzelfde zijn
+    cd_other: Ik kan gewoon niet kiezen
+    cd_user_other: "Anders:"
+    cd_explicit_dont_know_left_widget: Ik weet niet genoeg over het linker idee            
+    cd_explicit_dont_know_right_widget: Ik weet niet genoeg over het rechter idee
+    cant_decide_message: Je kon niet kiezen.
+    click_idea_to_start_widget: Klik op een idee om met stemmen te beginnen.
+    please_explain_flag: "Leg uit waarom deze keuze ongepast is:"
+    flag_complete_message: Je hebt een keuze gemarkeerd als ongepast.
+    over: over
+    submit: Versturen
+    view_all_the_results: Bekijk alle resultaten
+    others_thought: Klik om te zien wat anderen dachten.
+    submit_idea_default_error: Sorry, lege ideeën zijn niet toegestaan. 
+    submit_idea_too_long_error: Sorry, ideeën mogen niet langer zijn dan 140 tekens.
+    submit_idea_thankyou: Bedankt. Je idee is toegevoegd. Voeg nog wat meer ideeën toe.
+    vote_timeout_error: "Sorry, het stemmen duurt te lang ... teveel verkeer!"
+    vote_other_error: "Sorry, je stem is niet meegeteld ... er was een foutmelding"
+    idea_sent_for_review: Je idee is verstuurd om beoordeeld te worden. Het zal binnenkort verschijnen.
+    powered_widget: "Deze ideeënmarktplaats draait op " 
+    leveling:
+       leveling_message: "Je hebt nu %{vote_num} %{vote_noun} uitgebracht en %{idea_num} %{idea_noun} toegevoegd: %{adjective}"
+       leveling_message_votes_only: Je hebt nu %{vote_num} %{vote_noun} uitgebracht
+       adjective_0: goed
+       adjective_1: fijn
+       adjective_2: mooi
+       adjective_3: prachtig
+       adjective_4: grandioos
+       adjective_5: super
+       adjective_6: fantastisch
+       adjective_7: ongelooflijk
+       adjective_8: geweldig
+       adjective_9: wauw
+  results:
+    scores_of_uploaded_and_orginal_ideas: Scores van toegevoegde en originele ideeën
+    number_of_user_sessions: Aantal gebruikerssessies
+    number_of_user_sessions_per_day: Aantal gebruikerssessies per dag
+    number_of_ideas: Aantal ideeën
+    number_of_ideas_per_day: Aantal ideeën per dag
+    date: Datum
+    number_of_votes_per_day: Aantal stemmen per dag
+    data_visualizations: Datavisualisaties
+    world_map_title: Wereldkaart van alle stemmen
+    world_map_ideas_title: Wereldkaart van alle toegevoegde ideeën
+    world_map_creators: Wereldkaart van alle makers van ideeënmarktplaatsen
+    votes_over_time_title: Aantal stemmen over de tijd
+    user_ideas_over_time_title: Aantal ingestuurde ideeën over de tijd
+    user_sessions_over_time_title: Aantal unieke gebruikerssessies per dag
+    word_cloud_ideas_title: Woordwolk van ideeën
+    word_cloud_weighted_title: Woordwolk van ideeën gewogen op score
+    word_cloud_uploaded_title: Woordwolk van toegevoegde ideeën
+    word_cloud_uploaded_weighted_title: Woordwolk van toegevoegde ideeën gewogen op score
+    about_word_cloud: Over woordwolken
+    word_cloud_exp: De woordwolken die op deze pagina getoond worden zijn een visuele weergave van de woorden die het vaakst voorkomen in deze ideeënmarktplaats. Indien gewogen op score gebruikt de gegenereerde woordwolk de huidige score van een idee om de populariteit te bepalen. Merk op dat sommige veel of weinig gebruikte woorden uitgefilterd kunnen zijn in de gegenereerde woordwolk.
+    scatter_ideas_title: Vergelijk de toegevoegde ideeën met de originele ideeën
+    scatter_ideas_subtitle: Zweef met je muis boven een punt voor meer informatie
+    uploaded_ideas: Toegevoegde ideeën
+    original_ideas: Oorspronkelijke ideeën
+    scores_of: Scores van
+    view_link: "[Bekijken]"
+    close_link: "[Sluiten]"
+    per_day: " per dag"
+    number_of: "Aantal "
+    no_data_error: "Kan geen grafiek maken, geen data"
+    overall_total: "Algemeen totaal - "
+    overall_total_votes: "Algemeen totaal - %{count} stemmen"
+    unable_to_find_location_of_X_votes: "We konden van %{count} votes geen locatie vinden"
+    vote_map_geo_error: "We konden geen locatie vinden van "
+    previous: << Vorige 
+    next: Volgende >>
+    rollover_to_see_more: Zweef met je muis boven een punt voor meer informatie
+  footer:
+    support: Dit project wordt ondersteund met subsidies door Google en door het CITP van Princeton University.
+    open_source: All Our Ideas is open source software. Voel je vrij om te reviewen, te remixen, te herontwerpen, of bij te dragen.
+    logged_in: Ingelogd
+    logged_in_as: Ingelogd als %{user}
+    my_questions: Mijn vragen
+  login:
+    header: Log in op jouw account
+  ab_tests:
+     test_showmespace:
+        make_your_choice: Maak je keuze en zie wat er volgt
+        please_click: Klik op je keuze
+     test_ideasubmit:
+        make_your_voice_heard: "Laat je stem horen"
+        help_your_community: "Help je gemeenschap"
+     test_stackoverflow:
+        first_time: Eerste keer hier? Klik op de keuze die je het meeste aanspreekt om te beginnen met stemmen!
+        no_first_time: Klik op de keuze die je het meeste aanspreekt om te beginnen met stemmen!

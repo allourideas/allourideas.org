@@ -3,7 +3,7 @@ ar:
    # Common text elements across the application
    and: and
    votes_on: صوتا في
-   X_votes_on_Y_ideas: %{1}%{ideas_count}%{_1} ﺹﻮﺗﺍ ﻒﻳ %{2}%{votes_count}%{_2} ﺍﻸﻔﻛﺍﺭ
+   X_votes_on_Y_ideas: التصويت %{2}%{votes_count}%{_2} الأفكار %{1}%{ideas_count}%{_1}
    items: الأفكار
    ideas: الأفكار
    idea: فكرة
@@ -69,7 +69,7 @@ ar:
     added_on: Added on
     number_of_votes: Number of Votes
     about_scoring: About the Scoring
-    score_explain: النتيجة فكرة هو فرصة يقدر أنه سيفوز ضد فكرة اختيارها عشوائيا. على سبيل المثال ، على درجة من 100 يعني توقع فكرة للفوز في كل مرة وبنتيجة 0 يعني توقع فكرة أن تفقد في كل مرة.
+    score_explain: الاختيار العشوائي للفكرة هو نتيجة فرصة يقدر نجاحها 100 بالمائة و يتوقع فشلها بـ 0 بالمائة
     toggle_error: Sorry, we could not change the status of this choice because you do not own the question.
     you_just_submitted: You just added an idea for people to vote on
     you_have_successfully_activated: You have successfully activated the idea
@@ -163,32 +163,32 @@ ar:
   vote:
     add_your_idea: أضف فكرة من عندك
 
-    add_your_idea_button: إضم فكرتك
+    add_your_idea_button: ضع فكرتك
     cast_votes: تصويت
     you_chose_winner_over_loser: اختارت %{winner} بدلا من %{loser}
     you_skipped_both: You skipped
     skip: skip
     flag_as_inappropriate: Flag as inappropriate
     cant_decide_title: لا يمكنني ان اقرر بسبب...
-    cant_decide: لا يمكنني اتخاذ قرار
+    cant_decide: لا أعرف
 
     cd_like_both: أنا أحب كل الأفكار
-    cd_dislike_both: أنا لا أحب فكرة إما
+    cd_dislike_both: لم تعجبني الفكرة
     cd_dont_know_left: "أنا لا أعرف ما يكفي عن:"
     cd_dont_know_right: "أنا لا أعرف ما يكفي عن:"
     cd_dont_know_both: أنا لا أعرف ما يكفي عن أي فكرة
-    cd_dont_know_both_widget: أنا لا أعرف ما يكفي عن إما
+    cd_dont_know_both_widget: لا أعرف
     cd_both_same: وأعتقد أن كلا الأفكار هي نفسها
     cd_other: أنا فقط لا يمكن أن تقرر
     cd_user_other: "أخرى:"
     cd_explicit_dont_know_left_widget: أنا لا أعرف ما يكفي عن فكرة اليسار            
     cd_explicit_dont_know_right_widget: أنا لا أعرف ما يكفي عن فكرة الحق
-    cant_decide_message: أنت لا تستطيع أن تقرر.
-    click_idea_to_start_widget: انقر على فكرة لبدء التصويت
+    cant_decide_message: لا تستطيع أن تقرر ؟
+    click_idea_to_start_widget: لبدء  التصويت انقر على فكرة
     please_explain_flag: "Please explain why this choice is inappropriate:"
     flag_complete_message: You flagged a choice as inappropriate.
     over: بدلا من
-    submit: Submit
+    submit: اضف
     view_all_the_results: ينظر كل النتيجات
     others_thought: Click to see what others thought.
     submit_idea_default_error: عذرا لا يسمح للأفكار فارغة
@@ -197,7 +197,7 @@ ar:
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
     idea_sent_for_review: وقد قدم فكرة الخاص بك للمراجعة. وسوف تظهر قريبا.
-    powered_widget: "هو مدعوم من هذا السوق الفكرة " 
+    powered_widget: "هذه الفكرة مدعومة من "
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
        leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}

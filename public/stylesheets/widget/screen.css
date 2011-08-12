@@ -237,7 +237,7 @@ table {
       height: 90%;
       background: #3198c1; }
       .lang-ar .votebox table td.vote_cell {
-        font-size: 14.4px; }
+        font-size: 16px; }
       .votebox table td.vote_cell:hover {
         background: #2b88ad; }
       .votebox table td.vote_cell table {
@@ -508,7 +508,7 @@ table.tablesorter {
   color: white;
   cursor: pointer; }
   .lang-ar #cant_decide_btn {
-    font-size: 14.4px; }
+    font-size: 16px; }
   #cant_decide_btn:hover {
     background-color: #b1b1b1; }
 
@@ -519,7 +519,7 @@ table.tablesorter {
   cursor: pointer;
   background: #01bb00; }
   .lang-ar .add_idea .add_idea_button {
-    font-size: 14.4px; }
+    font-size: 16px; }
   .add_idea .add_idea_button a {
     color: white; }
   .add_idea .add_idea_button:hover {

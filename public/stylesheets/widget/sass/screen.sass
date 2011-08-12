@@ -44,6 +44,8 @@ body
   color: $text_color
   line-height: 16pt
   float: left
+  &.lang-ar
+    font-size: 14px
 
 html
   font-size: 100%
@@ -249,6 +251,8 @@ $fontScaleFactor: 0.8
       color: white
       height: 90%
       background: $button_color
+      .lang-ar &
+        font-size: 18px * $fontScaleFactor
       &:hover
         background: $button_hover_color
       table
@@ -315,6 +319,9 @@ input, textarea
   font-size: 13px
   color: $text_color
   font-family: Arial, Helvetica, sans-serif
+  .lang-ar &
+    font-size: 15px
+  
 
 .form-btn
   color: black
@@ -508,6 +515,8 @@ table.tablesorter
   width: 95%
   text-align: center
   font-size: 12px
+  .lang-ar &
+    font-size: 14px
 
 #cant_decide_options table
   text-align: left
@@ -517,6 +526,8 @@ table.tablesorter
   display:inline
   padding: 7.5px 12px 7.5px 12px
   font-size: 16px * $fontScaleFactor
+  .lang-ar &
+    font-size: 18px * $fontScaleFactor
   color: white
   cursor: pointer
   &:hover
@@ -528,6 +539,8 @@ table.tablesorter
     padding: 7.5px 20px 7.5px 20px
     color: white
     font-size: 16px * $fontScaleFactor
+    .lang-ar &
+      font-size: 18px * $fontScaleFactor
     cursor: pointer
     background: #01bb00
     a
@@ -631,6 +644,8 @@ table.tablesorter
   list-style: none
   font-size: 12px
   border-color: $border_color
+  .lang-ar &
+    font-size: 14px
   .current_tab
     font-weight: bold
     background-color: $border_color
@@ -666,12 +681,17 @@ table.tablesorter
   width: 85%
   color: black
   height: 100%
+  .lang-ar &
+    font-size: 18px
 
 .question_container
   height: 20%
 
 #new_idea_field
   font-size: 12px
+  .lang-ar &
+    font-size: 14px
+    
 
 .idea_result
   color: $text_color
@@ -713,6 +733,8 @@ table.tablesorter
   background-color: white
   border: none
   font-size: 14px
+  .lang-ar &
+    font-size: 16px
 
 .bottom_status table
   border: 0

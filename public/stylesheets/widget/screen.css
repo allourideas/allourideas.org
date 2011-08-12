@@ -33,6 +33,8 @@ body {
   color: #555555;
   line-height: 16pt;
   float: left; }
+  body.lang-ar {
+    font-size: 14px; }
 
 html {
   font-size: 100%;
@@ -234,6 +236,8 @@ table {
       color: white;
       height: 90%;
       background: #3198c1; }
+      .lang-ar .votebox table td.vote_cell {
+        font-size: 14.4px; }
       .votebox table td.vote_cell:hover {
         background: #2b88ad; }
       .votebox table td.vote_cell table {
@@ -299,6 +303,8 @@ input, textarea {
   font-size: 13px;
   color: #555555;
   font-family: Arial, Helvetica, sans-serif; }
+  .lang-ar input, .lang-ar textarea {
+    font-size: 15px; }
 
 .form-btn {
   color: black; }
@@ -489,6 +495,8 @@ table.tablesorter {
   width: 95%;
   text-align: center;
   font-size: 12px; }
+  .lang-ar #cant_decide_options {
+    font-size: 14px; }
 
 #cant_decide_options table {
   text-align: left; }
@@ -499,6 +507,8 @@ table.tablesorter {
   font-size: 12.8px;
   color: white;
   cursor: pointer; }
+  .lang-ar #cant_decide_btn {
+    font-size: 14.4px; }
   #cant_decide_btn:hover {
     background-color: #b1b1b1; }
 
@@ -508,6 +518,8 @@ table.tablesorter {
   font-size: 12.8px;
   cursor: pointer;
   background: #01bb00; }
+  .lang-ar .add_idea .add_idea_button {
+    font-size: 14.4px; }
   .add_idea .add_idea_button a {
     color: white; }
   .add_idea .add_idea_button:hover {
@@ -609,6 +621,8 @@ table.tablesorter {
   list-style: none;
   font-size: 12px;
   border-color: #3198c1; }
+  .lang-ar .tabs {
+    font-size: 14px; }
   .tabs .current_tab {
     font-weight: bold;
     background-color: #3198c1; }
@@ -644,12 +658,16 @@ table.tablesorter {
   width: 85%;
   color: black;
   height: 100%; }
+  .lang-ar .question {
+    font-size: 18px; }
 
 .question_container {
   height: 20%; }
 
 #new_idea_field {
   font-size: 12px; }
+  .lang-ar #new_idea_field {
+    font-size: 14px; }
 
 .idea_result {
   color: #555555;
@@ -689,6 +707,8 @@ table.tablesorter {
   background-color: white;
   border: none;
   font-size: 14px; }
+  .lang-ar #initial_notice {
+    font-size: 16px; }
 
 .bottom_status table {
   border: 0;

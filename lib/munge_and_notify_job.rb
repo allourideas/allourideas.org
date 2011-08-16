@@ -16,7 +16,7 @@ class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redi
 
     r = Redis.new(:host => REDIS_CONFIG['hostname'])
 
-    thekey, zlibcsv = r.blpop(redis_key, (60*5).to_s) # Timeout - 5 minutes
+    thekey, zlibcsv = r.blpop(redis_key, (60*10).to_s) # Timeout - 10 minutes
 
     r.del(redis_key) # client is responsible for deleting key
 

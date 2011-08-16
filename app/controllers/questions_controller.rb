@@ -1025,7 +1025,7 @@ class QuestionsController < ApplicationController
 
       question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
 
-      Delayed::Job.enqueue MungeAndNotifyJob.new(@earl.id, type, current_user.email, @photocracy, redis_key), 15, 5.minutes.from_now
+      Delayed::Job.enqueue MungeAndNotifyJob.new(@earl.id, type, current_user.email, @photocracy, redis_key), 15
     end
       
     

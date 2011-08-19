@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_filter :admin_only, :only => [:index]
   #caches_page :results
-  
+
   # GET /questions
   # GET /questions.xml
   def index
@@ -46,8 +46,8 @@ class QuestionsController < ApplicationController
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
-        I18n.locale = @earl.default_lang
-        redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
+      I18n.locale = @earl.default_lang
+      redirect_to :action => :results, :controller => :questions, :id => @earl.name and return
     end
 
     logger.info "@question is #{@question.inspect}."
@@ -57,31 +57,31 @@ class QuestionsController < ApplicationController
     elsif params[:more]
       choices = Choice.find(:all, :params => {:question_id => @question_id,
                             :limit => per_page, 
-                :offset => (current_page - 1) * per_page})
+                            :offset => (current_page - 1) * per_page})
     else
       choices = Choice.find(:all, :params => {:question_id => @question_id, 
                             :limit => 10, 
-                :offset => 0})
+                            :offset => 0})
     end
 
     if @photocracy
       per_page = 10
       choices = Choice.find(:all,
                             :params => {
-                              :question_id => @question_id,
-                              :limit => per_page,
-                              :offset => (current_page - 1) * per_page
-                            })
+        :question_id => @question_id,
+        :limit => per_page,
+        :offset => (current_page - 1) * per_page
+      })
       @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
     end
 
     @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
-         pager.replace(choices)
+      pager.replace(choices)
 
-         pager.total_entries = @question.choices_count - @question.inactive_choices_count
+      pager.total_entries = @question.choices_count - @question.inactive_choices_count
 
     end
-    
+
     @available_charts = {}
     @available_charts['votes'] = { :title => t('results.votes_over_time_title')}
     @available_charts['user_submitted_ideas'] = { :title => t('results.user_ideas_over_time_title')}
@@ -102,7 +102,7 @@ class QuestionsController < ApplicationController
     end
 
   end
-  
+
   def admin
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]
@@ -117,73 +117,73 @@ class QuestionsController < ApplicationController
     @partial_results_url = "#{@earl.name}/results"
 
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
-     
+
   end
 
   def word_cloud
-     @earl = Earl.find params[:id]
-     type = params[:type]
-      
-     ignore_word_list = %w( a an as and is or the of for in to with on / - &) 
-     @word_frequency = Hash.new(0)
-     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+    @earl = Earl.find params[:id]
+    type = params[:type]
 
-     min_val = nil
-     @choices.each do|c|
+    ignore_word_list = %w( a an as and is or the of for in to with on / - &) 
+    @word_frequency = Hash.new(0)
+    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+
+    min_val = nil
+    @choices.each do|c|
       if c.data
-     if type && type.starts_with?("uploaded")
-       unless c.user_created
-         next
-       end
-     end
-     c.data.split(" ").each do|word|
-       word.downcase!
-             if ignore_word_list.include?(word)
-         next
-       end
-       if type == "weight_by_score" || type == "uploaded_weight_by_score"
-          @word_frequency[word] += c.score.to_i
-          min_val = c.score if min_val.nil? || c.score < min_val
-       else
-                @word_frequency[word] +=1
-          min_val = 1 if min_val.nil?
-       end
-     end
+        if type && type.starts_with?("uploaded")
+          unless c.user_created
+            next
+          end
+        end
+        c.data.split(" ").each do|word|
+          word.downcase!
+          if ignore_word_list.include?(word)
+            next
+          end
+          if type == "weight_by_score" || type == "uploaded_weight_by_score"
+            @word_frequency[word] += c.score.to_i
+            min_val = c.score if min_val.nil? || c.score < min_val
+          else
+            @word_frequency[word] +=1
+            min_val = 1 if min_val.nil?
+          end
+        end
       end
-      end
+    end
 
-      if !type || !type.starts_with?("uploaded")
-          @word_frequency.delete_if { |word, score| score <= min_val}
-      end
+    if !type || !type.starts_with?("uploaded")
+      @word_frequency.delete_if { |word, score| score <= min_val}
+    end
 
 
-       target_div = 'wcdiv'
-       if type
-         target_div+= "-" + type
-       end
-      if @word_frequency.size ==0      
-             render :text => "$('\##{target_div}').text('#{t('results.no_data_error')}');"  and return
-      end
+    target_div = 'wcdiv'
+    if type
+      target_div+= "-" + type
+    end
+    if @word_frequency.size ==0      
+      render :text => "$('\##{target_div}').text('#{t('results.no_data_error')}');"  and return
+    end
 
-     @word_cloud_js ="
+    @word_cloud_js ="
         var thedata = new google.visualization.DataTable();
         thedata.addColumn('string', 'Label');
         thedata.addColumn('number', 'Value');
         thedata.addColumn('string', 'Link'); //optional link
         thedata.addRows(#{@word_frequency.size});
-"
-     @word_cloud_end = "
+    "
+    @word_cloud_end = "
         var outputDiv = document.getElementById('#{target_div}');
         var tc = new TermCloud(outputDiv);
         tc.draw(thedata, null);
-       "
+    "
 
 
-  respond_to do |format|
-  format.html
-  format.js
-        end
+    respond_to do |format|
+      format.html
+      format.js
     end
+  end
 
 
 
@@ -192,20 +192,20 @@ class QuestionsController < ApplicationController
     data = Earl.voter_map(params[:id], params[:type])
 
     case params[:type]
-      when "votes" then
-        @object_type = t('common.votes')
-      when "all_photocracy_votes" then
-        @object_type = t('common.votes')
-      when "all_aoi_votes" then
-        @object_type = t('common.votes')
-      when "uploaded_ideas" then
-        @object_type = t('results.uploaded_ideas')
-      when "bounces" then
-        @object_type = "bounces"
-      when "all" then
-        @object_type = t('common.votes')
-      when "all_creators" then
-        @object_type = "questions"
+    when "votes" then
+      @object_type = t('common.votes')
+    when "all_photocracy_votes" then
+      @object_type = t('common.votes')
+    when "all_aoi_votes" then
+      @object_type = t('common.votes')
+    when "uploaded_ideas" then
+      @object_type = t('results.uploaded_ideas')
+    when "bounces" then
+      @object_type = "bounces"
+    when "all" then
+      @object_type = t('common.votes')
+    when "all_creators" then
+      @object_type = "questions"
     end
 
     @total = data[:total]
@@ -241,13 +241,13 @@ class QuestionsController < ApplicationController
       jitter[point[:y]][point[:x]] += 0.04 
 
       thejitter = [jitter[point[:y]][point[:x]], 0.5].min
-      
+
       point[:y] += thejitter 
 
       if c.attributes['user_created']
         user_data << point
       else
-              seed_data << point
+        seed_data << point
       end
     end
 
@@ -258,319 +258,320 @@ class QuestionsController < ApplicationController
                         var id = splitresult[1];
                         return '<b>' + name + '</b>: '+ this.x; }"
 
-    moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
+                        moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
                       var name = splitresult[0];
                       var id = splitresult[1];
                       var fake_url= '#{choice_url}';
                       var the_url = fake_url.replace('fakeid',id);
                       location.href=the_url;}"
 
-    @votes_chart = Highchart.spline({
-      :chart => { 
-        :renderTo => "#{type}-chart-container",
-        :margin => [50, 25, 60, 100],
+                      @votes_chart = Highchart.spline({
+                        :chart => { 
+                        :renderTo => "#{type}-chart-container",
+                        :margin => [50, 25, 60, 100],
+                        :borderColor =>  '#919191',
+                        :borderWidth =>  '1',
+                        :borderRadius => '0',
+                        :backgroundColor => '#FFFFFF',
+                        :height => '500'
+                      },
+                        :legend => { :enabled => false },
+                        :title => { 
+                        :text => t('results.scores_of_uploaded_and_orginal_ideas'),
+                        :style => { :color => '#919191' }
+                      },
+                        :subtitle => { 
+                        :text => t('results.rollover_to_see_more'), 
+                        :style => { :color => '#919191' }
+                      },
+                        :x_axis => { 
+                        :min => '0', 
+                        :max => '100', 
+                        :endOnTick => true, 
+                        :showLastLabel => true,
+                        :type => 'linear', 
+                        :title => {:enabled => true, :text => t('common.score').titleize}
+                      },
+                        :y_axis => { 
+                        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], 
+                        :showLastLabel => false,
+                        :gridLineWidth => 0,
+                        :max => 1.4, 
+                        :min => 0, 
+                        :plotLines => [{ :id => 1, :color => "#000000", :value => 1, :width => 1 }]
+                      },
+                        :plotOptions => {
+                        :scatter => {:point => {:events => {:click => moreinfoclickfn }}}
+                      },
+                        :series => [{
+                        :name => "Uploaded Ideas",
+                        :type => 'scatter',
+                        :color => 'rgba(223, 83, 83, .5)',
+                        :data => user_data 
+                      },
+                        {
+                        :name => "Original Ideas",
+                        :type => 'scatter',
+                        :color => 'rgba( 49,152,193, .5)',
+                        :data => seed_data 
+                      }
+
+                      ],
+
+                        :tooltip => { :formatter => tooltipformatter }
+                      })
+
+                      render :text => @votes_chart
+  end
+
+  def scatter_votes_vs_skips
+    @earl = Earl.find params[:id]
+    @question = Question.new(:id => @earl.question_id)
+    votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+
+    skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+
+    chart_data = []
+    max_x = 0
+    max_y = 0
+    votes_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
+      point = {}
+      point[:x] = votes
+      max_x = votes.to_i if votes.to_i > max_x
+      if skips = skips_by_sids.delete(sid)
+        point[:y] = skips
+        max_y = skips.to_i if skips.to_i > max_y
+      else
+        point[:y] = 0
+      end
+
+      point[:name] = sid
+      chart_data << point
+    end
+    # if any sids remain, they have not voted
+    skips_by_sids.each do |sid, skips|
+      point = {}
+      point[:x] = 0
+      point[:y] = skips
+      max_y = skips.to_i if skips.to_i > max_y
+
+      point[:name] = sid
+      chart_data << point
+    end
+    tooltipformatter = "function() { return  this.x + ' Votes '  + this.y + ' Skips '; }"
+    @votes_chart = Highchart.scatter({
+      :chart => { :renderTo => "scatter_votes_vs_skips-chart-container",
+        :margin => [50, 25, 60, 50],
         :borderColor =>  '#919191',
         :borderWidth =>  '1',
         :borderRadius => '0',
-        :backgroundColor => '#FFFFFF',
-        :height => '500'
-      },
+        :backgroundColor => '#FFFFFF'
+    },
       :legend => { :enabled => false },
-      :title => { 
-        :text => t('results.scores_of_uploaded_and_orginal_ideas'),
+      :title => { :text => "Number of Votes and Skips by session",
         :style => { :color => '#919191' }
-      },
-      :subtitle => { 
-        :text => t('results.rollover_to_see_more'), 
-        :style => { :color => '#919191' }
-      },
-      :x_axis => { 
-        :min => '0', 
-        :max => '100', 
-        :endOnTick => true, 
-        :showLastLabel => true,
-        :type => 'linear', 
-        :title => {:enabled => true, :text => t('common.score').titleize}
-      },
-      :y_axis => { 
-        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], 
-        :showLastLabel => false,
-        :gridLineWidth => 0,
-        :max => 1.4, 
-        :min => 0, 
-        :plotLines => [{ :id => 1, :color => "#000000", :value => 1, :width => 1 }]
-      },
-      :plotOptions => {
-        :scatter => {:point => {:events => {:click => moreinfoclickfn }}}
-      },
-      :series => [{
-        :name => "Uploaded Ideas",
-        :type => 'scatter',
-  :color => 'rgba(223, 83, 83, .5)',
-        :data => user_data 
-      },
-      {
-        :name => "Original Ideas",
-        :type => 'scatter',
-  :color => 'rgba( 49,152,193, .5)',
-        :data => seed_data 
-      }
-   
-      ],
-
-      :tooltip => { :formatter => tooltipformatter }
-    })
-
-    render :text => @votes_chart
-  end
-  
-  def scatter_votes_vs_skips
-        @earl = Earl.find params[:id]
-        @question = Question.new(:id => @earl.question_id)
-        votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-
-        skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
-
-        chart_data = []
-  max_x = 0
-  max_y = 0
-        votes_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
-        point = {}
-        point[:x] = votes
-        max_x = votes.to_i if votes.to_i > max_x
-        if skips = skips_by_sids.delete(sid)
-           point[:y] = skips
-           max_y = skips.to_i if skips.to_i > max_y
-        else
-           point[:y] = 0
-        end
-    
-        point[:name] = sid
-        chart_data << point
-      end
-      # if any sids remain, they have not voted
-      skips_by_sids.each do |sid, skips|
-        point = {}
-        point[:x] = 0
-        point[:y] = skips
-        max_y = skips.to_i if skips.to_i > max_y
-    
-        point[:name] = sid
-        chart_data << point
-      end
-      tooltipformatter = "function() { return  this.x + ' Votes '  + this.y + ' Skips '; }"
-      @votes_chart = Highchart.scatter({
-      :chart => { :renderTo => "scatter_votes_vs_skips-chart-container",
-          :margin => [50, 25, 60, 50],
-      :borderColor =>  '#919191',
-      :borderWidth =>  '1',
-      :borderRadius => '0',
-      :backgroundColor => '#FFFFFF'
-          },
-      :legend => { :enabled => false },
-            :title => { :text => "Number of Votes and Skips by session",
-          :style => { :color => '#919191' }
-          },
+    },
       :x_axis => { :type => 'linear', :min => 0, :max => max_x,
-       :title => {:enabled => true, :text => "Votes"}},
-      :y_axis => { :min => 0, :max => max_y, :type => 'linear' , :title => {:enabled => true, :title => "Skips"}},
-      :series => [ { :type => 'scatter',
-         :color => 'rgba( 49,152,193, .5)',
-                     :data => chart_data }],
-      :tooltip => { :formatter => tooltipformatter }
+        :title => {:enabled => true, :text => "Votes"}},
+        :y_axis => { :min => 0, :max => max_y, :type => 'linear' , :title => {:enabled => true, :title => "Skips"}},
+        :series => [ { :type => 'scatter',
+          :color => 'rgba( 49,152,193, .5)',
+          :data => chart_data }],
+          :tooltip => { :formatter => tooltipformatter }
 
-      })
-      respond_to do |format|
-  format.js { render :text => @votes_chart }
-     end
+    })
+    respond_to do |format|
+      format.js { render :text => @votes_chart }
+    end
   end
-  
+
   def scatter_score_vs_votes
-        @earl = Earl.find params[:id]
-        @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
-        
-  chart_data = []
+    @earl = Earl.find params[:id]
+    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
-  @choices.each do |choice|
-        point = {}
-        point[:x] = choice.score
-        point[:y] = choice.wins + choice.losses
+    chart_data = []
 
-        point[:name] = choice.data.strip.gsub("'","")
-        chart_data << point
-      end
-      tooltipformatter = "function() { return  this.point.name + ' Score: ' +  this.x + ' Votes: '  + this.y; }"
-      @votes_chart = Highchart.scatter({
+    @choices.each do |choice|
+      point = {}
+      point[:x] = choice.score
+      point[:y] = choice.wins + choice.losses
+
+      point[:name] = choice.data.strip.gsub("'","")
+      chart_data << point
+    end
+    tooltipformatter = "function() { return  this.point.name + ' Score: ' +  this.x + ' Votes: '  + this.y; }"
+    @votes_chart = Highchart.scatter({
       :chart => { :renderTo => "scatter_score_vs_votes-chart-container",
-          :margin => [50, 25, 60, 50],
-      :borderColor =>  '#919191',
-      :borderWidth =>  '1',
-      :borderRadius => '0',
-      :backgroundColor => '#FFFFFF'
-          },
+        :margin => [50, 25, 60, 50],
+        :borderColor =>  '#919191',
+        :borderWidth =>  '1',
+        :borderRadius => '0',
+        :backgroundColor => '#FFFFFF'
+    },
       :legend => { :enabled => false },
-            :title => { :text => "Choice Score vs Number of Votes",
-          :style => { :color => '#919191' }
-          },
+      :title => { :text => "Choice Score vs Number of Votes",
+        :style => { :color => '#919191' }
+    },
       :x_axis => { :type => 'linear', :min => 0, :max => 100,
-       :title => {:enabled => true, :text => "Score"}},
-      :y_axis => { :type => 'linear', :title => {:enabled => true, :title => "Total Votes - wins + losses"}},
-      :series => [ { :type => 'scatter',
-         :color => 'rgba( 49,152,193, .5)',
-                     :data => chart_data }],
-      :tooltip => { :formatter => tooltipformatter }
+        :title => {:enabled => true, :text => "Score"}},
+        :y_axis => { :type => 'linear', :title => {:enabled => true, :title => "Total Votes - wins + losses"}},
+        :series => [ { :type => 'scatter',
+          :color => 'rgba( 49,152,193, .5)',
+          :data => chart_data }],
+          :tooltip => { :formatter => tooltipformatter }
 
-      })
-      respond_to do |format|
-  format.js { render :text => @votes_chart }
-     end
+    })
+    respond_to do |format|
+      format.js { render :text => @votes_chart }
+    end
   end
 
   def scatter_votes_by_session
-      type = params[:type] 
-      @earl = Earl.find params[:id]
-      @question = Question.new(:id => @earl.question_id)
+    type = params[:type] 
+    @earl = Earl.find params[:id]
+    @question = Question.new(:id => @earl.question_id)
 
-      votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-      bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
-      if bounces_by_sids != "\n"
-          bounce_hash = {}
-          bounces_by_sids.each do |k|
-             bounce_hash[k] = 0
-          end
-          votes_by_sids.merge!(bounce_hash)
+    votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+    bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
+    if bounces_by_sids != "\n"
+      bounce_hash = {}
+      bounces_by_sids.each do |k|
+        bounce_hash[k] = 0
       end
-     
-      case type
-      when "votes"
-        objects_by_sids = votes_by_sids
+      votes_by_sids.merge!(bounce_hash)
+    end
 
-      when "skips"
-        skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
-        
-        skips_by_sids.each do |k,v|
-              votes_by_sids.delete(k)
-        end
-        
-  no_skips_size = votes_by_sids.size
-        objects_by_sids = skips_by_sids
-       end
+    case type
+    when "votes"
+      objects_by_sids = votes_by_sids
 
-      chart_data = []
-      jitter = Hash.new(0)
+    when "skips"
+      skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
 
-      jitter_const = 1
-      max = 0
-      objects_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
-        point = {}
-        point[:x] = votes
-        max = votes.to_i if votes.to_i > max
-        point[:y] = jitter[votes] += jitter_const
-        point[:name] = sid
-        chart_data << point
+      skips_by_sids.each do |k,v|
+        votes_by_sids.delete(k)
       end
-      chart_title = "Number of #{type} by session"
-      if no_skips_size
-          chart_title += ". Sessions with no skips: #{no_skips_size}"
-      end
-      
-      tooltipformatter = "function() { return '<b>' + this.x + ' #{type.titleize} </b>' ; }"
-      @votes_chart = Highchart.scatter({
+
+      no_skips_size = votes_by_sids.size
+      objects_by_sids = skips_by_sids
+    end
+
+    chart_data = []
+    jitter = Hash.new(0)
+
+    jitter_const = 1
+    max = 0
+    objects_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
+      point = {}
+      point[:x] = votes
+      max = votes.to_i if votes.to_i > max
+      point[:y] = jitter[votes] += jitter_const
+      point[:name] = sid
+      chart_data << point
+    end
+    chart_title = "Number of #{type} by session"
+    if no_skips_size
+      chart_title += ". Sessions with no skips: #{no_skips_size}"
+    end
+
+    tooltipformatter = "function() { return '<b>' + this.x + ' #{type.titleize} </b>' ; }"
+    @votes_chart = Highchart.scatter({
       :chart => { :renderTo => "scatter_#{type}_by_session-chart-container",
-          :margin => [50, 25, 60, 50],
-      :borderColor =>  '#919191',
-      :borderWidth =>  '1',
-      :borderRadius => '0',
-      :backgroundColor => '#FFFFFF'
-          },
+        :margin => [50, 25, 60, 50],
+        :borderColor =>  '#919191',
+        :borderWidth =>  '1',
+        :borderRadius => '0',
+        :backgroundColor => '#FFFFFF'
+    },
       :legend => { :enabled => false },
-            :title => { :text => chart_title,
-          :style => { :color => '#919191' }
-          },
+      :title => { :text => chart_title,
+        :style => { :color => '#919191' }
+    },
       :x_axis => { :type => 'linear', :min => 0, :max => max,
-       :title => {:enabled => true, :text => type.titleize}},
-      :y_axis => { :min => 0, :type => 'linear' },
-      :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
-         :type => 'scatter',
-         :color => 'rgba( 49,152,193, .5)',
-                     :data => chart_data }],
-      :tooltip => { :formatter => tooltipformatter }
+        :title => {:enabled => true, :text => type.titleize}},
+        :y_axis => { :min => 0, :type => 'linear' },
+        :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
+          :type => 'scatter',
+          :color => 'rgba( 49,152,193, .5)',
+          :data => chart_data }],
+          :tooltip => { :formatter => tooltipformatter }
 
-      })
-      respond_to do |format|
-  format.js { render :text => @votes_chart }
-     end
- end
+    })
+    respond_to do |format|
+      format.js { render :text => @votes_chart }
+    end
+  end
 
 
 
 
 
   def timeline_graph
-      totals = params[:totals]
-      type = params[:type]
+    totals = params[:totals]
+    type = params[:type]
 
-      if !totals || totals != "true"
-        @earl = Earl.find params[:id]
-        @question = Question.new(:id => @earl.question_id)
+    if !totals || totals != "true"
+      @earl = Earl.find params[:id]
+      @question = Question.new(:id => @earl.question_id)
+    end
+
+    case type
+    when 'votes'
+      if totals == "true"
+        votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'votes')
+      else
+        votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
       end
-      
-      case type
-      when 'votes'
-   if totals == "true"
-             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'votes')
-   else
-             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'votes')
-   end
-         chart_title = t('results.number_of_votes_per_day')
-         y_axis_title = t('items.number_of_votes')
-      when 'skips'
-   if totals == "true"
-             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'skips')
-   else
-             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'skips')
-   end
-         chart_title = t('results.number_of') +  t('common.skips') + t('results.per_day')
-         y_axis_title = t('results.number_of') + t('common.skips')
-      when 'user_sessions'
-   if totals == "true"
-             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
-   else
-             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
-   end
-         chart_title = t('results.number_of_user_sessions_per_day')
-         y_axis_title = t('results.number_of_user_sessions')
-      when 'user_submitted_ideas'
-   if totals == "true"
-             votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')
-   else
-             votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
-   end
-         chart_title = t('results.number_of_ideas_per_day')
-         y_axis_title = t('results.number_of_ideas')
-       when 'unique_users'
-   if totals == "true"
-                 chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
-                 y_axis_title = t('results.number_of') + t('common.users')
-     result = SessionInfo.find(:all, :select => 'date(created_at) as date, visitor_id, count(*) as session_id_count', :group => 'date(created_at), visitor_id')
-     votes_count_hash = Hash.new(0)
-
-     result.each do |r|
-       votes_count_hash[r.date.to_s.gsub('-','_')] +=1
-     end
-   end
-
+      chart_title = t('results.number_of_votes_per_day')
+      y_axis_title = t('items.number_of_votes')
+    when 'skips'
+      if totals == "true"
+        votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'skips')
+      else
+        votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'skips')
       end
+      chart_title = t('results.number_of') +  t('common.skips') + t('results.per_day')
+      y_axis_title = t('results.number_of') + t('common.skips')
+    when 'user_sessions'
+      if totals == "true"
+        votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
+      else
+        votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
+        logger.info(votes_count_hash.inspect)
+      end
+      chart_title = t('results.number_of_user_sessions_per_day')
+      y_axis_title = t('results.number_of_user_sessions')
+    when 'user_submitted_ideas'
+      if totals == "true"
+        votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_submitted_ideas')
+      else
+        votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_submitted_ideas')
+      end
+      chart_title = t('results.number_of_ideas_per_day')
+      y_axis_title = t('results.number_of_ideas')
+    when 'unique_users'
+      if totals == "true"
+        chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
+        y_axis_title = t('results.number_of') + t('common.users')
+        result = SessionInfo.find(:all, :select => 'date(created_at) as date, visitor_id, count(*) as session_id_count', :group => 'date(created_at), visitor_id')
+        votes_count_hash = Hash.new(0)
 
-      if votes_count_hash == "\n"
-  render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')}');" and return
+        result.each do |r|
+          votes_count_hash[r.date.to_s.gsub('-','_')] +=1
+        end
       end
 
-      votes_count_hash = votes_count_hash.sort
-      chart_data =[]
-      start_date = nil
-      current_date = nil
-      votes_count_hash.each do |hash_date_string, votes|
+    end
+
+    if votes_count_hash == "\n"
+      render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')}');" and return
+    end
+
+    votes_count_hash = votes_count_hash.sort
+    chart_data =[]
+    start_date = nil
+    current_date = nil
+    votes_count_hash.each do |hash_date_string, votes|
 
       hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
       if start_date.nil?
@@ -585,62 +586,62 @@ class QuestionsController < ApplicationController
       end
       chart_data  << votes
       current_date = current_date + 1
-      end
-      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
+    end
+    tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
 
-      overalltotal = chart_data.inject(0){|total, val| total + val}
-      @votes_chart = Highchart.spline({
+    overalltotal = chart_data.inject(0){|total, val| total + val}
+    @votes_chart = Highchart.spline({
       :chart => { :renderTo => "#{type}-chart-container",
-          :margin => [50, 25, 60, 80],
-      :borderColor =>  '#919191',
-      :borderWidth =>  '1',
-      :borderRadius => '0',
-      :backgroundColor => '#FFFFFF'
-          },
+        :margin => [50, 25, 60, 80],
+        :borderColor =>  '#919191',
+        :borderWidth =>  '1',
+        :borderRadius => '0',
+        :backgroundColor => '#FFFFFF'
+    },
       :legend => { :enabled => false },
-            :title => { :text => chart_title + " " +  t('results.overall_total') + overalltotal.to_s,
-          :style => { :color => '#919191' }
-          },
+      :title => { :text => chart_title + " " +  t('results.overall_total') + overalltotal.to_s,
+        :style => { :color => '#919191' }
+    },
       :x_axis => { :type => 'datetime', :title => {:text => t('results.date')}},
       :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
       :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
-         :type => 'line',
-             :pointInterval => 86400000,
-         #:pointStart => 1263859200000,
-         :color => '#3198c1',
-             :pointStart => start_date.to_time.to_i * 1000,
-                     :data => chart_data }],
-      :tooltip => { :formatter => tooltipformatter }
+        :type => 'line',
+        :pointInterval => 86400000,
+        #:pointStart => 1263859200000,
+        :color => '#3198c1',
+        :pointStart => start_date.to_time.to_i * 1000,
+        :data => chart_data }],
+        :tooltip => { :formatter => tooltipformatter }
 
-      })
-     respond_to do |format|
-  format.js { render :text => @votes_chart }
-     end
+    })
+    respond_to do |format|
+      format.js { render :text => @votes_chart }
+    end
   end
 
   def density_graph
-      @earl = Earl.find params[:id]
-      @densities = Density.find(:all, :params=> {:question_id => @earl.question_id})
+    @earl = Earl.find params[:id]
+    @densities = Density.find(:all, :params=> {:question_id => @earl.question_id})
 
-      type = params[:type]
+    type = params[:type]
 
-      prompt_types = ["seed_seed", "seed_nonseed","nonseed_seed","nonseed_nonseed"]
+    prompt_types = ["seed_seed", "seed_nonseed","nonseed_seed","nonseed_nonseed"]
 
-      if @densities.blank?
-  render :text => "$('\##{type}-chart-container').text('Cannot make chart, no data.');" and return
-      end
+    if @densities.blank?
+      render :text => "$('\##{type}-chart-container').text('Cannot make chart, no data.');" and return
+    end
 
-      chart_title = "Density of votes over time by prompt type"
-      y_axis_title = "Density of votes"
+    chart_title = "Density of votes over time by prompt type"
+    y_axis_title = "Density of votes"
 
-      chart_data = {}
-      prompt_types.each do |the_type|
-        chart_data[the_type] = []
-      end
+    chart_data = {}
+    prompt_types.each do |the_type|
+      chart_data[the_type] = []
+    end
 
-      start_date = nil
-      current_date = nil
-      @densities.each do |d|
+    start_date = nil
+    current_date = nil
+    @densities.each do |d|
       hash_date = d.created_at.to_date
 
       if start_date.nil?
@@ -650,64 +651,64 @@ class QuestionsController < ApplicationController
 
       # We need to add in a blank entry for every day that doesn't exist
       if d.value.nil?
-          chart_data[d.prompt_type] << 0
+        chart_data[d.prompt_type] << 0
       else
-          chart_data[d.prompt_type] << d.value
+        chart_data[d.prompt_type] << d.value
       end
-      end
+    end
 
-      the_series = []
+    the_series = []
 
-      prompt_types.each do |the_type|
-        the_series << { :name => the_type.humanize,
-                  :type => 'line',
-            :pointInterval => 86400000,
-            :color => '#3198c1',
-            :pointStart => start_date.to_time.to_i * 1000,
-            :data => chart_data[the_type] }
-      end
-      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
+    prompt_types.each do |the_type|
+      the_series << { :name => the_type.humanize,
+        :type => 'line',
+        :pointInterval => 86400000,
+        :color => '#3198c1',
+        :pointStart => start_date.to_time.to_i * 1000,
+        :data => chart_data[the_type] }
+    end
+    tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
 
-      @density_chart = Highchart.spline({
+    @density_chart = Highchart.spline({
       :chart => { :renderTo => "#{type}-chart-container",
-          :margin => [50, 25, 60, 80],
-      :borderColor =>  '#919191',
-      :borderWidth =>  '1',
-      :borderRadius => '0',
-      :backgroundColor => '#FFFFFF'
-          },
+        :margin => [50, 25, 60, 80],
+        :borderColor =>  '#919191',
+        :borderWidth =>  '1',
+        :borderRadius => '0',
+        :backgroundColor => '#FFFFFF'
+    },
       :legend => { :enabled => true},
-            :title => { :text => chart_title,
-          :style => { :color => '#919191' }
-          },
+      :title => { :text => chart_title,
+        :style => { :color => '#919191' }
+    },
       :x_axis => { :type => 'datetime', :title => {:text => t('results.date')}},
       :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
       :series => the_series,
       :tooltip => { :formatter => tooltipformatter }
 
-      })
-     respond_to do |format|
-  format.js { render :text => @density_chart}
-     end
+    })
+    respond_to do |format|
+      format.js { render :text => @density_chart}
+    end
   end
 
   def choices_by_creation_date
     #authenticate admin only
-     @earl = Earl.find params[:id]
-     @question = Question.new(:id => @earl.question_id)
+    @earl = Earl.find params[:id]
+    @question = Question.new(:id => @earl.question_id)
 
-     appearance_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'appearances_by_creation_date')
+    appearance_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'appearances_by_creation_date')
 
-      if appearance_count_hash == "\n"
-  render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"  and return
-      end
+    if appearance_count_hash == "\n"
+      render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"  and return
+    end
 
-      appearance_count_hash = appearance_count_hash.sort
-      chart_data =[]
-      date_list = []
-      start_date = nil
-      current_date = nil
-      appearance_count_hash.each do |hash_date_string, appearances_list|
+    appearance_count_hash = appearance_count_hash.sort
+    chart_data =[]
+    date_list = []
+    start_date = nil
+    current_date = nil
+    appearance_count_hash.each do |hash_date_string, appearances_list|
 
       hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
       if start_date.nil?
@@ -720,53 +721,53 @@ class QuestionsController < ApplicationController
         date_list << current_date
         current_date = current_date + 1
       end
-            date_list << current_date
+      date_list << current_date
       appearances_list.each do |a_hash|
         point = {}
         point[:x] = date_list.size - 1
         point[:y] = a_hash['appearances']
         point[:name] = a_hash['data'].strip.gsub("'","") + "@@@" + current_date.to_s
-            chart_data  << point
+        chart_data  << point
       end
       current_date = current_date + 1
-      end
-      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
+    end
+    tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
                                         var name = splitresult[0];
           var date = splitresult[1];
 
                                         return '<b>' + name + '</b>: '+ this.y + ' Appearances<br> Created on: ' + date; }"
-      @votes_chart = Highchart.spline({
-      :chart => { :renderTo => "choice-by-date-chart-container",
-          :margin => [50, 25, 60, 100],
-      :borderColor =>  '#919191',
-      :borderWidth =>  '1',
-      :borderRadius => '0',
-      :backgroundColor => '#FFFFFF'
-          },
-      :legend => { :enabled => false },
-            :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation', 
-          :style => { :color => '#919191' }
-          },
-      :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since idea marketplace creation",:enabled => true} },
-      :y_axis => { :type => 'linear', :min => 0, :title => {:text => 'Number of Appearances'}},
-      :series => [ { :name => "Data",
-         :type => 'scatter',
-         :color => 'rgba( 49,152,193, .5)',
-                     :data => chart_data }],
-      :tooltip => { :formatter => tooltipformatter }
+                                        @votes_chart = Highchart.spline({
+                                          :chart => { :renderTo => "choice-by-date-chart-container",
+                                            :margin => [50, 25, 60, 100],
+                                            :borderColor =>  '#919191',
+                                            :borderWidth =>  '1',
+                                            :borderRadius => '0',
+                                            :backgroundColor => '#FFFFFF'
+                                        },
+                                          :legend => { :enabled => false },
+                                          :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation', 
+                                            :style => { :color => '#919191' }
+                                        },
+                                          :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since idea marketplace creation",:enabled => true} },
+                                          :y_axis => { :type => 'linear', :min => 0, :title => {:text => 'Number of Appearances'}},
+                                          :series => [ { :name => "Data",
+                                            :type => 'scatter',
+                                            :color => 'rgba( 49,152,193, .5)',
+                                            :data => chart_data }],
+                                            :tooltip => { :formatter => tooltipformatter }
 
-      })
+                                        })
 
 
-      respond_to do |format|
-  format.js { render :text => @votes_chart }
-      end
+                                        respond_to do |format|
+                                          format.js { render :text => @votes_chart }
+                                        end
   end
 
   def add_idea
     bingo!('submitted_idea')
     new_idea_data = params[:new_idea]
-      
+
     if @photocracy
       new_photo = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
       if new_photo.valid?
@@ -782,16 +783,16 @@ class QuestionsController < ApplicationController
     end
 
     choice_params = {:visitor_identifier => request.session_options[:id], 
-                     :data => new_idea_data, 
-                     :question_id => params[:id]}
+      :data => new_idea_data, 
+      :question_id => params[:id]}
 
     choice_params.merge!(:local_identifier => current_user.id) if signed_in?
 
 
     if @choice = Choice.create(choice_params)
       @question = Question.find(params[:id], :params => {
-                          :with_visitor_stats => true,
-                          :visitor_identifier => request.session_options[:id]
+        :with_visitor_stats => true,
+        :visitor_identifier => request.session_options[:id]
       })
       @earl = Earl.find_by_question_id(params[:id])
 
@@ -802,52 +803,52 @@ class QuestionsController < ApplicationController
       end
 
       leveling_message = Visitor.leveling_message(
-            :votes => @question.attributes['visitor_votes'].to_i,
-            :ideas => @question.attributes['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
+        :votes => @question.attributes['visitor_votes'].to_i,
+        :ideas => @question.attributes['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
-      @earl = Earl.find_by_question_id(@question.id)
-      if @choice.active?
-        IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id, @photocracy
-      else
-        IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id, @photocracy
-      end
+        @earl = Earl.find_by_question_id(@question.id)
+        if @choice.active?
+          IdeaMailer.send_later :deliver_notification_for_active, @earl, @question.name, new_idea_data, @choice.id, @photocracy
+        else
+          IdeaMailer.send_later :deliver_notification, @earl, @question.name, new_idea_data, @choice.id, @photocracy
+        end
 
-      if @photocracy
-        render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
-      else
-        render :json => {
+        if @photocracy
+          render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
+        else
+          render :json => {
             :choice_status => @choice.active? ? 'active' : 'inactive',
             :leveling_message => leveling_message,
             :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"
-        }.to_json
-      end
+          }.to_json
+        end
     else
       render :json => '{"error" : "Addition of new idea failed"}'
     end
   end
-      
-      def toggle
-        expire_page :action => :results
-        @earl = Earl.find(params[:id])
-        unless ((current_user.owns?(@earl)) || current_user.admin? )
-          render(:json => {:message => "You don't have permission to do that for question #{params[:id]}"}.to_json) and return
+
+  def toggle
+    expire_page :action => :results
+    @earl = Earl.find(params[:id])
+    unless ((current_user.owns?(@earl)) || current_user.admin? )
+      render(:json => {:message => "You don't have permission to do that for question #{params[:id]}"}.to_json) and return
+    end
+    logger.info "Getting ready to change active status of Question #{params[:id]} to #{!@earl.active?}"
+
+    respond_to do |format|
+      format.xml  {  head :ok }
+      format.js  { 
+        @earl.active = !(@earl.active)
+        verb = @earl.active ? t('items.list.activated') : t('items.list.deactivated')
+        if @earl.save!
+          logger.info "just #{verb} question"
+          render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
+        else
+          render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
         end
-        logger.info "Getting ready to change active status of Question #{params[:id]} to #{!@earl.active?}"
-        
-        respond_to do |format|
-            format.xml  {  head :ok }
-            format.js  { 
-              @earl.active = !(@earl.active)
-              verb = @earl.active ? t('items.list.activated') : t('items.list.deactivated')
-              if @earl.save!
-                logger.info "just #{verb} question"
-                render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
-              else
-                render :json => {:message => "You've just #{verb.downcase} your question", :verb => verb}.to_json
-              end
-            }
-        end
-      end
+      }
+    end
+  end
 
   def toggle_autoactivate
     @earl = Earl.find_by_question_id(params[:id])
@@ -922,7 +923,7 @@ class QuestionsController < ApplicationController
   def question_params_valid
     if @question.valid?(@photocracy) && (signed_in? || (@user.valid? && @user.save && sign_in(@user)))
       @question.attributes.merge!({'local_identifier' => current_user.id,
-                                   'visitor_identifier' => request.session_options[:id]})
+                                  'visitor_identifier' => request.session_options[:id]})
       return true if @question.save
     else
       return false
@@ -954,13 +955,13 @@ class QuestionsController < ApplicationController
   def update
     @earl = Earl.find params[:id]
     @question = Question.find(@earl.question_id)
-     
+
     unless ( (current_user.owns? @earl) || current_user.admin?)
       flash[:notice] = "You are not authorized to view that page"
       redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
     end
 
-     
+
     respond_to do |format|
       if @earl.update_attributes(params[:earl])
         logger.info("Saving new information on earl")
@@ -978,43 +979,43 @@ class QuestionsController < ApplicationController
     end
   end
   def delete_logo
-     @earl = Earl.find params[:id]
-    
-     unless ((current_user.owns?(@earl)) || current_user.admin? )
+    @earl = Earl.find params[:id]
+
+    unless ((current_user.owns?(@earl)) || current_user.admin? )
       logger.info("Current user is: #{current_user.inspect}")
       flash[:notice] = "You are not authorized to view that page"
       redirect_to( "/#{params[:id]}") and return
     end
-     @question = Question.find(@earl.question_id)
-     
-     @earl.logo = nil
-     respond_to do |format|
-        if @earl.save
+    @question = Question.find(@earl.question_id)
 
-      logger.info("Deleting Logo from earl")
-      flash[:notice] = 'Question settings saved successfully!'
-      format.html {redirect_to :action => "admin" and return }
+    @earl.logo = nil
+    respond_to do |format|
+      if @earl.save
+
+        logger.info("Deleting Logo from earl")
+        flash[:notice] = 'Question settings saved successfully!'
+        format.html {redirect_to :action => "admin" and return }
         # format.xml  { head :ok }
-  else 
-      format.html { render :action => "admin"}
+      else 
+        format.html { render :action => "admin"}
         #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-        end
+      end
 
-     end
+    end
   end
-  
+
   def export
     type = params[:type]
     @earl = Earl.find params[:id]
     unless ((current_user.owns?(@earl)) || current_user.admin? )
-       response = "You are not authorized to export data from this idea marketplace, please contact us at info@allouridea.org if you think this is a mistake"
-       render :text => response and return
+      response = "You are not authorized to export data from this idea marketplace, please contact us at info@allouridea.org if you think this is a mistake"
+      render :text => response and return
     end
 
     #creates delayed job that: sends request to pairwise, waits for response from pairwise, 
     #  does some work to add ip address and click information to csv file, store in public/
     #  create delayed job to delete file in 3 days, sends email to user with link
-   
+
     if type.nil?
       render :text => "An error has occured! Please try again later." and return
     else
@@ -1027,9 +1028,9 @@ class QuestionsController < ApplicationController
 
       Delayed::Job.enqueue MungeAndNotifyJob.new(@earl.id, type, current_user.email, @photocracy, redis_key), 15
     end
-      
-    
-    
+
+
+
     response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are." 
 
     render :text => response
@@ -1040,18 +1041,18 @@ class QuestionsController < ApplicationController
   end
 
   def about
-      render :layout => false
+    render :layout => false
   end
 
   def add_photos
     @earl = Earl.find_by_name!(params[:id])
     @question = Question.find(@earl.question_id)
   end
-  
+
   def intro
     @earl = Earl.find_by_name!(params[:id])
   end
-  
+
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos
@@ -1065,7 +1066,7 @@ class QuestionsController < ApplicationController
         :question_id => @earl.question_id,
         :active => true
       }
-    
+
 
       choice = Choice.create(choice_params)
     end

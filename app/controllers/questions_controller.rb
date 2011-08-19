@@ -66,8 +66,7 @@ class QuestionsController < ApplicationController
 
     if @photocracy
       per_page = 10
-      choices = Choice.find(:all,
-                            :params => {
+      choices = Choice.find(:all, :params => {
         :question_id => @question_id,
         :limit => per_page,
         :offset => (current_page - 1) * per_page
@@ -567,13 +566,16 @@ class QuestionsController < ApplicationController
       render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')}');" and return
     end
 
-    votes_count_hash = votes_count_hash.sort
+    votes_count_hash.sort! do |x,y|
+      x['date'] <=> y['date']
+    end
     chart_data =[]
     start_date = nil
     current_date = nil
-    votes_count_hash.each do |hash_date_string, votes|
+    votes_count_hash.each do |votes|
 
-      hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
+      hash_date_string = votes['date']
+      hash_date = Date.strptime(hash_date_string, "%Y-%m-%d")
       if start_date.nil?
         start_date = hash_date
         current_date= start_date
@@ -584,7 +586,7 @@ class QuestionsController < ApplicationController
         chart_data << 0
         current_date = current_date + 1
       end
-      chart_data  << votes
+      chart_data  << votes['count']
       current_date = current_date + 1
     end
     tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
@@ -703,14 +705,16 @@ class QuestionsController < ApplicationController
       render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"  and return
     end
 
-    appearance_count_hash = appearance_count_hash.sort
+    appearance_count_hash.sort! do |x,y|
+      x['date'] <=> y['date']
+    end
     chart_data =[]
     date_list = []
     start_date = nil
     current_date = nil
-    appearance_count_hash.each do |hash_date_string, appearances_list|
+    appearance_count_hash.each do |appearances_list|
 
-      hash_date = Date.strptime(hash_date_string, "%Y_%m_%d")
+      hash_date = appearances_list['date']
       if start_date.nil?
         start_date = hash_date
         current_date= start_date

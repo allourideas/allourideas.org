@@ -15,9 +15,6 @@ Rails::Initializer.run do |config|
 
   config.gem 'hoptoad_notifier',
     :version => "2.4.9"
-  config.gem 'libxml-ruby',
-    :lib     => 'libxml',
-    :verison => "0.9.7"
   config.gem "ambethia-smtp-tls",
     :lib     => "smtp-tls",
     :version => "1.1.2",

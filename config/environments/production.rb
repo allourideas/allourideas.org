@@ -24,8 +24,6 @@ config.gem "rubaidh-google_analytics",
 config.gem 'sendgrid',
 	  :version => '0.1.4'
 
-ActiveSupport::XmlMini.backend = 'LibXML'
-
 
 #pains me to do this, but can't seem to get environment variables set in EY
 #will change login after demo

@@ -7,8 +7,12 @@ class Click < ActiveRecord::Base
   # checks referrer to see if this click was done on a widget
   def widget?
     return false if referrer.blank?
-    uri = URI.parse(referrer)
-    referrer.include?('widget') || (!uri.host.nil? && uri.host.include?('iphone'))
+    begin
+      uri = URI.parse(referrer)
+      referrer.include?('widget') || (!uri.host.nil? && uri.host.include?('iphone'))
+    rescue
+      return referrer.include?('widget')
+    end
   end
 
   private

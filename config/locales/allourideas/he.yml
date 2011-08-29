@@ -3,7 +3,7 @@ he:
    # Common text elements across the application
    and: ו
    votes_on: מצביעים
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} votes on %{2}%{ideas_count}%{_2} ideas
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} רעיונות %{2}%{ideas_count}%{_2} על הצבעות
    items: רעיונות
    ideas: רעיונות
    idea: רעיון
@@ -118,7 +118,7 @@ he:
     powered_widget: "שוק הרעיונות הזה מונע על ידי " 
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
-       leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
+       leveling_message_votes_only: פעמים %{vote_num} הצבעת
        adjective_0: טוב
        adjective_1: נחמד
        adjective_2: מדהים

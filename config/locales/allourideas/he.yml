@@ -3,11 +3,11 @@ he:
    # Common text elements across the application
    and: ו
    votes_on: מצביעים
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} רעיונות %{2}%{ideas_count}%{_2} על הצבעות
+   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} הצבעות על %{2}%{ideas_count}%{_2} רעיונות
    items: רעיונות
    ideas: רעיונות
    idea: רעיון
-   photo: תמנה
+   photo: תמונה
    active: פעיל
    inactive: לא פעיל
    title: הרעיונות של כולם ‫-‬ תיבת הצעות לעידן הדיגיטלי 
@@ -81,8 +81,8 @@ he:
     deny_access_error: עליך להירשם לביצוע פעולה זו
     not_authorized_error: אין לך הרשאה לשנות שאלה זו
   vote:
-    add_your_idea: הוסף את הרעיון שלך כאן
-    add_your_idea_button: הוסף את הרעיון שלך
+    add_your_idea: הוסף/י את הרעיון שלך כאן
+    add_your_idea_button: הוסף/י את הרעיון שלך
     cast_votes: הצבע/י
     you_chose_winner_over_loser: בחרת %{winner} לעומת %{loser}
     you_skipped_both: דילגת
@@ -185,3 +185,6 @@ he:
      test_stackoverflow:
         first_time: פעם ראשונה בים? הקלק על הבחירה המועדפת והתחל להצביע!
         no_first_time: הקלק על הבחירה המועדפת והתחל להצביע!
+  home:
+    whats_this_txt: "הציעו רעיונות והצביעו על רעיונות קיימים – השתתפו בעיצוב סדר היום החברתי של מדינת ישראל"
+

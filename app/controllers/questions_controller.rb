@@ -709,31 +709,22 @@ class QuestionsController < ApplicationController
       x['date'] <=> y['date']
     end
     chart_data =[]
-    date_list = []
-    start_date = nil
-    current_date = nil
-    appearance_count_hash.each do |appearances_list|
+    x_value = 0
+    last_date = nil
+    appearance_count_hash.each do |appearance|
 
-      hash_date = appearances_list['date']
-      if start_date.nil?
-        start_date = hash_date
-        current_date= start_date
+      date = appearance['date']
+      # increment x_value based on gaps between this date and the last
+      unless last_date.nil?
+        x_value += (date - last_date).to_i
       end
 
-      # We need to add in a blank entry for every day that doesn't exist
-      while current_date != hash_date do
-        date_list << current_date
-        current_date = current_date + 1
-      end
-      date_list << current_date
-      appearances_list.each do |a_hash|
-        point = {}
-        point[:x] = date_list.size - 1
-        point[:y] = a_hash['appearances']
-        point[:name] = a_hash['data'].strip.gsub("'","") + "@@@" + current_date.to_s
-        chart_data  << point
-      end
-      current_date = current_date + 1
+      point = {}
+      point[:x] = x_value
+      point[:y] = appearance['appearances']
+      point[:name] = appearance['data'].strip.gsub("'","") + "@@@" + date.to_s
+      chart_data  << point
+      last_date = date
     end
     tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
                                         var name = splitresult[0];

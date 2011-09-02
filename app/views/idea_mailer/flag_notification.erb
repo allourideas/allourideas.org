@@ -1,16 +1,16 @@
 <%= t('items.email.hello') %>
 
-<%= t('items.email.photocracy_someone_has_flagged', :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}") %>
+<%= t("items.email.#{@photocracy ? 'photocracy_' : ''}someone_has_flagged", :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}", :choice_data => @choice_data) %>
 
-<%= t('items.email.provided_explanation_is', :object => @object_type) %>
+<%= t('items.email.provided_explanation_is', :object_type => @object_type) %>
 
 <%= @explanation %>
 
-<%= t('items.email.photocracy_we_have_auto_deactivated') %>
+<%= t("items.email.#{@photocracy ? 'photocracy_' : ''}we_have_auto_deactivated") %>
 
 <%= @choice_url %>
 
-<%= t('items.email.if_you_dont_want', :object => @object_type) %>
+<%= t('items.email.if_you_dont_want', :object_type => @object_type) %>
 
 <%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %>
 <%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>

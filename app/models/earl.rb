@@ -42,7 +42,9 @@ class Earl < ActiveRecord::Base
      
     votes_by_geoloc= {}
     object_total = 0
-    votes_by_sids.each do|sid, num_votes|
+    votes_by_sids.each do |vote|
+      sid = vote["visitor_id"]
+      num_votes = vote["count"]
       num_votes = num_votes.to_i
       session = SessionInfo.find_by_session_id(sid)
 

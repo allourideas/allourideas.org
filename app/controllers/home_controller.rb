@@ -31,10 +31,12 @@ class HomeController < ApplicationController
       else
         @earls = Earl.find(:all, :conditions => {:photocracy => false})
       end
+      all = params[:all] == 'true' ? true : false
       @questions = Question.find(:all, :params => {
                                    :votes_since => Date.today,
                                    :user_ideas => true,
-                                   :active_user_ideas => true })
+                                   :active_user_ideas => true,
+                                   :all => all })
 
       @available_charts = {}
       @available_charts['votes'] = { :title => "Number of all votes over time"}

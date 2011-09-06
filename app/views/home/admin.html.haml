@@ -26,6 +26,10 @@
           %td.votes{:id => "question_#{earl.id}_status"}
             .toggle_question_status{:rel => earl.id, :id => "question_#{earl.id}_toggle", :status => "#{earl.active?}" }
               =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
+  - if params[:all] != 'true'
+    %p
+      %a{:href => '/admin?all=true'}
+        See all
   %br
   
   -if current_user.admin?

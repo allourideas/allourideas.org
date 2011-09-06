@@ -14,7 +14,7 @@
     %tbody
       -alt=false
       -for earl in @earls
-        -q = @questions_map[earl.question_id] or break
+        -q = @questions_map[earl.question_id] or next
         %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
           %td.title= link_to truncate(h(q.attributes['name']), :length => 137), url_for(:controller => :questions, :action => :admin, :id => earl.name)
           %td= q.votes_count

@@ -536,7 +536,6 @@ class QuestionsController < ApplicationController
         votes_count_hash = Question.get(:all_object_info_totals_by_date, :object_type => 'user_sessions')
       else
         votes_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'user_sessions')
-        logger.info(votes_count_hash.inspect)
       end
       chart_title = t('results.number_of_user_sessions_per_day')
       y_axis_title = t('results.number_of_user_sessions')
@@ -589,6 +588,7 @@ class QuestionsController < ApplicationController
       chart_data  << votes['count']
       current_date = current_date + 1
     end
+    start_date = Time.now.to_date if start_date.nil?
     tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
 
     overalltotal = chart_data.inject(0){|total, val| total + val}

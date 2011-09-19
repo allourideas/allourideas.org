@@ -3,7 +3,7 @@ namespace :l10n do
   # flattens the yaml hash into 1 dimensional hash
   def flatten(hash, namespace=nil)
     flattened = {}
-    namespace = namespace + ':' if namespace
+    namespace = namespace + '.' if namespace
     hash.each do |key, value|
       if value.class == Hash
         flattened.merge!(flatten(value, "#{namespace}#{key}"))
@@ -12,6 +12,22 @@ namespace :l10n do
       end
     end
     return flattened
+  end
+
+  # given a nested hash and key as string, find the value
+  # key can be indicate nesting by being dot separated
+  def getValue(hash, key)
+    key.to_s.split('.').inject(hash) { |h, k| h[k] unless h.nil? }
+  end
+
+  def setValue(hash, key, value)
+    subkeys = key.split('.')
+    lastkey = subkeys.pop
+    subhash = subkeys.inject(hash) do |h, k|
+      h[k] = {} if h[k].nil? 
+      h[k]
+    end
+    subhash[lastkey] = value
   end
 
   desc "Determine diff of keys between two yml files.  Call by keys_diff[filename1, filename2]"

@@ -2,11 +2,11 @@ pt:
   common:
    # Common text elements across the application
    and: e
-   votes_on: vota em
+   votes_on: votos em
    X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} votos em %{2}%{ideas_count}%{_2} ideias
    items: ideias
    ideas: ideias
-   idea: idéia
+   idea: ideia
    title: All Our Ideas - Uma Caixa de Sugestões para a Era Digital
    title_widget: All Our Ideas
    characters: caracteres
@@ -64,21 +64,21 @@ pt:
     view_all_the_results: Ver todos os resultados
     cant_decide_title: Eu não posso decidir porque...
     cant_decide: "Não consigo decidir"
-    cd_like_both: Eu gosto de ambas as idéias
-    cd_dislike_both: Eu não gosto de nenhuma delas
+    cd_like_both: Eu gosto de ambas as ideias
+    cd_dislike_both: Eu não gosto de nenhuma das ideias
     cd_dont_know_left: "Eu não sei o suficiente sobre:"
     cd_dont_know_right: "Eu não sei o suficiente sobre:"
     cd_dont_know_both: Eu não sei o suficiente sobre qualquer idéia 
-    cd_dont_know_both_widget: Eu não sei o suficiente sobre qualquer delas
+    cd_dont_know_both_widget: Eu não sei o suficiente sobre qualquer
     cd_both_same: Eu acho que ambas as idéias são as mesmas 
     cd_other: Eu apenas não posso decidir 
     cd_user_other: "Outros"
-    cd_explicit_dont_know_left_widget: Eu não sei o suficiente sobre a idéia de esquerda
-    cd_explicit_dont_know_right_widget: Eu não sei o suficiente sobre a idéia de direito
+    cd_explicit_dont_know_left_widget: Eu não sei o suficiente sobre a ideia da esquerda
+    cd_explicit_dont_know_right_widget: Eu não sei o suficiente sobre a idéia da direita
     cant_decide_message: Você não pode decidir.
-    click_idea_to_start_widget: Clique em uma idéia para iniciar a votação.
-    idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
-    powered_widget: "Essa forma de participação foi desenvolvida pelo "
+    click_idea_to_start_widget: Clique em uma ideia para iniciar a votação.
+    idea_sent_for_review: Sua ideia foi apresentada para a revisão. Ele aparecerá em breve.
+    powered_widget: "Este mercado é alimentado pela ideia "
     flag_complete_message: Está marcada como uma escolha inadequada.
     leveling:
        leveling_message: "Agora você tem um elenco %{vote_num} %{vote_noun} e adição de %{idea_num} %{idea_noun}: %{adjective}"
@@ -116,7 +116,7 @@ pt:
     uploaded_ideas: Ideias Submetidas
     original_ideas: Ideias Originais
     about_word_cloud: Nuvens palavra sobre
-    word_cloud_exp:  A palavra nuvens exibidas nesta página são uma representação visual das palavras que mais frequentemente aparecem neste mercado idéia. Quando ponderado pela pontuação, a palavra nuvem gerada usará a pontuação atual de uma idéia para determinar a popularidade da palavra. Note-se que algumas palavras comuns ou raros pode ser filtrada para fora da nuvem de palavras geradas.
+    word_cloud_exp:  A palavra nuvens exibidas nesta página são uma representação visual das palavras que mais frequentemente aparecem neste mercado ideia. Quando ponderado pela pontuação, a palavra nuvem gerada usará a pontuação atual de uma idéia para determinar a popularidade da palavra. Note-se que algumas palavras comuns ou raras podem ser filtradas para fora da nuvem de palavras geradas.
     scores_of: Pontuações das
     view_link: "[Ver]"
     close_link: "[Fechar]"
@@ -129,24 +129,24 @@ pt:
     vote_map_geo_error: "Não conseguimos determinar a localização de "
     previous: << Anterior
     next: Próximo >>
-    rollover_to_see_more: passe o mouse in cada ponto para saber mais
+    rollover_to_see_more: Roll over cada ponto para saber mais 
   about_page: 
-    intro: Você está participando em um mercado de "idéias" que permite que grupos de coletar e priorizar idéias em um processo democrático, aberto e eficiente. Ao combinar um processo de votação simples, com carregamento aberto de idéias, as melhores idéias em seu grupo de bolhas para o topo.
-    exp_widget: Este widget mercado idéia é alimentado por www.allourideas.org, um projecto de investigação liderado pelo Professor Matthew Salganik, Departamento de Sociologia da Universidade de Princeton.
+    intro: Você está participando em um mercado de "idéias" que permite que grupos coletem e priorizem idéias em um processo democrático, aberto e eficiente. Ao combinar um processo de votação simples, com carregamento aberto de idéias, as melhores idéias em seu grupo de bolhas vão para o topo.
+    exp_widget: Este widget mercado idéia é alimentado por www.allourideas.org, um projeto de investigação liderado pelo Professor Matthew Salganik, Departamento de Sociologia da Universidade de Princeton.
     faq_widget: "Aqui estão algumas perguntas freqüentes:"
     open_source_q_widget: É todo este código-fonte aberto?
     open_source_exp_widget: Absolutamente. Aqui está o alvo <a href="http://github.com/allourideas" target = blank_>o código<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
     contact_q_widget: Eu tenho outra pergunta, como posso entrar em contato com você?
     contact_exp_widget: Envie-nos um email para info@allourideas.org.
-    how_many_votes_q: Quantos votos eu posso elenco? Quando ele termina?
-    how_many_votes_exp: Você pode votar tão pouco ou tanto quanto você quer, e você pode parar de voto a qualquer momento.
-    how_many_ideas_q: Quantas idéias eu posso acrescentar? O que acontece com a minha ideia uma vez que eu adicioná-lo?
-    how_many_ideas_exp: Você pode adicionar tantas idéias como você. Quando uma idéia é adicionado, ele pode ser revisto por quem criou a idéia de mercado, a fim de garantir que não é inadequado. Uma vez que a idéia foi comentado, vai começar a aparecer para as pessoas a votar nele.
+    how_many_votes_q: Quantos votos eu posso acrescentar? Quando ele termina?
+    how_many_votes_exp: Você pode votar tão pouco ou tanto quanto você quiser, e você pode parar de votar a qualquer momento.
+    how_many_ideas_q: Quantas ideias eu posso acrescentar? O que acontece com a minha ideia uma vez que eu adicioná-la?
+    how_many_ideas_exp: Você pode adicionar tantas ideias como você quiser. Quando uma ideia é adicionada, ela pode ser revista por quem criou a idéia de mercado, a fim de garantir que não é inadequada. Uma vez que a idéia foi comentada, vai começar a aparecer para as pessoas votarem nela.
     view_results_q: Posso ver o que todo mundo pensa?
     view_results_exp: Sim, simplesmente clique em "Exibir Resultados" da tela de votação. Este processo é completamente transparente.
     make_my_own_q: Posso fazer uma dessas mim?
-    make_my_own_exp: "Claro. É fácil de configurar sua própria idéia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar seu próprio mercado idéia aqui: http://www.allourideas.org/questions/new"
-    make_my_own_exp_widget: "Claro. É fácil de configurar sua própria idéia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar o seu widget próprio mercado idéia: http://www.allourideas.org."
+    make_my_own_exp: "Claro. É fácil de configurar sua própria ideia, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar seu próprio mercado idéia aqui: http://www.allourideas.org/questions/new"
+    make_my_own_exp_widget: "Claro. É fácil de configurar sua própria ideia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar o seu widget próprio mercado idéia: http://www.allourideas.org."
   user:
     # User information that appears in a few places, most importantly the footer
     email: Email
@@ -161,12 +161,12 @@ pt:
         # Note that 1/3 of sessions will see no text at all (control), so you may need to
         #  close and reopen your browser a few times to view this text
         make_your_choice: Faça a sua escolha para ver o que vem depois
-        please_click: Clique na opção que você acha melhor
+        please_click: Clique na sua opção preferida
      test_ideasubmit:
         # This text appears inside the idea submit text box
         # For example: http://www.allourideas.org/studentgovernment
         make_your_voice_heard: Faça ouvir a sua voz
         help_your_community: Ajude a sua comunidade
      test_stackoverflow:
-        first_time: Primeira vez aqui? Clique na opção que você gosta mais para começar a votar!
-        no_first_time: Clique sobre a escolha que você gosta mais para começar a votar!
+        first_time: Primeira vez aqui? Clique na sua opção preferida para começar a votar!
+        no_first_time: Clique na sua opção preferida para começar a votar!

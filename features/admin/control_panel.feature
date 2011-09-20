@@ -21,11 +21,11 @@ Feature: Control Panel
 	   When I follow "Which animal is strongest?"
 	   Then I should see "Which animal is strongest?"
 
-	Scenario: User is an admin
+	Scenario: User is a super admin
 	   Given an idea marketplace quickly exists with question title 'Which super admin is best?' and admin 'super@admin.com/blah'
            And a super admin user exists with credentials "admin@admin.com/blah"
 	   And I sign in as "admin@admin.com/blah"
-	   When I go to the Control Panel page 
+	   When I go to the Control Panel All page 
 	   Then I should see "Which animal is strongest?"
 	   And I should see "What adjective is better?"
 	   And I should see "Which super admin is best?"

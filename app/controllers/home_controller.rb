@@ -47,7 +47,8 @@ class HomeController < ApplicationController
       @earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
       @questions = Question.find(:all, :params => {
                                    :creator => current_user.id,
-                                   :votes_since => Date.today })
+                                   :votes_since => Date.today,
+                                   :all => true })
                                    
     end
     @questions_map = @questions.inject({}){ |h,q| h[q.id] = q; h }

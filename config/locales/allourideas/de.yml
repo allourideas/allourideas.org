@@ -17,7 +17,7 @@ de:
    photo: Foto
    inactive: nicht aktiv
    users: Nutzer
-   skips: Ÿbersprungene Abstimmungen
+   skips: übersprungene Abstimmungen
    X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} Stimmen fur  %{2}%{ideas_count}%{_2} Ideen"
    active: aktiv
   nav:
@@ -25,7 +25,7 @@ de:
     # Some elements found just above choices on voting page
     home: Home
     about: über
-    back: ZurŸck
+    back: Zurück
     blog: Blog
     signup: sign up
     feedback: Feedback
@@ -46,13 +46,13 @@ de:
   items:
     # Text on the item detail view page:
     # For example: http://www.allourideas.org/studentgovernment/choices/68
-    toggle_error: Leider kšnnen wir den Status dieser Auswahl nicht Šndern, denn Sie sind nicht der Autor dieser Abstimmung.
+    toggle_error: Leider können wir den Status dieser Auswahl nicht ändern, denn Sie sind nicht der Autor dieser Abstimmung.
     new: 
-      too_long: "Der Text ist zu lang. Die MaximallŠnge ist:"
-    items: VorschlŠge
+      too_long: "Der Text ist zu lang. Die Maximallänge ist:"
+    items: Vorschläge
     list: 
       toggle: Toggle
-      change_status: StatusŠnderung
+      change_status: Statusänderung
       deactivated: Daktiviert
       content: angezeigter Inhalt
       activated: Aktiviert
@@ -109,8 +109,8 @@ de:
     idea_sent_for_review: Ihr Vorschlag wird überprüft. Er wird in Kürze hier erscheinen.
     powered_widget: "Dieser Marktplatz wird durch Ihre Vorschläge unterstützt."
     flag_complete_message: Dieser Vorschlag wurde als ungeeignet gemeldet.
-    please_explain_flag: "Bitte erklŠren Sie, warum die Auswahl unpassend ist:"
-    you_chose_winner_over_loser: Sie haben %{winner} gegenŸber %{loser} bevorzugt
+    please_explain_flag: "Bitte erklären Sie, warum die Auswahl unpassend ist:"
+    you_chose_winner_over_loser: Sie haben %{winner} gegenüber %{loser} bevorzugt
     others_thought: Klicken Sie, um zu sehen, was andere dazu gedacht haben.
     leveling:
        leveling_message_votes_only: Sie haben nun %{vote_num} %{vote_noun} abgegeben
@@ -126,15 +126,15 @@ de:
        adjective_8: schrecklich
        adjective_9: oh!
   results:
-    world_map_creators: Karte der Ideen-MartkplŠtze der Welt
-    number_of_ideas: Anzahl der VorschlŠge
-    unable_to_find_location_of_X_votes: Wir kšnnen den Ort der_X_abgegebenen Stimmen nicht finden
+    world_map_creators: Karte der Ideen-Martkplätze der Welt
+    number_of_ideas: Anzahl der Vorschläge
+    unable_to_find_location_of_X_votes: Wir können den Ort der_X_abgegebenen Stimmen nicht finden
     date: Datum
     number_of_user_sessions_per_day: Anzahl der Sitzungen pro Tag
-    number_of_ideas_per_day: Anzahl der VorschlŠge pro Tag
+    number_of_ideas_per_day: Anzahl der Vorschläge pro Tag
     overall_total_votes: Gesamtzahl der  - %{count} Stimmen
     number_of_user_sessions: Anzahl der Sitzungen
-    scores_of_uploaded_and_orginal_ideas: Werte der hochgeladenen VorschlŠge und der Ausgangs-VorschlŠge
+    scores_of_uploaded_and_orginal_ideas: Werte der hochgeladenen Vorschläge und der Ausgangs-Vorschläge
     number_of_votes_per_day: Anzahl der Stimmen pro Tag
     # Text that appears on the results page of each idea marketplace
     # For example: http://www.allourideas.org/studentgovernment/results
@@ -184,16 +184,16 @@ de:
     make_my_own_exp_widget: "Natürlich. Sie können ganz einfach Ihren eigenen Ideen-Marktplatz eröffnen. Dies ist für Sie vollkommen kostenlos, da wir Unterstützung von Google und vom CTIP der University of Princeton erhalten. Sie können Ihr eigenes Marktplatz-Widget hier anlegen: http://www.allourideas.org/questions/new"
   user:
     save_password_button: Passwort speichern
-    choose_password_below: Ihr Passwort wurde zurŸckgesetzt. Bitte neues Passwort aussuchen.
+    choose_password_below: Ihr Passwort wurde zurückgesetzt. Bitte neues Passwort aussuchen.
     forgot_password: Passwort vergessen?
     close: Schlie§en
-    password_confirmation: Passwort bestŠtigen
-    reset_password_header: Passwort zurŸcksetzen
-    change_your_password: Passwort Šndern
-    reset_password_explain: Passwort vergessen? Geben Sie Ihre Email unten ein. Wir senden Ihnen eine Email mit einem Link, um Ihr Passwort zurŸckzusetzen.
-    not_authorized_error: Sie sind nicht berechtigt diese Abstimmung zu Šndern
-    reset_password_button: Passwort zurŸcksetzen
-    deny_access_error: Sie mŸssen eingeloggt sein, um diese Aktion auszufŸhren.
+    password_confirmation: Passwort bestätigen
+    reset_password_header: Passwort zurücksetzen
+    change_your_password: Passwort ändern
+    reset_password_explain: Passwort vergessen? Geben Sie Ihre Email unten ein. Wir senden Ihnen eine Email mit einem Link, um Ihr Passwort zurückzusetzen.
+    not_authorized_error: Sie sind nicht berechtigt diese Abstimmung zu ändern
+    reset_password_button: Passwort zurücksetzen
+    deny_access_error: Sie müssen eingeloggt sein, um diese Aktion auszuführen.
     password: Passwort
     # User information that appears in a few places, most importantly the footer
     email: Email
@@ -220,4 +220,4 @@ de:
         first_time: Zum ersten Mal hier? Klicken Sie auf die bevorzugte Option, um mit der Abstimmung anzufangen. 
         no_first_time: Zum ersten Mal hier? Klicken Sie auf die bevorzugte Option, um mit der Abstimmung anzufangen. 
   home: 
-    whats_this_txt: "All Our Ideas ist eine Plattform, mit der Gruppen Ideen und VorschlŠge sammeln und bewerten auf eine trasnparente und demokratische Weise sammeln und bewerten kšnnen. Es ist der Briefkasten fŸr VorschlŠge. Es ist ein Abstimmungsinstrument fŸr das Digitalzeitalter."
+    whats_this_txt: "All Our Ideas ist eine Plattform, mit der Gruppen Ideen und Vorschläge sammeln und bewerten auf eine trasnparente und demokratische Weise sammeln und bewerten können. Es ist der Briefkasten für Vorschläge. Es ist ein Abstimmungsinstrument für das Digitalzeitalter."

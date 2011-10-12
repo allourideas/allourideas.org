@@ -37,6 +37,9 @@ When /^I click on the edit link for the question$/ do
 	find('.row0 .header:first a').click
 end
 
+When /^I click on the Status header column$/ do 
+	find('th.score:last').click
+end
 When /^I click on the toggle link for the first choice$/ do 
         sleep(3) # "activate a deactivated idea" can fail without this
 	find('.toggle_choice_status').click

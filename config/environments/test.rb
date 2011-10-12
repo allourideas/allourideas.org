@@ -33,7 +33,7 @@ config.gem 'sqlite3',
 config.gem 'database_cleaner',
   :version => '=0.5.0'
 config.gem 'capybara',
-  :version => '=0.3.7'
+  :version => '=1.0.1'
 config.gem 'thoughtbot-factory_girl', 
   :lib     => 'factory_girl',
   :source  => 'http://gems.github.com',

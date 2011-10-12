@@ -176,7 +176,7 @@
   = stylesheet_link_tag 'facebox'
 
 - content_for :view_javascript do
-  $('.tablesorter').tablesorter({ headers: { 0: {sorter: 'text'}, 1 : { sorter: 'digit' } , 2 : { sorter: 'text' }, 3 : { sorter: 'text'}, 4 : { sorter: false }, } });
+  $('.tablesorter').tablesorter({ textExtraction : 'complex', headers: { 0: {sorter: 'text'}, 1 : { sorter: 'digit' } , 2 : { sorter: 'text' }, 3 : { sorter: 'text'}, 4 : { sorter: false }, } });
   $('.tablesorter').bind('sortEnd', function() {
   $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
   $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});

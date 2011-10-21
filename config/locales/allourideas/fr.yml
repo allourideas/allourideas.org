@@ -1,172 +1,223 @@
-fr:
-  common:
-   # Common text elements across the application
-   and: et
-   votes_on: votes sur
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} votes sur %{2}%{ideas_count}%{_2} idées
-   items:  des idées
-   ideas:  idées
-   idea:  idée
-   title:  Toutes Nos Idées - Une boite à suggestions pour l’ère du numérique
-   title_widget: Toutes Nos Idées 
-   characters:  caratères
-   idea_marketplace:  L’idée de marché
-   votes:  Votes
-   votes:  vote
-   user_sessions:  sessions d’utilisateur
-   score:  Evaluation
-  nav:
-    # Navigation elements used at top right throughout site
-    # Some elements found just above choices on voting page
-    home: Accueil
-    about: A propos de
-    create: pour créer
-    view_results: Voir les resultants
-    about_this_page: À propos de cette page
-    manage_question: Gérer cette page
-    see_all_ideas: Voir plus…
-    make_your_own: Créer votre propre question
-    view_idea: Voir idée
-    return_voting_widget: Retour à droit de vote
-    view_more_results_widget: Voir les résultats Plus
-  items:
-    # Text on the item detail view page: FR-
-    # For example: FR-http://www.allourideas.org/studentgovernment/choices/68
-    idea: L’idée
-    score: Score
-    added_on: Ajouté le
-    number_of_votes: Nombre de votes
-    about_scoring: A propos de la notation
-    score_explain: Le score d’une idée est la chance estimée qu’il faudra gagner contre une idée choisis au hazard. Par exemple, un score de 100 signifie que l’idée est prevue à gagner à chaque fois et un score de 0 signifie que l’idée est prevue de perdre à chaque fois.
-    you_just_submitted: Vous venez d’ajouter une idée pour les gens à voter sur
-  footer:
-    # Text in the footer of each page
-    support: Ce projet est soutenu par des subventions de Google et le PACI (CITP) à l’Université Princeton.
-    open_source: Toutes Nos Idées est un logiciel source ouvetter. N'hésitez pas à revoir, remix, refonte, ou de contribuer 
-    logged_in_as: Logged in as %{user}
-  vote:
-    # Text that appears on the main voting page of each idea marketplace
-    # For example http://www.allourideas.org/studentgovernment
-    add_your_idea: Ajouter votre idée ici…
-    add_your_idea_button: Ajouter votre propre idée
-    cast_votes: Nombre de Votants
-    you_chose_winner_over_loser: vous avez choisi %{winner} plus de %{loser}
-    you_skipped_both: vous vous avez sauté les deux
-    flag_as_inappropriate: Signaler comme inapproprié
-    skip: Eviter
-    over: plus de
-    submit: Soumettre
-    submit_idea_default_error: Désolé, les idées vierges ne sont pas autorisées
-    submit_idea_too_long_error: Désolé, il faut moins de 140 caractères.
-    submit_idea_thankyou: Je vous remercie. Votre idée a été ajouté. S’il vous plait ajouter encore plus d’idées.
-    vote_timeout_error: "Désolé, le vote prend trop longtemps…trop de traffic"
-    vote_other_error: Désolé, votre vote n’a pas été cpmpté 
-    view_all_the_results: Voir tous les résultats
-    cant_decide_title: Je ne peux pas décider, parce que... 
-    cant_decide: "Je ne peux pas decider"
-    cd_like_both: J'aime les deux idées
-    cd_dislike_both: Je n'aime pas l'idée soit
-    cd_dont_know_left: "Je ne connais pas assez:"
-    cd_dont_know_right: "Je ne connais pas assez:"
-    cd_dont_know_both: Je ne sais pas assez sur l'idée soit
-    cd_dont_know_both_widget: Je ne connais pas assez, soit
-    cd_both_same: Je pense que les deux idées sont les mêmes
-    cd_other: Je ne peux pas décider
-    cd_user_other: "Autres:"
-    cd_explicit_dont_know_left_widget: Je ne sais pas assez sur l'idée gauche
-    cd_explicit_dont_know_right_widget: Je ne sais pas assez sur la bonne idée
-    cant_decide_message: Vous ne pouvez pas décider.
-    click_idea_to_start_widget: Cliquez sur une idée de commencer le vote.
-    idea_sent_for_review: Votre idée a été soumis pour examen. Il apparaîtra bientôt.
-    powered_widget: "Ce marché est alimenté par l'idée "
-    flag_complete_message: Vous battant pavillon d'un choix inapproprié.
-    leveling:
-       leveling_message: "Maintenant que vous avez exprimés %{vote_num} %{vote_noun} et ajouté %{idea_num} %{idea_noun}: %{adjective}"
-       adjective_0: bon
-       adjective_1: gentil
-       adjective_2: incroyable
-       adjective_3: fabuleux
-       adjective_4: merveilleux
-       adjective_5: super
-       adjective_6: fantastique
-       adjective_7: incroyable
-       adjective_8: impressionnant
-       adjective_9: wow
-  results:
-    scores_of_uploaded_and_orginal_ideas: Des dizaines de Idées postées et Idées Originales
-    number_of_votes_per_day: "Nombre de Votes par jour" 
-    number_of_ideas: Nombre de idées
-    number_of_ideas_per_day: Nombre de idées par jour
-    number_of_user_sessions: Nombre de sessions d’utilisateur
-    number_of_user_sessions_per_day: Nombre de sessions d’utilisateur par jour
-    # Text that appears on the results page of each idea marketplace
-    # For example: FR-http://www.allourideas.org/studentgovernment/results
-    data_visualizations: Visualizations de données
-    world_map_title: Carte du monde de toutes votes
-    world_map_ideas_title: Carte du monde de toutes les idées transférées
-    votes_over_time_title: Le nombre de votes au fil du temps
-    user_ideas_over_time_title: Nombre des idées présentées au fil du temps
-    user_sessions_over_time_title: Nombre de sessions d’utilisateurs unique par jour
-    word_cloud_ideas_title: Nuage de mots des idées
-    word_cloud_weighted_title: Nuage de mots des idées pondérée selon le score
-    word_cloud_uploaded_title: Nuage de mots des idées transferees
-    word_cloud_uploaded_weighted_title: Nuage de mots des idées transferees pondéré par le score
-    scatter_ideas_title: Comparer les idées transferee avec les idées originals
-    scatter_ideas_subtitle: Passer la souris sur chaque point pour en savoir plus
-    uploaded_ideas: Idées postées
-    original_ideas: Idées Originales
-    about_word_cloud: A propos de nuages mot 
-    word_cloud_exp: Le mot nuages affichés sur cette page sont une représentation visuelle des mots qui apparaissent le plus fréquemment dans ce marché idée. Lorsque pondéré par le score, le nuage de mot utilisera le score actuel de l'idée de déterminer la popularité du mot. Notez que certains mots communs ou rares peuvent être filtrés par le nuage de mots générés.
-    scores_of: Des dizaines de
-    view_link: "[Voir]" 
-    close_link: "[Fermer]" 
-    per_day: " par jour" 
-    number_of: "Nombre de "
-    no_data_error: "impossible de faire des cartes, pas de données"
-    overall_total: "Total dans l’ensemble - " 
-    overall_total_votes: "Total dans l’ensemble - %{count} votes" 
-    unable_to_find_location_of_X_votes: "Nous n’avons pas pu trouver l’emplacement du %{count} votes"
-    vote_map_geo_error: "Nous n’avons pas pu trouver l’emplacement du "
-    previous: << Précédent
-    next: Prochain >>
+# DO NOT EDIT THIS FILE MANUALLY #
+# This file has been auto-generated from our Google Docs Spreadsheet.
+--- 
+fr: 
+  results: 
+    uploaded_ideas: "Id\xC3\xA9es post\xC3\xA9es"
+    world_map_creators: "Carte mondiale des cr\xC3\xA9ateurs de \"march\xC3\xA9 des id\xC3\xA9es\""
+    previous: "<< Pr\xC3\xA9c\xC3\xA9dent"
+    number_of_ideas: "Nombre de id\xC3\xA9es"
+    word_cloud_uploaded_title: "Nuage de mots des id\xC3\xA9es post\xC3\xA9es"
+    unable_to_find_location_of_X_votes: "Nous n\xE2\x80\x99avons pas pu trouver l\xE2\x80\x99emplacement de %{count} des votes"
+    user_sessions_over_time_title: "Nombre de sessions d\xE2\x80\x99utilisateurs unique par jour"
+    close_link: "[Fermer]"
+    word_cloud_weighted_title: "Nuage de mots des id\xC3\xA9es pond\xC3\xA9r\xC3\xA9es selon le score"
+    word_cloud_ideas_title: "Nuage de mots des id\xC3\xA9es"
+    vote_map_geo_error: "Nous n\xE2\x80\x99avons pas pu trouver l\xE2\x80\x99emplacement du"
+    user_ideas_over_time_title: "Nombre des id\xC3\xA9es post\xC3\xA9es au fil du temps"
+    per_day: par jour
+    number_of: Nombre de
+    word_cloud_uploaded_weighted_title: "Nuage de mots des id\xC3\xA9es post\xC3\xA9es pond\xC3\xA9r\xC3\xA9s selon le score"
+    scores_of: "Score de "
     rollover_to_see_more: Passez la souris sur chaque point pour en savoir plus
+    original_ideas: "Id\xC3\xA9es initiales"
+    date: Date
+    scatter_ideas_subtitle: Passer la souris sur chaque point pour en savoir plus
+    number_of_user_sessions_per_day: "Nombre de sessions d\xE2\x80\x99utilisateur par jour"
+    world_map_ideas_title: "Carte du monde de toutes les id\xC3\xA9es post\xC3\xA9es"
+    votes_over_time_title: Le nombre de votes au fil du temps
+    number_of_ideas_per_day: "Nombre d' id\xC3\xA9es par jour"
+    word_cloud_exp: "Les nuages de mots affich\xC3\xA9s sur cette page sont une repr\xC3\xA9sentation visuelle des mots qui apparaissent le plus fr\xC3\xA9quemment dans ce \"march\xC3\xA9 des id\xC3\xA9es\". Une fois pond\xC3\xA9r\xC3\xA9 par le score, le nuage de mot utilisera le score actuel de l'id\xC3\xA9e pour d\xC3\xA9terminer la popularit\xC3\xA9 du mot. Notez que certains mots communs ou rares peuvent \xC3\xAAtre filtr\xC3\xA9s et exclus du nuage de mots g\xC3\xA9n\xC3\xA9r\xC3\xA9s."
+    overall_total_votes: Total  - %{count} votes
+    next: Suivant >>
+    data_visualizations: "Visualisations des donn\xC3\xA9es"
+    view_link: "[Voir]"
+    scores_of_uploaded_and_orginal_ideas: "Scores des Id\xC3\xA9es post\xC3\xA9es et Id\xC3\xA9es Initiales"
+    scatter_ideas_title: "Comparer les id\xC3\xA9es post\xC3\xA9es avec les id\xC3\xA9es initiales"
+    overall_total: Total  -
+    number_of_votes_per_day: Nombre de Votes par jour
+    number_of_user_sessions: "Nombre de sessions d\xE2\x80\x99utilisateur"
+    about_word_cloud: A propos des nuages de mots
+    world_map_title: Carte du monde de tous les votes
+    no_data_error: "impossible de faire des graphiques, pas de donn\xC3\xA9es"
+  items: 
+    toggle_error: "D\xC3\xA9sol\xC3\xA9, nous ne pouvons pas modifier le statut de cette proposition car vous n'\xC3\xAAtes pas le propri\xC3\xA9taire de la question"
+    new: 
+      too_long: "l'intitul\xC3\xA9 de l'id\xC3\xA9e est trop long. La taille maximale est "
+    items: !binary |
+      SWTDqWVz
+
+    score_explain: "Le score d\xE2\x80\x99une id\xC3\xA9e est une estimation de la chance qu'elle \xC3\xA0 de battre une autre id\xC3\xA9e choisies au hasard. Par exemple, un score de 100 signifie que l\xE2\x80\x99id\xC3\xA9e  gagnerait \xC3\xA0 chaque fois et un score de 0 signifie que l\xE2\x80\x99id\xC3\xA9e devrait \xC3\xAAtre battue \xC3\xA0 chaque fois."
+    list: 
+      toggle: 
+      change_status: modifier le statut
+      deactivated: !binary |
+        RMOpc2FjdGl2w6k=
+
+      content: "texte affich\xC3\xA9"
+      activated: "Activ\xC3\xA9"
+      status: statut
+    idea: !binary |
+      TOKAmWlkw6ll
+
+    number_of_votes: Nombre de votes
+    you_have_successfully_deactivated: "Vous avez bien d\xC3\xA9sactiv\xC3\xA9 l'id\xC3\xA9e"
+    you_have_successfully_activated: "Vous avez bien activ\xC3\xA9 l'id\xC3\xA9e"
+    score: Score
+    about_scoring: "A propos de r\xC3\xA9sultats (scores)"
+    you_just_submitted: "Vous venez d\xE2\x80\x99ajouter une id\xC3\xA9e pour les gens puissent voter"
+    added_on: "Ajout\xC3\xA9 le"
+  common: 
+    votes: votes
+    photo: photo
+    items: "des id\xC3\xA9es"
+    vote: vote
+    characters: "caract\xC3\xA8res"
+    and: et
+    title: "All Our Ideas - Une bo\xC3\xAEte \xC3\xA0 suggestions pour l\xE2\x80\x99\xC3\xA8re  num\xC3\xA9rique"
+    votes_on: votes sur
+    idea: !binary |
+      aWTDqWU=
+
+    title_widget: All Our Ideas
+    inactive: inactif
+    idea_marketplace: !binary |
+      TOKAmWlkw6llIGRlIG1hcmNow6k=
+
+    ideas: !binary |
+      aWTDqWVz
+
+    users: utilisateurs
+    user_sessions: "sessions d\xE2\x80\x99utilisateur"
+    skips: Sauter
+    score: Score
+    active: actif
+    X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} votes sur %{2}%{ideas_count}%{_2} id\xC3\xA9es"
+  vote: 
+    powered_widget: "Ce \"march\xC3\xA9 des id\xC3\xA9es\" est motoris\xC3\xA9 par"
+    please_explain_flag: "Expliquez pourquoi cette ptoposition vous semble inappropri\xC3\xA9e: "
+    over: plus de
+    flag_complete_message: "Vous avez signal\xC3\xA9 une proposition comme \"inappropri\xC3\xA9e\"."
+    flag_as_inappropriate: "Signaler comme \"inappropri\xC3\xA9\""
+    submit_idea_default_error: "D\xC3\xA9sol\xC3\xA9, les id\xC3\xA9es vides ne sont pas autoris\xC3\xA9es"
+    submit: Soumettre
+    idea_sent_for_review: "Votre id\xC3\xA9e a \xC3\xA9t\xC3\xA9 propos\xC3\xA9e pour un examen. Elle appara\xC3\xAEtra bient\xC3\xB4t."
+    cd_like_both: "J'aime les deux id\xC3\xA9es"
+    cd_explicit_dont_know_left_widget: "Je n'en sais pas assez sur l'id\xC3\xA9e \xC3\xA0 gauche"
+    cast_votes: Voter
+    cant_decide_message: "Vous ne pouvez pas d\xC3\xA9cider."
+    cd_dislike_both: "Je n'aime pas l'id\xC3\xA9e non plus"
+    vote_other_error: "D\xC3\xA9sol\xC3\xA9, votre vote n\xE2\x80\x99a pas \xC3\xA9t\xC3\xA9 comptabilis\xC3\xA9...une erreur s'est produite"
+    submit_idea_thankyou: "Je vous remercie. Votre id\xC3\xA9e a \xC3\xA9t\xC3\xA9 ajout\xC3\xA9e. S\xE2\x80\x99il vous plait ajouter encore plus d\xE2\x80\x99id\xC3\xA9es."
+    cd_dont_know_right: Je n'en sais pas assez;
+    cd_dont_know_left: "Je n'en sais pas assez:"
+    view_all_the_results: "Voir tous les r\xC3\xA9sultats"
+    cant_decide: "Je ne peux pas d\xC3\xA9cider"
+    add_your_idea_button: "Ajouter votre propre id\xC3\xA9e"
+    add_your_idea: "Ajouter votre id\xC3\xA9e ici\xE2\x80\xA6"
+    cd_explicit_dont_know_right_widget: "Je n'en sais pas assez sur l' id\xC3\xA9e \xC3\xA0 droite"
+    cant_decide_title: "Je ne peux pas d\xC3\xA9cider, parce que..."
+    you_chose_winner_over_loser: Vous avez choisi %{winner} sur %{loser}
+    submit_idea_too_long_error: "D\xC3\xA9sol\xC3\xA9, il faut moins de 140 caract\xC3\xA8res."
+    leveling: 
+      adjective_5: super
+      adjective_6: fantastique
+      adjective_7: incroyable
+      adjective_8: impressionnant
+      adjective_9: wow
+      adjective_0: bon
+      adjective_1: sympa
+      adjective_2: incroyable
+      leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
+      adjective_3: fabuleux
+      leveling_message: "Maintenant  vous avez vot\xC3\xA9 %{vote_num} %{vote_noun} et ajout\xC3\xA9 %{idea_num} %{idea_noun}: %{adjective}"
+      adjective_4: merveilleux
+    cd_user_other: "Autres:"
+    you_skipped_both: "Vous avez saut\xC3\xA9 "
+    skip: Sauter
+    others_thought: Cliquez pour voir ce qu'en pense les autres.
+    click_idea_to_start_widget: "Cliquez sur une id\xC3\xA9e pour commencer le vote."
+    cd_other: "Je ne peux pas d\xC3\xA9cider"
+    cd_dont_know_both: "Je n'en sais pas assez sur l'id\xC3\xA9e "
+    vote_timeout_error: "D\xC3\xA9sol\xC3\xA9, le vote prend trop longtemps\xE2\x80\xA6trop de trafic !"
+    cd_dont_know_both_widget: Je n'en sais pas assez
+    cd_both_same: "Je pense que les deux id\xC3\xA9es sont identiques"
+  nav: 
+    see_all_ideas: "Voir plus\xE2\x80\xA6"
+    make_your_own: "Cr\xC3\xA9er votre propre question"
+    back: Retour
+    about_this_page: "\xC3\x80 propos de cette page"
+    return_voting_widget: Retour vers les votes
+    manage_question: "G\xC3\xA9rer cette page"
+    blog: Blog
+    signup: s'inscrire
+    about: A propos de
+    feedback: Feedback
+    view_idea: "Voir id\xC3\xA9e"
+    create: !binary |
+      Q3LDqWVy
+
+    view_more_results_widget: "Voir plus de  r\xC3\xA9sultats "
+    privacy_policy: "Vie priv\xC3\xA9e et conditions d'utilisation"
+    home: Accueil
+    view_results: Voir les resultats
   about_page: 
-    intro: Vous participez à un "marché idée" qui permet aux groupes de recueillir des idées et établir des priorités dans un processus démocratique, ouverte et efficace. En combinant un processus de vote simple avec le téléchargement d'idées, les meilleures idées dans le groupe fera des bulles vers le haut.
-    exp_widget: Ce widget marché idée est alimenté par www.allourideas.org, un projet de recherche dirigée par le professeur Matthew Salganik, Département de sociologie, Université de Princeton. 
-    faq_widget: "Voici quelques questions fréquemment posées:" 
-    open_source_q_widget: Est-ce tout cela open-source? 
-    open_source_exp_widget: Absolument. Voici cible <a href="http://github.com/allourideas" target = blank_>le code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
-    contact_q_widget: J'ai une autre question, comment puis-je entrer en contact avec vous? 
-    contact_exp_widget: Envoyez-nous un courriel à info@allourideas.org.
-    how_many_votes_q: Combien de votes exprimés puis-je? Quand finit-elle? 
-    how_many_votes_exp: Vous pouvez voter que peu ou autant que vous le souhaitez, et vous pouvez arrêter de vote à tout moment.
-    how_many_ideas_q: Combien d'idées que je peux ajouter? Qu'advient-il de mon idée une fois que je l'ajouter?
-    how_many_ideas_exp: Vous pouvez ajouter autant d'idées que vous avez. Une fois qu'une idée est ajouté, il peut être examiné par la personne qui a créé le marché idée afin d'assurer qu'il n'est pas inapproprié. Une fois que l'idée a été examiné, il commencera à apparaître pour les gens de voter.
-    view_results_q: Puis-je voir ce que tout le monde pense?
-    view_results_exp: Oui, il suffit de cliquer sur "Afficher les résultats" de l'isoloir. Ce processus est complètement transparent.
-    make_my_own_q: Ceci est soignée. Puis-je faire un de ces moi-même?
-    make_my_own_exp: "Bien sûr. Il est facile de configurer votre propre idée du marché, et il est offert gratuitement à notre Merci subventions de Google et le Centre de technologie de l'information politique à l'Université Princeton. Vous pouvez créer votre propre idée du marché ici: http://www.allourideas.org/questions/new"
-    make_my_own_exp_widget: "Bien sûr. Il est facile de configurer votre propre idée du marché, et il est offert gratuitement à notre Merci subventions de Google et le Centre de technologie de l'information politique à l'Université Princeton. Vous pouvez créer votre propre widget marché idée: http://www.allourideas.org."
-  user:
-    # User information that appears in a few places, most importantly the footer
-    email: Courrier électronique
+    how_many_ideas_q: "Combien d'id\xC3\xA9es puis-je ajouter? Qu'advient-il de mon id\xC3\xA9e une fois qu'elle est ajout\xC3\xA9e ?"
+    how_many_ideas_exp: "Vous pouvez ajouter autant d'id\xC3\xA9es que vous souhaitez. Une fois qu'une id\xC3\xA9e est ajout\xC3\xA9e, elle pourra \xC3\xAAtre examin\xC3\xA9e par la personne qui a cr\xC3\xA9\xC3\xA9 le march\xC3\xA9 \xC3\xA0 id\xC3\xA9e afin de v\xC3\xA9rifier qu'elle n'est pas inappropri\xC3\xA9e. Une fois que l'id\xC3\xA9e aura \xC3\xA9t\xC3\xA9 examin\xC3\xA9e, elle  appara\xC3\xAEtra pour les gens puissent voter."
+    make_my_own_exp_widget: "Bien s\xC3\xBBr. Il est facile de mettre en place votre propre  \"march\xC3\xA9 des id\xC3\xA9es\", de plus c'est compl\xC3\xA8tement gratuit grace aux  subventions de Google et du Center for Information Technology Policy at Princeton University. Vous pouvez cr\xC3\xA9er votre propre widget de \"march\xC3\xA9 des id\xC3\xA9es\": http://www.allourideas.org."
+    intro: "Vous participez \xC3\xA0 un \"march\xC3\xA9 des id\xC3\xA9es\" qui permet \xC3\xA0 des groupes de recueillir des id\xC3\xA9es et de les prioriser dans un processus d\xC3\xA9mocratique, ouvert et efficace. En combinant un processus de vote simple \xC3\xA0 la possibilit\xC3\xA9 de poster des id\xC3\xA9es, les meilleures id\xC3\xA9es du groupe finiront par se d\xC3\xA9tacher (principe du tri \xC3\xA0 bulles)."
+    how_many_votes_q: "Combien de votes  puis-je r\xC3\xA9aliser ? Quand est-ce que \xC3\xA7a s'arr\xC3\xAAte?"
+    make_my_own_q: "C'est soign\xC3\xA9. Puis-je en faire un  moi-m\xC3\xAAme?"
+    make_my_own_exp: "Bien s\xC3\xBBr. Il est facile de mettre en place votre propre   \"march\xC3\xA9 des id\xC3\xA9es\", de plus c'est compl\xC3\xA8tement gratuit gr\xC3\xA2ce aux  subventions de Google et du Center for Information Technology Policy at Princeton University. Vous pouvez cr\xC3\xA9er votre propre \"march\xC3\xA9 des id\xC3\xA9es\" ici: http://www.allourideas.org/questions/new"
+    open_source_q_widget: Est-ce que tout cela est open-source?
+    how_many_votes_exp: "Vous pouvez voter  autant que vous le souhaitez, et vous pouvez arr\xC3\xAAter de voter \xC3\xA0 tout moment."
+    faq_widget: "Voici quelques questions fr\xC3\xA9quemment pos\xC3\xA9es:"
+    open_source_exp_widget: Absolument. Voici  <a href="http://github.com/allourideas" target = blank_>le code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    contact_q_widget: J'ai une autre question, comment puis-je entrer en contact avec vous?
+    view_results_q: Puis-je voir ce que les autres pensent ?
+    contact_exp_widget: "Envoyez-nous un courriel \xC3\xA0 info@allourideas.org."
+    view_results_exp: "Oui, il suffit de cliquer sur \"Afficher les r\xC3\xA9sultats\" depuis l'\xC3\xA9cran de vote. Ce processus est compl\xC3\xA8tement transparent."
+    exp_widget: "Ce widget march\xC3\xA9 des id\xC3\xA9es est motoris\xC3\xA9 par www.allourideas.org, un projet de recherche dirig\xC3\xA9e par le professeur Matthew Salganik, D\xC3\xA9partement de sociologie, Universit\xC3\xA9 de Princeton."
+  ab_tests: 
+    test_showmespace: 
+      please_click: "S\xE2\x80\x99il vous plait cliquer sur votre choix"
+      make_your_choice: "Faites votre choix et voir ce qui vient apr\xC3\xA8s"
+    test_stackoverflow: 
+      no_first_time: "Cliquez sur la proposition  que vous pr\xC3\xA9f\xC3\xA9rez pour commencer \xC3\xA0 voter."
+      first_time: "C'est votre premi\xC3\xA8re fois ici? Cliquez sur la proposition  que vous pr\xC3\xA9f\xC3\xA9rez pour commencer \xC3\xA0 voter."
+    test_ideasubmit: 
+      make_your_voice_heard: Faites entendre votre voix
+      help_your_community: "Aidez votre communaut\xC3\xA9"
+  form: 
+    submit: Soumettre
+    save: Enregistrer
+    create: !binary |
+      Q3LDqWVy
+
+  footer: 
+    logged_in: "Connect\xC3\xA9 "
+    my_questions: Mes questions
+    support: "Ce projet est soutenu par des subventions de Google et le CITP \xC3\xA0 l\xE2\x80\x99Universit\xC3\xA9 Princeton."
+    logged_in_as: "Connect\xC3\xA9 en tant que %{user}"
+    open_source: "All Our Ideas est un logiciel open-source . N'h\xC3\xA9sitez pas \xC3\xA0 l'\xC3\xA9xaminer, le remixer, le refondre, ou \xC3\xA0 y contribuer"
+  user: 
+    save_password_button: Enregistrez ce mot de passe
+    logout: "D\xC3\xA9connexion"
+    forgot_password: "Mot de passe oubli\xC3\xA9 ?"
+    choose_password_below: "Votre mot de passe \xC3\xA0 \xC3\xA9t\xC3\xA9 r\xC3\xA9initialis\xC3\xA9. Choisissez un nouveau mot de passe ci-dessous"
+    control_panel: Panneau d'administration
+    close: Fermer
+    reset_password_header: "R\xC3\xA9initialiser votre mot de passe"
+    password_confirmation: Confirmation du mot de passe
+    change_your_password: Modifier votre mot de passe
+    reset_password_explain: "Mot de passe oubli\xC3\xA9 ? Saisissez votre adresse courriel ci-dessous. Nous vous enverrons un courriel avec un lien pour r\xC3\xA9initialiser votre mot de passe."
+    not_authorized_error: Vous n'avez pas l'autorisation de modifier cette question
+    reset_password_button: "R\xC3\xA9initialiser le mot de passe"
+    password: "Mot de passe "
     login: Connexion
-    control_panel: Panneau de configuration
-    logout: Déconnexion
-  ab_tests:
-    # Text that is currently being used for Ab testing purposes, so not all strings will be visible at the same time.
-     test_showmespace:
-        # This text appears directly under the idea submit box on the main vote page: FR-
-        # For example: FR-http://www.allourideas.org/studentgovernment
-        # Note that 1/3 of sessions will see no text at all (control), so you may need to        
-        #  close and reopen your browser a few times to view this text
-        make_your_choice: Faites votre choix et voir ce qui vient après
-        please_click: S’il vous plait cliquer sur votre choix
-     test_ideasubmit:
-        # This text appears inside the idea submit text box 
-        # For example: FR-http://www.allourideas.org/studentgovernment
-        make_your_voice_heard: Faites entendre votre voix
-        help_your_community: Aidez votre communauté
-     test_stackoverflow:
-        first_time: Première fois ici? Cliquez sur le choix que vous voulez plus de commencer à voter.
-        no_first_time: Cliquez sur le choix que vous voulez plus de commencer à voter.
+    deny_access_error: "Vous devez \xC3\xAAtre connect\xC3\xA9 pour r\xC3\xA9aliser cette action"
+    email: Courriel
+  login: 
+    header: "se connecter "
+  home: 
+    whats_this_txt: "All Our Ideas est une plateforme qui permet \xC3\xA0 des groupes de collecter et prioriser des id\xC3\xA9es de fa\xC3\xA7on transparente, d\xC3\xA9mocratique et en partant de la base. c'est une boite \xC3\xA0 suggestion pour l'\xC3\xA9re num\xC3\xA9rique."

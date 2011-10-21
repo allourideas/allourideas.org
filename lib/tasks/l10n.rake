@@ -55,7 +55,9 @@ namespace :l10n do
       row_index += 1
       # Skipping row if key has whitespace of if it is header row
       if (row['key'].strip =~ /\s/) == nil && !row.header_row?
-        setValue(phrases, "#{args[:lang]}.#{row['key']}", row[args[:lang]])
+        phrase = row[args[:lang]]
+        phrase = phrase.strip if phrase
+        setValue(phrases, "#{args[:lang]}.#{row['key']}", phrase)
       else
         puts "Skipping row ##{row_index}: #{row.to_csv[0..60]}"
       end

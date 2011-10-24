@@ -1,0 +1,14 @@
+<p><%= t('items.email.hello') %></p>
+
+<p><%= t('items.email.someone_has_uploaded') %> <%= @photocracy ? t('items.email.a_photo') : t('items.email.the_idea', :idea_text => @choice_text ) %> <%= t('items.email.to_your_question') + " '#{@question_name}'" %></p>
+
+<p><%= t('items.email.if_you_want_to_activate', :object_type => @object_type) %><br/>
+<a href="<%= @choice_url %>"><%= @choice_url %></a></p>
+
+<p><%= t('items.email.if_you_dont_want', :object_type => @object_type) %></p>
+
+<p><%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %><br/>
+<a href="<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>"><%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %></a></p>
+
+<p><%= t('items.email.thanks') %></p>
+<%= render :partial => 'idea_mailer/signature' %>

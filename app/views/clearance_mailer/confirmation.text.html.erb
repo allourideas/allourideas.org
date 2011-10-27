@@ -1,0 +1,11 @@
+<p>Hi,</p>
+
+<p>This email confirms your recent activity on http://www.<%= @photocracy ? 'photocracy' : 'allourideas' %>.org. Here's the website you created: <%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl_name}" %></p>
+<%- if @photocracy -%>
+
+<p>The more photos you upload, the better your results.
+Add photos here: <%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl_name}/addphotos" %></p>
+<%- end -%>
+
+<p>Thanks,</p>
+<%= render :partial => 'idea_mailer/signature' %>

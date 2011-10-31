@@ -80,6 +80,3 @@ Rails::Initializer.run do |config|
   config.gem 'newrelic_rpm',
 	  :version => '3.0.0'
 end
-
-PRODUCTION_API_HOST = ENV['API_HOST']
-STAGING_API_HOST = ENV['STAGING_API_HOST']

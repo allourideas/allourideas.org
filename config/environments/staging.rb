@@ -23,18 +23,21 @@ config.gem "rubaidh-google_analytics",
   :source  => "http://gems.github.com"
 config.gem 'sendgrid',
   :version => '0.1.4'
- 
 
+# set constants containing sensitive information
+# such as passwords for sendgrid, etc.
+extra_conf = "/data/extra-conf/environment-variables.rb"
+if File.exists?(extra_conf)
+  require extra_conf
+end
 
-#pains me to do this, but can't seem to get environment variables set in EY
-#will change login after demo
 HOST = ENV['STAGING_ALLOURIDEAS_HOST']
 API_HOST = ENV['STAGING_API_HOST']
-PAIRWISE_USERNAME = ENV['STAGING_PAIRWISE_USERNAME']
-PAIRWISE_PASSWORD = ENV['STAGING_PAIRWISE_PASSWORD']
+PAIRWISE_USERNAME = ENV['PAIRWISE_USERNAME']
+PAIRWISE_PASSWORD = ENV['PAIRWISE_PASSWORD']
 
-PHOTOCRACY_USERNAME = ENV['STAGING_PHOTOCRACY_USERNAME']
-PHOTOCRACY_PASSWORD = ENV['STAGING_PHOTOCRACY_PASSWORD']
+PHOTOCRACY_USERNAME = ENV['PHOTOCRACY_USERNAME']
+PHOTOCRACY_PASSWORD = ENV['PHOTOCRACY_PASSWORD']
 
 PHOTOCRACY_HOST = 'photocracy.org'
 

@@ -26,6 +26,13 @@ config.gem 'sendgrid',
 
 ActiveSupport::XmlMini.backend = 'LibXML'
 
+# set constants containing sensitive information
+# # such as passwords for sendgrid, etc.
+extra_conf = "/data/extra-conf/environment-variables.rb"
+if File.exists?(extra_conf)
+  require extra_conf
+end
+
 
 #pains me to do this, but can't seem to get environment variables set in EY
 #will change login after demo

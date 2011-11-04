@@ -3,6 +3,14 @@ All Our Ideas
 
 All Our Ideas 2.0.  This codebase runs two sites photocracy.org and allourideas.org.
 
+The allourideas.org project provides the user-facing website for doing pairwise voting. This project depends on the API provided by [pairwise-api](https://github.com/allourideas/pairwise-api).
+
+Installing
+-------------------
+
+<https://github.com/allourideas/pairwise-api/wiki/Installing>
+
+
 Ownership
 -------------------
 

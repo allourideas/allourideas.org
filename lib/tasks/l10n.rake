@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :l10n do
 
   # flattens the yaml hash into 1 dimensional hash

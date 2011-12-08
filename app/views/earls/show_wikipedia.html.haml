@@ -39,6 +39,7 @@
         height: 172px;
         border: 1px solid silver;
         background-repeat: no-repeat;
+        background-position: left bottom;
         margin-bottom: 35px;
         width: 780px;
         margin-left: auto;
@@ -110,7 +111,7 @@
       var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
       var RAILS_LOCALE = '#{I18n.locale}';
-      var MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING = 5;
+      var MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING = 2;
       var CURRENT_VOTES_IN_MARKETPLACE = 0;
       var CURRENT_MARKETPLACE_INDEX = 0;
       var MARKETPLACES = [
@@ -132,10 +133,7 @@
       			alert("One sec, we're loading the next pair...");
       		} else {
       			$(this).addClass('chosen');
-
-            // prevent double clicking
       			$('.vote').addClass('loading');
-
       			castVote($(this));
       		}
       		e.preventDefault();
@@ -149,9 +147,15 @@
           authenticity_token: encodeURIComponent(AUTH_TOKEN),
           time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
           appearance_lookup: $('#appearance_lookup').val()
-          // switch_marketplace: MARKETPLACES[CURRENT_MARKETPLACE_INDEX+1][0]
       	}
-        // CURRENT_VOTES_IN_MARKETPLACE++;
+        CURRENT_VOTES_IN_MARKETPLACE++;
+        if (CURRENT_VOTES_IN_MARKETPLACE >= MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING) {
+          switching = true;
+          switchMarketplace();
+          $.extend(vote_params, {switch_marketplace: MARKETPLACES[CURRENT_MARKETPLACE_INDEX][0]});
+        } else {
+          switching = false;
+        }
 
       	jQuery.ajax({
       		type: 'POST',
@@ -163,6 +167,7 @@
       		},
       	  success: function(data, textStatus, request) {
             loadNextPrompt(data);
+            if(switching) {activateMarketplace(CURRENT_MARKETPLACE_INDEX)};
       		}
       	});
       };
@@ -191,11 +196,6 @@
         // change appearance_lookup and prompt_id hidden fields
       	$('#appearance_lookup').val(data['appearance_lookup']);
       	$('#prompt_id').val(data['prompt_id']);
-
-      	jQuery.each(['left', 'right'], function(index, side) {
-          // change voting url
-      		$('.vote.' + side).attr('href', questionUrl() + '/prompts/' + data['prompt_id'] + '/vote?direction=' + side);
-      	});
       }
 
       function voteError(request, textStatus, errorThrown) {
@@ -243,11 +243,11 @@
           activateMarketplace(CURRENT_MARKETPLACE_INDEX);
         } else {
           CURRENT_MARKETPLACE_INDEX++;
-          activateMarketplace(CURRENT_MARKETPLACE_INDEX);
         }
       }
 
       function activateMarketplace(index) {
+        CURRENT_VOTES_IN_MARKETPLACE = 0;
         question_id = MARKETPLACES[index][0];
         earl_name   = MARKETPLACES[index][1];
         pic_id      = MARKETPLACES[index][2];

@@ -1,14 +1,13 @@
+/ Don't have flagging capability. Do we need this or could we just approve all submissions?
+/ Don't have "I can decide because I don't know enough about x" option. Do we need this?
+
 !!! 5
 %html
   %head
     %title= t('common.title')
     = stylesheet_link_tag 'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css'
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
-    :javascript 
-      var AUTH_TOKEN = #{form_authenticity_token.inspect};
-      var PAGE_LOADED_AT = new Date();
-      var RAILS_LOCALE = '#{I18n.locale}';
-    
+    = javascript_include_tag 'http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js'
     :css
       body {
         margin-top: 10px;
@@ -36,19 +35,23 @@
         margin-bottom: 35px;
       }
 
-      div.ad {
+      div.vote, #add-idea-background {
         height: 172px;
         border: 1px solid silver;
-        background: url(#{image_path('wikipedia/ad/1.png')}) no-repeat;
+        background-repeat: no-repeat;
+        background-position: left bottom;
         margin-bottom: 35px;
+        width: 780px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      div.ad:hover {
-        background: #eee url(#{image_path('wikipedia/ad/1.png')}) no-repeat;
+      div.vote:hover {
+        background-color: #eee;
         cursor: pointer;
       }
 
-      div.ad .copy {
+      div.vote .copy, #add-idea-background textarea {
         text-align: center;
         color: navy;
         font-family: Helvetica, Arial, sans-serif;
@@ -56,11 +59,43 @@
         font-weight: bold;
         height: 84px;
         line-height: 28px;
+      }
+
+      div.vote .copy{
         margin: 0;
         padding-bottom: 23px;
         padding-left: 210px;
         padding-right: 80px;
         padding-top: 43px;
+      }
+
+      #add-idea.modal {
+        width: 810px; /* width of #add-idea-background+30px */
+        margin-left: -420px;
+      }
+
+      #add-idea-background textarea {
+        float: right;
+        margin-right: 75px;
+        margin-top: 45px;
+        width: 475px;
+        border: none;
+        box-shadow: none;
+        resize: none;
+      }
+
+      div.vote.loading {
+        opacity: 0.5;
+      }
+
+      div.vote.loading:hover {
+       cursor: wait;
+      }
+
+      div.vote.chosen {
+        opacity: 1;
+        border-color: #111;
+        background-color: #ccc;
       }
 
       div#vote-footer {
@@ -73,119 +108,218 @@
       }
 
     :javascript
+      var AUTH_TOKEN = #{form_authenticity_token.inspect};
+      var PAGE_LOADED_AT = new Date();
+      var RAILS_LOCALE = '#{I18n.locale}';
+      var MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING = 2;
+      var CURRENT_VOTES_IN_MARKETPLACE = 0;
+      var CURRENT_MARKETPLACE_INDEX = 0;
+      var MARKETPLACES = [
+        // [pairwise-api.question_id, earl.name, pic.id]
+        [ 9, 'wikipedia-1', 1],
+        [10, 'wikipedia-2', 2],
+        [11, 'wikipedia-3', 3],
+        [12, 'wikipedia-4', 4],
+        [13, 'wikipedia-5', 5],
+        [14, 'wikipedia-6', 6],
+        [15, 'wikipedia-7', 7]
+      ];
+
       $(document).ready(function() {
+        activateMarketplace(CURRENT_MARKETPLACE_INDEX);
         // voting
         $('.vote').live('click', function(e) {
       		if ($(this).hasClass('loading')) {
       			alert("One sec, we're loading the next pair...");
       		} else {
-            // visible if the users hasn't voted
-      			$('.click_to_vote').hide();
-
-      			$(this).addClass('checked');
-
-            // prevent double clicking
+      			$(this).addClass('chosen');
       			$('.vote').addClass('loading');
-
       			castVote($(this));
       		}
       		e.preventDefault();
         });
       });
 
-
       function castVote(choice) {
       	var VOTE_CAST_AT = new Date();
+      	vote_params = {
+      	  direction: choice.attr('direction'),
+          authenticity_token: encodeURIComponent(AUTH_TOKEN),
+          time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
+          appearance_lookup: $('#appearance_lookup').val()
+      	}
+        CURRENT_VOTES_IN_MARKETPLACE++;
+        if (CURRENT_VOTES_IN_MARKETPLACE >= MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING) {
+          switching = true;
+          switchMarketplace();
+          $.extend(vote_params, {switch_marketplace: MARKETPLACES[CURRENT_MARKETPLACE_INDEX][0]});
+        } else {
+          switching = false;
+        }
 
       	jQuery.ajax({
       		type: 'POST',
       		dataType: 'json',
-      	  url: choice.attr('href'),
-      	  data: {
-      	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
-      			time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
-      	    appearance_lookup: $('#appearance_lookup').val()
-      	  },
+      	  url: questionPromptUrl() + '/vote',
+      	  data: vote_params,
       	  error: function(request, textStatus, errorThrown) {
       			voteError(request, textStatus, errorThrown);
       		},
       	  success: function(data, textStatus, request) {
-            // the ordering of these functions is important
-            // because some rely on attrs of the a.vote
-            // and others modify those attrs
-      			loadNextPrompt(data);
-      			updateUrlsAndHiddenFields(data);
-      			$('.vote').removeClass('loading'); 
-      			choice.removeClass('checked');
-      			PAGE_LOADED_AT = new Date(); // reset the page load time
+            loadNextPrompt(data);
+            if(switching) {activateMarketplace(CURRENT_MARKETPLACE_INDEX)};
       		}
       	});
       };
 
       function loadNextPrompt(data) {
+        // the ordering of these functions is important
+        // because some rely on attrs of the .vote
+        // and others modify those attrs
+        changeIdeas(data);
+        updateUrlsAndHiddenFields(data);
+        $('.vote').removeClass('loading'); 
+        $('.vote').removeClass('chosen');
+        PAGE_LOADED_AT = new Date(); // reset the page load time
+      }
+
+      function changeIdeas(data) {
       	jQuery.each(['left', 'right'], function(index, side) {
       		var current_ad = $('.vote.' + side + ' > .copy');
 
-          // change photos
+          // change ideas
       		current_ad.html(data['new' + side]);
-
-          // allow voting after fully faded in
-          $('.vote.' + side).removeClass('loading');
       	});
       }
 
       function updateUrlsAndHiddenFields(data) {
-      	jQuery.each(['left', 'right'], function(index, side) {
-          // change href url
-      		$('a.vote.' + side).attr('href', data['new' + side + '_url']);
-          // change choice url
-      		$('a.vote.' + side).attr('choice_url', data['new' + side + '_choice_url']);
-      	});
-
         // change appearance_lookup and prompt_id hidden fields
       	$('#appearance_lookup').val(data['appearance_lookup']);
       	$('#prompt_id').val(data['prompt_id']);
+      }
 
-        // change urls for inappropriate and skip forms
-      	$('#flag_as_inappropriate_form').attr('action', data['flag_url']);
-      	$('#cant_decide_form').attr('action', data['skip_url']);
+      function voteError(request, textStatus, errorThrown) {
+      	alert(textStatus);
+      }
+
+      function submitIdea() {
+        idea_text = $('textarea[name=new_idea]').val();
+        if (idea_text != '#{t('vote.add_your_idea')}' && idea_text != '') {
+          $('#add-idea #submit-button').addClass('disabled');
+          $.post(questionUrl() + '/add_idea.js?locale=en',
+            {authenticity_token: AUTH_TOKEN, new_idea: idea_text},
+            function(data){
+              $('#add-idea.modal').modal('hide');
+              $('textarea[name=new_idea]').val('');
+              $('#add-idea #submit-button').removeClass('disabled');
+              $('#add-idea-thanks').show();
+              $('#add-idea-thanks').fadeOut(5000);
+            }
+          );
+        }
+        return false;
+      }
+
+      function submitCantDecide(reason) {
+        var CANT_DECIDE_AT = new Date();
+        $('.vote').addClass('loading');
+        $('#cant-decide').modal('hide');
+        $.post(questionPromptUrl() + '/skip.js',
+          {
+            authenticity_token: AUTH_TOKEN,
+            cant_decide_reason: reason,
+            appearance_lookup: $('#appearance_lookup').val(),
+            time_viewed: CANT_DECIDE_AT - PAGE_LOADED_AT
+          },
+          function(data) {
+            loadNextPrompt(data);
+          }
+        );
+      }
+
+      function switchMarketplace() {
+        if (CURRENT_MARKETPLACE_INDEX+1 > MARKETPLACES.length-1) {
+          CURRENT_MARKETPLACE_INDEX = 0;
+          activateMarketplace(CURRENT_MARKETPLACE_INDEX);
+        } else {
+          CURRENT_MARKETPLACE_INDEX++;
+        }
+      }
+
+      function activateMarketplace(index) {
+        CURRENT_VOTES_IN_MARKETPLACE = 0;
+        question_id = MARKETPLACES[index][0];
+        earl_name   = MARKETPLACES[index][1];
+        pic_id      = MARKETPLACES[index][2];
+
+        $('#question_idd').val(question_id);
+        $('#view_results_link').attr('href', '/' + earl_name + '/results');
+        $('div.vote, #add-idea-background').css('backgroundImage', 'url(/images/wikipedia/ad/' + pic_id  + '.png)');
+      }
+
+      function questionPromptUrl() {
+        return questionUrl() + '/prompts/' + $('#prompt_id').val();
+      }
+
+      function questionUrl() {
+       return '/questions/' + $('#question_idd').val();
       }
 
   %body
+    =hidden_field_tag 'question_idd', @question.id
     =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
-    =hidden_field_tag 'prompt_id', @prompt.id
+    =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
     .container
       .row
         #header.page-header
           =link_to image_tag('wikipedia/hearts_wikipedia.png'), root_url
       
           %ul.nav
-            %li= link_to t('vote.cast_votes'), @cast_votes_url
-            %li= link_to t('nav.view_results'), @results_url
-            %li= link_to t('nav.about_this_page'), @about_url
+            %li= link_to t('vote.cast_votes'), "/#{@earl.name}"
+            %li= link_to t('nav.view_results'), "/#{@earl.name}/results", :id => 'view_results_link'
+            %li= link_to 'FAQ', @about_url
+
+      #add-idea-thanks.alert-message.success{:style => 'display:none;'}
+        %p
+          %strong Thanks!
+          Your idea has been submitted for review. It will appear soon.
 
       .row
-        %h2.question= @question.name
-        .ad.vote{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => 'left'), 
-          :choice_url => url_for(:action => :show, :controller => :choices, :id => @left_choice_id, :question_id => params[:id]), 
-          :direction => 'left', 
-          :id => 'leftside'}
+        / %h2.question= @question.name
+        %h2.question Please click on the Wikipedia fundraising banner<br /> that makes you want to donate more.
+        .vote.left{:direction => 'left', :id => 'leftside'}
           .copy
             =truncate(h(@left_choice_text), :length => 137)
 
-        .ad.vote{:href => vote_question_prompt_url(@question.id, @prompt.id, :direction => 'right'), 
-            :choice_url => url_for(:action => :show, :controller => :choices, :id => @left_choice_id, :question_id => params[:id]), 
-            :direction => 'right', 
-            :id => 'rightside'}
+        .vote.right{:direction => 'right', :id => 'rightside'}
           .copy
             =truncate(h(@right_choice_text), :length => 137)
 
       #vote-footer.row
-        %p= link_to "I can't decide"
-        %p=link_to_function "Add your own idea", "", :class => 'btn success'
+        %p= link_to "I can't decide", '#', 'data-controls-modal' => 'cant-decide', 'data-backdrop' => 'static'
+        %p= link_to "Create new text for this banner", "#", :class => 'btn success', 'data-controls-modal' => 'add-idea', 'data-backdrop' => 'static'
+
+      #add-idea.modal{:style => 'display:none;'}
+        .modal-header
+          =link_to 'x', '#', :class => 'close'
+          %h3 Add your own idea
+        .modal-body
+          #add-idea-background
+            =text_area_tag('new_idea', '', :title => t('vote.add_your_idea'), :placeholder => t('vote.add_your_idea'), :maxlength => Const::MAX_ITEM_LENGTH)
+        .modal-footer
+          =link_to_function t('vote.submit'), "submitIdea()", :class => 'btn primary', :id => 'submit-button'
+
+      #cant-decide.modal{:style => 'display:none'}
+        .modal-header
+          =link_to 'x', '#', :class => 'close'
+          %h3= t('vote.cant_decide_title')
+        .modal-body        
+          -cd_options= ['like_both', 'both_same', 'dont_know_both', 'dislike_both']
+          - cd_options.each do |choice|
+            %p= link_to_function t('vote.cd_'+choice), "submitCantDecide('#{choice}')"
 
       .row.bottom
-        %h3 The encyclopedia fundraiser than anyone can edit
+        %h3 The <strike>encyclopedia</strike> fundraiser than anyone can edit
         %p
           Wikipedia is looking for a better banner text, and they want your help.  Only about one in a thousand Wikipedia users donate, but we think we can improve that -- by finding better text for the banners.  For a given picture, you will see two possible banner texts.  Please click on the one that makes you want to donate more.  If you have a suggestion for better text, please upload it.  Some of the best ideas will appear on real banners during the fundraiser.  This is the encyclopedia fundraiser anyone can edit.
 

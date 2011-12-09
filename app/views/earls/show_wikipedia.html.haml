@@ -119,6 +119,11 @@
         margin-bottom: 20px;
       }
 
+    - marketplaces_js_array = []
+    - @marketplaces.each_with_index do |market, i|
+      -# [pairwise-api.question_id, earl.name, pic.id]
+      - marketplaces_js_array << "[#{market.question_id}, '#{market.name}', #{i+1}]"
+
     :javascript
       var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
@@ -127,14 +132,7 @@
       var CURRENT_VOTES_IN_MARKETPLACE = #{ session[:wikipedia][:current_votes_in_marketplace] || 0 };
       var CURRENT_MARKETPLACE_INDEX = #{ session[:wikipedia][:current_marketplace_index] || 0 };
       var MARKETPLACES = [
-        // [pairwise-api.question_id, earl.name, pic.id]
-        [30, 'wikipedia-fundraiser', 1],
-        [31, 'wikipedia-fundraiser2', 2],
-        [32, 'wikipedia-fundraiser3', 3],
-        [33, 'wikipedia-fundraiser4', 4],
-        [34, 'wikipedia-fundraiser5', 5],
-        [35, 'wikipedia-fundraiser6', 6],
-        [36, 'wikipedia-fundraiser7', 7]
+        #{marketplaces_js_array.join(',')}
       ];
 
       $(document).ready(function() {

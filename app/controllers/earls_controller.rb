@@ -10,6 +10,8 @@ class EarlsController < ApplicationController
     
     if @earl
       if wikipedia?
+        marketplace_names = (2..7).map {|i| "wikipedia-fundraiser-#{i}"} + ['wikipedia-fundraiser']
+        @marketplaces = Earl.find_all_by_name(marketplace_names, :order => 'question_id')
         session[:wikipedia] = {} if session[:wikipedia].nil?
         render(:template => 'earls/show_wikipedia', :layout => false) && return
       end

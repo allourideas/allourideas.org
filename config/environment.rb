@@ -78,5 +78,5 @@ Rails::Initializer.run do |config|
   config.gem 'haml',
 	  :version => '3.0.9'
   config.gem 'newrelic_rpm',
-	  :version => '3.3.0'
+	  :version => '3.0.0'
 end

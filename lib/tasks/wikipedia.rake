@@ -170,8 +170,8 @@ What are you waiting for?  Donate now.
 I work hard writing software to make Wikipedia awesome.  Now, I need your help.
 I work hard writing software to help you enjoy Wikipedia.  Now, I need your help."]
 
-    User.destroy_all
-    Earl.destroy_all
+    # User.destroy_all
+    # Earl.destroy_all
     u = User.create!(:email => 'chapambrose@gmail.com', :password => 'password', :password_confirmation => "password")
     u.email_confirmed = true
     u.save!

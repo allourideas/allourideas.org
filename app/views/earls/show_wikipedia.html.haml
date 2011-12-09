@@ -46,6 +46,16 @@
         margin-right: auto;
       }
 
+      div.vote.left {
+        margin-bottom: 10px;
+      }
+
+      #spinner {
+        height: 25px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
       div.vote:hover {
         background-color: #eee;
         cursor: pointer;
@@ -107,31 +117,43 @@
         margin-bottom: 35px;
       }
 
+      ul.faq li {
+        margin-bottom: 20px;
+      }
+
     :javascript
       var AUTH_TOKEN = #{form_authenticity_token.inspect};
       var PAGE_LOADED_AT = new Date();
       var RAILS_LOCALE = '#{I18n.locale}';
       var MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING = 2;
-      var CURRENT_VOTES_IN_MARKETPLACE = 0;
-      var CURRENT_MARKETPLACE_INDEX = 0;
+      var CURRENT_VOTES_IN_MARKETPLACE = #{ session[:wikipedia][:current_votes_in_marketplace] || 0 };
+      var CURRENT_MARKETPLACE_INDEX = #{ session[:wikipedia][:current_marketplace_index] || 0 };
       var MARKETPLACES = [
         // [pairwise-api.question_id, earl.name, pic.id]
-        [ 9, 'wikipedia-1', 1],
-        [10, 'wikipedia-2', 2],
-        [11, 'wikipedia-3', 3],
-        [12, 'wikipedia-4', 4],
-        [13, 'wikipedia-5', 5],
-        [14, 'wikipedia-6', 6],
-        [15, 'wikipedia-7', 7]
+        [30, 'wikipedia-fundraiser', 1],
+        [31, 'wikipedia-fundraiser2', 2],
+        [32, 'wikipedia-fundraiser3', 3],
+        [33, 'wikipedia-fundraiser4', 4],
+        [34, 'wikipedia-fundraiser5', 5],
+        [35, 'wikipedia-fundraiser6', 6],
+        [36, 'wikipedia-fundraiser7', 7]
       ];
 
       $(document).ready(function() {
-        activateMarketplace(CURRENT_MARKETPLACE_INDEX);
+        // get question and prompt on initial load
+        CURRENT_MARKETPLACE = MARKETPLACES[CURRENT_MARKETPLACE_INDEX];
+        $.get('/prompts/load_wikipedia_marketplace?question_id=' + CURRENT_MARKETPLACE[0], function(data) {
+          loadNextPrompt(data);
+          activateMarketplace(CURRENT_MARKETPLACE_INDEX);
+          $('#spinner img').hide();
+        });
+
         // voting
         $('.vote').live('click', function(e) {
       		if ($(this).hasClass('loading')) {
       			alert("One sec, we're loading the next pair...");
       		} else {
+      		  $('#spinner img').show();
       			$(this).addClass('chosen');
       			$('.vote').addClass('loading');
       			castVote($(this));
@@ -148,14 +170,25 @@
           time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
           appearance_lookup: $('#appearance_lookup').val()
       	}
+
         CURRENT_VOTES_IN_MARKETPLACE++;
         if (CURRENT_VOTES_IN_MARKETPLACE >= MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING) {
           switching = true;
           switchMarketplace();
-          $.extend(vote_params, {switch_marketplace: MARKETPLACES[CURRENT_MARKETPLACE_INDEX][0]});
+          $.extend(vote_params, {
+            switch_marketplace: MARKETPLACES[CURRENT_MARKETPLACE_INDEX][0]
+          });
         } else {
           switching = false;
         }
+
+        // put this data in the session[:wikipedia]
+        $.extend(vote_params, {
+          wikipedia: {
+            current_votes_in_marketplace: CURRENT_VOTES_IN_MARKETPLACE,
+            current_marketplace_index: CURRENT_MARKETPLACE_INDEX
+          }
+        });
 
       	jQuery.ajax({
       		type: 'POST',
@@ -180,6 +213,7 @@
         updateUrlsAndHiddenFields(data);
         $('.vote').removeClass('loading'); 
         $('.vote').removeClass('chosen');
+        $('#spinner img').hide();
         PAGE_LOADED_AT = new Date(); // reset the page load time
       }
 
@@ -238,16 +272,15 @@
       }
 
       function switchMarketplace() {
+        CURRENT_VOTES_IN_MARKETPLACE = 0;
         if (CURRENT_MARKETPLACE_INDEX+1 > MARKETPLACES.length-1) {
           CURRENT_MARKETPLACE_INDEX = 0;
-          activateMarketplace(CURRENT_MARKETPLACE_INDEX);
         } else {
           CURRENT_MARKETPLACE_INDEX++;
         }
       }
 
       function activateMarketplace(index) {
-        CURRENT_VOTES_IN_MARKETPLACE = 0;
         question_id = MARKETPLACES[index][0];
         earl_name   = MARKETPLACES[index][1];
         pic_id      = MARKETPLACES[index][2];
@@ -266,9 +299,9 @@
       }
 
   %body
-    =hidden_field_tag 'question_idd', @question.id
-    =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
-    =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
+    =hidden_field_tag 'question_idd'
+    =hidden_field_tag 'appearance_lookup'
+    =hidden_field_tag 'prompt_id'
     .container
       .row
         #header.page-header
@@ -276,8 +309,8 @@
       
           %ul.nav
             %li= link_to t('vote.cast_votes'), "/#{@earl.name}"
-            %li= link_to t('nav.view_results'), "/#{@earl.name}/results", :id => 'view_results_link'
-            %li= link_to 'FAQ', @about_url
+            %li= link_to_function t('nav.view_results'), "alert('coming soon...')" #"/#{@earl.name}/results", :id => 'view_results_link'
+            %li= link_to 'FAQ', '#faq'
 
       #add-idea-thanks.alert-message.success{:style => 'display:none;'}
         %p
@@ -291,6 +324,9 @@
           .copy
             =truncate(h(@left_choice_text), :length => 137)
 
+        #spinner
+          =image_tag('wikipedia/spinner.gif')
+
         .vote.right{:direction => 'right', :id => 'rightside'}
           .copy
             =truncate(h(@right_choice_text), :length => 137)
@@ -302,7 +338,7 @@
       #add-idea.modal{:style => 'display:none;'}
         .modal-header
           =link_to 'x', '#', :class => 'close'
-          %h3 Add your own idea
+          %h3 Create new text for this banner
         .modal-body
           #add-idea-background
             =text_area_tag('new_idea', '', :title => t('vote.add_your_idea'), :placeholder => t('vote.add_your_idea'), :maxlength => Const::MAX_ITEM_LENGTH)

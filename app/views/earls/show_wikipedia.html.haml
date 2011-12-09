@@ -392,3 +392,17 @@
             %p All Our Ideas is a research project to develop a new form of social data collection that combines the openness of interview with the quantification of a survey.  We love Wikipedia so we decided to try to help out with the fundraiser.  The #{link_to 'All Our Ideas', 'http://www.allourideas.org/about'} team is led by #{link_to 'Matthew Salganik', 'http://www.princeton.edu/~mjs3/'} from the #{link_to 'Department of Sociology at Princeton University', 'http://www.princeton.edu/sociology/'}, and the project is funded by grants from #{link_to 'Google', 'http://research.google.com/university/relations/research_awards.html'} and #{link_to 'Center for Information Technology Policy', 'http://citp.princeton.edu/'} at #{link_to 'Princeton University', 'http://www.princeton.edu/main/'}.  You can learn more about the project on the #{link_to 'allourideas blog', 'http://blog.allourideas.org/'}.
 
           %p{:style => 'text-align:center;'} #{link_to 'allourideas.org', 'http://www.allourideas.org'} is powered by #{link_to 'open-source software', 'http://github.com/allourideas'} | #{link_to 'Blog', 'http://blog.allourideas.org'} | #{link_to 'Twitter', 'http://twitter.com/allourideas'} | #{link_to 'Facebook', 'http://www.facebook.com/allourideas'} | #{link_to 'Github', 'http://github.com/allourideas'}
+
+    -if !RAILS_ENV['production']
+      :javascript
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+      :javascript
+        try {
+        var pageTracker = _gat._getTracker("UA-11703548-1");
+        pageTracker._trackPageview();
+        - if @earl && @earl.ga_code != ""
+          = "var pageTracker = _gat._getTracker('#{h(@earl.ga_code)}');"
+          pageTracker._trackPageview();
+        } catch(err) {}

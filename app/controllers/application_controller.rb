@@ -180,4 +180,8 @@ class ApplicationController < ActionController::Base
     render :template => "errors/500.html.haml", :status => 500
   end
 
+  helper_method :wikipedia?
+  def wikipedia?
+    @earl && @earl.name.include?('wikipedia-fundraiser')
+  end
 end

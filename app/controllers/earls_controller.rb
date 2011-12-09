@@ -2,14 +2,18 @@ class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
   require 'fastercsv'
-  
-  
+  before_filter :use_canonical_wikipedia_url, :only => [:show]
   before_filter :dumb_cleartext_authentication, :except => :export_list
 
   def show
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
     if @earl
+      if wikipedia?
+        session[:wikipedia] = {} if session[:wikipedia].nil?
+        render(:template => 'earls/show_wikipedia', :layout => false) && return
+      end
+
       unless @earl.active?
         flash[:notice] = t('questions.not_active_error')
         redirect_to '/' and return
@@ -215,7 +219,10 @@ class EarlsController < ApplicationController
       end
     end
   end
-  
+
+  def use_canonical_wikipedia_url
+    redirect_to '/wikipedia-fundraiser' if params[:id].include?('wikipedia-fundraiser') && params[:id] != 'wikipedia-fundraiser'
+  end
 end
 
 # @question = Question.find_by_name(params[:id]) #the question has a prompt id with it

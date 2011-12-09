@@ -397,15 +397,18 @@
           %p{:style => 'text-align:center;'} #{link_to 'allourideas.org', 'http://www.allourideas.org'} is powered by #{link_to 'open-source software', 'http://github.com/allourideas'} | #{link_to 'Blog', 'http://blog.allourideas.org'} | #{link_to 'Twitter', 'http://twitter.com/allourideas'} | #{link_to 'Facebook', 'http://www.facebook.com/allourideas'} | #{link_to 'Github', 'http://github.com/allourideas'}
 
     -if !RAILS_ENV['production']
-      :javascript
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-
-      :javascript
-        try {
-        var pageTracker = _gat._getTracker("UA-11703548-1");
+      %script{:type =>"text/javascript"}
+        / Google.gaSSDSLoad("UA-8796271-2");
+      <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-11703548-1");
+      pageTracker._trackPageview();
+      - if @earl && @earl.ga_code != ""
+        = "var pageTracker = _gat._getTracker('#{h(@earl.ga_code)}');"
         pageTracker._trackPageview();
-        - if @earl && @earl.ga_code != ""
-          = "var pageTracker = _gat._getTracker('#{h(@earl.ga_code)}');"
-          pageTracker._trackPageview();
-        } catch(err) {}
+      } catch(err) {}</script>
+

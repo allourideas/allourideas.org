@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect '/export/:name', :controller => 'exports', :action => 'download'
 
-  map.connect 'prompts/load_wikipedia_marketplace', :controller => 'prompts', :action => 'load_wikipedia_marketplace'
+  map.connect '/prompts/load_wikipedia_marketplace', :controller => 'prompts', :action => 'load_wikipedia_marketplace'
 
   map.connect '/:id', :controller => 'earls', :action => 'show'
   map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'

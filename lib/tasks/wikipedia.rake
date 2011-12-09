@@ -172,7 +172,8 @@ I work hard writing software to help you enjoy Wikipedia.  Now, I need your help
 
     # User.destroy_all
     # Earl.destroy_all
-    u = User.create!(:email => 'chapambrose@gmail.com', :password => 'password', :password_confirmation => "password")
+    u = User.create!(:email => "chapambrose+wikipedia-banners#{rand(999)}@gmail.com", :password => 'password', :password_confirmation => "password")
+    ClearanceMailer.send_later(:deliver_confirmation, u, 'wikipedia-banners', false)
     u.email_confirmed = true
     u.save!
     7.times do |i|

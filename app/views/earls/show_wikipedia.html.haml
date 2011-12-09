@@ -314,9 +314,9 @@
           =link_to 'x', '#', :class => 'close'
           %h3= t('vote.cant_decide_title')
         .modal-body        
-          -cd_options= ['like_both', 'both_same', 'dont_know_both', 'dislike_both']
+          -cd_options= [['I like both banners', 'like_both'], ['I think both banners are basically the same', 'both_same'], ["I don't like either banner",'dislike_both']]
           - cd_options.each do |choice|
-            %p= link_to_function t('vote.cd_'+choice), "submitCantDecide('#{choice}')"
+            %p= link_to_function choice[0], "submitCantDecide('#{choice[1]}')"
 
       #faq.row.bottom
         %h3 The <strike>encyclopedia</strike> fundraiser than anyone can edit

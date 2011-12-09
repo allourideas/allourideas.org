@@ -129,6 +129,11 @@ class PromptsController < ApplicationController
     end
   end
 
+  def load_wikipedia_marketplace
+    result = switch_wikipedia_marketplace(params[:question_id])
+    render :json => result.to_json
+  end
+
   private
   def add_photocracy_info(result, next_prompt, question_id)
     newright_photo     = Photo.find(next_prompt['right_choice_text'])
@@ -194,12 +199,6 @@ class PromptsController < ApplicationController
       end
       ab_test_name
   end
-
-  def load_wikipedia_marketplace
-    result = switch_wikipedia_marketplace(params[:question_id])
-    render :json => result.to_json
-  end
-  public :load_wikipedia_marketplace
 
   def switch_wikipedia_marketplace(question_id)
     @question = Question.find(

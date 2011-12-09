@@ -13,10 +13,12 @@
 
       div#header {
         opacity: 0.4;
+        filter: alpha(opacity = 40);
       }
       
       div#header:hover {
         opacity: 1.0;
+        filter: alpha(opacity = 100);
       }
 
       ul.nav {
@@ -93,6 +95,7 @@
       }
 
       div.vote.loading {
+        filter: alpha(opacity = 50);
         opacity: 0.5;
       }
 
@@ -101,6 +104,7 @@
       }
 
       div.vote.chosen {
+        filter: alpha(opacity = 100);
         opacity: 1;
         border-color: #111;
         background-color: #ccc;
@@ -234,13 +238,13 @@
 
       function submitIdea() {
         idea_text = $('textarea[name=new_idea]').val();
-        if (idea_text != '#{t('vote.add_your_idea')}' && idea_text != '') {
+        if (idea_text != 'Add text here' && idea_text != '') {
           $('#add-idea #submit-button').addClass('disabled');
           $.post(questionUrl() + '/add_idea.js?locale=en',
             {authenticity_token: AUTH_TOKEN, new_idea: idea_text},
             function(data){
               $('#add-idea.modal').modal('hide');
-              $('textarea[name=new_idea]').val('');
+              $('textarea[name=new_idea]').val('Add text here');
               $('#add-idea #submit-button').removeClass('disabled');
               $('#add-idea-thanks').show();
               $('#add-idea-thanks').fadeOut(5000);
@@ -251,6 +255,7 @@
       }
 
       function submitCantDecide(reason) {
+        $('#spinner img').show();
         var CANT_DECIDE_AT = new Date();
         $('.vote').addClass('loading');
         $('#cant-decide').modal('hide');
@@ -300,11 +305,11 @@
     =hidden_field_tag 'prompt_id'
     .container
       .row
-        #header.page-header
-          =link_to image_tag('wikipedia/hearts_wikipedia.png'), root_url
+        #header{:style => 'border-bottom: 1px solid #DDD; overflow:hidden; padding-bottom: 10px; margin-bottom: 10px;'}
+          =link_to image_tag('wikipedia/hearts_wikipedia.png'), root_url, :style => 'float:left'
       
-          %ul.nav
-            %li= link_to t('vote.cast_votes'), "/#{@earl.name}"
+          %ul.nav{:style => 'float:right;'}
+            %li= link_to t('vote.cast_votes'), "/#{@earl.name}", :style => "color:#999; text-decoration:none;"
             %li= link_to_function t('nav.view_results'), "alert('coming soon...')" #"/#{@earl.name}/results", :id => 'view_results_link'
             %li= link_to 'FAQ', '#faq'
 
@@ -337,7 +342,7 @@
           %h3 Create new text for this banner
         .modal-body
           #add-idea-background
-            =text_area_tag('new_idea', '', :title => t('vote.add_your_idea'), :placeholder => t('vote.add_your_idea'), :maxlength => Const::MAX_ITEM_LENGTH)
+            =text_area_tag('new_idea', 'Add text here', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH)
         .modal-footer
           =link_to_function t('vote.submit'), "submitIdea()", :class => 'btn primary', :id => 'submit-button'
 

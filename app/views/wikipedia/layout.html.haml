@@ -136,9 +136,9 @@
           =link_to image_tag('wikipedia/hearts_wikipedia.png'), root_url, :style => 'float:left'
 
           %ul.nav{:style => 'float:right;'}
-            %li= link_to t('vote.cast_votes'), "/#{@earl.name}"
-            %li= link_to t('nav.view_results'), "#", :id => 'view_results_link'
-            %li= link_to 'FAQ', '#faq'
+            %li= link_to t('vote.cast_votes'), "/#{@earl.name}", :style => (controller_name == 'earls' ? 'color:#808080;text-decoration:none;' : '')
+            %li= link_to t('nav.view_results'), "#", :id => 'view_results_link', :style => (controller_name == 'questions' ? 'color:#808080;text-decoration:none;' : '')
+            %li= link_to 'FAQ', '/wikipedia-fundraiser#faq'
 
       = yield 
 

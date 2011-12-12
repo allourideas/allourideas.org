@@ -64,7 +64,7 @@ class QuestionsController < ApplicationController
                             :offset => 0})
     end
 
-    if @photocracy || wikipedia?
+    if @photocracy
       per_page = 10
       choices = Choice.find(:all, :params => {
         :question_id => @question_id,

@@ -1,3 +1,9 @@
+= render :partial => "shared/highcharts_header"
+= render :partial => "shared/google_jsapi"
+= '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
+= javascript_include_tag 'google-termcloud.js'
+= stylesheet_link_tag 'google-termcloud'
+
 -content_for :javascript do
   - marketplaces_js_array = []
   - @marketplaces.each_with_index do |market, i|
@@ -10,8 +16,66 @@
       #{marketplaces_js_array.join(',')}
     ];
 
+    var results_view_text = function(){ return "#{t('results.view_link')}";};
+    var results_close_text = function(){ return "#{t('results.close_link')}";};
+
+    // most of this javascript is straight from javascripts/application.js
+    function iframe_loaded(){
+      $('.voter_map_indicator').hide();
+    }
+
+    function toggleLinkTextandTargetElement(link, target){
+      //Using functions here to allow for i8n
+      var theText = (link.text() == results_view_text()) ? results_close_text() : results_view_text();
+      link.text(theText);
+
+      var loaded = link.attr('isLoaded');
+      if(loaded)
+      {
+      if(theText == results_view_text()){
+      target.hide();
+      }
+      else{
+      target.show();
+      }
+      return true;
+
+      }
+      else{
+      //this hasn't been initialized, punt
+      return false;
+      }
+    }
+
     $(document).ready(function() {
       $('.banner').css('backgroundImage', 'url(/images/wikipedia/ad/#{@current_marketplace_pic}.png)');
+
+      $('.date-chart').click(function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        var target_row = $(this).parent().parent().next();
+        var target_div = $(this).parent().parent().next().find('div');
+
+        if(!toggleLinkTextandTargetElement($(this), target_row)) {
+          target_row.show();
+          target_div.html('<img src=/images/indicator.gif />');
+          $.get($(this).attr("href"), null, null, "script");
+          $(this).attr('isLoaded', true);
+        }
+      });
+
+      $('.view_voter_map').click(function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        var current_row = $(this).parent().parent();
+        var target_row = $(this).parent().parent().next();
+        if(!toggleLinkTextandTargetElement($(this), target_row))
+        {
+          var iframe_html= "<tr id=voter_map_row class='row1'><td class='title' colspan='2' height=370px><div class='voter_map_indicator'><img src='/images/indicator.gif' /></div><iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' onload='iframe_loaded();' width='746px' height='370px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>";
+          current_row.after(iframe_html);
+          $(this).attr('isLoaded', true);
+        }
+      });
     });
 :css
   .marketplace-links a img {
@@ -36,6 +100,10 @@
   div.banner {
     margin-left: 0;
   }
+
+  td.votes {
+    text-align: right;
+  }
 .row{:style => 'margin-bottom:35px'}
   .span6
     %h1 Results
@@ -54,7 +122,7 @@
       %h2=choice.attributes['score'].round.to_s
       %h6 out of 100
       %p{:style => 'color: #BFBFBF'}
-        <i>The chance that it will win against a randomly chosen banner.</i>
+        <i>The chance this banner will win against a randomly chosen banner.</i>
 .ninety
   %table.full
 

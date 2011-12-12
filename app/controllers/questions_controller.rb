@@ -64,7 +64,7 @@ class QuestionsController < ApplicationController
                             :offset => 0})
     end
 
-    if @photocracy
+    if @photocracy || wikipedia?
       per_page = 10
       choices = Choice.find(:all, :params => {
         :question_id => @question_id,
@@ -98,6 +98,10 @@ class QuestionsController < ApplicationController
 
     if @widget == true
       render :layout => false
+    elsif wikipedia?
+      marketplace_names = (2..7).map {|i| "wikipedia-fundraiser-#{i}"} + ['wikipedia-fundraiser']
+      @marketplaces = Earl.find_all_by_name(marketplace_names, :order => 'question_id')
+      render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout') && return
     end
 
   end

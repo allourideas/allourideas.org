@@ -13,7 +13,7 @@ class EarlsController < ApplicationController
         marketplace_names = (2..7).map {|i| "wikipedia-fundraiser-#{i}"} + ['wikipedia-fundraiser']
         @marketplaces = Earl.find_all_by_name(marketplace_names, :order => 'question_id')
         session[:wikipedia] = {} if session[:wikipedia].nil?
-        render(:template => 'earls/show_wikipedia', :layout => false) && return
+        render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
       end
 
       unless @earl.active?

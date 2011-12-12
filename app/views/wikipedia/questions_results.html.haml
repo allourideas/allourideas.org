@@ -36,9 +36,10 @@
   div.banner {
     margin-left: 0;
   }
-.row 
-  .span16
+.row{:style => 'margin-bottom:35px'}
+  .span6
     %h1 Results
+  .span10{:style => 'text-align:right;'}
     .marketplace-links
       -@marketplaces.each_with_index do |market, i|
         =link_to image_tag("wikipedia/ad/#{i+1}-thumb.png"), "/#{market.name}/results", :class => ('selected' if market.question_id == @earl.question_id)
@@ -52,6 +53,8 @@
     .span2
       %h2=choice.attributes['score'].round.to_s
       %h6 out of 100
+      %p{:style => 'color: #BFBFBF'}
+        <i>The chance that it will win against a randomly chosen banner.</i>
 .ninety
   %table.full
 

@@ -23,8 +23,8 @@ class PromptsController < ApplicationController
 					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
       result = {
-        :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
-        :newright          => truncate(next_prompt['right_choice_text'], {:length => 137}),
+        :newleft           => truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…'),
+        :newright          => truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…'),
         :appearance_lookup => next_prompt['appearance_id'],
         :prompt_id         => next_prompt['id'],
         :leveling_message  => leveling_message,
@@ -55,8 +55,8 @@ class PromptsController < ApplicationController
 					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
       result = {
-        :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
-        :newright          => truncate(next_prompt['right_choice_text'], {:length => 137}),
+        :newleft           => truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…'),
+        :newright          => truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…'),
         :appearance_lookup => next_prompt['appearance_id'],
         :prompt_id         => next_prompt['id'],
         :leveling_message  => leveling_message,
@@ -110,8 +110,8 @@ class PromptsController < ApplicationController
 					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
 
       result = {
-        :newleft           => truncate(next_prompt['left_choice_text'], {:length => 137}),
-        :newright          => truncate(next_prompt['right_choice_text'], {:length => 137}),
+        :newleft           => truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…'),
+        :newright          => truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…'),
         :appearance_lookup => next_prompt['appearance_id'],
         :prompt_id         => next_prompt['id'],
         :leveling_message  => leveling_message,

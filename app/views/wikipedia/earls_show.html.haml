@@ -1,30 +1,11 @@
 -content_for :javascript do
-  - marketplaces_js_array = []
-  - @marketplaces.each_with_index do |market, i|
-    -# [pairwise-api.question_id, earl.name, pic.id]
-    - marketplaces_js_array << "[#{market.question_id}, '#{market.name}', #{i+1}]"
-
   :javascript
     var AUTH_TOKEN = #{form_authenticity_token.inspect};
     var PAGE_LOADED_AT = new Date();
     var RAILS_LOCALE = '#{I18n.locale}';
-    var MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING = 2;
-    var CURRENT_VOTES_IN_MARKETPLACE = #{ session[:wikipedia][:current_votes_in_marketplace] || 0 };
-    var CURRENT_MARKETPLACE_INDEX = #{ session[:wikipedia][:current_marketplace_index] || 0 };
-    var MARKETPLACES = [
-      #{marketplaces_js_array.join(',')}
-    ];
 
     $(document).ready(function() {
       $('input').placeholder();
-
-      // get question and prompt on initial load
-      CURRENT_MARKETPLACE = MARKETPLACES[CURRENT_MARKETPLACE_INDEX];
-      $.get('/prompts/load_wikipedia_marketplace?question_id=' + CURRENT_MARKETPLACE[0], function(data) {
-        loadNextPrompt(data);
-        activateMarketplace(CURRENT_MARKETPLACE_INDEX);
-        $('#spinner img').hide();
-      });
 
       // voting
       $('.vote').live('click', function(e) {
@@ -49,25 +30,6 @@
         appearance_lookup: $('#appearance_lookup').val()
     	}
 
-      CURRENT_VOTES_IN_MARKETPLACE++;
-      if (CURRENT_VOTES_IN_MARKETPLACE >= MAX_VOTES_IN_MARKETPLACE_BEFORE_SWITCHING) {
-        switching = true;
-        switchMarketplace();
-        $.extend(vote_params, {
-          switch_marketplace: MARKETPLACES[CURRENT_MARKETPLACE_INDEX][0]
-        });
-      } else {
-        switching = false;
-      }
-
-      // put this data in the session[:wikipedia]
-      $.extend(vote_params, {
-        wikipedia: {
-          current_votes_in_marketplace: CURRENT_VOTES_IN_MARKETPLACE,
-          current_marketplace_index: CURRENT_MARKETPLACE_INDEX
-        }
-      });
-
     	jQuery.ajax({
     		type: 'POST',
     		dataType: 'json',
@@ -78,7 +40,6 @@
     		},
     	  success: function(data, textStatus, request) {
           loadNextPrompt(data);
-          if(switching) {activateMarketplace(CURRENT_MARKETPLACE_INDEX)};
     		}
     	});
     };
@@ -98,9 +59,12 @@
     function changeIdeas(data) {
     	jQuery.each(['left', 'right'], function(index, side) {
     		var current_ad = $('.vote.' + side + ' > .copy');
+    		var current_banner = $('.vote.' + side);
 
         // change ideas
     		current_ad.html(data['new' + side]);
+        // change banner images
+        current_banner.css('backgroundImage', "url(/images/wikipedia/ad/" + data[side + '_image_id'] + ".png)")
     	});
     }
 
@@ -150,25 +114,6 @@
       );
     }
 
-    function switchMarketplace() {
-      CURRENT_VOTES_IN_MARKETPLACE = 0;
-      if (CURRENT_MARKETPLACE_INDEX+1 > MARKETPLACES.length-1) {
-        CURRENT_MARKETPLACE_INDEX = 0;
-      } else {
-        CURRENT_MARKETPLACE_INDEX++;
-      }
-    }
-
-    function activateMarketplace(index) {
-      question_id = MARKETPLACES[index][0];
-      earl_name   = MARKETPLACES[index][1];
-      pic_id      = MARKETPLACES[index][2];
-
-      $('#question_idd').val(question_id);
-      $('#view_results_link').attr('href', '/' + earl_name + '/results');
-      $('div.vote, #add-idea-background').css('backgroundImage', 'url(/images/wikipedia/ad/' + pic_id  + '.png)');
-    }
-
     function questionPromptUrl() {
       return questionUrl() + '/prompts/' + $('#prompt_id').val();
     }
@@ -177,9 +122,9 @@
      return '/questions/' + $('#question_idd').val();
     }
 
-=hidden_field_tag 'question_idd'
-=hidden_field_tag 'appearance_lookup'
-=hidden_field_tag 'prompt_id'
+=hidden_field_tag 'question_idd', @earl.question_id
+=hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
+=hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
 
 #add-idea-thanks.alert-message.success{:style => 'display:none;'}
   %p
@@ -187,18 +132,17 @@
     Your idea has been submitted for review. It will appear soon.
 
 .row
-  / %h2.question= @question.name
   %h2.question{:style => 'font-size:20px'} Please click on the Wikipedia fundraising banner that makes you want to donate more.
-  .vote.left{:direction => 'left', :id => 'leftside'}
+  .vote.left{:direction => 'left', :id => 'leftside', :style => "background-image: url(/images/wikipedia/ad/#{@left_image_id}.png)"}
     .copy
-      =truncate(h(@left_choice_text), :length => 137)
+      =truncate(h(@left_choice_text), :length => 140)
 
   #spinner
-    =image_tag('wikipedia/spinner.gif')
+    =image_tag('wikipedia/spinner.gif', :style => 'display:none')
 
-  .vote.right{:direction => 'right', :id => 'rightside'}
+  .vote.right{:direction => 'right', :id => 'rightside', :style => "background-image: url(/images/wikipedia/ad/#{@right_image_id}.png)"}
     .copy
-      =truncate(h(@right_choice_text), :length => 137)
+      =truncate(h(@right_choice_text), :length => 140)
 
 #vote-footer.row
   %p= link_to "I can't decide", '#', 'data-controls-modal' => 'cant-decide', 'data-backdrop' => 'static'

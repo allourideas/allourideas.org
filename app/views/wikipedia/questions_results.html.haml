@@ -5,17 +5,7 @@
 = stylesheet_link_tag 'google-termcloud'
 
 -content_for :javascript do
-  - marketplaces_js_array = []
-  - @marketplaces.each_with_index do |market, i|
-    -# [pairwise-api.question_id, earl.name, pic.id]
-    - marketplaces_js_array << "[#{market.question_id}, '#{market.name}', #{i+1}]"
-    - @current_marketplace_pic = i+1 if market.question_id == @earl.question_id
-
   :javascript
-    var MARKETPLACES = [
-      #{marketplaces_js_array.join(',')}
-    ];
-
     var results_view_text = function(){ return "#{t('results.view_link')}";};
     var results_close_text = function(){ return "#{t('results.close_link')}";};
 
@@ -48,8 +38,6 @@
     }
 
     $(document).ready(function() {
-      $('.banner').css('backgroundImage', 'url(/images/wikipedia/ad/#{@current_marketplace_pic}.png)');
-
       $('.date-chart').click(function(event){
         event.preventDefault();
         event.stopPropagation();
@@ -106,19 +94,16 @@
   }
 .row{:style => 'margin-bottom:35px'}
   .span16
-    .marketplace-links{:style => 'float:left; margin-right: 10px;'}
-      -@marketplaces.each_with_index do |market, i|
-        =link_to image_tag("wikipedia/ad/#{i+1}-thumb.png"), "/#{market.name}/results", :class => ('selected' if market.question_id == @earl.question_id)
-    %h1{:style => 'float:left;padding-top:10px;'}
+    %h1
       Voting Results
-      = link_to('[?]', '#explanation', 'data-controls-modal' => "explanation", 'data-backdrop' => 'static', :style => 'font-weight:normal; font-size: 20px;')
+      /= link_to('[?]', '#explanation', 'data-controls-modal' => "explanation", 'data-backdrop' => 'static', :style => 'font-weight:normal; font-size: 20px;')
 
 -@choices.each do |choice|
   .row
     .span14
-      .banner
+      .banner{:style => "background-image: url(/images/wikipedia/ad/#{choice.data.split('-',2)[0]}.png)"}
         .copy
-          =truncate(h(choice.data), :length => 137)
+          =truncate(h(choice.data.split('-',2)[1]), :length => 137)
     .span2
       %h2=choice.attributes['score'].round.to_s
       %h6 out of 100

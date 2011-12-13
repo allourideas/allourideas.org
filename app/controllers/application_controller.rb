@@ -182,6 +182,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :wikipedia?
   def wikipedia?
-    @earl && @earl.name.include?('wikipedia-fundraiser')
+    @earl && @earl.name == 'wikipedia-fundraiser'
   end
 end

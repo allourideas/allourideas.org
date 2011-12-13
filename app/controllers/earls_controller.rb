@@ -2,20 +2,12 @@ class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
   require 'fastercsv'
-  before_filter :use_canonical_wikipedia_url, :only => [:show]
   before_filter :dumb_cleartext_authentication, :except => :export_list
 
   def show
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     
     if @earl
-      if wikipedia?
-        marketplace_names = (2..7).map {|i| "wikipedia-fundraiser-#{i}"} + ['wikipedia-fundraiser']
-        @marketplaces = Earl.find_all_by_name(marketplace_names, :order => 'question_id')
-        session[:wikipedia] = {} if session[:wikipedia].nil?
-        render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
-      end
-
       unless @earl.active?
         flash[:notice] = t('questions.not_active_error')
         redirect_to '/' and return
@@ -152,7 +144,17 @@ class EarlsController < ApplicationController
        end
        @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
-       @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_add_idea_button"	       
+       @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_add_idea_button"
+
+       if wikipedia?
+         # wikipedia ideas are prepended by a 4 character integer
+         # that represents their image id
+         @left_image_id = @left_choice_text.split('-',2)[0]
+         @right_image_id = @right_choice_text.split('-',2)[0]
+         @left_choice_text = @left_choice_text.split('-',2)[1]
+         @right_choice_text = @right_choice_text.split('-',2)[1]
+         render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
+       end
     else
       redirect_to('/') and return
     end
@@ -220,10 +222,6 @@ class EarlsController < ApplicationController
         (user_name == @earl.name) && (password == @earl.pass)
       end
     end
-  end
-
-  def use_canonical_wikipedia_url
-    redirect_to '/wikipedia-fundraiser' if params[:id].include?('wikipedia-fundraiser') && params[:id] != 'wikipedia-fundraiser'
   end
 end
 

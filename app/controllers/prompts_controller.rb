@@ -30,8 +30,14 @@ class PromptsController < ApplicationController
         :leveling_message  => leveling_message,
       }
 
-      store_wikipedia_session_data if params[:wikipedia]
-      result = switch_wikipedia_marketplace(params[:switch_marketplace]) if params[:switch_marketplace]
+      if wikipedia?
+        # wikipedia ideas are prepended by a 4 character integer
+        # that represents their image id
+        result[:left_image_id] = result[:newleft].split('-',2)[0]
+        result[:right_image_id] = result[:newright].split('-',2)[0]
+        result[:newleft] = result[:newleft].split('-',2)[1]
+        result[:newright] = result[:newright].split('-',2)[1]
+      end
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
       render :json => result.to_json
@@ -198,29 +204,5 @@ class PromptsController < ApplicationController
 	 ab_test_name = nil
       end
       ab_test_name
-  end
-
-  def switch_wikipedia_marketplace(question_id)
-    @question = Question.find(
-      question_id,
-      :params => {
-        :with_prompt => true,
-        :with_appearance => true,
-        :with_visitor_stats => true,
-        :visitor_identifier => request.session_options[:id]
-      })
-    @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
-
-    result = {
-      :newleft           => truncate(@prompt.left_choice_text, {:length => 137}),
-      :newright          => truncate(@prompt.right_choice_text, {:length => 137}),
-      :appearance_lookup => @question.appearance_id,
-      :prompt_id         => @prompt.id
-    }
-  end
-
-  def store_wikipedia_session_data
-    session[:wikipedia][:current_votes_in_marketplace] = params[:wikipedia][:current_votes_in_marketplace]
-    session[:wikipedia][:current_marketplace_index] = params[:wikipedia][:current_marketplace_index]
   end
 end

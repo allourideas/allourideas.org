@@ -99,8 +99,6 @@ class QuestionsController < ApplicationController
     if @widget == true
       render :layout => false
     elsif wikipedia?
-      marketplace_names = (2..7).map {|i| "wikipedia-fundraiser-#{i}"} + ['wikipedia-fundraiser']
-      @marketplaces = Earl.find_all_by_name(marketplace_names, :order => 'question_id')
       render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout') && return
     end
 

@@ -80,16 +80,22 @@
 
     function submitIdea() {
       idea_text = $('textarea[name=new_idea]').val();
-      if (idea_text != 'Add text here' && idea_text != '') {
+      image_id = $('#new_image_id').val();
+      if (idea_text != 'Add text here' && idea_text != '' && image_id != '') {
         $('#add-idea #submit-button').addClass('disabled');
         $.post(questionUrl() + '/add_idea.js?locale=en',
-          {authenticity_token: AUTH_TOKEN, new_idea: idea_text},
+          {authenticity_token: AUTH_TOKEN, new_idea: image_id + '-' + idea_text},
           function(data){
             $('#add-idea.modal').modal('hide');
             $('textarea[name=new_idea]').val('');
             $('#add-idea #submit-button').removeClass('disabled');
             $('#add-idea-thanks').show();
             $('#add-idea-thanks').fadeOut(5000);
+
+            $('#image-select').show();
+            $('#image-show').hide();
+            $('#change-image').hide();
+            $('#new_image_id').val('');
           }
         );
       }
@@ -112,6 +118,16 @@
           loadNextPrompt(data);
         }
       );
+    }
+
+    function selectAddIdeaImage(link) {
+      $('#image-select').hide();
+      $('#image-show').show();
+      $('#change-image').show();
+
+      image = $(link).attr('data-fullsize-image');
+      $('#image-show').css('backgroundImage', 'url(' + image + ')');
+      $('#new_image_id').val($(link).attr('data-image-id'));
     }
 
     function questionPromptUrl() {
@@ -146,15 +162,26 @@
 
 #vote-footer.row
   %p= link_to "I can't decide", '#', 'data-controls-modal' => 'cant-decide', 'data-backdrop' => 'static'
-  %p= link_to "Create new text for this banner", "#", :class => 'btn success', 'data-controls-modal' => 'add-idea', 'data-backdrop' => 'static'
+  %p= link_to "Add new banner idea", "#", :class => 'btn success', 'data-controls-modal' => 'add-idea', 'data-backdrop' => 'static'
 
 #add-idea.modal{:style => 'display:none;'}
   .modal-header
     =link_to 'x', '#', :class => 'close'
-    %h3 Create new text for this banner
+    %h3 Create new banner idea
   .modal-body
-    #add-idea-background
-      =text_area_tag('new_idea', '', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH)
+    .cleafix
+      %h5{:style => 'float:left; width: 370px;'}
+        Select an image:
+        =link_to_function '(change)', "$('#image-show').hide(); $('#image-select').show(); $(this).hide()", :id => 'change-image', :style => 'display:none; font-weight:normal;'
+      %h5 Add your own text:
+    #add-idea-banner
+      #image-show{:style => 'display:none;'} &nbsp;
+      #image-select{:style => 'width:203px; float:left; padding: 5px;'}
+        -(1..7).each do |i|
+          =link_to_function image_tag("/images/wikipedia/ad/#{'%04d' % i}-thumb.png"), "selectAddIdeaImage(this)", :style => 'float:left;', 'data-fullsize-image' => image_path("/images/wikipedia/ad/#{'%04d' % i}.png"), 'data-image-id' => ('%04d' % i)
+      .copy
+        =text_area_tag('new_idea', '', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH)
+        =hidden_field_tag('new_image_id')
   .modal-footer
     =link_to_function t('vote.submit'), "submitIdea()", :class => 'btn primary', :id => 'submit-button'
 

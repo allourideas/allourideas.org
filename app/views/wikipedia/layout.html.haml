@@ -37,7 +37,7 @@
         margin-bottom: 35px;
       }
 
-      div.vote, #add-idea-background, div.banner {
+      div.vote, #add-idea-banner, div.banner {
         height: 172px;
         border: 1px solid silver;
         background-repeat: no-repeat;
@@ -46,6 +46,18 @@
         width: 780px;
         margin-left: auto;
         margin-right: auto;
+      }
+
+      #add-idea-banner {
+        margin-bottom: 0;
+      }
+
+      #add-idea #image-show {
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        width: 203px;
+        height: 172px;
+        float: left;
       }
 
       div.vote.left {
@@ -63,7 +75,7 @@
         cursor: pointer;
       }
 
-      div.vote .copy, #add-idea-background textarea, div.banner .copy {
+      div.vote .copy, #add-idea-banner textarea, div.banner .copy {
         text-align: center;
         color: navy;
         font-family: Helvetica, Arial, sans-serif;
@@ -86,7 +98,7 @@
         margin-left: -420px;
       }
 
-      #add-idea-background textarea {
+      #add-idea textarea {
         float: right;
         margin-right: 75px;
         margin-top: 45px;
@@ -94,6 +106,10 @@
         border: none;
         box-shadow: none;
         resize: none;
+      }
+
+      .modal-body {
+        overflow: hidden;
       }
 
       div.vote.loading {
@@ -137,7 +153,7 @@
 
           %ul.nav{:style => 'float:right;'}
             %li= link_to t('vote.cast_votes'), "/#{@earl.name}", :style => (controller_name == 'earls' ? 'color:#808080;text-decoration:none;' : '')
-            %li= link_to t('nav.view_results'), "#", :id => 'view_results_link', :style => (controller_name == 'questions' ? 'color:#808080;text-decoration:none;' : '')
+            %li= link_to t('nav.view_results'), "/wikipedia-fundraiser/results", :style => (controller_name == 'questions' ? 'color:#808080;text-decoration:none;' : '')
             %li= link_to 'FAQ', '/wikipedia-fundraiser#faq'
 
       = yield 

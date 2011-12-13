@@ -1,7 +1,7 @@
 namespace :wikipedia do
   
   task(:seed => :environment) do
-seed_ideas = [
+raw_seed_ideas = [
 "If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
@@ -176,16 +176,17 @@ I work hard writing software to help you enjoy Wikipedia.  Now, I need your help
     ClearanceMailer.send_later(:deliver_confirmation, u, 'wikipedia-banners', false)
     u.email_confirmed = true
     u.save!
-    7.times do |i|
-      q = Question.new(
-        :name => "Please click on the Wikipedia fundraising banner that makes you want to donate more.",
-        :url => "wikipedia-fundraiser#{'-'+(i+1).to_s unless i == 0}",
-        :ideas => seed_ideas[i]
-      )
-      
-      q.save
-      u.earls.create!(:question_id => q.id, :name => q.url)
-    end
+
+    seed_ideas = [];
+    raw_seed_ideas.each_with_index {|s, i| s.lines.map{ |l| seed_ideas << ("%04d" % i) + l} }
+
+    q = Question.new(
+      :name => "Please click on the Wikipedia fundraising banner that makes you want to donate more.",
+      :url => "wikipedia-fundraiser",
+      :ideas => seed_ideas.join(' ')
+    )
+    q.save
+    u.earls.create!(:question_id => q.id, :name => q.url)
   end
 
 end

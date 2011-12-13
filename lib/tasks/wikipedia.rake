@@ -2,7 +2,8 @@ namespace :wikipedia do
   
   task(:seed => :environment) do
 raw_seed_ideas = [
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -26,7 +27,8 @@ Please read: I’m a student, and I donated to Wikipedia.  What about you?
 I’m a student, and I donated to Wikipedia.  What about you?
 I’m a student, and I donated  to Wikipedia.  Now it is your turn.",
 
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -51,7 +53,8 @@ My name is Karhik, and there is something that I want to tell you.
 My name is Karhik, and I want to tell you a story.
 Please read: My name is Karhik, and I want to tell you a story.",
 
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -74,7 +77,8 @@ What are you waiting for?  Donate now.
 Please read a personal appeal from Susan Hewitt.
 Susan Hewitt wants you to donate to Wikipedia.",
 
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -99,7 +103,8 @@ Please read an appeal from programmer Brandon Harris.
 I work hard writing software to make Wikipedia awesome.  Now, I need your help.
 I work hard writing software to help you enjoy Wikipedia.  Now, I need your help.",
 
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -123,7 +128,8 @@ I’m Jimmy Wales, founder of Wikipedia, and I approve this message.
 Please read: a personal appeal from Jimmy Wales.
 Please read: a personal appeal from Wikipedia founder Jimmy Wales.",
 
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -147,7 +153,8 @@ My name is Maryana Pinchuk, and I have a message for you.
 I work to make Wikipedia awesome.  Now I need your help.
 My Maryana Pinchuk and there is something I want to say to you.",
 
-"If you love Wikipedia, please donate.
+"
+If you love Wikipedia, please donate.
 Please read: If you love Wikipedia, please donate.
 If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
 Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
@@ -170,15 +177,15 @@ What are you waiting for?  Donate now.
 I work hard writing software to make Wikipedia awesome.  Now, I need your help.
 I work hard writing software to help you enjoy Wikipedia.  Now, I need your help."]
 
-    # User.destroy_all
-    # Earl.destroy_all
+    User.destroy_all
+    Earl.destroy_all
     u = User.create!(:email => "chapambrose+wikipedia-banners#{rand(999)}@gmail.com", :password => 'password', :password_confirmation => "password")
     ClearanceMailer.send_later(:deliver_confirmation, u, 'wikipedia-banners', false)
     u.email_confirmed = true
     u.save!
 
     seed_ideas = [];
-    raw_seed_ideas.each_with_index {|s, i| s.lines.map{ |l| seed_ideas << ("%04d" % i) + l} }
+    raw_seed_ideas.each_with_index {|s, i| s.lines.map{ |l| seed_ideas << ("%04d" % (i+1)) + '-' + l} }.select {|a| a.present?}
 
     q = Question.new(
       :name => "Please click on the Wikipedia fundraising banner that makes you want to donate more.",

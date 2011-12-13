@@ -105,12 +105,13 @@
     text-align: right;
   }
 .row{:style => 'margin-bottom:35px'}
-  .span6
-    %h1 Results
-  .span10{:style => 'text-align:right;'}
-    .marketplace-links
+  .span16
+    .marketplace-links{:style => 'float:left; margin-right: 10px;'}
       -@marketplaces.each_with_index do |market, i|
         =link_to image_tag("wikipedia/ad/#{i+1}-thumb.png"), "/#{market.name}/results", :class => ('selected' if market.question_id == @earl.question_id)
+    %h1{:style => 'float:left;padding-top:10px;'}
+      Voting Results
+      = link_to('[?]', '#explanation', 'data-controls-modal' => "explanation", 'data-backdrop' => 'static', :style => 'font-weight:normal; font-size: 20px;')
 
 -@choices.each do |choice|
   .row
@@ -269,6 +270,13 @@
           %td.title{:colspan => '2'}
             .chart-container{:id => "scatter_score_vs_votes-chart-container"}
   #explanation.modal{:style => 'display:none;'}
+    .modal-header
+      =link_to 'x', '#', :class => 'close'
+      %h3= t('items.about_scoring')
+    .modal-body
+      =t('items.score_explain')
+
+  #wikipedia-explanation.modal{:style => 'display:none;'}
     .modal-header
       =link_to 'x', '#', :class => 'close'
       %h3= t('items.about_scoring')

@@ -171,11 +171,11 @@ I work hard writing software to make Wikipedia awesome.  Now, I need your help.
 I work hard writing software to help you enjoy Wikipedia.  Now, I need your help."]
 
     # Rename any old earls/slugs that are using the wikipedia-fundraiser url
-    Earl.find_all_by_name('wikipedia-fundraiser').map {|e| e.update_attributes!(:name => "old-wikipedia-fundraiser-#{e.id}-#{rand(100)}")}
-    Slug.find_all_by_name('wikipedia-fundraiser').map {|e| e.update_attributes!(:name => "old-wikipedia-fundraiser-#{e.id}-#{rand(100)}")}
+    Earl.find_all_by_name('wikipedia-banner-challenge').map {|e| e.update_attributes!(:name => "old-wikipedia-fundraiser-#{e.id}-#{rand(100)}")}
+    Slug.find_all_by_name('wikipedia-banner-challenge').map {|e| e.update_attributes!(:name => "old-wikipedia-fundraiser-#{e.id}-#{rand(100)}")}
 
     u = User.find_or_create_by_email(:email => "wbc-admin@allourideas.org", :password => 'ilovegoogle', :password_confirmation => "ilovegoogle")
-    ClearanceMailer.send_later(:deliver_confirmation, u, 'wikipedia-banners', false)
+    ClearanceMailer.send_later(:deliver_confirmation, u, 'wikipedia-banner-challenge', false)
     u.email_confirmed = true
     u.save!
 
@@ -184,7 +184,7 @@ I work hard writing software to help you enjoy Wikipedia.  Now, I need your help
 
     q = Question.new(
       :name => "Please click on the Wikipedia fundraising banner that makes you want to donate more.",
-      :url => "wikipedia-fundraiser",
+      :url => 'wikipedia-banner-challenge',
       :ideas => seed_ideas.join("\r")
     )
     q.save

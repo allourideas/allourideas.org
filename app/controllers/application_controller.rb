@@ -182,6 +182,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :wikipedia?
   def wikipedia?
-    @earl && @earl.name == 'wikipedia-fundraiser'
+    if @earl
+      @earl.name == 'wikipedia-banner-challenge'
+    elsif controller_name == 'questions' && params[:id]
+      Earl.find_by_name('wikipedia-banner-challenge').question_id == params[:id].to_i
+    end
   end
 end

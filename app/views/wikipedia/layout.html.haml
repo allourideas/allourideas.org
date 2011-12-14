@@ -6,7 +6,6 @@
     = stylesheet_link_tag 'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css'
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
     = javascript_include_tag 'http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js'
-    = javascript_include_tag '/images/wikipedia/jquery.placeholder.min.js'
     :css
       body {
         margin-top: 10px;
@@ -60,6 +59,11 @@
         float: left;
       }
 
+      #add-idea #image-select {
+        width: 203px;
+        float: left;
+      }
+
       #add-idea a.image-select img {
         border: 1px solid #fff;
       }
@@ -99,37 +103,49 @@
         filter: alpha(opacity = 100);
       }
 
-      div.vote .copy, #add-idea-banner textarea, div.banner .copy {
+      table.copy, #add-idea-banner textarea {
         text-align: center;
         color: navy;
         font-family: Helvetica, Arial, sans-serif;
         font-size: 29px;
         font-weight: bold;
-        height: 84px;
+        height: 100%;
         line-height: 28px;
       }
 
-      div.vote .copy, div.banner .copy{
+      #add-idea textarea {
+        float: right;
+        width: 564px;
+        height: 30px;
+        border: none;
+        box-shadow: none;
+        resize: none;
+        margin-top: 69px;
+        position: absolute;
+        padding:0;
+      }
+
+      table.copy {
+        border: none;
+        padding: 0;
         margin: 0;
-        padding-bottom: 23px;
-        padding-left: 210px;
-        padding-right: 80px;
-        padding-top: 43px;
+      }
+
+      table.copy td {
+       vertical-align: middle;
+       text-align: center;
+       padding-left: 203px;
+       color: navy;
+       font-family: Helvetica, Arial, sans-serif;
+       font-size: 29px;
+       font-weight: bold;
+       line-height: 28px;
+       overflow: hidden;
       }
 
       #add-idea.modal {
         width: 810px; /* width of #add-idea-background+30px */
         margin-left: -420px;
-      }
-
-      #add-idea textarea {
-        float: right;
-        margin-right: 75px;
-        margin-top: 45px;
-        width: 475px;
-        border: none;
-        box-shadow: none;
-        resize: none;
       }
 
       .modal-body {
@@ -164,7 +180,7 @@
         margin-bottom: 20px;
       }
 
-      .placeholder { color: #aaa; }
+      #new_idea.placeholder, #new_idea:-moz-placeholder, #new_idea::-webkit-input-placeholder { color: #aaa; }
 
     = yield :javascript
 

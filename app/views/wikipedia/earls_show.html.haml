@@ -1,11 +1,18 @@
 -content_for :javascript do
+  = javascript_include_tag '/images/wikipedia/jquery.autoresize.js'
+  = javascript_include_tag '/images/wikipedia/jquery.placeholder.min.js'
   :javascript
     var AUTH_TOKEN = #{form_authenticity_token.inspect};
     var PAGE_LOADED_AT = new Date();
     var RAILS_LOCALE = '#{I18n.locale}';
 
     $(document).ready(function() {
-      $('input').placeholder();
+      // placeholder support for legacy browsers
+      $('input[placeholder], textarea[placeholder]').placeholder();
+
+      // firefox caches the form values
+      $('#new_idea').val('');
+      $('#new_image_id').val('');
 
       // voting
       $('.vote').live('click', function(e) {
@@ -32,6 +39,15 @@
           $('#characters-remaining').removeClass('over');
         }
       })
+
+      // keep text in textarea centered
+      // when adding an idea
+      $('textarea').autoResize({
+        maxHeight: 170,
+        extraSpace:0,
+        animate:false,
+        onAfterResize: function() {resetTextareaMargin()}
+      });
     });
 
     function castVote(choice) {
@@ -71,7 +87,7 @@
 
     function changeIdeas(data) {
     	jQuery.each(['left', 'right'], function(index, side) {
-    		var current_ad = $('.vote.' + side + ' > .copy');
+    		var current_ad = $('.vote.' + side + ' td');
     		var current_banner = $('.vote.' + side);
 
         // change ideas
@@ -182,6 +198,10 @@
      return '/questions/' + $('#question_idd').val();
     }
 
+    function resetTextareaMargin() {
+      $('#new_idea').css('marginTop', $('#add-idea-banner').height() / 2 - $('#new_idea').height() / 2);
+    }
+
 =hidden_field_tag 'question_idd', @earl.question_id
 =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
@@ -194,15 +214,17 @@
 .row
   %h2.question{:style => 'font-size:20px'} Please click on the Wikipedia fundraising banner that makes you want to donate more.
   .vote.left{:direction => 'left', :id => 'leftside', :style => "background-image: url(/images/wikipedia/ad/#{@left_image_id}.png)"}
-    .copy
-      =truncate(h(@left_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
+    %table.copy
+      %tr
+        %td=truncate(h(@left_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
 
   #spinner
     =image_tag('wikipedia/spinner.gif', :style => 'display:none')
 
   .vote.right{:direction => 'right', :id => 'rightside', :style => "background-image: url(/images/wikipedia/ad/#{@right_image_id}.png)"}
-    .copy
-      =truncate(h(@right_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
+    %table.copy
+      %tr
+        %td=truncate(h(@right_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
 
 #vote-footer.row
   %p= link_to "I can't decide", '#', 'data-controls-modal' => 'cant-decide', 'data-backdrop' => 'static'
@@ -214,13 +236,13 @@
     %h3 Create a new banner
   .modal-body
     .cleafix
-      %h5{:style => 'float:left; width: 370px;'}
+      %h5{:style => 'float:left; width: 203px;'}
         Select an image:
         =link_to_function '(change)', "changeIdeaImage()", :id => 'change-image', :style => 'display:none; font-weight:normal;'
-      %h5 Add your own text:
+      %h5{:style => 'text-align:center'} Add your own text:
     #add-idea-banner
       #image-show{:style => 'display:none;'} &nbsp;
-      #image-select{:style => 'width:203px; float:left; padding: 5px;'}
+      #image-select
         -(1..7).each do |i|
           =link_to_function image_tag("/images/wikipedia/ad/#{'%04d' % i}-thumb.png"), "selectAddIdeaImage(this)", :style => 'float:left;', 'data-fullsize-image' => image_path("/images/wikipedia/ad/#{'%04d' % i}.png"), 'data-image-id' => ('%04d' % i), :class => 'image-select'
       .copy

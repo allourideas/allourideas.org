@@ -102,8 +102,10 @@
   .row
     .span14
       .banner{:style => "background-image: url(/images/wikipedia/ad/#{choice.data.split('-',2)[0]}.png)"}
-        .copy
-          =truncate(h(choice.data.split('-',2)[1]), :length => 137)
+        %table.copy
+          %tr
+            %td=truncate(h(choice.data.split('-',2)[1]), :length => 140, :omission => '…').gsub("\n","<br />")
+
     .span2
       %h2=choice.attributes['score'].round.to_s
       %h6 out of 100

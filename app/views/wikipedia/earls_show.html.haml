@@ -19,6 +19,19 @@
     		}
     		e.preventDefault();
       });
+
+      // validating new ideas
+      $('#new_idea').keydown(function() {
+        updateSubmitButton();
+        remaining = #{Const::MAX_ITEM_LENGTH} - $('#new_idea').val().length;
+        $('#characters-remaining').html(remaining);
+
+        if (remaining <= 0) {
+          $('#characters-remaining').addClass('over');
+        } else {
+          $('#characters-remaining').removeClass('over');
+        }
+      })
     });
 
     function castVote(choice) {
@@ -96,6 +109,7 @@
             $('#image-show').hide();
             $('#change-image').hide();
             $('#new_image_id').val('');
+            updateSubmitButton();
           }
         );
       }
@@ -120,6 +134,26 @@
       );
     }
 
+    function canSubmitIdea() {
+      if ($('#new_image_id').val() != '' &&
+          $('#new_idea').val() != '' &&
+          $('#new_image_id').val().length <= #{Const::MAX_ITEM_LENGTH}) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function updateSubmitButton() {
+      if (canSubmitIdea()) {
+        $('#submit-button').removeClass('disabled');
+        $('#submit-button').addClass('primary');
+      } else {
+        $('#submit-button').addClass('disabled');
+        $('#submit-button').removeClass('primary');
+      }
+    }
+
     function selectAddIdeaImage(link) {
       $('#image-select').hide();
       $('#image-show').show();
@@ -128,6 +162,17 @@
       image = $(link).attr('data-fullsize-image');
       $('#image-show').css('backgroundImage', 'url(' + image + ')');
       $('#new_image_id').val($(link).attr('data-image-id'));
+
+      updateSubmitButton();
+    }
+
+    function changeIdeaImage() {
+      $('#image-show').hide();
+      $('#image-select').show();
+      $('#change-image').hide();
+      $('#new_image_id').val('');
+
+      updateSubmitButton();
     }
 
     function questionPromptUrl() {
@@ -172,7 +217,7 @@
     .cleafix
       %h5{:style => 'float:left; width: 370px;'}
         Select an image:
-        =link_to_function '(change)', "$('#image-show').hide(); $('#image-select').show(); $(this).hide(); $('#new_image_id').val('')", :id => 'change-image', :style => 'display:none; font-weight:normal;'
+        =link_to_function '(change)', "changeIdeaImage()", :id => 'change-image', :style => 'display:none; font-weight:normal;'
       %h5 Add your own text:
     #add-idea-banner
       #image-show{:style => 'display:none;'} &nbsp;
@@ -180,10 +225,12 @@
         -(1..7).each do |i|
           =link_to_function image_tag("/images/wikipedia/ad/#{'%04d' % i}-thumb.png"), "selectAddIdeaImage(this)", :style => 'float:left;', 'data-fullsize-image' => image_path("/images/wikipedia/ad/#{'%04d' % i}.png"), 'data-image-id' => ('%04d' % i), :class => 'image-select'
       .copy
-        =text_area_tag('new_idea', '', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH)
+        =text_area_tag 'new_idea', '', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH
         =hidden_field_tag('new_image_id')
   .modal-footer
-    =link_to_function t('vote.submit'), "submitIdea()", :class => 'btn primary', :id => 'submit-button'
+    =link_to_function t('vote.submit'), "submitIdea()", :class => 'btn disabled', :id => 'submit-button'
+    %h6#characters-remaining
+      140
 
 #cant-decide.modal{:style => 'display:none'}
   .modal-header

@@ -21,7 +21,7 @@
       });
 
       // validating new ideas
-      $('#new_idea').keydown(function() {
+      $('#new_idea').keyup(function() {
         updateSubmitButton();
         remaining = #{Const::MAX_ITEM_LENGTH} - $('#new_idea').val().length;
         $('#characters-remaining').html(remaining);

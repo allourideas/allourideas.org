@@ -137,6 +137,7 @@
     function canSubmitIdea() {
       if ($('#new_image_id').val() != '' &&
           $('#new_idea').val() != '' &&
+          $('#new_idea').val() != 'Add text here' &&
           $('#new_image_id').val().length <= #{Const::MAX_ITEM_LENGTH}) {
         return true;
       } else {

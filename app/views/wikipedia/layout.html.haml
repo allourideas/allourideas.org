@@ -16,9 +16,8 @@
         filter: alpha(opacity = 40);
         background: #fff;
       }
-      
+
       div#header:hover {
-        opacity: 1.0;
         filter: alpha(opacity = 100);
       }
 
@@ -141,7 +140,6 @@
        font-size: 29px;
        font-weight: bold;
        line-height: 28px;
-       overflow: hidden;
       }
 
       #add-idea.modal {
@@ -182,6 +180,16 @@
       }
 
       #new_idea.placeholder, #new_idea:-moz-placeholder, #new_idea::-webkit-input-placeholder { color: #aaa; }
+
+    :javascript
+      $(document).ready(function() {
+        $('#header').mouseenter(function() {
+          $('#header').animate({opacity: 1.0}, 100);
+        });
+        $('#header').mouseleave(function() {
+          $('#header').animate({opacity: 0.4}, 100);
+        });
+      });
 
     = yield :javascript
 

@@ -775,7 +775,7 @@ class QuestionsController < ApplicationController
     else
       # remove new lines from new ideas
       if new_idea_data.class == String
-        new_idea_data.gsub!(/[\n\r]/, ' ')
+        new_idea_data.gsub!(/[\n\r]/, ' ') unless wikipedia?
       end
     end
 

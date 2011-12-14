@@ -33,10 +33,10 @@ class PromptsController < ApplicationController
       if wikipedia?
         # wikipedia ideas are prepended by a 4 character integer
         # that represents their image id
-        result[:left_image_id] = result[:newleft].split('-',2)[0]
-        result[:right_image_id] = result[:newright].split('-',2)[0]
-        result[:newleft] = result[:newleft].split('-',2)[1]
-        result[:newright] = result[:newright].split('-',2)[1]
+        result[:left_image_id] = CGI::escapeHTML(next_prompt['left_choice_text'].split('-',2)[0])
+        result[:right_image_id] = CGI::escapeHTML(next_prompt['right_choice_text'].split('-',2)[0])
+        result[:newleft] = truncate(CGI::escapeHTML(next_prompt['left_choice_text'].split('-',2)[1]).gsub("\n","<br />"), :length => 140, :omission => '…')
+        result[:newright] = truncate(CGI::escapeHTML(next_prompt['right_choice_text'].split('-',2)[1]).gsub("\n","<br />"), :length => 140, :omission => '…')
       end
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy

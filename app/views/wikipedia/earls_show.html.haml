@@ -195,14 +195,14 @@
   %h2.question{:style => 'font-size:20px'} Please click on the Wikipedia fundraising banner that makes you want to donate more.
   .vote.left{:direction => 'left', :id => 'leftside', :style => "background-image: url(/images/wikipedia/ad/#{@left_image_id}.png)"}
     .copy
-      =truncate(h(@left_choice_text), :length => 140)
+      =truncate(h(@left_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
 
   #spinner
     =image_tag('wikipedia/spinner.gif', :style => 'display:none')
 
   .vote.right{:direction => 'right', :id => 'rightside', :style => "background-image: url(/images/wikipedia/ad/#{@right_image_id}.png)"}
     .copy
-      =truncate(h(@right_choice_text), :length => 140)
+      =truncate(h(@right_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
 
 #vote-footer.row
   %p= link_to "I can't decide", '#', 'data-controls-modal' => 'cant-decide', 'data-backdrop' => 'static'

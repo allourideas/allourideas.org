@@ -67,10 +67,10 @@
               =t('vote.cd_'+choice)
               - if choice == 'dont_know_left' 
                 .leftside
-                  %em= @left_choice_text
+                  %em= h(@left_choice_text)
               - elsif choice == 'dont_know_right'
                 .rightside
-                  %em= @right_choice_text
+                  %em= h(@right_choice_text)
   %br
   .fleft
     = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")

@@ -178,7 +178,7 @@
       #image-show{:style => 'display:none;'} &nbsp;
       #image-select{:style => 'width:203px; float:left; padding: 5px;'}
         -(1..7).each do |i|
-          =link_to_function image_tag("/images/wikipedia/ad/#{'%04d' % i}-thumb.png"), "selectAddIdeaImage(this)", :style => 'float:left;', 'data-fullsize-image' => image_path("/images/wikipedia/ad/#{'%04d' % i}.png"), 'data-image-id' => ('%04d' % i)
+          =link_to_function image_tag("/images/wikipedia/ad/#{'%04d' % i}-thumb.png"), "selectAddIdeaImage(this)", :style => 'float:left;', 'data-fullsize-image' => image_path("/images/wikipedia/ad/#{'%04d' % i}.png"), 'data-image-id' => ('%04d' % i), :class => 'image-select'
       .copy
         =text_area_tag('new_idea', '', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH)
         =hidden_field_tag('new_image_id')

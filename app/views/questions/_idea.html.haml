@@ -1,3 +1,3 @@
 %table
   %tr
-    %td= link_to(truncate(h(data), :length => 140, :omission => '…'), "#", :rel => @question.id, :class => side, :id => side, :choice_id => choice_id, :question_slug => @question.slug)#, :title => data)
+    %td= link_to(h(truncate(data, :length => 140, :omission => '…')), "#", :rel => @question.id, :class => side, :id => side, :choice_id => choice_id, :question_slug => @question.slug)#, :title => data)

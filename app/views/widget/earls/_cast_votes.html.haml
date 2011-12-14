@@ -9,10 +9,10 @@
     %table.full
       %tr.prompt.prompter
         %td.half.idea.left.vote_cell.rounded{:rel => @question.id, :id => "left_choice_cell"}
-          = link_to(truncate(@left_choice_text, :length => 140, :omission => '…'), "#", :rel => @question.id, :class => 'leftside', :id => 'leftside', :choice_id => @left_choice_id, :question_slug => @question.slug)
+          = link_to(h(truncate(@left_choice_text, :length => 140, :omission => '…')), "#", :rel => @question.id, :class => 'leftside', :id => 'leftside', :choice_id => @left_choice_id, :question_slug => @question.slug)
         %td{:style => 'width: 4px'}
         %td.right.idea.vote_cell.rounded{:rel => @question.id, :id => "right_choice_cell"}
-          = link_to(truncate(@right_choice_text, :length => 140, :omission => '…'), "#", :rel => @question.id, :class => 'rightside', :id => 'rightside', :choice_id => @right_choice_id, :question_slug => @question.slug)
+          = link_to(h(truncate(@right_choice_text, :length => 140, :omission => '…')), "#", :rel => @question.id, :class => 'rightside', :id => 'rightside', :choice_id => @right_choice_id, :question_slug => @question.slug)
     -if @earl.flag_enabled?
       .flag_row
         .fleft.no_bottom_padding
@@ -44,10 +44,10 @@
                 =t('vote.cd_'+choice)
                 - if choice == 'dont_know_left'
                   .leftside
-                    %em= @left_choice_text
+                    %em= h(@left_choice_text)
                 - elsif choice == 'dont_know_right'
                   .rightside
-                    %em= @right_choice_text
+                    %em= h(@right_choice_text)
       .close_and_submit
         %a.close.fleft{:href => '#page1'}
           = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")

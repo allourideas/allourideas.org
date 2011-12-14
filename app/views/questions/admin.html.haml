@@ -18,7 +18,7 @@
     %tbody 
       -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
         %tr{:class => cycle ("row1", "row2")}
-          %td.title= link_to truncate(h(choice.data), :length => 140, :omission => '…'), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
+          %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
           %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
           %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
           %td.votes{:id => "choice_#{choice.id}_status"}

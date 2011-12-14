@@ -162,12 +162,12 @@
 
 #vote-footer.row
   %p= link_to "I can't decide", '#', 'data-controls-modal' => 'cant-decide', 'data-backdrop' => 'static'
-  %p= link_to "Add new banner idea", "#", :class => 'btn success', 'data-controls-modal' => 'add-idea', 'data-backdrop' => 'static'
+  %p= link_to "Create a new banner", "#", :class => 'btn success', 'data-controls-modal' => 'add-idea', 'data-backdrop' => 'static'
 
 #add-idea.modal{:style => 'display:none;'}
   .modal-header
     =link_to 'x', '#', :class => 'close'
-    %h3 Create new banner idea
+    %h3 Create a new banner
   .modal-body
     .cleafix
       %h5{:style => 'float:left; width: 370px;'}

@@ -30,7 +30,7 @@
           -for choice in @choices
             %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
               %td.idea_padding.idea_result
-                =truncate(h(choice.data), :length => 137)
+                =truncate(h(choice.data), :length => 140, :omission => '…')
               %td{:style => 'text-align: left; width: 20px;'}
                 .score= choice.attributes['score'].round.to_s
               %td{:style => 'text-align: left; width: 30%;'}

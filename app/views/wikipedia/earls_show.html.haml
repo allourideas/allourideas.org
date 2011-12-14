@@ -172,7 +172,7 @@
     .cleafix
       %h5{:style => 'float:left; width: 370px;'}
         Select an image:
-        =link_to_function '(change)', "$('#image-show').hide(); $('#image-select').show(); $(this).hide()", :id => 'change-image', :style => 'display:none; font-weight:normal;'
+        =link_to_function '(change)', "$('#image-show').hide(); $('#image-select').show(); $(this).hide(); $('#new_image_id').val('')", :id => 'change-image', :style => 'display:none; font-weight:normal;'
       %h5 Add your own text:
     #add-idea-banner
       #image-show{:style => 'display:none;'} &nbsp;

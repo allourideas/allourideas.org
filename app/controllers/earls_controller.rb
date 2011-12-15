@@ -1,6 +1,7 @@
 class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::AssetTagHelper
   require 'fastercsv'
   before_filter :dumb_cleartext_authentication, :except => :export_list
 
@@ -153,8 +154,20 @@ class EarlsController < ApplicationController
         @right_image_id = @right_choice_text.split('-',2)[0]
         @left_choice_text = @left_choice_text.split('-',2)[1]
         @right_choice_text = @right_choice_text.split('-',2)[1]
-        @fullsize_images = Dir.glob('public/images/wikipedia/ad/[0-9][0-9][0-9][0-9].png').map{|i| i.sub(/^public/, '') }
-        @thumbnail_images = Dir.glob('public/images/wikipedia/ad/[0-9][0-9][0-9][0-9]-thumb.png').map{|i| i.sub(/^public/, '') }
+        @images = {}
+        image_dir = "public/images/wikipedia/ad/"
+        fullsize_image_paths = Dir.glob("#{image_dir}[0-9][0-9][0-9][0-9].png").map{|i| i.sub(/^public/, '') }
+        thumbnail_image_paths = Dir.glob("#{image_dir}[0-9][0-9][0-9][0-9]-thumb.png").map{|i| i.sub(/^public/, '') }
+        @fullsize_images = {}
+        fullsize_image_paths.each do |image|
+          @fullsize_images[File.basename(image, '.png')] = image_path(image)
+        end
+        @thumbnail_images = {}
+        thumbnail_image_paths.each do |image|
+          @thumbnail_images[File.basename(image, '-thumb.png')] = image_path(image)
+        end
+      
+        
         render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
       end
     else

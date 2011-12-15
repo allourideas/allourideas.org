@@ -51,9 +51,10 @@
       });
 
       // preload image
-      var allimages = #{(@fullsize_images + @thumbnail_images).to_json};
-      $(allimages).each(function() {
-        $('<img/>').get(0).src = this;
+      window.fullsize_images = #{@fullsize_images.to_json};
+      window.thumbnail_images = #{@thumbnail_images.to_json};
+      $.each(fullsize_images, function(k, url) {
+        $('<img src="' + url + '"/>').appendTo('body').hide();
       });
     });
 
@@ -100,7 +101,7 @@
         // change ideas
     		current_ad.html(data['new' + side]);
         // change banner images
-        current_banner.css('backgroundImage', "url(/images/wikipedia/ad/" + data[side + '_image_id'] + ".png)")
+        current_banner.css('backgroundImage', "url("+ window.fullsize_images[data[side + '_image_id']]+ ")")
     	});
     }
 
@@ -238,7 +239,7 @@
 
 .row
   %h2.question{:style => 'font-size:20px'} Please click on the Wikipedia fundraising banner that makes you want to donate more.
-  .vote.left{:direction => 'left', :id => 'leftside', :style => "background-image: url(/images/wikipedia/ad/#{@left_image_id}.png)"}
+  .vote.left{:direction => 'left', :id => 'leftside', :style => "background-image: url(#{image_path("/images/wikipedia/ad/#{@left_image_id}.png")})"}
     %table.copy
       %tr
         %td=truncate(h(@left_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")
@@ -246,7 +247,7 @@
   #spinner
     =image_tag('wikipedia/spinner.gif', :style => 'display:none')
 
-  .vote.right{:direction => 'right', :id => 'rightside', :style => "background-image: url(/images/wikipedia/ad/#{@right_image_id}.png)"}
+  .vote.right{:direction => 'right', :id => 'rightside', :style => "background-image: url(#{image_path("/images/wikipedia/ad/#{@right_image_id}.png")})"}
     %table.copy
       %tr
         %td=truncate(h(@right_choice_text), :length => 140, :omission => '…').gsub("\n","<br />")

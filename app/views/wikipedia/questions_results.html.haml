@@ -132,10 +132,6 @@
     %tr.row0
       %th=t('results.data_visualizations')
       %th.score &nbsp;
-    %tr{:class => cycle("row2", "row1")}
-      %td.title= t('results.scatter_ideas_title')
-      %td.votes
-        = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
     %tr{:class => current_cycle , :style => "display:none;"}
       %td.title{:colspan => '2'}
         .chart-container{:id => "#{"scatter_ideas"}-chart-container"}
@@ -189,6 +185,10 @@
           %td.title{:colspan => '2'}
             .chart-container{:id => "#{type}-chart-container"}
       -if current_user && current_user.admin?
+        %tr{:class => cycle("row2", "row1")}
+          %td.title= t('results.scatter_ideas_title') + " (super-admin only)"
+          %td.votes
+            = link_to(t('results.view_link'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :class => 'date-chart')
         %tr{:class => cycle("row2", "row1")}
           %td.title= "View density of votes for this question (super-admin only)"
           %td.votes

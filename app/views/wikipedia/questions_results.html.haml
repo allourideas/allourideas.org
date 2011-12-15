@@ -64,6 +64,10 @@
           $(this).attr('isLoaded', true);
         }
       });
+      $('.container').on('click', 'table.copy', function(ev) {
+        ev.preventDefault();
+        location.href='http://wikimediafoundation.org/wiki/Donate/en';
+      });
     });
 :css
   .marketplace-links a img {
@@ -91,6 +95,9 @@
 
   td.votes {
     text-align: right;
+  }
+  table.copy {
+    cursor: pointer;
   }
 .row{:style => 'margin-bottom:35px'}
   .span16

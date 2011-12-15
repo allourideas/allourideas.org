@@ -190,25 +190,7 @@
         $('#header').mouseleave(function() {
           $('#header').animate({opacity: 0.4}, 100);
         });
-
-        // truncate ideas that are too tall
-        truncateIdeasIfTooTall()
       });
-
-      function truncateIdeasIfTooTall() {
-        $('table.copy td').each(function() {
-          height = $(this).height();
-          while(height > 160) {
-            $(this).html(truncateAtLastBR($(this).html()));
-            height = $(this).height();
-          }
-        });
-      }
-
-      function truncateAtLastBR(text) {
-        i = text.lastIndexOf("<br>")
-        return text.slice(0, i) + '…'
-      }
 
     = yield :javascript
 

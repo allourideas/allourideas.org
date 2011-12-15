@@ -7,8 +7,5 @@ All special controller logic is activated by the "wikipedia?" method (in app/con
   - Fullsize dimensions= 175px tall x 150
   - Thumbnail (0010-thumb.png) = 45x45
 2. Place fullsize and thumbnail in public/images/wikipedia/ad/
-3. Edit the image selector range to include your image (app/views/wikipedia/earls_show:248)
-  - E.g if you're adding 0008.png change the range to (1..8)
-  - That's it!
 4. Seed ideas for this image (not yet determined)
 Banner images should be placed in 

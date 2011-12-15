@@ -146,15 +146,17 @@ class EarlsController < ApplicationController
        								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
        @ab_test_ideas_text_name = "#{@earl.name}_#{@earl.question_id}_test_contents_of_add_idea_button"
 
-       if wikipedia?
-         # wikipedia ideas are prepended by a 4 character integer
-         # that represents their image id
-         @left_image_id = @left_choice_text.split('-',2)[0]
-         @right_image_id = @right_choice_text.split('-',2)[0]
-         @left_choice_text = @left_choice_text.split('-',2)[1]
-         @right_choice_text = @right_choice_text.split('-',2)[1]
-         render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
-       end
+      if wikipedia?
+        # wikipedia ideas are prepended by a 4 character integer
+        # that represents their image id
+        @left_image_id = @left_choice_text.split('-',2)[0]
+        @right_image_id = @right_choice_text.split('-',2)[0]
+        @left_choice_text = @left_choice_text.split('-',2)[1]
+        @right_choice_text = @right_choice_text.split('-',2)[1]
+        @fullsize_images = Dir.glob('public/images/wikipedia/ad/[0-9][0-9][0-9][0-9].png').map{|i| i.sub(/^public/, '') }
+        @thumbnail_images = Dir.glob('public/images/wikipedia/ad/[0-9][0-9][0-9][0-9]-thumb.png').map{|i| i.sub(/^public/, '') }
+        render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
+      end
     else
       redirect_to('/') and return
     end

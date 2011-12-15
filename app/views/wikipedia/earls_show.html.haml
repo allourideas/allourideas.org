@@ -5,6 +5,7 @@
     var AUTH_TOKEN = #{form_authenticity_token.inspect};
     var PAGE_LOADED_AT = new Date();
     var RAILS_LOCALE = '#{I18n.locale}';
+    var LINE_BREAK_ALERT = false;
 
     $(document).ready(function() {
       // placeholder support for legacy browsers
@@ -154,11 +155,29 @@
       if ($('#new_image_id').val() != '' &&
           $('#new_idea').val() != '' &&
           $('#new_idea').val() != 'Add text here' &&
-          $('#new_image_id').val().length <= #{Const::MAX_ITEM_LENGTH}) {
+          $('#new_image_id').val().length <= #{Const::MAX_ITEM_LENGTH} &&
+          !(tooManyLineBreaks())) {
         return true;
       } else {
+        // popup about too many line breaks
+        if (tooManyLineBreaks() && !(LINE_BREAK_ALERT)) {
+          LINE_BREAK_ALERT = true;
+          alert("You're banner text is too tall. Try to fit it on fewer lines.")
+        }
         return false;
       }
+    }
+
+    function tooManyLineBreaks() {
+      limit = 2;
+      brs = 0;
+      var index = 0;
+      text = $('#new_idea').val();
+      while (text.indexOf("\n", index) != -1) {
+        index = text.indexOf("\n", index) + 1;
+        brs++;
+      }
+      return brs > limit;
     }
 
     function updateSubmitButton() {

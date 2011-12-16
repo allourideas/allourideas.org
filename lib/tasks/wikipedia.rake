@@ -233,7 +233,7 @@ raw_seed_ideas = [
 "0006-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
 "0007-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
 "0008-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
-"0009-Imagine a world in which every perry person|on the planet had free access to all|human knowledge.",
+"0009-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
 "0010-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
 "0011-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
 "0012-Imagine a world in which every person|on the planet had free access to all|human knowledge.",

@@ -2,173 +2,306 @@ namespace :wikipedia do
   
   task(:seed => :environment) do
 raw_seed_ideas = [
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-Please read: I'm a student, and I donated to Wikipedia.  What about you?
-I'm a student, and I donated to Wikipedia.  What about you?
-I'm a student, and I donated  to Wikipedia.  Now it is your turn.",
-
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-My name is Karhik, and I donated to Wikipedia.  I want to help make it better.  Do you?
-My name is Karhik, and there is something that I want to tell you.
-My name is Karhik, and I want to tell you a story.
-Please read: My name is Karhik, and I want to tell you a story.",
-
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-Please read a personal appeal from Susan Hewitt.
-Susan Hewitt wants you to donate to Wikipedia.",
-
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-Dude.  What are you waiting for?  Donate now.
-Please read an appeal from programmer Brandon Harris.
-I work hard writing software to make Wikipedia awesome.  Now, I need your help.
-I work hard writing software to help you enjoy Wikipedia.  Now, I need your help.",
-
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-I'm Jimmy Wales, founder of Wikipedia, and I approve this message.
-Please read: a personal appeal from Jimmy Wales.
-Please read: a personal appeal from Wikipedia founder Jimmy Wales.",
-
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-My name is Maryana Pinchuk, and I have a message for you.
-I work to make Wikipedia awesome.  Now I need your help.
-My Maryana Pinchuk and there is something I want to say to you.",
-
-"If you love Wikipedia, please donate.
-Please read: If you love Wikipedia, please donate.
-If you use Wikipedia, please donate to help keep it running.  Servers and bandwidth are not free.
-Servers and bandwidth are not free.  If you use Wikipedia, please donate to keep it running.
-Do you think Wikipedia runs by itself?  No, it needs your help.
-Are you the kind of person that helps make the world a better place?
-Do you want to make the world a better place?  Donate to Wikipedia now.
-Ads are not evil, but they don't belong on Wikipedia.
-Please read: Ads are not evil, but they don't belong on Wikipedia.
-Stop waiting: donate now.
-Wikipedia needs your money to stay awesome.  Please help.
-People, we need your help.  Wikipedia need money to keep going.
-People, we need your money.  Stop reading and start donating.  Then starting reading again.
-The only non-profit website in the top 10.  Help keep us different.
-The only non-profit website in the top 10.  Help keep Wikipedia different.
-We don't have ads so we need your help.  Your donation keeps Wikipedia independent and vibrant.
-Freedom isn't free.  Wikipedia can only stay-ad free because of your donations.
-If you're really passionate about knowledge, donate to Wikipedia.
-Please read: There is something I want to tell you.
-What are you waiting for?  Donate now.
-I work hard writing software to make Wikipedia awesome.  Now, I need your help.
-I work hard writing software to help you enjoy Wikipedia.  Now, I need your help."]
+"0001-Please read:|A personal appeal from|Wikipedia founder Jimmy Wales",
+"0001-Please read:|Advertising isn't evil|but it doesn't belong on Wikipedia",
+"0001-Advertising isn't evil|but it doesn't belong on Wikipedia",
+"0005-Please read:|A personal appeal from|an author of 549 Wikipedia articles",
+"0002-Please read:|A personal appeal from|Wikipedia editor Dr. James Heilman",
+"0006-Please read:|A personal appeal from|an author of 159 Wikipedia articles",
+"0003-Please read:|A personal appeal from|Wikipedia editor Isaac Kosgei",
+"0001-The only non-profit website in the top 10|Help keep us different",
+"0002-The only non-profit website in the top 10|Help keep us different",
+"0003-The only non-profit website in the top 10|Help keep us different",
+"0004-The only non-profit website in the top 10|Help keep us different",
+"0005-The only non-profit website in the top 10|Help keep us different",
+"0006-The only non-profit website in the top 10|Help keep us different",
+"0007-The only non-profit website in the top 10|Help keep us different",
+"0008-The only non-profit website in the top 10|Help keep us different",
+"0009-The only non-profit website in the top 10|Help keep us different",
+"0010-The only non-profit website in the top 10|Help keep us different",
+"0011-The only non-profit website in the top 10|Help keep us different",
+"0012-The only non-profit website in the top 10|Help keep us different",
+"0001-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0002-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0003-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0004-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0005-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0006-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0007-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0008-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0009-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0010-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0011-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0012-679 servers. 282 languages.|20 million articles.|We need your help to keep growing.",
+"0001-Your donation powers the technology|that makes Wikipedia work",
+"0002-Your donation powers the technology|that makes Wikipedia work",
+"0003-Your donation powers the technology|that makes Wikipedia work",
+"0004-Your donation powers the technology|that makes Wikipedia work",
+"0005-Your donation powers the technology|that makes Wikipedia work",
+"0006-Your donation powers the technology|that makes Wikipedia work",
+"0007-Your donation powers the technology|that makes Wikipedia work",
+"0008-Your donation powers the technology|that makes Wikipedia work",
+"0009-Your donation powers the technology|that makes Wikipedia work",
+"0010-Your donation powers the technology|that makes Wikipedia work",
+"0011-Your donation powers the technology|that makes Wikipedia work",
+"0012-Your donation powers the technology|that makes Wikipedia work",
+"0001-Your donations power the technology|that makes Wikipedia work",
+"0002-Your donations power the technology|that makes Wikipedia work",
+"0003-Your donations power the technology|that makes Wikipedia work",
+"0004-Your donations power the technology|that makes Wikipedia work",
+"0005-Your donations power the technology|that makes Wikipedia work",
+"0006-Your donations power the technology|that makes Wikipedia work",
+"0007-Your donations power the technology|that makes Wikipedia work",
+"0008-Your donations power the technology|that makes Wikipedia work",
+"0009-Your donations power the technology|that makes Wikipedia work",
+"0010-Your donations power the technology|that makes Wikipedia work",
+"0011-Your donations power the technology|that makes Wikipedia work",
+"0012-Your donations power the technology|that makes Wikipedia work",
+"0001-Your donation keeps Wikipedia's|servers and staff running",
+"0002-Your donation keeps Wikipedia's|servers and staff running",
+"0003-Your donation keeps Wikipedia's|servers and staff running",
+"0004-Your donation keeps Wikipedia's|servers and staff running",
+"0005-Your donation keeps Wikipedia's|servers and staff running",
+"0006-Your donation keeps Wikipedia's|servers and staff running",
+"0007-Your donation keeps Wikipedia's|servers and staff running",
+"0008-Your donation keeps Wikipedia's|servers and staff running",
+"0009-Your donation keeps Wikipedia's|servers and staff running",
+"0010-Your donation keeps Wikipedia's|servers and staff running",
+"0011-Your donation keeps Wikipedia's|servers and staff running",
+"0012-Your donation keeps Wikipedia's|servers and staff running",
+"0001-Your donations keep Wikipedia's|servers and staff running",
+"0002-Your donations keep Wikipedia's|servers and staff running",
+"0003-Your donations keep Wikipedia's|servers and staff running",
+"0004-Your donations keep Wikipedia's|servers and staff running",
+"0005-Your donations keep Wikipedia's|servers and staff running",
+"0006-Your donations keep Wikipedia's|servers and staff running",
+"0007-Your donations keep Wikipedia's|servers and staff running",
+"0008-Your donations keep Wikipedia's|servers and staff running",
+"0009-Your donations keep Wikipedia's|servers and staff running",
+"0010-Your donations keep Wikipedia's|servers and staff running",
+"0011-Your donations keep Wikipedia's|servers and staff running",
+"0012-Your donations keep Wikipedia's|servers and staff running",
+"0001-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0002-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0003-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0004-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0005-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0006-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0007-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0008-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0009-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0010-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0011-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0012-Wikipedia runs on a handful|of servers and staff --|and your donation",
+"0001-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0002-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0003-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0004-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0005-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0006-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0007-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0008-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0009-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0010-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0011-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0012-Wikipedia is the #5 site on the Internet.|Your $5 keeps us there.",
+"0001-Use it?|Support it!",
+"0002-Use it?|Support it!",
+"0003-Use it?|Support it!",
+"0004-Use it?|Support it!",
+"0005-Use it?|Support it!",
+"0006-Use it?|Support it!",
+"0007-Use it?|Support it!",
+"0008-Use it?|Support it!",
+"0009-Use it?|Support it!",
+"0010-Use it?|Support it!",
+"0011-Use it?|Support it!",
+"0012-Use it?|Support it!",
+"0001-Use Wikipedia?|Support Wikipedia!",
+"0002-Use Wikipedia?|Support Wikipedia!",
+"0003-Use Wikipedia?|Support Wikipedia!",
+"0004-Use Wikipedia?|Support Wikipedia!",
+"0005-Use Wikipedia?|Support Wikipedia!",
+"0006-Use Wikipedia?|Support Wikipedia!",
+"0007-Use Wikipedia?|Support Wikipedia!",
+"0008-Use Wikipedia?|Support Wikipedia!",
+"0009-Use Wikipedia?|Support Wikipedia!",
+"0010-Use Wikipedia?|Support Wikipedia!",
+"0011-Use Wikipedia?|Support Wikipedia!",
+"0012-Use Wikipedia?|Support Wikipedia!",
+"0001-You can help keep Wikipedia free of ads|For more information, click here.",
+"0002-You can help keep Wikipedia free of ads|For more information, click here.",
+"0003-You can help keep Wikipedia free of ads|For more information, click here.",
+"0004-You can help keep Wikipedia free of ads|For more information, click here.",
+"0005-You can help keep Wikipedia free of ads|For more information, click here.",
+"0006-You can help keep Wikipedia free of ads|For more information, click here.",
+"0007-You can help keep Wikipedia free of ads|For more information, click here.",
+"0008-You can help keep Wikipedia free of ads|For more information, click here.",
+"0009-You can help keep Wikipedia free of ads|For more information, click here.",
+"0010-You can help keep Wikipedia free of ads|For more information, click here.",
+"0011-You can help keep Wikipedia free of ads|For more information, click here.",
+"0012-You can help keep Wikipedia free of ads|For more information, click here.",
+"0001-You can help keep Wikipedia free of ads|To donate, click here.",
+"0002-You can help keep Wikipedia free of ads|To donate, click here.",
+"0003-You can help keep Wikipedia free of ads|To donate, click here.",
+"0004-You can help keep Wikipedia free of ads|To donate, click here.",
+"0005-You can help keep Wikipedia free of ads|To donate, click here.",
+"0006-You can help keep Wikipedia free of ads|To donate, click here.",
+"0007-You can help keep Wikipedia free of ads|To donate, click here.",
+"0008-You can help keep Wikipedia free of ads|To donate, click here.",
+"0009-You can help keep Wikipedia free of ads|To donate, click here.",
+"0010-You can help keep Wikipedia free of ads|To donate, click here.",
+"0011-You can help keep Wikipedia free of ads|To donate, click here.",
+"0012-You can help keep Wikipedia free of ads|To donate, click here.",
+"0001-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0002-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0003-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0004-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0005-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0006-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0007-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0008-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0009-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0010-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0011-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0012-What would the Internet look like|without Wikipedia?|Let's not find out. Donate today.",
+"0001-What would the Internet look like|without Wikipedia?",
+"0002-What would the Internet look like|without Wikipedia?",
+"0003-What would the Internet look like|without Wikipedia?",
+"0004-What would the Internet look like|without Wikipedia?",
+"0005-What would the Internet look like|without Wikipedia?",
+"0006-What would the Internet look like|without Wikipedia?",
+"0007-What would the Internet look like|without Wikipedia?",
+"0008-What would the Internet look like|without Wikipedia?",
+"0009-What would the Internet look like|without Wikipedia?",
+"0010-What would the Internet look like|without Wikipedia?",
+"0011-What would the Internet look like|without Wikipedia?",
+"0012-What would the Internet look like|without Wikipedia?",
+"0001-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0002-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0003-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0004-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0005-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0006-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0007-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0008-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0009-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0010-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0011-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0012-Wikipedia is a not-for-profit organization|Please consider making a donation.",
+"0001-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0002-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0003-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0004-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0005-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0006-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0007-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0008-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0009-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0010-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0011-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0012-Wikipedia is a not-for-profit organization|Please make a donation.",
+"0001-Want to make the world a better place?|Donate to Wikipedia.",
+"0002-Want to make the world a better place?|Donate to Wikipedia.",
+"0003-Want to make the world a better place?|Donate to Wikipedia.",
+"0004-Want to make the world a better place?|Donate to Wikipedia.",
+"0005-Want to make the world a better place?|Donate to Wikipedia.",
+"0006-Want to make the world a better place?|Donate to Wikipedia.",
+"0007-Want to make the world a better place?|Donate to Wikipedia.",
+"0008-Want to make the world a better place?|Donate to Wikipedia.",
+"0009-Want to make the world a better place?|Donate to Wikipedia.",
+"0010-Want to make the world a better place?|Donate to Wikipedia.",
+"0011-Want to make the world a better place?|Donate to Wikipedia.",
+"0012-Want to make the world a better place?|Donate to Wikipedia.",
+"0001-Want to make the world a better place?|What are you waiting for?",
+"0002-Want to make the world a better place?|What are you waiting for?",
+"0003-Want to make the world a better place?|What are you waiting for?",
+"0004-Want to make the world a better place?|What are you waiting for?",
+"0005-Want to make the world a better place?|What are you waiting for?",
+"0006-Want to make the world a better place?|What are you waiting for?",
+"0007-Want to make the world a better place?|What are you waiting for?",
+"0008-Want to make the world a better place?|What are you waiting for?",
+"0009-Want to make the world a better place?|What are you waiting for?",
+"0010-Want to make the world a better place?|What are you waiting for?",
+"0011-Want to make the world a better place?|What are you waiting for?",
+"0012-Want to make the world a better place?|What are you waiting for?",
+"0001-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0002-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0003-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0004-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0005-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0006-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0007-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0008-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0009-Imagine a world in which every perry person|on the planet had free access to all|human knowledge.",
+"0011-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0012-Imagine a world in which every person|on the planet had free access to all|human knowledge.",
+"0001-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0002-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0003-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0004-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0005-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0006-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0007-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0008-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0009-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0010-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0011-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0012-Let's make a world in which every|person on the planet has free access to|all human knowledge.",
+"0001-Let's keep Wikipedia ad-free",
+"0002-Let's keep Wikipedia ad-free",
+"0003-Let's keep Wikipedia ad-free",
+"0004-Let's keep Wikipedia ad-free",
+"0005-Let's keep Wikipedia ad-free",
+"0006-Let's keep Wikipedia ad-free",
+"0007-Let's keep Wikipedia ad-free",
+"0008-Let's keep Wikipedia ad-free",
+"0009-Let's keep Wikipedia ad-free",
+"0010-Let's keep Wikipedia ad-free",
+"0011-Let's keep Wikipedia ad-free",
+"0012-Let's keep Wikipedia ad-free",
+"0001-Let's keep Wikipedia free",
+"0002-Let's keep Wikipedia free",
+"0003-Let's keep Wikipedia free",
+"0004-Let's keep Wikipedia free",
+"0005-Let's keep Wikipedia free",
+"0006-Let's keep Wikipedia free",
+"0007-Let's keep Wikipedia free",
+"0008-Let's keep Wikipedia free",
+"0009-Let's keep Wikipedia free",
+"0010-Let's keep Wikipedia free",
+"0011-Let's keep Wikipedia free",
+"0012-Let's keep Wikipedia free",
+"0001-Let's keep Wikipedia growing",
+"0002-Let's keep Wikipedia growing",
+"0003-Let's keep Wikipedia growing",
+"0004-Let's keep Wikipedia growing",
+"0005-Let's keep Wikipedia growing",
+"0006-Let's keep Wikipedia growing",
+"0007-Let's keep Wikipedia growing",
+"0008-Let's keep Wikipedia growing",
+"0009-Let's keep Wikipedia growing",
+"0010-Let's keep Wikipedia growing",
+"0011-Let's keep Wikipedia growing",
+"0012-Let's keep Wikipedia growing",
+"0001-Let's keep Wikipedia independent",
+"0002-Let's keep Wikipedia independent",
+"0003-Let's keep Wikipedia independent",
+"0004-Let's keep Wikipedia independent",
+"0005-Let's keep Wikipedia independent",
+"0006-Let's keep Wikipedia independent",
+"0007-Let's keep Wikipedia independent",
+"0008-Let's keep Wikipedia independent",
+"0009-Let's keep Wikipedia independent",
+"0010-Let's keep Wikipedia independent",
+"0011-Let's keep Wikipedia independent",
+"0012-Let's keep Wikipedia independent",
+"0007-I am a student, and I donated.|What are you waiting for?",
+"0009-Wikipedia is a vital global resource|Please donate.",
+"0002-To stay healthy and strong,|Wikipedia needs your donation",
+"0002-Wikipedia helps you stay healthy|now you can return the favor",
+"0010-Just like a flower needs water,|Wikipedia needs your donation",
+]
 
     # Rename any old earls/slugs that are using the wikipedia-fundraiser url
     Earl.find_all_by_name('wikipedia-banner-challenge').map {|e| e.update_attributes!(:name => "old-wikipedia-fundraiser-#{e.id}-#{rand(100)}")}
@@ -179,8 +312,9 @@ I work hard writing software to help you enjoy Wikipedia.  Now, I need your help
     u.email_confirmed = true
     u.save!
 
-    seed_ideas = [];
-    raw_seed_ideas.each_with_index {|s, i| s.lines.map{ |l| seed_ideas << ("%04d" % (i+1)) + '-' + l} }
+    #seed_ideas = [];
+    #raw_seed_ideas.each_with_index {|s, i| s.lines.map{ |l| seed_ideas << ("%04d" % (i+1)) + '-' + l} }
+    seed_ideas = raw_seed_ideas
 
     q = Question.new(
       :name => "Please click on the Wikipedia fundraising banner that makes you want to donate more.",

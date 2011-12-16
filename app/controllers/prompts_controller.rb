@@ -35,8 +35,8 @@ class PromptsController < ApplicationController
         # that represents their image id
         result[:left_image_id] = CGI::escapeHTML(next_prompt['left_choice_text'].split('-',2)[0])
         result[:right_image_id] = CGI::escapeHTML(next_prompt['right_choice_text'].split('-',2)[0])
-        result[:newleft] = truncate(CGI::escapeHTML(next_prompt['left_choice_text'].split('-',2)[1]).gsub("\n","<br />"), :length => 140, :omission => '…')
-        result[:newright] = truncate(CGI::escapeHTML(next_prompt['right_choice_text'].split('-',2)[1]).gsub("\n","<br />"), :length => 140, :omission => '…')
+        result[:newleft] = CGI::escapeHTML(truncate(next_prompt['left_choice_text'].split('-',2)[1], :length => 140, :omission => '…')).gsub("\n","<br />")
+        result[:newright] = CGI::escapeHTML(truncate(next_prompt['right_choice_text'].split('-',2)[1], :length => 140, :omission => '…')).gsub("\n","<br />")
       end
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
@@ -71,6 +71,15 @@ class PromptsController < ApplicationController
         :leveling_message  => leveling_message,
         :message => t('vote.cant_decide_message')
       }
+
+      if wikipedia?
+        # wikipedia ideas are prepended by a 4 character integer
+        # that represents their image id
+        result[:left_image_id] = CGI::escapeHTML(next_prompt['left_choice_text'].split('-',2)[0])
+        result[:right_image_id] = CGI::escapeHTML(next_prompt['right_choice_text'].split('-',2)[0])
+        result[:newleft] = CGI::escapeHTML(truncate(next_prompt['left_choice_text'].split('-',2)[1], :length => 140, :omission => '…')).gsub("\n","<br />")
+        result[:newright] = CGI::escapeHTML(truncate(next_prompt['right_choice_text'].split('-',2)[1], :length => 140, :omission => '…')).gsub("\n","<br />")
+      end
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
       render :json => result.to_json

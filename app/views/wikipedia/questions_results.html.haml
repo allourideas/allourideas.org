@@ -108,7 +108,7 @@
 -@choices.each do |choice|
   .row
     .span14
-      .banner{:style => "background-image: url(/images/wikipedia/ad/#{choice.data.split('-',2)[0]}.png)"}
+      .banner{:style => "background-image: url(#{image_path("/images/wikipedia/ad/#{choice.data.split('-',2)[0]}.png")})"}
         %table.copy
           %tr
             %td=truncate(h(choice.data.split('-',2)[1]), :length => 140, :omission => '…').gsub("\n","<br />")

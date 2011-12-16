@@ -816,7 +816,7 @@ class QuestionsController < ApplicationController
           render :json => {
             :choice_status => @choice.active? ? 'active' : 'inactive',
             :leveling_message => leveling_message,
-            :message => "#{t('items.you_just_submitted')}: #{new_idea_data}"
+            :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
           }.to_json
         end
     else

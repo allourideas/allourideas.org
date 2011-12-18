@@ -99,11 +99,84 @@ class QuestionsController < ApplicationController
     if @widget == true
       render :layout => false
     elsif wikipedia?
-      render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout') && return
+      if params[:heat]
+        @images = (1..12).map { |i| "00#{i < 10 ? "0" + i.to_s : i}" }
+        @banners = [
+          "The only non-profit website in the top 10.\nHelp keep us different",
+          "679 servers. 282 languages.\n20 million articles.\nWe need your help to keep growing.",
+          "Your donation powers the technology\nthat makes Wikipedia work",
+          "Your donations power the technology\nthat makes Wikipedia work",
+          "Your donation keeps Wikipedia's\nservers and staff running",
+          "Your donations keep Wikipedia's\nservers and staff running",
+          "Wikipedia is the #5 site on the Internet.\nYour $5 keeps us there.",
+          "Use it?\nSupport it!",
+          "Use Wikipedia?\nSupport Wikipedia!",
+          "You can help keep Wikipedia free of ads.\nFor more information, click here.",
+          "You can help keep Wikipedia free of ads.\nTo donate, click here.",
+          "What would the Internet look like\nwithout Wikipedia?\nLet's not find out. Donate today.",
+          "What would the Internet look like\nwithout Wikipedia?",
+          "Wikipedia is a not-for-profit organization.\nPlease consider making a donation.",
+          "Wikipedia is a not-for-profit organization.\nPlease make a donation.",
+          "Want to make the world a better place?\nDonate to Wikipedia.",
+          "Want to make the world a better place?\nWhat are you waiting for?",
+          "Imagine a world in which every person\non the planet had free access to all\nhuman knowledge.",
+          "Let's make a world in which every\nperson on the planet has free access to\nall human knowledge.",
+          "Let's keep Wikipedia ad-free",
+          "Let's keep Wikipedia free",
+          "Let's keep Wikipedia growing",
+          "Let's keep Wikipedia independent",
+  #        "A personal appeal from\nWikipedia founder Jimmy Wales",
+  #        "Please read:\nAdvertising isn't evil\nbut it doesn't belong on Wikipedia",
+  #        "Advertising isn't evil\nbut it doesn't belong on Wikipedia",
+  #        "Please read:\nA personal appeal from\nan author of 549 Wikipedia articles",
+  #        "Please read:\nA personal appeal from\nWikipedia editor Dr. James Heilman",
+  #        "Please read:\nA personal appeal from\nan author of 159 Wikipedia articles",
+  #        "Please read:\nA personal appeal from\nWikipedia editor Isaac Kosgei",
+  #        "I am a student, and I donated.\nWhat are you waiting for?",
+  #        "Wikipedia is a vital global resource.\nPlease donate.",
+  #        "To stay healthy and strong,\nWikipedia needs your donation",
+  #        "Wikipedia helps you stay healthy.\nNow you can return the favor",
+  #        "Just like a flower needs water,\nWikipedia needs your donation"
+        ]
+        @scores = {}
+        choices = Choice.find(:all, :params => {:question_id => @question_id})
+        scores = choices.map(&:score)
+        @max_score = scores.max
+        @min_score = scores.min
+        choices.each do |choice|
+          image = choice.data[0..3]
+          banner = choice.data[5..-1]
+          if @images.include?(image) and @banners.include?(banner)
+            @scores[banner] ||= {}
+            @scores[banner][image] = {
+              :score => choice.score,
+              :color => color_for_score(choice.score)
+            }
+          end
+          image = banner = nil
+        end
+        @missing_color = "#CCCCCC"
+        render(:template => 'wikipedia/questions_results_heat', :layout => '/wikipedia/layout')
+      else
+        render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout')    
+      end
+      return
     end
 
   end
 
+  # TODO: declare as private
+  # calculate color heat map
+  def color_for_score(score)
+    denom = (@max_score - @min_score)
+    if denom == 0
+      @missing_color
+    else
+      red = 255 - (((score - @min_score) / denom) * 255).to_i
+      "rgb(255,#{red},#{red})"
+    end
+  end
+  
   def admin
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]

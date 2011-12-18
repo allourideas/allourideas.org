@@ -172,7 +172,8 @@ class QuestionsController < ApplicationController
     if denom == 0
       @missing_color
     else
-      red = 255 - (((score - @min_score) / denom) * 255).to_i
+      max_gb = 245
+      red = max_gb - (((score - @min_score) / denom) * max_gb).to_i
       "rgb(255,#{red},#{red})"
     end
   end

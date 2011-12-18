@@ -116,7 +116,21 @@
     height: 80px;
     vertical-align: middle;
   }
-
+  tr.scale th {
+    text-align: center;
+    padding: 2em 0 0;
+    font-size: 120%
+  }
+  th.scale {
+    background: rgb(255,245,245); /* Old browsers */
+    background: -moz-linear-gradient(left, rgb(255,245,245) 0%, rgb(255,0,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb(255,245,245)), color-stop(100%,rgb(255,0,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, rgb(255,245,245) 0%,rgb(255,0,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgb(255,245,245) 0%,rgb(255,0,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgb(255,245,245) 0%,rgb(255,0,0) 100%); /* IE10+ */
+    background: linear-gradient(left, rgb(255,245,245) 0%,rgb(255,0,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff5f5', endColorstr='#ff0000',GradientType=1 ); /* IE6-9 */
+  }
 .row{:style => 'margin-bottom:35px'}
   .span16
     %h1
@@ -134,37 +148,20 @@
         -for image in @images
           -color = (@scores[banner] and @scores[banner][image]) ? @scores[banner][image][:color] : @missing_color
           %td.heat-map{:style => "background-color: #{color}"}
-
--@choices.each do |choice|
-  .row
-    .span14
-      .banner{:style => "background-image: url(#{image_path("/images/wikipedia/ad/#{choice.data.split('-',2)[0]}.png")})"}
-        %table.copy
-          %tr
-            %td=truncate(h(choice.data.split('-',2)[1]), :length => 140, :omission => '…').gsub("\n","<br />")
-
-    .span2
-      %h2=choice.attributes['score'].round.to_s
-      %h6 out of 100
-      %p= link_to('[?]', '#explanation', 'data-controls-modal' => "explanation", 'data-backdrop' => 'static')
+    %tfoot
+      %tr.images
+        %td
+        -for image in @images
+          %th= image_tag("/images/wikipedia/ad/#{image}.png", :size => "61x70" )
+      %tr.scale
+        %th
+        %th= @min_score.to_i
+        %th{:colspan => @images.length - 2}= t 'items.score'
+        %th= @max_score.to_i
+      %tr.row0
+        %th
+        %th.scale{:colspan => @images.length}
 .ninety
-  %table.full
-
-    -if !params[:more] && !params[:all] && (@question.attributes['choices_count'].to_i > 10)
-      %tr.row1
-        %td{:colspan => 3}
-          %strong= link_to(t('nav.see_all_ideas'),url_for(:action => :results, :controller => :questions, :id => @earl.name, :more => true))
-    %tr.row0.thin
-      %td{:colspan => 3}
-  -if params[:more] && !params[:all]
-    .pagination
-      %ul
-        = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next'), :renderer => ::WikipediaPagination, :container => false
-    -if paginated
-      .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
-  %br
-  %br
-
   %table.full
     %tr.row0
       %th=t('results.data_visualizations')

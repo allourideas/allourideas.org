@@ -1,5 +1,9 @@
 class WikipediaPagination < WillPaginate::LinkRenderer
 
+  def initialize
+    @gap_marker = '<li class="disabled gap"><a href="javascript://">&hellip;</a></li>'
+  end
+
   def page_link_or_span(page, span_class, text = nil)
     text ||= page.to_s
     if span_class.include?('prev_page')

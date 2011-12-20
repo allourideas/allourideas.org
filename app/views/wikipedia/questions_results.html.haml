@@ -122,18 +122,9 @@
 .ninety
   %table.full
 
-    -if !params[:more] && !params[:all] && (@question.attributes['choices_count'].to_i > 10)
-      %tr.row1
-        %td{:colspan => 3}
-          %strong= link_to(t('nav.see_all_ideas'),url_for(:action => :results, :controller => :questions, :id => @earl.name, :more => true))
-    %tr.row0.thin
-      %td{:colspan => 3}
-  -if params[:more] && !params[:all]
-    .pagination
-      %ul
-        = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next'), :renderer => ::WikipediaPagination, :container => false
-    -if paginated
-      .center=link_to("See All #{@question.active_choices} Ideas", :action => :results, :all => true)
+  .pagination
+    %ul
+      = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next'), :renderer => ::WikipediaPagination, :container => false
   %br
   %br
 

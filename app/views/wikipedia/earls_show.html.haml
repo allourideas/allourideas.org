@@ -269,8 +269,15 @@
     #add-idea-banner
       #image-show{:style => 'display:none;'} &nbsp;
       #image-select
-        - (1..@thumbnail_images.length).each do |i|
+        - image_array = (1..@thumbnail_images.length).sort_by { rand }
+        - image_array.each do |i|
           =link_to_function image_tag("/images/wikipedia/ad/#{'%04d' % i}-thumb.png"), "selectAddIdeaImage(this)", :style => 'float:left;', 'data-fullsize-image' => image_path("/images/wikipedia/ad/#{'%04d' % i}.png"), 'data-image-id' => ('%04d' % i), :class => 'image-select'
+        .pagination
+          %ul
+            %li.prev.disabled
+              <a href="#">&larr; Previous</a>
+            %li.next
+              <a href="#">&nbsp;&nbsp;Next &rarr;&nbsp;&nbsp;</a>
       .copy
         =text_area_tag 'new_idea', '', :title => 'Add text here', :placeholder => 'Add text here', :maxlength => Const::MAX_ITEM_LENGTH
         =hidden_field_tag('new_image_id')

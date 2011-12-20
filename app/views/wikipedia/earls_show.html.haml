@@ -28,6 +28,49 @@
     		e.preventDefault();
       });
 
+      // new idea image pagination
+      var thumbnails = $('#image-select a.image-select');
+      var page = 1;
+      thumbnails.each(function(i, thumbnail) {
+        var thisPage = Math.ceil((i+1)/12);
+        $(thumbnail).addClass('thumbnail-page-' + thisPage).data('thumbnailPage', thisPage);
+      });
+      thumbnails.hide().filter('.thumbnail-page-' + page).show();
+      if (thumbnails.length < 13) {
+        $('#image-select .pagination').hide();
+      }
+
+      $('#image-select .pagination').on('click', 'a', function(ev) {
+        ev.preventDefault();
+        var target = $(ev.target);
+        if (target.closest('li').is('.next')) {
+          // only do stuff if we're not already on the last page
+          if (page !== thumbnails.last().data('thumbnailPage')) {
+            page++;
+            thumbnails.hide().filter('.thumbnail-page-' + page).show();
+
+            // update state of prev / next buttons
+            target.closest('ul').find('li.prev').removeClass('disabled');
+            if (page === thumbnails.last().data('thumbnailPage')) {
+              target.closest('li').addClass('disabled');
+            }
+          }
+        }
+        else if (target.closest('li').is('.prev')) {
+          // only do stuff if we're not on page 1
+          if (page !== 1) {
+            page--;
+            thumbnails.hide().filter('.thumbnail-page-' + page).show();
+
+            // update state of prev / next buttons
+            target.closest('ul').find('li.next').removeClass('disabled');
+            if (page === 1) {
+              target.closest('li').addClass('disabled');
+            }
+          }
+        }
+      });
+
       // validating new ideas
       $('#new_idea').keyup(function() {
         updateSubmitButton();

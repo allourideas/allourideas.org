@@ -41,6 +41,7 @@ class QuestionsController < ApplicationController
 
     current_page = params[:page] || 1
     current_page = current_page.to_i
+    current_page = 1 if current_page == 0
     per_page = 50
     if wikipedia?
       per_page = 10

@@ -102,7 +102,9 @@
 .row{:style => 'margin-bottom:35px'}
   .span16
     %h1
-      Voting Results
+      - @item_count = @question.attributes['item_count'] - @question.attributes["inactive_choices_count"]
+      - @votes_count = @question.attributes['votes_count'].to_i
+      Results (calculated from #{@votes_count} votes on #{@item_count} banners)
       /= link_to('[?]', '#explanation', 'data-controls-modal' => "explanation", 'data-backdrop' => 'static', :style => 'font-weight:normal; font-size: 20px;')
 
 -@choices.each do |choice|

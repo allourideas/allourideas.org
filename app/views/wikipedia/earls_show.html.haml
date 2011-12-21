@@ -161,7 +161,7 @@
     function submitIdea() {
       if (canSubmitIdea()) {
         $('#add-idea #submit-button').addClass('disabled');
-        $.post(questionUrl() + '/add_idea.js?locale=en',
+        $.post(questionUrl() + '/add_idea.js?locale=en&iid=' + escape($('#new_image_id').val()) +'&io=' + $.map($('#image-select a.image-select'), function(v) { return parseInt($(v).data('image-id'), 10); } ).join(','),
           {authenticity_token: AUTH_TOKEN, new_idea: $('#new_image_id').val() + '-' + $('#new_idea').val()},
           function(data){
             $('#add-idea.modal').modal('hide');

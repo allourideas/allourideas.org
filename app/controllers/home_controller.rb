@@ -53,4 +53,47 @@ class HomeController < ApplicationController
     end
     @questions_map = @questions.inject({}){ |h,q| h[q.id] = q; h }
   end
+
+  def wikipedia_banner_challenge_gallery
+    @earl = Earl.find_by_name('wikipedia-banner-challenge')
+    @images = {
+      "0001" => "http://meta.wikimedia.org/wiki/File:Jimmy.png",
+      "0002" => "http://meta.wikimedia.org/wiki/File:Jamesbanner.png",
+      "0003" => "http://meta.wikimedia.org/wiki/File:Isaacbanner.png",
+      "0004" => "http://meta.wikimedia.org/wiki/File:Brandonpic.png",
+      "0005" => "http://meta.wikimedia.org/wiki/File:Susan.png",
+      "0006" => "http://meta.wikimedia.org/wiki/File:Sarahbanner.png",
+      "0007" => "http://meta.wikimedia.org/wiki/File:06photo.png",
+      "0008" => "http://meta.wikimedia.org/wiki/File:Maryanasmile.png",
+      "0009" => "http://commons.wikimedia.org/wiki/File:The_Blue_Marble.jpg",
+      "0010" => "http://commons.wikimedia.org/wiki/File:A_sunflower-Edited.png",
+      "0011" => "http://commons.wikimedia.org/wiki/File:Firework.jpg",
+      "0012" => "http://commons.wikimedia.org/wiki/File:Pennies.jpg",
+      "0013" => "http://commons.wikimedia.org/wiki/File:Matterhorn_Riffelsee_2005-06-11.jpg",
+      "0014" => "http://commons.wikimedia.org/wiki/File:Cherry_Stella444.jpg",
+      "0015" => "http://commons.wikimedia.org/wiki/File:Strawberry444.jpg",
+      "0016" => "http://commons.wikimedia.org/wiki/File:Toy_balloons_2011_G1.jpg",
+      "0017" => "http://commons.wikimedia.org/wiki/File:Wonder_eye.png",
+      "0018" => "http://commons.wikimedia.org/wiki/File:Cactus_flower_unidentified.jpg",
+      "0019" => "http://commons.wikimedia.org/wiki/File:Aldrin_Apollo_11.jpg",
+      "0020" => "http://commons.wikimedia.org/wiki/File:Jelly---Gummi-Bear---Yellow---Detailed---%28Gentry%29.jpg",
+      "0021" => "http://commons.wikimedia.org/wiki/File:Daption_capense_in_flight_-_SE_Tasmania.jpg",
+      "0022" => "http://commons.wikimedia.org/wiki/File:Stop_sign_light_red.svg",
+      "0023" => "http://commons.wikimedia.org/wiki/File:Traffic_light_green.png",
+      "0024" => "http://commons.wikimedia.org/wiki/File:Padlock-silver-light.svg",
+      "0025" => "http://commons.wikimedia.org/wiki/File:Gift.png",
+      "0026" => "http://commons.wikimedia.org/wiki/File:Too_little_information_-_geograph.org.uk_-_1272898.jpg",
+      "0027" => "http://commons.wikimedia.org/wiki/File:Old_violin.jpg",
+      "0028" => "http://commons.wikimedia.org/wiki/File:Violin_g1.svg",
+      "0029" => "http://commons.wikimedia.org/wiki/File:Education_-_Grad_Hat.svg",
+      "0030" => "http://commons.wikimedia.org/wiki/File:DNA_Double_Helix.png",
+      "0031" => "http://commons.wikimedia.org/wiki/File%3AHarvesting_daisies.jpg",
+      "0032" => "http://en.wikipedia.org/wiki/File:Llave_bronce.jpg",
+      "0033" => "http://commons.wikimedia.org/wiki/File:Root-rendered-by-TeX.svg",
+      "0034" => "http://en.wikipedia.org/wiki/File:Kitchen_utensils_hanging_below_a_spice_rack.jpg",
+      "0035" => "http://meta.wikimedia.org/wiki/File:Wmf_sdtpa_servers_2009-01-20_34.jpg",
+      "0036" => "http://commons.wikimedia.org/wiki/File:Einzelne_Kerze.JPG",
+    }
+    render(:template => 'wikipedia/gallery', :layout => '/wikipedia/layout') && return
+  end
 end

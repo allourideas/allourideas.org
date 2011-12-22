@@ -194,6 +194,9 @@ class PromptsController < ApplicationController
  
      end
 
+      if wikipedia?
+        options.merge!({:force_invalid_vote => true})
+      end
      options
   end
 

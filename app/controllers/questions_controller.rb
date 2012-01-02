@@ -146,8 +146,13 @@ class QuestionsController < ApplicationController
         @scores = {}
         choices = Choice.find(:all, :params => {:question_id => @question_id})
         scores = choices.map(&:score)
-        @max_score = scores.max
-        @min_score = scores.min
+        if params[:dynamic_range] and params[:dynamic_range] == 'true'
+          @max_score = scores.max
+          @min_score = scores.min
+        else
+          @max_score = 100
+          @min_score = 0
+        end
         choices.each do |choice|
           image = choice.data[0..3]
           banner = choice.data[5..-1]
@@ -178,7 +183,7 @@ class QuestionsController < ApplicationController
       @missing_color
     else
       max = 255
-      mid = denom / 2
+      mid = @min_score + denom / 2
       if score > mid
         # white to red
         red = max

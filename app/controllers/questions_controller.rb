@@ -146,8 +146,13 @@ class QuestionsController < ApplicationController
         @scores = {}
         choices = Choice.find(:all, :params => {:question_id => @question_id})
         scores = choices.map(&:score)
-        @max_score = scores.max
-        @min_score = scores.min
+        if params[:dynamic_range] and params[:dynamic_range] == 'true'
+          @max_score = scores.max
+          @min_score = scores.min
+        else
+          @max_score = 100
+          @min_score = 0
+        end
         choices.each do |choice|
           image = choice.data[0..3]
           banner = choice.data[5..-1]
@@ -177,12 +182,27 @@ class QuestionsController < ApplicationController
     if denom == 0
       @missing_color
     else
-      max_gb = 245
-      red = max_gb - (((score - @min_score) / denom) * max_gb).to_i
-      "rgb(255,#{red},#{red})"
+      max = 255
+      mid = @min_score + denom / 2
+      if score > mid
+        # white to red
+        red = max
+        green = blue = scale(score, [@max_score, mid], [0, max])
+      else
+        # blue to white
+        blue = max
+        red = green = scale(score, [mid, @min_score], [max, 0])
+      end
+      "rgb(#{red},#{green},#{blue})"
     end
   end
   
+  # TODO: declare as private
+  # scale numeric val from array src to array dst range, return integer
+  def scale(val, src, dst)
+    (((val - src[0]) / (src[1]-src[0])) * (dst[1]-dst[0]) + dst[0]).to_i
+  end
+
   def admin
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
     @earl = Earl.find params[:id]

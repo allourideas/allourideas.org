@@ -2,7 +2,7 @@ source :rubygems
 
 gem "rails", "2.3.5"
 gem "hoptoad_notifier", "2.4.9"
-gem "libxml-ruby", "0.9.7", :require => "libxml"
+gem "libxml-ruby", "1.1.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
 gem "paperclip", "2.3.1.1"
 gem "aws-s3", "0.6.2", :require => "aws/s3"

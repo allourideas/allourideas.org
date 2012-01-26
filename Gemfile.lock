@@ -62,7 +62,7 @@ GEM
     josevalim-inherited_resources (0.9.1)
     json (1.6.5)
     justinfrench-formtastic (0.2.2)
-    libxml-ruby (0.9.7)
+    libxml-ruby (1.1.2)
     mime-types (1.16)
     multi_json (1.0.4)
     mysql (2.8.1)
@@ -136,7 +136,7 @@ DEPENDENCIES
   jferris-mocha (= 0.9.5.0.1241126838)
   josevalim-inherited_resources (= 0.9.1)
   justinfrench-formtastic (= 0.2.2)
-  libxml-ruby (= 0.9.7)
+  libxml-ruby (= 1.1.2)
   mime-types (= 1.16)
   mysql
   newrelic_rpm (= 3.3.0)

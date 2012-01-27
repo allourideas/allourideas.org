@@ -1,4 +1,4 @@
-class ClicksController < ApplicationController
+class ClicksController < InheritedResources::Base
    require 'fastercsv'
     
    def export

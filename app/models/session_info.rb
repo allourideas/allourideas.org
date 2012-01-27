@@ -11,7 +11,7 @@ class SessionInfo< ActiveRecord::Base
 
 	def do_geolocate
 		logger.info("Doing geolocation after create")
-		self.send_later :geolocate!, self.ip_addr
+		self.delay.geolocate!(self.ip_addr)
 		#delete ip_addr here
 	end
 

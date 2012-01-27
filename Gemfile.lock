@@ -1,5 +1,6 @@
 GEM
   remote: http://rubygems.org/
+  remote: http://gems.github.com/
   specs:
     actionmailer (2.3.5)
       actionpack (= 2.3.5)
@@ -16,7 +17,7 @@ GEM
       builder
       mime-types
       xml-simple
-    builder (3.0.0)
+    builder (2.1.2)
     capybara (0.3.7)
       culerity (>= 0.2.4)
       mime-types (>= 1.16)
@@ -27,14 +28,14 @@ GEM
     childprocess (0.3.0)
       ffi (~> 1.0.6)
     crack (0.1.4)
-    cucumber (1.1.0)
-      builder (>= 2.1.2)
-      diff-lcs (>= 1.1.2)
-      gherkin (~> 2.5.0)
-      json (>= 1.4.6)
-      term-ansicolor (>= 1.0.6)
-    cucumber-rails (0.3.2)
-      cucumber (>= 0.8.0)
+    cucumber (0.8.5)
+      builder (~> 2.1.2)
+      diff-lcs (~> 1.1.2)
+      gherkin (~> 2.1.4)
+      json_pure (~> 1.4.3)
+      term-ansicolor (~> 1.0.4)
+    cucumber-rails (0.3.0)
+      cucumber (>= 0.6.2)
     culerity (0.2.15)
     daemons (1.1.6)
     database_cleaner (0.5.0)
@@ -50,8 +51,8 @@ GEM
       activesupport (>= 2.2.3)
     geoip_city (0.2.0)
     geokit (1.5.0)
-    gherkin (2.5.4)
-      json (>= 1.4.6)
+    gherkin (2.1.5)
+      trollop (~> 1.16.2)
     haml (3.0.9)
     hoptoad_notifier (2.4.9)
       activesupport
@@ -60,7 +61,7 @@ GEM
     jferris-mocha (0.9.5.0.1241126838)
       rake
     josevalim-inherited_resources (0.9.1)
-    json (1.6.5)
+    json_pure (1.4.6)
     justinfrench-formtastic (0.2.2)
     libxml-ruby (1.1.2)
     mime-types (1.16)
@@ -107,6 +108,7 @@ GEM
     thoughtbot-factory_girl (1.2.2)
     thoughtbot-shoulda (2.10.2)
     timecop (0.3.5)
+    trollop (1.16.2)
     will_paginate (2.3.14)
     xml-simple (1.0.12)
     yfactorial-utility_scopes (0.2.2)
@@ -120,8 +122,8 @@ DEPENDENCIES
   aws-s3 (= 0.6.2)
   capybara (= 0.3.7)
   crack (= 0.1.4)
-  cucumber (= 1.1.0)
-  cucumber-rails (= 0.3.2)
+  cucumber (= 0.8.5)
+  cucumber-rails (= 0.3.0)
   database_cleaner (= 0.5.0)
   delayed_job (= 2.0.6)
   email_spec (= 0.4.0)

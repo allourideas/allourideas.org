@@ -1,4 +1,5 @@
 source :rubygems
+source "http://gems.github.com"
 
 gem "rails", "2.3.5"
 gem "hoptoad_notifier", "2.4.9"
@@ -28,42 +29,42 @@ gem "newrelic_rpm", "3.3.0"
 
 group :production do
   gem "rubaidh-google_analytics", "1.1.4", :require => "rubaidh/google_analytics"
-  gem 'sendgrid', '0.1.4'
+  gem "sendgrid", "0.1.4"
 end
 
 group :staging do
   gem "rubaidh-google_analytics", "1.1.4", :require => "rubaidh/google_analytics"
-  gem 'sendgrid', '0.1.4'
+  gem "sendgrid", "0.1.4"
 end
 
 group :cucumber do
-  gem 'cucumber-rails', '0.3.2'
-  gem 'database_cleaner', '0.5.0'
-  gem 'capybara', '0.3.7'
-  gem 'rspec', '1.3.2'
-  gem 'rspec-rails', '1.3.4'
-  gem 'email_spec', "0.4.0", :require => 'email_spec'
-  gem 'timecop', '0.3.5'
-  gem 'sendgrid', '0.1.4'
-  gem 'thoughtbot-factory_girl', "~>1.2.1", :require => 'factory_girl'
-  gem 'thoughtbot-shoulda', "~> 2.10.1", :require => 'shoulda'
+  gem "cucumber-rails", "0.3.0"
+  gem "database_cleaner", "0.5.0"
+  gem "capybara", "0.3.7"
+  gem "rspec", "1.3.2"
+  gem "rspec-rails", "1.3.4"
+  gem "email_spec", "0.4.0"
+  gem "timecop", "0.3.5"
+  gem "sendgrid", "0.1.4"
+  gem "thoughtbot-factory_girl", "~>1.2.1", :require => "factory_girl"
+  gem "thoughtbot-shoulda", "~> 2.10.1", :require => "shoulda"
 end
 
 group :test do
-  gem 'cucumber', '1.1.0'
-  gem 'cucumber-rails', '0.3.2'
-  gem 'sqlite3', '>=1.3.3'
-  gem 'database_cleaner', '0.5.0'
-  gem 'capybara', '0.3.7'
-  gem 'thoughtbot-factory_girl', "~>1.2.1", :require => 'factory_girl'
-  gem 'thoughtbot-shoulda', "~> 2.10.1", :require => 'shoulda'
-  gem 'timecop', '0.3.5'
-  gem 'mysql'
-  gem 'rspec', '1.3.2'
-  gem 'rspec-rails', '1.3.4'
-  gem 'email_spec', '0.4.0'
-  gem 'sendgrid', '0.1.4'
-  gem 'pickle', '0.4.7'
-  gem 'fakeweb', '~>1.2.5'
-  gem 'jferris-mocha', '0.9.5.0.1241126838', :require => 'mocha'
+  gem "cucumber", "0.8.5"
+  gem "cucumber-rails", "0.3.0"
+  gem "sqlite3", ">=1.3.3"
+  gem "database_cleaner", "0.5.0"
+  gem "capybara", "0.3.7"
+  gem "thoughtbot-factory_girl", "~>1.2.1", :require => "factory_girl"
+  gem "thoughtbot-shoulda", "~> 2.10.1", :require => "shoulda"
+  gem "timecop", "0.3.5"
+  gem "mysql"
+  gem "rspec", "1.3.2"
+  gem "rspec-rails", "1.3.4"
+  gem "email_spec", "0.4.0"
+  gem "sendgrid", "0.1.4"
+  gem "pickle", "0.4.7"
+  gem "fakeweb", "~>1.2.5"
+  gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
 end

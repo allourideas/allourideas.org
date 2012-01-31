@@ -30,6 +30,9 @@ class ApplicationController < ActionController::Base
   
   def initialize_session
     session[:session_id] # this forces load of the session in Rails 2.3.x
+    # for some reason this is required after upgrade from 2.3.5
+    # without it, we can't access request.session_options[:id]
+    request.inspect
     if signed_in?
       logger.info "current user is #{current_user.inspect}"
     end
@@ -74,7 +77,6 @@ class ApplicationController < ActionController::Base
     end
 
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
-
     user_session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
 						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],

@@ -11,7 +11,7 @@ Feature: Ignore votes immediately after skips
   Scenario: Votes should appear counted, but not actually count
     When I click the I can't decide button
     And I pick "I like both ideas"
-    And I click the I can't decide submit button
+    And I click the I can't decide button
     Then I should see "You couldn't decide." within ".tellmearea"
     And the vote count should be 0
     When I click on the left choice 

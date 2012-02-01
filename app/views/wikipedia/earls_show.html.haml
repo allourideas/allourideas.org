@@ -2,7 +2,7 @@
   = javascript_include_tag '/images/wikipedia/jquery.autoresize.min.js'
   = javascript_include_tag '/images/wikipedia/jquery.placeholder.min.js'
   :javascript
-    var AUTH_TOKEN = #{form_authenticity_token.inspect};
+    var AUTH_TOKEN = #{form_authenticity_token.to_json};
     var PAGE_LOADED_AT = new Date();
     var RAILS_LOCALE = '#{I18n.locale}';
     var LINE_BREAK_ALERT = false;
@@ -105,7 +105,7 @@
     	var VOTE_CAST_AT = new Date();
     	vote_params = {
     	  direction: choice.attr('direction'),
-        authenticity_token: encodeURIComponent(AUTH_TOKEN),
+        authenticity_token: AUTH_TOKEN,
         time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
         appearance_lookup: $('#appearance_lookup').val()
     	}

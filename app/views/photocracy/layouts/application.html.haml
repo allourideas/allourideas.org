@@ -11,7 +11,7 @@
       =stylesheet_link_tag 'photocracy/ie'
     =stylesheet_link_tag 'photocracy/application'
     :javascript 
-      var AUTH_TOKEN = #{form_authenticity_token.inspect};
+      var AUTH_TOKEN = #{form_authenticity_token.to_json};
       var PAGE_LOADED_AT = new Date();
       var RAILS_LOCALE = '#{I18n.locale}';
       var VOTE_CROSSFADE_TRANSITION = #{@vote_crossfade_transition.nil? ? 'false' : @vote_crossfade_transition};

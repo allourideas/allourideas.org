@@ -247,7 +247,7 @@ var count = 0;
 	     url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
 	     dataType: "json",
 	     data: {
-		   'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+		   'authenticity_token' : AUTH_TOKEN,
 		   'time_viewed' : time_viewed,
 		   'prompt_id': prompt_id,
 		   'appearance_lookup': appearance_lookup,
@@ -380,7 +380,7 @@ var count = 0;
 	  var question_id = $(event.target).attr("data-questionid");
 	  $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js'+ '?locale=<%= I18n.locale %>',
 	     {
-		   'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+		   'authenticity_token' : AUTH_TOKEN,
 		   'cant_decide_reason' : reason, 
 		   'time_viewed' : time_viewed,
 		   'appearance_lookup': appearance_lookup
@@ -462,7 +462,7 @@ var count = 0;
     var question_id = $(this).attr("rel");
     $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/flag.js'+ '?locale=<%= I18n.locale %>', 
     {
-	    'authenticity_token' : encodeURIComponent(AUTH_TOKEN),
+	    'authenticity_token' : AUTH_TOKEN,
 	    'flag_reason' : user_text,
 	    'time_viewed' : time_viewed,
 	    'prompt_id': prompt_id,

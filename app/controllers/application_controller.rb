@@ -30,9 +30,6 @@ class ApplicationController < ActionController::Base
   
   def initialize_session
     session[:session_id] # this forces load of the session in Rails 2.3.x
-    # for some reason this is required after upgrade from 2.3.5
-    # without it, we can't access request.session_options[:id]
-    request.inspect
     if signed_in?
       logger.info "current user is #{current_user.inspect}"
     end

@@ -8,7 +8,7 @@ Feature: Objects over time graphs
      Given an idea marketplace quickly exists with url 'test'
      And I am on the View Results page for 'test'
      When I follow "votes-datechart-view-link"
-     Then I should see "Cannot make chart, no data"
+     Then I should see "Number of Votes per day Overall total - 0" within ".highcharts-container"
   
   @selenium
   Scenario: Some votes on one day

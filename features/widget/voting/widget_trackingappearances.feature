@@ -13,7 +13,6 @@ Feature: Tracking appearances
     Scenario: User gets a new appearance after submitting a cant decide
       When I click the I can't decide button
       And I pick "I like both ideas"
-      And I click the I can't decide submit button
       Then the current appearance lookup should not match the saved appearance lookup
 
     @widget

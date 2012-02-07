@@ -17,3 +17,4 @@ doc/api
 doc/app
 *~
 .rvmrc
+.bundle

@@ -124,7 +124,7 @@ PLATFORMS
 DEPENDENCIES
   ambethia-smtp-tls (= 1.1.2)
   aws-s3 (= 0.6.2)
-  bundler (= 1.0.7)
+  bundler (= 1.0.21)
   capybara (= 0.3.7)
   crack (= 0.1.4)
   cucumber (= 0.8.5)

@@ -25,7 +25,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.2)
       selenium-webdriver (>= 0.0.3)
-    childprocess (0.3.0)
+    childprocess (0.3.1)
       ffi (~> 1.0.6)
     crack (0.1.4)
     cucumber (0.8.5)
@@ -37,7 +37,7 @@ GEM
     cucumber-rails (0.3.0)
       cucumber (>= 0.6.2)
     culerity (0.2.15)
-    daemons (1.1.6)
+    daemons (1.1.8)
     database_cleaner (0.5.0)
     delayed_job (2.0.6)
       daemons

@@ -40,20 +40,8 @@ group :staging do
   gem "sendgrid", "0.1.4"
 end
 
-group :cucumber do
-  gem "cucumber-rails", "0.3.0"
-  gem "database_cleaner", "0.5.0"
-  gem "capybara", "0.3.7"
-  gem "rspec", "1.3.2"
-  gem "rspec-rails", "1.3.4"
-  gem "email_spec", "0.4.0"
-  gem "timecop", "0.3.5"
-  gem "sendgrid", "0.1.4"
-  gem "thoughtbot-factory_girl", "~>1.2.1", :require => "factory_girl"
-  gem "thoughtbot-shoulda", "~> 2.10.1", :require => "shoulda"
-end
-
 group :test do
+  gem "timecop", "0.3.5"
   gem "cucumber", "0.8.5"
   gem "cucumber-rails", "0.3.0"
   gem "sqlite3", ">=1.3.3"

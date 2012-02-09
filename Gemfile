@@ -31,7 +31,7 @@ gem "i18n", "0.3.7"
 gem "delayed_job", "2.0.6"
 gem "haml", "3.0.9"
 gem "newrelic_rpm", "3.3.0"
-gem "mysql2", "0.3.11"
+gem "mysql2", "0.2.18"
 
 group :production do
   gem "rubaidh-google_analytics", "1.1.4", :require => "rubaidh/google_analytics"

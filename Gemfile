@@ -3,6 +3,8 @@ source "http://gems.github.com"
 
 gem "bundler", "1.0.21"
 gem "rails", "2.3.14"
+gem "multi_json", "1.0.4"
+gem "json_pure", "1.4.6"
 gem "hoptoad_notifier", "2.4.9"
 gem "libxml-ruby", "2.2.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"

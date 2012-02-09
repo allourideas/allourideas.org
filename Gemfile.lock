@@ -64,6 +64,7 @@ GEM
       responders (~> 0.4.3)
     jferris-mocha (0.9.5.0.1241126838)
       rake
+    json (1.1.3)
     json_pure (1.4.6)
     justinfrench-formtastic (0.2.2)
     libxml-ruby (2.2.2)
@@ -143,7 +144,7 @@ DEPENDENCIES
   i18n (= 0.3.7)
   inherited_resources (= 1.0.4)
   jferris-mocha (= 0.9.5.0.1241126838)
-  json_pure (= 1.4.6)
+  json (= 1.1.3)
   justinfrench-formtastic (= 0.2.2)
   libxml-ruby (= 2.2.2)
   mime-types (= 1.16)

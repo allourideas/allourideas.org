@@ -31,6 +31,7 @@ gem "i18n", "0.3.7"
 gem "delayed_job", "2.0.6"
 gem "haml", "3.0.9"
 gem "newrelic_rpm", "3.3.0"
+gem "mysql2", "0.3.11"
 
 group :production do
   gem "rubaidh-google_analytics", "1.1.4", :require => "rubaidh/google_analytics"
@@ -52,7 +53,6 @@ group :test do
   gem "thoughtbot-factory_girl", "~>1.2.1", :require => "factory_girl"
   gem "thoughtbot-shoulda", "~> 2.10.1", :require => "shoulda"
   gem "timecop", "0.3.5"
-  gem "mysql"
   gem "rspec", "1.3.2"
   gem "rspec-rails", "1.3.4"
   gem "email_spec", "0.4.0"

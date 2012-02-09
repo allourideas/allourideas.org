@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
+  skip_after_filter :add_google_analytics_code, :only => [:about]
   require 'crack'
   require 'geokit'
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]

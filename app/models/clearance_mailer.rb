@@ -1,4 +1,4 @@
-unless Rails.env == "development" || Rails.env == "test"
+unless ["development", "test", "cucumber"].include? Rails.env
    include SendGrid
 end
 class ClearanceMailer < ActionMailer::Base

@@ -3,12 +3,12 @@ All Our Ideas
 
 All Our Ideas 2.0.  This codebase runs two sites [photocracy.org](http://www.photocracy.org/) and [allourideas.org](http://www.allourideas.org/).
 
-The allourideas.org project provides the user-facing website for doing pairwise voting. This project depends on the API provided by [pairwise-api](https://github.com/allourideas/pairwise-api).  There are several models that are ActiveResource models that connect to the pairwise API.
+The allourideas.org project provides the user-facing website for doing pairwise voting. This project depends on the API provided by [pairwise-api](https://github.com/allourideas/pairwise-api).  There are several models that are [ActiveResource](http://apidock.com/rails/v2.3.8/ActiveResource/Base) models that connect to the [pairwise API](https://github.com/allourideas/pairwise-api).
 
 Installing
 -------------------
 
-<https://github.com/allourideas/pairwise-api/wiki/Installing>
+<https://github.com/allourideas/allourideas.org/wiki/Installing>
 
 
 Ownership

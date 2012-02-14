@@ -33,34 +33,11 @@ gem "haml", "3.0.9"
 gem "newrelic_rpm", "3.3.0"
 gem "mysql2", "0.2.18"
 
-group :production do
+group :production, :staging do
   gem "sendgrid", "0.1.4"
 end
 
-group :staging do
-  gem "sendgrid", "0.1.4"
-end
-
-group :cucumber do
-  gem "timecop", "0.3.5"
-  gem "cucumber", "0.8.5"
-  gem "cucumber-rails", "0.3.0"
-  gem "sqlite3", ">=1.3.3"
-  gem "database_cleaner", "0.5.0"
-  gem "capybara", "0.3.7"
-  gem "thoughtbot-factory_girl", "~>1.2.1", :require => "factory_girl"
-  gem "thoughtbot-shoulda", "~> 2.10.1", :require => "shoulda"
-  gem "timecop", "0.3.5"
-  gem "rspec", "1.3.2"
-  gem "rspec-rails", "1.3.4"
-  gem "email_spec", "0.4.0"
-  gem "sendgrid", "0.1.4"
-  gem "pickle", "0.4.7"
-  gem "fakeweb", "~>1.2.5"
-  gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
-end
-
-group :test do
+group :test, :cucumber do
   gem "timecop", "0.3.5"
   gem "cucumber", "0.8.5"
   gem "cucumber-rails", "0.3.0"

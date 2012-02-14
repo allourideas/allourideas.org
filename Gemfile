@@ -37,7 +37,7 @@ group :production, :staging do
   gem "sendgrid", "0.1.4"
 end
 
-group :test, :cucumber do
+group :test do
   gem "timecop", "0.3.5"
   gem "cucumber", "0.8.5"
   gem "cucumber-rails", "0.3.0"

@@ -52,6 +52,18 @@
           \-
           = link_to t('user.login'), sign_in_path
 
-    -if RAILS_ENV['production']
+    -if ['production'].include? Rails.env
       .analytics
-        = render :partial => '/layouts/google_analytics'
+        %script{:type => "text/javascript"}
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-17589269-1']);
+          _gaq.push(['_trackPageview']);
+          - if @earl && !@earl.ga_code.blank?
+            _gaq.push(['b._setAccount', '#{h(@earl.ga_code)}']);
+            _gaq.push(['b._trackPageview']);
+        :javascript
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();

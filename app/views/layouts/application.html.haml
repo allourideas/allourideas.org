@@ -39,18 +39,17 @@
       - unless white_label_request?  
         = render :partial => "shared/footer"
       = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'label_over', 'jquery.jqEasyCharCounter.js', 'application', 'jquery.form'
-      -if RAILS_ENV['production']
-        %script{:type =>"text/javascript"}
-          / Google.gaSSDSLoad("UA-8796271-2");
-        <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-        try {
-        var pageTracker = _gat._getTracker("UA-11703548-1");
-        pageTracker._trackPageview();
-        - if @earl && @earl.ga_code != ""
-          = "var pageTracker = _gat._getTracker('#{h(@earl.ga_code)}');"
-          pageTracker._trackPageview();
-        } catch(err) {}</script>
+      -if ['production'].include? Rails.env
+        %script{:type => "text/javascript"}
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-11703548-1']);
+          _gaq.push(['_trackPageview']);
+          - if @earl && !@earl.ga_code.blank?
+            _gaq.push(['b._setAccount', '#{h(@earl.ga_code)}']);
+            _gaq.push(['b._trackPageview']);
+        :javascript
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();

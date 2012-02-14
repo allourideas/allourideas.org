@@ -34,12 +34,10 @@ gem "newrelic_rpm", "3.3.0"
 gem "mysql2", "0.2.18"
 
 group :production do
-  gem "rubaidh-google_analytics", "1.1.4", :require => "rubaidh/google_analytics"
   gem "sendgrid", "0.1.4"
 end
 
 group :staging do
-  gem "rubaidh-google_analytics", "1.1.4", :require => "rubaidh/google_analytics"
   gem "sendgrid", "0.1.4"
 end
 

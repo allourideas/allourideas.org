@@ -34,6 +34,8 @@ IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on sto
 
 PHOTOCRACY_HOST = 'photocracy.org'
 
+Bundler.require :default, 'test'
+
 require 'redis-store'
 #use a different redis store for testing
 Abingo.cache = ActiveSupport::Cache::RedisStore.new "localhost:6379/2"

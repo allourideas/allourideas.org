@@ -197,7 +197,7 @@ jQuery(document).ready(function() {
 		var earl_id = $(this).attr("rel");
 		var state = $(this).attr("status");
 		$.post('/questions/' + earl_id + '/toggle.js',
-		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		{authenticity_token: AUTH_TOKEN },
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
@@ -281,7 +281,7 @@ jQuery(document).ready(function() {
 		var earl_id = $(this).attr("earl_id");
 		var state = $(this).attr("status");
 		$.post('/questions/' + earl_id + '/choices/' + choice_id + '/toggle.js',
-		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		{authenticity_token: AUTH_TOKEN },
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();
@@ -366,7 +366,7 @@ jQuery(document).ready(function() {
 		var question_id = $(this).attr("question_id");
 		var state = $(this).attr("status");
 		$.post('/questions/' + question_id + '/toggle_autoactivate.js',
-		'authenticity_token='+encodeURIComponent(AUTH_TOKEN),
+		{authenticity_token: AUTH_TOKEN },
 		function(data){
 			$('.indicator').hide();
 			$.unblockUI();

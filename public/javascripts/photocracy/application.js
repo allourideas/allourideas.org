@@ -34,7 +34,7 @@ $(document).ready(function() {
 	    name: 'new_idea',
 	    data: {
 	      question_id : button.attr('question_id'),
-	      authenticity_token: AUTH_TOKEN,
+          authenticity_token: AUTH_TOKEN,
 				locale: RAILS_LOCALE
 	    },
 	    autoSubmit: true,
@@ -143,7 +143,7 @@ function submitCantDecide(form) {
 				prompt_id: $('#prompt_id').val(),
 		    appearance_lookup: $('#appearance_lookup').val(),
 				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
-				authenticity_token: encodeURIComponent(AUTH_TOKEN),
+                authenticity_token: AUTH_TOKEN,
 				locale: RAILS_LOCALE
 		  },
 		  error: function(request, textStatus, errorThrown) {
@@ -183,7 +183,7 @@ function submitFlag(form) {
 				prompt_id: $('#prompt_id').val(),
 		    appearance_lookup: $('#appearance_lookup').val(),
 				time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
-				authenticity_token: encodeURIComponent(AUTH_TOKEN),
+                authenticity_token: AUTH_TOKEN,
 				locale: RAILS_LOCALE
 		  },
 		  error: function(request, textStatus, errorThrown) {
@@ -234,7 +234,7 @@ function castVote(choice, x, y) {
 		dataType: 'json',
 	  url: choice.attr('href'),
 	  data: {
-	  	authenticity_token: encodeURIComponent(AUTH_TOKEN),
+        authenticity_token: AUTH_TOKEN,
 			time_viewed: VOTE_CAST_AT - PAGE_LOADED_AT,
 	    appearance_lookup: $('#appearance_lookup').val(),
 			x_click_offset: x,
@@ -286,7 +286,7 @@ function toggleChoiceActivation(checkbox) {
 		dataType: 'json',
 	  url: checkbox.attr('href'),
 	  data: {
-	  	authenticity_token: encodeURIComponent(AUTH_TOKEN)
+        authenticity_token: AUTH_TOKEN
 	  },
 	  error: function(request, textStatus, errorThrown) {
 			voteError(request, textStatus, errorThrown);
@@ -310,7 +310,7 @@ function toggleQuestionAutoActivation(checkbox) {
 		dataType: 'json',
 	  url: checkbox.attr('href'),
 	  data: {
-	  	authenticity_token: encodeURIComponent(AUTH_TOKEN)
+        authenticity_token: AUTH_TOKEN
 	  },
 	  error: function(request, textStatus, errorThrown) {
 			voteError(request, textStatus, errorThrown);

@@ -993,7 +993,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    @question = Question.new(params[:question])
+    @question = Question.new(params[:question].slice(:name, :ideas))
     @user = User.new(:email => params[:question]['email'],
                      :password => params[:question]['password'],
                      :password_confirmation => params[:question]['password']) unless signed_in?
@@ -1059,7 +1059,7 @@ class QuestionsController < ApplicationController
 
 
     respond_to do |format|
-      if @earl.update_attributes(params[:earl])
+      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code))
         logger.info("Saving new information on earl")
         flash[:notice] = 'Question settings saved successfully!'
         logger.info("Saved new information on earl")

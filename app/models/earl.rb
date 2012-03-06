@@ -7,7 +7,7 @@ class Earl < ActiveRecord::Base
   has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
 
   belongs_to :user
-  
+
   def self.reserved_names
     @@reserved_names
   end

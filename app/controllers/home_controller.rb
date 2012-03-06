@@ -31,7 +31,7 @@ class HomeController < ApplicationController
       else
         @earls = Earl.find(:all, :conditions => {:photocracy => false})
       end
-      all = params[:all] == 'true' ? true : false
+      all = params[:all] == 'true'
       @questions = Question.find(:all, :params => {
                                    :votes_since => Date.today,
                                    :user_ideas => true,

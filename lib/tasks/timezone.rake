@@ -17,6 +17,39 @@ namespace :timezone do
       { :gt => "2012-03-11 01:59:59", :lt => "2012-11-04 01:00:00", :h => 7}
     ]
     unambiguator = {
+      :clicks => [
+        { :range => 5780692..5780964, :h => 7},
+        { :range => 5780965..5781065, :h => 8},
+        { :range => 877752..877834, :h => 7},
+        { :range => 877835..878115, :h => 8},
+      ],
+      :earls => [
+        { :range => 1787..1787, :h => 7} # based on click id 5780744
+      ],
+      :experiments => [
+        { :range => 4394..4394, :h => 7} # based on click id 5780748
+      ],
+      :session_infos => [
+        { :range => 1531703..1531750, :h => 7},
+        { :range => 1531751..1531831, :h => 8},
+        { :range => 309923..309939, :h => 7},
+        { :range => 309940..309982, :h => 8},
+      ],
+      :trials => [
+        { :range => 142807..142815, :h => 7},
+        { :range => 142816..142826, :h => 8},
+        { :range => 791697..791741, :h => 7},
+        { :range => 791742..791769, :h => 8},
+      ],
+      :users => [
+        { :range => 1127..1127, :h => 7} # based on click id 5780742
+      ],
+      :visitors => [
+        { :range => 1375991..1376030, :h => 7},
+        { :range => 1376031..1376104, :h => 8},
+        { :range => 281684..281698, :h => 7},
+        { :range => 281699..281737, :h => 8},
+      ],
     }
     # UTC because Rails will be thinking DB is in UTC when we run this
     #time_spans.map! do |t|

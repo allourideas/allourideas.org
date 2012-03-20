@@ -70,6 +70,19 @@ namespace :timezone do
       :users          => ['created_at', 'updated_at'],
       :delayed_jobs   => ['created_at', 'updated_at', 'run_at', 'locked_at', 'failed_at'],
     }
+    max_ids = {
+      :clicks         => 99999999999999,
+      :earls          => 99999999999999,
+      :experiments    => 99999999999999,
+      :exports        => 99999999999999,
+      :photos         => 99999999999999,
+      :session_infos  => 99999999999999,
+      :slugs          => 99999999999999,
+      :trials         => 99999999999999,
+      :visitors       => 99999999999999,
+      :users          => 99999999999999,
+      :delayed_jobs   => 99999999999999,
+    }
 
     STDOUT.sync = true
     logger = Rails.logger
@@ -77,12 +90,12 @@ namespace :timezone do
       print "#{table}"
       batch_size = 10000
       i = 0
-      where = ''
+      where = "WHERE id < #{max_ids[table]}"
       # This is how we split the rows of a table between the various workers
       # so that they don't attempt to work on the same row as another worker.
       # The workerid is any number 0 through workers - 1.
       if args[:workers] > "1"
-        where = "WHERE MOD(id, #{args[:workers]}) = #{args[:workerid]}"
+        where += " AND MOD(id, #{args[:workers]}) = #{args[:workerid]}"
       end
       while true do
         rows = ActiveRecord::Base.connection.select_all(

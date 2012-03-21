@@ -71,17 +71,17 @@ namespace :timezone do
       :delayed_jobs   => ['created_at', 'updated_at', 'run_at', 'locked_at', 'failed_at'],
     }
     max_ids = {
-      :clicks         => 99999999999999,
-      :earls          => 99999999999999,
-      :experiments    => 99999999999999,
-      :exports        => 99999999999999,
-      :photos         => 99999999999999,
-      :session_infos  => 99999999999999,
-      :slugs          => 99999999999999,
-      :trials         => 99999999999999,
-      :visitors       => 99999999999999,
-      :users          => 99999999999999,
-      :delayed_jobs   => 99999999999999,
+      :clicks         => 7292625,
+      :earls          => 2185,
+      :experiments    => 5379,
+      :exports        => 474,
+      :photos         => 5146,
+      :session_infos  => 2272643,
+      :slugs          => 2194,
+      :trials         => 1312182,
+      :visitors       => 2037537,
+      :users          => 1377,
+      :delayed_jobs   => 2143601,
     }
 
     STDOUT.sync = true

@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.about '/about', :controller => 'home', :action => 'about'
   map.admin '/admin', :controller => 'home', :action => 'admin'
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'
-  map.privacy '/privacy-2009-07-06', :controller => 'home', :action => 'privacy-2009-07-06'
+  map.privacy_2009_07_06 '/privacy-2009-07-06', :controller => 'home', :action => 'privacy-2009-07-06'
   map.tour '/tour', :controller => 'home', :action => 'tour'
   map.example '/example', :controller => 'home', :action => 'example'
   map.connect '/signup', :controller => 'users', :action => 'new'

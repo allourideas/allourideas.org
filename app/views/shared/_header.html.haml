@@ -1,11 +1,13 @@
-.header
-  .fleft.clear{:style => "clear:right;"}
+.row.header
+  .span5
     = link_to(image_tag("logo#{'-small' if (@earl && !@earl.logo_file_name.nil?)}.jpg"), root_path, :class => 'logo')
-  -if controller.controller_name == 'home' || (controller.controller_name == 'questions' && controller.action_name == 'new')
-    .fright
-      %ul
-        %li= link_to(t('nav.home'), root_path, class_for_nav(params, 'index'))
-        %li= link_to(t('nav.create'), new_question_path, class_for_nav(params, 'new', 'questions'))
-        %li= link_to(t('nav.about'), about_path, class_for_nav(params, 'about'))
-        %li= link_to(t('nav.blog'), "http://blog.allourideas.org", class_for_nav(params, 'blog'))
-  .clear
+  .span5.offset2
+    -if controller.controller_name == 'home' || (controller.controller_name == 'questions' && controller.action_name == 'new')
+      %ul.nav.nav-pills
+        %li{:class => current_page?(root_path) ? 'active' : nil}
+          = link_to(t('nav.home'), root_path)
+        %li{:class => current_page?(new_question_path) ? 'active' : nil}
+          = link_to(t('nav.create'), new_question_path)
+        %li{:class => current_page?(about_path) ? 'active' : nil}
+          = link_to(t('nav.about'), about_path)
+        %li= link_to(t('nav.blog'), "http://blog.allourideas.org")

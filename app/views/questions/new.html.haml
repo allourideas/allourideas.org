@@ -1,87 +1,90 @@
-%h1= t('questions.new.header')
-
-%br
-%h2
-  = t('questions.new.exp')
-  = link_to(t('questions.new.see_an'), "/studentgovernment")
-  = t('questions.new.exp2')
-  %br
-  %br
-  = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.') unless logged_in?
-%left.create-question
-  -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
-    %p
-      = f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
-      - if @user && @user.errors.any?
-        #errorExplanation.errorExplanation
-          %h2=t('questions.new.error.registration')
-          %br
-          %ul
-            -@user.errors.each do |error| 
-              - if error.join(' ') =~ /Email has already been taken/i
-                %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
-              - else
-                %li= error.join(' ').capitalize
-  
-    %h2= t('questions.new.step1')
-    %p
-      == #{t('questions.new.display_text')}:
-
-      = f.text_field 'name', :size => 60, :title => t('questions.new.step1_exp'), :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH
-      = hidden_field_tag 'default_text', t('questions.new.step1_exp')
+.row
+  .span12
+    %h2= t('questions.new.header')
     
-    %br
-    %h2= t('questions.new.step2')
     %p
-      <span style="float:left;top:5px;">http://www.allourideas.org/</span>
-      = f.text_field 'url', :class => 'required', :title => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25,:style => "float:left;"
-      = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
-        
-    %br
-    %h2= t('questions.new.step3')
-    %p.ideas
-      = t('questions.new.step3_ist')
-      %br
-      = t('questions.new.step3_ist2')
-      %br
-      == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
-      %br
-      %br
-
-      = f.text_area 'ideas', :class => 'required', :cols => 85, :rows => 12, :title => t('questions.new.step3_exp')
-      = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
-
-    -unless signed_in?
-      
-      %h2= t('questions.new.step4')
+      = t('questions.new.exp')
+      = link_to(t('questions.new.see_an'), "/studentgovernment")
+      = t('questions.new.exp2')
+    - if !logged_in?
       %p
-        = t('questions.new.new_account_exp')
-        %br
-        %br
-        = "#{t('user.email')}:"
-        = f.text_field 'email', :size => 30, :class => 'required email', :title => t('questions.new.your_email_address'), :maxlength => Const::MAX_QUESTION_LENGTH
-        %br
-
-        = "#{t('user.password')}:"
-        = f.password_field 'password', :class => 'required', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
-
-    -if signed_in?
-      %h2= "Step 4 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
-    -else
-      %h2= "Step 5 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
-    %p
-      = t('questions.new.tell_us_why')
-
-      %br
-      = t('questions.new.tell_us_why2')
-      %br
-      %br
-      = f.text_area 'information', :cols => 85, :rows => 12#, :title => t('questions.new.step3_exp')
+        = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.')
+    %left.create-question
+      -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
+        %p
+          = f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
+          - if @user && @user.errors.any?
+            #errorExplanation.errorExplanation
+              %h2=t('questions.new.error.registration')
+              %br
+              %ul
+                -@user.errors.each do |error| 
+                  - if error.join(' ') =~ /Email has already been taken/i
+                    %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
+                  - else
+                    %li= error.join(' ').capitalize
+      
+        %h3= t('questions.new.step1')
+        %p
+          == #{t('questions.new.display_text')}:
     
-    %p= submit_tag t('form.create'), :class => 'form-btn', :id => "question_create_button"
+          = f.text_field 'name', :size => 60, :title => t('questions.new.step1_exp'), :class => 'required span7', :maxlength => Const::MAX_QUESTION_LENGTH
+          = hidden_field_tag 'default_text', t('questions.new.step1_exp')
+        
+        %br
+        %h3= t('questions.new.step2')
+        %p
+          <span style="float:left;top:5px;display:block;padding-top:5px;">http://www.allourideas.org/</span>
+          = f.text_field 'url', :class => 'required', :title => (@question && @question.url) || t('questions.new.step2_exp'), :size => 25,:style => "float:left;"
+          = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
+            
+        %br
+        %h3= t('questions.new.step3')
+        %p.ideas
+          = t('questions.new.step3_ist')
+          %br
+          = t('questions.new.step3_ist2')
+          %br
+          == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
+          %br
+          %br
     
-
-#indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+          = f.text_area 'ideas', :class => 'required span10', :cols => 85, :rows => 12, :title => t('questions.new.step3_exp')
+          = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
+    
+        -unless signed_in?
+          
+          %h3= t('questions.new.step4')
+          %p
+            = t('questions.new.new_account_exp')
+            %br
+            %br
+            = "#{t('user.email')}:"
+            = f.text_field 'email', :size => 30, :class => 'required email', :title => t('questions.new.your_email_address'), :maxlength => Const::MAX_QUESTION_LENGTH
+            %br
+    
+            = "#{t('user.password')}:"
+            = f.password_field 'password', :class => 'required', :size => 20#, :title => "Give us a password you'll remember", :maxlength => Const::MAX_QUESTION_LENGTH
+    
+        -if signed_in?
+          %h3= "Step 4 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
+        -else
+          %h3= "Step 5 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
+        %p
+          = t('questions.new.tell_us_why')
+    
+          %br
+          = t('questions.new.tell_us_why2')
+          %br
+          %br
+          = f.text_area 'information', :class => 'span10', :cols => 85, :rows => 12#, :title => t('questions.new.step3_exp')
+        
+        %p
+          %button#question_create_button.btn.btn-primary{:type => "submit"}
+            = t('form.create')
+        
+    
+    #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
 
 -content_for :view_javascript do
   :plain

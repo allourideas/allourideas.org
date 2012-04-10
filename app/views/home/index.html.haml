@@ -1,15 +1,19 @@
-.center= image_tag('start.jpg')
+.row
+  .span12
+    .center= image_tag('start.jpg')
 %hr
-.triple-left
-  %h2.noborder= t('home.whats_this')
-  %p= t('home.whats_this_txt')
-  .button= link_to(t('home.learn_more'), about_path, :class => 'button-link')
-.triple-center
-  %h2.noborder= t('home.how_does')
-  %p= t('home.how_does_txt')
-  .button= link_to(t('home.see_an_example'), "/example", :class => 'button-link')
-.triple-right
-  %h2.noborder= t('home.get_started')
-  %p= t('home.get_started_txt')
-  .button= link_to(t('home.create_a_question'), new_question_path, :class => 'button-link')
-  .clear
+.row
+  .span4
+    .whats-this
+      %h3= t('home.whats_this')
+      %p= t('home.whats_this_txt')
+      = link_to(t('home.learn_more'), about_path, :class => 'btn btn-primary')
+  .span4
+    .how-does
+      %h3= t('home.how_does')
+      %p= t('home.how_does_txt')
+      = link_to(t('home.see_an_example'), "/example", :class => 'btn btn-primary')
+  .span4
+    %h3= t('home.get_started')
+    %p= t('home.get_started_txt')
+    = link_to(t('home.create_a_question'), new_question_path, :class => 'btn btn-primary')

@@ -26,17 +26,18 @@
     .content.container{:style => white_label_request? ? "overflow:hidden": ""}
       - unless white_label_request?  
         =render :partial => "shared/header"
-      .body.row{:class => white_label_request? ? 'noborder' : ''}
-        = render :partial => "shared/flashes"
-        -if session[:standard_flash]
-          %p.notice.example_notice#notice= session[:standard_flash]
-          -session[:standard_flash] = nil
-        -unless session[:has_voted]
-          -if session[:welcome_msg]
-            %p.notice.example_notice#notice= h(session[:welcome_msg])
-            -session[:welcome_msg] = nil
+      .body{:class => white_label_request? ? 'noborder' : ''}
+        .row
+          .span12
+            = render :partial => "shared/flashes"
+            -if session[:standard_flash]
+              .alert= session[:standard_flash]
+              -session[:standard_flash] = nil
+            -unless session[:has_voted]
+              -if session[:welcome_msg]
+                .alert= h(session[:welcome_msg])
+                -session[:welcome_msg] = nil
         = yield
-        .clear
       - unless white_label_request?  
         = render :partial => "shared/footer"
       = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'label_over', 'jquery.jqEasyCharCounter.js', 'application', 'jquery.form'

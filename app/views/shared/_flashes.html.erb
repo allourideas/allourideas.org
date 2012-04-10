@@ -1,5 +1,4 @@
-<div id="flash">
-  <% flash.each do |key, value| -%>
-    <div class="notice example_notice" id="flash_<%= key %>"><%=h value %></div>
-  <% end -%>
-</div>
+<% flash.each do |key, value| -%>
+  <% alert_type = 'alert-error' if ['failure', 'error'].include?(key.to_s) -%>
+  <div class="alert <%= alert_type %>" id="flash_<%= key %>"><%=h value %></div>
+<% end -%>

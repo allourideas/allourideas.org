@@ -126,20 +126,22 @@ table {
   .errorExplanation ul li {
     margin-left: 40px; }
 
-.header {
+.header.row {
   margin-top: 10px; }
-  .header .nav {
+  .header.row .nav {
     margin-top: 10px;
     text-transform: uppercase; }
-  .header a.logo:hover {
+  .header.row a.logo {
+    display: block;
+    margin-bottom: 1em; }
+  .header.row a.logo:hover {
     border: none; }
 
 .bread-crumb {
   color: #54afe2; }
 
 .body {
-  margin: 1px 0px;
-  padding: 20px 5px 30px;
+  padding: 20px 0 30px;
   border-top: 1px solid #d8dbdc;
   border-bottom: 1px solid #d8dbdc; }
   .body .center img {

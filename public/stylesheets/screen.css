@@ -176,7 +176,8 @@ table {
   padding-bottom: 2px; }
 
 .votebox table {
-  text-align: center; }
+  text-align: center;
+  margin: 0 auto; }
   .votebox table td {
     padding: 0 0 5px; }
     .votebox table td .borderfg {

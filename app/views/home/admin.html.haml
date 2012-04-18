@@ -1,81 +1,82 @@
 =# render :partial => 'shared/header_vote'
-.ninety
-  %table{:class => current_user.admin? ? "full tablesorter" : "full"}
-    %thead
-      %tr.row0
-        %th= "Question"
-        %th= t('admin.num_votes')
-        %th= t('admin.num_votes_today')
-        -if current_user.admin?
-          %th= t('admin.user_ideas')
-          %th= t('admin.active_user_ideas')
-        %th= t('admin.created')
-        %th.score= (@header_text = "Status") #+ link_to('[?]', "score_items_path(:question_id => @question_id)", :popup => ['status=0,location=0', 'height=200,width=500'])
-    %tbody
-      -alt=false
-      -for earl in @earls
-        -q = @questions_map[earl.question_id] or next
-        %tr{:class => "row#{(alt = !alt) ? 1 : 2}"}
-          %td.title= link_to h(truncate(q.attributes['name'], :length => 140, :omission => '…')), url_for(:controller => :questions, :action => :admin, :id => earl.name)
-          %td= q.votes_count
-          %td= q.recent_votes
+.row
+  .span12
+    %table.table.table-bordered.table-striped.table-condensed{:class => current_user.admin? ? "tablesorter" : ""}
+      %thead
+        %tr
+          %th= "Question"
+          %th= t('admin.num_votes')
+          %th= t('admin.num_votes_today')
           -if current_user.admin?
-            %td= q.user_ideas
-            %td= q.active_user_ideas
-          %td= earl.created_at.to_date
-          %td.votes{:id => "question_#{earl.id}_status"}
-            .toggle_question_status{:rel => earl.id, :id => "question_#{earl.id}_toggle", :status => "#{earl.active?}" }
-              =earl.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
-  - if params[:all] != 'true' && current_user.admin?
-    %p
-      %a{:href => '/admin?all=true'}
-        See all
-  %br
-  
-  -if current_user.admin?
-    %table.full
-      %tr.row0
-        %th= t('results.data_visualizations') + '(super-admin only)'
-        %th.score &nbsp;
-      %tr.row1
-        %td.title= t('results.world_map_title')
-        %td.votes 
-          = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :class => "view_voter_map")
-      %tr.row2
-        %td.title= t('results.world_map_creators')
-        %td.votes 
-          = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all_creators"), :class => "view_voter_map")
-      -if @available_charts
-        -@available_charts.each do |type, options|
-          %tr{:class => cycle("row2", "row1")}
-            %td.title= options[:title]
-            %td.votes
-              = link_to('[View]', url_for(:controller=> :questions, :action => :timeline_graph, :id => "fakequestion", :type => type, :totals => true), :class => 'date-chart')
-          %tr{:class => current_cycle , :style => "display:none;"}
-            %td.title{:colspan => '2'}
-              .chart-container{:id => "#{type}-chart-container"}
+            %th= t('admin.user_ideas')
+            %th= t('admin.active_user_ideas')
+          %th= t('admin.created')
+          %th= "Status"
+      %tbody
+        -alt=false
+        -for earl in @earls
+          -q = @questions_map[earl.question_id] or next
+          %tr
+            %td.title= link_to h(truncate(q.attributes['name'], :length => 140, :omission => '…')), url_for(:controller => :questions, :action => :admin, :id => earl.name)
+            %td= q.votes_count
+            %td= q.recent_votes
+            -if current_user.admin?
+              %td= q.user_ideas
+              %td= q.active_user_ideas
+            %td= earl.created_at.to_date
+            %td
+              %button.toggle_question_status.btn{:class => earl.active? ? 'btn-info' : '', :"data-earl_id" => earl.id}
+                = earl.active? ? 'Activated' : 'Deactivated'
+    - if params[:all] != 'true' && current_user.admin?
+      %p
+        %a{:href => '/admin?all=true'}
+          See all
+    %br
+    
+    -if current_user.admin?
+      %table.full
+        %tr.row0
+          %th= t('results.data_visualizations') + '(super-admin only)'
+          %th.score &nbsp;
+        %tr.row1
+          %td.title= t('results.world_map_title')
+          %td.votes 
+            = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :class => "view_voter_map")
+        %tr.row2
+          %td.title= t('results.world_map_creators')
+          %td.votes 
+            = link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all_creators"), :class => "view_voter_map")
+        -if @available_charts
+          -@available_charts.each do |type, options|
+            %tr{:class => cycle("row2", "row1")}
+              %td.title= options[:title]
+              %td.votes
+                = link_to('[View]', url_for(:controller=> :questions, :action => :timeline_graph, :id => "fakequestion", :type => type, :totals => true), :class => 'date-chart')
+            %tr{:class => current_cycle , :style => "display:none;"}
+              %td.title{:colspan => '2'}
+                .chart-container{:id => "#{type}-chart-container"}
 
-    %table.full
-      %tr.row0
-        %th= "Download Idea Marketplace Data (super-admin only)"
-        %th &nbsp;
-        %th &nbsp;
-      %tr.row1
-        %td.title= "List of All Idea Market Places CSV"
-        %td &nbsp;
-        %td
-          = link_to('[Download]', :controller => :earls, :action => :export_list)
-      %tr.row2
-        %td.title= "List of all Clicks CSV"
-        %td &nbsp;
-        %td
-          = link_to('[Download]', :controller => :clicks, :action => :export)
-  
+      %table.full
+        %tr.row0
+          %th= "Download Idea Marketplace Data (super-admin only)"
+          %th &nbsp;
+          %th &nbsp;
+        %tr.row1
+          %td.title= "List of All Idea Market Places CSV"
+          %td &nbsp;
+          %td
+            = link_to('[Download]', :controller => :earls, :action => :export_list)
+        %tr.row2
+          %td.title= "List of all Clicks CSV"
+          %td &nbsp;
+          %td
+            = link_to('[Download]', :controller => :clicks, :action => :export)
+    
 
-  
-  #explanation{:style => 'display:none;'}
-    %h2= t('items.about_scoring')
-    =t('items.score_explain')
+    
+    #explanation{:style => 'display:none;'}
+      %h2= t('items.about_scoring')
+      =t('items.score_explain')
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"
@@ -85,8 +86,5 @@
     var results_close_text = function(){ return "#{t('results.close_link')}";};
 
 -content_for :view_javascript do
-  = "$('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } }, sortList: [[2,1]] });"
-  $('.tablesorter').bind('sortEnd', function() {
-  $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
-  $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});
+  $('.tablesorter').tablesorter({ headers: { 1 : { sorter: 'digit' } , 2 : { sorter: 'digit' }, 3 : { sorter: 'digit' } , 4 : { sorter: 'digit' } }, sortList: [[2,1]] });
   $('.tablesorter thead tr th').hover(function() { $(this).addClass("headerOver"); } , function() { $(this).removeClass("headerOver"); });

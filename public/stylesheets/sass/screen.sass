@@ -52,7 +52,7 @@ table
   td, th
     padding: 5px
   .title
-    width: 545px
+    max-width: 545px
   .row0
     background-color: #3198c1
     color: white
@@ -383,7 +383,7 @@ hr
   margin-left: 1px
   margin-right: 1px
 
-.toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status
+.toggle_choice_status, .toggle_autoactivate_status
   text-align: center
   color: #ffffff
   cursor: pointer
@@ -400,17 +400,9 @@ label.over-apply
   left: 5px
 
 table.tablesorter
-  font-family: arial
-  margin: 10px 0pt 15px
-  font-size: 8pt
-  width: 100%
-  text-align: left
-  thead tr th, tfoot tr th
-    border: 1px solid #FFF
-    font-size: 8pt
-    padding: 4px 20px 4px 4px
   thead tr .header
-    background-image: url('/images/bg.gif')
+    padding-right: 12px
+    background-image: url(/images/bg-invert.gif)
     background-repeat: no-repeat
     background-position: center right
     cursor: pointer
@@ -426,9 +418,9 @@ table.tablesorter
         background-color: #fefefe
   thead tr
     .headerSortUp
-      background-image: url('/images/asc.gif')
+      background-image: url(/images/asc-invert.gif)
     .headerSortDown
-      background-image: url('/images/desc.gif')
+      background-image: url(/images/desc-invert.gif)
     .headerOver
       background-color: #8dbdd8
 

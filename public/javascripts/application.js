@@ -188,85 +188,29 @@ jQuery(document).ready(function() {
 	
 
 	
-	$('.toggle_question_status').bind('click',function(event){
-		$('.indicator').show();
+	$('.toggle_question_status').bind('click',function(ev){
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
 		        opacity:   0.0
-		    }});
-		var earl_id = $(this).attr("rel");
-		var state = $(this).attr("status");
-		$.post('/questions/' + earl_id + '/toggle.js',
-		{authenticity_token: AUTH_TOKEN },
-		function(data){
-			$('.indicator').hide();
-			$.unblockUI();
-			
-			if(!data['error']) { 
-            if (data['verb'] == "Activated") {
-               $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled-greyfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).removeAttr("style");
-               });
-               $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "true");
-               $("#question_"+earl_id+"_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
-               $("#question_"+earl_id+"_status .round-filled-grey-top").addClass("round-filled-top").removeClass("round-filled-grey-top");
-               $("#question_"+earl_id+"_status .round-filled-grey-bottom").addClass("round-filled-bottom").removeClass("round-filled-grey-bottom");
-               $("#question_"+earl_id+"_status .round-filled-grey").addClass("round-filled").removeClass("round-filled-grey");
-               $("#question_"+earl_id+"_status .round-filled-grey2").addClass("round-filled2").removeClass("round-filled-grey2");
-               $("#question_"+earl_id+"_status .round-filled-grey3").addClass("round-filled3").removeClass("round-filled-grey3");
-               $("#question_"+earl_id+"_status .round-filled-grey4").addClass("round-filled4").removeClass("round-filled-grey4");
-               $("#question_"+earl_id+"_status .round-filled-grey5").addClass("round-filled5").removeClass("round-filled-grey5");
-               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#2b88ad");
-                     $(this).css("border-left", "1px solid #2b88ad");
-                     $(this).css("border-right", "1px solid #2b88ad");
-                   });
-               });
-               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#3198c1");
-                     $(this).css("border-left", "1px solid #3198c1");
-                     $(this).css("border-right", "1px solid #3198c1");
-                  });
-               });
-            }
-            else if (data['verb'] == "Deactivated") {
-               $([$("#question_"+earl_id+"_status .toggle_question_status").children(".round-filledfg"), $("#question_"+earl_id+"_status .toggle_question_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).removeAttr("style");
-               });
-               $("#question_"+earl_id+"_status .toggle_question_status").attr("status", "false");
-               $("#question_"+earl_id+"_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
-               $("#question_"+earl_id+"_status .round-filled .round-filled-top").addClass("round-filled-grey-top").removeClass("round-filled-top");
-               $("#question_"+earl_id+"_status .round-filled .round-filled-bottom").addClass("round-filled-grey-bottom").removeClass("round-filled-bottom");
-               $("#question_"+earl_id+"_status .round-filled").addClass("round-filled-grey").removeClass("round-filled");
-               $("#question_"+earl_id+"_status .round-filled2").addClass("round-filled-grey2").removeClass("round-filled2");
-               $("#question_"+earl_id+"_status .round-filled3").addClass("round-filled-grey3").removeClass("round-filled3");
-               $("#question_"+earl_id+"_status .round-filled4").addClass("round-filled-grey4").removeClass("round-filled4");
-               $("#question_"+earl_id+"_status .round-filled5").addClass("round-filled-grey5").removeClass("round-filled5");
-               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).css("background", "#b1b1b1");
-                     $(this).css("border-left", "1px solid #b1b1b1");
-                     $(this).css("border-right", "1px solid #b1b1b1");
-                   });
-               });
-               $("#question_"+earl_id+"_status .toggle_question_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).css("background", "#cccccc");
-                     $(this).css("border-left", "1px solid #cccccc");
-                     $(this).css("border-right", "1px solid #cccccc");
-                  });
-               });
-            }
-            if (state == "true")
-			      $('#question_'+earl_id+'_toggle .round-filled-greyfg').text(data['verb']);
-			   else
-			      $('#question_'+earl_id+'_toggle .round-filledfg').text(data['verb']);
-			}
-			
-		},
-		"json"
+		}});
+        // should use .data() when we upgrade jQuery
+		var earl_id = $(ev.target).attr("data-earl_id");
+        var postData  = {authenticity_token: AUTH_TOKEN };
+		$.post('/questions/' + earl_id + '/toggle.js', postData,
+		    function(data){
+			    $.unblockUI();
+                if(!data['error']) { 
+                    $(ev.target).html(data['verb']);
+
+                    if (data['verb'] == "Activated") {
+                        $(ev.target).addClass('btn-info');
+                    }
+                    else {
+                        $(ev.target).removeClass('btn-info');
+                    }
+                }
+            },
+		    "json"
 		);
 		return false;
 	});

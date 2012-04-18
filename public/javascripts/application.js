@@ -203,10 +203,10 @@ jQuery(document).ready(function() {
                     $(ev.target).html(data['verb']);
 
                     if (data['verb'] == "Activated") {
-                        $(ev.target).addClass('btn-info');
+                        $(ev.target).addClass('btn-primary');
                     }
                     else {
-                        $(ev.target).removeClass('btn-info');
+                        $(ev.target).removeClass('btn-primary');
                     }
                 }
             },

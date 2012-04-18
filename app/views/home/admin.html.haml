@@ -25,7 +25,7 @@
               %td= q.active_user_ideas
             %td= earl.created_at.to_date
             %td
-              %button.toggle_question_status.btn{:class => earl.active? ? 'btn-info' : '', :"data-earl_id" => earl.id}
+              %button.toggle_question_status.btn{:class => earl.active? ? 'btn-primary' : '', :"data-earl_id" => earl.id}
                 = earl.active? ? 'Activated' : 'Deactivated'
     - if current_user.admin? && !current_page?(admin_path(:all => 'true'))
       .row

@@ -4,10 +4,13 @@
   .span5.offset2
     -if controller.controller_name == 'home' || (controller.controller_name == 'questions' && controller.action_name == 'new')
       %ul.nav.nav-pills
-        %li{:class => current_page?(root_path) ? 'active' : nil}
+        - # We don't want the default active pills for the current page
+        - # typically bootstrap expects these to have the active class.
+        - # However, we find it draws too much attention to the active class.
+        %li{:class => current_page?(root_path) ? 'current' : nil}
           = link_to(t('nav.home'), root_path)
-        %li{:class => current_page?(new_question_path) ? 'active' : nil}
+        %li{:class => current_page?(new_question_path) ? 'current' : nil}
           = link_to(t('nav.create'), new_question_path)
-        %li{:class => current_page?(about_path) ? 'active' : nil}
+        %li{:class => current_page?(about_path) ? 'current' : nil}
           = link_to(t('nav.about'), about_path)
         %li= link_to(t('nav.blog'), "http://blog.allourideas.org")

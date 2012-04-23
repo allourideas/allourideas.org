@@ -464,12 +464,11 @@ jQuery(document).ready(function() {
 			}
 	}
 
-        $('.date-chart').click(function(event){
-			event.preventDefault();
-			event.stopPropagation();
+        $('.date-chart').click(function(ev){
+			ev.preventDefault();
 			
-			var target_row = $(this).parent().parent().next();
-			var target_div = $(this).parent().parent().next().find('div');
+			var target_row = $(ev.target).closest('.row').find('.row');
+			var target_div = target_row.find('.chart-container');
 			if(!toggleLinkTextandTargetElement($(this), target_row))
 			{
 				target_row.show();

@@ -48,7 +48,7 @@
             %p
               = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
 -if current_user.admin?
-  %table.table.table-striped
+  %table.table
     %thead
       %tr
         %th= t('results.data_visualizations') + ' (super-admin only)'
@@ -69,7 +69,7 @@
             %td{:colspan => 2}
               .chart-container{:id => "#{type}-chart-container"}
 
-  %table.table.table-striped
+  %table.table
     %thead
       %tr
         %th Download Idea Marketplace Data (super-admin only)

@@ -1,95 +1,85 @@
 =# render :partial => 'shared/header_vote'
 .row
   .span12
-    %table.table.table-bordered.table-striped.table-condensed{:class => current_user.admin? ? "tablesorter" : ""}
-      %thead
-        %tr
-          %th= "Question"
-          %th= t('admin.num_votes')
-          %th= t('admin.num_votes_today')
-          -if current_user.admin?
-            %th= t('admin.user_ideas')
-            %th= t('admin.active_user_ideas')
-            %th Vote Rate
-            %th
-              %abbr{:title => 'Upload to Participation Rate'}
-                UPR
-            %th
-              %abbr{:title => 'Median Responses per Session'}
-                MRS
-            %th
-              %abbr{:title => 'Votes per Uploaded Choice'}
-                VUC
-          %th= t('admin.created')
-          %th= "Status"
-      %tbody
-        -alt=false
-        -for earl in @earls
-          -q = @questions_map[earl.question_id] or next
+    -if @earls.length > 0
+      %table.table.table-bordered.table-striped.table-condensed{:class => current_user.admin? ? "tablesorter" : ""}
+        %thead
           %tr
-            %td.title= link_to h(truncate(q.attributes['name'], :length => 140, :omission => '…')), url_for(:controller => :questions, :action => :admin, :id => earl.name)
-            %td= q.votes_count
-            %td= q.recent_votes
+            %th= "Question"
+            %th= t('admin.num_votes')
+            %th= t('admin.num_votes_today')
             -if current_user.admin?
-              %td= q.user_ideas
-              %td= q.active_user_ideas
-              %td= q.get(:vote_rate)["voterate"].try(:round, 3)
-              %td= q.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3)
-              %td= q.get(:median_responses_per_session)["median"]
-              %td= q.get(:votes_per_uploaded_choice)["value"].try(:round, 3)
-            %td= earl.created_at.to_date
-            %td
-              %button.toggle_question_status.btn{:class => earl.active? ? 'btn-primary' : '', :"data-earl_id" => earl.id}
-                = earl.active? ? 'Activated' : 'Deactivated'
-    - if current_user.admin? && !current_page?(admin_path(:all => 'true'))
-      .row
-        .span12
-          %p
-            = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
--if current_user.admin?
-  .row
-    .span12
-      %h2= t('results.data_visualizations') + ' (super-admin only)'
-
-  .visualizations
-    .row
-      .span10
-        %p= t('results.world_map_title')
-      .span2
-        %p= link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :class => "view_voter_map")
-
-    .row
-      .span10
-        %p= t('results.world_map_creators')
-      .span2
-        %p= link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all_creators"), :class => "view_voter_map")
-
-    -if @available_charts
-      -@available_charts.each do |type, options|
+              %th= t('admin.user_ideas')
+              %th= t('admin.active_user_ideas')
+              %th Vote Rate
+              %th
+                %abbr{:title => 'Upload to Participation Rate'}
+                  UPR
+              %th
+                %abbr{:title => 'Median Responses per Session'}
+                  MRS
+              %th
+                %abbr{:title => 'Votes per Uploaded Choice'}
+                  VUC
+            %th= t('admin.created')
+            %th= "Status"
+        %tbody
+          -alt=false
+          -for earl in @earls
+            -q = @questions_map[earl.question_id] or next
+            %tr
+              %td.title= link_to h(truncate(q.attributes['name'], :length => 140, :omission => '…')), url_for(:controller => :questions, :action => :admin, :id => earl.name)
+              %td= q.votes_count
+              %td= q.recent_votes
+              -if current_user.admin?
+                %td= q.user_ideas
+                %td= q.active_user_ideas
+                %td= q.get(:vote_rate)["voterate"].try(:round, 3)
+                %td= q.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3)
+                %td= q.get(:median_responses_per_session)["median"]
+                %td= q.get(:votes_per_uploaded_choice)["value"].try(:round, 3)
+              %td= earl.created_at.to_date
+              %td
+                %button.toggle_question_status.btn{:class => earl.active? ? 'btn-primary' : '', :"data-earl_id" => earl.id}
+                  = earl.active? ? 'Activated' : 'Deactivated'
+      - if current_user.admin? && !current_page?(admin_path(:all => 'true'))
         .row
-          .span10
-            %p=options[:title]
-          .span2
-            %p= link_to('[View]', url_for(:controller=> :questions, :action => :timeline_graph, :id => "fakequestion", :type => type, :totals => true), :class => 'date-chart')
-          .row
-            .span12
+          .span12
+            %p
+              = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
+-if current_user.admin?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= t('results.data_visualizations') + ' (super-admin only)'
+        %th
+    %tbody
+      %tr
+        %td= t('results.world_map_title')
+        %td= link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all"), :class => "view_voter_map")
+      %tr
+        %td= t('results.world_map_creators')
+        %td= link_to(t('results.view_link'), url_for(:action => :voter_map, :controller => :questions, :id=> "fakequestion", :type => "all_creators"), :class => "view_voter_map")
+      -if @available_charts
+        -@available_charts.each do |type, options|
+          %tr
+            %td=options[:title]
+            %td= link_to('[View]', url_for(:controller=> :questions, :action => :timeline_graph, :id => "fakequestion", :type => type, :totals => true), :class => 'date-chart')
+          %tr{:style => 'display: none;'}
+            %td{:colspan => 2}
               .chart-container{:id => "#{type}-chart-container"}
 
-.row
-  .span12
-    %h2
-      Download Idea Marketplace Data (super-admin only)
-.row
-  .span10
-    %p List of All Idea Market Places CSV
-  .span2
-    %p= link_to('[Download]', :controller => :earls, :action => :export_list)
-
-.row
-  .span10
-    %p List of all Clicks CSV
-  .span2
-    %p= link_to('[Download]', :controller => :clicks, :action => :export)
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Download Idea Marketplace Data (super-admin only)
+    %tbody
+      %tr
+        %td List of All Idea Market Places CSV
+        %td= link_to('[Download]', :controller => :earls, :action => :export_list)
+      %tr
+        %td List of all Clicks CSV
+        %td= link_to('[Download]', :controller => :clicks, :action => :export)
 
 #explanation{:style => 'display:none;'}
   %h2= t('items.about_scoring')

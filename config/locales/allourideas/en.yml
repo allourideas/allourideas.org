@@ -254,26 +254,9 @@ en:
     rollover_to_see_more: Roll over each point to learn more
   about:
     about: About this project
-    p1: All Our Ideas is a research project to develop a new form of social data collection that combines the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups.
-    p2: "The All Our Ideas team is led by Matthew Salganik from the Department of Sociology at Princeton University. Current and former team members include: Dhruv Kapadia, Nadia Heninger, Bill Zeller, Karen Levy, Calvin Lee, Peter Lubell-Doughtie, Pius Uzamere, Josh Weinstein, Dhwani Shah, Bambi Tsui, and Adam Sanders."
-    p3: Because All Our Ideas is a research project, we will be analyzing the data that you create. However, we will respect your privacy, and we will never sell your data to anyone. These issues are described more fully in our privacy policy.
-    please_send_to: Please send us an email with any questions that you have to
     contact: Contact Us
-    copy_1: All Our Ideas is an attempt to create a new form of social data collection that combines the best features of quantitative and qualitative research methods. That is, we try to create a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, focus groups, and participant observation.
     current_contributors: Current Contributors
     past_contributors: Past Contributors
-    you_can_add: "You can add your own ideas about All Our Ideas using our site"
-    or_send_us: or send us an email with any questions that you have
-    oss_1: All Our Ideas is powered by
-    oss_link: open source
-    oss_2: software. Feel free to review, remix, or redesign. Also, you can use our
-    oss_api: API
-    oss_3: to create your own pairwise comparison site.
-    for_more_frequent_updates: For more frequent updates on the project, you can
-    read our blog: read our blog
-    twitter_link: follow us on Twitter.
-    add_to_improve_AOI_1: "  You can also vote or add an idea to the"
-    add_to_improve_AOI_2: "  You can also vote or add an idea to the"
   about_page: 
     intro: You are participating in an “idea marketplace” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
     exp_widget: This idea marketplace widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.

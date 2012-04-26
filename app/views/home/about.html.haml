@@ -1,30 +1,30 @@
 .row
   .span8
-    %h1= t('about.about')
-    %p= t('about.p1')
-    %p= t('about.p2')
-    %p= t('about.p3')
+    %h1 About this project
     %p
-      =# t('about.or_send_us')
-      = t('about.please_send_to')
-      = link_to('info@allourideas.org', 'mailto:info@allourideas.org')
-      = "." 
-      = t('about.add_to_improve_AOI_1')
-      = link_to('All Our Ideas', 'http://allourideas.org/improve_allourideas') 
-      = t('common.idea_marketplace')
+      All Our Ideas is a research project that seeks to develop a new form of social data collection by combining the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups. 
     %p
-      = t('about.oss_1')
-      = link_to(t('about.oss_link'), 'http://github.com/allourideas')
-      = t('about.oss_2')
-      = link_to(t('about.oss_api'), 'https://github.com/allourideas/pairwise-api/wiki/API-Documentation')
-      = t('about.oss_3')
+      The All Our Ideas research group is led by Matthew Salganik from the Department of Sociology at Princeton University. Our project grew out of discussions between Matt and Josh Weinstein, then president of the Princeton Undergraduate Student Government, about how to collect and prioritize the ideas of Princeton students. A research group was formed, and our first project, a collaboration with the Princeton student government, called <a href="http://www.dailyprincetonian.com/2008/11/06/22005/">"Which do you want more?"</a> was launched in November 2008. All Our Ideas was then launched in February 2010. Current and former group members include (in chronological order): Josh Weinstein, Nadia Heninger, Bill Zeller, Peter Lubell-Doughtie, Dhwani Shah, Adam Sanders, Bambi Tsui, Pius Uzamere, Karen Levy, Dhruv Kapadia, Dmitri Garbuzov, Brian Tubergen, Chap Ambrose, Calvin Lee, and Luke Baker.
     %p
-      = t('about.for_more_frequent_updates')
-      = link_to(t('about.read our blog'), 'http://blog.allourideas.org')
-      = " or "
-      = link_to(t('about.twitter_link'), 'http://twitter.com/allourideas')
+      Because All Our Ideas is a research project, we will be analyzing the data that you create. However, we will respect your privacy, and we will never sell your data to anyone. These issues are described more fully in our privacy and consent policy.
+    %p
+      All Our Ideas is powered by <a href="https://github.com/allourideas">open source</a> software. Feel free to review, remix, or redesign. Also, you can use our <a href="https://github.com/allourideas/pairwise-api/wiki/API-Documentation">API</a> to create your own pairwise comparison site.
+    %p
+      For more frequent updates on the project, you can <a href="http://blog.allourideas.org/">read our blog</a>, <a href="http://twitter.com/allourideas">follow us on Twitter</a> or <a href="https://www.facebook.com/allourideas">Like us on Facebook.</a>
+    %p
+      You can contact us by email at <a href="mailto:info@allourideas.org">info@allourideas.org</a>.
     %p
       = link_to(t('nav.privacy_policy'), privacy_path)
+
+    %h2 Research produced by our group
+    %h3 Papers
+    %p
+      Salganik, Matthew J. and Karen E.C. Levy. 2012. "Wiki surveys: Open and quantifiable social data collection." Working paper: <a href="http://arxiv.org/abs/1202.0500">http://arxiv.org/abs/1202.0500</a>
+    %h3 Senior Theses
+    %p
+      Shah, Dhwani. 2009. Solving Problems Using the Power of Many: Information Aggregation Websites, A Theoretical Framework and Efficacy Test. Senior Thesis. Princeton University: Department of Sociology.
+    %p
+      Weinstein, Joshua R. 2009. Photocracy: Employing Pictoral Pair-Wise Comparison to Study National Identity in China, Japan, and the United States via the Web. Senior Thesis. Princeton University: Department of East Asian Studies.
   .span4
     %h1= t('about.current_contributors')
     %p
@@ -39,7 +39,6 @@
       %strong= link_to('Luke Baker', 'http://www.agathongroup.com/')
       %br
       Agathon Group
-
     %h1= t('about.past_contributors')
     %p
       %strong Josh Weinstein

@@ -3,7 +3,7 @@
     = link_to(image_tag("logo#{'-small' if (@earl && !@earl.logo_file_name.nil?)}.jpg"), root_path, :class => 'logo')
   .span5.offset2
     -if controller.controller_name == 'home' || (controller.controller_name == 'questions' && controller.action_name == 'new')
-      %ul.nav.nav-pills
+      %ul.nav.nav-pills.pull-right
         - # We don't want the default active pills for the current page
         - # typically bootstrap expects these to have the active class.
         - # However, we find it draws too much attention to the active class.

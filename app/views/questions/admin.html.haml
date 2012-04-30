@@ -1,141 +1,130 @@
 = content_for :meta do
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 = render :partial => 'shared/header_vote', :locals => {"show_delete" => true, :question => @question}
-.ninety
-  %table.full.tablesorter
-    %thead 
-      %tr.row0
-        %th
-          %span.question-name
-            = @question.attributes['name']
-          - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
-            = link_to("[#{t('questions.edit')}]", '#edit-question', :rel => 'facebox')
-          - else
-            = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :rel => 'facebox')
-        %th.score=  t('items.score')
-        %th.score=  t('questions.source')
-        %th.score= t('items.list.status').titleize
-    %tbody 
-      -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
-        %tr{:class => cycle ("row1", "row2")}
-          %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-          %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
-          %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
-          %td.votes{:id => "choice_#{choice.id}_status"}
-            -if @choices.size < 3
-              = choice.active? ? t('items.list.activated') : t('items.list.deactivated')
-            -else 
-              .toggle_choice_status{:rel => choice.id, :id => "choice_#{choice.id}_toggle", :earl_id => @earl.id, :status => "#{choice.active?}" }
-                = choice.active? ? rounded("Activated", 'round-filled') : rounded("Deactivated", 'round-filled-grey')
-  %br
 
-  %p
-    = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago') 
-    = t('admin.and_registered_to') + ": " + @earl.user.email
-  
-  %table.full
-    %tr.row0
-      %th
-        = t('admin.optional_question_settings')
-      %th.score{:style => "text-align: center"}= t('items.list.status').titleize 
-      -#%th &nbsp;
-    %tr.row1
-      %td.title= t('admin.auto_activate_exp')
-      %td.votes{:id => "question_#{@question.id}_autoactivate_status"}
-        .toggle_autoactivate_status{:question_id => @question.id, :id => "question_#{@question.id}_autoactivate_toggle", :status => "#{@question.it_should_autoactivate_ideas?}" }
-          = @question.it_should_autoactivate_ideas? ? rounded("Enabled", 'round-filled') : rounded("Disabled", 'round-filled-grey')
-      -#%td=link_to('[' + t('items.list.toggle') + ']', '#', :class => 'toggle_autoactivate_status', :question_id => @question.id)
-  %br
-  %table.full
-    %tr.row0
-      %th{:colspan => 2}=t('admin.additional_settings')
-    -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
+.row
+  .span12
+    %table.table.table-bordered.table-striped.table-condensed.tablesorter
+      %thead 
+        %tr
+          %th
+            %span.question-name
+              = @question.attributes['name']
+            - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
+              = link_to("[#{t('questions.edit')}]", '#edit-question', :rel => 'facebox')
+            - else
+              = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :rel => 'facebox')
+          %th.score=  t('items.score')
+          %th.score=  t('questions.source')
+          %th.score= t('items.list.status').titleize
+      %tbody 
+        -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
+          %tr
+            %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
+            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+            %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
+            %td.votes{:id => "choice_#{choice.id}_status"}
+              -if @choices.size < 3
+                = choice.active? ? t('items.list.activated') : t('items.list.deactivated')
+              -else 
+                %button.toggle_choice_status.btn{:class => choice.active? ? 'btn-primary' : '', :"data-earl_id" => @earl.id, :"data-choice_id" => choice.id, :"data-status" => "#{choice.active?}"}
+                  = choice.active? ? 'Activated' : 'Deactivated'
+    %p
+      = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago') 
+      = t('admin.and_registered_to') + ": " + @earl.user.email
+
+.row
+  .span12
+    %h3= t('admin.optional_question_settings')
+    .row
+      .span10
+        %p= t('admin.auto_activate_exp')
+      .span2
+        %button.toggle_autoactivate_status.btn{:class => @question.it_should_autoactivate_ideas? ? 'btn-primary' : '', :"data-question_id" => @question.id, :"data-status" => "#{@question.it_should_autoactivate_ideas?}"}
+          = @question.it_should_autoactivate_ideas? ? 'Enabled' : 'Disabled'
+
+.row
+  .span12
+    -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
       -unless f.error_messages.blank?
         :javascript
           $(document).ready(function(){
             document.getElementById('errorExplanation').scrollIntoView(true);
           });
-        %tr.row2
-          %td{:colspan => 2}=f.error_messages
-      %tr.row1
-        %td= "#{t('admin.password_protect_exp')}:"
-        %td 
-          = "#{t('admin.username')}: #{@earl.name}"
-          %br
-          = f.label :pass, "#{t('user.password')}:"
-          = f.text_field :pass, :id => "passfield", :class => 'highlight_change'
-          %tr.row2
-            %td 
-              -if @earl.logo_file_name
-                ="#{t('admin.replace_logo_exp')}: "
-              -else
-                ="#{t('admin.upload_logo_exp')}: "
-            %td
-              = f.file_field :logo
-          %tr.row1 
-            %td
-              = t('admin.welcome_msg_exp')
-              =link_to('[?]', '#welcome_msg_explanation', :rel => 'facebox')
+        .alert.alert-error
+          = f.error_messages
+      %fieldset
+        %legend=t('admin.additional_settings')
+        .control-group
+          %label.control-label{:for => 'question_username'}
+            = t('admin.username')
+          .controls
+            = text_field_tag '', @earl.name, :disabled => true, :id => 'question_username'
+        .control-group
+          = f.label :pass, t('user.password'), :class => 'control-label'
+          .controls
+            = f.text_field :pass
+            %p.help-block
+              = t('admin.password_protect_exp')
 
-            %td
-              = f.text_area :welcome_message, :rows => 4, :cols => 65
-          %tr.row2
-            %td
-              = t('admin.default_lang_exp')
-              = link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank')
-            %td
-              = f.select :default_lang, [["English", "en"], ["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"]]
-          %tr.row1
-            %td
-              = t('admin.allow_flag_as_inappropriate')
-              =link_to('[?]', '#allow_flag_as_inappropriate_exp', :rel => 'facebox')
-            %td 
-              = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
-          %tr.row2
-            %td
-              = t('admin.google_analytics_code') 
-              =link_to('[?]', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank')
-            %td 
-              = f.text_field :ga_code, :class => 'highlight_change'
-          %tr.row2
-            %td
-              = t('admin.widget_embed_code') 
-              =link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
-            %td 
-              %input.widget-embed-code{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
-          %tr.row1
-            %td{:colspan => 2}
-              = submit_tag "Save", {:id => "savebutton", :class => "fright", :style => "margin: 0 10px 0px 0"}
-  %b
+        .control-group
+          -if @earl.logo_file_name
+            = f.label :logo_file_name, t('admin.replace_logo_exp'), :class => 'control-label'
+          -else
+            = f.label :logo_file_name, t('admin.upload_logo_exp'), :class => 'control-label'
+          .controls
+            = f.file_field :logo
+        .control-group
+          = f.label :welcome_message, t('admin.welcome_msg_exp') + link_to('[?]', '#welcome_msg_explanation', :rel => 'facebox'), :class => 'control-label'
+          .controls
+            = f.text_area :welcome_message, :rows => 4, :cols => 65, :class => 'input-xxlarge'
+        .control-group
+          = f.label :default_lang, t('admin.default_lang_exp') + link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
+          .controls
+            = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"]].sort
+        .control-group
+          = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :rel => 'facebox'), :class => 'control-label'
+          .controls
+            = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
+        .control-group
+          = f.label :ga_code, t('admin.google_analytics_code') + link_to('[?]', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
+          .controls
+            = f.text_field :ga_code
+        .control-group
+          %label.control-label
+            = t('admin.widget_embed_code') 
+            = link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
+          .controls
+            %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
+        .form-actions
+          %button.btn.btn-primary{:type => 'submit'}
+            Save
 
-  %table.full
-    %tr.row0
-      %th= t('admin.download_idea_marketplace_data')
-      %th &nbsp;
-      %th &nbsp;
-    %tr.row1
-      %td.title
-        = t('admin.list_of_ideas_csv')
-        = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
-      %td &nbsp;
-      %td
-        =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-        = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :rel => 'facebox', :id => 'ideas_request_link')
-    %tr.row2
-      %td.title
-        = t('admin.list_of_votes_csv') 
-        = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
-      %td &nbsp;
-      %td
-        = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox',:id => 'votes_request_link')
-    %tr.row1
-      %td.title
-        = t('admin.list_of_non_votes_csv') 
-        = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
-      %td &nbsp;
-      %td
-        = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
-      
+    %table.table
+      %thead
+        %tr
+          %th= t('admin.download_idea_marketplace_data')
+      %tbody
+        %tr
+          %td.title
+            = t('admin.list_of_ideas_csv')
+            = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
+          %td
+            =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
+            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :rel => 'facebox', :id => 'ideas_request_link')
+        %tr
+          %td.title
+            = t('admin.list_of_votes_csv') 
+            = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
+          %td
+            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox',:id => 'votes_request_link')
+        %tr
+          %td.title
+            = t('admin.list_of_non_votes_csv') 
+            = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
+          %td
+            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
+        
   #cant-edit-question.add-box{:style => 'display:none;'}
     %p
       = t('questions.cant_edit_question')
@@ -177,15 +166,7 @@
 
 - content_for :view_javascript do
   $('.tablesorter').tablesorter({ textExtraction : 'complex', headers: { 0: {sorter: 'text'}, 1 : { sorter: 'digit' } , 2 : { sorter: 'text' }, 3 : { sorter: 'text'}, 4 : { sorter: false }, } });
-  $('.tablesorter').bind('sortEnd', function() {
-  $('.tablesorter tbody tr:nth-child(odd)').removeClass('row1 row2').addClass('row1');
-  $('.tablesorter tbody tr:nth-child(even)').removeClass('row1 row2').addClass('row2');});
-  $('.tablesorter thead tr th').hover(function() { $(this).addClass("headerOver"); } , function() { $(this).removeClass("headerOver"); });
   $('a[rel*=facebox]').facebox();
   $('#facebox').draggable();
-  $('.highlight_change').change(function(){ $('#savebutton').addClass("active")});
-  $('#earl_logo').change(function(){ $('#savebutton').addClass("active")});
-  $('#earl_flag_enabled').change(function(){ $('#savebutton').addClass("active")});
-  $('#earl_default_lang').change(function(){ $('#savebutton').addClass("active")});
   $('input.widget-embed-code').focus(function(ev) { $(this).select(); ev.preventDefault();});
 

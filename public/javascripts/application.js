@@ -125,69 +125,7 @@ jQuery(document).ready(function() {
         $(this).css("border-right", "1px solid #3198c1");
       });
     });});
-  
 
-	 // $("#item").bind("click", function() {
-	 //    if ($(this).attr("value") == $("#default_text").attr("value"))
-	 //      $(this).attr("value", "");
-	 //  });
-	 //  $("#item").bind("keyup", function() {
-	 //    var value = $(this).attr("value");
-	 //    var len = $(this).attr("maxlength");
-	 //    if (value.length > len) {
-	 //      $(this).attr("value", value.substr(0, len));
-	 //      $("#length_error").show();
-	 //      setTimeout(function() { $("#length_error").fadeOut(1000); }, 3000);
-	 //    }
-	 //  });
-
-	  // $("#submit_btn").bind("mousedown", function() {
-	  //   var str = $(this).attr("src");
-	  //   if (str.indexOf("-over") == -1)
-	  //     $(this).attr('src', str.replace(".jpg", "-down.jpg"));
-	  //   else if(str.indexOf("-down") == -1)
-	  //     $(this).attr('src', str.replace("-over.jpg", "-down.jpg"));
-	  // });
-
-	
-   $('.toggle_question_status, .toggle_choice_status, .toggle_autoactivate_status').each(function(el) {
-      var status = $(this).attr("status");
-      if (status == "true") {
-      $(this).bind("mouseover", function() {
-         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-            $(this).css("background", "#2b88ad");
-            $(this).css("border-left", "1px solid #2b88ad");
-            $(this).css("border-right", "1px solid #2b88ad");
-          });
-       });
-       $(this).bind("mouseout", function() {
-         $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-            $(this).css("background", "#3198c1");
-            $(this).css("border-left", "1px solid #3198c1");
-            $(this).css("border-right", "1px solid #3198c1");
-         });
-		 });
-		}
-		else if (status == "false") {
-      $(this).bind("mouseover", function() {
-         $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-            $(this).css("background", "#b1b1b1");
-            $(this).css("border-left", "1px solid #b1b1b1");
-            $(this).css("border-right", "1px solid #b1b1b1");
-          });
-       });
-       $(this).bind("mouseout", function() {
-         $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-            $(this).css("background", "#cccccc");
-            $(this).css("border-left", "1px solid #cccccc");
-            $(this).css("border-right", "1px solid #cccccc");
-         });
-		 });
-		}
-	});
-	
-
-	
 	$('.toggle_question_status').bind('click',function(ev){
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
@@ -215,82 +153,32 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	$('.toggle_choice_status').bind('click',function(event){
+	$('.toggle_choice_status').bind('click',function(ev){
 		$('.indicator').show();
 		$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 		        backgroundColor: '#000', 
 		        opacity:         0.0
 		    }});
-		var choice_id = $(this).attr("rel");
-		var earl_id = $(this).attr("earl_id");
-		var state = $(this).attr("status");
+        var button = $(ev.target);
+		var choice_id = button.attr("data-choice_id");
+		var earl_id = button.attr("data-earl_id");
+		var state = button.attr("data-status");
 		$.post('/questions/' + earl_id + '/choices/' + choice_id + '/toggle.js',
 		{authenticity_token: AUTH_TOKEN },
-		function(data){
+		function(data) {
 			$('.indicator').hide();
 			$.unblockUI();
 			//humanMsg.displayMsg(data['message']);
 			if(!data['error']) { 
             if (data['active'] === true) {
-               $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-greyfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).removeAttr("style");
-               });
-               $("#choice_"+choice_id+"_status .toggle_choice_status").attr("status", "true");
-               $("#choice_"+choice_id+"_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
-               $("#choice_"+choice_id+"_status .round-filled-grey-top").addClass("round-filled-top").removeClass("round-filled-grey-top");
-               $("#choice_"+choice_id+"_status .round-filled-grey-bottom").addClass("round-filled-bottom").removeClass("round-filled-grey-bottom");
-               $("#choice_"+choice_id+"_status .round-filled-grey").addClass("round-filled").removeClass("round-filled-grey");
-               $("#choice_"+choice_id+"_status .round-filled-grey2").addClass("round-filled2").removeClass("round-filled-grey2");
-               $("#choice_"+choice_id+"_status .round-filled-grey3").addClass("round-filled3").removeClass("round-filled-grey3");
-               $("#choice_"+choice_id+"_status .round-filled-grey4").addClass("round-filled4").removeClass("round-filled-grey4");
-               $("#choice_"+choice_id+"_status .round-filled-grey5").addClass("round-filled5").removeClass("round-filled-grey5");
-               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#2b88ad");
-                     $(this).css("border-left", "1px solid #2b88ad");
-                     $(this).css("border-right", "1px solid #2b88ad");
-                   });
-               });
-               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#3198c1");
-                     $(this).css("border-left", "1px solid #3198c1");
-                     $(this).css("border-right", "1px solid #3198c1");
-                  });
-               });
+                button.attr("data-status", true);
+                button.addClass('btn-primary');
             }
             else if (data['active'] === false) {
-               $([$("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filledfg"), $("#choice_"+choice_id+"_status .toggle_choice_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).removeAttr("style");
-               });
-               $("#choice_"+choice_id+"_status .toggle_choice_status").attr("status", "false");
-               $("#choice_"+choice_id+"_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
-               $("#choice_"+choice_id+"_status .round-filled .round-filled-top").addClass("round-filled-grey-top").removeClass("round-filled-top");
-               $("#choice_"+choice_id+"_status .round-filled .round-filled-bottom").addClass("round-filled-grey-bottom").removeClass("round-filled-bottom");
-               $("#choice_"+choice_id+"_status .round-filled").addClass("round-filled-grey").removeClass("round-filled");
-               $("#choice_"+choice_id+"_status .round-filled2").addClass("round-filled-grey2").removeClass("round-filled2");
-               $("#choice_"+choice_id+"_status .round-filled3").addClass("round-filled-grey3").removeClass("round-filled3");
-               $("#choice_"+choice_id+"_status .round-filled4").addClass("round-filled-grey4").removeClass("round-filled4");
-               $("#choice_"+choice_id+"_status .round-filled5").addClass("round-filled-grey5").removeClass("round-filled5");
-               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).css("background", "#b1b1b1");
-                     $(this).css("border-left", "1px solid #b1b1b1");
-                     $(this).css("border-right", "1px solid #b1b1b1");
-                   });
-               });
-               $("#choice_"+choice_id+"_status .toggle_choice_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).css("background", "#cccccc");
-                     $(this).css("border-left", "1px solid #cccccc");
-                     $(this).css("border-right", "1px solid #cccccc");
-                  });
-               });
+                button.attr("data-status", false);
+                button.removeClass('btn-primary');
             }
-            if (state == "true")
-			      $('#choice_'+choice_id+'_toggle .round-filled-greyfg').text(data['verb']);
-			   else
-			      $('#choice_'+choice_id+'_toggle .round-filledfg').text(data['verb']);
+            button.html(data['verb']);
 		}
 			//$('.prompter').effect("highlight", {}, 1500);
 			
@@ -307,81 +195,17 @@ jQuery(document).ready(function() {
 		        backgroundColor: '#000', 
 		        opacity:         0.0
 		    }});
-		var question_id = $(this).attr("question_id");
-		var state = $(this).attr("status");
-		$.post('/questions/' + question_id + '/toggle_autoactivate.js',
-		{authenticity_token: AUTH_TOKEN },
-		function(data){
-			$('.indicator').hide();
-			$.unblockUI();
-			//humanMsg.displayMsg(data['message']);
-			if(!data['error']) {
-			   if (data['verb'] == "Enabled") {
-               $([$("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled-greyfg"), $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).removeAttr("style");
-               });
-               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").attr("status", "true");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-greyfg").addClass("round-filledfg").removeClass("round-filled-greyfg");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey-top").addClass("round-filled-top").removeClass("round-filled-grey-top");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey-bottom").addClass("round-filled-bottom").removeClass("round-filled-grey-bottom");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey").addClass("round-filled").removeClass("round-filled-grey");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey2").addClass("round-filled2").removeClass("round-filled-grey2");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey3").addClass("round-filled3").removeClass("round-filled-grey3");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey4").addClass("round-filled4").removeClass("round-filled-grey4");
-               $("#question_"+question_id+"_autoactivate_status .round-filled-grey5").addClass("round-filled5").removeClass("round-filled-grey5");
-               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#2b88ad");
-                     $(this).css("border-left", "1px solid #2b88ad");
-                     $(this).css("border-right", "1px solid #2b88ad");
-                   });
-               });
-               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                     $(this).css("background", "#3198c1");
-                     $(this).css("border-left", "1px solid #3198c1");
-                     $(this).css("border-right", "1px solid #3198c1");
-                  });
-               });
-            }
-            else if (data['verb'] == "Disabled") {
-               $([$("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filledfg"), $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").children(".round-filled").children()]).each(function(el) {
-                     $(this).removeAttr("style");
-               });
-               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").attr("status", "false");
-               $("#question_"+question_id+"_autoactivate_status .round-filledfg").addClass("round-filled-greyfg").removeClass("round-filledfg");
-               $("#question_"+question_id+"_autoactivate_status .round-filled .round-filled-top").addClass("round-filled-grey-top").removeClass("round-filled-top");
-               $("#question_"+question_id+"_autoactivate_status .round-filled .round-filled-bottom").addClass("round-filled-grey-bottom").removeClass("round-filled-bottom");
-               $("#question_"+question_id+"_autoactivate_status .round-filled").addClass("round-filled-grey").removeClass("round-filled");
-               $("#question_"+question_id+"_autoactivate_status .round-filled2").addClass("round-filled-grey2").removeClass("round-filled2");
-               $("#question_"+question_id+"_autoactivate_status .round-filled3").addClass("round-filled-grey3").removeClass("round-filled3");
-               $("#question_"+question_id+"_autoactivate_status .round-filled4").addClass("round-filled-grey4").removeClass("round-filled4");
-               $("#question_"+question_id+"_autoactivate_status .round-filled5").addClass("round-filled-grey5").removeClass("round-filled5");
-               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseover", function() {
-                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).css("background", "#b1b1b1");
-                     $(this).css("border-left", "1px solid #b1b1b1");
-                     $(this).css("border-right", "1px solid #b1b1b1");
-                   });
-               });
-               $("#question_"+question_id+"_autoactivate_status .toggle_autoactivate_status").bind("mouseout", function() {
-                  $([$(this).children(".round-filled-greyfg"), $(this).children(".round-filled-grey").children()]).each(function(el) {
-                     $(this).css("background", "#cccccc");
-                     $(this).css("border-left", "1px solid #cccccc");
-                     $(this).css("border-right", "1px solid #cccccc");
-                  });
-               });
-            }
-            if (state == "true")
-			      $('#question_'+question_id+'_autoactivate_toggle .round-filled-greyfg').text(data['verb']);
-			   else
-			      $('#question_'+question_id+'_autoactivate_toggle .round-filledfg').text(data['verb']);
-		}
-			//$('.prompter').effect("highlight", {}, 1500);
-			
-		},
-		"json"
-		);
+        var button = $(event.target);
+		var question_id = button.attr("data-question_id");
+		var state = button.attr("data-status");
+		$.post('/questions/' + question_id + '/toggle_autoactivate.js', {authenticity_token: AUTH_TOKEN }, function(data){
+            $('.indicator').hide();
+            $.unblockUI();
+            if(!data['error']) {
+                button.toggleClass('btn-primary');
+                button.html(data['verb']);
+		    }
+		}, "json");
 		return false;
 	});
 	

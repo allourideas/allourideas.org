@@ -949,8 +949,8 @@ class QuestionsController < ApplicationController
   def toggle_autoactivate
     @earl = Earl.find_by_question_id(params[:id])
     @question = Question.find(@earl.question_id)
-    unless current_user.owns? @earl
-      render(:json => {:message => "Succesfully changed settings, #{params[:id]}"}.to_json) and return
+    unless ((current_user.owns?(@earl)) || current_user.admin?)
+      render(:json => {:error => "You do not have access to this question."}.to_json) and return
     end
     logger.info "Getting ready to change idea autoactivate status of Question #{params[:id]} to #{!@question.it_should_autoactivate_ideas?}"
 

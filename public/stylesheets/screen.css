@@ -170,11 +170,6 @@ table {
 .votebox {
   width: 90%; }
 
-.vote-nav {
-  width: 90%;
-  font-size: 16px;
-  padding-bottom: 2px; }
-
 .votebox table {
   text-align: center;
   margin: 0 auto; }

@@ -16,24 +16,31 @@ AOI.admin = (function($) {
     };
 
     function editQuestion() {
-        $(document).bind('reveal.facebox', function() {
-            if ($('#facebox .edit-question').length > 0) {
-                $('#facebox .new_idea_field').jqEasyCounter({target: '#facebox .new_idea_counter', maxChars : 255, maxCharsWarning: 245});
-            }
+        // setup text counter
+        if ($('#edit-question').length > 0) {
+            $('.modal .new_idea_field').jqEasyCounter({target: '.modal .new_idea_counter', maxChars : 255, maxCharsWarning: 245});
+        }
+
+        // hide edit-question modal on cancel
+        $('#edit-question .cancel').click(function(ev) {
+            $('#edit-question').modal('hide');
         });
-        $('.edit-question .new_idea_submit').live('click', function(ev) {
-            var form = $(ev.target).closest('form');
+
+        // handle submit of edit question form
+        $('#edit-question .new_idea_submit').click(function(ev) {
+            var form = $(ev.target).closest('.modal').find('form');
             form.ajaxSubmit({
                 dataType : 'json',
                 success : function(rt, st, xhr) {
-                    form.find('textarea').val('');
 
+                    $('#edit-question').modal('hide');
                     if (rt.status === 'success') {
+                        form.find('textarea').val(rt.question.name);
                         $('.question-name').text(rt.question.name);
-                        $.facebox({div: '#question-saved'});
+                        $('#question-saved').show();
                     }
                     else {
-                        $.facebox({div: '#cant-edit-question'});
+                        $('#cant-edit-question').modal('show');
                     }
                 }
             });

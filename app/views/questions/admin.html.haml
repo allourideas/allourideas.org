@@ -4,6 +4,8 @@
 
 .row
   .span12
+    #question-saved.alert.alert-success.hide
+      %p= t('questions.question_saved')
     %table.table.table-bordered.table-striped.table-condensed.tablesorter
       %thead 
         %tr
@@ -11,9 +13,9 @@
             %span.question-name
               = @question.attributes['name']
             - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
-              = link_to("[#{t('questions.edit')}]", '#edit-question', :rel => 'facebox')
+              = link_to("[#{t('questions.edit')}]", '#edit-question', :"data-toggle" => 'modal')
             - else
-              = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :rel => 'facebox')
+              = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :"data-toggle" => 'modal')
           %th.score=  t('items.score')
           %th.score=  t('questions.source')
           %th.score= t('items.list.status').titleize
@@ -21,7 +23,7 @@
         -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
           %tr
             %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
+            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#score_explanation', :"data-toggle" => 'modal')
             %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
             %td.votes{:id => "choice_#{choice.id}_status"}
               -if @choices.size < 3
@@ -75,7 +77,7 @@
           .controls
             = f.file_field :logo
         .control-group
-          = f.label :welcome_message, t('admin.welcome_msg_exp') + link_to('[?]', '#welcome_msg_explanation', :rel => 'facebox'), :class => 'control-label'
+          = f.label :welcome_message, t('admin.welcome_msg_exp') + link_to('[?]', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
             = f.text_area :welcome_message, :rows => 4, :cols => 65, :class => 'input-xxlarge'
         .control-group
@@ -83,7 +85,7 @@
           .controls
             = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"]].sort
         .control-group
-          = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :rel => 'facebox'), :class => 'control-label'
+          = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
             = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
         .control-group
@@ -125,39 +127,43 @@
           %td
             = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
         
-  #cant-edit-question.add-box{:style => 'display:none;'}
-    %p
-      = t('questions.cant_edit_question')
-  #question-saved.add-box{:style => 'display:none;'}
-    %p
-      = t('questions.question_saved')
-  #edit-question.add-box.edit-question{:style => 'display:none;'}
-    %h2= t('questions.edit_question')
-    - form_tag update_name_question_path(@earl), :method => :put do |f|
-      %p
-        =t('questions.your_current_question_text', :question_text => @question.attributes['name'], :"1" => '<span class="question-name">', :"_1" => '</span>')
-      %p 
-        =t('questions.type_question_prompt')
-      %p
-        = rounded(text_area_tag('question[name]', '', :title => 'test', :rows => 2, :maxlength => 255, :class => 'new_idea_field', :id => 'edit_question_text'), 'border-thick')
-      %p
-        .new_idea_counter
-      .fright
-        .new_idea_submit.rounded#edit_question_submit{:rel => @question.id}= t('vote.submit')
-      .clear
+  #cant-edit-question.modal.hide.fade
+    .modal-body
+      %p= t('questions.cant_edit_question')
+  #edit-question.modal.hide.fade
+    .modal-header
+      %button.close{:"data-dismiss" => 'modal'} x
+      %h2= t('questions.edit_question')
+    .modal-body
+      - form_tag update_name_question_path(@earl), :method => :put do |f|
+        %p
+          =t('questions.your_current_question_text', :question_text => h(@question.name), :"1" => '<span class="question-name">', :"_1" => '</span>')
+        %p 
+          =t('questions.type_question_prompt')
+        = text_area_tag('question[name]', h(@question.name), :rows => 2, :maxlength => 255, :class => 'new_idea_field input-xxlarge', :id => 'edit_question_text')
+        %h3.new_idea_counter
+    .modal-footer
+      %button.btn.cancel Cancel
+      %button.btn.btn-primary.new_idea_submit#edit_question_submit{:rel => @question.id}= t('vote.submit')
     
-  #explanation{:style => 'display:none;'}
-    %h2= t('items.about_scoring')
-    =t('items.score_explain')
+  #score_explanation.modal.hide.fade
+    .modal-header
+      %button.close{:"data-dismiss" => 'modal'} x
+      %h2= t('items.about_scoring')
+    .modal-body
+      %p=t('items.score_explain')
     
-  #welcome_msg_explanation{:style => 'display:none;'}
-    %h2= "Optional Welcome Message"
-    = t('admin.welcome_msg_long_exp')
-    %br
-    = t('admin.welcome_msg_long_exp2')
+  #welcome_msg_explanation.modal.hide.fade
+    .modal-header
+      %button.close{:"data-dismiss" => 'modal'} x
+      %h3= "Optional Welcome Message"
+    .modal-body
+      %p= t('admin.welcome_msg_long_exp')
+      %p= t('admin.welcome_msg_long_exp2')
   
-  #allow_flag_as_inappropriate_exp{:style => 'display:none;'}
-    = t('admin.allow_flag_as_inappropriate_exp')
+  #allow_flag_as_inappropriate_exp.modal.hide.fade
+    .modal-body
+      %p= t('admin.allow_flag_as_inappropriate_exp')
 
 
 -content_for :head do

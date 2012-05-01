@@ -5,7 +5,16 @@
 window.AOI = window.AOI || {};
 jQuery(function () {
     AOI.admin.initialize();
+    modalAjax();
+    function modalAjax() {
+        $('[data-toggle="modal-ajax"]').click(function(ev) {
+            ev.preventDefault();
+            var modal = $('<div class="modal"><div class="modal-body"><div class="progress progress-striped active"><div class="bar" style="width: 66%;"></div></div></div><div class="modal-footer"><button class="close" data-dismiss="modal">x</button></div></div>').modal();
+            modal.find('.modal-body').load($(ev.target).attr('href'));
+        });
+    }
 });
+
 
 // Admin related functions
 AOI.admin = (function($) {
@@ -20,11 +29,6 @@ AOI.admin = (function($) {
         if ($('#edit-question').length > 0) {
             $('.modal .new_idea_field').jqEasyCounter({target: '.modal .new_idea_counter', maxChars : 255, maxCharsWarning: 245});
         }
-
-        // hide edit-question modal on cancel
-        $('#edit-question .cancel').click(function(ev) {
-            $('#edit-question').modal('hide');
-        });
 
         // handle submit of edit question form
         $('#edit-question .new_idea_submit').click(function(ev) {

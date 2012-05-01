@@ -113,23 +113,26 @@
             = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
           %td
             =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :rel => 'facebox', :id => 'ideas_request_link')
+            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :"data-toggle" => 'modal-ajax', :id => 'ideas_request_link')
         %tr
           %td.title
             = t('admin.list_of_votes_csv') 
             = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
           %td
-            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :rel => 'facebox',:id => 'votes_request_link')
+            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax',:id => 'votes_request_link')
         %tr
           %td.title
             = t('admin.list_of_non_votes_csv') 
             = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
           %td
-            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :rel => 'facebox', :id => 'non_votes_request_link')
+            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :"data-toggle" => 'modal-ajax', :id => 'non_votes_request_link')
         
   #cant-edit-question.modal.hide.fade
     .modal-body
       %p= t('questions.cant_edit_question')
+    .modal-footer
+      %button.close{:"data-dismiss" => 'modal'} x
+
   #edit-question.modal.hide.fade
     .modal-header
       %button.close{:"data-dismiss" => 'modal'} x
@@ -143,7 +146,7 @@
         = text_area_tag('question[name]', h(@question.name), :rows => 2, :maxlength => 255, :class => 'new_idea_field input-xxlarge', :id => 'edit_question_text')
         %h3.new_idea_counter
     .modal-footer
-      %button.btn.cancel Cancel
+      %button.btn{:"data-dismiss" => "modal"} Cancel
       %button.btn.btn-primary.new_idea_submit#edit_question_submit{:rel => @question.id}= t('vote.submit')
     
   #score_explanation.modal.hide.fade
@@ -164,15 +167,14 @@
   #allow_flag_as_inappropriate_exp.modal.hide.fade
     .modal-body
       %p= t('admin.allow_flag_as_inappropriate_exp')
+    .modal-footer
+      %button.close{:"data-dismiss" => 'modal'} x
 
 
 -content_for :head do
-  = javascript_include_tag 'facebox', 'jquery.tablesorter.min.js', 'jquery.blockUI.js'
-  = stylesheet_link_tag 'facebox'
+  = javascript_include_tag 'jquery.tablesorter.min.js', 'jquery.blockUI.js'
 
 - content_for :view_javascript do
   $('.tablesorter').tablesorter({ textExtraction : 'complex', headers: { 0: {sorter: 'text'}, 1 : { sorter: 'digit' } , 2 : { sorter: 'text' }, 3 : { sorter: 'text'}, 4 : { sorter: false }, } });
-  $('a[rel*=facebox]').facebox();
-  $('#facebox').draggable();
   $('input.widget-embed-code').focus(function(ev) { $(this).select(); ev.preventDefault();});
 

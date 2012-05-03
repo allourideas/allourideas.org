@@ -163,7 +163,9 @@ fi:
       RW4gb3NhYSBww6TDpHR0w6TDpA==
 
     add_your_idea_button: "Lis\xC3\xA4\xC3\xA4 oma ideasi"
-    add_your_idea: "Lis\xC3\xA4\xC3\xA4 oma ideasi t\xC3\xA4st\xC3\xA4..."
+    add_your_idea: !binary |
+      TGlzw6TDpCBvbWEgaWRlYXNpIHTDpGjDpG7igKY=
+
     cd_explicit_dont_know_right_widget: "En tied\xC3\xA4 tarpeeksi oikeanpuoleisesta ideasta"
     cant_decide_title: "En osaa p\xC3\xA4\xC3\xA4tt\xC3\xA4\xC3\xA4, koska..."
     you_chose_winner_over_loser: Valitsit %{winner} mieluummin kuin %{loser}

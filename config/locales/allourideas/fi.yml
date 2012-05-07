@@ -64,7 +64,7 @@ fi:
     toggle_error: "Valitettavasti t\xC3\xA4m\xC3\xA4n valinnan tilaa ei voitu vaihtaa, koska sin\xC3\xA4 et omista kysymyst\xC3\xA4."
     new: 
       too_long: "Idean teksti liian pitk\xC3\xA4. Maksimipituus on"
-    items: Ideat
+    items: Ideaa
     score_explain: "Idean saamat pisteet on arvioitu todenn\xC3\xA4k\xC3\xB6isyys, mill\xC3\xA4 se voittaa satunnaisesti valittua ideaa vastaan. Esimerkiksi pistem\xC3\xA4\xC3\xA4r\xC3\xA4 100 tarkoittaa, ett\xC3\xA4 idean ennustetaan voittavan aina, ja pistem\xC3\xA4\xC3\xA4r\xC3\xA4 0 tarkoittaa, ett\xC3\xA4 idean ennustetaan h\xC3\xA4vi\xC3\xA4v\xC3\xA4n joka kerta."
     list: 
       toggle: Vaihda
@@ -171,22 +171,22 @@ fi:
     you_chose_winner_over_loser: Valitsit %{winner} mieluummin kuin %{loser}
     submit_idea_too_long_error: "Valitettavasti ideatekstin pituuden t\xC3\xA4ytyy olla alle 140 merkki\xC3\xA4."
     leveling: 
-      adjective_5: huippu
-      adjective_6: fantastinen
-      adjective_7: uskomaton
-      adjective_8: mahtava
+      adjective_5: huippua
+      adjective_6: fantastista
+      adjective_7: uskomatonta
+      adjective_8: mahtavaa
       adjective_9: vau
       adjective_0: !binary |
         aHl2w6Q=
 
-      adjective_1: mukava
+      adjective_1: mukavaa
       adjective_2: !binary |
-        aMOkbW3DpHN0eXR0w6R2w6Q=
+        aMOkbW3DpHN0eXR0w6R2w6TDpA==
 
       leveling_message_votes_only: Olet nyt antanut %{vote_num} %{vote_noun}
-      adjective_3: upea
+      adjective_3: upeaa
       leveling_message: "Olet nyt antanut %{vote_num} %{vote_noun} ja lis\xC3\xA4nnyt %{idea_num} %{idea_noun}: %{adjective}"
-      adjective_4: ihmeellinen
+      adjective_4: "ihmeellist\xC3\xA4"
     cd_user_other: "Muu syy:"
     you_skipped_both: Ohitit
     skip: !binary |

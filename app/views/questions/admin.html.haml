@@ -53,11 +53,9 @@
           .controls
             = text_field_tag '', @earl.name, :disabled => true, :id => 'question_username'
         .control-group
-          = f.label :pass, t('user.password'), :class => 'control-label'
+          = f.label :pass, t('user.password') + link_to('[?]', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
             = f.text_field :pass
-            %p.help-block
-              = t('admin.password_protect_exp')
 
         .control-group
           = f.label :welcome_message, "Welcome message" + link_to('[?]', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
@@ -151,6 +149,12 @@
       %h2= t('items.about_scoring')
     .modal-body
       %p=t('items.score_explain')
+
+  #password_explanation.modal.hide.fade
+    .modal-body
+      %p= t('admin.password_protect_exp')
+    .modal-footer
+      %button.close{:"data-dismiss" => 'modal'} x
     
   #welcome_msg_explanation.modal.hide.fade
     .modal-header

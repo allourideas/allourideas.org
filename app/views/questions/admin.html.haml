@@ -90,9 +90,6 @@
             %label.checkbox
               = f.check_box :flag_enabled
               = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal')
-        .control-group
-          .controls
-            %label.checkbox
               = f.check_box :question_should_autoactivate_ideas
               = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
         .form-actions

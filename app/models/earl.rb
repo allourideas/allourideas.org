@@ -12,6 +12,19 @@ class Earl < ActiveRecord::Base
     @@reserved_names
   end
 
+  def question
+    @question ||= Question.find(self.question_id)
+  end
+
+  def question_should_autoactivate_ideas
+    question.it_should_autoactivate_ideas
+  end
+
+  def question_should_autoactivate_ideas=(value)
+    question.it_should_autoactivate_ideas = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+    question.save
+  end
+
   def self.voter_map(earl_name, type)
     if type == "all"
       votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "all_votes")

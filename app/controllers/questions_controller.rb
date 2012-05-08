@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
   def results
     @earl = Earl.find params[:id]
 
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
     @question_id = @question.id
 
     unless (@question.user_can_view_results?(current_user, @earl))
@@ -213,7 +213,7 @@ class QuestionsController < ApplicationController
       redirect_to( "/#{params[:id]}") and return
     end
 
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
     @partial_results_url = "#{@earl.name}/results"
 
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
@@ -948,7 +948,7 @@ class QuestionsController < ApplicationController
 
   def toggle_autoactivate
     @earl = Earl.find_by_question_id(params[:id])
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
     unless ((current_user.owns?(@earl)) || current_user.admin?)
       render(:json => {:error => "You do not have access to this question."}.to_json) and return
     end
@@ -1029,7 +1029,7 @@ class QuestionsController < ApplicationController
 
   def update_name
     @earl = Earl.find params[:id]
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
     respond_to do |format|
       if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
         if params[:question][:name]
@@ -1050,7 +1050,7 @@ class QuestionsController < ApplicationController
   # # PUT /questions/1.xml
   def update
     @earl = Earl.find params[:id]
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
 
     unless ( (current_user.owns? @earl) || current_user.admin?)
       flash[:notice] = "You are not authorized to view that page"
@@ -1059,7 +1059,7 @@ class QuestionsController < ApplicationController
 
 
     respond_to do |format|
-      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code))
+      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas))
         logger.info("Saving new information on earl")
         flash[:notice] = 'Question settings saved successfully!'
         logger.info("Saved new information on earl")
@@ -1082,7 +1082,7 @@ class QuestionsController < ApplicationController
       flash[:notice] = "You are not authorized to view that page"
       redirect_to( "/#{params[:id]}") and return
     end
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
 
     @earl.logo = nil
     respond_to do |format|
@@ -1115,7 +1115,7 @@ class QuestionsController < ApplicationController
     if type.nil?
       render :text => "An error has occured! Please try again later." and return
     else
-      question = Question.find(@earl.question_id)
+      question = @earl.question
 
       redis_key  = "export_#{@earl.question_id}_#{type}_#{Time.now.to_i}"
       redis_key += "_#{Digest::SHA1.hexdigest(redis_key + rand(10000000).to_s)}"
@@ -1142,7 +1142,7 @@ class QuestionsController < ApplicationController
 
   def add_photos
     @earl = Earl.find_by_name!(params[:id])
-    @question = Question.find(@earl.question_id)
+    @question = @earl.question
   end
 
   def intro

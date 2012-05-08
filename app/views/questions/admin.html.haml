@@ -36,17 +36,7 @@
       = t('admin.and_registered_to') + ": " + @earl.user.email
 
 .row
-  .span12
-    %h3= t('admin.optional_question_settings')
-    .row
-      .span10
-        %p= t('admin.auto_activate_exp')
-      .span2
-        %button.toggle_autoactivate_status.btn{:class => @question.it_should_autoactivate_ideas? ? 'btn-primary' : '', :"data-question_id" => @question.id, :"data-status" => "#{@question.it_should_autoactivate_ideas?}"}
-          = @question.it_should_autoactivate_ideas? ? 'Enabled' : 'Disabled'
-
-.row
-  .span12
+  .span12.question-admin-form
     -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
       -unless f.error_messages.blank?
         :javascript
@@ -56,7 +46,7 @@
         .alert.alert-error
           = f.error_messages
       %fieldset
-        %legend=t('admin.additional_settings')
+        %legend Question Settings
         .control-group
           %label.control-label{:for => 'question_username'}
             = t('admin.username')
@@ -70,24 +60,14 @@
               = t('admin.password_protect_exp')
 
         .control-group
-          -if @earl.logo_file_name
-            = f.label :logo_file_name, t('admin.replace_logo_exp'), :class => 'control-label'
-          -else
-            = f.label :logo_file_name, t('admin.upload_logo_exp'), :class => 'control-label'
+          = f.label :welcome_message, "Welcome message" + link_to('[?]', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
-            = f.file_field :logo
+            = f.text_area :welcome_message, :rows => 3, :cols => 65, :class => 'input-xxlarge'
         .control-group
-          = f.label :welcome_message, t('admin.welcome_msg_exp') + link_to('[?]', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+          = f.label :default_lang, "Default language" + link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
           .controls
-            = f.text_area :welcome_message, :rows => 4, :cols => 65, :class => 'input-xxlarge'
-        .control-group
-          = f.label :default_lang, t('admin.default_lang_exp') + link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
-          .controls
+            = # Have English be the first, but sort the rest
             = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"]].sort
-        .control-group
-          = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal'), :class => 'control-label'
-          .controls
-            = f.select :flag_enabled, [["Enabled", true], ["Disabled", false]]
         .control-group
           = f.label :ga_code, t('admin.google_analytics_code') + link_to('[?]', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
           .controls
@@ -98,9 +78,28 @@
             = link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
           .controls
             %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
+        .control-group
+          -if @earl.logo_file_name
+            = f.label :logo_file_name, "Replace logo", :class => 'control-label'
+          -else
+            = f.label :logo_file_name, "Upload a logo", :class => 'control-label'
+          .controls
+            = f.file_field :logo
+        .control-group
+          .controls
+            %label.checkbox
+              = f.check_box :flag_enabled
+              = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal')
+        .control-group
+          .controls
+            %label.checkbox
+              = f.check_box :question_should_autoactivate_ideas
+              = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
         .form-actions
           %button.btn.btn-primary{:type => 'submit'}
             Save
+          %a.btn{:href => ""}
+            Cancel
 
     %table.table
       %thead

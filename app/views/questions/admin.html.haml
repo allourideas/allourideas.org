@@ -60,7 +60,7 @@
         .control-group
           = f.label :welcome_message, "Welcome message" + link_to('[?]', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
-            = f.text_area :welcome_message, :rows => 3, :cols => 65, :class => 'input-xxlarge'
+            = f.text_area :welcome_message, :rows => 5, :cols => 65, :class => 'input-xxlarge'
         .control-group
           = f.label :default_lang, "Default language" + link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
           .controls
@@ -92,7 +92,7 @@
               = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
         .form-actions
           %button.btn.btn-primary{:type => 'submit'}
-            Save
+            Save changes
           %a.btn{:href => ""}
             Cancel
 

@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
     current_page = params[:page] || 1
     current_page = current_page.to_i
     current_page = 1 if current_page == 0
-    per_page = 50
+    per_page = 20
     if wikipedia?
       per_page = 10
       params[:more] = true
@@ -59,14 +59,10 @@ class QuestionsController < ApplicationController
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]
       choices = Choice.find(:all, :params => {:question_id => @question_id})
-    elsif params[:more]
+    else
       choices = Choice.find(:all, :params => {:question_id => @question_id,
                             :limit => per_page, 
                             :offset => (current_page - 1) * per_page})
-    else
-      choices = Choice.find(:all, :params => {:question_id => @question_id, 
-                            :limit => 10, 
-                            :offset => 0})
     end
 
     if @photocracy

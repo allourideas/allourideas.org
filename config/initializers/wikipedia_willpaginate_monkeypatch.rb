@@ -1,4 +1,4 @@
-class WikipediaPagination < WillPaginate::LinkRenderer
+class BootstrapPagination < WillPaginate::LinkRenderer
 
   def initialize
     @gap_marker = '<li class="disabled gap"><a href="javascript://">&hellip;</a></li>'

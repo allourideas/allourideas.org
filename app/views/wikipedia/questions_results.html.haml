@@ -124,7 +124,7 @@
 
   .pagination
     %ul
-      = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next'), :renderer => ::WikipediaPagination, :container => false
+      = paginated = will_paginate @choices, :previous_label => I18n.t('results.previous'), :next_label => I18n.t('results.next'), :renderer => ::BootstrapPagination, :container => false
   %br
   %br
 

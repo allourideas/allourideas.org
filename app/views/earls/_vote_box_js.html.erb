@@ -279,6 +279,7 @@
     $('.flag_link').click(function(ev) {
       ev.preventDefault();
       flag_side = $(this).attr('id');
+	    $('#flag_inappropriate textarea').val('');
     });
 
     $('#flag_inappropriate').on('click', 'button', function(ev) {

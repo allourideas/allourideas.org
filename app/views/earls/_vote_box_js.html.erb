@@ -213,68 +213,63 @@
       $('#facebox .new_idea_field').hint();
       $('#facebox .new_idea_field').jqEasyCounter({target: '#facebox .new_idea_counter'});
 
-    //if popup is for cant_decide_submit
-    $('.cd_box a').click(function(event) {
-        event.preventDefault();
-    
-        var reason = $(event.currentTarget).attr('href').replace(/^#*/, '');
-
-	      jQuery(document).trigger('close.facebox')
-	
-	var currentTime = new Date();
-	var time_viewed = currentTime - loadedTime
-	$('.example_notice').hide();
-	//$.setFragment({ "page" : $.queryString(this.href).page });
-	$('.tellmearea').html('');
-	$('.indicator').show();
-	var prompt_id = $('#prompt_id').val()
-	var appearance_lookup = $('#appearance_lookup').val()
-	$.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
-		        backgroundColor: '#000', 
-		        opacity:         0.0
-		   }});
-	var question_id = $(event.currentTarget).attr("data-questionid");
-	$.post('/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>',
-	       {
-		   'authenticity_token' : AUTH_TOKEN,
-		   'cant_decide_reason' : reason, 
-		   'time_viewed' : time_viewed,
-		   'appearance_lookup': appearance_lookup
-		},
-
-		function(data){
-		        leveling_text = "";
-		        if(data["leveling_message"] != "")
-		           leveling_text = " <br /> " + data["leveling_message"];
-		        
-			if(SHOW_AVERAGE_VOTES == "with_average")
-		           leveling_text += " " + $('#average_votes').html()
-    var results_text = '';
-    <%- if @question.user_can_view_results?(current_user, @earl) -%>
-    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-    <%- end -%>
-			feedback = data["message"] + leveling_text + results_text;
-
-		        $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
-			$('.indicator').hide();
-			$.unblockUI();
-			$('.leftside').html(data["newleft"]);
-			$('.rightside').html(data["newright"]);
-		       
-			//used for fraud detection / back button behavior fixing
-		        $('#left_side_text').val(data["newleft"]);
-		        $('#right_side_text').val(data["newright"]);
-
-		        $('#prompt_id').val(data["prompt_id"]);
-		        $('#appearance_lookup').val(data["appearance_lookup"]);
-	                //clear the radio buttons somehow?
-		        loadedTime = new Date() //reset loaded time
-			
-		},
-		"json"
-		);
-	});
     });
+
+    // handle can't decide click
+    $('.cd_options').on('click', 'button', function(ev) {
+      ev.preventDefault();
+      var target = $(ev.currentTarget);
+      var reason = target.data('reason');
+	    var question_id = target.data("questionid");
+	    var time_viewed = (new Date()) - loadedTime
+	    var prompt_id = $('#prompt_id').val()
+	    var appearance_lookup = $('#appearance_lookup').val()
+
+	    $('.example_notice').hide();
+	    $('.tellmearea').html('');
+	    $('.indicator').show();
+	    $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
+		      backgroundColor: '#000', 
+		      opacity:         0.0
+		  }});
+
+      var postData = {
+		    'authenticity_token' : AUTH_TOKEN,
+		    'cant_decide_reason' : reason, 
+		    'time_viewed' : time_viewed,
+		    'appearance_lookup': appearance_lookup
+      };
+      var url = '/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>';
+	    $.post(url, postData, function(data) {
+		    leveling_text = "";
+		    if(data["leveling_message"] != "") {
+		      leveling_text = " <br /> " + data["leveling_message"];
+        }
+		        
+			  if(SHOW_AVERAGE_VOTES == "with_average") {
+		      leveling_text += " " + $('#average_votes').html()
+        }
+        var results_text = '';
+        <%- if @question.user_can_view_results?(current_user, @earl) -%>
+          results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+        <%- end -%>
+			  feedback = data["message"] + leveling_text + results_text;
+		    $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
+			  $('.indicator').hide();
+			  $.unblockUI();
+			  $('.leftside').html(data["newleft"]);
+			  $('.rightside').html(data["newright"]);
+
+			  //used for fraud detection / back button behavior fixing
+		    $('#left_side_text').val(data["newleft"]);
+		    $('#right_side_text').val(data["newright"]);
+
+		    $('#prompt_id').val(data["prompt_id"]);
+		    $('#appearance_lookup').val(data["appearance_lookup"]);
+	      //clear the radio buttons somehow?
+		    loadedTime = new Date() //reset loaded time
+      },"json");
+	  });
 
 
     $('.flag_link').bind("click", function(event){

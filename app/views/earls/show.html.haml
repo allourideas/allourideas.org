@@ -7,73 +7,80 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-.votebox
-  %table.full
-    %tr
-      %td{:colspan => 3}= rounded(@question.attributes['name'], 'border')
-    %tr.prompt.prompter
-      %td.half.idea.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
-        = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
-      %td
-      %td.idea.right.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
-        = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
-    -if @earl.flag_enabled?
+.row.votebox
+  .span12
+    %table.full
       %tr
-        %td.fleft.no_bottom_padding
-          = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
-        %td.no_bottom_padding
-        %td.fright.no_bottom_padding
-          = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
-  %table.vote-footer
-    %tr
-      %td &nbsp; 
-      %td.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
-        =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :rel => 'facebox[.wider]')
-      %td
-        - if !@earl.flag_enabled?
-          = render :partial => 'vote_idea_count', :locals => {:question => @question}
-        -else
-          &nbsp;
-  .clear
-  %center.add_container
-    .add_idea
-      = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
-    %br
-    #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
-    .tellmearea
-      -# TODO delete this section, not being used
-      -if @winner
-        -if @skip
-          == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
-        -else
-          = t('vote.you_chose_winner_over_loser', :winner => link_to(@winner, item_path(@winner_id, :question_id => @question_id)), :loser => link_to(@loser, item_path(@loser_id, :question_id => @question_id))) + '.'
-      -elsif flash[:v_notice]
-        %p.vote-notice#v_notice= flash[:v_notice]
-        = javascript_tag "setTimeout(function() { $('#v_notice').fadeOut(1000); }, 3000);"
-      -elsif flash[:v_error]
-        %p.error#v_error= flash[:v_error]
-        = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
-      %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
+        %td{:colspan => 3}= rounded(@question.attributes['name'], 'border')
+      %tr.prompt.prompter
+        %td.half.idea.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
+          = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
+        %td
+        %td.idea.right.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
+          = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
+      -if @earl.flag_enabled?
+        %tr
+          %td.fleft.no_bottom_padding
+            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
+          %td.no_bottom_padding
+          %td.fright.no_bottom_padding
+            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
+.row.votebox
+  .span12
+    %table.vote-footer
+      %tr
+        %td &nbsp; 
+        %td.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
+          =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal')
+        %td
+          - if !@earl.flag_enabled?
+            = render :partial => 'vote_idea_count', :locals => {:question => @question}
+          -else
+            &nbsp;
+.row
+  .span12
+    %center.add_container
+      .add_idea
+        = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
+      %br
+      #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+      .tellmearea
+        -# TODO delete this section, not being used
+        -if @winner
+          -if @skip
+            == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
+          -else
+            = t('vote.you_chose_winner_over_loser', :winner => link_to(@winner, item_path(@winner_id, :question_id => @question_id)), :loser => link_to(@loser, item_path(@loser_id, :question_id => @question_id))) + '.'
+        -elsif flash[:v_notice]
+          %p.vote-notice#v_notice= flash[:v_notice]
+          = javascript_tag "setTimeout(function() { $('#v_notice').fadeOut(1000); }, 3000);"
+        -elsif flash[:v_error]
+          %p.error#v_error= flash[:v_error]
+          = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
+        %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
 
-#cant_decide_options{:style => 'display:none'}
-  %h2= t('vote.cant_decide_title')
-  -cd_options= ['like_both', 'both_same', 'dont_know_both', 'dislike_both', 'dont_know_left', 'dont_know_right', 'other']
-  .cd_options
-    - cd_options.each do |choice|
-      .cd_option
-        .cd_box
-          %a.rounded-facebox{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
-            .cd_choice_text
-              =t('vote.cd_'+choice)
-              - if choice == 'dont_know_left' 
-                .leftside
-                  %em= h(@left_choice_text)
-              - elsif choice == 'dont_know_right'
-                .rightside
-                  %em= h(@right_choice_text)
-  %br
-  .fleft
-    = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
+#cant_decide_options.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => 'modal'} x
+    %h2= t('vote.cant_decide_title')
+  .modal-body
+    .row
+      .span6
+        -cd_options= ['like_both', 'both_same', 'dont_know_both', 'dislike_both', 'dont_know_left', 'dont_know_right', 'other']
+        .cd_options
+          - cd_options.each_slice(2) do |choices|
+            .row
+              - choices.each do |choice|
+                .span3
+                  %p
+                    %button.btn.btn-primary{:class => choice, :'data-questionid' => @question.id, :"data-reason" => choice, :"data-dismiss" => 'modal'}
+                      =t('vote.cd_'+choice)
+                      - if choice == 'dont_know_left' 
+                        .leftside
+                          %em= h(@left_choice_text)
+                      - elsif choice == 'dont_know_right'
+                        .rightside
+                          %em= h(@right_choice_text)
 
 -if @earl.flag_enabled?
   #flag_inappropriate{:style => 'display:none'}

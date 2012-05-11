@@ -167,9 +167,6 @@ table {
   padding: 0px 15px 2px 0px;
   width: 545px; }
 
-.votebox {
-  width: 90%; }
-
 .votebox table {
   text-align: center;
   margin: 0 auto; }
@@ -440,19 +437,8 @@ table.tablesorter thead tr .headerSortDown {
   #cant_decide_options .cd_options {
     width: 100%;
     overflow: auto; }
-    #cant_decide_options .cd_options .cd_option {
-      width: 50%;
-      float: left; }
-      #cant_decide_options .cd_options .cd_option .cd_box {
-        margin: 5px 10px; }
-        #cant_decide_options .cd_options .cd_option .cd_box a {
-          background-color: #3198c1;
-          color: white;
-          display: block; }
-          #cant_decide_options .cd_options .cd_option .cd_box a:hover {
-            background-color: #2b88ad; }
-          #cant_decide_options .cd_options .cd_option .cd_box a .cd_choice_text {
-            padding: 5px 10px; }
+    #cant_decide_options .cd_options button {
+      width: 100%; }
 
 .wider {
   color: black; }

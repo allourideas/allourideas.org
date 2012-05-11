@@ -7,8 +7,9 @@
       %thead
         %tr
           %th
-            = @question.attributes['name']
-          %th.score= t('common.score').titleize
+            %h4= @question.attributes['name']
+          %th.score
+            %h4= t('common.score').titleize + " (0 - 100)"
           %th &nbsp;
       %tbody
         - @choices.each do |choice|

@@ -42,11 +42,7 @@ class QuestionsController < ApplicationController
     current_page = params[:page] || 1
     current_page = current_page.to_i
     current_page = 1 if current_page == 0
-    per_page = 20
-    if wikipedia?
-      per_page = 10
-      params[:more] = true
-    end
+    per_page = 10
 
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 

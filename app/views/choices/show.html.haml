@@ -1,33 +1,31 @@
 = content_for :meta do
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 = render :partial => 'shared/header_vote'
-.ninety
-  %table.full.item
-    %tr.row0
-      %th{:colspan => 2}
-        = @question.name.strip
-    %tr
-      %td= t('items.idea')
-      %td{:width=>'80%'}= @choice.data.strip
-    %tr
-      %td= t('items.added_on')
-      %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
-    %tr
-      %td= t('items.score')
-      %td= @choice.score.round.to_s + ' ' + link_to('[?]', '#explanation', :rel => 'facebox')
-    %tr
-      %td= t('items.number_of_votes')
-      %td#num_votes= @num_votes
-      
-#explanation{:style => 'display:none;'}
-  %h2= t('items.about_scoring')
-  =t('items.score_explain')
 
+.row
+  .span12
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{:colspan => 2}
+            %h4= @question.name.strip
+      %tbody
+        %tr
+          %th= t('items.idea')
+          %td{:width=>'80%'}= @choice.data.strip
+        %tr
+          %th= t('items.added_on')
+          %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
+        %tr
+          %th= t('items.score')
+          %td= @choice.score.round.to_s + ' ' + link_to('[?]', '#explanation', :"data-toggle" => 'modal')
+        %tr
+          %th= t('items.number_of_votes')
+          %td#num_votes= @num_votes
 
--content_for :head do
-  = javascript_include_tag 'facebox'
-  = stylesheet_link_tag 'facebox'
-
--content_for :view_javascript do
-  $('a[rel*=facebox]').facebox();
-  $('#facebox').draggable();
+#explanation.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => "modal"}x
+    %h2= t('items.about_scoring')
+  .modal-body
+    =t('items.score_explain')

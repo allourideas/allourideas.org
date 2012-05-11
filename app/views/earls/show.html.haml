@@ -85,8 +85,11 @@
 -if @earl.flag_enabled?
   #flag_inappropriate.hide.modal.fade
     .modal-body
-      %p= t('vote.please_explain_flag')
-      =text_area_tag 'inappropriate_reason', "", :cols => 55
+      %form.form-horizontal
+        .control-group
+          %label.control-label= t('vote.please_explain_flag')
+          .controls
+            =text_area_tag 'inappropriate_reason', "", :class => 'input-xlarge', :rows => 3
     .modal-footer
       %a.btn{:"data-dismiss" => 'modal'}
         =t('user.close')

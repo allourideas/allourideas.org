@@ -21,10 +21,10 @@
       -if @earl.flag_enabled?
         %tr
           %td.fleft.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link')
+            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
           %td.no_bottom_padding
           %td.fright.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')
+            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
 .row.votebox
   .span12
     %table.vote-footer
@@ -83,14 +83,15 @@
                           %em= h(@right_choice_text)
 
 -if @earl.flag_enabled?
-  #flag_inappropriate{:style => 'display:none'}
-    = t('vote.please_explain_flag')
-    =text_area_tag 'inappropriate_reason', "", :cols => 55
-    %br
-    .fleft
-      = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
-    .fright
-      .flag_submit_button.rounded{:rel => @question.id}= t('vote.submit')
+  #flag_inappropriate.hide.modal.fade
+    .modal-body
+      %p= t('vote.please_explain_flag')
+      =text_area_tag 'inappropriate_reason', "", :cols => 55
+    .modal-footer
+      %a.btn{:"data-dismiss" => 'modal'}
+        =t('user.close')
+      %button.btn.btn-primary{:"data-question_id" => @question.id}
+        =t('vote.submit')
 
 -if @ab_show_average == "with_average"
   #average_votes{:style => 'display:none'}

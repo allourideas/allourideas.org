@@ -216,7 +216,7 @@
     });
 
     // handle can't decide click
-    $('.cd_options').on('click', 'button', function(ev) {
+    $('#cant_decide_options').on('click', 'button', function(ev) {
       ev.preventDefault();
       var target = $(ev.currentTarget);
       var reason = target.data('reason');

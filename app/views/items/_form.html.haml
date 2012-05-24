@@ -1,7 +1,7 @@
 -form_tag "items_path" do
 
   -ab_test(the_ab_test_name, %w{control make_your_voice_heard help_your_community}, :conversion => 'submitted_idea') do |choice|
-    -link_to("#the_add_box", :rel => 'facebox[.wider]') do
+    -link_to("#the_add_box", :"data-toggle" => 'modal') do
       .add_idea_button.rounded
         - unless choice == "control"
           =t('ab_tests.test_ideasubmit.'+ choice)
@@ -10,14 +10,17 @@
       
     - box_text = t('vote.add_your_idea')
 
-    .add-box#the_add_box{:style => 'display:none'}
-      .indicator{:style => "display:none;"}= image_tag('indicator.gif')
-      = rounded(text_area_tag('new_idea', '', :title => box_text , :rows => 2, :maxlength => Const::MAX_ITEM_LENGTH, :class => 'new_idea_field', :id => 'new_idea_field'), 'border-thick')
-      = hidden_field_tag 'default_text', box_text
-      = hidden_field_tag 'question_id', @question_id 
-      %br
-      .new_idea_counter
-      .fleft
-        = link_to(image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_image"), {:anchor => ""}, :class => "close")
-      .fright
-        .new_idea_submit.rounded#submit_btn{:rel => @question.id}= t('vote.submit')
+    .add-box#the_add_box.hide.modal.fade
+      .modal-body
+        .indicator{:style => "display:none;"}= image_tag('indicator.gif')
+        .alert.alert-success.hide
+        %textarea#new_idea_field.input-xxlarge.new_idea_field{:title => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
+        = hidden_field_tag 'default_text', box_text
+        = hidden_field_tag 'question_id', @question_id 
+        %br
+        .new_idea_counter
+      .modal-footer
+        %a.btn{:"data-dismiss" => 'modal'}
+          =t('user.close')
+        %button.btn.btn-primary{:"data-question_id" => @question.id}
+          =t('vote.submit')

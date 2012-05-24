@@ -15,68 +15,70 @@
 
   handle_history_events();
 
-  on_idea_submit_button_click = function(event){
-    var new_idea = $('#facebox .new_idea_field').val();
-    var default_text = $('#default_text').val()
-    $('#facebox .new_idea_counter').hide();
+  $('#the_add_box .new_idea_field').hint();
+  $('#the_add_box .new_idea_field').jqEasyCounter({target: '#the_add_box .new_idea_counter'});
+
+  // handle submit on add new idea box
+  $('#the_add_box').on('click', 'button', function(ev) {
+    ev.preventDefault();
+    var modal = $(ev.currentTarget).closest('.modal');
+    var new_idea = modal.find('.new_idea_field').val();
+    var default_text = $('#default_text').val();
+    var question_id = $(ev.currentTarget).data("question_id");
+
     $('.example_notice').hide();
 
-    //if new idea is blank or longer than 140 characters, do not allow it to submit
-    if ((new_idea == 'Add your own idea here...') || (new_idea == '') || new_idea == default_text) {
-        event.returnValue = false;
-  alert('<%=t('vote.submit_idea_default_error') %>');
-        return false;
+    // verify new idea is not blank, default or longer than 140 characters
+    if (new_idea == 'Add your own idea here...' || new_idea == '' || new_idea == default_text) {
+      alert('<%=t('vote.submit_idea_default_error') %>');
+      return;
     }
     if (new_idea.length > 140) {
-        alert('<%=t('vote.submit_idea_too_long_error') %>');
-        event.returnValue = false;
-        return false;
+      alert('<%=t('vote.submit_idea_too_long_error') %>');
+      return;
     }
 
     $('.tellmearea').html('');
     $('.indicator').show();
-    $('#facebox .border-thick').hide();
-    $('#facebox .new_idea_field').hide();
+    modal.find('.new_idea_counter').hide();
+    modal.find('.new_idea_field').hide();
     $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  {
         backgroundColor: '#000',
         opacity:         0.0
      }});
+    var data = {authenticity_token : AUTH_TOKEN, new_idea: new_idea};
+    var url  = '/questions/' + question_id + '/add_idea.js?locale=<%= I18n.locale %>';
+    $.post(url, data, function(data){
+      $.unblockUI();
+      leveling_text = "";
+      if(data["leveling_message"] != "") {
+        leveling_text = " <br /> " + data["leveling_message"];
+      }
+      var results_text = '';
+      <%- if @question.user_can_view_results?(current_user, @earl) -%>
+        results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+      <%- end -%>
+      $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
+      // keypress is for counter
+      $('#new_idea_field').val('').show().keypress();
+      modal.find('.new_idea_counter').show();
+      $('.indicator').hide();
 
-    var question_id = $(this).attr("rel");
+      if (data['choice_status'] == 'active') {
+        current_item_count = $('#item_count').html();
+        $('#item_count').html(increment(current_item_count));
+        modal.modal('hide');
+      }
+      else {
+        modal.find('.alert-success').html('<%= t('vote.idea_sent_for_review') %>').show();
+        setTimeout(function() {
+          modal.find('.alert-success').hide(300);
+        }, 5 * 1000);
+      }
 
+    }, "json");
+  });
 
-    $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
-        {authenticity_token : AUTH_TOKEN, new_idea: new_idea},
-        function(data){
-          $.unblockUI();
-          leveling_text = "";
-          if(data["leveling_message"] != "")
-    leveling_text = " <br /> " + data["leveling_message"];
-    var results_text = '';
-    <%- if @question.user_can_view_results?(current_user, @earl) -%>
-    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-    <%- end -%>
-    $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
-          $('#new_idea_field').val("");
-          $('.indicator').hide();
-
-          if (data['choice_status'] == 'active') {
-            current_item_count = $('#item_count').html();
-            $('#item_count').html(increment(current_item_count));
-      $.facebox.close();
-          }
-    else{
-            $('<p> <%= t('vote.idea_sent_for_review') %> </p>').insertBefore('#facebox .new_idea_field');
-            $('#facebox .new_idea_submit').html('<%= t('vote.cast_votes') %>');
-            $('#facebox .new_idea_submit').unbind('click');
-            $('#facebox .new_idea_submit').bind('click', $.facebox.close);
-          }
-
-        },
-        "json"
-      );
-      return false;
-    };
 
     $('.vote_cell').bind('click',function(event){
 
@@ -207,11 +209,6 @@
     $('#facebox .footer').hide();
     $('#facebox .close').click($.facebox.close)
     }
-
-   // if popup is for add_idea_submit
-      $('#facebox .new_idea_submit').bind('click', on_idea_submit_button_click);
-      $('#facebox .new_idea_field').hint();
-      $('#facebox .new_idea_field').jqEasyCounter({target: '#facebox .new_idea_counter'});
 
     });
 

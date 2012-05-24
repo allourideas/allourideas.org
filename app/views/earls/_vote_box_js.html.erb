@@ -221,6 +221,9 @@
       var target = $(ev.currentTarget);
       var reason = target.data('reason');
       var question_id = target.data("questionid");
+      if (!reason || !question_id) {
+        return;
+      }
       var time_viewed = (new Date()) - loadedTime
       var prompt_id = $('#prompt_id').val()
       var appearance_lookup = $('#appearance_lookup').val()

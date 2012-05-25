@@ -203,15 +203,6 @@
     return false;
   });
 
-    $(document).bind('reveal.facebox', function() {
-
-    if($('#facebox .content').hasClass('wider')){
-    $('#facebox .footer').hide();
-    $('#facebox .close').click($.facebox.close)
-    }
-
-    });
-
     // handle can't decide click
     $('#cant_decide_options').on('click', 'button', function(ev) {
       ev.preventDefault();

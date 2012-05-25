@@ -27,5 +27,4 @@ Feature: Sign in
       And I sign in as "email@person.com/password"
       Then I should see "Signed in"
       When I return next time
-      Then I should see "Logout" within ".footer"
-
+      Then I should see "Logout" within ".footer-row"

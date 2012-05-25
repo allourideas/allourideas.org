@@ -34,7 +34,7 @@ Then /^the the background job should call '(.*)'$/ do |method|
 end
 
 When /^I click on the edit link for the question$/ do 
-	find('.row0 .header:first a').click
+	find('th.header:first a').click
 end
 
 When /^I click on the Status header column$/ do 

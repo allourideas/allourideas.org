@@ -667,7 +667,11 @@ class QuestionsController < ApplicationController
     votes_count_hash.each do |votes|
 
       hash_date_string = votes['date']
-      hash_date = Date.strptime(hash_date_string, "%Y-%m-%d")
+      if hash_date_string.class == Date
+        hash_date = hash_date_string
+      else
+        hash_date = Date.strptime(hash_date_string, "%Y-%m-%d")
+      end
       if start_date.nil?
         start_date = hash_date
         current_date= start_date

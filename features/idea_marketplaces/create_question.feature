@@ -71,7 +71,7 @@ Feature: Creating Idea marketplaces
 		Then I should have the following query string:
 		   |just_created|true|
 		When I click the I can't decide button
-		Then I should see "I like both ideas" within "#facebox"
+		Then I should see "I like both ideas"
         
 	Scenario: User should receive email after question is created
 		Given I am on the question create page

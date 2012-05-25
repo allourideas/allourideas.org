@@ -14,7 +14,7 @@ Feature: Flag as inappropriate
 	@selenium
 	Scenario: User flags choice as inappropriate
 		When I click the flag link for the left choice
-		Then I should see "Please explain why this choice is inappropriate: " within "#facebox"
+		Then I should see "Please explain why this choice is inappropriate: " within "#flag_inappropriate"
 
 	@selenium
 	Scenario: User submits a flag request

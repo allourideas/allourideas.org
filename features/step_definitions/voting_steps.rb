@@ -20,7 +20,7 @@ When /^I click the flag link for the (.*) choice$/ do |side|
         else
 		When "I follow \"right_flag\""
 	end
-
+  sleep 0.4
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
@@ -46,7 +46,7 @@ When /^I click the (.*) button$/ do |button_name|
       	find(".add_idea_button").click
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
-      	find("#facebox .flag_submit_button").click
+        find("#flag_inappropriate .flag_submit_button").click
       when "WIDGET flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
       	find(".flag_submit_button").click

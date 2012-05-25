@@ -33,10 +33,7 @@
         %td.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
           =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal')
         %td
-          - if !@earl.flag_enabled?
-            = render :partial => 'vote_idea_count', :locals => {:question => @question}
-          -else
-            &nbsp;
+          = render :partial => 'vote_idea_count', :locals => {:question => @question}
 .row
   .span12
     %center.add_container
@@ -93,7 +90,7 @@
     .modal-footer
       %a.btn{:"data-dismiss" => 'modal'}
         =t('user.close')
-      %button.btn.btn-primary{:"data-question_id" => @question.id}
+      %button.btn.btn-primary.flag_submit_button{:"data-question_id" => @question.id}
         =t('vote.submit')
 
 -if @ab_show_average == "with_average"

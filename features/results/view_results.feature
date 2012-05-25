@@ -9,23 +9,21 @@ Feature: View Results
 
 	Scenario: User clicks all results
 		Given I am on the View Results page for 'test'
-		When I follow "See more..."
-		Then I should see "Idea #1"
-		And I should see "Idea #19"
-		And I should not see "See more..."
+		When I follow "»"
+		Then I should not see "Idea #001"
+		And I should see "Idea #011"
 		And I should have the following query string:
-		   |more|true|
+		   |page|2|
          
 	Scenario: User clicks all results in french
 		Given the default locale for 'test' is 'fr'
 		And I am on the View Results page for 'test'
-		When I follow "Voir plus"
-		Then I should see "Idea #1"
+		When I follow "»"
+		Then I should not see "Idea #001"
 		And show me the page
-		And I should see "Idea #19"
-		And I should not see "Voir plus"
+		And I should see "Idea #011"
 		And I should have the following query string:
-		   |more|true|
+		   |page|2|
 		   |locale|fr|
 
 

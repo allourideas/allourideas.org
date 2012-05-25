@@ -7,18 +7,15 @@ Feature: Paginate large view results set
 		Given an idea marketplace quickly exists with url 'test'
 		And idea marketplace 'test' has 100 ideas
 		When I go to the View Results page for 'test'
-		Then I should see "Idea #2"
-		And I should not see "Idea #50"
-		When I follow "See more..."
-		Then I should see "Idea #2"
-		And I should see "Idea #50"
-		And I should not see "Idea #51"
-		When I follow "Next >>"
-		Then I should not see "Idea #2"
-		And I should not see "Idea #49"
-		And I should see "Idea #51"
-		When I follow "See All 102 Ideas"
-		Then I should see "Idea #2"
+		Then I should see "Idea #002"
+		And I should not see "Idea #050"
+		When I follow "»"
+		Then I should not see "Idea #002"
+		And I should not see "Idea #009"
+		And I should not see "Idea #010"
+		And I should see "Idea #011"
+		When I follow "View All"
+		Then I should see "Idea #002"
 		And I should see "Idea #100"
  
 
@@ -26,19 +23,6 @@ Feature: Paginate large view results set
 		Given an idea marketplace quickly exists with url 'test'
 		And idea marketplace 'test' has 5 ideas
 		When I go to the View Results page for 'test'
-		Then I should see "Idea #1"
-		And I should see "Idea #4"
-		And I should not see "See More..."
-	
-	Scenario: One page of ideas
-		Given an idea marketplace quickly exists with url 'test'
-		And idea marketplace 'test' has 35 ideas
-		When I go to the View Results page for 'test'
-		Then I should see "Idea #1"
-		And I should see "Idea #4"
-		And I should not see "Idea #35"
-		When I follow "See more..."
-		Then I should see "Idea #1"
-		And I should see "Idea #4"
-		And I should see "Idea #30"
-		And I should not see "See All"
+		Then I should see "Idea #001"
+		And I should see "Idea #004"
+		And I should not see "View All"

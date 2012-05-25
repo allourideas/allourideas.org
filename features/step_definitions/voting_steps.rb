@@ -39,6 +39,7 @@ When /^I click the (.*) button$/ do |button_name|
       case button_name
       when "I can't decide"
         find("#cant_decide_btn").click
+        sleep 0.5
       when "I can't decide submit"
         page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
       	find(".cd_submit_button").click
@@ -63,7 +64,7 @@ end
 When /^I pick "(.*)"$/ do |radio_label|
 	case radio_label 
 	when "I like both ideas"
-    find('.cd_box a.like_both').click
+    find('.cd_options .like_both').click
 	when "Other"
            When "I choose \"cant_decide_reason_user_other\""
 	end
@@ -151,10 +152,6 @@ end
 Then /^the saved left choice should not be active$/ do
 	@left_choice.reload
 	@left_choice.should_not be_active
-end
-
-When /^I close the facebox$/ do
-        page.evaluate_script("$.facebox.close();")
 end
 
 Given /^I save the current appearance lookup?$/ do 

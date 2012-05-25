@@ -22,5 +22,5 @@
       .modal-footer
         %a.btn{:"data-dismiss" => 'modal'}
           =t('user.close')
-        %button.btn.btn-primary{:"data-question_id" => @question.id}
+        %button#submit_btn.btn.btn-primary{:"data-question_id" => @question.id}
           =t('vote.submit')

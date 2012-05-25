@@ -10,12 +10,15 @@ Feature: Toggling question idea auto activation
 
 	@selenium
 	Scenario: User enables idea autoactivation
-	     When I click the idea auto activation toggle button
-	     Then I should see "Enabled" within ".toggle_autoactivate_status"
+       When I check "earl_question_should_autoactivate_ideas"
+       And I press "Save"
+       Then the "earl_question_should_autoactivate_ideas" checkbox should be checked
 
 	@selenium
 	Scenario: User disables idea autoactivation
-	     When I click the idea auto activation toggle button
-	     Then I should see "Enabled" within ".toggle_autoactivate_status"
-	     When I click the idea auto activation toggle button
-	     Then I should see "Disabled" within ".toggle_autoactivate_status"
+       When I check "earl_question_should_autoactivate_ideas"
+       And I press "Save"
+       Then the "earl_question_should_autoactivate_ideas" checkbox should be checked
+       When I uncheck "earl_question_should_autoactivate_ideas"
+       And I press "Save"
+       Then the "earl_question_should_autoactivate_ideas" checkbox should not be checked

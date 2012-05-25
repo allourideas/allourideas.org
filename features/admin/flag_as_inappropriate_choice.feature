@@ -13,21 +13,21 @@ Feature: Control Flag as Inappropriate
 	  Then I should not see "Flag as inappropriate"
 	
 	Scenario: I enable flag as inappropriate
-	  When I select "Enabled" from "earl_flag_enabled"
+	  When I check "earl_flag_enabled"
 	  And I press "Save"
 	  And I go to the Cast Votes page for 'test'
 	  Then I should see "Flag as inappropriate"
 
 	Scenario: I disable flag as inappropriate after enabling
 	  Given idea marketplace 'test' has enabled "flag as inappropriate"
-	  When I select "Disabled" from "earl_flag_enabled"
+	  When I uncheck "earl_flag_enabled"
 	  And I press "Save"
 	  And I go to the Cast Votes page for 'test'
 	  Then I should not see "Flag as inappropriate"
 	
 	Scenario: I disable flag as inappropriate after enabling
 	  Given idea marketplace 'test' has enabled "flag as inappropriate"
-	  When I select "Disabled" from "earl_flag_enabled"
+	  When I uncheck "earl_flag_enabled"
 	  And I press "Save"
 	  And I go to the Cast Votes page for 'test'
 	  Then I should not see "Flag as inappropriate"

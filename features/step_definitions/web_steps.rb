@@ -161,7 +161,7 @@ end
 Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should be checked$/ do |label, selector|
   with_scope(selector) do
     if defined?(Spec::Rails::Matchers)
-      find_field(label)['checked'].should == 'checked'
+      find_field(label)['checked'].should == "true"
     else
       assert_equal 'checked', field_labeled(label)['checked']
     end
@@ -171,7 +171,7 @@ end
 Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should not be checked$/ do |label, selector|
   with_scope(selector) do
     if defined?(Spec::Rails::Matchers)
-      find_field(label)['checked'].should_not == 'checked'
+      find_field(label)['checked'].should_not == 'true'
     else
       assert_not_equal 'checked', field_labeled(label)['checked']
     end

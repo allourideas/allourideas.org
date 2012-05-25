@@ -24,7 +24,6 @@ Feature: View individual idea page
 		And I should see "Score"
 		And I should see "50"
 		And I should see "Number of Votes"
-		And I should see "0 votes on 4 ideas"
 	
 	@selenium
 	Scenario: Voting updates individual choice total correctly
@@ -51,7 +50,6 @@ Feature: View individual idea page
 		And I vote 10 times
 		Then the vote count should be 11
 		When I go to the Idea Detail page for the saved left choice
-		Then I should see "11 votes on 2 ideas"
 		And I should see "1" within "#num_votes"
 		When I go to the Idea Detail page for the saved right choice
 		Then I should see "1" within "#num_votes"

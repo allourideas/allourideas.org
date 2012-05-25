@@ -475,8 +475,10 @@ table.tablesorter thead tr .headerSortDown {
 
 .add_idea {
   margin: 35px 0px 0px 0px; }
-  .add_idea a {
-    text-decoration: none; }
+  .add_idea a.add-idea-link {
+    text-decoration: none;
+    display: block;
+    width: 300px; }
   .add_idea .add_idea_button {
     padding: 5px 10px 5px 10px;
     width: 265px;

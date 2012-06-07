@@ -22,8 +22,8 @@ class Visitor < ActiveRecord::Base
 
 		score = self.level_score(params)
 
-		vote_noun = params[:votes] == 1 ? I18n.t('common.vote').downcase : I18n.t('common.votes').downcase
-		idea_noun = params[:ideas] == 1 ? I18n.t('common.idea').downcase : I18n.t('common.ideas').downcase
+		vote_noun = params[:votes] == 1 ? I18n.t('common.vote').mb_chars.downcase.to_s : I18n.t('common.votes').mb_chars.downcase.to_s
+		idea_noun = params[:ideas] == 1 ? I18n.t('common.idea').mb_chars.downcase.to_s : I18n.t('common.ideas').mb_chars.downcase.to_s
 
 		adjective_key = "vote.leveling.adjective_" + (score/10).truncate.to_s
 		

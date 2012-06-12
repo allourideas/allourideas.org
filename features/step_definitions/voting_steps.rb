@@ -1,6 +1,5 @@
 When /^I click on the left choice$/ do
 	When "I follow \"leftside\""
-	Capybara.default_wait_time = 10
 	Then "I should see \"You chose\" within \".tellmearea\""
 end
 
@@ -10,7 +9,6 @@ end
 
 When /^I click on the right choice$/ do
 	When "I follow \"rightside\""
-	Capybara.default_wait_time = 10
 	Then "I should see \"You chose\" within \".tellmearea\""
 end
 
@@ -25,13 +23,13 @@ end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
 	When "I click the add new idea button"
-	And "I fill in \"new_idea_field\" with \"#{ideatext}\""
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
 	find("#submit_btn").click
 end
 
 When /^I upload an idea titled$/ do |ideatext|
 	When "I click the add new idea button"
-	And "I fill in \"new_idea_field\" with \"#{ideatext}\""
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
 	find("#submit_btn").click
 end
 
@@ -130,9 +128,9 @@ Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	
 	@earl = Earl.find_by_question_id(@question_id)
         begin
-	  @prompt_id = page.locate('#prompt_id')[:value].to_s
+	  @prompt_id = page.locate('#prompt_id').value
 	  #The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
-	rescue Capybara::ElementNotFound
+	rescue 
           @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
 	end
 	if @prompt_id.blank?
@@ -157,8 +155,8 @@ end
 Given /^I save the current appearance lookup?$/ do 
 	#The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
         begin
-	  @appearance_lookup = page.locate('#appearance_lookup')[:value].to_s
-	rescue Capybara::ElementNotFound
+	  @appearance_lookup = page.locate('#appearance_lookup').value
+	rescue
           @appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
 	end
 	if @appearance_lookup.blank?
@@ -167,10 +165,10 @@ Given /^I save the current appearance lookup?$/ do
 end
 
 Then /^the current appearance lookup should (not )?match the saved appearance lookup$/ do |negation|
-        begin
-	  @new_appearance_lookup = page.locate('#appearance_lookup')[:value].to_s
-	rescue Capybara::ElementNotFound
-          @new_appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
+  begin
+	  @new_appearance_lookup = page.locate('#appearance_lookup').value
+	rescue
+    @new_appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
 	end
 	if @new_appearance_lookup.blank?
 	  raise Capybara::ElementNotFound

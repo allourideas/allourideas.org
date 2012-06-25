@@ -9,7 +9,9 @@
           %th
             %h4= @question.attributes['name']
           %th.score
-            %h4= t('common.score').titleize + " (0 - 100)"
+            %h4
+              = t('common.score').titleize + " (0 - 100)"
+              = link_to('<i class="icon-question-sign"></i>', '#explanation', :"data-toggle" => 'modal')
           %th &nbsp;
       %tbody
         - @choices.each do |choice|

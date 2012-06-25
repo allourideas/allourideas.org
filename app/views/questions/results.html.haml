@@ -15,10 +15,11 @@
         - @choices.each do |choice|
           %tr
             %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#explanation', :"data-toggle" => 'modal')
-            %td.choice-progress
-              .progress
+            %td.span4.choice-progress
+              .progress.progress-gray
                 .bar{:style => "width:#{choice.attributes['score']}%"}
+              .score
+                %strong= choice.attributes['score'].round.to_s
 .row
   .span12
     -if !params[:all]

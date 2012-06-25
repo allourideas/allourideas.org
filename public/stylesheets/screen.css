@@ -516,7 +516,21 @@ table.tablesorter thead tr .headerSortDown {
 .question-admin-form .form-horizontal .control-label {
   width: 170px; }
 
-td.choice-progress {
-  width: 250px; }
-  td.choice-progress .progress {
-    margin-bottom: 0; }
+td.choice-progress .progress {
+  margin-bottom: 0;
+  float: left;
+  width: 85%; }
+td.choice-progress .score {
+  float: left;
+  margin-left: 1em; }
+
+.progress-gray .bar {
+  background-color: #dddddd;
+  background-image: -ms-linear-gradient(top, #dddddd, #b5b5b5);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#b5b5b5));
+  background-image: -webkit-linear-gradient(top, #dddddd, #b5b5b5);
+  background-image: -o-linear-gradient(top, #dddddd, #b5b5b5);
+  background-image: linear-gradient(top, #dddddd, #b5b5b5);
+  background-image: -moz-linear-gradient(top, #dddddd, #b5b5b5);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#dddddd', endColorstr='#b5b5b5', GradientType=0); }

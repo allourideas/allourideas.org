@@ -1,27 +1,25 @@
 = content_for :meta do
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-= render :partial => 'shared/header_vote'
+= render :partial => 'shared/header_vote' unless request.xhr?
 
-.row
-  .span12
-    %table.table.table-striped
-      %thead
-        %tr
-          %th{:colspan => 2}
-            %h4= @question.name.strip
-      %tbody
-        %tr
-          %th= t('items.idea')
-          %td{:width=>'80%'}= @choice.data.strip
-        %tr
-          %th= t('items.added_on')
-          %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
-        %tr
-          %th= t('items.score')
-          %td= @choice.score.round.to_s + ' ' + link_to('[?]', '#explanation', :"data-toggle" => 'modal')
-        %tr
-          %th= t('items.number_of_votes')
-          %td#num_votes= @num_votes
+%table.table.table-striped
+  %thead
+    %tr
+      %th{:colspan => 2}
+        %h4= @question.name.strip
+  %tbody
+    %tr
+      %th= t('items.idea')
+      %td{:width=>'80%'}= @choice.data.strip
+    %tr
+      %th= t('items.added_on')
+      %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
+    %tr
+      %th= t('items.score')
+      %td= @choice.score.round.to_s + ' ' + link_to('<i class="icon-question-sign"></i>', '#explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal')
+    %tr
+      %th= t('items.number_of_votes')
+      %td#num_votes= @num_votes
 
 #explanation.hide.modal.fade
   .modal-header

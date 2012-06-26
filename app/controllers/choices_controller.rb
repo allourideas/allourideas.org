@@ -28,7 +28,7 @@ class ChoicesController < ApplicationController
 
     if @choice
       respond_to do |format|
-        format.html # show.html.erb
+        format.html  { render :layout => !request.xhr? }
       end
     else
       redirect_to('/') and return

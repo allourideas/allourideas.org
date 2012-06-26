@@ -5,16 +5,40 @@
 window.AOI = window.AOI || {};
 jQuery(function () {
     AOI.admin.initialize();
-    modalAjax();
-    function modalAjax() {
-        $('[data-toggle="modal-ajax"]').click(function(ev) {
-            ev.preventDefault();
-            var modal = $('<div class="modal"><div class="modal-body"><div class="progress progress-striped active"><div class="bar" style="width: 66%;"></div></div></div><div class="modal-footer"><button class="close" data-dismiss="modal">x</button></div></div>').modal();
-            modal.find('.modal-body').load($(ev.target).attr('href'));
-        });
-    }
+    AOI.app.initialize();
 });
 
+AOI.app = (function($) {
+    var that = {};
+
+    that.initialize = function() {
+        modalAjax();
+        makeIdeaRowsClickable();
+    };
+
+    // on results page make idea rows clickable and show modal
+    function makeIdeaRowsClickable() {
+        $(document).on('click', '.ideas-table tr', function(ev) {
+            // if clicking an anchor tag, don't do anything
+            if ($(ev.target).is('a')) { return; }
+            that.createModalFromHref($(ev.currentTarget).find('a:first').attr('href'));
+        });
+    }
+
+    function modalAjax() {
+        $(document).on('click', '[data-toggle="modal-ajax"]', function(ev) {
+            ev.preventDefault();
+            that.createModalFromHref($(ev.target).attr('href'));
+        });
+    }
+
+    that.createModalFromHref = function(href) {
+        var modal = $('<div class="modal"><div class="modal-body"><div class="progress progress-striped active"><div class="bar" style="width: 66%;"></div></div></div><div class="modal-footer"><button class="close" data-dismiss="modal">x</button></div></div>').modal();
+        modal.find('.modal-body').load(href);
+    };
+
+    return that;
+}(jQuery));
 
 // Admin related functions
 AOI.admin = (function($) {

@@ -3,7 +3,7 @@
 = render :partial => 'shared/header_vote'
 .row
   .span12
-    %table.table.table-striped
+    %table.table.table-striped.ideas-table
       %thead
         %tr
           %th
@@ -16,7 +16,7 @@
       %tbody
         - @choices.each do |choice|
           %tr
-            %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
+            %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), question_choice_url(@earl.name, choice), :"data-toggle" => "modal-ajax"
             %td.span4.choice-progress
               .progress.progress-gray
                 .bar{:style => "width:#{choice.attributes['score']}%"}

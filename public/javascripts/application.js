@@ -21,7 +21,7 @@ AOI.app = (function($) {
         $(document).on('click', '.ideas-table tr', function(ev) {
             // if clicking an anchor tag, don't do anything
             if ($(ev.target).is('a')) { return; }
-            that.createModalFromHref($(ev.currentTarget).find('a:first').attr('href'));
+            $(ev.currentTarget).find('a:first').click();
         });
     }
 

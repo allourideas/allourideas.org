@@ -249,30 +249,27 @@ class QuestionsController < ApplicationController
     end
 
 
-    target_div = 'wcdiv'
+    @target_div = 'wcdiv'
     if type
-      target_div+= "-" + type
+      @target_div+= "-" + type
     end
-    if @word_frequency.size ==0      
-      render :text => "$('\##{target_div}').text('#{t('results.no_data_error')}');"  and return
+    if @word_frequency.size != 0
+      @word_cloud_js ="
+          var thedata = new google.visualization.DataTable();
+          thedata.addColumn('string', 'Label');
+          thedata.addColumn('number', 'Value');
+          thedata.addColumn('string', 'Link'); //optional link
+          thedata.addRows(#{@word_frequency.size});
+      "
+      @word_cloud_end = "
+          var outputDiv = document.getElementById('#{@target_div}');
+          var tc = new TermCloud(outputDiv);
+          tc.draw(thedata, null);
+      "
     end
-
-    @word_cloud_js ="
-        var thedata = new google.visualization.DataTable();
-        thedata.addColumn('string', 'Label');
-        thedata.addColumn('number', 'Value');
-        thedata.addColumn('string', 'Link'); //optional link
-        thedata.addRows(#{@word_frequency.size});
-    "
-    @word_cloud_end = "
-        var outputDiv = document.getElementById('#{target_div}');
-        var tc = new TermCloud(outputDiv);
-        tc.draw(thedata, null);
-    "
-
 
     respond_to do |format|
-      format.html
+      format.html { render :layout => false }
       format.js
     end
   end
@@ -324,7 +321,7 @@ class QuestionsController < ApplicationController
       if @photocracy
         point[:name] = "<img src='#{Photo.find(c.data).image.url(:thumb)}' width='50' height='50' />"
       else
-        point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s
+        point[:name] = CGI::escapeHTML(c.data.strip.gsub("'", "")) + "@@@" + c.id.to_s
       end
       point[:color] = c.attributes['user_created'] ? '#BF0B23' : '#0C89F0'
       point[:x] = c.score.round
@@ -413,7 +410,10 @@ class QuestionsController < ApplicationController
                         :tooltip => { :formatter => tooltipformatter }
                       })
 
-                      render :text => @votes_chart
+    respond_to do |format|
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"} 
+      format.js { render :text => @votes_chart }
+    end
   end
 
   def scatter_votes_vs_skips
@@ -473,6 +473,7 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
+      format.html { render :text => "<div id='scatter_votes_vs_skips-chart-container'></div><script>#{@votes_chart}</script>" }
       format.js { render :text => @votes_chart }
     end
   end
@@ -488,7 +489,7 @@ class QuestionsController < ApplicationController
       point[:x] = choice.score
       point[:y] = choice.wins + choice.losses
 
-      point[:name] = choice.data.strip.gsub("'","")
+      point[:name] = CGI::escapeHTML(choice.data.strip.gsub("'",""))
       chart_data << point
     end
     tooltipformatter = "function() { return  this.point.name + ' Score: ' +  this.x + ' Votes: '  + this.y; }"
@@ -514,6 +515,7 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
+      format.html { render :text => "<div id='scatter_score_vs_votes-chart-container'></div><script>#{@votes_chart}</script>" }
       format.js { render :text => @votes_chart }
     end
   end
@@ -714,6 +716,7 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script>#{@votes_chart}</script>" }
       format.js { render :text => @votes_chart }
     end
   end
@@ -727,66 +730,69 @@ class QuestionsController < ApplicationController
     prompt_types = ["seed_seed", "seed_nonseed","nonseed_seed","nonseed_nonseed"]
 
     if @densities.blank?
-      render :text => "$('\##{type}-chart-container').text('Cannot make chart, no data.');" and return
-    end
+      text = "Cannot make chart, no data."
+    else
+      text = ""
 
-    chart_title = "Density of votes over time by prompt type"
-    y_axis_title = "Density of votes"
+      chart_title = "Density of votes over time by prompt type"
+      y_axis_title = "Density of votes"
 
-    chart_data = {}
-    prompt_types.each do |the_type|
-      chart_data[the_type] = []
-    end
-
-    start_date = nil
-    current_date = nil
-    @densities.each do |d|
-      hash_date = d.created_at.to_date
-
-      if start_date.nil?
-        start_date = hash_date
-        current_date= start_date
+      chart_data = {}
+      prompt_types.each do |the_type|
+        chart_data[the_type] = []
       end
 
-      # We need to add in a blank entry for every day that doesn't exist
-      if d.value.nil?
-        chart_data[d.prompt_type] << 0
-      else
-        chart_data[d.prompt_type] << d.value
+      start_date = nil
+      current_date = nil
+      @densities.each do |d|
+        hash_date = d.created_at.to_date
+
+        if start_date.nil?
+          start_date = hash_date
+          current_date= start_date
+        end
+
+        # We need to add in a blank entry for every day that doesn't exist
+        if d.value.nil?
+          chart_data[d.prompt_type] << 0
+        else
+          chart_data[d.prompt_type] << d.value
+        end
       end
+
+      the_series = []
+
+      prompt_types.each do |the_type|
+        the_series << { :name => the_type.humanize,
+          :type => 'line',
+          :pointInterval => 86400000,
+          :color => '#3198c1',
+          :pointStart => start_date.to_time.to_i * 1000,
+          :data => chart_data[the_type] }
+      end
+      tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
+
+      @density_chart = Highchart.spline({
+        :chart => { :renderTo => "#{type}-chart-container",
+          :margin => [50, 25, 60, 80],
+          :borderColor =>  '#919191',
+          :borderWidth =>  '1',
+          :borderRadius => '0',
+          :backgroundColor => '#FFFFFF'
+      },
+        :legend => { :enabled => true},
+        :title => { :text => chart_title,
+          :style => { :color => '#919191' }
+      },
+        :x_axis => { :type => 'datetime', :title => {:text => t('results.date')}},
+        :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
+        :series => the_series,
+        :tooltip => { :formatter => tooltipformatter }
+
+      })
     end
-
-    the_series = []
-
-    prompt_types.each do |the_type|
-      the_series << { :name => the_type.humanize,
-        :type => 'line',
-        :pointInterval => 86400000,
-        :color => '#3198c1',
-        :pointStart => start_date.to_time.to_i * 1000,
-        :data => chart_data[the_type] }
-    end
-    tooltipformatter = "function() { return '<b>' + Highcharts.dateFormat('%b. %e %Y', this.x) +'</b>: '+ this.y +' '+ this.series.name }"
-
-    @density_chart = Highchart.spline({
-      :chart => { :renderTo => "#{type}-chart-container",
-        :margin => [50, 25, 60, 80],
-        :borderColor =>  '#919191',
-        :borderWidth =>  '1',
-        :borderRadius => '0',
-        :backgroundColor => '#FFFFFF'
-    },
-      :legend => { :enabled => true},
-      :title => { :text => chart_title,
-        :style => { :color => '#919191' }
-    },
-      :x_axis => { :type => 'datetime', :title => {:text => t('results.date')}},
-      :y_axis => { :min => '0', :title => {:text => y_axis_title, :style => { :color => '#919191'}}},
-      :series => the_series,
-      :tooltip => { :formatter => tooltipformatter }
-
-    })
     respond_to do |format|
+      format.html { render :text => "<div id='#{type}-chart-container'>#{text}</div><script>#{@density_chart}</script>"}
       format.js { render :text => @density_chart}
     end
   end
@@ -819,7 +825,7 @@ class QuestionsController < ApplicationController
       point = {}
       point[:x] = x_value
       point[:y] = appearance['appearances']
-      point[:name] = appearance['data'].strip.gsub("'","") + "@@@" + date.to_s
+      point[:name] = CGI::escapeHTML(appearance['data'].strip.gsub("'","")) + "@@@" + date.to_s
       chart_data  << point
       last_date = date
     end
@@ -851,9 +857,10 @@ class QuestionsController < ApplicationController
                                         })
 
 
-                                        respond_to do |format|
-                                          format.js { render :text => @votes_chart }
-                                        end
+    respond_to do |format|
+      format.html { render :text => "<div id='choice-by-date-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.js { render :text => @votes_chart }
+    end
   end
 
   def add_idea

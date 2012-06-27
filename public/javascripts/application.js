@@ -13,8 +13,27 @@ AOI.app = (function($) {
 
     that.initialize = function() {
         modalAjax();
+        preventDefaultLinks();
         makeIdeaRowsClickable();
+        dataVisualizationOpen();
     };
+
+    function dataVisualizationOpen() {
+        $('.collapse').on('show', function(ev) {
+            var target = $(ev.target);
+            if (target.data('loaded') === true) { return; }
+            var group = target.closest('.accordion-group');
+            var link = group.find('.accordion-heading a:first');
+            if (target.is('.map')) {
+                var iframe = $("<iframe src='" + link.attr('href') + "' width='746px' height='370px' frameborder=0 scrolling=no></iframe>");
+                target.find('.accordion-inner').html(iframe);
+            }
+            else {
+                target.find('.accordion-inner').load(link.attr('href'));
+            }
+            target.data('loaded', true);
+        });
+    }
 
     // on results page make idea rows clickable and show modal
     function makeIdeaRowsClickable() {
@@ -22,6 +41,12 @@ AOI.app = (function($) {
             // if clicking an anchor tag, don't do anything
             if ($(ev.target).is('a')) { return; }
             $(ev.currentTarget).find('a:first').click();
+        });
+    }
+
+    function preventDefaultLinks() {
+        $(document).on('click', '[data-preventDefault="true"]', function(ev) {
+            ev.preventDefault();
         });
     }
 
@@ -119,10 +144,10 @@ function decrement(number)
 {
 	return parseInt(number, 10) - 1;
 }
-function iframe_loaded(){
-	   $('.voter_map_indicator').hide();
-}
 
+function iframe_loaded(){
+          $('.voter_map_indicator').hide();
+}
 
 jQuery(document).ready(function() {
 	
@@ -292,7 +317,7 @@ jQuery(document).ready(function() {
 			var target_row = $(this).parent().parent().next();
 			if(!toggleLinkTextandTargetElement($(this), target_row))
 			{
-			        var iframe_html= "<tr id=voter_map_row class='row1'><td class='title' colspan='2' height=370px><div class='voter_map_indicator'><img src='/images/indicator.gif' /></div><iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' onload='iframe_loaded();' width='746px' height='370px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>";
+			        var iframe_html= "<tr id=voter_map_row class='row1'><td class='title' colspan='2' height=370px><div class='voter_map_indicator'><img src='/images/indicator.gif' /></div><iframe id='voter_map_iframe' src='" + $(this).attr('href') + "' width='746px' height='370px' frameborder=0 scrolling=no style='border:1px solid rgb(145,145,145);'></iframe></td></tr>";
 				current_row.after(iframe_html);
 //				$('#view_voter_map_row').after("<tr id=voter_map_row class='row1'><td class='title' height=360px colspan='2' style='text-align:center'><div id='geo_map_canvas'><img src=/images/indicator.gif /></div></td></tr>")
 //				$.get($(this).attr("href")+".js", null, null, "script");

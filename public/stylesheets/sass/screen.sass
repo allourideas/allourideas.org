@@ -538,6 +538,29 @@ table.tablesorter
       margin-left: 1em
       font-size: 120%
 
+.navbar-aoi
+  .navbar-inner
+    // remove rounded corners
+    -webkit-border-radius: 0
+    -moz-border-radius: 0
+    border-radius: 0
+    // modify min-height
+    min-height: 30px
+    // modify background color
+    background-color: #666666
+    background-image: -moz-linear-gradient(top, #6d6d6d, #5c5c5c)
+    background-image: -ms-linear-gradient(top, #6d6d6d, #5c5c5c)
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6d6d6d), to(#5c5c5c))
+    background-image: -webkit-linear-gradient(top, #6d6d6d, #5c5c5c)
+    background-image: -o-linear-gradient(top, #6d6d6d, #5c5c5c)
+    background-image: linear-gradient(top, #6d6d6d, #5c5c5c)
+    background-repeat: repeat-x
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#6d6d6d', endColorstr='#5c5c5c', GradientType=0)
+
+  .nav > li > a
+    padding: 5px 10px 7px
+    line-height: 18px
+    color: #fefefe
 
 .progress-gray .bar
   background-color: #dddddd

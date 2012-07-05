@@ -21,6 +21,21 @@
       = yield :view_javascript    
       });
   %body{:class => I18n.locale}
+    .navbar.navbar-aoi
+      .navbar-inner
+        .container
+          %ul.nav.pull-right
+            - if signed_in?
+              %li.dropdown
+                %a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
+                  = current_user.email
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to t('user.logout'), '/sign_out'
+                  %li= link_to t('user.control_panel'), admin_path
+                  %li= link_to t('nav.make_your_own'), new_question_path
+            - else
+              %li= link_to t('user.login'), sign_in_path
     =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.to_json};" if protect_against_forgery?
     .content.container{:style => white_label_request? ? "overflow:hidden": ""}
       - unless white_label_request?  

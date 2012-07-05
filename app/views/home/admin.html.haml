@@ -1,7 +1,7 @@
 =# render :partial => 'shared/header_vote'
 .row
   .span12
-    -if @earls.length > 0
+    -if @questions_map.length > 0
       %table.table.table-bordered.table-striped.table-condensed{:class => current_user.admin? ? "tablesorter" : ""}
         %thead
           %tr

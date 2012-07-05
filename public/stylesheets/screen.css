@@ -516,7 +516,7 @@ table.tablesorter thead tr .headerSortDown {
 .question-admin-form .form-horizontal .control-label {
   width: 170px; }
 
-.ideas-table tr {
+.ideas-table tbody tr {
   cursor: pointer; }
 .ideas-table td.choice-progress .progress {
   margin-bottom: 0;

@@ -40,6 +40,7 @@
         .accordion-heading
           .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#scatter_ideas'}
             = link_to(t('results.scatter_ideas_title'), url_for(:action => :scatter_plot_user_vs_seed_ideas, :type => "scatter_ideas"), :"data-preventDefault" => true)
+            %button.close.hide x
         #scatter_ideas.accordion-body.collapse
           .accordion-inner
             = image_tag('indicator.gif')
@@ -49,6 +50,7 @@
           .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_ideas'}
             = link_to(t('results.word_cloud_ideas_title'), url_for(:action => :word_cloud), :"data-preventDefault" => true)
             = link_to('<i class="icon-question-sign"></i>', '#word_cloud_exp', :"data-toggle" => 'modal')
+            %button.close.hide x
         #word_cloud_ideas.accordion-body.collapse
           .accordion-inner
             = image_tag('indicator.gif')
@@ -58,6 +60,7 @@
           .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_weighted'}
             = link_to(t('results.word_cloud_weighted_title'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :"data-preventDefault" => true)
             = link_to('<i class="icon-question-sign"></i>', '#word_cloud_exp', :"data-toggle" => 'modal')
+            %button.close.hide x
         #word_cloud_weighted.accordion-body.collapse
           #wcdiv-weight_by_score.accordion-inner
             = image_tag('indicator.gif')
@@ -67,6 +70,7 @@
           .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_uploaded'}
             = link_to(t('results.word_cloud_uploaded_title'), url_for(:action => :word_cloud, :type => 'uploaded'), :"data-preventDefault" => true)
             = link_to('<i class="icon-question-sign"></i>', '#word_cloud_exp', :"data-toggle" => 'modal')
+            %button.close.hide x
         #word_cloud_uploaded.accordion-body.collapse
           .accordion-inner
             = image_tag('indicator.gif')
@@ -76,6 +80,7 @@
           .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_uploaded_weighted'}
             = link_to(t('results.word_cloud_uploaded_weighted_title'), url_for(:action => :word_cloud, :type => 'uploaded_weight_by_score'), :"data-preventDefault" => true)
             = link_to('<i class="icon-question-sign"></i>', '#word_cloud_exp', :"data-toggle" => 'modal')
+            %button.close.hide x
         #word_cloud_uploaded_weighted.accordion-body.collapse
           .accordion-inner
             = image_tag('indicator.gif')
@@ -84,6 +89,7 @@
         .accordion-heading
           .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#world_map_votes'}
             = link_to(t('results.world_map_title'), url_for(:action => :voter_map, :type => 'votes'), :"data-preventDefault" => true)
+            %button.close.hide x
         #world_map_votes.accordion-body.collapse.map
           .accordion-inner
             = image_tag('indicator.gif')
@@ -94,6 +100,7 @@
             .accordion-heading
               .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#datechart-#{type}"}
                 = link_to(options[:title], url_for(:action => :timeline_graph, :type => type), :"data-preventDefault" => true)
+                %button.close.hide x
             .accordion-body.collapse{:id => "datechart-#{type}"}
               .accordion-inner
                 = image_tag('indicator.gif')
@@ -103,6 +110,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#density-chart"}
               = link_to("View density of votes for this question (super-admin only)", url_for(:action => :density_graph, :type => "density"), :"data-preventDefault" => true)
+              %button.close.hide x
           #density-chart.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -111,6 +119,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#ratings-choices"}
               = link_to("View number of ratings of choices by creation time (super-admin only)", url_for(:action => :scatter_num_ratings_by_creation_time, :type => "scatter_num_ideas_by_creation_time"), :"data-preventDefault" => true)
+              %button.close.hide x
           #ratings-choices.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -119,6 +128,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#appearances_per_choice"}
               = link_to("View number of appearances per choice by choice creation date (super-admin only)", url_for(:action => :choices_by_creation_date, :type => "choice-by-date"), :"data-preventDefault" => true)
+              %button.close.hide x
           #appearances_per_choice.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -128,6 +138,7 @@
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#world_map_bounces"}
               = link_to("World Map of bounces (viewed once and then left) (super-admin only)", url_for(:action => :voter_map, :type => 'bounces'), :"data-preventDefault" => true)
               = link_to('<i class="icon-question-sign"></i>', '#bounce_explanation', :"data-toggle" => 'modal')
+              %button.close.hide x
           #world_map_bounces.accordion-body.collapse.map
             .accordion-inner
               = image_tag('indicator.gif')
@@ -136,6 +147,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#world_map_uploaded"}
               = link_to("World Map of uploaded ideas (super-admin only)", url_for(:action => :voter_map, :type => 'uploaded_ideas'), :"data-preventDefault" => true)
+              %button.close.hide x
           #world_map_uploaded.accordion-body.collapse.map
             .accordion-inner
               = image_tag('indicator.gif')
@@ -144,6 +156,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#votes_per_session"}
               = link_to("View number of votes per session (super-admin only)", url_for(:action => :scatter_votes_by_session, :type => "votes"), :"data-preventDefault" => true)
+              %button.close.hide x
           #votes_per_session.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -152,6 +165,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#skips_per_session"}
               = link_to("View number of skips per session (super-admin only)", url_for(:action => :scatter_votes_by_session, :type => "skips"), :"data-preventDefault" => true)
+              %button.close.hide x
           #skips_per_session.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -160,6 +174,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#votes_skips_per_session"}
               = link_to("View number of votes vs number of skips per session (super-admin only)", url_for(:action => :scatter_votes_vs_skips, :type => "skips"), :"data-preventDefault" => true)
+              %button.close.hide x
           #votes_skips_per_session.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -168,6 +183,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#skips_per_day"}
               = link_to("View number of skips per day (super-admin only)", url_for(:action => :timeline_graph, :type => "skips"), :"data-preventDefault" => true)
+              %button.close.hide x
           #skips_per_day.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')
@@ -176,6 +192,7 @@
           .accordion-heading
             .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#score_vs_votes"}
               = link_to("View choice score vs total votes (super-admin only)", url_for(:action => :scatter_score_vs_votes), :"data-preventDefault" => true)
+              %button.close.hide x
           #score_vs_votes.accordion-body.collapse
             .accordion-inner
               = image_tag('indicator.gif')

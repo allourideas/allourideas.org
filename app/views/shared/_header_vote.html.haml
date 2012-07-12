@@ -14,7 +14,7 @@
           =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete, :class => 'btn btn-danger')
 .row
   .span12
-    %ul.nav.nav-tabs.pull-right
+    %ul.nav.nav-tabs.pull-right.vote-tabs
       %li{:class => current_page?(@cast_votes_url) ? 'active' : ''}
         = link_to(t('vote.cast_votes'), @cast_votes_url)
       - if @question.user_can_view_results?(current_user, @earl)
@@ -29,3 +29,5 @@
       - if current_user && ( (current_user.owns? @earl) || current_user.admin? )
         %li{:class => current_page?(@manage_url) ? 'active' : ''}
           = link_to(t('nav.manage_question'), @manage_url)
+.row
+  .span12.below-tabs

@@ -556,3 +556,11 @@ table.tablesorter thead tr .headerSortDown {
   background-image: -moz-linear-gradient(top, #dddddd, #b5b5b5);
   background-repeat: repeat-x;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#dddddd', endColorstr='#b5b5b5', GradientType=0); }
+
+.nav-tabs.vote-tabs {
+  margin-bottom: 0; }
+  .nav-tabs.vote-tabs > li.active > a {
+    background-color: #f2f2f2; }
+
+.below-tabs {
+  border-top: 18px solid #f2f2f2; }

@@ -7,38 +7,38 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-.row.votebox
-  .span12
-    %table.full
-      %tr
-        %td{:colspan => 3}= rounded(@question.attributes['name'], 'border')
-      %tr.prompt.prompter
-        %td.half.idea.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
-          = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
-        %td
-        %td.idea.right.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
-          = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
-      -if @earl.flag_enabled?
+.tab-content
+  .row.votebox
+    .span10.offset1
+      %table.full
         %tr
-          %td.fleft.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
-          %td.no_bottom_padding
-          %td.fright.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
-.row.votebox
-  .span12
-    %table.vote-footer
-      %tr
-        %td &nbsp; 
-        %td.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
-          =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal')
-        %td
-          = render :partial => 'vote_idea_count', :locals => {:question => @question}
+          %td{:colspan => 3}= rounded(@question.attributes['name'], 'border')
+        %tr.prompt.prompter
+          %td.half.idea.left.vote_cell{:rel => @question.id, :id => "left_choice_cell"}
+            = rounded(render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id}), 'round-filled')
+          %td
+          %td.idea.right.vote_cell{:rel => @question.id, :id => "right_choice_cell"}
+            = rounded(render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id}), 'round-filled')
+        -if @earl.flag_enabled?
+          %tr
+            %td.fleft.no_bottom_padding
+              = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
+            %td.no_bottom_padding
+            %td.fright.no_bottom_padding
+              = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
+  .row.votebox
+    .span10.offset1
+      %table.vote-footer
+        %tr
+          %td &nbsp; 
+          %td.rounded{:id => I18n.locale == 'fr' ? 'cd_button' : 'cd_button_fr'}
+            =link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal')
+          %td
+            = render :partial => 'vote_idea_count', :locals => {:question => @question}
 .row
-  .span12
-    %center.add_container
-      .add_idea
-        = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
+  .span6.offset3
+    .add_idea
+      = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
       %br
       #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
       .tellmearea

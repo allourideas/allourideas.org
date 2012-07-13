@@ -15,14 +15,30 @@
 
   handle_history_events();
 
-  $('#the_add_box .new_idea_field').hint();
   $('#the_add_box .new_idea_field').jqEasyCounter({target: '#the_add_box .new_idea_counter'});
+  $('#the_add_box button').hide();
+
+  $('#the_add_box').on('focus', 'textarea', function(ev) {
+    $('#the_add_box button').show();
+    $('#the_add_box .new_idea_counter').show();
+  });
+  $('#the_add_box').on('blur', 'textarea', function(ev) {
+    $('#the_add_box button').hide();
+    $('#the_add_box .new_idea_counter').hide();
+  });
+  // allow enter to add idea
+  $('#the_add_box').on('keypress', 'textarea', function(ev) {
+    if (ev.which == 13) {
+      ev.preventDefault();
+      $('#the_add_box button').click();
+    }
+  });
 
   // handle submit on add new idea box
   $('#the_add_box').on('click', 'button', function(ev) {
     ev.preventDefault();
-    var modal = $(ev.currentTarget).closest('.modal');
-    var new_idea = modal.find('.new_idea_field').val();
+    var box = $(ev.delegateTarget);
+    var new_idea = box.find('.new_idea_field').val();
     var default_text = $('#default_text').val();
     var question_id = $(ev.currentTarget).data("question_id");
 
@@ -40,16 +56,9 @@
 
     $('.tellmearea').html('');
     $('.indicator').show();
-    modal.find('.new_idea_counter').hide();
-    modal.find('.new_idea_field').hide();
-    $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  {
-        backgroundColor: '#000',
-        opacity:         0.0
-     }});
     var data = {authenticity_token : AUTH_TOKEN, new_idea: new_idea};
     var url  = '/questions/' + question_id + '/add_idea.js?locale=<%= I18n.locale %>';
     $.post(url, data, function(data){
-      $.unblockUI();
       leveling_text = "";
       if(data["leveling_message"] != "") {
         leveling_text = " <br /> " + data["leveling_message"];
@@ -60,19 +69,17 @@
       <%- end -%>
       $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
       // keypress is for counter
-      $('#new_idea_field').val('').show().keypress();
-      modal.find('.new_idea_counter').show();
+      $('#new_idea_field').val('').show().keypress().blur();
       $('.indicator').hide();
 
       if (data['choice_status'] == 'active') {
         current_item_count = $('#item_count').html();
         $('#item_count').html(increment(current_item_count));
-        modal.modal('hide');
       }
       else {
-        modal.find('.alert-success').html('<%= t('vote.idea_sent_for_review') %>').show();
+        box.find('.alert-success').html('<%= t('vote.idea_sent_for_review') %>').show();
         setTimeout(function() {
-          modal.find('.alert-success').hide(300);
+          box.find('.alert-success').hide(300);
         }, 5 * 1000);
       }
 

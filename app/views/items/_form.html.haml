@@ -1,26 +1,14 @@
 -form_tag "items_path" do
 
-  -ab_test(the_ab_test_name, %w{control make_your_voice_heard help_your_community}, :conversion => 'submitted_idea') do |choice|
-    -link_to("#the_add_box", :"data-toggle" => 'modal', :class => 'add-idea-link') do
-      .add_idea_button.rounded
-        - unless choice == "control"
-          =t('ab_tests.test_ideasubmit.'+ choice)
-          %br
-        = t('vote.add_your_idea_button')
-      
+  #the_add_box
     - box_text = t('vote.add_your_idea')
-
-    .add-box#the_add_box.hide.modal.fade
-      .modal-body
-        .indicator{:style => "display:none;"}= image_tag('indicator.gif')
-        .alert.alert-success.hide
-        %textarea#new_idea_field.input-xxlarge.new_idea_field{:title => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
-        = hidden_field_tag 'default_text', box_text
-        = hidden_field_tag 'question_id', @question_id 
-        %br
-        .new_idea_counter
-      .modal-footer
-        %a.btn{:"data-dismiss" => 'modal'}
-          =t('user.close')
-        %button#submit_btn.btn.btn-primary{:"data-question_id" => @question.id}
-          =t('vote.submit')
+    .alert.alert-success.hide
+    %textarea#new_idea_field.span6.new_idea_field{:placeholder => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
+    = hidden_field_tag 'default_text', box_text
+    = hidden_field_tag 'question_id', @question_id 
+    %br
+    .pull-left
+      .new_idea_counter
+    .pull-right
+      %button#submit_btn.btn.btn-primary{:"data-question_id" => @question.id}
+        =t('vote.submit')

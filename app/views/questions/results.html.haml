@@ -4,11 +4,12 @@
 .tab-content
   .row
     .span10.offset1
+      %h2.results-table-header= @question.attributes['name']
       %table.table.table-striped.ideas-table
         %thead
           %tr
             %th
-              %h4= @question.attributes['name']
+              %h4= t('common.ideas').titleize
             %th.score
               %h4
                 = t('common.score').titleize + " (0 - 100)"

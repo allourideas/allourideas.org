@@ -557,6 +557,12 @@ table.tablesorter thead tr .headerSortDown {
   background-repeat: repeat-x;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#dddddd', endColorstr='#b5b5b5', GradientType=0); }
 
+.tab-content {
+  background-color: #f2f2f2;
+  border-bottom: 18px solid #f2f2f2; }
+  .tab-content .row > div {
+    background-color: white; }
+
 .nav-tabs.vote-tabs {
   margin-bottom: 0; }
   .nav-tabs.vote-tabs > li.active > a {

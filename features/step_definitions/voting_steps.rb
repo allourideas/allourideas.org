@@ -22,13 +22,11 @@ When /^I click the flag link for the (.*) choice$/ do |side|
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
-	When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
 	find("#submit_btn").click
 end
 
 When /^I upload an idea titled$/ do |ideatext|
-	When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
 	find("#submit_btn").click
 end

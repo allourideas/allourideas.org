@@ -8,14 +8,23 @@
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
 .tab-content
+  -if !session[:has_voted] && session[:welcome_msg]
+    .row.welcome-message
+      .span10.offset1
+        .alert
+          %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
+          %p= h(session[:welcome_msg])
+    -session[:welcome_msg] = nil
   .row
     .span10.offset1
       %h2.vote-question= @question.attributes['name']
   .row.votebox
     .span5.offset1
-      = render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id})
+      %p
+        = render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id})
     .span5
-      = render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id})
+      %p
+        = render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id})
   .row
     .span10.offset1
       -if @earl.flag_enabled?

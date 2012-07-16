@@ -194,6 +194,9 @@ table {
 .tab-content .votebox > div {
   background-color: #f2f2f2; }
 
+.tab-content .welcome-message > div {
+  background-color: #f2f2f2; }
+
 .votebox table {
   text-align: center;
   margin: 0 auto; }

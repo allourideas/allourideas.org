@@ -10,7 +10,7 @@
   %tbody
     %tr
       %th= t('items.idea')
-      %td{:width=>'80%'}= @choice.data.strip
+      %td{:width=>'80%'}= h @choice.data.strip
     %tr
       %th= t('items.added_on')
       %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")

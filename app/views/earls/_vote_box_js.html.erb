@@ -87,128 +87,89 @@
   });
 
 
-    $('.vote_cell').bind('click',function(event){
+    $('.votebox').on('click', '.btn-primary.btn-vote-idea', function(event){
+      event.preventDefault();
 
-        var currentTime = new Date();
-  var time_viewed = currentTime - loadedTime
+      var winningLink = $(event.currentTarget);
+      var losingLink  = winningLink.closest('.votebox').find('a.btn-vote-idea').not(winningLink);
+      var winningSide = winningLink.data('side').replace('side', '');
 
-
-  $('.example_notice').hide();
-
-  // TODO refactor to use url_for in rails
-  var the_id = $(this).attr("id");
-  var the_locale = "<%= I18n.locale %>"
-
-  var winner_side = (the_id == "left_choice_cell") ? "left" : "right";
-  var loser_side = (the_id == "left_choice_cell") ? "right" : "left";
-
-  var question_id = $(this).attr("rel");
-
-  var loser_link = $('a#' + loser_side + 'side');
-  var winner_link = $('a#' + winner_side + 'side');
-
-  var loser_url = "/" + loser_link.attr("question_slug") + "/choices/" + loser_link.attr("choice_id");
-        var winner_url=  "/" + winner_link.attr("question_slug") + "/choices/" + winner_link.attr("choice_id");
+      var currentTime = new Date();
+      var time_viewed = currentTime - loadedTime
+      var the_locale = "<%= I18n.locale %>"
 
 
-  if(the_locale != 'en'){
-    loser_url += '?locale=' + the_locale;
-    winner_url += '?locale=' + the_locale;
-  }
+      var question_id = winningLink.data("question_id");
 
+      var loser = "<a href='" + losingLink.data('choice_url') +  "'>" + losingLink.html() + "</a>";
+      var winner = "<a href='" + winningLink.data('choice_url') + "'>" + winningLink.html() + "</a>";
 
-  var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
-  var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";
+      var prompt_id = $('#prompt_id').val()
+      var appearance_lookup = $('#appearance_lookup').val()
+      $.ajax({
+        type: "post",
+        url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
+        dataType: "json",
+        timeout: 10000,
+        data: {
+          'authenticity_token' : AUTH_TOKEN,
+          'time_viewed' : time_viewed,
+          'prompt_id': prompt_id,
+          'appearance_lookup': appearance_lookup,
+          'direction' : winningSide
+        },
+        beforeSend: function() {
+          $('.tellmearea').html('');
+          $('.indicator').show();
+        },
+        error: function(request,error) {
+          $('.indicator').hide();
+          if (error == "timeout") {
+            $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
+          }
+          else {
+            $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
+          }
 
-  var prompt_id = $('#prompt_id').val()
-  var appearance_lookup = $('#appearance_lookup').val()
-  $.ajax({
-     type: "post",
-     url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
-     dataType: "json",
-     data: {
-     'authenticity_token' : AUTH_TOKEN,
-     'time_viewed' : time_viewed,
-     'prompt_id': prompt_id,
-     'appearance_lookup': appearance_lookup,
-     'direction' : winner_side
-     },
-     beforeSend: function() {
-         $('.tellmearea').html('');
-         $('.indicator').show();
-         $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  {
-                 backgroundColor: '#000',
-           opacity:         0.0
-         }});
-     },
-     timeout: 10000,
-     error: function(request,error) {
-         $.unblockUI();
-         $('.indicator').hide();
-         if (error == "timeout") {
-           $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
-         }
-         else {
-           $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
-         }
+          loadedTime = new Date(); //reset loaded time
+        },
+        success: function(data){
+          $('.indicator').hide();
+          $('.leftside').html(data["newleft"]);
+          $('.rightside').html(data["newright"]);
+          $('.leftside').data('choice_id', data['left_choice_id']);
+          $('.leftside').data('choice_url', data['left_choice_url']);
+          $('.rightside').data('choice_id', data['right_choice_id']);
+          $('.rightside').data('choice_url', data['right_choice_url']);
 
-         loadedTime = new Date(); //reset loaded time
+          //used for fraud detection / back button behavior fixing
+          $('#left_side_text').val(data["newleft"]);
+          $('#right_side_text').val(data["newright"]);
 
-     },
-     success: function(data){
-    $.unblockUI();
-    $('.indicator').hide();
-    $('.leftside').html(data["newleft"]);
-    $('.rightside').html(data["newright"]);
+          $('#prompt_id').val(data["prompt_id"]);
+          $('#appearance_lookup').val(data["appearance_lookup"]);
 
-    //used for fraud detection / back button behavior fixing
-    $('#left_side_text').val(data["newleft"]);
-    $('#right_side_text').val(data["newright"]);
+          leveling_text = "";
+          if (data["leveling_message"] != "") {
+            leveling_text = " <br /> " + data["leveling_message"];
+          }
 
-    $('#prompt_id').val(data["prompt_id"]);
-    $('#appearance_lookup').val(data["appearance_lookup"]);
-
-    leveling_text = "";
-    if(data["leveling_message"] != "")
-         leveling_text = " <br /> " + data["leveling_message"];
-
-         if(SHOW_AVERAGE_VOTES == "with_average")
+          if (SHOW_AVERAGE_VOTES == "with_average") {
             leveling_text += " " + $('#average_votes').html()
-    var results_text = '';
-    <%- if @question.user_can_view_results?(current_user, @earl) -%>
-    results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-    <%- end -%>
+          }
+          var results_text = '';
+          <%- if @question.user_can_view_results?(current_user, @earl) -%>
+            results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
+          <%- end -%>
 
-    $('.tellmearea').html("<%= t('vote.you_chose_winner_over_loser', :winner => '%winner%', :loser => '%loser%')%>".replace('%winner%',  winner).replace('%loser%', loser) + leveling_text + results_text).effect("highlight", {}, 1500);
-    current_vote_count = $('#votes_count').html();
-    $('#votes_count').html(increment(current_vote_count));
-    $(".votebox tr.prompt td.idea").each(function(el) {
-          $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-              $(this).css("background", "#3198c1");
-              $(this).css("border-left", "1px solid #3198c1");
-              $(this).css("border-right", "1px solid #3198c1");
-              $(this).bind("mouseover", function() {
-                $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                  $(this).css("background", "#2b88ad");
-                  $(this).css("border-left", "1px solid #2b88ad");
-                  $(this).css("border-right", "1px solid #2b88ad");
-                });
-              });
-              $(this).bind("mouseout", function() {
-                $([$(this).children(".round-filledfg"), $(this).children(".round-filled").children()]).each(function(el) {
-                  $(this).css("background", "#3198c1");
-                  $(this).css("border-left", "1px solid #3198c1");
-                  $(this).css("border-right", "1px solid #3198c1");
-                });
-              });
-            });
-        });
+          $('.tellmearea').html("<%= t('vote.you_chose_winner_over_loser', :winner => '%winner%', :loser => '%loser%')%>".replace('%winner%',  winner).replace('%loser%', loser) + leveling_text + results_text).effect("highlight", {}, 1500);
+          current_vote_count = $('#votes_count').html();
+          $('#votes_count').html(increment(current_vote_count));
 
-                    loadedTime = new Date() //reset loaded time
-    }// End success
-       }); // End ajax method
-    return false;
-  });
+          loadedTime = new Date(); //reset loaded time
+        }// End success
+      }); // End ajax method
+    });
 
     // handle can't decide click
     $('#cant_decide_options').on('click', 'button', function(ev) {

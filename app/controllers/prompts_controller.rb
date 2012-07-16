@@ -25,6 +25,10 @@ class PromptsController < ApplicationController
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
         :newright          => CGI::escapeHTML(truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…')),
+        :left_choice_id    => next_prompt['left_choice_id'],
+        :left_choice_url   => question_choice_path(@earl.name, next_prompt['left_choice_id']),
+        :right_choice_id   => next_prompt['right_choice_id'],
+        :right_choice_url  => question_choice_path(@earl.name, next_prompt['right_choice_id']),
         :appearance_lookup => next_prompt['appearance_id'],
         :prompt_id         => next_prompt['id'],
         :leveling_message  => leveling_message,

@@ -453,6 +453,12 @@ table.tablesorter thead tr .headerSortDown {
   margin-bottom: 8px;
   display: none; }
 
+.cant-decide {
+  text-align: center; }
+
+.tab-content .row .cant-decide {
+  background-color: #f2f2f2; }
+
 #cant_decide_options {
   width: 500px; }
   #cant_decide_options .cd_options {
@@ -473,27 +479,6 @@ table.tablesorter thead tr .headerSortDown {
   .wider h2 {
     font-weight: bold;
     color: #3198c1; }
-
-#cd_button {
-  background: #c5c5c5;
-  width: 17%; }
-  #cd_button a {
-    color: white;
-    display: block;
-    font-size: 16px; }
-  #cd_button:hover {
-    background-color: #b1b1b1; }
-
-#cd_button_fr {
-  background: #c5c5c5;
-  width: 21%; }
-  #cd_button_fr a {
-    color: white;
-    display: block;
-    font-size: 16px;
-    text-decoration: none; }
-  #cd_button_fr:hover {
-    background-color: #b1b1b1; }
 
 .cd_submit_button {
   padding: 5px 10px 5px 10px;

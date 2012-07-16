@@ -30,11 +30,13 @@
     .span3.offset1
       -if @earl.flag_enabled?
         %p= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
+      &nbsp;
     .span4.vote-count-span
-      = render :partial => 'vote_idea_count', :locals => {:question => @question}
+      %p= render :partial => 'vote_idea_count', :locals => {:question => @question}
     .span3.flag-right
       -if @earl.flag_enabled?
         %p= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
+      &nbsp;
 
   .row
     .span4.offset4.cant-decide

@@ -25,21 +25,20 @@
     .span5
       %p
         = render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id})
+
   .row
-    .span10.offset1
+    .span3.offset1
       -if @earl.flag_enabled?
-        %tr
-          %td.fleft.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
-          %td.no_bottom_padding
-          %td.fright.no_bottom_padding
-            = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
+        %p= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
+    .span4.vote-count-span
+      = render :partial => 'vote_idea_count', :locals => {:question => @question}
+    .span3.flag-right
+      -if @earl.flag_enabled?
+        %p= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
+
   .row
     .span4.offset4.cant-decide
-      = link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal', :class => "btn")
-  .row
-    .span10.offset1
-      = render :partial => 'vote_idea_count', :locals => {:question => @question}
+      %p= link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal', :class => "btn")
 .row
   .span6.offset3
     .add_idea

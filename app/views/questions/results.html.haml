@@ -1,7 +1,7 @@
 = content_for :meta do
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 = render :partial => 'shared/header_vote'
-.tab-content
+.tab-content.question-results
   .row
     .span10.offset1
       %h3.results-table-header= @question.attributes['name']

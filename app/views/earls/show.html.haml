@@ -7,7 +7,7 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-.tab-content
+.tab-content.question-vote
   -if !session[:has_voted] && session[:welcome_msg]
     .row.welcome-message
       .span10.offset1

@@ -2,7 +2,9 @@
 
   #the_add_box
     - box_text = t('vote.add_your_idea')
-    .alert.alert-success.hide
+    .alert.alert-success.idea-success.hide
+      %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
+      %p
     %textarea#new_idea_field.span6.new_idea_field{:placeholder => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
     = hidden_field_tag 'default_text', box_text
     = hidden_field_tag 'question_id', @question_id 

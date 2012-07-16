@@ -77,9 +77,10 @@
         $('#item_count').html(increment(current_item_count));
       }
       else {
-        box.find('.alert-success').html('<%= t('vote.idea_sent_for_review') %>').show();
+        box.find('.idea-success p').html('<%= t('vote.idea_sent_for_review') %>');
+        box.find('.idea-success').show();
         setTimeout(function() {
-          box.find('.alert-success').hide(300);
+          box.find('.idea-success').hide(300);
         }, 5 * 1000);
       }
 

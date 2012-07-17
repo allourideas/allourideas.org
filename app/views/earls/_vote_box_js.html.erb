@@ -89,15 +89,16 @@
 
 
     function normalizeButtonHeight() {
-      var max = 0;
+      var max = $('<div>');
       $('.btn-vote-idea').each(function(i, b) {
-        $(b).css({height: 'auto'});
-        if ($(b).height() > max) {
-          max = $(b).height();
+        b = $(b);
+        b.css({height: 'auto'});
+        if (b.height() > max.height()) {
+          max = b;
         }
       });
-      $('.btn-vote-idea').each(function(i, b) {
-        $(b).height(max);
+      $('.btn-vote-idea').not(max).each(function(i, b) {
+        $(b).animate({height: max.height() + 'px'});
       });
     }
     normalizeButtonHeight();
@@ -156,16 +157,33 @@
           loadedTime = new Date(); //reset loaded time
         },
         success: function(data){
-          winningLink.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
-          losingLink.addClass('btn-primary').removeClass('disabled');
           $('.indicator').hide();
-          $('.leftside').html(data["newleft"]);
-          $('.rightside').html(data["newright"]);
-          $('.leftside').data('choice_id', data['left_choice_id']);
-          $('.leftside').data('choice_url', data['left_choice_url']);
-          $('.rightside').data('choice_id', data['right_choice_id']);
-          $('.rightside').data('choice_url', data['right_choice_url']);
-          normalizeButtonHeight();
+          var oldLeft = $('.leftside.btn-vote-idea');
+          var oldRight = $('.rightside.btn-vote-idea');
+          var newLeft = oldLeft.clone(true);
+          var newRight = oldRight.clone(true);
+          newLeft.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
+          newRight.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
+          newLeft.css({height: 'auto'});
+          newRight.css({height: 'auto'});
+          newLeft.html(data["newleft"]);
+          newRight.html(data["newright"]);
+          newLeft.data('choice_id', data['left_choice_id']);
+          newLeft.data('choice_url', data['left_choice_url']);
+          newRight.data('choice_id', data['right_choice_id']);
+          newRight.data('choice_url', data['right_choice_url']);
+
+          newLeft.hide();
+          newRight.hide();
+          newLeft.insertBefore(oldLeft);
+          newRight.insertBefore(oldRight);
+          newLeft.add(newRight).slideDown();
+          oldLeft.add(oldRight).slideUp(function() {
+            $(this).remove();
+            if (oldLeft.closest('body').length === 0 && oldRight.closest('body').length === 0) {
+              normalizeButtonHeight();
+            }
+          });
 
           //used for fraud detection / back button behavior fixing
           $('#left_side_text').val(data["newleft"]);

@@ -23,7 +23,9 @@
     $('#the_add_box .new_idea_counter').show();
   });
   $('#the_add_box').on('blur', 'textarea', function(ev) {
-    $('#the_add_box button').fadeOut();
+    if ($.trim($(ev.currentTarget).val()).length === 0) {
+      $('#the_add_box button').fadeOut();
+    }
     $('#the_add_box .new_idea_counter').fadeOut();
   });
   // allow enter to add idea

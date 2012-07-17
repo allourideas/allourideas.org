@@ -98,10 +98,47 @@
         }
       });
       $('.btn-vote-idea').not(max).each(function(i, b) {
-        $(b).animate({height: max.height() + 'px'});
+        $(b).animate({height: max.height() + 'px'}, 200);
       });
     }
     normalizeButtonHeight();
+
+    // creates new idea vote buttons and slide them in, while
+    // sliding out the old idea vote buttons
+    function loadNewPrompts(data) {
+      var oldLeft = $('.leftside.btn-vote-idea');
+      var oldRight = $('.rightside.btn-vote-idea');
+      var newLeft = oldLeft.clone(true);
+      var newRight = oldRight.clone(true);
+      var bothNew = newLeft.add(newRight);
+
+      bothNew.addClass('btn-primary').removeClass('btn-success').removeClass('disabled').css({height: 'auto'}).hide();
+      newLeft.html(data.newleft);
+      newRight.html(data.newright);
+      newLeft.data('choice_id', data.left_choice_id);
+      newLeft.data('choice_url', data.left_choice_url);
+      newRight.data('choice_id', data.right_choice_id);
+      newRight.data('choice_url', data.right_choice_url);
+
+      newLeft.insertBefore(oldLeft);
+      newRight.insertBefore(oldRight);
+
+      //used for fraud detection / back button behavior fixing
+      $('#left_side_text').val(data.newleft);
+      $('#right_side_text').val(data.newright);
+
+      // animation for sliding in / out choices
+      bothNew.slideDown();
+      oldLeft.add(oldRight).slideUp(function() {
+        $(this).remove();
+        if (oldRight.closest('body').length === 0 &&
+             oldLeft.closest('body').length === 0) {
+          // only run normalize if both old ideas are detached from DOM
+          normalizeButtonHeight();
+        }
+      });
+    }
+
     $('.votebox').on('click', '.btn-vote-idea', function(event){
       event.preventDefault();
 
@@ -158,36 +195,8 @@
         },
         success: function(data){
           $('.indicator').hide();
-          var oldLeft = $('.leftside.btn-vote-idea');
-          var oldRight = $('.rightside.btn-vote-idea');
-          var newLeft = oldLeft.clone(true);
-          var newRight = oldRight.clone(true);
-          newLeft.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
-          newRight.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
-          newLeft.css({height: 'auto'});
-          newRight.css({height: 'auto'});
-          newLeft.html(data["newleft"]);
-          newRight.html(data["newright"]);
-          newLeft.data('choice_id', data['left_choice_id']);
-          newLeft.data('choice_url', data['left_choice_url']);
-          newRight.data('choice_id', data['right_choice_id']);
-          newRight.data('choice_url', data['right_choice_url']);
 
-          newLeft.hide();
-          newRight.hide();
-          newLeft.insertBefore(oldLeft);
-          newRight.insertBefore(oldRight);
-          newLeft.add(newRight).slideDown();
-          oldLeft.add(oldRight).slideUp(function() {
-            $(this).remove();
-            if (oldLeft.closest('body').length === 0 && oldRight.closest('body').length === 0) {
-              normalizeButtonHeight();
-            }
-          });
-
-          //used for fraud detection / back button behavior fixing
-          $('#left_side_text').val(data["newleft"]);
-          $('#right_side_text').val(data["newright"]);
+          loadNewPrompts(data);
 
           $('#prompt_id').val(data["prompt_id"]);
           $('#appearance_lookup').val(data["appearance_lookup"]);
@@ -259,12 +268,7 @@
         $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
         $('.indicator').hide();
         $.unblockUI();
-        $('.leftside').html(data["newleft"]);
-        $('.rightside').html(data["newright"]);
-
-        //used for fraud detection / back button behavior fixing
-        $('#left_side_text').val(data["newleft"]);
-        $('#right_side_text').val(data["newright"]);
+        loadNewPrompts(data);
 
         $('#prompt_id').val(data["prompt_id"]);
         $('#appearance_lookup').val(data["appearance_lookup"]);
@@ -334,12 +338,8 @@
           $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
           $('.indicator').hide();
           $.unblockUI();
-          $('.leftside').html(data["newleft"]);
-          $('.rightside').html(data["newright"]);
 
-          //used for fraud detection / back button behavior fixing
-          $('#left_side_text').val(data["newleft"]);
-          $('#right_side_text').val(data["newright"]);
+          loadNewPrompts(data);
 
           $('#prompt_id').val(data["prompt_id"]);
           $('#appearance_lookup').val(data["appearance_lookup"]);

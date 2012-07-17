@@ -41,26 +41,26 @@
   .row
     .span4.offset4.cant-decide
       %p= link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal', :class => "btn")
-.row
-  .span6.offset3
-    .add_idea
-      = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
-      %br
-      #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
-      .tellmearea
-        -# TODO delete this section, not being used
-        -if @winner
-          -if @skip
-            == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
-          -else
-            = t('vote.you_chose_winner_over_loser', :winner => link_to(@winner, item_path(@winner_id, :question_id => @question_id)), :loser => link_to(@loser, item_path(@loser_id, :question_id => @question_id))) + '.'
-        -elsif flash[:v_notice]
-          %p.vote-notice#v_notice= flash[:v_notice]
-          = javascript_tag "setTimeout(function() { $('#v_notice').fadeOut(1000); }, 3000);"
-        -elsif flash[:v_error]
-          %p.error#v_error= flash[:v_error]
-          = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
-        %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
+  .row.add-idea-row
+    .span6.offset3
+      .add_idea
+        = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
+        %br
+        #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
+        .tellmearea
+          -# TODO delete this section, not being used
+          -if @winner
+            -if @skip
+              == #{t('vote.you_skipped_both')} #{link_to(@winner, item_path(@winner_id, :question_id => @question_id))} #{t('common.and')} #{link_to(@loser, item_path(@loser_id, :question_id => @question_id))}
+            -else
+              = t('vote.you_chose_winner_over_loser', :winner => link_to(@winner, item_path(@winner_id, :question_id => @question_id)), :loser => link_to(@loser, item_path(@loser_id, :question_id => @question_id))) + '.'
+          -elsif flash[:v_notice]
+            %p.vote-notice#v_notice= flash[:v_notice]
+            = javascript_tag "setTimeout(function() { $('#v_notice').fadeOut(1000); }, 3000);"
+          -elsif flash[:v_error]
+            %p.error#v_error= flash[:v_error]
+            = javascript_tag "setTimeout(function() { $('#v_error').fadeOut(1000); }, 3000);"
+          %p.error#length_error{:style => "display:none"}== #{t('items.new.too_long')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
 
 #cant_decide_options.hide.modal.fade
   .modal-header

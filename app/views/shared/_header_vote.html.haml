@@ -5,11 +5,15 @@
 -@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :more => true)
 -@about_url= url_for(:action => :about, :controller => :questions, :id => @the_id)
 
--if @earl && !@earl.logo_file_name.nil?
-  .row
-    .span12
-      .pull-left
-        = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
+.row
+  .span6.survey-image-col
+    &nbsp;
+    -if @earl
+      .survey-image
+        - if @earl.logo_file_name.nil?
+          =image_tag('logo.jpg')
+        - else
+          = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
         -if local_assigns.has_key?("show_delete")
           =button_to("Delete existing logo", {:action => :delete_logo}, :method => :delete, :class => 'btn btn-danger')
 .row

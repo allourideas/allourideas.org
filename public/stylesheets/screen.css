@@ -121,7 +121,6 @@ table {
 
 .body {
   padding: 20px 0 30px;
-  border-top: 1px solid #d8dbdc;
   border-bottom: 1px solid #d8dbdc; }
   .body .center img {
     padding: 0px 0px 30px 0px; }
@@ -584,3 +583,9 @@ table.tablesorter thead tr .headerSortDown {
 
 .below-tabs {
   border-top: 18px solid #f2f2f2; }
+
+.survey-image-col {
+  margin-top: -60px; }
+  .survey-image-col .survey-image {
+    position: relative;
+    bottom: -30px; }

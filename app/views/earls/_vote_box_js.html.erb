@@ -88,6 +88,19 @@
   });
 
 
+    function normalizeButtonHeight() {
+      var max = 0;
+      $('.btn-vote-idea').each(function(i, b) {
+        $(b).css({height: 'auto'});
+        if ($(b).height() > max) {
+          max = $(b).height();
+        }
+      });
+      $('.btn-vote-idea').each(function(i, b) {
+        $(b).height(max);
+      });
+    }
+    normalizeButtonHeight();
     $('.votebox').on('click', '.btn-vote-idea', function(event){
       event.preventDefault();
 
@@ -152,6 +165,7 @@
           $('.leftside').data('choice_url', data['left_choice_url']);
           $('.rightside').data('choice_id', data['right_choice_id']);
           $('.rightside').data('choice_url', data['right_choice_url']);
+          normalizeButtonHeight();
 
           //used for fraud detection / back button behavior fixing
           $('#left_side_text').val(data["newleft"]);

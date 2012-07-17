@@ -232,6 +232,7 @@
       if (!reason || !question_id) {
         return;
       }
+      $('.btn-vote-idea').addClass('disabled');
       var time_viewed = (new Date()) - loadedTime
       var prompt_id = $('#prompt_id').val()
       var appearance_lookup = $('#appearance_lookup').val()
@@ -301,6 +302,7 @@
       var prompt_id = $('#prompt_id').val();
       var appearance_lookup = $('#appearance_lookup').val();
       var question_id = $(ev.currentTarget).data('question_id');
+      $('.btn-vote-idea').addClass('disabled');
 
       $('.example_notice').hide();
       $('.tellmearea').html('');

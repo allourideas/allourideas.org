@@ -76,7 +76,7 @@
             = link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
           .controls
             %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
-        .control-group
+        #edit-image.control-group
           -if @earl.logo_file_name
             = f.label :logo_file_name, "Replace logo", :class => 'control-label'
           -else

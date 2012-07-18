@@ -79,7 +79,13 @@ table {
 
 .tab-content {
   background-color: #f2f2f2;
-  border-bottom: 18px solid #f2f2f2; }
+  border-bottom: 18px solid #f2f2f2;
+  border-bottom-left-radius: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+  -moz-border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  -webkit-border-bottom-right-radius: 7px;
+  -moz-border-bottom-right-radius: 7px; }
   .tab-content.question-results .row > div {
     background-color: white; }
 
@@ -577,12 +583,20 @@ table.tablesorter thead tr .headerSortDown {
   -khtml-border-top-right-radius: 10px; }
 
 .nav-tabs.vote-tabs {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-right: 10px; }
   .nav-tabs.vote-tabs > li.active > a {
     background-color: #f2f2f2; }
 
 .below-tabs {
-  border-top: 18px solid #f2f2f2; }
+  border-top: 18px solid #f2f2f2;
+  border-top-left-radius: 7px;
+  -webkit-border-top-left-radius: 7px;
+  -mox-border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  -webkit-border-top-right-radius: 7px;
+  -moz-border-top-right-radius: 7px; }
 
 .survey-image-col {
   margin-top: -50px; }

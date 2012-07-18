@@ -203,20 +203,6 @@
           $('#prompt_id').val(data["prompt_id"]);
           $('#appearance_lookup').val(data["appearance_lookup"]);
 
-          leveling_text = "";
-          if (data["leveling_message"] != "") {
-            leveling_text = " <br /> " + data["leveling_message"];
-          }
-
-          if (SHOW_AVERAGE_VOTES == "with_average") {
-            leveling_text += " " + $('#average_votes').html()
-          }
-          var results_text = '';
-          <%- if @question.user_can_view_results?(current_user, @earl) -%>
-            results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-          <%- end -%>
-
-          $('.tellmearea').html("<%= t('vote.you_chose_winner_over_loser', :winner => '%winner%', :loser => '%loser%')%>".replace('%winner%',  winner).replace('%loser%', loser) + leveling_text + results_text).effect("highlight", {}, 1500);
           current_vote_count = $('#votes_count').html();
           $('#votes_count').html(increment(current_vote_count));
 
@@ -255,20 +241,6 @@
       };
       var url = '/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>';
       $.post(url, postData, function(data) {
-        leveling_text = "";
-        if(data["leveling_message"] != "") {
-          leveling_text = " <br /> " + data["leveling_message"];
-        }
-
-        if(SHOW_AVERAGE_VOTES == "with_average") {
-          leveling_text += " " + $('#average_votes').html()
-        }
-        var results_text = '';
-        <%- if @question.user_can_view_results?(current_user, @earl) -%>
-          results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-        <%- end -%>
-        feedback = data["message"] + leveling_text + results_text;
-        $('.tellmearea').html(feedback).effect("highlight", {}, 1500);
         $('.indicator').hide();
         $.unblockUI();
         loadNewPrompts(data);
@@ -328,18 +300,6 @@
           window.location.replace(data["redirect"]);
         }
         else {
-          leveling_text = "";
-          if (data["leveling_message"] != "") {
-            leveling_text = " <br /> " + data["leveling_message"];
-          }
-          if (SHOW_AVERAGE_VOTES == "with_average") {
-            leveling_text += " " + $('#average_votes').html()
-          }
-          var results_text = '';
-          <%- if @question.user_can_view_results?(current_user, @earl) -%>
-            results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-          <%- end -%>
-          $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
           $('.indicator').hide();
           $.unblockUI();
 

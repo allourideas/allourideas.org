@@ -592,3 +592,7 @@ table.tablesorter thead tr .headerSortDown {
     bottom: -30px; }
   .survey-image-col .survey-image-links {
     margin-top: 12px; }
+
+#new_idea_field {
+  font-size: 18px;
+  line-height: 27px; }

@@ -90,31 +90,19 @@
   });
 
 
-    function normalizeButtonHeight() {
-      var max = $('<div>');
-      $('.btn-vote-idea').each(function(i, b) {
-        b = $(b);
-        b.css({height: 'auto'});
-        if (b.height() > max.height()) {
-          max = b;
-        }
-      });
-      $('.btn-vote-idea').not(max).each(function(i, b) {
-        $(b).animate({height: max.height() + 'px'}, 200);
-      });
-    }
-    normalizeButtonHeight();
-
     // creates new idea vote buttons and slide them in, while
     // sliding out the old idea vote buttons
     function loadNewPrompts(data) {
-      var oldLeft = $('.leftside.btn-vote-idea');
-      var oldRight = $('.rightside.btn-vote-idea');
-      var newLeft = oldLeft.clone(true);
-      var newRight = oldRight.clone(true);
+      var oldLeftDiv = $('.leftside.btn-vote-idea').closest('div');
+      var oldRightDiv = $('.rightside.btn-vote-idea').closest('div');
+      var newLeftDiv = oldLeftDiv.clone(true).hide();
+      var newRightDiv = oldRightDiv.clone(true).hide();
+      var newLeft = newLeftDiv.find('.btn-vote-idea');
+      var newRight = newRightDiv.find('.btn-vote-idea');
       var bothNew = newLeft.add(newRight);
 
-      bothNew.addClass('btn-primary').removeClass('btn-success').removeClass('disabled').css({height: 'auto'}).hide();
+      bothNew.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
+
       newLeft.html(data.newleft);
       newRight.html(data.newright);
       newLeft.data('choice_id', data.left_choice_id);
@@ -122,22 +110,17 @@
       newRight.data('choice_id', data.right_choice_id);
       newRight.data('choice_url', data.right_choice_url);
 
-      newLeft.insertBefore(oldLeft);
-      newRight.insertBefore(oldRight);
+      newLeftDiv.insertBefore(oldLeftDiv);
+      newRightDiv.insertBefore(oldRightDiv);
 
       //used for fraud detection / back button behavior fixing
       $('#left_side_text').val(data.newleft);
       $('#right_side_text').val(data.newright);
 
       // animation for sliding in / out choices
-      bothNew.slideDown();
-      oldLeft.add(oldRight).slideUp(function() {
+      newLeftDiv.add(newRightDiv).slideDown();
+      oldLeftDiv.add(oldRightDiv).slideUp(function() {
         $(this).remove();
-        if (oldRight.closest('body').length === 0 &&
-             oldLeft.closest('body').length === 0) {
-          // only run normalize if both old ideas are detached from DOM
-          normalizeButtonHeight();
-        }
       });
     }
 
@@ -149,7 +132,7 @@
       if (!winningLink.not('.disabled').is('.btn-primary')) {
         return;
       }
-      var losingLink  = winningLink.closest('.votebox').find('a.btn-vote-idea').not(winningLink);
+      var losingLink  = winningLink.closest('.votebox').find('.btn-vote-idea').not(winningLink);
       var winningSide = winningLink.data('side').replace('side', '');
 
       winningLink.removeClass('btn-primary').addClass('btn-success').addClass('disabled');
@@ -161,9 +144,6 @@
 
 
       var question_id = winningLink.data("question_id");
-
-      var loser = "<a href='" + losingLink.data('choice_url') +  "'>" + losingLink.html() + "</a>";
-      var winner = "<a href='" + winningLink.data('choice_url') + "'>" + winningLink.html() + "</a>";
 
       var prompt_id = $('#prompt_id').val()
       var appearance_lookup = $('#appearance_lookup').val()

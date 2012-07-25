@@ -1,1 +1,6 @@
-= link_to(h(truncate(data, :length => 140, :omission => '…')), "#", :"data-question_id" => @question.id, :class => side + ' btn btn-primary btn-vote-idea', :"data-side" => side, :id => side, :"data-choice_id" => choice_id, :"data-question_slug" => @question.slug, :"data-choice_url" => question_choice_path(@question.slug, choice_id))#, :title => data)
+.vote-table-div
+  %table.vote-table
+    %tbody
+      %tr
+        %td.table-cell-btn.btn.btn-primary.btn-vote-idea{:id => side, :class => side, :"data-question_id" => @question.id, :"data-side" => side, :"data-choice_id" => choice_id, :"data-question_slug" => @question.slug, :"data-choice_url" => question_choice_path(@question.slug, choice_id)}
+          = h(truncate(data, :length => 140, :omission => '…'))

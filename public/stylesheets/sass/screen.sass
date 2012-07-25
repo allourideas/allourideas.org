@@ -191,53 +191,9 @@ table
   -webkit-border-radius: 7px
   -moz-border-radius: 7px
 
-.btn-vote-idea
-  font-size: 20px
-  padding: 30px
-  display: block
-
 .votebox
   margin-top: 20px
   background-color: #f2f2f2
-
-.votebox table
-  text-align: center
-  margin: 0 auto
-  td
-    padding: 0 0 5px
-    .borderfg
-      padding: 30px 20px
-      font-size: 22px
-      color: #555
-    &.idea
-      cursor: pointer
-    &.left
-      padding: 0 5px 0 0
-    &.right
-      padding: 0 0 0 5px
-    .round-filledfg
-      font-size: 16px
-      padding: 0 5px
-      a
-        color: #FFF
-        border: none
-        text-decoration: none
-        &:hover
-          color: #FFF
-          border: none
-    table td
-      height: 95px
-  &.vote-footer
-    width: 100%
-    margin-top: 10px
-    td
-      padding: 5px 0 5px
-      width: 33%
-      &:first-child
-        text-align: left
-        width: 33.5%
-      &:last-child
-        text-align: right
 
 .skip
   margin: 10px 0
@@ -574,6 +530,28 @@ table.tablesorter
     padding: 5px 10px 7px
     line-height: 18px
     color: #fefefe
+
+.votebox.row
+  height: 128px
+  margin-bottom: 10px
+  overflow: hidden
+  
+.vote-table-div
+  overflow: hidden
+
+.vote-table
+  table-layout: fixed
+  width: 100%
+  border-collapse: separate
+  *border-collapse: collapse
+  border-spacing: 0
+
+
+.table-cell-btn
+  font-size: 20px
+  height: 126px
+  padding: 0 10px
+  display: table-cell
 
 .progress-gray .bar
   background-color: #dddddd

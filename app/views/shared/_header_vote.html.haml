@@ -30,8 +30,8 @@
         - else
           %li{:class => current_page?(@all_results_url) ? 'active' : ''}
             = link_to(t('nav.view_results'), @all_results_url)
-      %li
-        = link_to(t('nav.about_this_page'), @about_url, :"data-toggle" => 'modal-ajax')
+      %li{:class => current_page?(@about_url) ? 'active' : ''}
+        = link_to(t('nav.about_this_page'), @about_url)
       - if current_user.try(:owns?, @earl) || current_user.try(:admin?)
         %li{:class => current_page?(@manage_url) ? 'active' : ''}
           = link_to(t('nav.manage_question'), @manage_url)

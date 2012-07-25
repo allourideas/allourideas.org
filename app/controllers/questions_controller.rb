@@ -1140,7 +1140,8 @@ class QuestionsController < ApplicationController
   end
 
   def about
-    render :layout => false
+    @earl = Earl.find_by_name!(params[:id])
+    @question = @earl.question
   end
 
   def add_photos

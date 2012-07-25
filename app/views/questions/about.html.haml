@@ -1,11 +1,9 @@
-%html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
-  %head 
-    %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
-    %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
-  %body
-    .aboutpage{:style => 'width:500px'}
+= render :partial => 'shared/header_vote', :locals => {:question => @question}
+.tab-content
+  .row
+    .span10.offset1
       %p=t('about_page.intro')
-  
+
       %h3="1) " + t('about_page.how_many_votes_q')
       %p= t('about_page.how_many_votes_exp')
       
@@ -14,7 +12,6 @@
 
       %h3="3) " + t('about_page.view_results_q') 
       %p= t('about_page.view_results_exp')
-  
+
       %h3="4) " + t('about_page.make_my_own_q')
       %p=t('about_page.make_my_own_exp')
-    

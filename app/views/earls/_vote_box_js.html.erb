@@ -39,10 +39,12 @@
   // handle submit on add new idea box
   $('#the_add_box').on('click', 'button', function(ev) {
     ev.preventDefault();
+    var button = $(ev.currentTarget);
+    button.addClass('disabled');
     var box = $(ev.delegateTarget);
     var new_idea = box.find('.new_idea_field').val();
     var default_text = $('#default_text').val();
-    var question_id = $(ev.currentTarget).data("question_id");
+    var question_id = button.data("question_id");
 
     $('.example_notice').hide();
 
@@ -57,34 +59,27 @@
     }
 
     $('.tellmearea').html('');
-    $('.indicator').show();
     var data = {authenticity_token : AUTH_TOKEN, new_idea: new_idea};
     var url  = '/questions/' + question_id + '/add_idea.js?locale=<%= I18n.locale %>';
     $.post(url, data, function(data){
-      leveling_text = "";
-      if(data["leveling_message"] != "") {
-        leveling_text = " <br /> " + data["leveling_message"];
-      }
-      var results_text = '';
-      <%- if @question.user_can_view_results?(current_user, @earl) -%>
-        results_text = "<br/><a href='" + "<%= url_for(:action => 'results', :controller => :questions) %>" + "'>" + "<%=t('vote.view_all_the_results') %>" + "</a>";
-      <%- end -%>
-      $('.tellmearea').html(data["message"] + leveling_text + results_text).effect("highlight", {}, 1500);
+      button.removeClass('disabled');
       // keypress is for counter
       $('#new_idea_field').val('').show().keypress().blur();
-      $('.indicator').hide();
 
+      var responseText = '';
       if (data['choice_status'] == 'active') {
+        responseText = '<%= t('vote.submit_idea_thankyou') %>';
         current_item_count = $('#item_count').html();
         $('#item_count').html(increment(current_item_count));
       }
       else {
-        box.find('.idea-success p').html('<%= t('vote.idea_sent_for_review') %>');
-        box.find('.idea-success').show();
-        setTimeout(function() {
-          box.find('.idea-success').hide(300);
-        }, 5 * 1000);
+        responseText = '<%= t('vote.idea_sent_for_review') %>';
       }
+      box.find('.idea-success p').html(responseText);
+      box.find('.idea-success').show();
+      setTimeout(function() {
+        box.find('.idea-success').hide(300);
+      }, 5 * 1000);
 
     }, "json");
   });
@@ -148,7 +143,6 @@
       var prompt_id = $('#prompt_id').val()
       var appearance_lookup = $('#appearance_lookup').val()
       $('.tellmearea').html('');
-      $('.indicator').show();
 
       $.ajax({
         type: "post",
@@ -165,7 +159,6 @@
         error: function(request,error) {
           winningLink.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
           losingLink.addClass('btn-primary').removeClass('disabled');
-          $('.indicator').hide();
           if (error == "timeout") {
             $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
           }
@@ -176,7 +169,6 @@
           loadedTime = new Date(); //reset loaded time
         },
         success: function(data){
-          $('.indicator').hide();
 
           loadNewPrompts(data);
 
@@ -207,7 +199,6 @@
 
       $('.example_notice').hide();
       $('.tellmearea').html('');
-      $('.indicator').show();
       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  {
           backgroundColor: '#000',
           opacity:         0.0
@@ -221,7 +212,6 @@
       };
       var url = '/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>';
       $.post(url, postData, function(data) {
-        $('.indicator').hide();
         $.unblockUI();
         loadNewPrompts(data);
 
@@ -260,7 +250,6 @@
 
       $('.example_notice').hide();
       $('.tellmearea').html('');
-      $('.indicator').show();
 
       $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  {
           backgroundColor: '#000',
@@ -280,7 +269,6 @@
           window.location.replace(data["redirect"]);
         }
         else {
-          $('.indicator').hide();
           $.unblockUI();
 
           loadNewPrompts(data);

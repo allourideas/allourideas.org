@@ -6,7 +6,7 @@
   .span12
     #question-saved.alert.alert-success.hide
       = t('questions.question_saved')
-    %table.table.table-bordered.table-striped.table-condensed.tablesorter
+    %table.table.table-bordered.table-striped.table-condensed.tablesorter.ideas-table
       %thead 
         %tr
           %th
@@ -22,8 +22,8 @@
       %tbody 
         -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
           %tr
-            %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
-            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('[?]', '#score_explanation', :"data-toggle" => 'modal')
+            %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), question_choice_url(@earl.name, choice), :id => choice.id, :question_id => @earl.name, :"data-toggle" => "modal-ajax"
+            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('<i class="icon-question-sign"></i>', '#score_explanation', :"data-toggle" => 'modal')
             %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
             %td.votes{:id => "choice_#{choice.id}_status"}
               -if @choices.size < 3

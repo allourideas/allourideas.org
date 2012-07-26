@@ -16,14 +16,15 @@
       %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
     %tr
       %th= t('items.score')
-      %td= @choice.score.round.to_s + ' ' + link_to('<i class="icon-question-sign"></i>', '#explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal')
+      %td= @choice.score.round.to_s + ' ' + link_to('<i class="icon-question-sign"></i>', '#score_explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal')
     %tr
       %th= t('items.number_of_votes')
       %td#num_votes= @num_votes
 
-#explanation.hide.modal.fade
-  .modal-header
-    %button.close{:"data-dismiss" => "modal"}x
-    %h2= t('items.about_scoring')
-  .modal-body
-    =t('items.score_explain')
+- unless request.xhr?
+  #score_explanation.hide.modal.fade
+    .modal-header
+      %button.close{:"data-dismiss" => "modal"}x
+      %h2= t('items.about_scoring')
+    .modal-body
+      =t('items.score_explain')

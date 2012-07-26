@@ -45,7 +45,7 @@ AOI.app = (function($) {
     function makeIdeaRowsClickable() {
         $(document).on('click', '.ideas-table tbody tr', function(ev) {
             // if clicking an anchor tag, don't do anything
-            if ($(ev.target).is('a')) { return; }
+            if ($(ev.target).closest('a').length > 0) { return; }
             $(ev.currentTarget).find('a:first').click();
         });
     }

@@ -446,10 +446,12 @@ table.tablesorter thead tr .headerSortDown {
 .no_bottom_padding {
   padding-bottom: 0px !important; }
 
-.question-admin-form .form-horizontal .controls {
-  margin-left: 190px; }
-.question-admin-form .form-horizontal .control-label {
-  width: 170px; }
+.question-admin-form {
+  margin-top: 20px; }
+  .question-admin-form .form-horizontal .controls {
+    margin-left: 190px; }
+  .question-admin-form .form-horizontal .control-label {
+    width: 170px; }
 
 .ideas-table tbody tr {
   cursor: pointer; }

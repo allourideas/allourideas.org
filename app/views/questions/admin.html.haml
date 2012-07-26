@@ -13,17 +13,19 @@
             %span.question-name
               = @question.attributes['name']
             - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
-              = link_to("[#{t('questions.edit')}]", '#edit-question', :"data-toggle" => 'modal')
+              = link_to("<i class='icon-pencil'></i>", '#edit-question', :"data-toggle" => 'modal', :class => 'btn')
             - else
-              = link_to("[#{t('questions.edit')}]", '#cant-edit-question', :"data-toggle" => 'modal')
-          %th.score=  t('items.score')
+              = link_to("<i class='icon-pencil'></i>", '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
+          %th.score
+            =  t('items.score')
+            = link_to('<i class="icon-question-sign"></i>', '#score_explanation', :"data-toggle" => 'modal')
           %th.score=  t('questions.source')
           %th.score= t('items.list.status').titleize
       %tbody 
         -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
           %tr
             %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), question_choice_url(@earl.name, choice), :id => choice.id, :question_id => @earl.name, :"data-toggle" => "modal-ajax"
-            %td.votes= choice.attributes['score'].round.to_s + ' ' + link_to('<i class="icon-question-sign"></i>', '#score_explanation', :"data-toggle" => 'modal')
+            %td.votes= choice.attributes['score'].round.to_s
             %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')
             %td.votes{:id => "choice_#{choice.id}_status"}
               -if @choices.size < 3

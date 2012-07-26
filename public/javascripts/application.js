@@ -14,7 +14,8 @@ AOI.app = (function($) {
     that.initialize = function() {
         modalAjax();
         preventDefaultLinks();
-        makeIdeaRowsClickable();
+        makeRowsClickable('.ideas-table tbody tr');
+        makeRowsClickable('.csv-links tbody tr');
         dataVisualizationOpen();
     };
 
@@ -41,9 +42,9 @@ AOI.app = (function($) {
         });
     }
 
-    // on results page make idea rows clickable and show modal
-    function makeIdeaRowsClickable() {
-        $(document).on('click', '.ideas-table tbody tr', function(ev) {
+    // make rows clickable to be same as clicking first link
+    function makeRowsClickable(selector) {
+        $(document).on('click', selector, function(ev) {
             // if clicking an anchor tag, don't do anything
             if ($(ev.target).closest('a').length > 0) { return; }
             $(ev.currentTarget).find('a:first').click();

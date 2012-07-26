@@ -464,6 +464,9 @@ table.tablesorter thead tr .headerSortDown {
   margin-left: 1em;
   font-size: 120%; }
 
+.csv-links tbody tr {
+  cursor: pointer; }
+
 .vote-count-span {
   text-align: center; }
 

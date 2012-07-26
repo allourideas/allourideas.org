@@ -55,27 +55,27 @@
           .controls
             = text_field_tag '', @earl.name, :disabled => true, :id => 'question_username'
         .control-group
-          = f.label :pass, t('user.password') + link_to('[?]', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+          = f.label :pass, t('user.password') + link_to(' <i class="icon-question-sign"></i>', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
             = f.text_field :pass
 
         .control-group
-          = f.label :welcome_message, "Welcome message" + link_to('[?]', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+          = f.label :welcome_message, "Welcome message" + link_to(' <i class="icon-question-sign"></i>', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
           .controls
             = f.text_area :welcome_message, :rows => 5, :cols => 65, :class => 'input-xxlarge'
         .control-group
-          = f.label :default_lang, "Default language" + link_to('[?]', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
+          = f.label :default_lang, "Default language" + link_to(' <i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
           .controls
             = # Have English be the first, but sort the rest
             = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"]].sort
         .control-group
-          = f.label :ga_code, t('admin.google_analytics_code') + link_to('[?]', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
+          = f.label :ga_code, t('admin.google_analytics_code') + link_to(' <i class="icon-quesiton-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
           .controls
             = f.text_field :ga_code
         .control-group
           %label.control-label
             = t('admin.widget_embed_code') 
-            = link_to('[?]', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
+            = link_to('<i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
           .controls
             %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
         #edit-image.control-group
@@ -89,7 +89,7 @@
           .controls
             %label.checkbox
               = f.check_box :flag_enabled
-              = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to('[?]', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal')
+              = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to(' <i class="icon-question-sign"></i>', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal')
               = f.check_box :question_should_autoactivate_ideas
               = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
         .form-actions
@@ -98,30 +98,22 @@
           %a.btn{:href => ""}
             Cancel
 
-    %table.table
+    %table.table.csv-links
       %thead
         %tr
-          %th= t('admin.download_idea_marketplace_data')
+          %th
+            = t('admin.download_idea_marketplace_data')
+            = link_to('<i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
       %tbody
         %tr
           %td.title
-            = t('admin.list_of_ideas_csv')
-            = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
-          %td
-            =# link_to('[Download]', :url => "#{API_HOST}/questions/#{@question.id}/export", :method => :post, :params => {:type => :items}
-            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :ideas}}, :"data-toggle" => 'modal-ajax', :id => 'ideas_request_link')
+            = link_to(t('admin.list_of_ideas_csv'), {:action => :export, :params => {:type => :ideas}}, :"data-toggle" => 'modal-ajax', :id => 'ideas_request_link')
         %tr
           %td.title
-            = t('admin.list_of_votes_csv') 
-            = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
-          %td
-            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax',:id => 'votes_request_link')
+            = link_to(t('admin.list_of_votes_csv'), {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax',:id => 'votes_request_link')
         %tr
           %td.title
-            = t('admin.list_of_non_votes_csv') 
-            = link_to('[?]', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
-          %td
-            = link_to('[' + t('admin.request') + ']', {:action => :export, :params => {:type => :non_votes}}, :"data-toggle" => 'modal-ajax', :id => 'non_votes_request_link')
+            = link_to(t('admin.list_of_non_votes_csv'), {:action => :export, :params => {:type => :non_votes}}, :"data-toggle" => 'modal-ajax', :id => 'non_votes_request_link')
         
   #cant-edit-question.modal.hide.fade
     .modal-body

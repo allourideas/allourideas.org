@@ -14,10 +14,11 @@
           =image_tag('logo.jpg')
         - else
           = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
-      -if (current_user.try(:owns?, @earl) || current_user.try(:admin?)) && local_assigns.has_key?("show_delete") && !@earl.logo_file_name.nil?
+      -if (current_user.try(:owns?, @earl) || current_user.try(:admin?)) && local_assigns.has_key?("show_delete")
         .survey-image-links
           =link_to("<i class='icon-pencil'></i>", url_for(:action => :admin, :controller => :questions, :id => @the_id, :anchor => 'edit-image'), :class => 'btn')
-          =link_to("<i class='icon-trash'></i>", {:action => :delete_logo}, :method => :delete, :class => 'btn')
+          - if !@earl.logo_file_name.nil?
+            =link_to("<i class='icon-trash'></i>", {:action => :delete_logo}, :method => :delete, :class => 'btn')
 .row
   .span12
     %ul.nav.nav-tabs.pull-right.vote-tabs

@@ -156,9 +156,9 @@ table {
 
 .vote-question {
   text-align: center;
-  padding: 70px 15px;
-  background-color: #666666;
-  color: white;
+  padding: 30px 15px;
+  background-color: white;
+  color: #333333;
   border-radius: 7px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px; }

@@ -4,7 +4,8 @@
 .tab-content.question-results
   .row
     .span10.offset1
-      %h3.results-table-header= @question.attributes['name']
+      .results-table-header
+        %h3= @question.attributes['name']
       %table.table.table-striped.ideas-table
         %thead
           %tr

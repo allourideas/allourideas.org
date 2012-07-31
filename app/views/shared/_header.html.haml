@@ -1,6 +1,9 @@
 -if controller.controller_name == 'home' || (controller.controller_name == 'questions' && controller.action_name == 'new')
   .row.header
-    .span5.offset7
+    .span7
+      %a{:href => '/'}
+        =image_tag('logo.jpg')
+    .span5
       %ul.nav.nav-pills.pull-right
         - # We don't want the default active pills for the current page
         - # typically bootstrap expects these to have the active class.

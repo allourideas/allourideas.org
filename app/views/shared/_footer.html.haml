@@ -1,20 +1,13 @@
 .row.footer-row
-  .span4
-    %ul.footer-icons.unstyled
-      %li
-        = link_to(image_tag('logo-google.jpg', :id => 'logo-google'), 'http://research.google.com/university/relations/research_awards.html')
-      %li
-        = link_to(image_tag('logo-citp.jpg', :id => 'logo-citp'), 'http://citp.princeton.edu/')
-      %li
-        = link_to(image_tag('logo-princeton.jpg', :id => 'logo-princeton'), 'http://www.princeton.edu/')
-    %p.footer-icon3
-      %small= t('footer.support')
-  .span4
-    %ul.footer-icons.unstyled
-      %li= link_to(image_tag('logo-open.jpg', :id => 'logo-open'), 'http://github.com/allourideas')
-    %p.footer-icon1
-      %small= t('footer.open_source')
-  .span4
-    - if @earl && !@earl.logo_file_name.nil?
-      %p.pull-right
+  .span8.offset4
+    %p.pull-right
+      %span.text-links
+        = link_to(t('nav.about'), about_path)
+        |
+        = link_to(t('nav.privacy'), privacy_path)
+      %span.image-links
+        = link_to(image_tag('fb.png'), 'https://www.facebook.com/allourideas')
+        = link_to(image_tag('twitter.png'), 'https://twitter.com/allourideas')
+        = link_to(image_tag('github.png'), 'https://github.com/allourideas')
+      - if @earl && !@earl.logo_file_name.nil?
         = link_to(image_tag('powered-by-aoi.png'), '/')

@@ -176,40 +176,14 @@ table {
 .footer-row {
   border-top: 1px solid #f4f5f6;
   padding-top: 10px; }
-
-ul.footer-icons {
-  margin-top: 5px;
-  overflow: auto;
-  float: left; }
-  ul.footer-icons li {
-    float: left;
-    margin: 0 10px 0 0; }
-
-p.footer-icon3 {
-  margin-left: 115px; }
-
-p.footer-icon1 {
-  margin-left: 40px; }
-
-.footer {
-  padding: 10px 5px;
-  border-top: 1px solid #f4f5f6; }
-  .footer .triple-left, .footer .triple-center, .footer .triple-right {
-    font-size: 10px;
-    line-height: 12pt;
-    color: #aaaaaa; }
-  .footer img {
-    padding-right: 10px;
-    float: left; }
-  .footer p {
-    float: right;
-    padding: 0; }
-  .footer .triple-left p {
-    width: 153px; }
-  .footer .triple-center p {
-    width: 205px; }
-  .footer .triple-right p {
-    width: 220px; }
+  .footer-row p {
+    color: gray; }
+    .footer-row p .text-links a {
+      text-transform: lowercase;
+      color: gray;
+      margin: 0 10px; }
+    .footer-row p .image-links {
+      margin-right: 10px; }
 
 div.bar-chart {
   border: 1px solid #cccccc;

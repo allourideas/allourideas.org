@@ -567,3 +567,6 @@ table.tablesorter thead tr .headerSortDown {
 #new_idea_field {
   font-size: 18px;
   line-height: 27px; }
+
+.data-vis-header {
+  padding-left: 15px; }

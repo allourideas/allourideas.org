@@ -16,7 +16,7 @@
       %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
     %tr
       %th= t('items.score')
-      %td= @choice.score.round.to_s + ' ' + link_to('<i class="icon-question-sign"></i>', '#score_explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal')
+      %td= @choice.score.round.to_s + ' ' + link_to('', '#score_explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal', :class => 'icon-question-sign')
     %tr
       %th= t('items.number_of_votes')
       %td#num_votes= @num_votes

@@ -18,7 +18,7 @@
               = link_to("<i class='icon-pencil'></i>", '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
           %th.score
             =  t('items.score')
-            = link_to('<i class="icon-question-sign"></i>', '#score_explanation', :"data-toggle" => 'modal')
+            = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'icon-question-sign')
           %th.score=  t('questions.source')
           %th.score= t('items.list.status').titleize
       %tbody 
@@ -75,7 +75,7 @@
         .control-group
           %label.control-label
             = t('admin.widget_embed_code') 
-            = link_to('<i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank')
+            = link_to('', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank', :class => 'icon-question-sign')
           .controls
             %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
         #edit-image.control-group
@@ -103,7 +103,7 @@
         %tr
           %th
             = t('admin.download_idea_marketplace_data')
-            = link_to('<i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank')
+            = link_to('', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank', :class => 'icon-question-sign')
       %tbody
         %tr
           %td.title

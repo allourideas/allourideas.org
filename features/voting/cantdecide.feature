@@ -21,8 +21,7 @@ Feature: I Can't Decide
 	Scenario: User chooses i can't decide
 		When I click the I can't decide button
 		And I pick "I like both ideas"
-		Then I should see "You couldn't decide." within ".tellmearea"
-		And the vote count should be 0
+		Then the vote count should be 0
 
 	#@selenium
 	#Scenario: User does not enter a choice

@@ -18,8 +18,7 @@ Feature: Tracking appearances
        @selenium
        Scenario: User gets a new appearance after submitting a vote
           When I click on the left choice 
-          Then I should see "You chose" within ".tellmearea"
-          And the current appearance lookup should not match the saved appearance lookup
+          Then the current appearance lookup should not match the saved appearance lookup
        
        Scenario: User reloads the page
           When I go to the Cast Votes page for 'test'

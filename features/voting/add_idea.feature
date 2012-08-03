@@ -13,8 +13,7 @@ Feature: Add idea to marketplace
     Scenario: Adding choice to unmoderated marketplace
       Given idea marketplace 'test' has enabled idea autoactivation
       When I upload an idea titled 'blah blah & blah'
-      Then I should see "You just added an idea for people to vote on: blah blah & blah" within ".tellmearea"
-      Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
+      Then I should see "Your idea has been added" within ".idea-success"
       And the vote count should be 0
       And the idea count should be 3
       When I go to the View Results page for 'test'
@@ -35,8 +34,7 @@ Feature: Add idea to marketplace
         """
         blah foo blah
         """
-      Then I should see "You just added an idea for people to vote on: blah foo blah" within ".tellmearea"
-      Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
+      Then I should see "Your idea has been added" within ".idea-success"
       And the vote count should be 0
       And the idea count should be 3
       When I go to the View Results page for 'test'
@@ -53,8 +51,7 @@ Feature: Add idea to marketplace
     @selenium
     Scenario: Adding choice to moderated marketplace
       When I upload an idea titled 'blah blah blah'
-      Then I should see "Your idea has been submitted for review. It will appear soon." within "#the_add_box"
-      Then I should see "Now you have cast 0 votes and added 1 idea" within ".tellmearea"
+      Then I should see "Your idea has been submitted for review. It will appear soon." within ".idea-success"
       Then the vote count should be 0
       And the idea count should be 2
       When I go to the View Results page for 'test'

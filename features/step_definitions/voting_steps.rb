@@ -1,6 +1,6 @@
 When /^I click on the left choice$/ do
-	When "I follow \"leftside\""
-	Then "I should see \"You chose\" within \".tellmearea\""
+  find(".leftside").click
+  page.has_no_selector?(".leftside.disabled")
 end
 
 When /^I click on the left photo$/ do
@@ -8,8 +8,8 @@ When /^I click on the left photo$/ do
 end
 
 When /^I click on the right choice$/ do
-	When "I follow \"rightside\""
-	Then "I should see \"You chose\" within \".tellmearea\""
+  find(".rightside").click
+  has_no_selector?(".rightside.disabled")
 end
 
 When /^I click the flag link for the (.*) choice$/ do |side|
@@ -22,13 +22,15 @@ When /^I click the flag link for the (.*) choice$/ do |side|
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
-	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
-	find("#submit_btn").click
+  # adding new line after ideatext to trigger JS submit
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\n\" within \"#the_add_box\""
+	#find("#submit_btn").click
 end
 
 When /^I upload an idea titled$/ do |ideatext|
-	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
-	find("#submit_btn").click
+  # adding new line after ideatext to trigger JS submit
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\n\" within \"#the_add_box\""
+	#find("#submit_btn").click
 end
 
 When /^I click the (.*) button$/ do |button_name|
@@ -121,7 +123,7 @@ Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	   @question_id = page.locate('#choose_file')[:question_id].to_i
 	   Capybara.ignore_hidden_elements = true 
 	else
-	   @question_id = page.locate('#leftside')[:rel].to_i
+	   @question_id = page.locate('#leftside')[:"data-question_id"].to_i
 	end
 	
 	@earl = Earl.find_by_question_id(@question_id)

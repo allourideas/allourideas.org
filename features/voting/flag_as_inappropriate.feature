@@ -21,8 +21,7 @@ Feature: Flag as inappropriate
 		When I click the flag link for the left choice
 		And I fill in "inappropriate_reason" with "Because it's offensive"
 		And I click the flag submit button
-		Then I should see "You flagged a choice as inappropriate." within ".tellmearea"
-		And the idea count should be 4
+		Then the idea count should be 4
 		And the saved left choice should not be active
 		And "flag_test@test.com" should receive an email 
 		When "flag_test@test.com" opens the email

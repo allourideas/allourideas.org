@@ -10,16 +10,12 @@ Feature: Voting
     @selenium
     Scenario: User has two choices and votes for the left one
       When I click on the left choice 
-      Then I should see "You chose" within ".tellmearea"
-      And the notification in the tell me area should contain links
-      And the vote count should be 1
+      Then the vote count should be 1
       And the idea count should be 2 
 
     @selenium
     Scenario: User has two choices and votes for the right one
       When I click on the right choice 
-      Then I should see "You chose" within ".tellmearea"
-      And the notification in the tell me area should contain links
-      And the vote count should be 1
+      Then the vote count should be 1
       And the idea count should be 2 
 

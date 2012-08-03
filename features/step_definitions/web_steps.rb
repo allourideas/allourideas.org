@@ -202,6 +202,10 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   end
 end
 
+And /^I wait (.*) seconds?$/ do |wait_time|
+  sleep wait_time.to_i
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end

@@ -10,7 +10,6 @@ Feature: Editing a question's text
 
   @selenium
   Scenario: Admin can edit the question
-    Then I should see "[edit]" within "th.header:first a"
     When I click on the edit link for the question
     Then I should see "Edit Question" within "#edit-question h2"
     When I fill in "question[name]" with "some new text" within "#edit-question"

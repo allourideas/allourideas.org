@@ -25,10 +25,6 @@ Then /^I should have switched to and be on the WIDGET Cast Votes tab$/ do
   page.should have_content("left_choice_cell")
 end 
 
-And /^I wait (.*) seconds$/ do |wait_time|
-  sleep wait_time.to_i
-end
-
 When /^I vote on the WIDGET (\d*) times$/ do |num_votes|
 	num_votes.to_i.times do
     sleep 0.5

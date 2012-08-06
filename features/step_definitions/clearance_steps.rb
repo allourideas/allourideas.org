@@ -32,7 +32,7 @@ end
 
 Then /^I should be signed in as "([^\"]*)"$/ do |email|
   Given %{I am on the homepage}
-  Then %{I should see "Logged in as #{email}"}
+  Then %{I should see "#{email}" within ".navbar-aoi"}
  end
 
 Then /^I should be signed out$/ do

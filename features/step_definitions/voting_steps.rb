@@ -1,15 +1,23 @@
-When /^I click on the left choice$/ do
-  find(".leftside").click
-  page.has_no_selector?(".leftside.disabled")
+When /^I click on the (left|right) choice$/ do |side|
+  css = ".#{side}side"
+  vote_count = find('#votes_count')
+  prev_vote_count = vote_count.text.to_i if vote_count
+
+  begin
+    has_css?(css)
+    find(css).click
+  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+    has_css?(css)
+    find(css).click
+  end
+
+  if vote_count
+    wait_until {vote_count.text.to_i > prev_vote_count }
+  end
 end
 
 When /^I click on the left photo$/ do
 	When "I follow \"leftside\""
-end
-
-When /^I click on the right choice$/ do
-  find(".rightside").click
-  has_no_selector?(".rightside.disabled")
 end
 
 When /^I click the flag link for the (.*) choice$/ do |side|
@@ -22,15 +30,17 @@ When /^I click the flag link for the (.*) choice$/ do |side|
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
-  # adding new line after ideatext to trigger JS submit
-	And "I fill in \"new_idea_field\" with \"#{ideatext}\n\" within \"#the_add_box\""
-	#find("#submit_btn").click
+  When "I click the add new idea button"
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
+  has_css?("#submit_btn")
+	find("#submit_btn").click
 end
 
 When /^I upload an idea titled$/ do |ideatext|
-  # adding new line after ideatext to trigger JS submit
-	And "I fill in \"new_idea_field\" with \"#{ideatext}\n\" within \"#the_add_box\""
-	#find("#submit_btn").click
+  When "I click the add new idea button"
+	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
+  has_css?("#submit_btn")
+	find("#submit_btn").click
 end
 
 When /^I click the (.*) button$/ do |button_name|
@@ -42,7 +52,7 @@ When /^I click the (.*) button$/ do |button_name|
         page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
       	find(".cd_submit_button").click
       when "add new idea"
-      	find(".add_idea_button").click
+      	find(".add_idea_button").try(:click)
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
         find("#flag_inappropriate .flag_submit_button").click

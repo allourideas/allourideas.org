@@ -102,7 +102,7 @@
             .accordion-group
               .accordion-heading
                 .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#datechart-#{type}"}
-                  = link_to(options[:title], url_for(:action => :timeline_graph, :type => type), :"data-preventDefault" => true)
+                  = link_to(options[:title], url_for(:action => :timeline_graph, :type => type), :"data-preventDefault" => true, :id => "#{type}-datechart-view-link")
                   %button.close.hide x
               .accordion-body.collapse{:id => "datechart-#{type}"}
                 .accordion-inner

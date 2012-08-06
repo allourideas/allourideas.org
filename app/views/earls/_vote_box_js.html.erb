@@ -30,6 +30,7 @@
   });
   // allow enter to add idea
   $('#the_add_box').on('keypress', 'textarea', function(ev) {
+    $('#the_add_box button').show();
     if (ev.which == 13) {
       ev.preventDefault();
       $('#the_add_box button').click();

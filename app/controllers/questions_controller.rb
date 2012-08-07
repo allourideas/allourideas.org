@@ -561,7 +561,7 @@ class QuestionsController < ApplicationController
       point[:x] = votes
       max = votes.to_i if votes.to_i > max
       point[:y] = jitter[votes] += jitter_const
-      point[:name] = sid
+      point[:name] = sid.to_s
       chart_data << point
     end
     chart_title = "Number of #{type} by session"
@@ -593,7 +593,7 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
-      format.html { render :text => "<div id='scatter_skips_by_session-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.html { render :text => "<div id='scatter_#{type}_by_session-chart-container'></div><script>#{@votes_chart}</script>" }
       format.js { render :text => @votes_chart }
     end
   end

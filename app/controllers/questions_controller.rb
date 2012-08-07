@@ -419,14 +419,24 @@ class QuestionsController < ApplicationController
   def scatter_votes_vs_skips
     @earl = Earl.find params[:id]
     @question = Question.new(:id => @earl.question_id)
-    votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
+    votes = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
 
-    skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+    skips = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+
+    votes_by_sids = {}
+    votes.each do |v|
+      votes_by_sids[v["visitor_id"]] = v["count"]
+    end
+
+    skips_by_sids = {}
+    skips.each do |s|
+      skips_by_sids[s["visitor_id"]] = s["count"]
+    end
 
     chart_data = []
     max_x = 0
     max_y = 0
-    votes_by_sids.sort { |a,b| a[1].to_i <=> b[1].to_i}.each do |sid, votes|
+    votes_by_sids.each do |sid, votes|
       point = {}
       point[:x] = votes
       max_x = votes.to_i if votes.to_i > max_x
@@ -437,7 +447,7 @@ class QuestionsController < ApplicationController
         point[:y] = 0
       end
 
-      point[:name] = sid
+      point[:name] = sid.to_s
       chart_data << point
     end
     # if any sids remain, they have not voted

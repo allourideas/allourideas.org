@@ -535,8 +535,9 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     @question = Question.new(:id => @earl.question_id)
 
-    votes_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'votes')
-    bounces_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'bounces')
+    votes_by_sids = object_info_to_hash(@question.get(:object_info_by_visitor_id, :object_type => 'votes'))
+    bounces_by_sids = object_info_to_hash(@question.get(:object_info_by_visitor_id, :object_type => 'bounces'))
+
     if bounces_by_sids != "\n"
       bounce_hash = {}
       bounces_by_sids.each do |k|
@@ -550,7 +551,7 @@ class QuestionsController < ApplicationController
       objects_by_sids = votes_by_sids
 
     when "skips"
-      skips_by_sids = @question.get(:object_info_by_visitor_id, :object_type => 'skips')
+      skips_by_sids = object_info_to_hash(@question.get(:object_info_by_visitor_id, :object_type => 'skips'))
 
       skips_by_sids.each do |k,v|
         votes_by_sids.delete(k)
@@ -602,13 +603,10 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
+      format.html { render :text => "<div id='scatter_skips_by_session-chart-container'></div><script>#{@votes_chart}</script>" }
       format.js { render :text => @votes_chart }
     end
   end
-
-
-
-
 
   def timeline_graph
     totals = params[:totals]
@@ -1199,4 +1197,13 @@ class QuestionsController < ApplicationController
     end
     render :json => @votes.to_json
   end
+
+  private
+    def object_info_to_hash(array)
+      hash = {}
+      array.each do |a|
+        hash[a["visitor_id"]] = a["count"]
+      end
+      return hash
+    end
 end

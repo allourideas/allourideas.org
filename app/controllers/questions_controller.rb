@@ -167,6 +167,74 @@ class QuestionsController < ApplicationController
 
   end
 
+  def scatter_num_ratings_by_creation_time
+      type = params[:type] # should be scatter_num_ratings_by_date_added
+      @earl = Earl.find params[:id]
+      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+
+      @choices.sort!{|a, b| a.created_at <=> b.created_at}
+
+      chart_data = []
+      @choices.each_with_index do |c, i|
+        point = {}
+        point[:name] = c.data.strip.gsub("'", "") + "@@@" + c.id.to_s + "@@@" + c.created_at.to_s
+        point[:x] = i
+        point[:y] = c.wins + c.losses
+        chart_data << point
+      end
+
+      choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
+      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
+                                        var name = splitresult[0];
+          var id = splitresult[1];
+          var created = splitresult[2];
+
+          return '<b>' + name + '</b>: '+ this.y + ' ratings <br /> Created: ' + created; }"
+
+      moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
+                                        var name = splitresult[0];
+          var id = splitresult[1];
+          var created = splitresult[2];
+
+          var fake_url= '#{choice_url}';
+          var the_url = fake_url.replace('fakeid',id);
+
+          location.href=the_url;}"
+      @votes_chart = Highchart.spline({
+        :chart => { :renderTo => "#{type}-chart-container",
+        :margin => [50, 25, 60, 100],
+        :borderColor =>  '#919191',
+        :borderWidth =>  '1',
+        :borderRadius => '0',
+        :backgroundColor => '#FFFFFF'
+#       :height => '500'
+      },
+      :legend => { :enabled => false },
+            :title => { :text => "Number of ratings per idea by creation date",
+            :style => { :color => '#919191' }
+      },
+      :x_axis => {:type => 'linear',
+          :title => {:enabled => true, :text => "Non Uniform Date Intervals"}},
+          :y_axis => {:type => 'linear', :min => 0,
+          :title => {:enabled => true, :text => "Number of ratings"}},
+          :plotOptions => {:scatter => { :point => {:events => {:click => moreinfoclickfn }}}},
+          :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
+          :type => 'scatter',
+          :color => 'rgba( 49,152,193, .5)',
+          :data => chart_data }],
+          :tooltip => { :formatter => tooltipformatter }
+
+      })
+
+      respond_to do |format|
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"} 
+        format.js { render :text => @votes_chart }
+     end
+
+
+  end
+
+
   # TODO: declare as private
   # calculate color heat map
   def color_for_score(score)

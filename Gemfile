@@ -1,7 +1,7 @@
 source :rubygems
 source "http://gems.github.com"
 
-gem "bundler", "1.0.21"
+gem "bundler", "1.1.5"
 gem "rails", "2.3.14"
 gem "multi_json", "1.0.4"
 gem "json", "1.1.3"

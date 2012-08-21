@@ -321,6 +321,8 @@ class QuestionsController < ApplicationController
     if type
       @target_div+= "-" + type
     end
+    @word_cloud_end = ""
+    @word_cloud_js = ""
     if @word_frequency.size != 0
       @word_cloud_js ="
           var thedata = new google.visualization.DataTable();

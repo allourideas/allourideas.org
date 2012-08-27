@@ -1,6 +1,21 @@
 !!! 1.0
 %html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
   %head
+    :javascript
+      // under default settings, safari will not allow iframes to set cookies
+      // unless the user has first navigated to the domain serving the iframe source
+      //
+      // here we test to see if this page can set a cookie with JS
+      // if we can't then redirect to domain serving the iframe and pass in URL to bounce user back to
+      var cookieValue = "safariTest" + new Date().getTime();
+      document.cookie = "safariTest="+cookieValue;
+      if (document.cookie.indexOf("safariTest="+cookieValue) === -1) {
+        window.top.location.href = location.origin + '/redirect?redirect_to=' + encodeURIComponent(document.referrer);
+      }
+      else {
+        // cleanup test cookie
+        document.cookie = 'safariTest=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
     %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
     = yield :meta
     %link{:rel => "shortcut icon", :href => "http://www.allourideas.org/favicon.ico"}

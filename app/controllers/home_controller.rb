@@ -4,6 +4,10 @@ class HomeController < ApplicationController
   before_filter :authenticate, :only => [:admin]
   before_filter :admin_only, :only => [:no_google_tracking]
 
+  def redirect
+    redirect_to(params[:redirect_to])
+  end
+
   def index
   end
 

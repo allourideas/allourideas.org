@@ -40,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
   map.toggle_choice_status '/questions/:earl_id/choices/:id/toggle.:format', :controller => 'choices', :action => 'toggle', :conditions => { :method => :post }
   
+  map.about '/redirect', :controller => 'home', :action => 'redirect'
   map.about '/about', :controller => 'home', :action => 'about'
   map.admin '/admin', :controller => 'home', :action => 'admin'
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'

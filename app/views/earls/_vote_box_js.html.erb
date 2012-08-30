@@ -109,6 +109,10 @@
       newLeftDiv.insertBefore(oldLeftDiv);
       newRightDiv.insertBefore(oldRightDiv);
 
+      // update can't decide options
+      $('.cd_options .leftside em').html(data.newleft);
+      $('.cd_options .rightside em').html(data.newright);
+
       //used for fraud detection / back button behavior fixing
       $('#left_side_text').val(data.newleft);
       $('#right_side_text').val(data.newright);

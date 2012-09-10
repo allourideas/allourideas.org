@@ -67,7 +67,7 @@
           = f.label :default_lang, "Default language" + link_to(' <i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
           .controls
             = # Have English be the first, but sort the rest
-            = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"]].sort
+            = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"], ["Albanian", "sq"]].sort
         .control-group
           = f.label :ga_code, t('admin.google_analytics_code') + link_to(' <i class="icon-quesiton-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
           .controls

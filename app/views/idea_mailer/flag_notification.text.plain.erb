@@ -1,6 +1,6 @@
 <%= t('items.email.hello') %>
 
-<%= t("items.email.#{@photocracy ? 'photocracy_' : ''}someone_has_flagged", :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}", :choice_data => @choice_data) %>
+<%= t("items.email.#{@photocracy ? 'photocracy_' : ''}someone_has_flagged", :question_url => "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}", :choice_data => @choice_data) %>
 
 <%= t('items.email.provided_explanation_is', :object_type => @object_type) %>
 
@@ -13,7 +13,7 @@
 <%= t('items.email.if_you_dont_want', :object_type => @object_type) %>
 
 <%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %>
-<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>
+<%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %>
 
 <%= t('items.email.thanks') %>
 <%= render :partial => 'idea_mailer/signature' %>

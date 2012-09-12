@@ -17,19 +17,6 @@ config.action_mailer.delivery_method = :sendmail
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-HOST = 'localhost:3001'
-#API_HOST = "http://204.236.224.252"
-#API_HOST = 'http://allourideas.com'
-API_HOST = "http://localhost:3000"
-
-PAIRWISE_USERNAME = "pairwisetest@dkapadia.com"
-PAIRWISE_PASSWORD = "wheatthins"
-
-PHOTOCRACY_USERNAME = "photocracytest@dkapadia.com"
-PHOTOCRACY_PASSWORD = "saltines"
-PHOTOCRACY_HOST = 'photocracy:3001'
-
-IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on stored ip address hashes
 ActiveSupport::XmlMini.backend = 'LibXML'
 if defined?(Sass)
   Sass::Plugin.add_template_location(Rails.root + 'public/stylesheets/widget/sass/', Rails.root + 'public/stylesheets/widget/')

@@ -22,18 +22,6 @@ config.action_controller.allow_forgery_protection    = true
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-HOST = "localhost"
-# Use a different test database / server for test purposes
-API_HOST = "http://localhost:4000" 
-#
-PAIRWISE_USERNAME = "testing@dkapadia.com"
-PAIRWISE_PASSWORD = "wheatthins"
-PHOTOCRACY_USERNAME = "photocracytest@dkapadia.com"
-PHOTOCRACY_PASSWORD = "saltines"
-IP_ADDR_HASH_SALT = '2039d9ds9ufsdioh2394230' #prevent dictionary attacks on stored ip address hashes
-
-PHOTOCRACY_HOST = 'photocracy.org'
-
 Bundler.require :default, 'test'
 
 require 'redis-store'

@@ -3,7 +3,7 @@ unless Rails.env == "development" || Rails.env == "test"
 end
 class IdeaMailer < ActionMailer::Base
 
-  default_url_options[:host] = HOST
+  default_url_options[:host] = APP_CONFIG[:HOST]
 
   def notification(earl, question_name, choice_text, choice_id, photocracy=false)
     setup_email(earl.user, photocracy)
@@ -102,9 +102,9 @@ class IdeaMailer < ActionMailer::Base
        end
 
        if photocracy
-	       choice_url = "http://#{PHOTOCRACY_HOST}#{choice_path}"
+	       choice_url = "http://#{APP_CONFIG[:PHOTOCRACY_HOST]}#{choice_path}"
        else
-	       choice_url = "http://#{HOST}#{choice_path}"
+	       choice_url = "http://#{APP_CONFIG[:HOST]}#{choice_path}"
        end
        choice_url
     end

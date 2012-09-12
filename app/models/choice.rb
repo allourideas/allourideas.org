@@ -1,7 +1,7 @@
 class Choice < ActiveResource::Base
-  self.site = "#{API_HOST}/questions/:question_id/"
-  self.user = PAIRWISE_USERNAME
-  self.password = PAIRWISE_PASSWORD
+  self.user = APP_CONFIG[:PAIRWISE_USERNAME]
+  self.site = "#{APP_CONFIG[:API_HOST]}/questions/:question_id/"
+  self.password = APP_CONFIG[:PAIRWISE_PASSWORD]
   
   attr_accessor :name, :question_text, :question_ideas
 

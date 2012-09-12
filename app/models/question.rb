@@ -1,7 +1,7 @@
 class Question < ActiveResource::Base
-  self.site = API_HOST
-  self.user = PAIRWISE_USERNAME
-  self.password = PAIRWISE_PASSWORD
+  self.site = APP_CONFIG[:API_HOST]
+  self.user = APP_CONFIG[:PAIRWISE_USERNAME]
+  self.password = APP_CONFIG[:PAIRWISE_PASSWORD]
 
   attr_accessor :question_text, :ideas, :url, :information, :email, :password
   

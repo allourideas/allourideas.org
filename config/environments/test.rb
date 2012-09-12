@@ -22,13 +22,6 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 # rake gems:install RAILS_ENV=test
-
-HOST = 'localhost'
-API_HOST = "http://localhost:4000" 
-
-PAIRWISE_USERNAME = "testing@dkapadia.com"
-PAIRWISE_PASSWORD = "wheatthins"
-
 begin
   require 'factory_girl'
   require 'redgreen'

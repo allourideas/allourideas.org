@@ -1,6 +1,6 @@
 <p><%= t('items.email.hello') %></p>
 
-<p><%= t("items.email.#{@photocracy ? 'photocracy_' : ''}someone_has_flagged", :question_url => "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}", :choice_data => @choice_data) %></p>
+<p><%= t("items.email.#{@photocracy ? 'photocracy_' : ''}someone_has_flagged", :question_url => "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}", :choice_data => @choice_data) %></p>
 
 <p><%= t('items.email.provided_explanation_is', :object_type => @object_type) %></p>
 
@@ -13,7 +13,7 @@
 <p><%= t('items.email.if_you_dont_want', :object_type => @object_type) %></p>
 
 <p><%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %><br/>
-<a href="<%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %>"><%= "http://#{@photocracy ? PHOTOCRACY_HOST : HOST}/#{@earl.name}" %></a>
+<a href="<%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %>"><%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %></a>
 
 <p><%= t('items.email.thanks') %></p>
 <%= render :partial => 'idea_mailer/signature' %>

@@ -1,4 +1,12 @@
+global: &global
+    INFO_ALLOURIDEAS_EMAIL: info@allourideas.org
+    INFO_PHOTOCRACY_EMAIL: info@photocracy.org
+    SIGNUPS_ALLOURIDEAS_EMAIL: signups@allourideas.org
+    SIGNUPS_PHOTOCRACY_EMAIL: signups@photocracy.org
+    ERRORS_EMAIL: errors@allourideas.org
+
 development:
+    <<: *global
     HOST: localhost:3001
     API_HOST: http://localhost:3000
     PAIRWISE_USERNAME: pairwisetest@dkapadia.com
@@ -9,6 +17,7 @@ development:
     IP_ADDR_HASH_SALT: 2039d9ds9ufsdioh2394230 #prevent dictionary attacks on stored ip address hashes
 
 production:
+    <<: *global
     HOST: <%= ENV['ALLOURIDEAS_HOST'] %>
     API_HOST: <%= ENV['API_HOST'] %>
     PAIRWISE_USERNAME: <%= ENV['PAIRWISE_USERNAME'] %>
@@ -20,6 +29,7 @@ production:
     PHOTOCRACY_HOST: photocracy.org
 
 staging:
+    <<: *global
     HOST: <%= ENV['STAGING_ALLOURIDEAS_HOST'] %>
     API_HOST: <%= ENV['STAGING_API_HOST'] %>
     PAIRWISE_USERNAME: <%= ENV['PAIRWISE_USERNAME'] %>
@@ -32,6 +42,7 @@ staging:
     IP_ADDR_HASH_SALT: <%= ENV['IP_ADDR_HASH_SALT'] %> #prevent dictionary attacks on stored ip address hashes
 
 test:
+    <<: *global
     HOST: localhost
     API_HOST: http://localhost:4000
 
@@ -39,6 +50,7 @@ test:
     PAIRWISE_PASSWORD: wheatthins
 
 cucumber:
+    <<: *global
     HOST: localhost
     # Use a different test database / server for test purposes
     API_HOST: http://localhost:4000

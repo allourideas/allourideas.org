@@ -12,5 +12,5 @@ ActionMailer::Base.smtp_settings = {
   :password => ENV['SENDGRID_PASSWORD']
 }
 
-DO_NOT_REPLY = "info@allourideas.org"
-MONITORS = ["info@allourideas.org"]
+DO_NOT_REPLY = APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]
+MONITORS = [APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]]

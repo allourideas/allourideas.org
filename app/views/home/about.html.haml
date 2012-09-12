@@ -12,7 +12,8 @@
     %p
       For more frequent updates on the project, you can <a href="http://blog.allourideas.org/">read our blog</a>, <a href="http://twitter.com/allourideas">follow us on Twitter</a> or <a href="https://www.facebook.com/allourideas">Like us on Facebook.</a>
     %p
-      You can contact us by email at <a href="mailto:info@allourideas.org">info@allourideas.org</a>.
+      You can contact us by email at
+      = mail_to(APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL])
     %p
       = link_to(t('nav.privacy_policy'), privacy_path)
 

@@ -35,7 +35,7 @@ class IdeaMailer < ActionMailer::Base
     setup_email(earl.user, photocracy)
     
     @subject += "Possible inappropriate #{photocracy ? 'photo' : 'idea'} flagged by user"
-    @bcc = photocracy ? "info@photocracy.org" : "info@allourideas.org"
+    @bcc = photocracy ? APP_CONFIG[:INFO_PHOTOCRACY_EMAIL] : APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]
     @body[:earl] = earl
     @body[:choice_id] = choice_id
     @body[:choice_data] = choice_data
@@ -46,8 +46,8 @@ class IdeaMailer < ActionMailer::Base
   end
   
   def extra_information(user, question_name, information, photocracy=false)
-    @recipients  = "signups@allourideas.org"
-    @from        = "info@allourideas.org"
+    @recipients  = APP_CONFIG[:SIGNUPS_ALLOURIDEAS_EMAIL]
+    @from        = APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]
     @subject     = photocracy ? "[Photocracy] " : "[All Our Ideas] "
     @sent_on     = Time.now
     @body[:user] = user
@@ -80,7 +80,7 @@ class IdeaMailer < ActionMailer::Base
       if user
         @recipients  = user.email
       end
-      @from        = photocracy ? "info@photocracy.org" : "info@allourideas.org"
+      @from        = photocracy ? APP_CONFIG[:INFO_PHOTOCRACY_EMAIL] : APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]
       @subject     = photocracy ? "[Photocracy] " : "[All Our Ideas] "
       @sent_on     = Time.now
       @body[:user] = user

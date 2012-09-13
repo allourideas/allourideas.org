@@ -59,7 +59,7 @@
               - choices.each do |choice|
                 .span3
                   %p
-                    %button.btn.btn-primary{:class => choice, :'data-questionid' => @question.id, :"data-reason" => choice, :"data-dismiss" => 'modal'}
+                    %button.btn.btn-primary.btn-block{:class => choice, :'data-questionid' => @question.id, :"data-reason" => choice, :"data-dismiss" => 'modal'}
                       =t('vote.cd_'+choice)
                       - if choice == 'dont_know_left' 
                         .leftside

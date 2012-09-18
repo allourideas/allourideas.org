@@ -55,15 +55,15 @@ $('.firsttime, #close, .vote_cell').bind("click", function() {
   handle_history_events();
 
   $('#the_add_box .new_idea_field').jqEasyCounter({target: '#the_add_box .new_idea_counter'});
-  $('#the_add_box button').hide();
+  $('#the_add_box #submit_btn').hide();
 
   $('#the_add_box').on('focus', 'textarea', function(ev) {
-    $('#the_add_box button').show();
+    $('#the_add_box #submit_btn').show();
     $('#the_add_box .new_idea_counter').show();
   });
   $('#the_add_box').on('blur', 'textarea', function(ev) {
     if ($.trim($(ev.currentTarget).val()).length === 0) {
-      $('#the_add_box button').fadeOut();
+      $('#the_add_box #submit_btn').fadeOut();
     }
     $('#the_add_box .new_idea_counter').fadeOut();
   });
@@ -77,7 +77,7 @@ $('.firsttime, #close, .vote_cell').bind("click", function() {
   });
 
   // handle submit on add new idea box
-  $('#the_add_box').on('click', 'button', function(ev) {
+  $('#the_add_box').on('click', '#submit_btn', function(ev) {
     ev.preventDefault();
     var button = $(ev.currentTarget);
     button.addClass('disabled');
@@ -419,8 +419,8 @@ if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) 
           <input id="question_id" name="question_id" type="hidden">
           
           <p>
-            <div class='new_idea_counter pull-left'></div>
-            <button class='btn btn-primary pull-right' data-question_id='4' id='submit_btn'>Submit</button>
+            <span class='new_idea_counter pull-left'></span>
+            <input type="submit" class='btn btn-primary pull-right' data-question_id='4' id='submit_btn' value="Submit">
           </p>
           
         </div>

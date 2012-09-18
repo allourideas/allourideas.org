@@ -140,6 +140,7 @@ body.container-fluid{
   }
   
   @media (max-width: 767px) {  // small screen / mobile
+    position: fixed;
     top: 10px;      // Position the modal "full screen" on mobile
     bottom: 10px;
     left: 10px;
@@ -154,11 +155,12 @@ body.container-fluid{
       min-height: auto; // Remove the min height when the buttons are shown in a single column to save vertical space and hopefully fit all of the options in on one screen.
     }
     .modal-body{  // Allow the body to fill the container space now we are "full screen"
-      bottom: 10px;
+      bottom: 0px;
       top:60px;
       position: absolute;
       max-height: 100%;
       height: auto;
+      -webkit-overflow-scrolling: touch;
     }
     
     .close{  // Make the close button a bigger target on small screens

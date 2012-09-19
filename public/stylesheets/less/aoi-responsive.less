@@ -29,9 +29,14 @@
 @aoi_alt-bg: #eee;
 
 
-body.container-fluid{
-  max-width: 1200px;
-  .center-block;
+body{
+  &.container-fluid{
+    max-width: 1200px;
+    .center-block;
+  }
+  &.modal-open {
+    overflow: hidden;  // Stops Android scrolling the main page rather than the modal
+  }
 }
 .logo{
   margin-top: 1em;

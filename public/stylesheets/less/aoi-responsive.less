@@ -15,6 +15,15 @@
 @import "../bootstrap/less/bootstrap.less";  // Include the Bootstrap Styles
 @import "../bootstrap/less/responsive.less"; // Include the Bootstrap Responsive Styles
 
+@navbarCollapseWidth: 767px; // Overide width that the menu collapses at
+@import "../bootstrap/less/responsive-navbar.less";
+// Redefine collapse width for switching back as Bootstrap doesn't have it in a variable.
+.nav-collapse.collapse {
+  @media (min-width: 768px) {
+    height: auto !important;
+    overflow: visible !important;
+  }
+}
 
 /*!
  * AOI CSS
@@ -29,18 +38,94 @@
 @aoi_alt-bg: #eee;
 
 
+
+// -------------------------------
+//  All pages
+// -------------------------------
+
+html{
+  -webkit-overflow-scrolling: touch; // Use momentum based scrolling for the main page
+}
+
 body{
-  &.container-fluid{
-    max-width: 1200px;
-    .center-block;
+/*
+  &.container-fluid, &.container, .container-fluid, .container,{
+    max-width: 940px; // Don't get any bigger once we get to 940,
+    .center-block;     // just centre the page.
   }
+*/
   &.modal-open {
     overflow: hidden;  // Stops Android scrolling the main page rather than the modal
   }
 }
+
 .logo{
   margin-top: 1em;
 }
+
+h2{
+  @media (max-width: 767px) {
+    font-size: 21px; // Reduce the size of the header on mobile
+    line-height: 30px;
+  }
+}
+
+
+
+
+// -------------------------------
+//  Menu
+// -------------------------------
+
+#log_in-menu{
+  a{
+    .btn;
+    //.buttonBackground(#555, #777);  // If we want to give the button a colour use this
+    margin-top: 5px;
+  }
+  @media(max-width: @navbarCollapseWidth){
+    .pull-right; // When the menu is collapsed float right
+  }
+}
+.navbar-static-top{
+  width: auto; // Make the menu stretch to the sides
+  min-width: 100%;
+}
+.navbar .btn-navbar{
+  .pull-left; // Move the button that show/hides the menu to the left
+}
+
+
+
+// -------------------------------
+//  'Create New' Section 
+// -------------------------------
+
+form#new_question_form{
+  fieldset{
+    legend{
+      padding-top: 1em;
+      em{
+        color: @aoi_lightblue; // Highlight 'step 1', 'step 2' etc.
+      }
+    }
+  }
+  @media (min-width: 1200px){
+    .form-horizontal; // When it's a very big screen switch to a horizontal form
+  }
+  
+  #question_create_button{
+    .btn-large; // Make the create button bigger
+  }
+}
+
+
+
+
+
+
+
+
 
 
 // -------------------------------

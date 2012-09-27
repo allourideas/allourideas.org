@@ -367,8 +367,6 @@ table.tablesorter thead tr .headerSortDown {
   #cant_decide_options .cd_options {
     width: 100%;
     overflow: auto; }
-    #cant_decide_options .cd_options button {
-      width: 100%; }
 
 .wider {
   color: black; }

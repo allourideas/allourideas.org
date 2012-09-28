@@ -1,1 +1,1 @@
-hostname: localhost
+hostname: redis://localhost

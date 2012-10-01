@@ -10,6 +10,16 @@ Installing
 
 <https://github.com/allourideas/allourideas.org/wiki/Installing>
 
+Email List
+-------------------
+
+If you would like to join the allourideas email list, send a message to allourideas+subscribe@googlegroups.com.
+The email list is a place to ask and discuss technical questions about the project.
+
+If you would like to send a question to the allourideas email list, send your message to allourideas@googlegroups.com.
+Note that you can only post if you are already a member of the group.
+
+If you would like to review and search previous content from the email list, visit https://groups.google.com/forum/#!forum/allourideas.
 
 Ownership
 -------------------

@@ -64,6 +64,8 @@ table {
   -moz-border-bottom-right-radius: 7px; }
   .tab-content.question-results .row > div {
     background-color: white; }
+  .tab-content.question-results .accordion {
+    margin-bottom: 0; }
 
 .create-question h2 {
   padding-bottom: 0px; }
@@ -500,6 +502,7 @@ table.tablesorter thead tr .headerSortDown {
 .results-table-header {
   background-color: #f2f2f2; }
   .results-table-header h3 {
+    margin-top: 0;
     background-color: black;
     text-align: center;
     color: #fefefe;

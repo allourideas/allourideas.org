@@ -1,9 +1,9 @@
 global: &global
-    INFO_ALLOURIDEAS_EMAIL: info@allourideas.org
-    INFO_PHOTOCRACY_EMAIL: info@photocracy.org
-    SIGNUPS_ALLOURIDEAS_EMAIL: signups@allourideas.org
-    SIGNUPS_PHOTOCRACY_EMAIL: signups@photocracy.org
-    ERRORS_EMAIL: errors@allourideas.org
+    INFO_ALLOURIDEAS_EMAIL: info@example.org
+    INFO_PHOTOCRACY_EMAIL: info@example.com
+    SIGNUPS_ALLOURIDEAS_EMAIL: signups@example.org
+    SIGNUPS_PHOTOCRACY_EMAIL: signups@example.com
+    ERRORS_EMAIL: errors@example.org
 
 development:
     <<: *global
@@ -27,6 +27,12 @@ production:
     PHOTOCRACY_USERNAME: <%= ENV['PHOTOCRACY_USERNAME'] %>
     PHOTOCRACY_PASSWORD: <%= ENV['PHOTOCRACY_PASSWORD'] %>
     PHOTOCRACY_HOST: photocracy.org
+
+    INFO_ALLOURIDEAS_EMAIL: <%= ENV['INFO_ALLOURIDEAS_EMAIL'] %>
+    INFO_PHOTOCRACY_EMAIL: <%= ENV['INFO_PHOTOCRACY_EMAIL'] %>
+    SIGNUPS_ALLOURIDEAS_EMAIL: <%= ENV['SIGNUPS_ALLOURIDEAS_EMAIL'] %>
+    SIGNUPS_PHOTOCRACY_EMAIL: <%= ENV['SIGNUPS_PHOTOCRACY_EMAIL'] %>
+    ERRORS_EMAIL: <%= ENV['ERRORS_EMAIL'] %>
 
 staging:
     <<: *global

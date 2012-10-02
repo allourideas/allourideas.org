@@ -7,13 +7,13 @@ global: &global
 
 development:
     <<: *global
-    HOST: localhost:3001
-    API_HOST: http://localhost:3000
+    HOST: localhost:3001 # domain:port of AOI server
+    API_HOST: http://localhost:3000 # URL for pairwise API server
     PAIRWISE_USERNAME: pairwisetest@dkapadia.com
     PAIRWISE_PASSWORD: wheatthins
     PHOTOCRACY_USERNAME: photocracytest@dkapadia.com
     PHOTOCRACY_PASSWORD: saltines
-    PHOTOCRACY_HOST: photocracy:3001
+    PHOTOCRACY_HOST: photocracy:3001 # domain:port of Photocracy (AOI) Server
     IP_ADDR_HASH_SALT: 2039d9ds9ufsdioh2394230 #prevent dictionary attacks on stored ip address hashes
 
 production:

@@ -43,7 +43,7 @@ group :test do
   gem "cucumber-rails", "0.3.0"
   gem "sqlite3", ">=1.3.3"
   gem "database_cleaner", "0.5.0"
-  gem "capybara", "0.3.7"
+  gem "capybara", "~> 1.1.2"
   gem "thoughtbot-factory_girl", "~>1.2.1", :require => "factory_girl"
   gem "thoughtbot-shoulda", "~> 2.10.1", :require => "shoulda"
   gem "timecop", "0.3.5"

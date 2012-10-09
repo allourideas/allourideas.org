@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta content='text/html;charset=UTF-8' http-equiv='content-type' />
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="ideation, online suggestion box, open source suggestion box, crowdsourcing ideas, social suggestion, idea comparison, prioritize ideas, nonprofit, free idea management" />
+<meta content='All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.' name='description' />
+<meta content='All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.' property='og:description' />
+<meta content='http://jedidiah.allourideas.dev.mysociety.org/images/favicon.png?1346331606' property='og:image' />
+<meta property="og:site_name" content="All Our Ideas"/>
+<link href='http://www.allourideas.org/favicon.ico' rel='shortcut icon' />
+<title>All Our Ideas - A Suggestion Box for the Digital Age</title>
+
+<link href="../stylesheets/aoi-responsive.css" media="screen" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+<link href="/stylesheets/ui.theme.css?1346331606" media="all" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/jquery-ui.min.js" type="text/javascript"></script>
+
+<script type='text/javascript'>
+$(document).ready(function() {
+$('#new_question_form').submit(function(){
+  $('#indicator').show();
+});
+
+/**
+     * Fix for iPhone scale/rotation bug
+     * http://adactio.com/journal/4470/
+     */
+if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+  var viewportmeta = document.querySelector('meta[name="viewport"]');
+  if (viewportmeta) {
+    viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+    document.body.addEventListener('gesturestart', function() {
+      viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+    }, false);
+  }
+  /**
+     * Prevent iOS from zooming onfocus
+     * http://nerd.vasilis.nl/prevent-ios-from-zooming-onfocus/
+     */
+  $('input, select, textarea').bind('focus', function(event) {
+  viewportmeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=1').bind('blur', function(event) {
+  viewportmeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=1');
+  });
+  });
+};
+
+
+});
+</script>
+</head>
+<body class='en'>
+
+<div class="navbar navbar-static-top">
+  <div class="navbar-inner">
+    <div class="container">
+ 
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      
+      <ul id="log_in-menu" class='nav pull-right'>
+        <li>
+          <a class="" href="/sign_in"><i class="icon-user"></i> Log In</a>
+        </li>
+      </ul>
+      
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse">
+        <!-- .nav, .navbar-search, .navbar-form, etc -->
+        <ul class='nav nav-pills pull-right'>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li class='current'>
+            <a href="/questions/new">Create</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="http://blog.allourideas.org">Blog</a>
+          </li>
+        </ul>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var AUTH_TOKEN = "7ctv0Gq8gwsBEXD8KL6aOmFulKqsft5+C83nNUrjHjI=";
+//]]>
+</script>
+<div class='content container' style=''>
+  <div class='row header'>
+    <div class='span7'>
+      <a href='/'><img alt="All Our Ideas - Create Contribute Discover" class="logo" src="../images/logo.jpg?1346331606"></a>
+    </div>
+    <div class='span5'>
+      
+    </div>
+  </div>
+  <div class='body'>
+    <div class='row'>
+      <div class='span12'></div>
+    </div>
+    <div class='row'>
+      <div class='span12'>
+        <h2>
+          Create your website and get ready to discover the best ideas...
+        </h2>
+        <p>
+          You are about to create your own website where your visitors can vote on existing ideas and upload new ones. You can either <a href="/studentgovernment">see an example</a> or get started using the steps below.
+        </p>
+        <p>
+          If you already have an account, please login <a href="/sign_in">here</a>.
+        </p>
+        <div class='left create-question'>
+          <form action="/questions" id="new_question_form" method="post">
+            <div style="margin:0;padding:0;display:inline">
+              <input name="authenticity_token" type="hidden" value="7ctv0Gq8gwsBEXD8KL6aOmFulKqsft5+C83nNUrjHjI=" />
+            </div>
+            
+            <fieldset id="step1">
+              
+              <legend>
+                <em>Step 1:</em> Create your website
+              </legend>
+              
+              <div class="control-group">
+                <label class="control-label" for="question_name">Text of question for your visitors:</label>
+                <div class="controls">
+                  <input class="required span8" type="text" id="question_name" maxlength="100" name="question[name]" placeholder="eg:&quot;Which do you want more from the student government?&quot;" value="">
+                </div>
+              </div>
+              
+            </fieldset>
+            
+            
+            
+            <fieldset id="step2">
+              <legend>
+                <em>Step 2:</em> Choose your URL
+              </legend>
+              <div class="control-group">
+                <div class="input-prepend">
+                  <label class="add-on" for="question_url">www.allourideas.org/</label><input class="required span4" id="question_url" name="question[url]" size="16" type="text" placeholder="eg:'studentgovernment'">
+                </div>
+              </div>
+            </fieldset>
+            
+            
+            <fieldset id="step3">
+              <legend>
+                <em>Step 3:</em> Upload lots of ideas to seed the site
+              </legend>
+              <div class="control-group">
+                <label class="control-label" for="question_ideas">Upload lots of ideas here. You should put one per line.
+You can copy and paste from a list that you've already created.
+The maximum length of an idea is 140 characters.</label>
+                <div class="controls">
+                  <textarea class="required span8" id="question_ideas" rows="12" cols="85" name="question[ideas]" placeholder=""></textarea>
+                </div>
+              </div>
+            </fieldset>
+            
+            
+            <fieldset id="step4">
+              
+              <legend>
+                <em>Step 4:</em> Create an Account
+              </legend>
+              <div class="control-group">
+                <p>
+                  Please give us your e-mail and pick a password so that you can get the results and administer your website.
+                </p>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="question_email">Email:</label>
+                <div class="controls">
+                  <input type="text" class="required email span8" id="question_email" maxlength="100" name="question[email]" size="30">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="question_password">Password:</label>
+                <div class="controls">
+                  <input  class="required password span8" id="question_password" name="question[password]" type="password">
+                </div>
+              </div>
+              
+            </fieldset>
+            
+            
+            <fieldset id="step3">
+              <legend>
+                <em>Step 5 [Optional]:</em> Help Us Out
+              </legend>
+              <div class="control-group">
+                <label class="control-label" for="question_information">Please tell us a bit about what you are trying to accomplish with All Our Ideas. Also, feel free to let us know anything else we might find interesting (e.g. how you heard about us, how many visitors you're expecting)</label>
+                <div class="controls">
+                  <textarea class="span8" cols="85" id="question_information" name="question[information]" rows="12"></textarea>
+                </div>
+              </div>
+            </fieldset>
+            
+            <div class="form-actions">
+              <button class='btn btn-primary' id='question_create_button' type='submit'>Create</button>
+            </div>
+            
+          </form>
+        </div>
+        <div class='indicator' id='indicator' style='display:none;'>
+          <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row footer-row'>
+    <div class='span8 offset4'>
+      <p>
+        <span class='text-links'><a href="/about">About</a> | <a href="/privacy">Privacy</a></span> <span class='image-links'><a href="https://www.facebook.com/allourideas"><img alt="Fb" src="../images/fb.png?1346331606" /></a> <a href="https://twitter.com/allourideas"><img alt="Twitter" src="../images/twitter.png?1346331606" /></a> <a href="https://github.com/allourideas"><img alt="Github" src="../images/github.png?1346331606" /></a></span>
+      </p>
+    </div>
+  </div><script src="../javascripts/jquery.ba-url.min.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/jquery.taconite.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/jquery.hint.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/label_over.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/jquery.jqEasyCharCounter.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/application.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/jquery.form.js?1346331606" type="text/javascript">
+</script> <script src="../javascripts/bootstrap/bootstrap.min.js?1347967931" type="text/javascript">
+</script> <!--
+<script type='text/javascript'>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-11703548-1']);
+_gaq.push(['_trackPageview']);
+</script>
+<script type='text/javascript'>
+  //<![CDATA[
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  //]]>
+</script>
+-->
+</div>
+
+
+
+</body>
+</html>

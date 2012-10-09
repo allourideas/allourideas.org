@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta content='text/html;charset=UTF-8' http-equiv='content-type' />
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="Which do you want more from the student government?" property="og:title" />
+
+<meta name="keywords" content="ideation, online suggestion box, open source suggestion box, crowdsourcing ideas, social suggestion, idea comparison, prioritize ideas, nonprofit, free idea management" />
+<meta content='All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.' name='description' />
+<meta content='All Our Ideas is a platform that enables groups to collect and prioritize ideas in a transparent, democratic, and bottom-up way. It’s a suggestion box for the digital age.' property='og:description' />
+<meta content='http://jedidiah.allourideas.dev.mysociety.org/images/favicon.png?1346331606' property='og:image' />
+<meta property="og:site_name" content="All Our Ideas"/>
+<link href='http://www.allourideas.org/favicon.ico' rel='shortcut icon' />
+<title>Which do you want more from the student government? - All Our Ideas - A Suggestion Box for the Digital Age</title>
+
+<!--
+<link href="../stylesheets/bootstrap/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="../stylesheets/bootstrap/responsive.css" media="screen" rel="stylesheet" type="text/css" />
+-->
+<link href="../stylesheets/aoi-responsive.css" media="screen" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+<link href="../stylesheets/ui.theme.css?1346331606" media="all" rel="stylesheet" type="text/css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../javascripts/jquery.corner.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/jquery.blockUI.js?1346331606" type="text/javascript"></script>
+
+<script type='text/javascript'>
+$(document).ready(function() {    
+    /**
+     * Fix for iPhone scale/rotation bug
+     * http://adactio.com/journal/4470/
+     */
+if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+  var viewportmeta = document.querySelector('meta[name="viewport"]');
+  if (viewportmeta) {
+    viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+    document.body.addEventListener('gesturestart', function() {
+      viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+    }, false);
+  }
+  /**
+     * Prevent iOS from zooming onfocus
+     * http://nerd.vasilis.nl/prevent-ios-from-zooming-onfocus/
+     */
+  $('input, select, textarea').bind('focus blur', function(event) {
+  viewportmeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' + (event.type == 'blur' ? 10 : 1));
+  });
+}
+    
+    
+
+
+});
+</script>
+</head>
+<body class='en container-fluid'>
+
+<div class="row-fluid">
+  <div class="span12">
+    <img alt="All Our Ideas - Create Contribute Discover" class="logo" src="../images/logo.jpg?1346331606">
+  </div>
+</div>
+
+<div class="tabbable">
+  <ul class="vote-tabs nav nav-tabs">
+    <li class="pull-right "> <a href="#vote">Cast Votes</a> </li>
+    <li class="pull-right active"> <a href="#results">View Results</a> </li>
+  </ul>
+  
+  <div class="tab-content row-fluid">
+  
+    <div id="vote" class="tab-pane">
+      
+    </div>
+    
+    <div id="results" class="tab-pane active question-results">
+      <div class='row'>
+        <div class='span10 offset1'>
+          <div class='results-table-header'>
+            <h3>
+              Which is the best cheese?
+            </h3>
+          </div>
+          <table class='table table-striped ideas-table'>
+            <thead>
+              <tr>
+                <th>
+                  <h4>
+                    Ideas
+                  </h4>
+                </th>
+                <th class='score'>
+                  <h4>
+                    Score (0 - 100) <a href="#score_explanation" class="icon-question-sign" data-toggle="modal"></a>
+                  </h4>
+                </th>
+                <th>
+                  &nbsp;
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/34" data-toggle="modal-ajax">Gruyère</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:85.7143%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>86</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/27" data-toggle="modal-ajax">Fourme d’Ambert</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:75.0%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>75</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/29" data-toggle="modal-ajax">Edam</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:66.6667%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>67</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/28" data-toggle="modal-ajax">Cashel Blue</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:66.6667%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>67</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/22" data-toggle="modal-ajax">Cheddar</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:66.6667%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>67</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/26" data-toggle="modal-ajax">Gorgonzola</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:60.0%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>60</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/32" data-toggle="modal-ajax">La Vache Qui Rit</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:57.1429%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>57</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/21" data-toggle="modal-ajax">Stilton</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:57.1429%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>57</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/31" data-toggle="modal-ajax">Babybel</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:55.5556%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>56</strong>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='title'>
+                  <a href="http://jedidiah.allourideas.dev.mysociety.org/studentgovernment/choices/25" data-toggle="modal-ajax">Roquefort</a>
+                </td>
+                <td class='span5 choice-progress'>
+                  <div class='progress progress-gray'>
+                    <div class='bar' style='width:50.0%'></div>
+                  </div>
+                  <div class='score'>
+                    <strong>50</strong>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='span10 offset1'>
+          <div class='pagination'>
+            <ul>
+              <li class="prev disabled prev_page">
+                <a href="/studentgovernment/results?page=">«</a>
+              </li>
+              <li class=" active current">
+                <a href="/studentgovernment/results?page=1">1</a>
+              </li>
+              <li class=" current">
+                <a href="/studentgovernment/results?page=2">2</a>
+              </li>
+              <li class="next next_page">
+                <a href="/studentgovernment/results?page=2">»</a>
+              </li>
+              <li>
+                <a href="/studentgovernment/results?all=true">View All</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class='row' id="data-vis">
+        <div class='span10 offset1'>
+          <h3 class='data-vis-header'>
+            Data Visualizations
+          </h3>
+          <div class='accordion' id='visualizations'>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#scatter_ideas' data-toggle='collapse'>
+                  <a href="/studentgovernment/scatter_plot_user_vs_seed_ideas?type=scatter_ideas" data-preventdefault="true">Compare uploaded ideas with original ideas</a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='scatter_ideas'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#word_cloud_ideas' data-toggle='collapse'>
+                  <a href="/studentgovernment/word_cloud" data-preventdefault="true">Word cloud of ideas</a> <a href="#word_cloud_exp" class="icon-question-sign" data-toggle="modal"></a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='word_cloud_ideas'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#word_cloud_weighted' data-toggle='collapse'>
+                  <a href="/studentgovernment/word_cloud?type=weight_by_score" data-preventdefault="true">Word cloud of ideas weighted by score</a> <a href="#word_cloud_exp" class="icon-question-sign" data-toggle="modal"></a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='word_cloud_weighted'>
+                <div class='accordion-inner' id='wcdiv-weight_by_score'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#word_cloud_uploaded' data-toggle='collapse'>
+                  <a href="/studentgovernment/word_cloud?type=uploaded" data-preventdefault="true">Word cloud of uploaded ideas</a> <a href="#word_cloud_exp" class="icon-question-sign" data-toggle="modal"></a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='word_cloud_uploaded'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#word_cloud_uploaded_weighted' data-toggle='collapse'>
+                  <a href="/studentgovernment/word_cloud?type=uploaded_weight_by_score" data-preventdefault="true">Word cloud of uploaded ideas weighted by score</a> <a href="#word_cloud_exp" class="icon-question-sign" data-toggle="modal"></a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='word_cloud_uploaded_weighted'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#world_map_votes' data-toggle='collapse'>
+                  <a href="/studentgovernment/voter_map?type=votes" data-preventdefault="true">World map of all votes</a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse map' id='world_map_votes'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#datechart-votes' data-toggle='collapse'>
+                  <a href="/studentgovernment/timeline_graph?type=votes" data-preventdefault="true" id="votes-datechart-view-link" name="votes-datechart-view-link">Number of votes over time</a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='datechart-votes'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#datechart-user_sessions' data-toggle='collapse'>
+                  <a href="/studentgovernment/timeline_graph?type=user_sessions" data-preventdefault="true" id="user_sessions-datechart-view-link" name="user_sessions-datechart-view-link">Number of unique user sessions per day</a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='datechart-user_sessions'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+            <div class='accordion-group'>
+              <div class='accordion-heading'>
+                <div class='accordion-toggle' data-target='#datechart-user_submitted_ideas' data-toggle='collapse'>
+                  <a href="/studentgovernment/timeline_graph?type=user_submitted_ideas" data-preventdefault="true" id="user_submitted_ideas-datechart-view-link" name="user_submitted_ideas-datechart-view-link">Number of submitted ideas over time</a> <button class='close hide'>x</button>
+                </div>
+              </div>
+              <div class='accordion-body collapse' id='datechart-user_submitted_ideas'>
+                <div class='accordion-inner'>
+                  <img alt="Indicator" src="/images/indicator.gif?1346331606" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='hide modal fade' id='score_explanation'>
+        <div class='modal-header'>
+          <button class='close' data-dismiss='modal'>x</button>
+          <h2>
+            About the Scoring
+          </h2>
+        </div>
+        <div class='modal-body'>
+          The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
+        </div>
+      </div>
+      <div class='hide modal fade' id='word_cloud_exp'>
+        <div class='modal-header'>
+          <button class='close' data-dismiss='modal'>x</button>
+          <h2>
+            About word clouds
+          </h2>
+        </div>
+        <div class='modal-body'>
+          The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this idea marketplace. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  
+</div>
+
+<div class='row add-idea-row'>
+    <div class='add_idea span10 offset1'>
+      <form action="items_path" method="post">
+        <div style="margin:0;padding:0;display:inline">
+          <input name="authenticity_token" type="hidden" value="qUw7LG3aVwB6CGux9lTm9trnrwpvecHhtN0CyyINOTI=">
+        </div>
+        <div id='the_add_box'>
+          <div class='alert alert-success idea-success hide'>
+            <a class='close' data-dismiss='alert' type='button'>×</a>
+          </div>
+          
+          <h3>Add your own idea:</h3>
+          
+          <p><textarea class='new_idea_field' id='new_idea_field' maxlength='140' name='new_idea' placeholder='Add your own idea here...' rows='2'></textarea></p>
+          
+          <input id="default_text" name="default_text" type="hidden" value="Add your own idea here...">
+          <input id="question_id" name="question_id" type="hidden">
+          
+          <p>
+            <span class='new_idea_counter pull-left'></span>
+            <input type="submit" class='btn btn-primary pull-right' data-question_id='4' id='submit_btn' value="Submit">
+          </p>
+          
+        </div>
+      </form>
+      <div class='tellmearea'></div>
+    </div>
+</div>
+
+
+
+
+<div class='hide modal fade' id='cant_decide_options'>
+  <div class='modal-header'>
+    <button class='close' data-dismiss='modal'>x</button>
+    <h2>
+      I can't decide because...
+    </h2>
+  </div>
+  <div class='modal-body'>
+    <div class='row'>
+      <div class='span6'>
+        <div class='cd_options'>
+          <div class='row'>
+            <div class='span3'>
+              <p>
+                <button class='btn btn-primary like_both' data-dismiss='modal' data-questionid='4' data-reason='like_both'>I like both ideas</button>
+              </p>
+            </div>
+            <div class='span3'>
+              <p>
+                <button class='both_same btn btn-primary' data-dismiss='modal' data-questionid='4' data-reason='both_same'>I think both ideas are the same</button>
+              </p>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='span3'>
+              <p>
+                <button class='btn btn-primary dont_know_both' data-dismiss='modal' data-questionid='4' data-reason='dont_know_both'>I don't know enough about either idea</button>
+              </p>
+            </div>
+            <div class='span3'>
+              <p>
+                <button class='btn btn-primary dislike_both' data-dismiss='modal' data-questionid='4' data-reason='dislike_both'>I don't like either idea</button>
+              </p>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='span3'>
+              <p>
+                <button class='btn btn-primary dont_know_left' data-dismiss='modal' data-questionid='4' data-reason='dont_know_left'>I don't know enough about:
+                <div class='leftside'>
+                  <em>Improve the long-term sustainability of lunch time serviette use and reduce the amount of food waste in all of the on-site campus kitchens.</em>
+                </div></button>
+              </p>
+            </div>
+            <div class='span3'>
+              <p>
+                <button class='btn btn-primary dont_know_right' data-dismiss='modal' data-questionid='4' data-reason='dont_know_right'>I don't know enough about:
+                <div class='rightside'>
+                  <em>Motion-sensor lights in the bathroom</em>
+                </div></button>
+              </p>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='span3'>
+              <p>
+                <button class='btn btn-primary other' data-dismiss='modal' data-questionid='4' data-reason='other'>I just can't decide</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<script src="../javascripts/jquery.ba-url.min.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/jquery.taconite.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/jquery.hint.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/label_over.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/jquery.jqEasyCharCounter.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/application.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/jquery.form.js?1346331606" type="text/javascript"></script>
+<script src="../javascripts/bootstrap/bootstrap.min.js?1346331606" type="text/javascript"></script>
+<!--
+<script type='text/javascript'>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-11703548-1']);
+_gaq.push(['_trackPageview']);
+</script>
+-->
+<!--
+<script type='text/javascript'>
+  //<![CDATA[
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  //]]>
+</script>
+-->
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@
     <meta property="og:site_name" content="All Our Ideas"/>
     %link{:rel => "shortcut icon", :href => "http://www.allourideas.org/favicon.ico"}
     %title= t('common.title')
-    = stylesheet_link_tag 'aoi-responsive'
+    = stylesheet_link_tag 'aoi-responsive', 'screen'
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
     = stylesheet_link_tag 'ui.theme', :media => 'all'
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -23,19 +23,18 @@
   %body{:class => I18n.locale}
     .navbar.navbar-aoi.navbar-inverse
       .navbar-inner
-        .container
-          %ul.nav.pull-right
-            - if signed_in?
-              %li.dropdown
-                %a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
-                  = current_user.email
-                  %b.caret
-                %ul.dropdown-menu
-                  %li= link_to t('user.logout'), '/sign_out'
-                  %li= link_to t('user.control_panel'), admin_path
-                  %li= link_to t('nav.make_your_own'), new_question_path
-            - else
-              %li= link_to t('user.login'), sign_in_path
+        %ul.nav.pull-right
+          - if signed_in?
+            %li.dropdown
+              %a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
+                = current_user.email
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to t('user.logout'), '/sign_out'
+                %li= link_to t('user.control_panel'), admin_path
+                %li= link_to t('nav.make_your_own'), new_question_path
+          - else
+            %li= link_to t('user.login'), sign_in_path
     =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.to_json};" if protect_against_forgery?
     .content.container{:style => white_label_request? ? "overflow:hidden": ""}
       - unless white_label_request?  

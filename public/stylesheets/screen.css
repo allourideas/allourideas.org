@@ -445,8 +445,12 @@ table.tablesorter thead tr .headerSortDown {
 .vote-count-span {
   text-align: center; }
 
-.flag-right {
+.rightside .flag {
   text-align: right; }
+
+@media (max-width: 767px) {
+  .rightside .flag {
+    text-align: left; } }
 
 .navbar-aoi .navbar-inner {
   -webkit-border-radius: 0;

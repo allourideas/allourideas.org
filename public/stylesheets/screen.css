@@ -159,15 +159,13 @@ table {
 .vote-question {
   text-align: center;
   padding: 15px 15px;
-  background-color: white;
   color: #333333;
   border-radius: 7px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px; }
 
 .votebox {
-  margin-top: 20px;
-  background-color: #f2f2f2; }
+  margin-top: 20px; }
 
 .skip {
   margin: 10px 0; }
@@ -392,10 +390,11 @@ table.tablesorter thead tr .headerSortDown {
     background-color: #2b88ad; }
 
 .add-idea-row {
-  border-top: 10px solid white; }
+  border-top: 10px solid white;
+  padding: 0 5%; }
 
 .add_idea {
-  margin: 35px 0px 0px 0px; }
+  margin: 0; }
   .add_idea a.add-idea-link {
     text-decoration: none;
     display: block;

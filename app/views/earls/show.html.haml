@@ -7,43 +7,35 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-.tab-content.question-vote
+.tab-content.question-vote.row-fluid
   -if !session[:has_voted] && session[:welcome_msg]
-    .row.welcome-message
-      .span10.offset1
-        .alert
-          %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
-          %p= h(session[:welcome_msg])
+    .row-fluid.welcome-message
+      .alert
+        %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
+        %p= h(session[:welcome_msg])
     -session[:welcome_msg] = nil
-  .row
-    .span10.offset1
-      %h2.vote-question= @question.attributes['name']
-  .row.votebox
-    .span5.offset1
-      = render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id})
-    .span5
-      = render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id})
-
-  .row
-    .span3.offset1
+  %h2.vote-question= @question.attributes['name']
+  %ul.votebox.answers.row-fluid.unstyled
+    %li.span5.offset1.leftside
+      %div
+        = render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id})
       -if @earl.flag_enabled?
-        %p= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
-      &nbsp;
-    .span4.vote-count-span
-      %p= render :partial => 'vote_idea_count', :locals => {:question => @question}
-    .span3.flag-right
+        %p.flag= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
+    %li.span5.rightside
+      %div
+        = render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id})
       -if @earl.flag_enabled?
-        %p= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
-      &nbsp;
+        %p.flag= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')
 
-  .row
-    .span4.offset4.cant-decide
-      %p= link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal', :class => "btn")
+  .row-fluid
+    %p.cant-decide
+      = link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal', :class => "btn span4 offset4")
+    %p.vote_stats= render :partial => 'vote_idea_count', :locals => {:question => @question}
+
   .row.add-idea-row
-    .span6.offset3
-      .add_idea
-        = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
-        .tellmearea
+    .span10.offset1.add_idea
+      = render :partial => 'items/form', :locals => {:the_ab_test_name => @ab_test_ideas_text_name}
+      .tellmearea
 
 #cant_decide_options.hide.modal.fade
   .modal-header

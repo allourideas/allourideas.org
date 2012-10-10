@@ -5,12 +5,14 @@
     .alert.alert-success.idea-success.hide
       %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
       %p
-    %textarea#new_idea_field.span6.new_idea_field{:placeholder => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
+    %h3= box_text
+    %p
+      %textarea#new_idea_field.new_idea_field{:placeholder => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
     = hidden_field_tag 'default_text', box_text
     = hidden_field_tag 'question_id', @question_id 
-    %br
-    .pull-left
-      .new_idea_counter
-    .pull-right
-      %button#submit_btn.btn.btn-primary{:"data-question_id" => @question.id}
-        =t('vote.submit')
+    %p
+      .pull-left
+        .new_idea_counter
+      .pull-right
+        %button#submit_btn.btn.btn-primary{:"data-question_id" => @question.id}
+          =t('vote.submit')

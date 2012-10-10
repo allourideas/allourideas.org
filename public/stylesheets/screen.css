@@ -520,20 +520,38 @@ table.tablesorter thead tr .headerSortDown {
     -khtml-border-top-right-radius: 10px; }
 
 .nav-tabs.vote-tabs {
-  margin-bottom: 0;
-  border-bottom: none;
   padding-right: 10px; }
-  .nav-tabs.vote-tabs > li.active > a {
-    background-color: #f2f2f2; }
 
-.below-tabs {
-  height: 18px;
-  background-color: #f2f2f2;
-  -webkit-border-top-left-radius: 7px;
-  -mox-border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
-  -webkit-border-top-right-radius: 7px;
-  -moz-border-top-right-radius: 7px; }
+/* convert to nav-stacked styles */
+@media (max-width: 767px) {
+  .nav-tabs.vote-tabs {
+    padding-right: 0;
+    border-bottom: 0; }
+    .nav-tabs.vote-tabs li {
+      float: none; }
+      .nav-tabs.vote-tabs li > a {
+        border: 1px solid #dddddd;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        margin-right: 0; }
+      .nav-tabs.vote-tabs li:first-child > a {
+        -webkit-border-top-right-radius: 4px;
+        -moz-border-top-right-radius: 4px;
+        border-top-right-radius: 4px;
+        -webkit-border-top-left-radius: 4px;
+        -moz-border-top-left-radius: 4px;
+        border-top-left-radius: 4px; }
+      .nav-tabs.vote-tabs li:last-child > a {
+        -webkit-border-bottom-right-radius: 4px;
+        -moz-border-bottom-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        -webkit-border-bottom-left-radius: 4px;
+        -moz-border-bottom-left-radius: 4px;
+        border-bottom-left-radius: 4px; }
+      .nav-tabs.vote-tabs li > a:hover {
+        z-index: 2;
+        border-color: #dddddd; } }
 
 .survey-image-col {
   margin-top: -50px; }
@@ -543,6 +561,14 @@ table.tablesorter thead tr .headerSortDown {
     bottom: -30px; }
   .survey-image-col .survey-image-links {
     margin-top: 12px; }
+
+/* when less than 767px then nav is stacked so display image as normal */
+@media (max-width: 767px) {
+  .survey-image-col {
+    margin: 0; }
+    .survey-image-col .survey-image {
+      position: static;
+      margin-bottom: 10px; } }
 
 #new_idea_field {
   font-size: 18px;

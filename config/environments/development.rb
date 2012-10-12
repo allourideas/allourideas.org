@@ -18,6 +18,6 @@ config.action_mailer.delivery_method = :sendmail
 config.action_mailer.raise_delivery_errors = false
 
 ActiveSupport::XmlMini.backend = 'LibXML'
-if defined?(Sass)
-  Sass::Plugin.add_template_location(Rails.root + 'public/stylesheets/widget/sass/', Rails.root + 'public/stylesheets/widget/')
-end
+#if defined?(Sass)
+#  Sass::Plugin.add_template_location(Rails.root + 'public/stylesheets/widget/sass/', Rails.root + 'public/stylesheets/widget/')
+#end

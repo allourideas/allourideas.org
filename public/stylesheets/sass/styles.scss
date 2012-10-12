@@ -1,3 +1,13 @@
+$navbarCollapseWidth: 767px; // Overide width that the menu collapses at
+$aoi_lightblue: #58B0E2; // Light blue from Logo
+$aoi_blue: #367BBE;      // Blue from Logo
+$aoi_alt-bg: #eeeeee;
+
+@import "bootstrap";
+
+// Include responsive Bootstrap styles
+@import "bootstrap-responsive";
+
 /*!
  * All Our Ideas - Responsive CSS
  * Extends Twitter Bootstrap
@@ -11,12 +21,6 @@
  *
  */
 
-
-@import "../bootstrap/less/bootstrap.less";  // Include the Bootstrap Styles
-@import "../bootstrap/less/responsive.less"; // Include the Bootstrap Responsive Styles
-
-@navbarCollapseWidth: 767px; // Overide width that the menu collapses at
-@import "../bootstrap/less/responsive-navbar.less";
 // Redefine collapse width for switching back as Bootstrap doesn't have it in a variable.
 .nav-collapse.collapse {
   @media (min-width: 768px) {
@@ -31,15 +35,6 @@
 
 
 // -------------------------------
-//  AOI Colours
-// -------------------------------
-@aoi_lightblue: #58B0E2; // Light blue from Logo
-@aoi_blue: #367BBE;      // Blue from Logo
-@aoi_alt-bg: #eee;
-
-
-
-// -------------------------------
 //  All pages
 // -------------------------------
 
@@ -48,12 +43,6 @@ html{
 }
 
 body{
-/*
-  &.container-fluid, &.container, .container-fluid, .container,{
-    max-width: 940px; // Don't get any bigger once we get to 940,
-    .center-block;     // just centre the page.
-  }
-*/
   &.modal-open {
     overflow: hidden;  // Stops Android scrolling the main page rather than the modal
   }
@@ -79,12 +68,13 @@ h2{
 
 #log_in-menu{
   a{
-    .btn;
-    //.buttonBackground(#555, #777);  // If we want to give the button a colour use this
+    @extend .btn;
     margin-top: 5px;
   }
-  @media(max-width: @navbarCollapseWidth){
-    .pull-right; // When the menu is collapsed float right
+}
+@media(max-width: $navbarCollapseWidth){
+  #log_in-menu{
+    float: right;
   }
 }
 .navbar-static-top{
@@ -92,7 +82,7 @@ h2{
   min-width: 100%;
 }
 .navbar .btn-navbar{
-  .pull-left; // Move the button that show/hides the menu to the left
+  @extend .pull-left; // Move the button that show/hides the menu to the left
 }
 
 
@@ -105,31 +95,15 @@ form#new_question_form{
   fieldset{
     legend{
       padding-top: 1em;
-      em{
-        color: @aoi_lightblue; // Highlight 'step 1', 'step 2' etc.
-      }
     }
   }
-  @media (min-width: 1200px){
-    .form-horizontal; // When it's a very big screen switch to a horizontal form
-  }
-  
   #question_create_button{
-    .btn-large; // Make the create button bigger
+    @extend .btn-large; // Make the create button bigger
     @media (max-width: 767px) {
       width: 100%;
     }
   }
 }
-
-
-
-
-
-
-
-
-
 
 // -------------------------------
 //  Vote Section
@@ -140,7 +114,7 @@ form#new_question_form{
 }
 .tab-content{
   //background-color: @aoi_alt-bg;
-  #gradient > .vertical(#fff, @aoi_alt-bg);
+  @include gradient-vertical(#fff, $aoi_alt-bg);
   padding-top: 0.5em;
   padding-bottom: 2em;
 }
@@ -158,11 +132,11 @@ form#new_question_form{
     margin: 0;
     padding: 0 5%;
     width: 100%;
-    .box-sizing(border-box);
+    @include box-sizing(border-box);
     
     li{
       width: 100%;
-      .box-sizing(border-box);
+      @include box-sizing(border-box);
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 1em;
@@ -178,9 +152,8 @@ form#new_question_form{
 }
 
 .btn-vote{  // The main left/right vote buttons
-  .btn-primary;  // Extend Primary Button from Bootstrap
-  .btn-large;  // Extend Large Button from Bootstrap
-  .buttonBackground(@aoi_lightblue, @aoi_blue); // Set the button colours
+  @extend .btn-primary;  // Extend Primary Button from Bootstrap
+  @extend .btn-large;  // Extend Large Button from Bootstrap
   
   display: table-cell;  // Allows us to use vertical-align to centre the text
   vertical-align: middle;
@@ -200,11 +173,11 @@ form#new_question_form{
 .cant_decide{
   text-align: center;
 }
-#cant_decide_btn{
-  @media (max-width: 767px) {
+@media (max-width: 767px) {
+  #cant_decide_btn{
     width: intrinsic;  // Tell the button to be it's natural width if it
     min-width: 50%;    // is greater than 50% or stop at 50% if it is less
-    .center-block;  // Centre the button horizontally
+    @include center-block;  // Centre the button horizontally
   }
 }
 
@@ -274,12 +247,12 @@ form#new_question_form{
 #the_add_box{
   
   h3{
-    color: @aoi_blue;
+    color: $aoi_blue;
   }
   
   #new_idea_field{
     width: 100%;
-    .box-sizing(border-box);
+    @include box-sizing(border-box);
     min-height: 4em;
   }
 }
@@ -297,16 +270,12 @@ form#new_question_form{
     margin-right: 1em;
   }
 }
-#data-vis{
-  @media (max-width: 767px) {
-    .hidden;
+@media (max-width: 767px) {
+  #data-vis{
+    display: none;
+    visibility: hidden;
   }
 }
-
-
-
-
-
 
 //  ----------------------------------------------------
 //  Grid tweaks from the default Bootstrap responsive grid
@@ -316,18 +285,11 @@ form#new_question_form{
 
   // Remove offset since Bootstrap resets all span widths to 100% but doesn't reset the Offset
   body{
-    .offset (@columns) {
-      margin-left: 0;
+    .row-fluid {
+      @for $i from 1 through $gridColumns {
+        .offset#{$i} { margin-left: 0; }
+        .offset#{$i}:first-child { margin-left: 0; }
       }
-    .offsetX (@index) when (@index > 0) {
-      (~".offset@{index}") { .offset(@index); }
-      (~'.offset@{index}:first-child') { .offset(@index); }
-      .offsetX(@index - 1);
-    }
-    .offsetX (0) {}
-    .row-fluid
-    {
-      .offsetX (@gridColumns);
     }
   }
   

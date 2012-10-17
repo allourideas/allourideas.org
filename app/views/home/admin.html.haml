@@ -11,16 +11,18 @@
             -if current_user.admin?
               %th= t('admin.user_ideas')
               %th= t('admin.active_user_ideas')
-              %th Vote Rate
               %th
-                %abbr{:title => 'Upload to Participation Rate'}
-                  UPR
+                Vote Rate
+                = link_to('', '#vote-rate', :"data-toggle" => 'modal', :class => 'icon-question-sign')
               %th
-                %abbr{:title => 'Median Responses per Session'}
-                  MRS
+                UPR
+                = link_to('', '#upload-participation-rate', :"data-toggle" => 'modal', :class => 'icon-question-sign')
               %th
-                %abbr{:title => 'Votes per Uploaded Choice'}
-                  VUC
+                MRS
+                = link_to('', '#median-responses-session', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+              %th
+                VUC
+                = link_to('', '#votes-uploaded-choice', :"data-toggle" => 'modal', :class => 'icon-question-sign')
             %th= t('admin.created')
             %th= "Status"
         %tbody
@@ -84,6 +86,34 @@
 #explanation{:style => 'display:none;'}
   %h2= t('items.about_scoring')
   =t('items.score_explain')
+
+#vote-rate.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => "modal"}x
+    %h2 Vote Rate
+  .modal-body
+    %p The vote rate is defined as the number of sessions with at least one vote divided by total number of sessions. The range of possible values is from 0 - 1.
+
+#upload-participation-rate.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => "modal"}x
+    %h2 Upload to Participation Rate
+  .modal-body
+    %p This rate is defined as the number of sessions with at least one upload divided by the total number of sessions with some active participation (at least one vote, skip, or uploaded idea). The range of possible values is from 0 - 1.
+
+#median-responses-session.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => "modal"}x
+    %h2 Median Responses per Session
+  .modal-body
+    %p This shows the median number of responses per session. A response can be a vote or a skip. The range of possible values is from 0 - ∞.
+
+#votes-uploaded-choice.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => "modal"}x
+    %h2 Votes per Uploaded Choice
+  .modal-body
+    %p The average number of votes per uploaded choice.
 
 -content_for :head do
   = render :partial => "shared/highcharts_header"

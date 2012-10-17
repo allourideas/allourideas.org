@@ -4,8 +4,7 @@
 .tab-content.question-results
   .row
     .span10.offset1
-      .results-table-header
-        %h3= @question.attributes['name']
+      %h3= @question.attributes['name']
       %table.table.table-striped.ideas-table
         %thead
           %tr
@@ -36,7 +35,7 @@
                 =link_to("View All", :action => :results, :all => true)
 
   .row
-    .span10.offset1
+    #data-vis.span10.offset1
       %h3.data-vis-header=t('results.data_visualizations')
       #visualizations.accordion
         .accordion-group

@@ -21,6 +21,27 @@
       $(document).ready(function() {
       = yield :view_javascript    
       });
+  :javascript
+    $(document).ready(function() {
+      // Fix for iPhone scale/rotation bug
+      // http://adactio.com/journal/4470/
+      if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+        var viewportmeta = document.querySelector('meta[name="viewport"]');
+        if (viewportmeta) {
+          viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+          document.body.addEventListener('gesturestart', function() {
+            viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+          }, false);
+        }
+        /**
+           * Prevent iOS from zooming onfocus
+           * http://nerd.vasilis.nl/prevent-ios-from-zooming-onfocus/
+           */
+        $('input, select, textarea').bind('focus blur', function(event) {
+        viewportmeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' + (event.type == 'blur' ? 10 : 1));
+        });
+      }
+    });
   %body{:class => I18n.locale}
     .navbar.navbar-aoi.navbar-inverse
       .navbar-inner

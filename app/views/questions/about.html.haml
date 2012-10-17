@@ -2,16 +2,17 @@
 .tab-content
   .row
     .span10.offset1
+      %h3= t('nav.about_this_page')
       %p=t('about_page.intro')
 
-      %h3="1) " + t('about_page.how_many_votes_q')
+      %h4="1) " + t('about_page.how_many_votes_q')
       %p= t('about_page.how_many_votes_exp')
       
-      %h3="2) " + t('about_page.how_many_ideas_q')
+      %h4="2) " + t('about_page.how_many_ideas_q')
       %p=t('about_page.how_many_ideas_exp')
 
-      %h3="3) " + t('about_page.view_results_q') 
+      %h4="3) " + t('about_page.view_results_q') 
       %p= t('about_page.view_results_exp')
 
-      %h3="4) " + t('about_page.make_my_own_q')
+      %h4="4) " + t('about_page.make_my_own_q')
       %p=t('about_page.make_my_own_exp')

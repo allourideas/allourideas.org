@@ -53,6 +53,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_session_timestamp
+      # ActiveResource::HttpMock only matches static strings for query parameters
+      # when in test set this to a static value, so we can match the resulting API queries for mocking
+      request.session_options[:id] = "test123" if Rails.env == "test"
       expiration_time = session[:expiration_time]
       if expiration_time && expiration_time < Time.now
 	   session[:session_id] = ActiveSupport::SecureRandom.hex(16)

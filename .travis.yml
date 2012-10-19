@@ -9,5 +9,5 @@ before_install:
   - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
 before_script:
   - rake db:test:load
-script: bundle exec spec spec/integration
+script: bundle exec spec spec/
 bundler_args: --local

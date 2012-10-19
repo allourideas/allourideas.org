@@ -1,8 +1,9 @@
 language: ruby
 rvm:
   - 1.8.7
+before_install:
+  - sudo apt-get install -qq libgeoip-dev
 before_script:
-  - sudo apt-get install libgeoip-dev
   - rake db:test:load
 script: bundle exec spec spec/integration
 #bundler_args: --local

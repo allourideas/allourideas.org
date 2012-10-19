@@ -3,6 +3,10 @@ rvm:
   - 1.8.7
 before_install:
   - sudo apt-get install -qq libgeoip-dev
+  - wget http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-i686.tar.bz2
+  - tar -xf phantomjs-1.7.0-linux-i686.tar.bz2
+  - sudo rm -rf /usr/local/phantomjs
+  - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
 before_script:
   - rake db:test:load
 script: bundle exec spec spec/integration

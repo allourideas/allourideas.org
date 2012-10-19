@@ -6,4 +6,4 @@ before_install:
 before_script:
   - rake db:test:load
 script: bundle exec spec spec/integration
-#bundler_args: --local
+bundler_args: --local

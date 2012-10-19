@@ -8,6 +8,12 @@ require 'capybara/rails'
 include Capybara::DSL
 require 'capybara/poltergeist'
 
+ActionController::Base.class_eval do
+  def rescue_action(exception)
+    raise exception
+  end
+end
+
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 

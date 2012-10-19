@@ -23,7 +23,8 @@ describe 'A User on the vote page' do
     page.should have_content("Cast Votes")
     # save for later tests
     number_of_votes = find('#votes_count').text.to_i
-    idea_text = find('.leftside').text
+    left_idea_text = find('.leftside').text
+    right_idea_text = find('.rightside').text
     # vote
     find('.leftside').click
     # ensure voted option is now disabled
@@ -33,6 +34,7 @@ describe 'A User on the vote page' do
     # number of votes should have been incremented
     (number_of_votes + 1).should eql find('#votes_count').text.to_i
     # verify that we've loaded new ideas
-    idea_text.should_not eql find('.leftside').text
+    left_idea_text.should_not eql find('.leftside').text
+    right_idea_text.should_not eql find('.rightside').text
   end
 end

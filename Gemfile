@@ -38,6 +38,7 @@ group :production, :staging do
 end
 
 group :test do
+  gem "poltergeist", "~> 1.0.1"
   gem "timecop", "0.3.5"
   gem "cucumber", "0.8.5"
   gem "cucumber-rails", "0.3.0"

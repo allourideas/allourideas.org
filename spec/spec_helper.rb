@@ -6,6 +6,7 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'capybara/rails'
 include Capybara::DSL
+require 'capybara/poltergeist'
 
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
@@ -24,6 +25,7 @@ Spec::Runner.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
+    Capybara.javascript_driver = :poltergeist
   end
 
   config.before(:each) do

@@ -1,3 +1,6 @@
+branches:
+  only:
+    - test-updates
 language: ruby
 rvm:
   - 1.8.7
@@ -9,5 +12,5 @@ before_install:
   - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
 before_script:
   - rake db:test:load
-script: bundle exec spec spec/integration || cat /home/travis/builds/allourideas/allourideas.org/log/test.log
+script: bundle exec spec spec/integration
 bundler_args: --local

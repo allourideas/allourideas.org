@@ -5,8 +5,7 @@
     .alert.alert-success.idea-success.hide
       %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
       %p
-    %h3= box_text
-    %p
+    %p.add-idea
       %textarea#new_idea_field.new_idea_field{:placeholder => box_text, :maxlength => Const::MAX_ITEM_LENGTH, :rows => 2, :name => 'new_idea'}
     = hidden_field_tag 'default_text', box_text
     = hidden_field_tag 'question_id', @question_id 

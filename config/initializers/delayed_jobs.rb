@@ -10,7 +10,7 @@ class Delayed::Worker
 
 protected
   def handle_failed_job(job, error)
-    HoptoadNotifier.notify(error)
+    ::Airbrake.notify(error)
     original_handle_failed_job(job,error)
   end
 end

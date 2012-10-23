@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.about '/redirect', :controller => 'home', :action => 'redirect'
   map.about '/about', :controller => 'home', :action => 'about'
+  map.status '/status/:id', :controller => 'home', :action => 'status'
   map.admin '/admin', :controller => 'home', :action => 'admin'
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'
   map.privacy_2009_07_06 '/privacy-2009-07-06', :controller => 'home', :action => 'privacy-2009-07-06'

@@ -276,8 +276,8 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	
-	$('input[title!=""]').hint();
-	$('textarea[title!=""]').hint();
+	$('input[placeholder!=""]').hint();
+	$('textarea[placeholder!=""]').hint();
 	
 	
 /*

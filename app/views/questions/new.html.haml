@@ -30,7 +30,7 @@
             %label.control-label{:for => 'question_name'}
               = "#{t('questions.new.display_text')}:"
             .controls
-              = f.text_field 'name', :size => 60, :title => t('questions.new.step1_exp'), :class => 'required span8', :maxlength => Const::MAX_QUESTION_LENGTH
+              = f.text_field 'name', :size => 60, :placeholder => t('questions.new.step1_exp'), :class => 'required span8', :maxlength => Const::MAX_QUESTION_LENGTH
             = hidden_field_tag 'default_text', t('questions.new.step1_exp')
         
         %fieldset#step2
@@ -38,7 +38,7 @@
           .control-group
             .input-prepend
               %label.add-on{:for => "question_url"} http://www.allourideas.org/
-              = f.text_field 'url', :class => 'required span4', :title => (@question && @question.url) || t('questions.new.step2_exp')
+              = f.text_field 'url', :class => 'required span4', :placeholder => (@question && @question.url) || t('questions.new.step2_exp')
             = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
             
 
@@ -51,7 +51,7 @@
               == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
     
             .controls
-              = f.text_area 'ideas', :class => 'required span8', :cols => 85, :rows => 12, :title => t('questions.new.step3_exp')
+              = f.text_area 'ideas', :class => 'required span8', :cols => 85, :rows => 12, :placeholder => t('questions.new.step3_exp')
           = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
     
         -unless signed_in?
@@ -81,7 +81,7 @@
               = t('questions.new.tell_us_why')
               = t('questions.new.tell_us_why2')
             .controls
-              = f.text_area 'information', :class => 'span8', :cols => 85, :rows => 12#, :title => t('questions.new.step3_exp')
+              = f.text_area 'information', :class => 'span8', :cols => 85, :rows => 12
         
         %p
           %button#question_create_button.btn.btn-primary{:type => "submit"}

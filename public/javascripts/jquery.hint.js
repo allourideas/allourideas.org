@@ -15,7 +15,8 @@ $.fn.hint = function (blurClass) {
     var $input = $(this),
     
     // capture the rest of the variable to allow for reuse
-      title = $input.attr('title'),
+      title = $input.attr('placeholder'),
+      placeHolderSupport = "placeholder" in document.createElement("input"),
       $form = $(this.form),
       $win = $(window);
 
@@ -26,7 +27,13 @@ $.fn.hint = function (blurClass) {
     }
 
     // only apply logic if the element has the attribute
-    if (title) { 
+    // and don't support placeholder or if the place holder includes a new line
+    if (title && (!placeHolderSupport || title.match(/[\r\n]/))) {
+      if (title.match(/[\r\n]/)) {
+        // remove placeholder if new lines since HTML5
+        // implementations don't handle that well
+        $input.attr('placeholder', '');
+      }
       // on blur, set value to title attr if text is blank
       $input.blur(function () {
         if (this.value === '') {

@@ -21,6 +21,11 @@ $aoi_alt-bg: #eeeeee;
  *
  */
 
+.container-fluid {
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
 // Redefine collapse width for switching back as Bootstrap doesn't have it in a variable.
 .nav-collapse.collapse {
   @media (min-width: 768px) {

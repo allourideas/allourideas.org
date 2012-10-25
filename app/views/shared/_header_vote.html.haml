@@ -21,18 +21,18 @@
             =link_to("<i class='icon-trash'></i>", {:action => :delete_logo}, :method => :delete, :class => 'btn')
 .row-fluid
   .span12
-    %ul.nav.nav-tabs.vote-tabs
-      - if current_user.try(:owns?, @earl) || current_user.try(:admin?)
-        %li.pull-right{:class => current_page?(@manage_url) ? 'active' : ''}
-          = link_to(t('nav.manage_question'), @manage_url)
-      %li.pull-right{:class => current_page?(@about_url) ? 'active' : ''}
-        = link_to(t('nav.about_this_page'), @about_url)
+    %ul.nav.nav-tabs.vote-tabs.pull-right
+      %li{:class => current_page?(@cast_votes_url) ? 'active' : ''}
+        = link_to(t('vote.cast_votes'), @cast_votes_url)
       - if @question.user_can_view_results?(current_user, @earl)
         - if params[:all].nil?
-          %li.pull-right{:class => current_page?(@results_url) ? 'active' : ''}
+          %li{:class => current_page?(@results_url) ? 'active' : ''}
             = link_to(t('nav.view_results'), @results_url)
         - else
-          %li.pull-right{:class => current_page?(@all_results_url) ? 'active' : ''}
+          %li{:class => current_page?(@all_results_url) ? 'active' : ''}
             = link_to(t('nav.view_results'), @all_results_url)
-      %li.pull-right{:class => current_page?(@cast_votes_url) ? 'active' : ''}
-        = link_to(t('vote.cast_votes'), @cast_votes_url)
+      %li{:class => current_page?(@about_url) ? 'active' : ''}
+        = link_to(t('nav.about_this_page'), @about_url)
+      - if current_user.try(:owns?, @earl) || current_user.try(:admin?)
+        %li{:class => current_page?(@manage_url) ? 'active' : ''}
+          = link_to(t('nav.manage_question'), @manage_url)

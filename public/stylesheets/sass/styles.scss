@@ -103,14 +103,35 @@ form#new_question_form{
 //  Vote Section
 // -------------------------------
 
-.vote-tabs{
-  margin-bottom: 5px;
+.vote-tabs {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-right: 2em;
+}
+.vote-tabs > li.active > a, .vote-tabs > li.active a:hover {
+  background-color: #F2F2F2;
 }
 .tab-content{
   //background-color: @aoi_alt-bg;
-  @include gradient-vertical(#fff, $aoi_alt-bg);
-  padding-top: 0.5em;
-  padding-bottom: 2em;
+  //@include gradient-vertical(#fff, $aoi_alt-bg);
+  background-color: #F2F2F2;
+  padding: 2em 0;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+.interior-content {
+  background-color: white;
+  margin: 0 2em;
+  padding: 0 2em;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+.welcome-message {
+  @media (max-width: 767px) {
+    margin: 0 5% !important;
+  }
 }
 
 .vote-question{
@@ -118,6 +139,9 @@ form#new_question_form{
   @media (max-width: 480px) {
     font-size: 18px;
     line-height: 24px;
+  }
+  @media (max-width: 767px) {
+    margin: 0 5%;
   }
 }
 

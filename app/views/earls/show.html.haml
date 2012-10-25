@@ -9,12 +9,15 @@
 
 .tab-content.question-vote.row-fluid
   -if !session[:has_voted] && session[:welcome_msg]
-    .row-fluid.welcome-message
-      .alert
-        %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
-        %p= h(session[:welcome_msg])
-    -session[:welcome_msg] = nil
-  %h2.vote-question= @question.attributes['name']
+    .row-fluid
+      .span10.offset1.welcome-message
+        .alert
+          %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
+          %p= h(session[:welcome_msg])
+      -session[:welcome_msg] = nil
+  .row-fluid
+    .span10.offset1
+      %h2.vote-question= @question.attributes['name']
   %ul.votebox.answers.row-fluid.unstyled
     %li.span5.offset1.leftside
       %div

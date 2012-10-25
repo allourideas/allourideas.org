@@ -2,7 +2,7 @@
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 = render :partial => 'shared/header_vote'
 .tab-content.question-results
-  .row
+  .row-fluid
     .span10.offset1
       %h3= @question.attributes['name']
       %table.table.table-striped.ideas-table
@@ -24,7 +24,7 @@
                   .bar{:style => "width:#{choice.attributes['score']}%"}
                 .score
                   %strong= choice.attributes['score'].round.to_s
-  .row
+  .row-fluid
     .span10.offset1
       -if !params[:all]
         .pagination
@@ -34,7 +34,7 @@
               %li
                 =link_to("View All", :action => :results, :all => true)
 
-  .row
+  .row-fluid
     #data-vis.span10.offset1
       %h3.data-vis-header=t('results.data_visualizations')
       #visualizations.accordion

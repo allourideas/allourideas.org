@@ -97,12 +97,6 @@ form#new_question_form{
       padding-top: 1em;
     }
   }
-  #question_create_button{
-    @extend .btn-large; // Make the create button bigger
-    @media (max-width: 767px) {
-      width: 100%;
-    }
-  }
 }
 
 // -------------------------------

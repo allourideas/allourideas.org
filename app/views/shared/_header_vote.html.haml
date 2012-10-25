@@ -5,7 +5,7 @@
 -@all_results_url = url_for(:action => :results, :controller => :questions, :id => @the_id, :more => true)
 -@about_url= url_for(:action => :about, :controller => :questions, :id => @the_id)
 
-.row
+.row-fluid
   .span6.survey-image-col
     &nbsp;
     -if @earl
@@ -19,7 +19,7 @@
           =link_to("<i class='icon-pencil'></i>", url_for(:action => :admin, :controller => :questions, :id => @the_id, :anchor => 'edit-image'), :class => 'btn')
           - if !@earl.logo_file_name.nil?
             =link_to("<i class='icon-trash'></i>", {:action => :delete_logo}, :method => :delete, :class => 'btn')
-.row
+.row-fluid
   .span12
     %ul.nav.nav-tabs.vote-tabs
       - if current_user.try(:owns?, @earl) || current_user.try(:admin?)

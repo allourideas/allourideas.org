@@ -2,7 +2,7 @@
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 = render :partial => 'shared/header_vote', :locals => {"show_delete" => true, :question => @question}
 
-.row
+.row-fluid
   .span10.offset1
     %h3= t('nav.manage_question')
     #question-saved.alert.alert-success.hide
@@ -38,7 +38,7 @@
       = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago') 
       = t('admin.and_registered_to') + ": " + @earl.user.email
 
-.row
+.row-fluid
   .span10.offset1.question-admin-form
     -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
       -unless f.error_messages.blank?

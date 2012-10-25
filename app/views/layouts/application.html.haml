@@ -62,7 +62,7 @@
       - unless white_label_request?  
         =render :partial => "shared/header"
       .body{:class => white_label_request? ? 'noborder' : ''}
-        .row
+        .row-fluid
           .span12
             = render :partial => "shared/flashes"
             -if session[:standard_flash]

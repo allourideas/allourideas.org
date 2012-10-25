@@ -1,4 +1,4 @@
-.row
+.row.fluid
   .span12
     %h2= t('questions.new.header')
     
@@ -83,8 +83,8 @@
             .controls
               = f.text_area 'information', :class => 'span8', :cols => 85, :rows => 12
         
-        %p
-          %button#question_create_button.btn.btn-primary{:type => "submit"}
+        .form-actions
+          %button#question_create_button.btn.btn-large.btn-primary{:type => "submit"}
             = t('form.create')
         
     

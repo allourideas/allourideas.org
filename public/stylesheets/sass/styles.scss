@@ -64,7 +64,13 @@ h2{
   }
 }
 
-
+.pagination {
+  @media (max-width: 767px) {
+    ul li.current {
+      display: none;
+    }
+  }
+}
 
 
 // -------------------------------

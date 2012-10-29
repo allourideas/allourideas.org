@@ -30,14 +30,12 @@ When /^I click the flag link for the (.*) choice$/ do |side|
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
-  When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
   has_css?("#submit_btn")
 	find("#submit_btn").click
 end
 
 When /^I upload an idea titled$/ do |ideatext|
-  When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
   has_css?("#submit_btn")
 	find("#submit_btn").click
@@ -133,7 +131,7 @@ Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	   @question_id = page.locate('#choose_file')[:question_id].to_i
 	   Capybara.ignore_hidden_elements = true 
 	else
-	   @question_id = page.locate('#leftside')[:"data-question_id"].to_i
+	   @question_id = page.find('#leftside')[:"data-question_id"].to_i
 	end
 	
 	@earl = Earl.find_by_question_id(@question_id)
@@ -163,32 +161,29 @@ Then /^the saved left choice should not be active$/ do
 end
 
 Given /^I save the current appearance lookup?$/ do 
-	#The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
-        begin
-	  @appearance_lookup = page.locate('#appearance_lookup').value
-	rescue
-          @appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
-	end
-	if @appearance_lookup.blank?
-	  raise Capybara::ElementNotFound
-	end
+  Capybara.ignore_hidden_elements = false
+  @appearance_lookup = page.find('#appearance_lookup').value
+  Capybara.ignore_hidden_elements = true
+
+  if @appearance_lookup.blank?
+    raise Capybara::ElementNotFound
+  end
 end
 
 Then /^the current appearance lookup should (not )?match the saved appearance lookup$/ do |negation|
-  begin
-	  @new_appearance_lookup = page.locate('#appearance_lookup').value
-	rescue
-    @new_appearance_lookup = page.evaluate_script("$('#appearance_lookup').val()").to_s
-	end
-	if @new_appearance_lookup.blank?
-	  raise Capybara::ElementNotFound
-	end
+  Capybara.ignore_hidden_elements = false
+  @new_appearance_lookup = page.find('#appearance_lookup').value
+  Capybara.ignore_hidden_elements = true
 
-        if negation.blank?
-	   @new_appearance_lookup.should == @appearance_lookup
-        else
-	   @new_appearance_lookup.should_not == @appearance_lookup
-        end
+  if @new_appearance_lookup.blank?
+    raise Capybara::ElementNotFound
+  end
+
+  if negation.blank?
+	  @new_appearance_lookup.should == @appearance_lookup
+  else
+	  @new_appearance_lookup.should_not == @appearance_lookup
+  end
 end
 
 

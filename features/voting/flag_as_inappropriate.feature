@@ -11,12 +11,12 @@ Feature: Flag as inappropriate
 		And I save the current left choice
 		And no emails have been sent
 
-	@selenium
+	@javascript
 	Scenario: User flags choice as inappropriate
 		When I click the flag link for the left choice
 		Then I should see "Please explain why this choice is inappropriate: " within "#flag_inappropriate"
 
-	@selenium
+	@javascript
 	Scenario: User submits a flag request
 		When I click the flag link for the left choice
 		And I fill in "inappropriate_reason" with "Because it's offensive"
@@ -28,13 +28,13 @@ Feature: Flag as inappropriate
 		Then they should see "[All Our Ideas] Possible inappropriate idea flagged by user" in the email subject
 		And they should see "Because it's offensive" in the email body
 		
-	@selenium
+	@javascript
 	Scenario: User clicks flag link but does not type in an answer
 		When I click the flag link for the left choice
 		And I click the flag submit button
 		Then I should not see "You flagged a choice as inappropriate."
 		
-	@selenium
+	@javascript
 	Scenario: User flags all but one choices in marketplace
 		Given an idea marketplace exists with admin 'flag_test2@test.com' and url 'test_2' and 2 ideas
 	        And idea marketplace 'test_2' has enabled "flag as inappropriate"

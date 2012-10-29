@@ -22,8 +22,6 @@ config.action_controller.allow_forgery_protection    = true
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-Bundler.require :default, 'test'
-
 require 'redis-store'
 #use a different redis store for testing
 Abingo.cache = ActiveSupport::Cache::RedisStore.new "localhost:6379/2"

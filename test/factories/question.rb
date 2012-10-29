@@ -27,3 +27,9 @@ end
 Factory.sequence :question_id do |n|
   n
 end
+
+Factory.define :question_cucumber, :class => Question do |q|
+  q.name 'test name'
+  q.url 'testurl'
+  q.ideas "samplechoice1\nsamplechoice2"
+end

@@ -1,10 +1,8 @@
 source :rubygems
 source "http://gems.github.com"
 
-gem "bundler", "1.1.5"
 gem "rails", "2.3.14"
 gem "multi_json", "1.0.4"
-gem "json", "1.1.3"
 gem "airbrake"
 gem "libxml-ruby", "2.2.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
@@ -13,7 +11,7 @@ gem "aws-s3", "0.6.2", :require => "aws/s3"
 gem "mime-types", "1.16", :require => "mime/types"
 gem "xml-simple", "1.0.12", :require => "xmlsimple"
 gem "yfactorial-utility_scopes", "0.2.2", :require => "utility_scopes"
-gem "justinfrench-formtastic", "0.2.2", :require => "formtastic"
+gem "formtastic", "~> 0.2.2"
 gem "inherited_resources",  "1.0.4"
 gem "has_scope",  "0.4.2"
 gem "responders",  "0.4.8"
@@ -38,9 +36,11 @@ group :production, :staging do
   gem "sendgrid", "0.1.4"
 end
 
-group :test do
+group :test, :cucumber do
+  gem 'cucumber', '1.1.0'
+  gem 'cucumber-rails2', '~> 0.3.2'
+  gem "pickle", "~> 0.4.7"
   gem "poltergeist", "~> 1.0.1"
-  gem "timecop", "0.3.5"
   gem "sqlite3", ">=1.3.3"
   gem "database_cleaner", "0.5.0"
   gem "capybara", "~> 1.1.2"

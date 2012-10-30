@@ -1,0 +1,5 @@
+environments:
+  CGSI:
+    bundle_without: "test development cucumber"
+  Staging_CGSI:
+    bundle_without: "test development cucumber"

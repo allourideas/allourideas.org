@@ -1,0 +1,42 @@
+%h2 Status of All Our Ideas
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th
+        Test Name
+      %th
+        Result
+  %tbody
+    %tr
+      %td
+        Can find Earl object
+      %td
+        -if @can_find_earl
+          %span.label.label-success Success
+        -else
+          %span.label.label-important Failure
+    %tr
+      %td
+        Can find Question object
+      %td
+        -if @can_find_question
+          %span.label.label-success Success
+        -else
+          %span.label.label-important Failure
+    %tr
+      %td
+        Can find Choice objects
+      %td
+        -if @can_find_choices
+          %span.label.label-success Success
+        -else
+          %span.label.label-important Failure
+    %tr
+      %td
+        No Delayed Jobs over 20 minutes old
+      %td
+        -if @no_jobs_20_minutes_old
+          %span.label.label-success Success
+        -else
+          %span.label.label-important Failure

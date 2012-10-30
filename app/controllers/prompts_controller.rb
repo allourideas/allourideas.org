@@ -189,7 +189,8 @@ class PromptsController < ApplicationController
 
   def get_object_request_options(params, request_type)
      options = { :visitor_identifier => request.session_options[:id],
-                 :time_viewed => params[:time_viewed],
+                 # use static value of 5 if in test, so we can mock resulting API queries
+                 :time_viewed => (Rails.env == 'test') ? 5 : params[:time_viewed],
                  :appearance_lookup => params[:appearance_lookup]
      }
      case request_type

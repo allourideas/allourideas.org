@@ -9,7 +9,7 @@ Feature: Add idea to marketplace
     And I am on the Cast Votes page for 'test'
     And no emails have been sent
 
-    @selenium
+    @javascript
     Scenario: Adding choice to unmoderated marketplace
       Given idea marketplace 'test' has enabled idea autoactivation
       When I upload an idea titled 'blah blah & blah'
@@ -27,7 +27,7 @@ Feature: Add idea to marketplace
       Then I should see "You have successfully deactivated the idea 'blah blah & blah'"
 
      
-    @selenium
+    @javascript
     Scenario: Adding choice to unmoderated marketplace with new lines
       Given idea marketplace 'test' has enabled idea autoactivation
       When I upload an idea titled
@@ -48,7 +48,7 @@ Feature: Add idea to marketplace
       Then I should see "You have successfully deactivated the idea 'blah foo blah'"
 
 
-    @selenium
+    @javascript
     Scenario: Adding choice to moderated marketplace
       When I upload an idea titled 'blah blah blah'
       Then I should see "Your idea has been submitted for review. It will appear soon." within ".idea-success"

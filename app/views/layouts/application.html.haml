@@ -57,7 +57,10 @@
                 %li= link_to t('nav.make_your_own'), new_question_path
           - else
             %li= link_to t('user.login'), sign_in_path
-    =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.to_json};" if protect_against_forgery?
+    - if protect_against_forgery?
+      =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.to_json};"
+    - else
+      =javascript_tag "var AUTH_TOKEN = '';"
     .content.container-fluid{:style => white_label_request? ? "overflow:hidden": ""}
       - unless white_label_request?  
         =render :partial => "shared/header"

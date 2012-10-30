@@ -8,13 +8,13 @@ Feature: Toggling question idea auto activation
         And I sign in as the admin for 'test'
         And I am on the Admin page for 'test'
 
-	@selenium
+	@javascript
 	Scenario: User enables idea autoactivation
        When I check "earl_question_should_autoactivate_ideas"
        And I press "Save"
        Then the "earl_question_should_autoactivate_ideas" checkbox should be checked
 
-	@selenium
+	@javascript
 	Scenario: User disables idea autoactivation
        When I check "earl_question_should_autoactivate_ideas"
        And I press "Save"

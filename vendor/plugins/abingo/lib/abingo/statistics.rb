@@ -26,7 +26,7 @@ module Abingo::Statistics
 
     numerator = cr1 - cr2
     frac1 = cr1 * (1 - cr1) / n1
-    frac2 = cr2 * (1 - cr1) / n2
+    frac2 = cr2 * (1 - cr2) / n2
 
     numerator / ((frac1 + frac2) ** 0.5)
   end

@@ -239,6 +239,7 @@ var count = 0;
 
 	  var loser = "<a href='" + loser_url +  "'>" + loser_link.html() + "</a>";
 	  var winner = "<a href='" + winner_url + "'>" + winner_link.html() + "</a>";	
+    $('.leftside, .rightside').addClass('disabled');
 		
 	  var prompt_id = $('#prompt_id').val()
 	  var appearance_lookup = $('#appearance_lookup').val()
@@ -291,6 +292,7 @@ var count = 0;
 		  $('.indicator').hide();
 		  $('.leftside').html(data["newleft"]);
 		  $('.rightside').html(data["newright"]);
+      $('.leftside, .rightside').removeClass('disabled');
 		
 		  //  used for fraud detection / back button behavior fixing
 		  $('#left_side_text').val(data["newleft"]);
@@ -372,6 +374,7 @@ var count = 0;
 
 	  var prompt_id = $('#prompt_id').val()
 	  var appearance_lookup = $('#appearance_lookup').val()
+    $('.leftside, .rightside').addClass('disabled');
 	  $.blockUI({ message: null, fadeIn: 0, fadeOut:  0, overlayCSS:  { 
 	           backgroundColor: '#000', 
 	           opacity:         0.0,
@@ -399,6 +402,7 @@ var count = 0;
 			      $.unblockUI();
 			      $('.leftside').html(data["newleft"]);
 			      $('.rightside').html(data["newright"]);
+            $('.leftside, .rightside').removeClass('disabled');
 		        $('#prompt_id').val(data["prompt_id"]);
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 		        loadedTime = new Date() //  reset loaded time

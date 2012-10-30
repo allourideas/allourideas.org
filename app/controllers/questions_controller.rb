@@ -1258,6 +1258,44 @@ class QuestionsController < ApplicationController
     render :json => @votes.to_json
   end
 
+  # we use this as a basic sanity check that the site is working
+  # pass in a Earl.name in the URL (e.g., /status/test_icecream) to find that earl and related
+  # question and choices.
+  # if any of these tests fail then we send a 503 status code, which will trigger an error via
+  # EngineYard's monitoring system if it is configured to check this URL.
+  def status
+    # verify that there are no jobs that should have been run 20 minutes
+    # that still have not been started or attempted
+    @no_jobs_20_minutes_old = Delayed::Job.count(:conditions =>
+      ["locked_at IS NULL AND failed_at is NULL AND run_at <= ?", Delayed::Job.db_time_now - 20.minutes]
+    ) == 0
+
+    begin
+      earl = Earl.find(params[:id])
+    rescue
+    end
+    @can_find_earl = earl != nil
+
+    begin
+      question = earl.question
+    rescue
+    end
+    @can_find_question = question.class == Question
+
+    if @can_find_question
+      begin
+        choices = Choice.find(:all, :params => {:question_id => question.id, :limit => 1})
+      rescue
+      end
+      @can_find_choices = choices.class == Array
+    else
+      @can_find_choices = false
+    end
+
+    status = (@no_jobs_20_minutes_old && @can_find_earl && @can_find_question && @can_find_choices) ? :ok : :service_unavailable
+    render 'questions/status', :status => status
+  end
+
   private
     def object_info_to_hash(array)
       hash = {}

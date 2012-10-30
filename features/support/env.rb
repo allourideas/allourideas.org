@@ -14,6 +14,7 @@ require 'cucumber/rails/active_record'
 require 'cucumber/web/tableish'
 
 require 'capybara/rails'
+require 'capybara/poltergeist'
 require 'capybara/cucumber'
 require 'capybara/session'
 require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links with onclick javascript handlers without using @culerity or @javascript
@@ -27,6 +28,7 @@ require 'email_spec/cucumber'
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = true
 Capybara.default_wait_time = 15
+Capybara.javascript_driver = :poltergeist
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere

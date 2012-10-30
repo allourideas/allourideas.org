@@ -52,8 +52,8 @@ test:
     HOST: localhost
     API_HOST: http://localhost:4000
 
-    PAIRWISE_USERNAME: testing@dkapadia.com
-    PAIRWISE_PASSWORD: wheatthins
+    PAIRWISE_USERNAME: 
+    PAIRWISE_PASSWORD: 
 
 cucumber:
     <<: *global

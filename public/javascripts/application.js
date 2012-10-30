@@ -246,6 +246,8 @@ jQuery(document).ready(function() {
                 button.removeClass('btn-primary');
             }
             button.html(data['verb']);
+            // inform tablesorter that we made an update to the table
+            button.closest('table').trigger('update');
 		}
 			//$('.prompter').effect("highlight", {}, 1500);
 			

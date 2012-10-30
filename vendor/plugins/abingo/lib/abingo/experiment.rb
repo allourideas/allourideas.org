@@ -2,8 +2,10 @@ class Abingo::Experiment < ActiveRecord::Base
   include Abingo::Statistics
   include Abingo::ConversionRate
 
-  has_many :alternatives, :class_name => "Abingo::Alternative", :dependent => :destroy
+  has_many :alternatives, :dependent => :destroy, :class_name => "Abingo::Alternative"
   validates_uniqueness_of :test_name
+  attr_accessible :test_name
+  before_destroy :cleanup_cache
 
   def cache_keys
   ["Abingo::Experiment::exists(#{test_name})".gsub(" ", "_"),
@@ -12,7 +14,7 @@ class Abingo::Experiment < ActiveRecord::Base
   ]
   end
   
-  def before_destroy
+  def cleanup_cache
     cache_keys.each do |key|
       Abingo.cache.delete key
     end
@@ -62,27 +64,27 @@ class Abingo::Experiment < ActiveRecord::Base
     conversion_name.gsub!(" ", "_")
     cloned_alternatives_array = alternatives_array.clone
     ActiveRecord::Base.transaction do
-      experiment = Abingo::Experiment.find_by_test_name(test_name)
-      #adding this because I really don't want to delete a bunch of alternatives
-      if !experiment
-        experiment = Abingo::Experiment.create(:test_name => test_name)
-        experiment.alternatives.destroy_all  #Blows away alternatives for pre-existing experiments.
-        while (cloned_alternatives_array.size > 0)
-          alt = cloned_alternatives_array[0]
-          weight = cloned_alternatives_array.size - (cloned_alternatives_array - [alt]).size
-          experiment.alternatives.build(:content => alt, :weight => weight,
-            :lookup => Abingo::Alternative.calculate_lookup(test_name, alt))
-          cloned_alternatives_array -= [alt]
-        end
-        experiment.status = "Live"
+      experiment = Abingo::Experiment.find_or_create_by_test_name(test_name)
+      experiment.alternatives.destroy_all  #Blows away alternatives for pre-existing experiments.
+      while (cloned_alternatives_array.size > 0)
+        alt = cloned_alternatives_array[0]
+        weight = cloned_alternatives_array.size - (cloned_alternatives_array - [alt]).size
+        experiment.alternatives.build(:content => alt, :weight => weight,
+          :lookup => Abingo::Alternative.calculate_lookup(test_name, alt))
+        cloned_alternatives_array -= [alt]
+      end
+      experiment.status = "Live"
+      if Rails::VERSION::MAJOR == 2
         experiment.save(false)  #Calling the validation here causes problems b/c of transaction.
+      else
+        experiment.save(:validate => false)
       end
       Abingo.cache.write("Abingo::Experiment::exists(#{test_name})".gsub(" ", "_"), 1)
 
       #This might have issues in very, very high concurrency environments...
 
       tests_listening_to_conversion = Abingo.cache.read("Abingo::tests_listening_to_conversion#{conversion_name}") || []
-      tests_listening_to_conversion << test_name unless tests_listening_to_conversion.include? test_name
+      tests_listening_to_conversion += [test_name] unless tests_listening_to_conversion.include? test_name
       Abingo.cache.write("Abingo::tests_listening_to_conversion#{conversion_name}", tests_listening_to_conversion)
       experiment
     end
@@ -99,20 +101,5 @@ class Abingo::Experiment < ActiveRecord::Base
       Abingo.cache.write("Abingo::Experiment::short_circuit(#{test_name})".gsub(" ", "_"), final_alternative)
     end
   end
-
-  def get_session_list(admin_user_list=[])
-	session_list = []
-	alternatives.each do |alt|
-		alt.session_infos.each do |sess|
-			if sess.user_id and admin_user_list.include?(sess.user_id)
-				next
-			else
-			 	session_list << sess.session_id
-			end
-		end
-	end
-	session_list
-  end
-
 
 end

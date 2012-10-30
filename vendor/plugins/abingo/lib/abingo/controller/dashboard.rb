@@ -2,7 +2,11 @@ class Abingo
   module Controller
     module Dashboard
 
-      ActionController::Base.view_paths.unshift File.join(File.dirname(__FILE__), "../views")
+      if Rails::VERSION::MAJOR <= 2
+        ActionController::Base.view_paths.unshift File.join(File.dirname(__FILE__), "../views")
+      else
+        ActionController::Base.prepend_view_path File.join(File.dirname(__FILE__), "../views")
+      end
       
       def index
         @experiments = Abingo::Experiment.all

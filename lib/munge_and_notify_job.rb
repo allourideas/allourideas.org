@@ -1,4 +1,5 @@
-class MungeAndNotifyJob < Struct.new(:earl_id, :type, :email, :photocracy, :redis_key)
+MungeAndNotifyJob = Struct.new(:earl_id, :type, :email, :photocracy, :redis_key)
+class MungeAndNotifyJob
 
   def on_permanent_failure
     IdeaMailer.deliver_export_failed([APP_CONFIG[:ERRORS_EMAIL], email], photocracy)

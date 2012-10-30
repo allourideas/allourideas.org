@@ -34,6 +34,10 @@ gem "bootstrap-sass", "~> 2.1.0.0"
 gem "newrelic_rpm", "3.3.0"
 gem "mysql2", "0.2.18"
 
+group :development do
+  gem "engineyard"
+end
+
 group :production, :staging do
   gem "sendgrid", "0.1.4"
 end

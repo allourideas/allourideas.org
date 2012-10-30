@@ -1,8 +1,5 @@
 When /^I click on the (left|right) choice$/ do |side|
   css = ".#{side}side"
-  vote_count = find('#votes_count')
-  prev_vote_count = vote_count.text.to_i if vote_count
-
   begin
     has_css?(css)
     find(css).click
@@ -10,9 +7,10 @@ When /^I click on the (left|right) choice$/ do |side|
     has_css?(css)
     find(css).click
   end
-
-  if vote_count
-    wait_until {vote_count.text.to_i > prev_vote_count }
+  begin
+    page.has_no_selector?("#{css}.disabled")
+  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+    page.has_no_selector?("#{css}.disabled")
   end
 end
 
@@ -30,12 +28,14 @@ When /^I click the flag link for the (.*) choice$/ do |side|
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
+  When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
   has_css?("#submit_btn")
 	find("#submit_btn").click
 end
 
 When /^I upload an idea titled$/ do |ideatext|
+  When "I click the add new idea button"
 	And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
   has_css?("#submit_btn")
 	find("#submit_btn").click
@@ -50,7 +50,9 @@ When /^I click the (.*) button$/ do |button_name|
         page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
       	find(".cd_submit_button").click
       when "add new idea"
-      	find(".add_idea_button").try(:click)
+        if has_css?(".add_idea_button")
+      	  find(".add_idea_button").try(:click)
+        end
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
         find("#flag_inappropriate .flag_submit_button").click
@@ -74,6 +76,11 @@ When /^I pick "(.*)"$/ do |radio_label|
 	when "Other"
            When "I choose \"cant_decide_reason_user_other\""
 	end
+  begin
+    page.has_no_selector?(".leftside.disabled")
+  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+    page.has_no_selector?(".leftside.disabled")
+  end
 end
 
 When /^I vote (\d*) times$/ do |num_votes|
@@ -128,7 +135,7 @@ Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	end
 	if @photocracy_mode
 	   Capybara.ignore_hidden_elements = false
-	   @question_id = page.locate('#choose_file')[:question_id].to_i
+	   @question_id = page.find('#choose_file')[:question_id].to_i
 	   Capybara.ignore_hidden_elements = true 
 	else
 	   @question_id = page.find('#leftside')[:"data-question_id"].to_i
@@ -136,7 +143,7 @@ Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	
 	@earl = Earl.find_by_question_id(@question_id)
         begin
-	  @prompt_id = page.locate('#prompt_id').value
+	  @prompt_id = page.find('#prompt_id').value
 	  #The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
 	rescue 
           @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
@@ -188,8 +195,8 @@ end
 
 
 Then /^I should see thumbnails of the two saved choices in the voting history area$/ do
-	  @first_thumbnail = page.locate('#your_votes li a')
-	  @second_thumbnail = page.locate('#your_votes li a:last')
+	  @first_thumbnail = page.find('#your_votes li a')
+	  @second_thumbnail = page.find('#your_votes li a:last')
 
 	  @first_url = @first_thumbnail[:href]
 	  @second_url = @second_thumbnail[:href]
@@ -199,17 +206,17 @@ Then /^I should see thumbnails of the two saved choices in the voting history ar
 end
 
 Then /^I should not see thumbnails of the two saved choices in the voting history area$/ do
-	  lambda {page.locate('#your_votes li a')}.should raise_error(Capybara::ElementNotFound)
-	  lambda {page.locate('#your_votes li a:last')}.should raise_error(Capybara::ElementNotFound)
+	  lambda {page.find('#your_votes li a')}.should raise_error(Capybara::ElementNotFound)
+	  lambda {page.find('#your_votes li a:last')}.should raise_error(Capybara::ElementNotFound)
 end
 
 Then /^the left thumbnail should be a winner$/ do
-	page.locate('#your_votes li a img')[:class].should include("winner")
+	page.find('#your_votes li a img')[:class].should include("winner")
 end
 Then /^the left thumbnail should be a loser$/ do
-	page.locate('#your_votes li a img')[:class].should include("loser")
+	page.find('#your_votes li a img')[:class].should include("loser")
 end
 
 Then /^the right thumbnail should be a loser$/ do
-	page.locate('#your_votes li a:last img')[:class].should include("loser")
+	page.find('#your_votes li a:last img')[:class].should include("loser")
 end

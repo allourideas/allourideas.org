@@ -8,7 +8,7 @@ Feature: Sorting choices
     And I sign in as the admin for 'test'
     And I am on the Admin page for 'test'
 
-	@selenium
+	@javascript
 	Scenario: User sorts status column
 	  When I click on the toggle link for the first choice
 	  Then the first choice should be Deactivated

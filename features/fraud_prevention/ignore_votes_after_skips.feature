@@ -12,7 +12,6 @@ Feature: Ignore votes immediately after skips
     When I click the I can't decide button
     And I pick "I like both ideas"
     And the vote count should be 0
-    And I wait 1 second
     When I click on the left choice 
     Then the vote count should be 1
     When I go to the Cast Votes page for 'test'

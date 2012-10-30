@@ -80,7 +80,7 @@ Feature: Creating Idea marketplaces
 		And I fill in "question_email" with "testemail@example.com"
 		And I fill in "question_url" with "test12345"
 		And I press "Create"
-		Then "signups@allourideas.org" should receive an email 
+		Then "signups@example.org" should receive an email 
 		And "testemail@example.com" should receive an email 
 		When "testemail@example.com" opens the email
 		Then they should see "Account confirmation" in the email subject
@@ -94,6 +94,6 @@ Feature: Creating Idea marketplaces
 		And I fill in "question_name" with "Which of these is the best dancer?"
 		And I fill in "question_information" with "I want to save the world"
 		And I press "Create"
-		Then "signups@allourideas.org" should receive 2 emails
-		When "signups@allourideas.org" opens the email with subject "Extra Information included in Which of these is the best dancer?"
+		Then "signups@example.org" should receive 2 emails
+		When "signups@example.org" opens the email with subject "Extra Information included in Which of these is the best dancer?"
 		Then they should see "I want to save the world" in the email body

@@ -36,10 +36,14 @@
               -if current_user.admin?
                 %td= q.user_ideas
                 %td= q.active_user_ideas
-                %td= q.get(:vote_rate)["voterate"].try(:round, 3)
-                %td= q.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3)
-                %td= q.get(:median_responses_per_session)["median"]
-                %td= q.get(:votes_per_uploaded_choice)["value"].try(:round, 3)
+                %td{"data-href" => vote_rate_question_url(q.id, :format => :json)}
+                  = image_tag('ajax-loader.gif')
+                %td{"data-href" => upload_to_participation_rate_question_url(q.id, :format => :json)}
+                  = image_tag('ajax-loader.gif')
+                %td{"data-href" => median_responses_per_session_question_url(q.id, :format => :json)}
+                  = image_tag('ajax-loader.gif')
+                %td{"data-href" => votes_per_uploaded_choice_question_url(q.id, :format => :json)}
+                  = image_tag('ajax-loader.gif')
               %td= earl.created_at.to_date
               %td
                 %button.toggle_question_status.btn{:class => earl.active? ? 'btn-primary' : '', :"data-earl_id" => earl.id}

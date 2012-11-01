@@ -15,6 +15,10 @@ ActionController::Routing::Routes.draw do |map|
       :delete_logo => :delete,
       :addphotos => :get,
       :upload_photos => :post,
+      :vote_rate => :get,
+      :upload_to_participation_rate => :get,
+      :median_responses_per_session => :get,
+      :votes_per_uploaded_choice => :get,
       :visitor_voting_history => :get
     } do |question|
 	  question.resources :prompts, 

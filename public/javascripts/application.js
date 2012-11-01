@@ -78,7 +78,26 @@ AOI.admin = (function($) {
 
     that.initialize = function() {
         editQuestion();
+        loadStats();
     };
+
+    function loadStats() {
+        var items = $('[data-href]').toArray();
+        getNext(items);
+        function getNext(items) {
+            if (items.length < 1) { return; }
+            var el = $(items.shift());
+            var ajax = $.get(el.data('href'));
+            ajax.success(function(data) {
+                el.html(data);
+                getNext(items);
+            });
+            ajax.error(function() {
+                el.html('<span class="label label-important">Error</span>');
+                getNext(items);
+            });
+        }
+    }
 
     function editQuestion() {
         // setup text counter

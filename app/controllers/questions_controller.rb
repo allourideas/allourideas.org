@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   require 'crack'
   require 'geokit'
   before_filter :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
-  before_filter :admin_only, :only => [:index, :vote_rate, :upload_to_participation_rate, :median_responses_per_session, :votes_per_uploaded_choice]
+  before_filter :admin_only, :only => [:index, :admin_stats]
   #caches_page :results
 
   # GET /questions
@@ -17,33 +17,14 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def vote_rate
+  def admin_stats
     question = Question.find(params[:id])
-    response = question.get(:vote_rate)["voterate"].try(:round, 3)
-    respond_to do |format|
-      format.json { render :json => response.to_json }
-    end
-  end
-
-  def upload_to_participation_rate
-    question = Question.find(params[:id])
-    response = question.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3)
-    respond_to do |format|
-      format.json { render :json => response.to_json }
-    end
-  end
-
-  def median_responses_per_session
-    question = Question.find(params[:id])
-    response = question.get(:median_responses_per_session)["median"]
-    respond_to do |format|
-      format.json { render :json => response.to_json }
-    end
-  end
-
-  def votes_per_uploaded_choice
-    question = Question.find(params[:id])
-    response = question.get(:votes_per_uploaded_choice)["value"].try(:round, 3)
+    response = {
+      "vote_rate" => question.get(:vote_rate)["voterate"].try(:round, 3),
+      "upload_to_participation_rate" => question.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3),
+      "median_responses_per_session" => question.get(:median_responses_per_session)["median"],
+      "votes_per_uploaded_choice" => question.get(:votes_per_uploaded_choice)["value"].try(:round, 3)
+    }
     respond_to do |format|
       format.json { render :json => response.to_json }
     end

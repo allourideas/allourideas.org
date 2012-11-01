@@ -29,20 +29,20 @@
           -alt=false
           -for earl in @earls
             -q = @questions_map[earl.question_id] or next
-            %tr
+            %tr{"data-admin-stats" => admin_stats_question_url(q.id, :format => :json)}
               %td.title= link_to h(truncate(q.attributes['name'], :length => 140, :omission => '…')), url_for(:controller => :questions, :action => :admin, :id => earl.name)
               %td= q.votes_count
               %td= q.recent_votes
               -if current_user.admin?
                 %td= q.user_ideas
                 %td= q.active_user_ideas
-                %td{"data-href" => vote_rate_question_url(q.id, :format => :json)}
+                %td{"data-stats-key" => "vote_rate"}
                   = image_tag('ajax-loader.gif')
-                %td{"data-href" => upload_to_participation_rate_question_url(q.id, :format => :json)}
+                %td{"data-stats-key" => "upload_to_participation_rate"}
                   = image_tag('ajax-loader.gif')
-                %td{"data-href" => median_responses_per_session_question_url(q.id, :format => :json)}
+                %td{"data-stats-key" => "median_responses_per_session"}
                   = image_tag('ajax-loader.gif')
-                %td{"data-href" => votes_per_uploaded_choice_question_url(q.id, :format => :json)}
+                %td{"data-stats-key" => "votes_per_uploaded_choice"}
                   = image_tag('ajax-loader.gif')
               %td= earl.created_at.to_date
               %td

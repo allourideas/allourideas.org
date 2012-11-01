@@ -82,14 +82,16 @@ AOI.admin = (function($) {
     };
 
     function loadStats() {
-        var items = $('[data-href]').toArray();
+        var items = $('[data-admin-stats]').toArray();
         getNext(items);
         function getNext(items) {
             if (items.length < 1) { return; }
             var el = $(items.shift());
-            var ajax = $.get(el.data('href'));
+            var ajax = $.get(el.data('admin-stats'));
             ajax.success(function(data) {
-                el.html(data);
+                el.find('[data-stats-key]').each(function(i, col) {
+                    $(col).html(data[$(col).data('stats-key')]);
+                });
                 getNext(items);
             });
             ajax.error(function() {

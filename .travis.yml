@@ -12,7 +12,7 @@ before_install:
   - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
 before_script:
   - rake db:test:load
-  - export PREV_BUNDLE_GEMFILE=BUNDLE_GEMFILE
+  - export PREV_BUNDLE_GEMFILE=$BUNDLE_GEMFILE
   - export BUNDLE_GEMFILE=''
   - git clone --depth=100 --quiet git://github.com/allourideas/pairwise-api.git
   - cd ./pairwise-api
@@ -23,6 +23,6 @@ before_script:
   - ./bin/rake util:useradd[photocracytest@dkapadia.com,saltines]
   - bundle exec ./script/server -p 4000 -d
   - cd ../
-  - export BUNDLE_GEMFILE=PREV_BUNDLE_GEMFILE
+  - export BUNDLE_GEMFILE=$PREV_BUNDLE_GEMFILE
 script: bundle exec spec spec/integration spec/controllers/questions_controller_spec.rb && bundle exec cucumber --no-profile --require features --require lib features/voting/voting.feature
 bundler_args: --local

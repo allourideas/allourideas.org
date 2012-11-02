@@ -78,7 +78,30 @@ AOI.admin = (function($) {
 
     that.initialize = function() {
         editQuestion();
+        loadStats();
     };
+
+    function loadStats() {
+        var items = $('[data-admin-stats]').toArray();
+        getNext(items);
+        function getNext(items) {
+            if (items.length < 1) { return; }
+            var el = $(items.shift());
+            var ajax = $.get(el.data('admin-stats'));
+            ajax.success(function(data) {
+                el.find('[data-stats-key]').each(function(i, col) {
+                    $(col).html(data[$(col).data('stats-key')]);
+                });
+                getNext(items);
+            });
+            ajax.error(function() {
+                el.find('[data-stats-key]').each(function(i, col) {
+                    $(col).html('<span class="label label-important">Error</span>');
+                });
+                getNext(items);
+            });
+        }
+    }
 
     function editQuestion() {
         // setup text counter

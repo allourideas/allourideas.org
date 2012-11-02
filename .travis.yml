@@ -21,7 +21,7 @@ before_script:
   - ./bin/rake db:schema:load
   - ./bin/rake util:useradd[pairwisetest@dkapadia.com,wheatthins]
   - ./bin/rake util:useradd[photocracytest@dkapadia.com,saltines]
-  - bundle exec ./script/server -p 4000
+  - bundle exec ./script/server -p 4000 -d
   - cd ../
   - export BUNDLE_GEMFILE=PREV_BUNDLE_GEMFILE
 script: bundle exec spec spec/integration spec/controllers/questions_controller_spec.rb && bundle exec cucumber --no-profile --require features --require lib features/voting/voting.feature

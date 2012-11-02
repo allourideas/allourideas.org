@@ -11,5 +11,13 @@ before_install:
   - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
 before_script:
   - rake db:test:load
-script: bundle exec spec spec/integration spec/controllers/questions_controller_spec.rb
+  - git clone --depth=100 --quiet git@github.com:allourideas/pairwise-api.git
+  - cd ./pairwise-api
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
+  - bundle exec rake util:useradd[pairwisetest@dkapadia.com,wheatthins]
+  - bundle exec rake util:useradd[photocracytest@dkapadia.com,saltines]
+  - bundle exec ./script/server -p 4000
+  - cd ../
+script: bundle exec spec spec/integration spec/controllers/questions_controller_spec.rb && bundle exec cucumber --no-profile --require features --require lib features/voting/voting.feature
 bundler_args: --local

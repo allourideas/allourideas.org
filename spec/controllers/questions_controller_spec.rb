@@ -6,6 +6,29 @@ describe QuestionsController do
     @mock_question ||= mock_model(Question, stubs)
   end
 
+  describe "GET admin_stats" do
+    context "when not logged in" do
+      it "should redirect to the login page" do
+        get :admin_stats, :id => mock_question.id, :format => :json
+        response.should redirect_to(new_session_url)
+      end
+    end
+    context "when logged in as a non-admin" do
+      it "should redirect to the login page" do
+        sign_in_as Factory.create :user
+        get :admin_stats, :id => mock_question.id, :format => :json
+        response.should redirect_to(new_session_url)
+      end
+    end
+    context "when logged in as an admin" do
+      it "should return the json response of the stats" do
+        sign_in_as Factory.create :admin_confirmed_user
+        Question.stub!(:find).with(mock_question.id).and_return(mock_question)
+        response.should be_success
+      end
+    end
+  end
+
   describe "GET index" do
     context "when logged in as an admin" do
       before do
@@ -88,7 +111,6 @@ describe QuestionsController do
         response.should redirect_to(earl_url(@earl.name) + "/admin")
       end
     end
-
 
   end
 

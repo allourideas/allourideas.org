@@ -95,7 +95,9 @@ AOI.admin = (function($) {
                 getNext(items);
             });
             ajax.error(function() {
-                el.html('<span class="label label-important">Error</span>');
+                el.find('[data-stats-key]').each(function(i, col) {
+                    $(col).html('<span class="label label-important">Error</span>');
+                });
                 getNext(items);
             });
         }

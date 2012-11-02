@@ -22,6 +22,9 @@ Factory.define :question do |q|
   q.local_identifier "335"
   q.active false
   q.site_id 9
+  q.recent_votes 1
+  q.user_ideas 20
+  q.active_user_ideas 10
 end
 
 Factory.sequence :question_id do |n|

@@ -3,13 +3,13 @@ When /^I click on the (left|right) choice$/ do |side|
   begin
     has_css?(css)
     find(css).click
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+  rescue
     has_css?(css)
     find(css).click
   end
   begin
     page.has_no_selector?("#{css}.disabled")
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+  rescue
     page.has_no_selector?("#{css}.disabled")
   end
 end

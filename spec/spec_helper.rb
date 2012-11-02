@@ -23,6 +23,8 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+  config.include(SpecHelper)
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
     Capybara.javascript_driver = :poltergeist

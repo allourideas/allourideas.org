@@ -128,7 +128,6 @@ Then /^the notification in the tell me area should not contain links$/ do
 end
 
 Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
-	puts "the type is #{type}"
 	if type == "photos"
 	   @photocracy_mode = true
            set_active_resource_credentials

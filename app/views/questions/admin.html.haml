@@ -126,7 +126,7 @@
       %button.close{:"data-dismiss" => 'modal'} x
       %h2= t('questions.edit_question')
     .modal-body
-      - form_tag update_name_question_path(@earl), :method => :put do |f|
+      - form_tag update_name_question_path(@earl), :method => :put do
         %p
           =t('questions.your_current_question_text', :question_text => h(@question.name), :"1" => '<span class="question-name">', :"_1" => '</span>')
         %p 

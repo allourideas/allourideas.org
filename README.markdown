@@ -1,4 +1,5 @@
-All Our Ideas
+All Our Ideas[![Build Status](https://secure.travis-ci.org/allourideas/allourideas.org.png?branch=master)](http://travis-ci.org/allourideas/allourideas.org)
+
 -------------------
 
 All Our Ideas 2.0.  This codebase runs two sites [photocracy.org](http://www.photocracy.org/) and [allourideas.org](http://www.allourideas.org/).

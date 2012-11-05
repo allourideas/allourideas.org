@@ -24,5 +24,5 @@ before_script:
   - bundle exec ./script/server -p 4000 -d
   - cd ../
   - export BUNDLE_GEMFILE=$PREV_BUNDLE_GEMFILE
-script: bundle exec spec spec/integration spec/controllers/questions_controller_spec.rb && RAILS_ENV='cucumber' bundle exec cucumber --no-profile --require features --require lib features/voting/voting.feature
+script: bundle exec spec spec/integration spec/controllers/questions_controller_spec.rb && RAILS_ENV='cucumber' bundle exec cucumber --no-profile -f progress --require features --require lib features/voting/voting.feature
 bundler_args: --local

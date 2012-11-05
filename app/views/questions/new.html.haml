@@ -22,7 +22,7 @@
                   - if field =~ /Email/i && error =~ /has already been taken/i
                     %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
                   - else
-                    %li= "#{field} #{error}"
+                    %li= "#{field} #{error}".capitalize
       
         %h3= t('questions.new.step1')
         %p

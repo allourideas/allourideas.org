@@ -53,7 +53,7 @@ group :test, :cucumber do
   gem "timecop", "0.3.5"
   gem "rspec", "1.3.2"
   gem "rspec-rails", "1.3.4"
-  gem "email_spec", "0.4.0"
+  gem "email_spec", "~>0.6.6"
   gem "sendgrid", "0.1.4"
   gem "fakeweb", "~>1.2.5"
   gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"

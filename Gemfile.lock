@@ -47,7 +47,8 @@ GEM
     delayed_job (2.0.6)
       daemons
     diff-lcs (1.1.3)
-    email_spec (0.4.0)
+    email_spec (0.6.6)
+      rspec
     engineyard (1.3.20)
       engineyard-serverside-adapter (= 1.4.1)
       escape (~> 0.0.4)
@@ -165,7 +166,7 @@ DEPENDENCIES
   cucumber-rails2 (~> 0.3.2)
   database_cleaner (= 0.5.0)
   delayed_job (= 2.0.6)
-  email_spec (= 0.4.0)
+  email_spec (~> 0.6.6)
   engineyard
   factory_girl (~> 1.2.1)
   fakeweb (~> 1.2.5)

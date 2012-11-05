@@ -17,6 +17,8 @@ describe 'An super-admin on the admin page' do
 
   it "should see the stats get filled in via ajax" do
     Capybara.current_driver = Capybara.javascript_driver
+    t = Time.local(2012, 11, 2, 10, 5, 0)
+    Timecop.travel(t)
     admin = Factory.create(:admin_confirmed_user)
     capybara_sign_in_as(admin)
 

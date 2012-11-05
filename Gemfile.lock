@@ -47,8 +47,9 @@ GEM
     delayed_job (2.0.6)
       daemons
     diff-lcs (1.1.3)
-    email_spec (0.6.6)
-      rspec
+    email_spec (1.4.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     engineyard (1.3.20)
       engineyard-serverside-adapter (= 1.4.1)
       escape (~> 0.0.4)
@@ -90,9 +91,15 @@ GEM
       rake
     json (1.7.5)
     json_pure (1.7.5)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
     libxml-ruby (2.2.2)
+    mail (2.2.7)
+      activesupport (>= 2.3.6)
+      mime-types
+      treetop (>= 1.4.5)
     mime-types (1.16)
     multi_json (1.0.4)
     mysql2 (0.2.18)
@@ -109,6 +116,7 @@ GEM
       faye-websocket (~> 0.4, >= 0.4.4)
       http_parser.rb (~> 0.5.3)
       multi_json (~> 1.0)
+    polyglot (0.3.3)
     rack (1.1.3)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -146,6 +154,9 @@ GEM
     thor (0.14.6)
     thoughtbot-clearance (0.8.2)
     timecop (0.3.5)
+    treetop (1.4.12)
+      polyglot
+      polyglot (>= 0.3.1)
     will_paginate (2.3.14)
     xml-simple (1.0.12)
     xpath (0.1.4)
@@ -166,7 +177,7 @@ DEPENDENCIES
   cucumber-rails2 (~> 0.3.2)
   database_cleaner (= 0.5.0)
   delayed_job (= 2.0.6)
-  email_spec (~> 0.6.6)
+  email_spec (~> 1.4.0)
   engineyard
   factory_girl (~> 1.2.1)
   fakeweb (~> 1.2.5)

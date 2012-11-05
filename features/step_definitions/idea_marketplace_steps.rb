@@ -56,8 +56,6 @@ When /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
 end
 
 Given /^an idea marketplace quickly exists with url '([^\']*)'$/ do |url|
-  puts Question.user.inspect
-  puts Question.password.inspect
 	q = Question.create(Factory.attributes_for(:question_cucumber))
 	e = Factory.create(:earl, :name => url, :question_id => q.id)
 end

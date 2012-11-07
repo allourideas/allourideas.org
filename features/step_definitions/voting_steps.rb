@@ -1,5 +1,10 @@
 When /^I click on the (left|right) choice$/ do |side|
-  css = ".#{side}side"
+  css = ".#{side}side.btn-vote"
+  begin
+    page.has_no_selector?("#{css}.disabled")
+  rescue
+    page.has_no_selector?("#{css}.disabled")
+  end
   begin
     has_css?(css)
     find(css).click
@@ -45,7 +50,7 @@ When /^I click the (.*) button$/ do |button_name|
       case button_name
       when "I can't decide"
         find("#cant_decide_btn").click
-        sleep 0.5
+        page.has_selector?(".like_both")
       when "I can't decide submit"
         page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
       	find(".cd_submit_button").click
@@ -73,6 +78,7 @@ When /^I pick "(.*)"$/ do |radio_label|
 	case radio_label 
 	when "I like both ideas"
     find('.cd_options .like_both').click
+    page.has_no_selector?(".like_both")
 	when "Other"
            When "I choose \"cant_decide_reason_user_other\""
 	end

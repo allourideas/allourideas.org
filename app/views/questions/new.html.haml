@@ -18,11 +18,11 @@
               %h2=t('questions.new.error.registration')
               %br
               %ul
-                -@user.errors.each do |error| 
-                  - if error.join(' ') =~ /Email has already been taken/i
+                -@user.errors.each do |field, error|
+                  - if field =~ /Email/i && error =~ /has already been taken/i
                     %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
                   - else
-                    %li= error.join(' ').capitalize
+                    %li= "#{field} #{error}".capitalize
       
         %fieldset#step1
           %legend= t('questions.new.step1')

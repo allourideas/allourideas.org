@@ -3,13 +3,13 @@ When /^I click on the (left|right) choice$/ do |side|
   begin
     has_css?(css)
     find(css).click
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+  rescue
     has_css?(css)
     find(css).click
   end
   begin
     page.has_no_selector?("#{css}.disabled")
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+  rescue
     page.has_no_selector?("#{css}.disabled")
   end
 end
@@ -128,7 +128,6 @@ Then /^the notification in the tell me area should not contain links$/ do
 end
 
 Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
-	puts "the type is #{type}"
 	if type == "photos"
 	   @photocracy_mode = true
            set_active_resource_credentials

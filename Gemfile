@@ -30,7 +30,7 @@ gem "i18n", "0.3.7"
 gem "delayed_job", "2.0.6"
 gem "haml", "~> 3.1.7"
 gem "compass-rails", "~> 1.0.3"
-gem "bootstrap-sass", "~> 2.1.0.0"
+gem "bootstrap-sass", "~> 2.1.1.0"
 gem "newrelic_rpm", "3.3.0"
 gem "mysql2", "0.2.18"
 

@@ -21,7 +21,7 @@ GEM
       builder
       mime-types
       xml-simple
-    bootstrap-sass (2.1.0.0)
+    bootstrap-sass (2.1.1.0)
     builder (3.1.4)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -169,7 +169,7 @@ DEPENDENCIES
   airbrake
   ambethia-smtp-tls (= 1.1.2)
   aws-s3 (= 0.6.2)
-  bootstrap-sass (~> 2.1.0.0)
+  bootstrap-sass (~> 2.1.1.0)
   capybara (~> 1.1.2)
   compass-rails (~> 1.0.3)
   crack (= 0.1.4)

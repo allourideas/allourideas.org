@@ -26,13 +26,6 @@ $aoi_alt-bg: #eeeeee;
   margin-right: auto;
   margin-left: auto;
 }
-// Redefine collapse width for switching back as Bootstrap doesn't have it in a variable.
-.nav-collapse.collapse {
-  @media (min-width: 768px) {
-    height: auto !important;
-    overflow: visible !important;
-  }
-}
 
 /*!
  * AOI CSS
@@ -77,17 +70,6 @@ h2{
 //  Menu
 // -------------------------------
 
-#log_in-menu{
-  a{
-    @extend .btn;
-    margin-top: 5px;
-  }
-}
-@media(max-width: $navbarCollapseWidth){
-  #log_in-menu{
-    float: right;
-  }
-}
 .navbar-static-top{
   width: auto; // Make the menu stretch to the sides
   min-width: 100%;

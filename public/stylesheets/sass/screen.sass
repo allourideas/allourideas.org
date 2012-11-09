@@ -457,23 +457,26 @@ p.add-idea
     -webkit-border-radius: 0
     -moz-border-radius: 0
     border-radius: 0
-    // modify min-height
-    min-height: 30px
     // modify background color
-    background-color: #666666
-    background-image: -moz-linear-gradient(top, #6d6d6d, #5c5c5c)
-    background-image: -ms-linear-gradient(top, #6d6d6d, #5c5c5c)
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6d6d6d), to(#5c5c5c))
-    background-image: -webkit-linear-gradient(top, #6d6d6d, #5c5c5c)
-    background-image: -o-linear-gradient(top, #6d6d6d, #5c5c5c)
-    background-image: linear-gradient(top, #6d6d6d, #5c5c5c)
+    background-color: #333333
+    background-image: -moz-linear-gradient(top, #3d3d3d, #2c2c2c)
+    background-image: -ms-linear-gradient(top, #3d3d3d, #2c2c2c)
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3d3d3d), to(#2c2c2c))
+    background-image: -webkit-linear-gradient(top, #3d3d3d, #2c2c2c)
+    background-image: -o-linear-gradient(top, #3d3d3d, #2c2c2c)
+    background-image: linear-gradient(top, #3d3d3d, #2c2c2c)
     background-repeat: repeat-x
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#6d6d6d', endColorstr='#5c5c5c', GradientType=0)
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#3d3d3d', endColorstr='#2c2c2c', GradientType=0)
 
-  .nav > li > a
-    padding: 5px 10px 7px
-    line-height: 18px
-    color: #fefefe
+  .nav .active > a, .nav .active > a:hover, .nav .active > a:focus
+    background-color: transparent
+    //padding: 5px 10px 7px
+    //line-height: 18px
+    //color: #999999
+  .nav > li > a, .nav-collapse .dropdown-menu a
+    color: #999999
+  .nav-collapse .nav > li > a:hover, .nav-collapse .dropdown-menu a:hover
+    color: #F2F2F2
 
 .votebox.row
   height: 128px

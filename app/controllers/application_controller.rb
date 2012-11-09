@@ -52,6 +52,11 @@ class ApplicationController < ActionController::Base
 	  @_white_label
   end
 
+  helper_method :show_aoi_nav?
+  def show_aoi_nav?
+    return !white_label_request? && (controller_name == 'home' || (controller_name == 'questions' && action_name == 'new'))
+  end
+
   def set_session_timestamp
       # ActiveResource::HttpMock only matches static strings for query parameters
       # when in test set this to a static value, so we can match the resulting API queries for mocking

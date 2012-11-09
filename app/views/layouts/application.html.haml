@@ -43,27 +43,41 @@
       }
     });
   %body{:class => I18n.locale}
-    .navbar.navbar-aoi.navbar-inverse
+    .navbar.navbar-inverse.navbar-aoi
       .navbar-inner
-        %ul.nav.pull-right
-          - if signed_in?
-            %li.dropdown
-              %a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
-                = current_user.email
-                %b.caret
-              %ul.dropdown-menu
-                %li= link_to t('user.logout'), '/sign_out'
-                %li= link_to t('user.control_panel'), admin_path
-                %li= link_to t('nav.make_your_own'), new_question_path
-          - else
-            %li= link_to t('user.login'), sign_in_path
+        %button.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        - if show_aoi_nav?
+          %a.brand{:href => '/'} All Our Ideas
+        .nav-collapse.collapse
+          - if show_aoi_nav?
+            %ul.nav
+              %li{:class => current_page?(root_path) ? 'active' : nil}
+                = link_to(t('nav.home'), root_path)
+              %li{:class => current_page?(new_question_path) ? 'active' : nil}
+                = link_to(t('nav.create'), new_question_path)
+              %li{:class => current_page?(about_path) ? 'active' : nil}
+                = link_to(t('nav.about'), about_path)
+              %li= link_to(t('nav.blog'), "http://blog.allourideas.org")
+          %ul.nav.pull-right
+            - if signed_in?
+              %li.dropdown
+                %a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
+                  = current_user.email
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to t('user.logout'), '/sign_out'
+                  %li= link_to t('user.control_panel'), admin_path
+                  %li= link_to t('nav.make_your_own'), new_question_path
+            - else
+              %li= link_to t('user.login'), sign_in_path
     - if protect_against_forgery?
       =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.to_json};"
     - else
       =javascript_tag "var AUTH_TOKEN = '';"
     .content.container-fluid{:style => white_label_request? ? "overflow:hidden": ""}
-      - unless white_label_request?  
-        =render :partial => "shared/header"
       .body{:class => white_label_request? ? 'noborder' : ''}
         .row-fluid
           .span12

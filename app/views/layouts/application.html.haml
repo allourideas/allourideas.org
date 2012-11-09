@@ -79,20 +79,21 @@
       =javascript_tag "var AUTH_TOKEN = '';"
     .content.container-fluid{:style => white_label_request? ? "overflow:hidden": ""}
       .body{:class => white_label_request? ? 'noborder' : ''}
-        .row-fluid
-          .span12
-            = render :partial => "shared/flashes"
-            -if session[:standard_flash]
-              .alert
-                %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
-                %p= session[:standard_flash]
-              -session[:standard_flash] = nil
-            -unless session[:has_voted]
-              -if session[:welcome_msg]
+        - if flash.length > 0 || session[:standard_flash] || (session[:has_voted] && session[:welcome_msg])
+          .row-fluid
+            .span12
+              = render :partial => "shared/flashes"
+              -if session[:standard_flash]
                 .alert
                   %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
-                  %p= h(session[:welcome_msg])
-                -session[:welcome_msg] = nil
+                  %p= session[:standard_flash]
+                -session[:standard_flash] = nil
+              -unless session[:has_voted]
+                -if session[:welcome_msg]
+                  .alert
+                    %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
+                    %p= h(session[:welcome_msg])
+                  -session[:welcome_msg] = nil
         = yield
       - unless white_label_request?  
         = render :partial => "shared/footer"

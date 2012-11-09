@@ -1,13 +1,30 @@
-.row-fluid.footer-row
-  .span8.offset4
-    %p
-      %span.text-links
-        = link_to(t('nav.about'), about_path)
-        |
-        = link_to(t('nav.privacy'), privacy_path)
-      %span.image-links
+.footer
+  .row-fluid
+    .span10
+      %p
+        This project is supported by generous grants from:
+        %br
+        Google
+        %br
+        The National Science Foundation
+        %br
+        The World Bank
+        %br
+        The Center For Information Technology at Princeton University
+    .span2
+      %p
+        Follow us:
+        %br
         = link_to(image_tag('fb.png'), 'https://www.facebook.com/allourideas')
         = link_to(image_tag('twitter.png'), 'https://twitter.com/allourideas')
         = link_to(image_tag('github.png'), 'https://github.com/allourideas')
-      - if @earl && !@earl.logo_file_name.nil?
-        = link_to(image_tag('powered-by-aoi.png'), '/')
+      %ul.breadcrumb
+        %li
+          = link_to(t('nav.about'), about_path)
+          %span.divider
+            |
+        %li
+          = link_to(t('nav.privacy'), privacy_path)
+      %p
+        - if @earl && !@earl.logo_file_name.nil?
+          = link_to(image_tag('powered-by-aoi.png'), '/')

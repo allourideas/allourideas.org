@@ -316,6 +316,7 @@ ul.footer-social-icons {
     list-style: none;
     margin: 0;
     overflow: hidden;
+    width: 128px;
     li a {
         display: block;
         background: url(/images/social_icons.png) no-repeat;
@@ -359,4 +360,19 @@ ul.footer-social-icons {
 }
 .powered-by:hover {
     background-position: 0 -29px;
+}
+.footer {
+    @media (max-width: 767px) {
+        text-align: center;
+
+        .powered-by {
+            margin: 0 auto;
+        }
+        .footer-social-icons {
+            margin: 0 auto;
+        }
+        .generous-grantees {
+            margin-bottom: 40px;
+        }
+    }
 }

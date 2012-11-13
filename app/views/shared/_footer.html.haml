@@ -1,6 +1,6 @@
 .footer
   .row-fluid
-    .span10
+    .span9
       %p
         This project is supported by generous grants from:
         %br
@@ -11,13 +11,14 @@
         The World Bank
         %br
         The Center For Information Technology at Princeton University
-    .span2
+    .span3
       %p
         Follow us:
-        %br
-        = link_to(image_tag('fb.png'), 'https://www.facebook.com/allourideas')
-        = link_to(image_tag('twitter.png'), 'https://twitter.com/allourideas')
-        = link_to(image_tag('github.png'), 'https://github.com/allourideas')
+      %ul.footer-social-icons
+        %li.fb= link_to('Facebook', 'https://www.facebook.com/allourideas')
+        %li.twitter= link_to('Twitter', 'https://twitter.com/allourideas')
+        %li.github= link_to('GitHub', 'https://github.com/allourideas')
+        %li.blog=link_to(t('nav.blog'), 'http://blog.allourideas.org/')
       %ul.breadcrumb
         %li
           = link_to(t('nav.about'), about_path)

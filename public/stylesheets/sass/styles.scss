@@ -310,3 +310,38 @@ form#new_question_form{
   }
 
 }
+
+ul.footer-social-icons {
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    li a {
+        display: block;
+        background: url(/images/social_icons.png) no-repeat;
+        float: left;
+        width: 32px;
+        height: 32px;
+        font-size: 0;
+    }
+    li.fb a:hover {
+        background-position: 0 -32px;
+    }
+    li.twitter a {
+        background-position: -40px 0;
+    }
+    li.twitter a:hover {
+        background-position: -40px -32px;
+    }
+    li.github a {
+        background-position: -80px 0;
+    }
+    li.github a:hover {
+        background-position: -80px -32px;
+    }
+    li.blog a {
+        background-position: -120px 0;
+    }
+    li.blog a:hover {
+        background-position: -120px -32px;
+    }
+}

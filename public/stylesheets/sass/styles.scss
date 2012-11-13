@@ -121,9 +121,10 @@ form#new_question_form{
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
 }
-.welcome-message {
+.welcome-message .alert {
   @media (max-width: 767px) {
-    margin: 0 5% !important;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 

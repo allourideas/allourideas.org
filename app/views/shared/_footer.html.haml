@@ -18,6 +18,9 @@
         %li.twitter= link_to('Twitter', 'https://twitter.com/allourideas')
         %li.github= link_to('GitHub', 'https://github.com/allourideas')
         %li.blog=link_to(t('nav.blog'), 'http://blog.allourideas.org/')
+      - if @earl && !@earl.logo_file_name.nil?
+        %p
+          = link_to("Powered by All Our Ideas", '/', :class => 'powered-by')
       %ul.breadcrumb
         %li
           = link_to(t('nav.about'), about_path)
@@ -25,6 +28,3 @@
             |
         %li
           = link_to(t('nav.privacy'), privacy_path)
-      %p
-        - if @earl && !@earl.logo_file_name.nil?
-          = link_to("Powered by All Our Ideas", '/', :class => 'powered-by')

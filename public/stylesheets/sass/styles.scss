@@ -349,3 +349,13 @@ ul.footer-social-icons {
     padding-top: 1px;
     padding-bottom: 1px;
 }
+.powered-by {
+    display: block;
+    width: 139px;
+    height: 29px;
+    background: url(/images/powered-by-aoi.gif) no-repeat;
+    font-size: 0;
+}
+.powered-by:hover {
+    background-position: 0 -29px;
+}

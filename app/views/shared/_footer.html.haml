@@ -1,23 +1,25 @@
 .footer
   .row-fluid
     .span9
-      %p This project is supported by generous grants from:
-      %p.generous-grantees
-        Google
-        %br
-        The National Science Foundation
-        %br
-        The World Bank
-        %br
-        The Center For Information Technology at Princeton University
+      - unless @earl
+        %p This project is supported by generous grants from:
+        %p.generous-grantees
+          Google
+          %br
+          The National Science Foundation
+          %br
+          The World Bank
+          %br
+          The Center For Information Technology at Princeton University
     .span3
-      %p
-        Follow us:
-      %ul.footer-social-icons
-        %li.fb= link_to('Facebook', 'https://www.facebook.com/allourideas')
-        %li.twitter= link_to('Twitter', 'https://twitter.com/allourideas')
-        %li.github= link_to('GitHub', 'https://github.com/allourideas')
-        %li.blog=link_to(t('nav.blog'), 'http://blog.allourideas.org/')
+      - unless @earl
+        %p
+          Follow us:
+        %ul.footer-social-icons
+          %li.fb= link_to('Facebook', 'https://www.facebook.com/allourideas')
+          %li.twitter= link_to('Twitter', 'https://twitter.com/allourideas')
+          %li.github= link_to('GitHub', 'https://github.com/allourideas')
+          %li.blog=link_to(t('nav.blog'), 'http://blog.allourideas.org/')
       - if @earl && !@earl.logo_file_name.nil?
         %p
           = link_to("Powered by All Our Ideas", '/', :class => 'powered-by')

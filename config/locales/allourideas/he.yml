@@ -27,6 +27,7 @@ he:
   nav:
     # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
     privacy_policy: מדיניות פרטיות והסכמה
+    privacy: privacy
     home: בית
     back: חזור
     about: על

@@ -27,7 +27,6 @@ en:
   nav:
     # Navigation elements used at top right, just above question choices, and in the bottom blue bar for widget
     privacy_policy: Privacy and Consent Policy
-    privacy: Privacy
     home: Home
     back: Back
     about: About

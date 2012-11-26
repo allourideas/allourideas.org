@@ -3,7 +3,7 @@ source "http://gems.github.com"
 
 gem "rails", "2.3.14"
 gem "multi_json", "1.0.4"
-gem "airbrake"
+gem "airbrake", :require => 'airbrake/rails'
 gem "libxml-ruby", "2.2.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
 gem "paperclip", "2.3.1.1"

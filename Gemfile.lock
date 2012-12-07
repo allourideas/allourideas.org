@@ -96,7 +96,7 @@ GEM
     multi_json (1.0.4)
     mysql2 (0.2.18)
     net-ssh (2.1.4)
-    newrelic_rpm (3.3.0)
+    newrelic_rpm (3.5.3.25)
     nokogiri (1.5.5)
     paperclip (2.3.1.1)
     pickle (0.4.7)
@@ -183,7 +183,7 @@ DEPENDENCIES
   mime-types (= 1.16)
   multi_json (= 1.0.4)
   mysql2 (= 0.2.18)
-  newrelic_rpm (= 3.3.0)
+  newrelic_rpm
   paperclip (= 2.3.1.1)
   pickle (~> 0.4.7)
   poltergeist (~> 1.0.1)

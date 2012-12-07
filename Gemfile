@@ -29,7 +29,6 @@ gem "sax-machine", "0.0.14"
 gem "i18n", "0.3.7"
 gem "delayed_job", "2.0.6"
 gem "haml", "3.0.9"
-gem "newrelic_rpm", "3.3.0"
 gem "mysql2", "0.2.18"
 
 group :development do
@@ -58,3 +57,4 @@ group :test, :cucumber do
   gem "fakeweb", "~>1.2.5"
   gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
 end
+gem "newrelic_rpm"

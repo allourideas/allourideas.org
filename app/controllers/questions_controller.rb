@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
   end
 
   def admin_stats
-    question = Question.find(params[:id])
+    question = Question.new(:id => params[:id])
     response = {
       "vote_rate" => question.get(:vote_rate)["voterate"].try(:round, 3),
       "upload_to_participation_rate" => question.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3),

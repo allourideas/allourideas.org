@@ -8,9 +8,9 @@ When /^I click on the (left|right) choice$/ do |side|
     find(css).click
   end
   begin
-    page.has_no_selector?("#{css}.disabled")
+    page.has_no_css?("#{css}.disabled")
   rescue
-    page.has_no_selector?("#{css}.disabled")
+    page.has_no_css?("#{css}.disabled")
   end
 end
 

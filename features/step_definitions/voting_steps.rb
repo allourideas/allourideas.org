@@ -77,9 +77,9 @@ When /^I pick "(.*)"$/ do |radio_label|
            When "I choose \"cant_decide_reason_user_other\""
 	end
   begin
-    page.has_no_selector?(".leftside.disabled")
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError
-    page.has_no_selector?(".leftside.disabled")
+    page.has_no_css?(".leftside.disabled")
+  rescue
+    page.has_no_css?(".leftside.disabled")
   end
 end
 

@@ -25,7 +25,7 @@ Feature: View individual idea page
 		And I should see "50"
 		And I should see "Number of Votes"
 	
-	@selenium
+	@javascript
 	Scenario: Voting updates individual choice total correctly
 		Given I am on the Cast Votes page for 'test'
 		And I save the current two choices
@@ -39,7 +39,7 @@ Feature: View individual idea page
 		When I go to the Idea Detail page for the saved right choice
 		Then I should see "1" within "#num_votes"
 
-	@selenium
+	@javascript
 	Scenario: Voting updates individual choice total correctly on flag as inappropriate
 	        Given idea marketplace 'test' has enabled "flag as inappropriate"
 		And I am on the Cast Votes page for 'test'

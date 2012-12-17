@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
   end
 
   def admin_stats
-    question = Question.find(params[:id])
+    question = Question.new(:id => params[:id])
     response = {
       "vote_rate" => question.get(:vote_rate)["voterate"].try(:round, 3),
       "upload_to_participation_rate" => question.get(:upload_to_participation_rate)["uploadparticipationrate"].try(:round, 3),
@@ -361,9 +361,10 @@ class QuestionsController < ApplicationController
 
   def voter_map
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-    data = Earl.voter_map(params[:id], params[:type])
+    type = params[:type] || 'votes'
+    data = Earl.voter_map(params[:id], type)
 
-    case params[:type]
+    case type
     when "votes" then
       @object_type = t('common.votes')
     when "all_photocracy_votes" then
@@ -683,7 +684,7 @@ class QuestionsController < ApplicationController
 
   def timeline_graph
     totals = params[:totals]
-    type = params[:type]
+    type = params[:type] || 'votes'
 
     if !totals || totals != "true"
       @earl = Earl.find params[:id]

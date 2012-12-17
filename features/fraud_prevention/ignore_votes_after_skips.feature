@@ -7,7 +7,7 @@ Feature: Ignore votes immediately after skips
     Given an idea marketplace quickly exists with url 'test'
     And I am on the Cast Votes page for 'test'
   
-  @selenium
+  @javascript
   Scenario: Votes should appear counted, but not actually count
     When I click the I can't decide button
     And I pick "I like both ideas"

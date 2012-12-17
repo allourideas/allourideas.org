@@ -13,9 +13,9 @@ When /^I click on the (left|right) choice$/ do |side|
     find(css).click
   end
   begin
-    page.has_no_selector?("#{css}.disabled")
+    page.has_no_css?("#{css}.disabled")
   rescue
-    page.has_no_selector?("#{css}.disabled")
+    page.has_no_css?("#{css}.disabled")
   end
 end
 
@@ -83,9 +83,9 @@ When /^I pick "(.*)"$/ do |radio_label|
            When "I choose \"cant_decide_reason_user_other\""
 	end
   begin
-    page.has_no_selector?(".leftside.disabled")
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError
-    page.has_no_selector?(".leftside.disabled")
+    page.has_no_css?(".leftside.disabled")
+  rescue
+    page.has_no_css?(".leftside.disabled")
   end
 end
 

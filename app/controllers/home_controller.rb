@@ -5,7 +5,8 @@ class HomeController < ApplicationController
   before_filter :admin_only, :only => [:no_google_tracking]
 
   def redirect
-    redirect_to(params[:redirect_to])
+    location = params[:redirect_to] || '/'
+    redirect_to(location)
   end
 
   def index

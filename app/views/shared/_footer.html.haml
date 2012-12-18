@@ -23,10 +23,7 @@
       - if @earl && !@earl.logo_file_name.nil?
         %p
           = link_to("Powered by All Our Ideas", '/', :class => 'powered-by')
-      %ul.breadcrumb
-        %li
-          = link_to(t('nav.about'), about_path)
-          %span.divider
-            |
-        %li
-          = link_to(t('nav.privacy_policy'), privacy_path)
+      %p
+        = link_to(t('nav.about'), about_path)
+        %br
+        = link_to(t('nav.privacy_policy'), privacy_path)

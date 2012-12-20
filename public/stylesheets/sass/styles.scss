@@ -364,6 +364,8 @@ ul.footer-social-icons {
 }
 .footer {
     @media (max-width: 767px) {
+        margin-left: -20px;
+        margin-right: -20px;
         text-align: center;
 
         .powered-by {

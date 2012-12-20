@@ -319,11 +319,12 @@ ul.footer-social-icons {
     width: 128px;
     li a {
         display: block;
+        text-indent: -9999px;
         background: url(/images/social_icons.png) no-repeat;
         float: left;
         width: 32px;
         height: 32px;
-        font-size: 0;
+        white-space: nowrap;
     }
     li.fb a:hover {
         background-position: 0 -32px;

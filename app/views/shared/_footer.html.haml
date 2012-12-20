@@ -12,18 +12,19 @@
           %br
           The Center For Information Technology at Princeton University
     .span3
-      - unless @earl
+      .pull-right
+        - unless @earl
+          %p
+            Follow us:
+          %ul.footer-social-icons
+            %li.fb= link_to('Facebook', 'https://www.facebook.com/allourideas')
+            %li.twitter= link_to('Twitter', 'https://twitter.com/allourideas')
+            %li.github= link_to('GitHub', 'https://github.com/allourideas')
+            %li.blog=link_to(t('nav.blog'), 'http://blog.allourideas.org/')
+        - if @earl && !@earl.logo_file_name.nil?
+          %p
+            = link_to("Powered by All Our Ideas", '/', :class => 'powered-by')
         %p
-          Follow us:
-        %ul.footer-social-icons
-          %li.fb= link_to('Facebook', 'https://www.facebook.com/allourideas')
-          %li.twitter= link_to('Twitter', 'https://twitter.com/allourideas')
-          %li.github= link_to('GitHub', 'https://github.com/allourideas')
-          %li.blog=link_to(t('nav.blog'), 'http://blog.allourideas.org/')
-      - if @earl && !@earl.logo_file_name.nil?
-        %p
-          = link_to("Powered by All Our Ideas", '/', :class => 'powered-by')
-      %p
-        = link_to(t('nav.about'), about_path)
-        %br
-        = link_to(t('nav.privacy_policy'), privacy_path)
+          = link_to(t('nav.about'), about_path)
+          %br
+          = link_to(t('nav.privacy_policy'), privacy_path)

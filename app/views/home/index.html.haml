@@ -80,11 +80,18 @@
   .span12
     %h3.overall-stats
       Currently hosting
-      %span.wiki-surveys-count 1,234
+      %span.wiki-surveys-count
+        = number_with_delimiter(@stats['total_questions'])
       wiki surveys with
-      %span.ideas-count 56,789
+      %span.ideas-count
+        = number_with_delimiter(@stats['choices_count'])
       ideas and
-      %span.votes-count 2.5 millon
+      %span.votes-count
+        - if @stats['votes_count'] >= 1000000
+          = (@stats['votes_count'] / 1000000.0).round(1)
+          million
+        - else
+          = number_with_delimiter(@stats['votes_count'])
       votes including:
     .flexslider
       %ul.slides

@@ -16,15 +16,15 @@
       %h3.title How a Wiki Survey works
   .row-fluid.boxes
     .span4
-      %img{:src => 'http://placehold.it/200x200'}
+      = image_tag('homepage/create.png')
       %h3 Create
       %p Start with a question and some seed ideas, and you can create a wiki survey in moments.
     .span4
-      %img{:src => 'http://placehold.it/200x200'}
+      = image_tag('homepage/participate.png')
       %h3 Participate
       %p The participants you invite will enjoy our simple process of voting and adding new ideas.
     .span4
-      %img{:src => 'http://placehold.it/200x200'}
+      = image_tag('homepage/discover.png')
       %h3 Discover
       %p The best ideas will bubble to the top using our system that is open, transparent, and powerful.
 
@@ -33,7 +33,7 @@
     .descriptions
       .row-fluid
         .span5.image
-          = image_tag('devices-with-site.jpg')
+          = image_tag('homepage/devices-with-site.jpg')
         .span7
           %h3 Easy to use
           %p
@@ -41,7 +41,7 @@
 
       .row-fluid
         .span5.pull-right.image.math-formula
-          = image_tag('math-formula.png')
+          = image_tag('homepage/math-formula.png')
         .span7
           %h3 Backed by research
           %p
@@ -53,7 +53,7 @@
 
       .row-fluid
         .span5.image
-          = image_tag('present.jpg')
+          = image_tag('homepage/present.jpg')
         .span7
           %h3 Packed with features
           %p
@@ -66,7 +66,7 @@
 
       .row-fluid
         .span5.pull-right.image.tux
-          = image_tag('tux.png')
+          = image_tag('homepage/tux.png')
         .span7
           %h3 Open source
           %p
@@ -89,25 +89,25 @@
     .flexslider
       %ul.slides
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_calgary.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_catholic_relief.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_digital_demo.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_junior-league.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_matter.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_nyc.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_oecd.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_rio_grande-do-sul.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_washington_post.jpg')
         %li
-          %img{:src => 'http://placehold.it/200x75'}
+          = image_tag('homepage/l_wikipedia.jpg')
 = javascript_include_tag 'jquery.flexslider-min'
 :javascript
   $(document).ready(function() {
@@ -115,7 +115,7 @@
       animation: "slide",
       controlNav: false,
       animationLoop: true,
-      itemWidth: 220,
+      itemWidth: 190,
       prevText: '&#9664;',
       nextText: '&#9654;',
       slideshow: false

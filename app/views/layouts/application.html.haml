@@ -21,6 +21,19 @@
       $(document).ready(function() {
       = yield :view_javascript    
       });
+  - if params[:guides] == 'true'
+    :javascript
+      $(document).ready(function() {
+        // show popover onload
+        $('.intro-popover').tooltip('show');
+        // on any click that's not on a tooltip, hide tooltips
+        $(document).on('click.tooltiphide', function(ev) {
+          if (!$(ev.target).is('.tooltip') && $(ev.target).parents('.tooltip').length === 0) {
+            $('.intro-popover').tooltip('hide');
+            $(document).off('click.tooltiphide');
+          }
+        });
+      });
   :javascript
     $(document).ready(function() {
       // Fix for iPhone scale/rotation bug

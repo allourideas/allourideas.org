@@ -11,7 +11,7 @@
     -if @earl
       .survey-image.pull-left
         - if @earl.logo_file_name.nil?
-          =image_tag('logo.jpg')
+          =image_tag('logo.png')
         - else
           = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
       -if (current_user.try(:owns?, @earl) || current_user.try(:admin?)) && local_assigns.has_key?("show_delete")

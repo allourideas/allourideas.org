@@ -23,7 +23,7 @@
       });
   - if params[:guides] == 'true'
     :javascript
-      $(document).ready(function() {
+      $(window).load(function() {
         // show popover onload
         $('.intro-popover').tooltip('show');
         // on any click that's not on a tooltip, hide tooltips

@@ -10,6 +10,7 @@ class HomeController < ApplicationController
   end
 
   def index
+    @example_earl = 'priority_example'
     Question.timeout = 0.5
     begin
       @stats = Question.get(:site_stats)

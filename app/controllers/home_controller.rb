@@ -10,13 +10,14 @@ class HomeController < ApplicationController
   end
 
   def index
-    @example_earl = 'priority_example'
+    @example_earl = 'planyc_example'
     Question.timeout = 0.5
     begin
       @stats = Question.get(:site_stats)
     rescue
       @stats = {"total_questions" => 2803, "votes_count" => 3694534, "choices_count" => 139963}
     end
+    Question.timeout = nil
   end
 
   def no_google_tracking

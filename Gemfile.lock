@@ -105,7 +105,7 @@ GEM
     multi_json (1.0.4)
     mysql2 (0.2.18)
     net-ssh (2.1.4)
-    newrelic_rpm (3.5.3.25)
+    newrelic_rpm (3.5.5.38)
     nokogiri (1.5.5)
     paperclip (2.3.1.1)
     pickle (0.4.7)

@@ -68,6 +68,7 @@ en:
     score: Score
     added_on: Added on
     number_of_votes: Number of Votes
+    completed_contests: Completed Contests (wins + losses)
     about_scoring: About the Scoring
     score_explain: The score of an idea is the estimated chance that it will win against a randomly chosen idea. For example, a score of 100 means the idea is predicted to win every time and a score of 0 means the idea is predicted to lose every time.
     toggle_error: Sorry, we could not change the status of this choice because you do not own the question.

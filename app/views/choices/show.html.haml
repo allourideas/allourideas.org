@@ -18,7 +18,7 @@
       %th= t('items.score')
       %td= @choice.score.round.to_s + ' ' + link_to('', '#score_explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal', :class => 'icon-question-sign')
     %tr
-      %th= t('items.number_of_votes')
+      %th= t('items.completed_contests')
       %td#num_votes= @num_votes
 
 - unless request.xhr?

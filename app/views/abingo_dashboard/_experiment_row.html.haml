@@ -19,6 +19,6 @@
     %td &nbsp;
     -unless experiment.status != "Live"
       %td= link_to("End experiment, picking this.", url_for(:id => alternative.id, :action => "end_experiment"),:method => :post, :confirm => "Are you sure you want to terminate this experiment?  This is not reversible.") 
-      -else
-        - if alternative.content == short_circuit
-          All users seeing this.
+    -else
+      - if alternative.content == short_circuit
+        All users seeing this.

@@ -1,7 +1,7 @@
 source :rubygems
 source "http://gems.github.com"
 
-gem "rails", "2.3.15"
+gem "rails", "2.3.16"
 gem "rake", "~> 0.9.0"
 gem "multi_json", "1.0.4"
 gem "airbrake", :require => 'airbrake/rails'

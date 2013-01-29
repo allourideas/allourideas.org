@@ -191,6 +191,7 @@ DEPENDENCIES
   i18n (= 0.3.7)
   inherited_resources (= 1.0.4)
   jferris-mocha (= 0.9.5.0.1241126838)
+  json
   libxml-ruby (= 2.2.2)
   mime-types (= 1.16)
   multi_json (= 1.0.4)

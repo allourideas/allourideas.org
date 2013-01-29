@@ -3,6 +3,8 @@ class Abingo::Alternative < ActiveRecord::Base
 
   belongs_to :experiment, :class_name => "Abingo::Experiment"
   attr_accessible :content, :weight, :lookup
+  has_many :trials
+  has_many :session_infos, :through => :trials
   serialize :content
 
   def self.calculate_lookup(test_name, alternative_name)

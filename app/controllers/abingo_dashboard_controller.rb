@@ -66,7 +66,7 @@ class AbingoDashboardController < ApplicationController
     admin_user_list = admin_users.inject([]){|list, u| list << u.id}
     # Make a list of sessions we are interested in to get info from the pairwise server
     #this is to check for irregularities that I believe will be solved by redis
-    session_list = @experiment.get_session_list(admin_user_list)
+    session_list = get_session_list(@experiment, admin_user_list)
     origsize = session_list.size
 
     session_list.uniq!

@@ -96,7 +96,7 @@ GEM
       responders (~> 0.4.3)
     jferris-mocha (0.9.5.0.1241126838)
       rake
-    json (1.7.5)
+    json (1.7.7)
     json_pure (1.7.5)
     libwebsocket (0.1.5)
       addressable

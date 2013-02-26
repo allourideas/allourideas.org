@@ -1,9 +1,10 @@
 source :rubygems
 source "http://gems.github.com"
 
-gem "rails", "2.3.15"
+gem "rails", "2.3.17"
 gem "rake", "~> 0.9.0"
 gem "multi_json", "1.0.4"
+gem "json"
 gem "airbrake", :require => 'airbrake/rails'
 gem "libxml-ruby", "2.2.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"

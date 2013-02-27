@@ -55,23 +55,9 @@ class EarlsController < ApplicationController
        @right_choice_id = @prompt.right_choice_id
 
        if @photocracy
-          if params[:crossfade]
-            @vote_crossfade_transition = params[:crossfade] == 'true'
-	    if params[:crossfade_time]
-	       @crossfade_time = params[:crossfade_time]
-	    end
-          else
-	    crossfade_treatments = ["true_250", "true_500", "true_750", "false_250", "false_500", "false_750"]
-	    crossfade, time = ab_test("#{@earl.name}_#{@earl.question_id}_vote_faster_crossfade_and_time_transition", crossfade_treatments, :conversion => "voted").split("_")
-            @vote_crossfade_transition = crossfade == 'true'
-	    @crossfade_time = time
-          end
-
-	  if params[:show_average_votes]
-            @show_average_votes = params[:crossfade] == 'true'
-	  else
-	    @show_average_votes = ab_test("#{@earl.name}_#{@earl.question_id}_show_average_votes", [false, true], :conversion => "voted")
-	  end
+          @vote_crossfade_transition = true
+          @crossfade_time = '250'
+          @show_average_votes = false
 
           @right_choice_photo = Photo.find(@right_choice_text)
           @left_choice_photo = Photo.find(@left_choice_text)

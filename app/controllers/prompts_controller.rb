@@ -17,10 +17,7 @@ class PromptsController < ApplicationController
 
       next_prompt = Crack::XML.parse(vote.body)['prompt']
 
-      ab_test_name = get_leveling_feedback_abtest_name
-
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
+      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
@@ -63,9 +60,7 @@ class PromptsController < ApplicationController
                            :next_prompt => get_next_prompt_options)
       next_prompt = Crack::XML.parse(skip.body)['prompt']
       
-      ab_test_name = get_leveling_feedback_abtest_name
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
+      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
@@ -131,9 +126,7 @@ class PromptsController < ApplicationController
     if flag_choice_success && skip
       next_prompt = Crack::XML.parse(skip.body)['prompt']
       
-      ab_test_name = get_leveling_feedback_abtest_name
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i,
-					          :ideas => next_prompt['visitor_ideas'].to_i, :ab_test_name => ab_test_name)
+      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
@@ -222,12 +215,4 @@ class PromptsController < ApplicationController
     next_prompt_params
   end
       
-  def get_leveling_feedback_abtest_name
-      if !@photocracy
-         ab_test_name = "#{@earl.name}_#{@earl.question_id}_leveling_feedback_with_5_treatments"
-      else
-	 ab_test_name = nil
-      end
-      ab_test_name
-  end
 end

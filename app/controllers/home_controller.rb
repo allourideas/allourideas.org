@@ -24,10 +24,7 @@ class HomeController < ApplicationController
   end
 
   def example
-    ab_test("Test example marketplace", ["/studentgovernment", "/priority_example"], :conversion => 'voted') do |the_link|
-	  redirect_to(the_link) and return
-    end
-
+	  redirect_to("/planyc_example") and return
   end
 
   def about

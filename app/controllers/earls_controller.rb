@@ -30,11 +30,6 @@ class EarlsController < ApplicationController
 
       show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
 
-      if !@photocracy
-              @ab_show_average = Abingo.test("#{@earl.name}_#{@earl.question_id}_leveling_feedback_with_5_treatments", ["no_feedback", "no_adjective", "with_adjective", "with_votes_only", "with_average"]) 
-	      show_params.merge!({:with_average_votes => true}) if @ab_show_average == "with_average"
-      end
-
       @question = Question.find(@earl.question_id, :params => show_params)
 
       #reimplement in some way

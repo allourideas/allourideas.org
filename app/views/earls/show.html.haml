@@ -77,10 +77,6 @@
       %button.btn.btn-primary.flag_submit_button{:"data-question_id" => @question.id}
         =t('vote.submit')
 
--if @ab_show_average == "with_average"
-  #average_votes{:style => 'display:none'}
-    = "(average is #{@question.attributes['average_votes']})"
-
 =hidden_field_tag 'prompt_id', @question.attributes['picked_prompt_id']
 =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
@@ -96,7 +92,6 @@
 
 -content_for :view_javascript do
   $('.rounded').corner('5px');
-  = "var SHOW_AVERAGE_VOTES = '#{@ab_show_average}';"
   -unless session[:has_voted]
     :plain
       $('.firsttime').fadeIn(2000)

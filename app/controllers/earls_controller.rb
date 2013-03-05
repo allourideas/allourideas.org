@@ -129,8 +129,6 @@ class EarlsController < ApplicationController
          end
 
        end
-       @ab_test_name = (params[:id] == 'studentgovernment') ? "studgov_test_size_of_X_votes_on_Y_ideas2" : 
-       								"#{@earl.name}_#{@earl.question_id}_test_size_of_X_votes_on_Y_ideas"	       
 
       if wikipedia?
         # wikipedia ideas are prepended by a 4 character integer

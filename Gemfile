@@ -1,7 +1,7 @@
 source :rubygems
 source "http://gems.github.com"
 
-gem "rails", "2.3.17"
+gem "rails", "2.3.18"
 gem "rake", "~> 0.9.0"
 gem "multi_json", "1.0.4"
 gem "json"

@@ -77,50 +77,50 @@ class EarlsController < ApplicationController
          @question_text_color = "#000000"
          @text_on_color = "#FFFFFF"
 
-         if (text_on_white = params[:text_on_white])
+         if (text_on_white = validate_hex_color(params[:text_on_white]))
            lighter_text = alter_color(text_on_white, 1.1)  
            @text_on_white = "##{text_on_white}"  
            @lighter_text_on_white = "##{lighter_text}" 
 	       end
 
-         if (vote_button = params[:vote_button])
+         if (vote_button = validate_hex_color(params[:vote_button]))
            vote_button_hover = alter_color(vote_button, 0.8)
            @vote_button_color = "##{vote_button}"          
            @vote_button_hover_color = "##{vote_button_hover}"
 	       end
 
-         if (tab_hover = params[:tab_hover])
+         if (tab_hover = validate_hex_color(params[:tab_hover]))
            @tab_hover_color = "##{tab_hover}"
          end
 
-         if (flag_text = params[:flag_text])
+         if (flag_text = validate_hex_color(params[:flag_text]))
            @flag_text_color = "##{flag_text}"    
 	       end
 
-         if (submit_button = params[:submit_button])
+         if (submit_button = validate_hex_color(params[:submit_button]))
            submit_button_hover = alter_color(submit_button, 0.8)
            @submit_button_color = "##{submit_button}"  
            @submit_button_hover_color = "##{submit_button_hover}"  
 	       end
 
-         if (cant_decide_button = params[:cant_decide_button])
+         if (cant_decide_button = validate_hex_color(params[:cant_decide_button]))
            cant_decide_button_hover = alter_color(cant_decide_button, 0.8)
            @cant_decide_button_color = "##{cant_decide_button}"  
            @cant_decide_button_hover_color = "##{cant_decide_button_hover}"  
 	       end
 
-         if (add_idea_button = params[:add_idea_button])
+         if (add_idea_button = validate_hex_color(params[:add_idea_button]))
            add_idea_button_hover = alter_color(add_idea_button, 0.8)  
            @add_idea_button_color = "##{add_idea_button}"  
            @add_idea_button_hover_color = "##{add_idea_button_hover}"  
 	       end
 
-         if (question_text = params[:question_text])
+         if (question_text = validate_hex_color(params[:question_text]))
            @question_text_color = "##{question_text}"  
 	       end
 
-         if (text_on_color = params[:text_on_color])
-           @text_on_color = "##{text_on_color}"  
+         if (text_on_color = validate_hex_color(params[:text_on_color]))
+           @text_on_color = "##{text_on_color}"
          end
 
        end
@@ -206,6 +206,17 @@ class EarlsController < ApplicationController
   
   
   protected
+
+  def validate_hex_color(color)
+    return false unless color.class == String
+    color.strip!
+    color.tr!('#', '')
+    return color if /^[a-fA-F0-9]{6}$/.match(color)
+    if /^[a-fA-F0-9]{3}$/.match(color)
+      return color[0,1] + color[0,1] + color[1,1] + color[1,1] + color[2,1] + color[2,1]
+    end
+    return false
+  end
 
   def dumb_cleartext_authentication
     @earl = Earl.find_by_name(params[:id])

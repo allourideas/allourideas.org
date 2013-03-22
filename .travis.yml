@@ -13,6 +13,7 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 before_script:
+  - gem update --system 1.8.25
   - bundle exec rake --trace db:test:load
   - export PREV_BUNDLE_GEMFILE=$BUNDLE_GEMFILE
   - export BUNDLE_GEMFILE=''

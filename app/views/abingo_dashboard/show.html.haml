@@ -3,18 +3,21 @@
 -@experiment.alternatives.each do |a|
   %h2
     = "Alternative - #{a.content}"
-    %table
+  %table.table.table-condensed
+    %thead
       %tr
         %th Number of Votes
         %th Sessions that voted that amount
+    %tbody
       -@voter_distribution[a.content].sort.each do |k,v|
         %tr  
           %td= k.to_s
           %td= v.to_s
-      -@summary_stats[a.content].sort{|a,b| a[0].to_s <=> b[0].to_s}.each do |k,v|
-        %tr
-          %th=k.to_s.humanize
-          %th=v
+  %table.table.table-striped
+    -@summary_stats[a.content].sort{|a,b| a[0].to_s <=> b[0].to_s}.each do |k,v|
+      %tr
+        %th=k.to_s.humanize
+        %td=v
 
 
 - content_for :view_javascript do

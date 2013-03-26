@@ -7,7 +7,8 @@
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-.tab-content.question-vote.row-fluid
+- bg_color = ab_test("bg_color_aa_#{@earl.name}", ['#F2F2F2', '#F2F2F1'], :conversion => 'voted')
+.tab-content.question-vote.row-fluid{:style => "background-color: #{bg_color}"}
   -if !session[:has_voted] && session[:welcome_msg]
     .row-fluid
       .span10.offset1.welcome-message

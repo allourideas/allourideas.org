@@ -1,5 +1,16 @@
 %h1= "Results for #{@experiment.test_name.titleize}"
-.chart-container#votes-distribution-chart-container
+%table.table.table-striped
+  %thead
+    %th
+    -@experiment.alternatives.each do |a|
+      %th= a.content
+  %tbody
+    -@summary_stats[@experiment.alternatives.first.content].sort{|a,b| a[0].to_s <=> b[0].to_s}.each do |k,v|
+      %tr
+        %th=k.to_s.humanize
+        -@experiment.alternatives.each do |a|
+          %td= @summary_stats[a.content][k]
+
 -@experiment.alternatives.each do |a|
   %h2
     = "Alternative - #{a.content}"
@@ -13,13 +24,9 @@
         %tr  
           %td= k.to_s
           %td= v.to_s
-  %table.table.table-striped
-    -@summary_stats[a.content].sort{|a,b| a[0].to_s <=> b[0].to_s}.each do |k,v|
-      %tr
-        %th=k.to_s.humanize
-        %td=v
 
 
+.chart-container#votes-distribution-chart-container
 - content_for :view_javascript do
   = @vote_distribution_chart
 

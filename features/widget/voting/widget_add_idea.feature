@@ -13,7 +13,7 @@ Feature: Add idea to marketplace
       Given idea marketplace 'test' has enabled idea autoactivation
       When I upload an idea titled 'blah blah blah'
       Then I should see "You just added an idea for people to vote on: blah blah blah" within ".tellmearea"
-      Then I should see "Now you have cast 0 votes and added 1 idea" within ".bottom_status"
+      Then I should see "Now you have cast 0 votes" within ".bottom_status"
       When I go to the View Results page for 'test'
       Then I should see "blah blah blah"
 

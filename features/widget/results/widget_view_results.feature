@@ -9,7 +9,7 @@ Feature: View Results
     And I am on the WIDGET Cast Votes page for 'test'
 
     @widget
-    @selenium
+    @javascript
 	  Scenario: User clicks all results
 		  When I click the WIDGET View Results tab
 		  Then I should see "View More Results" within ".bottom_status"

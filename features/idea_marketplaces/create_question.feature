@@ -62,7 +62,7 @@ Feature: Creating Idea marketplaces
 			|question_email|Email can't be blank|
 			|question_password|Password can't be blank|
 	
-	@selenium
+	@javascript
 	Scenario: User clicks Cant decide immediately after creating a question
 		Given I am on the question create page
                 When I fill in all fields with valid data except "question_url"

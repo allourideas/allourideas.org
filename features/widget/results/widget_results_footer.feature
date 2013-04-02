@@ -9,7 +9,7 @@ Feature: 'Bottom Status' Footer on Results tab
   #
   # 7/21 note: I've decided to comment this out for now. The "View Results" page popup just tends to linger, which is annoying.
   #@widget
-  #@selenium
+  #@javascript
   #Scenario: Check that the link to the full results page works
     #Given an idea marketplace quickly exists with url 'test'
     #And I am on the WIDGET Cast Votes page for 'test'
@@ -19,7 +19,7 @@ Feature: 'Bottom Status' Footer on Results tab
     # Note above: You remain on the widget view results tab because view more results opens in a new window.
 
   @widget
-  @selenium
+  @javascript
   Scenario: Check that the "link" back to the Cast Votes page works
     Given an idea marketplace quickly exists with url 'test'
     And I am on the WIDGET Cast Votes page for 'test'

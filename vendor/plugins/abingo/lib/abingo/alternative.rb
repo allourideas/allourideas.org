@@ -23,7 +23,7 @@ class Abingo::Alternative < ActiveRecord::Base
 
     lookup = self.calculate_lookup(test_name, viewed_alternative)
     chosen_alt = Abingo::Alternative.find_by_lookup(lookup)
-    Trial.create(:session_info_id => Abingo.identity, :alternative_id => chosen_alt.id)
+    Trial.create(:session_info_id => Abingo.identity, :alternative_id => chosen_alt.id) if chosen_alt
 
     self.update_all("participants = participants + 1", :lookup => self.calculate_lookup(test_name, viewed_alternative))
   end

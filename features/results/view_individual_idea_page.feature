@@ -13,7 +13,7 @@ Feature: View individual idea page
 		And I should see "Added on"
 		And I should see "Score"
 		And I should see "50"
-		And I should see "Number of Votes"
+		And I should see "Completed Contests"
 
 	Scenario: User visits idea page for flag as inappropriate question
 	        Given idea marketplace 'test' has enabled "flag as inappropriate"
@@ -23,7 +23,7 @@ Feature: View individual idea page
 		And I should see "Added on"
 		And I should see "Score"
 		And I should see "50"
-		And I should see "Number of Votes"
+		And I should see "Completed Contests"
 	
 	@javascript
 	Scenario: Voting updates individual choice total correctly

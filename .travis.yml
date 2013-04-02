@@ -6,6 +6,8 @@ services:
  - redis-server
 before_install:
   - sudo apt-get install -qq libgeoip-dev
+  - which phantomjs
+  - phantomjs -v
   - wget http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-i686.tar.bz2
   - tar -xf phantomjs-1.7.0-linux-i686.tar.bz2
   - sudo rm -rf /usr/local/phantomjs

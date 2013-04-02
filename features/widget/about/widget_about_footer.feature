@@ -4,7 +4,7 @@ Feature: 'Bottom Status' Footer on About tab
   Should see a 'Bottom Status' Footer to link to the Cast Votes tab
 
   @widget
-  @selenium
+  @javascript
   Scenario: Check that the "link" back to the Cast Votes page works
     Given an idea marketplace quickly exists with url 'test'
     And I am on the WIDGET Cast Votes page for 'test'

@@ -12,13 +12,13 @@ Feature: Flag as inappropriate
 		And no emails have been sent
 
     @widget
-	  @selenium
+	  @javascript
 	  Scenario: User flags choice as inappropriate
 		  When I click the flag link for the left choice
 		  Then I should see "Please explain why this choice is inappropriate: "
 
     @widget
-	  @selenium
+	  @javascript
 	  Scenario: User submits a flag request
 		  When I click the flag link for the left choice
 		  And I fill in "new_flag_field" with "Because it's offensive"
@@ -31,14 +31,14 @@ Feature: Flag as inappropriate
 		  And they should see "Because it's offensive" in the email body
 
     @widget
-	  @selenium
+	  @javascript
 	  Scenario: User clicks flag link but does not type in an answer
 		  When I click the flag link for the left choice
 		  And I click the WIDGET flag submit button
 		  Then I should not see "You flagged a choice as inappropriate."
 
   @widget		
-	@selenium
+	@javascript
 	Scenario: User flags all but one choices in marketplace
 		Given an idea marketplace exists with admin 'flag_test2@test.com' and url 'test_2' and 2 ideas
 	  And idea marketplace 'test_2' has enabled "flag as inappropriate"

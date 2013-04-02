@@ -8,7 +8,7 @@ Feature: Editing a question's text
     And I sign in as the admin for 'test'
     And I am on the Admin page for 'test'
 
-  @selenium
+  @javascript
   Scenario: Admin can edit the question
     When I click on the edit link for the question
     Then I should see "Edit Question" within "#edit-question h2"

@@ -16,21 +16,21 @@ Feature: I Can't Decide
 		And I should see "I don't know enough about either"
 
   @widget
-	@selenium
+	@javascript
 	Scenario: User chooses i can't decide
 		When I click the I can't decide button
 		And I pick "I like both ideas"
 		Then I should see "You couldn't decide." within ".tellmearea"
 
   #@widget
-	#@selenium
+	#@javascript
 	#Scenario: User does not enter a choice
 	#	When I click the I can't decide button
 	#	And I click the I can't decide submit button
 	#	Then I should not see "You couldn't decide."
 
   #@widget
-	#@selenium
+	#@javascript
 	#Scenario: User selects 'Other' but does not type in an answer
 	#	When I click the I can't decide button
 	#	And I pick "Other"

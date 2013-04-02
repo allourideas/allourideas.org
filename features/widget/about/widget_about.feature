@@ -9,7 +9,7 @@ Feature: About
     And I am on the WIDGET Cast Votes page for 'test'
 
     @widget
-    @selenium
+    @javascript
 	  Scenario: User clicks About
 		  When I click the WIDGET About tab
       Then I should see "1)" within ".aboutpage"

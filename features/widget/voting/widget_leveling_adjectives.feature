@@ -8,20 +8,20 @@ Feature: Leveling Adjectives
 		And I am on the WIDGET Cast Votes page for 'test'
 
     @widget
-	  @selenium
+	  @javascript
 	  Scenario: User submits a single vote
 		  When I click on the left choice
 		  Then I should see "Now you have cast 1 vote and added 0 ideas: good" within ".bottom_status"
 		  And I should see "You chose" within ".tellmearea"
 
     @widget
-	  @selenium
+	  @javascript
 	  Scenario: User submits a single idea
 		  When I upload an idea titled 'blah blah blah'
 		  Then I should see "Now you have cast 0 votes and added 1 idea: good" within ".bottom_status"
 
     @widget
-	  @selenium
+	  @javascript
 	  Scenario: User views results in the middle of voting
 		  When I click on the left choice
 		  Then I should see "Now you have cast 1 vote and added 0 ideas: good" within ".bottom_status"
@@ -31,7 +31,7 @@ Feature: Leveling Adjectives
 		  Then I should see "Now you have cast 2 votes and added 0 ideas: good" within ".bottom_status"
 
     @widget	
-	  @selenium
+	  @javascript
 	  Scenario Outline: User submits a combination of votes and ideas
 		  When I vote on the WIDGET <num_votes> times
 		  And I upload <num_ideas> ideas

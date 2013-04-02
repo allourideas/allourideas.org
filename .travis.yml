@@ -6,10 +6,6 @@ services:
  - redis-server
 before_install:
   - sudo apt-get install -qq libgeoip-dev
-  - wget http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-i686.tar.bz2
-  - tar -xf phantomjs-1.7.0-linux-i686.tar.bz2
-  - sudo rm -rf /usr/local/phantomjs
-  - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 before_script:

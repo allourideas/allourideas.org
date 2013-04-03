@@ -78,7 +78,8 @@ When /^I pick "(.*)"$/ do |radio_label|
 	case radio_label 
 	when "I like both ideas"
     find('.cd_options .like_both').click
-    page.has_no_selector?(".like_both")
+    page.has_css?(".leftside.disabled")
+    page.has_no_css?("div#cant_decide_options")
 	when "Other"
            When "I choose \"cant_decide_reason_user_other\""
 	end

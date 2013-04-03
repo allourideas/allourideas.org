@@ -50,6 +50,8 @@ When /^I click the (.*) button$/ do |button_name|
       when "I can't decide"
         find("#cant_decide_btn").click
         page.has_selector?(".like_both")
+        # wait until modal completes fading in
+        sleep 0.5
       when "I can't decide submit"
         page.evaluate_script('window.alert = function() { return true; }') # prevent javascript alerts from popping up
       	find(".cd_submit_button").click

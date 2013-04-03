@@ -29,7 +29,6 @@ When /^I click the flag link for the (.*) choice$/ do |side|
         else
 		When "I follow \"right_flag\""
 	end
-  sleep 0.4
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|

@@ -60,6 +60,7 @@ When /^I click the (.*) button$/ do |button_name|
       when "flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
         find("#flag_inappropriate .flag_submit_button").click
+        page.has_no_selector?("#flag_inappropriate .flag_submit_button")
       when "WIDGET flag submit"
         page.evaluate_script('window.alert = function() { return true; }')
       	find(".flag_submit_button").click

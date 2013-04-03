@@ -26,7 +26,7 @@ end
 When /^I click the flag link for the (.*) choice$/ do |side|
 	if side == "left"
 		When "I follow \"left_flag\""
-        else
+  else
 		When "I follow \"right_flag\""
 	end
 end

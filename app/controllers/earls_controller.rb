@@ -2,7 +2,6 @@ class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::AssetTagHelper
-  require 'fastercsv'
   before_filter :dumb_cleartext_authentication, :except => :export_list
 
   def show
@@ -192,7 +191,7 @@ class EarlsController < ApplicationController
      headers = ['Earl ID', 'Name', 'Question ID', 'Creator ID', 'Active', 'Has Logo', 'Has Password',
                       'Created at', 'Updated at']
 
-     csv_data = FasterCSV.generate do |csv|
+     csv_data = CSVBridge.generate do |csv|
         csv << headers
         @earls.each do |e|
            csv << [ e.id, e.name, e.question_id, e.user_id, e.active, !e.logo_file_name.nil?, ! (e.pass.nil? || e.pass.empty?),

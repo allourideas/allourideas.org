@@ -53,7 +53,7 @@ namespace :l10n do
     require 'fastercsv'
     phrases = {}
     row_index = 0
-    FasterCSV.foreach(args[:csvfile], {:headers => :first_row, :return_headers => true, :encoding => 'u'}) do |row|
+    CSVBridge.foreach(args[:csvfile], {:headers => :first_row, :return_headers => true, :encoding => 'u'}) do |row|
       row_index += 1
       # Skipping row if key has whitespace of if it is header row
       if (row['key'].strip =~ /\s/) == nil && !row.header_row?
@@ -99,7 +99,7 @@ namespace :l10n do
     hash2 = flatten(file2.first.second)
     userfacing_hash = flatten(userfacing.first.second)
 
-    csv_string = FasterCSV.generate do |csv|
+    csv_string = CSVBridge.generate do |csv|
       csv << ["key", args[:language2], args[:language1]]
       csv << ['Thank you for helping to internationalize allourideas.org.  This spreadsheet has three columns.  The first column is a "key".  This column is for our code and you should not worry about it or change it.   The second column is the English phrase that appears on the website.  The final column is where you should add the appropriate phrase in your language.
 

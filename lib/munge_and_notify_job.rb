@@ -36,8 +36,8 @@ class MungeAndNotifyJob
 
     num_slugs = earl.slugs.size
 
-    modified_csv = FasterCSV.generate do |csv|
-      FasterCSV.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
+    modified_csv = CSVBridge.generate do |csv|
+      CSVBridge.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
 
         if row.header_row?
           if photocracy

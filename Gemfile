@@ -21,7 +21,7 @@ gem "thoughtbot-clearance", "0.8.2", :require => "clearance"
 gem "fastercsv", "1.5.1", :platform => :ruby_18
 gem "redis-store", "1.0.0.1"
 gem "redis", "~> 2.2.1"
-gem "system_timer", "~> 1.2.4"
+gem "system_timer", "~> 1.2.4", :platform => :ruby_18
 gem "will_paginate", "2.3.14"
 gem "geoip-c", "0.8.1"
 gem "geokit", "1.5.0"

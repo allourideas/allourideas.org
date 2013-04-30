@@ -15,8 +15,8 @@ before_script:
   - export PREV_BUNDLE_GEMFILE=$BUNDLE_GEMFILE
   - export BUNDLE_GEMFILE=''
   - git clone --depth=100 --quiet git://github.com/allourideas/pairwise-api.git
-  - git checkout ruby-1.9.3-upgrade
   - cd ./pairwise-api
+  - git checkout ruby-1.9.3-upgrade
   - bundle install --local --binstubs
   - ./bin/rake db:create
   - ./bin/rake db:schema:load

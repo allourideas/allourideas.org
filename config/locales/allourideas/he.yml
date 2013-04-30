@@ -3,7 +3,7 @@ he:
    # Common text elements across the application
    and: ו
    votes_on: מצביעים
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} הצבעות על %{2}%{ideas_count}%{_2} רעיונות
+   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} הצבעות על %{2}%{ideas_count}%{_2} רעיונות"
    items: רעיונות
    ideas: רעיונות
    idea: רעיון

@@ -3,7 +3,7 @@ nl:
    # Common text elements across the application
    and: en
    votes_on: stemmen op
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} stemmen op %{2}%{ideas_count}%{_2} ideeën
+   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} stemmen op %{2}%{ideas_count}%{_2} ideeën"
    items: ideeën
    ideas: ideeën
    idea: idee

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PromptsController < ApplicationController
   include ActionView::Helpers::TextHelper
 

@@ -44,6 +44,7 @@ group :production, :staging do
 end
 
 group :test, :cucumber do
+  gem "test-unit", "1.2.3"
   gem 'cucumber', '1.1.0'
   gem 'cucumber-rails2', '~> 0.3.2'
   gem "pickle", "~> 0.4.7"

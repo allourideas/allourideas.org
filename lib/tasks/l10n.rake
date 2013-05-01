@@ -50,7 +50,7 @@ namespace :l10n do
 
   desc "Convert CSV to YAML file, pass in CSV filename and output YAML filename"
   task :csv_to_yaml, :lang, :csvfile, :yamlfile do |t, args|
-    require 'fastercsv'
+    require 'csv_bridge'
     phrases = {}
     row_index = 0
     CSVBridge.foreach(args[:csvfile], {:headers => :first_row, :return_headers => true, :encoding => 'u'}) do |row|
@@ -89,7 +89,7 @@ namespace :l10n do
 
   desc "Convert a YAML file to CSV.  Second parameter is secondary language to include, defaults to English."
   task :yaml_to_csv, :language1, :language2 do |t, args|
-    require 'fastercsv'
+    require 'csv_bridge'
     args = {:language2 => 'en'}.merge(args)
     path = Rails.root + "config/locales/allourideas/"
     file1 = YAML::load(File.open(path + "#{args[:language1]}.yml"))

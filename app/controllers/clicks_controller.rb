@@ -1,5 +1,4 @@
 class ClicksController < InheritedResources::Base
-   require 'fastercsv'
     
    def export
     @clicks = Click.find(:all, :include => :session_info)

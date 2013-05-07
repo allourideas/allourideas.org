@@ -14,5 +14,5 @@ Feature: Editing a question's text
     Then I should see "Edit Question" within "#edit-question h2"
     When I fill in "question[name]" with "some new text" within "#edit-question"
     And I click "#edit_question_submit"
-    Then I should see "some new text" within ".question-name"
-    And I should see "Your question has been saved." within "#question-saved"
+    Then I should see "Your question has been saved." within "#question-saved"
+    And I should see "some new text" within ".question-name"

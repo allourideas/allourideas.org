@@ -2,6 +2,7 @@
 language: ruby
 rvm:
   - 1.8.7
+  - 1.9.3
 services:
  - redis-server
 before_install:
@@ -13,7 +14,7 @@ before_script:
   - bundle exec rake --trace db:test:load
   - export PREV_BUNDLE_GEMFILE=$BUNDLE_GEMFILE
   - export BUNDLE_GEMFILE=''
-  - git clone --depth=100 --quiet git://github.com/allourideas/pairwise-api.git
+  - git clone -b ruby-1.9.3-upgrade --depth=100 --quiet git://github.com/allourideas/pairwise-api.git
   - cd ./pairwise-api
   - bundle install --local --binstubs
   - ./bin/rake db:create

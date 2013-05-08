@@ -3,7 +3,7 @@ it:
    # Common text elements across the application
    and: e
    votes_on: voti su
-   X_votes_on_Y_ideas: %{1}%{votes_count}%{_1} voti su %{2}%{ideas_count}%{_2} risposte
+   X_votes_on_Y_ideas: "%{1}%{votes_count}%{_1} voti su %{2}%{ideas_count}%{_2} risposte"
    items: risposte
    ideas: risposte
    idea: risposta

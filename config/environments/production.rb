@@ -18,3 +18,4 @@ config.action_controller.perform_caching             = true
 config.action_mailer.raise_delivery_errors = false
 
 ActiveSupport::XmlMini.backend = 'LibXML'
+Paperclip.options[:command_path] = "/usr/bin/"

@@ -50,10 +50,10 @@ namespace :l10n do
 
   desc "Convert CSV to YAML file, pass in CSV filename and output YAML filename"
   task :csv_to_yaml, :lang, :csvfile, :yamlfile do |t, args|
-    require 'fastercsv'
+    require 'csv_bridge'
     phrases = {}
     row_index = 0
-    FasterCSV.foreach(args[:csvfile], {:headers => :first_row, :return_headers => true, :encoding => 'u'}) do |row|
+    CSVBridge.foreach(args[:csvfile], {:headers => :first_row, :return_headers => true, :encoding => 'u'}) do |row|
       row_index += 1
       # Skipping row if key has whitespace of if it is header row
       if (row['key'].strip =~ /\s/) == nil && !row.header_row?
@@ -89,7 +89,7 @@ namespace :l10n do
 
   desc "Convert a YAML file to CSV.  Second parameter is secondary language to include, defaults to English."
   task :yaml_to_csv, :language1, :language2 do |t, args|
-    require 'fastercsv'
+    require 'csv_bridge'
     args = {:language2 => 'en'}.merge(args)
     path = Rails.root + "config/locales/allourideas/"
     file1 = YAML::load(File.open(path + "#{args[:language1]}.yml"))
@@ -99,7 +99,7 @@ namespace :l10n do
     hash2 = flatten(file2.first.second)
     userfacing_hash = flatten(userfacing.first.second)
 
-    csv_string = FasterCSV.generate do |csv|
+    csv_string = CSVBridge.generate do |csv|
       csv << ["key", args[:language2], args[:language1]]
       csv << ['Thank you for helping to internationalize allourideas.org.  This spreadsheet has three columns.  The first column is a "key".  This column is for our code and you should not worry about it or change it.   The second column is the English phrase that appears on the website.  The final column is where you should add the appropriate phrase in your language.
 

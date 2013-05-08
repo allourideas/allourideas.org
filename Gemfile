@@ -8,7 +8,7 @@ gem "json"
 gem "airbrake", :require => 'airbrake/rails'
 gem "libxml-ruby", "2.2.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
-gem "paperclip", "2.3.1.1"
+gem "paperclip", "~> 2.7.0"
 gem "aws-s3", "0.6.2", :require => "aws/s3"
 gem "mime-types", "1.16", :require => "mime/types"
 gem "xml-simple", "1.0.12", :require => "xmlsimple"
@@ -18,12 +18,12 @@ gem "inherited_resources",  "1.0.4"
 gem "has_scope",  "0.4.2"
 gem "responders",  "0.4.8"
 gem "thoughtbot-clearance", "0.8.2", :require => "clearance"
-gem "fastercsv", "1.5.1"
+gem "fastercsv", "1.5.1", :platform => :ruby_18
 gem "redis-store", "1.0.0.1"
 gem "redis", "~> 2.2.1"
-gem "system_timer", "~> 1.2.4"
+gem "system_timer", "~> 1.2.4", :platform => :ruby_18
 gem "will_paginate", "2.3.14"
-gem "geoip_city", "0.2.0"
+gem "geoip-c", "0.8.1"
 gem "geokit", "1.5.0"
 gem "crack", "0.1.4"
 gem "friendly_id", "2.2.5"
@@ -44,6 +44,7 @@ group :production, :staging do
 end
 
 group :test, :cucumber do
+  gem "test-unit", "1.2.3"
   gem 'cucumber', '1.1.0'
   gem 'cucumber-rails2', '~> 0.3.2'
   gem "pickle", "~> 0.4.7"

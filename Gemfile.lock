@@ -21,6 +21,11 @@ GEM
       builder
       mime-types
       xml-simple
+    aws-sdk (1.5.8)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bootstrap-sass (2.1.1.0)
     builder (3.1.4)
     capybara (1.1.2)
@@ -93,6 +98,9 @@ GEM
     hoe (3.6.0)
       rake (>= 0.8, < 11.0)
     http_parser.rb (0.5.3)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.3.7)
     inherited_resources (1.0.4)
       has_scope (~> 0.4.2)
@@ -106,6 +114,7 @@ GEM
     libxml-ruby (2.2.2)
     mime-types (1.16)
     multi_json (1.0.4)
+    multi_xml (0.5.3)
     mysql2 (0.2.18)
     net-ssh (2.1.4)
     newrelic_rpm (3.5.5.38)
@@ -164,6 +173,7 @@ GEM
     thor (0.14.6)
     thoughtbot-clearance (0.8.2)
     timecop (0.3.5)
+    uuidtools (2.1.4)
     will_paginate (2.3.14)
     xml-simple (1.0.12)
     xpath (0.1.4)
@@ -178,6 +188,7 @@ DEPENDENCIES
   airbrake
   ambethia-smtp-tls (= 1.1.2)
   aws-s3 (= 0.6.2)
+  aws-sdk (~> 1.5.0)
   bootstrap-sass (~> 2.1.1.0)
   capybara (~> 1.1.2)
   compass-rails (~> 1.0.3)

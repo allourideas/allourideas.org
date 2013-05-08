@@ -28,3 +28,4 @@ begin
   require 'fakeweb'
 rescue LoadError
 end
+Paperclip.options[:command_path] = "/usr/bin/"

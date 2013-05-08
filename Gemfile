@@ -8,7 +8,7 @@ gem "json"
 gem "airbrake", :require => 'airbrake/rails'
 gem "libxml-ruby", "2.2.2", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
-gem "paperclip", "2.3.1.1"
+gem "paperclip", "~> 2.7.0"
 gem "aws-s3", "0.6.2", :require => "aws/s3"
 gem "mime-types", "1.16", :require => "mime/types"
 gem "xml-simple", "1.0.12", :require => "xmlsimple"

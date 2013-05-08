@@ -12,7 +12,7 @@
           %th.score= t('items.list.activated')
       %tbody 
         -@choices.each do |choice|
-          %tr{:class => cycle ("row1", "row2")}
+          %tr{:class => cycle("row1", "row2")}
             %td.title= link_to  image_tag(Photo.find(choice.data).image.url(:thumb)), :action => 'show', :controller => "choices", :id => choice.id, :question_id => @earl.name
             %td.votes= choice.attributes['score'].round.to_s
             %td.votes= choice.attributes['user_created'] ? t('admin.user') : t('admin.seed')

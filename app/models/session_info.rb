@@ -39,6 +39,27 @@ class SessionInfo< ActiveRecord::Base
 
     self.ip_addr = Digest::MD5.hexdigest([ip_address, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))
     self.save
+
+    # find any similiar pending jobs and copy over data
+    similar_jobs = Delayed::Job.find(:all,
+        :conditions => ["handler REGEXP ? AND locked_by IS NULL",
+            "object: LOAD;SessionInfo;.*method: :geolocate!.*- #{Regexp.escape(ip_address)}[[:space:]]"])
+    completed_job_ids = []
+    similar_jobs.each do |job|
+      handler = YAML.load(job.handler)
+      object_parts = handler.object.split(';')
+      if object_parts.length == 3 && object_parts[0] == 'LOAD' && object_parts[1] == 'SessionInfo'
+        session_info = object_parts[1].constantize.find(object_parts[2])
+        session_info.loc_info   = self.loc_info
+        session_info.loc_info_2 = self.loc_info_2
+        session_info.ip_addr    = self.ip_addr
+        session_info.save
+        completed_job_ids.push(job.id)
+      end
+    end
+    if completed_job_ids.length > 0
+      Delayed::Job.delete_all(["id IN (?) AND locked_by IS NULL", completed_job_ids])
+    end
   end
 
   def find_click_for_vote(vote)

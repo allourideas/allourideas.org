@@ -17,8 +17,19 @@ class SessionInfo< ActiveRecord::Base
 
   def geolocate!(ip_address)
     # We want to geolocate using both sources in case one has better information
-    self.loc_info = GEOIP_DB.look_up(ip_address)
-    self.loc_info = {} if self.loc_info.blank? || loc_info[:latitude].nil? || loc_info[:longitude].nil?
+    city = GEOIP_DB.city(ip_address)
+    self.loc_info = city.to_hash unless city.nil?
+    if self.loc_info.blank? || loc_info[:latitude].nil? || loc_info[:longitude].nil?
+      self.loc_info = {}
+    else
+      # modify data to match output from geoip_city library
+      self.loc_info.delete(:request)
+      self.loc_info.delete(:ip)
+      self.loc_info.delete(:timezone)
+      self.loc_info[:region]       = self.loc_info.delete(:region_name)
+      self.loc_info[:country_code] = self.loc_info.delete(:country_code2)
+      self.loc_info[:city]         = self.loc_info.delete(:city_name)
+    end
 
 
     if(ip_address == "127.0.0.1")

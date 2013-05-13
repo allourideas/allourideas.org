@@ -24,7 +24,7 @@ gem "redis-store", "1.0.0.1"
 gem "redis", "~> 2.2.1"
 gem "system_timer", "~> 1.2.4", :platform => :ruby_18
 gem "will_paginate", "2.3.14"
-gem "geoip-c", "0.8.1"
+gem "geoip", "1.2.1"
 gem "geokit", "1.5.0"
 gem "crack", "0.1.4"
 gem "friendly_id", "2.2.5"

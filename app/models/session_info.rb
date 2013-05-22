@@ -35,8 +35,14 @@ class SessionInfo< ActiveRecord::Base
     if(ip_address == "127.0.0.1")
       logger.info("Private ip - not geolocating ")
     else
-      loc = Geokit::Geocoders::MultiGeocoder.geocode(ip_address)
-      if loc.success
+      begin
+        loc = Geokit::Geocoders::MultiGeocoder.geocode(ip_address)
+      rescue Psych::SyntaxError
+        # Geokit doesn't handle conversion from latin1 to utf-8
+        # and fails with this error on some IP addresses (e.g., 189.102.26.30)
+        # https://github.com/imajes/geokit/issues/75
+      end
+      if defined?(loc) && !loc.blank? && loc.success
         self.loc_info_2= {}
         self.loc_info_2[:city] = loc.city
         self.loc_info_2[:region] = loc.state

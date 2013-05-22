@@ -26,9 +26,9 @@ class SessionInfo< ActiveRecord::Base
       self.loc_info.delete(:request)
       self.loc_info.delete(:ip)
       self.loc_info.delete(:timezone)
-      self.loc_info[:region]       = self.loc_info.delete(:region_name)
-      self.loc_info[:country_code] = self.loc_info.delete(:country_code2)
-      self.loc_info[:city]         = self.loc_info.delete(:city_name)
+      self.loc_info[:region]       = self.loc_info.delete(:region_name).encode('UTF-8', 'ISO-8859-1')
+      self.loc_info[:country_code] = self.loc_info.delete(:country_code2).encode('UTF-8', 'ISO-8859-1')
+      self.loc_info[:city]         = self.loc_info.delete(:city_name).encode('UTF-8', 'ISO-8859-1')
     end
 
 

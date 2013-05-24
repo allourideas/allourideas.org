@@ -1299,6 +1299,7 @@ class QuestionsController < ApplicationController
     end
 
     status = (@no_jobs_20_minutes_old && @can_find_earl && @can_find_question && @can_find_choices) ? :ok : :service_unavailable
+    logger.info "STATUS: can_find_earl: #{@can_find_earl}, can_find_question: #{@can_find_question}, can_find_choices: #{@can_find_choices}, no_jobs_20_minutes_old: #{@no_jobs_20_minutes_old}"
     render 'questions/status', :status => status
   end
 

@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   def redirect
     # keep track of this client's redirect for 20 seconds, so we don't get in redirect loop
     r = Redis.new(:host => REDIS_CONFIG['hostname'])
-    redis_key = "redirect_" + Digest::MD5.hexdigest(request.remote_ip + request.env["HTTP_USER_AGENT"] + params[:redirect_to])
+    redis_key = "redirect_" + Digest::MD5.hexdigest("#{request.remote_ip} #{request.env["HTTP_USER_AGENT"]} #{params[:redirect_to]}")
     r.set(redis_key, 1)
     r.expire(redis_key, 20)
     location = params[:redirect_to] || '/'

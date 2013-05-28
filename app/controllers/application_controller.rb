@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     @widget_has_redirected = false
     return unless @widget
     r = Redis.new(:host => REDIS_CONFIG['hostname'])
-    redis_key = "redirect_" + Digest::MD5.hexdigest(request.remote_ip + request.env["HTTP_USER_AGENT"] + request.referer)
+    redis_key = "redirect_" + Digest::MD5.hexdigest("#{request.remote_ip} #{request.env["HTTP_USER_AGENT"]} #{request.referer}")
     if r.get(redis_key) == "1"
       @widget_has_redirected = true
     end

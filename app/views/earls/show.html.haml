@@ -46,14 +46,14 @@
     %button.close{:"data-dismiss" => 'modal'} x
     %h2= t('vote.cant_decide_title')
   .modal-body
-    .row
-      .span6
+    .row-fluid
+      .span12
         -cd_options= ['like_both', 'both_same', 'dont_know_both', 'dislike_both', 'dont_know_left', 'dont_know_right', 'other']
         .cd_options
           - cd_options.each_slice(2) do |choices|
-            .row
+            .row-fluid
               - choices.each do |choice|
-                .span3
+                .span6
                   %p
                     %button.btn.btn-primary.btn-block{:class => choice, :'data-questionid' => @question.id, :"data-reason" => choice, :"data-dismiss" => 'modal'}
                       =t('vote.cd_'+choice)

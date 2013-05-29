@@ -194,8 +194,6 @@ form#new_question_form{
 }
 
 #cant_decide_options{
-  width: 500px;
-  
   button.btn-primary{
     width: 100%;  // Make the buttons the full width of their column
     min-height: 3.6em; // Set a min-height so buttons in each column line up.
@@ -208,12 +206,8 @@ form#new_question_form{
   @media (max-width: 979px) and (min-width: 768px){ // desktop
     width: 500px;
     .span6{
-      width: 460px;
-      margin-left: 20px;
-    }
-    .span3{
-      width: 220px;
-      margin-left: 20px;
+      width: 100%;
+      margin-left: 0;
     }
   }
   

@@ -4,7 +4,9 @@ class PromptsController < ApplicationController
 
   def vote
     bingo!("voted")
-    voted_prompt = Prompt.find(params[:id], :params => {:question_id => params[:question_id]})
+    voted_prompt = Prompt.new
+    voted_prompt.id = params[:id]
+    voted_prompt.prefix_options = {:question_id => params[:question_id]}
     session[:has_voted] = true
 
     @earl = Earl.find_by_question_id(params[:question_id])

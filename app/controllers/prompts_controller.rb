@@ -20,7 +20,7 @@ class PromptsController < ApplicationController
 
       next_prompt = Crack::XML.parse(vote.body)['prompt']
 
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
+      leveling_message = @widget ? Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i) : ''
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

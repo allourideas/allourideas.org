@@ -175,9 +175,6 @@ var count = 0;
           $("#tellme_prepended").effect("highlight", {}, 1500);
           count++;
 
-          //  update the leveling message
-          $("#leveling_message_appended").remove();
-          $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
           $('.indicator').hide();        
         },
@@ -321,9 +318,6 @@ var count = 0;
       $("#tellme_prepended").effect("highlight", {}, 1500);
       count++;
 
-      $("#leveling_message_appended").remove();
-      $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
-
 		  current_vote_count = $('#votes_count').html();
 		  $('#votes_count').html(increment(current_vote_count));
 
@@ -395,9 +389,6 @@ var count = 0;
             $("#tellme_prepended").effect("highlight", {}, 1500);
             count++;
 
-            $("#leveling_message_appended").remove();
-            $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
-
 			      $('.indicator').hide();
 			      $.unblockUI();
 			      $('.leftside').html(data["newleft"]);
@@ -406,7 +397,6 @@ var count = 0;
 		        $('#prompt_id').val(data["prompt_id"]);
 		        $('#appearance_lookup').val(data["appearance_lookup"]);
 		        loadedTime = new Date() //  reset loaded time
-            reload_element_by_id('options_table');      //  clear the radio buttons... note: this does not work properly in ie
 		      },
 		      "json"
     );
@@ -483,9 +473,6 @@ var count = 0;
        $('.tellmearea').prepend("<div id = \"tellme_prepended\"" + count + ">" + data["message"] + "</a></div><br/>");
        $("#tellme_prepended").effect("highlight", {}, 1500);
        count++;
-
-       $("#leveling_message_appended").remove();
-       $('.leveling_message').append("<div id = \"leveling_message_appended\">" + data["leveling_message"] + "</div>");
 
        $('.indicator').hide();
        $.unblockUI();

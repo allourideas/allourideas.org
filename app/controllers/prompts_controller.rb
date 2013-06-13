@@ -4,7 +4,9 @@ class PromptsController < ApplicationController
 
   def vote
     bingo!("voted")
-    voted_prompt = Prompt.find(params[:id], :params => {:question_id => params[:question_id]})
+    voted_prompt = Prompt.new
+    voted_prompt.id = params[:id]
+    voted_prompt.prefix_options = {:question_id => params[:question_id]}
     session[:has_voted] = true
 
     @earl = Earl.find_by_question_id(params[:question_id])
@@ -18,8 +20,6 @@ class PromptsController < ApplicationController
 
       next_prompt = Crack::XML.parse(vote.body)['prompt']
 
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
-
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
         :newright          => CGI::escapeHTML(truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…')),
@@ -29,7 +29,6 @@ class PromptsController < ApplicationController
         :right_choice_url  => question_choice_path(@earl.name, next_prompt['right_choice_id']),
         :appearance_lookup => next_prompt['appearance_id'],
         :prompt_id         => next_prompt['id'],
-        :leveling_message  => leveling_message,
       }
 
       if wikipedia?
@@ -60,8 +59,6 @@ class PromptsController < ApplicationController
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
       next_prompt = Crack::XML.parse(skip.body)['prompt']
-      
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
@@ -72,7 +69,6 @@ class PromptsController < ApplicationController
         :left_choice_url   => question_choice_path(@earl.name, next_prompt['left_choice_id']),
         :right_choice_id   => next_prompt['right_choice_id'],
         :right_choice_url  => question_choice_path(@earl.name, next_prompt['right_choice_id']),
-        :leveling_message  => leveling_message,
         :message => t('vote.cant_decide_message')
       }
 
@@ -126,8 +122,6 @@ class PromptsController < ApplicationController
 
     if flag_choice_success && skip
       next_prompt = Crack::XML.parse(skip.body)['prompt']
-      
-      leveling_message = Visitor.leveling_message(:votes => next_prompt['visitor_votes'].to_i)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
@@ -138,7 +132,6 @@ class PromptsController < ApplicationController
         :right_choice_id   => next_prompt['right_choice_id'],
         :right_choice_url  => question_choice_path(@earl.name, next_prompt['right_choice_id']),
         :prompt_id         => next_prompt['id'],
-        :leveling_message  => leveling_message,
         :message => t('vote.flag_complete_message')
       }
 

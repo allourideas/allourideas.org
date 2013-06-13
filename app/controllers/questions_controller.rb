@@ -977,8 +977,6 @@ class QuestionsController < ApplicationController
       })
       @earl = Earl.find_by_question_id(params[:id])
 
-      leveling_message = Visitor.leveling_message(:votes => @question.attributes['visitor_votes'].to_i)
-
         @earl = Earl.find_by_question_id(@question.id)
         if @choice.active?
           IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
@@ -991,7 +989,6 @@ class QuestionsController < ApplicationController
         else
           render :json => {
             :choice_status => @choice.active? ? 'active' : 'inactive',
-            :leveling_message => leveling_message,
             :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
           }.to_json
         end

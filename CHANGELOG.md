@@ -1,3 +1,7 @@
+## All Our Ideas 3.1.1 (Jun 17, 2013) ###
+ * vote optimizations
+ * update modal body to be fluid
+ * Prevent infinite redirects in widget cookie fix
 ## All Our Ideas 3.1.0 (May 24, 2013) ###
  * Add Ruby 1.9.3 Support
 

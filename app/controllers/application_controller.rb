@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
-  
+
   helper :all
   protect_from_forgery
   
@@ -101,8 +101,8 @@ class ApplicationController < ActionController::Base
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)
 
-    Click.create( :url => request.url, :controller => controller_name, :action => action_name, :user => current_user, 
-		 :referrer => request.referrer, :session_info_id => user_session.id)
+    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.id, request.referrer, user_session.id, Time.now.utc, Time.now.utc])
+    ActiveRecord::Base.connection.execute(sql)
 
     if current_user && !user_session.user_id
 	    user_session.user_id = current_user.id
@@ -122,7 +122,6 @@ class ApplicationController < ActionController::Base
 	    session[:abingo_identity] = user_session.id
 	    Abingo.identity = user_session.id
     end
-
       
   end
 

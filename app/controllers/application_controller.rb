@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
 						       :white_label_request => white_label_request?, 
 						       :visitor_id => visitor.id)
 
-    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.id, request.referrer, user_session.id, Time.now.utc, Time.now.utc])
+    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.try(:id), request.referrer, user_session.try(:id), Time.now.utc, Time.now.utc])
     ActiveRecord::Base.connection.execute(sql)
 
     if current_user && !user_session.user_id

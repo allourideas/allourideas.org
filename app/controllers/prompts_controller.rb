@@ -18,7 +18,7 @@ class PromptsController < ApplicationController
         
       )
 
-      next_prompt = Crack::XML.parse(vote.body)['prompt']
+      next_prompt = Hash.from_xml(vote.body)['prompt']
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

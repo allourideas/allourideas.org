@@ -104,6 +104,7 @@ When /^I vote (\d*) times$/ do |num_votes|
 		else
 		   When "I click on the right choice"
 		end
+    sleep 1
 
 	end
 end

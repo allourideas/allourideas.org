@@ -104,8 +104,6 @@ When /^I vote (\d*) times$/ do |num_votes|
 		else
 		   When "I click on the right choice"
 		end
-    sleep 1
-
 	end
 end
 
@@ -117,7 +115,6 @@ end
 
 
 Then /^the vote count should be (.*)$/ do |num_votes|
-  sleep 1
 	Then "I should see \"#{num_votes}\" within \"#votes_count\""
 end
 

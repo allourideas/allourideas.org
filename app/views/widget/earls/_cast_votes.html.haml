@@ -1,6 +1,13 @@
 -@item_data, @item_ids = [], []
 
-.scrollbar_container
+#cookies-failed.scrollbar_container{:style => "display: none;"}
+  .aboutpage
+    %p
+      Cookies are required for voting and it looks like third-party cookies may be disabled in your browser.
+      In order to vote, you may
+      = link_to("vote on the main site", @cast_votes_url, :target => '_blank')
+      or allow third-party cookies in your browser.
+#voting-container.scrollbar_container
   .question_container
     %table.question.center.no_padding
       %tr

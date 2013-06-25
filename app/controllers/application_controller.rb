@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :widget_has_redirected
+  before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
@@ -12,19 +12,6 @@ class ApplicationController < ActionController::Base
   cattr_accessor :widget_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
   @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget")) 
-
-  # for the widget third-party cookie busting attempts
-  # check redis to see if we've redirected this client
-  # if we have, then we won't attempt to do so again
-  def widget_has_redirected
-    @widget_has_redirected = false
-    return unless @widget
-    r = Redis.new(:host => REDIS_CONFIG['hostname'])
-    redis_key = "redirect_" + Digest::MD5.hexdigest("#{request.remote_ip} #{request.env["HTTP_USER_AGENT"]} #{request.referer}")
-    if r.get(redis_key) == "1"
-      @widget_has_redirected = true
-    end
-  end
 
   def view_filter
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (RAILS_ENV == 'test' && $PHOTOCRACY)

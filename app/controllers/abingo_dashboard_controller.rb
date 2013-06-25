@@ -21,7 +21,12 @@ class AbingoDashboardController < ApplicationController
       end
       if e.test_name =~ /^.*_\d{1,5}_(.*)/
         potential_group = $1
-      else    
+      # group tests together by having "test_name|#{earl.name}"
+      elsif e.test_name =~ /^(.*?)\|/
+        potential_group = $1
+      elsif e.test_name =~ /^bg_color_aa_/
+        potential_group = 'bg_color_aa'
+      else
         potential_group = "unknown"
       end
       @grouped_experiments[potential_group] = [] unless @grouped_experiments.has_key?(potential_group)
@@ -31,7 +36,8 @@ class AbingoDashboardController < ApplicationController
   end
   
   def show_set
-    @experiments = Abingo::Experiment.find(params[:ids], :include => :alternatives)
+    ids = params[:ids].class == String ? params[:ids].split(/, */).uniq : params[:ids]
+    @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
     session_list = []
     admin_users = User.find(:all, :conditions => {:admin => true})
     admin_user_list = admin_users.inject([]){|list, u| list << u.id}
@@ -55,7 +61,7 @@ class AbingoDashboardController < ApplicationController
     @vote_distribution_chart = create_voter_distribution_chart(@experiments.first, @voter_distribution)
     @experiment = @experiments.first
     # change title to make it a bit prettier on display
-    @experiment.test_name = "#{params[:ids].size} experiments aggregated together"
+    @experiment.test_name = "#{ids.size} experiments aggregated together"
     render :action => :show
   end
 

@@ -47,9 +47,9 @@ Feature: Flag as inappropriate
 		When I click the flag link for the left choice
 		And I fill in "new_flag_field" with "Because it's offensive"
 		And I click the WIDGET flag submit button
-		Then I should see "You flagged an idea as inappropriate. We have deactivated this idea temporarily and sent a notification to the idea marketplace owner. Currently, this idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
+		Then I should see "You flagged an idea as inappropriate. We have deactivated this idea temporarily and sent a notification to the wiki survey owner. Currently, this wiki survey does not have enough active ideas. Please contact the owner of this survey to resolve this situation"
 		And I should be on the homepage
 		And "flag_test2@test.com" should receive an email 
 		When I go to the Cast Votes page for 'test_2'
-		Then I should see "This idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
+		Then I should see "This wiki survey does not have enough active ideas. Please contact the owner of this survey to resolve this situation"
 		And I should be on the homepage

@@ -80,16 +80,16 @@ en:
       someone_has_uploaded: Someone has uploaded
       the_idea: the idea '%{idea_text}'
       a_photo: "a new photo"
-      someone_has_flagged: Someone has flagged the idea '%{choice_data}' in your idea marketplace at %{question_url} as inappropriate.
+      someone_has_flagged: Someone has flagged the idea '%{choice_data}' in your wiki survey at %{question_url} as inappropriate.
       photocracy_someone_has_flagged: Someone has flagged a photo at %{question_url} as inappropriate.
       provided_explanation_is: "The user that flagged this %{object_type} provided the following text as explanation:"
-      we_have_auto_deactivated: "We have automatically deactivated this idea from your idea marketplace. If you believe this idea is not inappropriate, you can re-enable it by visiting the following url:"
+      we_have_auto_deactivated: "We have automatically deactivated this idea from your wiki survey. If you believe this idea is not inappropriate, you can re-enable it by visiting the following url:"
       photocracy_we_have_auto_deactivated: "We have automatically deactivated this photo from being shown. You can review this photo and can re-enable it by visiting the following url:"
       to_your_question: to your question
       if_you_want_to_activate: "If you want others to be able to vote on this %{object_type}, please activate it by visiting the following url:"
       if_you_dont_want: If you do not want others to vote on this %{object_type}, no action is required.
       if_you_want: If you want others to see this %{object}, no action is required.
-      see_current_results: "To see current results, or to vote further, you may want to visit the idea marketplace that you created: "
+      see_current_results: "To see current results, or to vote further, you may want to visit the wiki survey that you created: "
       see_current_results_photocracy: "To see current results, or to vote further, visit: "
       we_auto_activated_idea: "Based on your settings, we have auto-activated the %{object} so that it may be seen and voted upon immediately.  If for whatever reason you need to de-activate this %{object}, go to the following url:"
       thanks: "Thanks,"
@@ -151,7 +151,7 @@ en:
     edit_question: Edit Question
     your_current_question_text: "Your current question text is: %{1}%{question_text}%{_1}"
     type_question_prompt: "Please type your new question text here (limit 255 characters):"
-    cant_edit_question: We are sorry, but you cannot edit the question text once voting has started. If you want to change the question text at this point you need to create a new idea marketplace.
+    cant_edit_question: We are sorry, but you cannot edit the question text once voting has started. If you want to change the question text at this point you need to create a new wiki survey.
     question_saved: Your question has been saved.
     short_url_success: Short URL updated succesfully.
     current_short_url: current short URL
@@ -165,7 +165,7 @@ en:
     active_items: active ideas
     source: Source
     not_active_error: Sorry, that question is not active.
-    owner_password_exp: The owner of this idea marketplace has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
+    owner_password_exp: The owner of this wiki survey has made it password protected. Please contact the owner to get the username and password you will need in order to participate.
   vote:
     add_your_idea: Add your own idea here...
     add_your_idea_button: Add your own idea
@@ -201,7 +201,7 @@ en:
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
     idea_sent_for_review: Your idea has been submitted for review. It will appear soon.
-    powered_widget: "This idea marketplace is powered by " 
+    powered_widget: "This wiki survey is powered by " 
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
        leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}
@@ -226,7 +226,7 @@ en:
     data_visualizations: Data Visualizations
     world_map_title: World map of all votes
     world_map_ideas_title: World map of all uploaded ideas
-    world_map_creators: World map of all idea marketplace creators
+    world_map_creators: World map of all wiki survey creators
     votes_over_time_title: Number of votes over time
     user_ideas_over_time_title: Number of submitted ideas over time
     user_sessions_over_time_title: Number of unique user sessions per day
@@ -235,7 +235,7 @@ en:
     word_cloud_uploaded_title: Word cloud of uploaded ideas
     word_cloud_uploaded_weighted_title: Word cloud of uploaded ideas weighted by score
     about_word_cloud: About word clouds
-    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this idea marketplace. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
+    word_cloud_exp: The word clouds displayed on this page are a visual depiction of the words that most frequently appear in this wiki survey. When weighted by score, the generated word cloud will use the current score of an idea to determine the popularity of the word. Note that some common or infrequent words may be filtered out of the generated word cloud.
     scatter_ideas_title: Compare uploaded ideas with original ideas
     scatter_ideas_subtitle: Roll over each point to learn more
     uploaded_ideas: Uploaded Ideas
@@ -259,8 +259,8 @@ en:
     current_contributors: Current Contributors
     past_contributors: Past Contributors
   about_page: 
-    intro: You are participating in an “idea marketplace” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
-    exp_widget: This idea marketplace widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
+    intro: You are participating in an “wiki survey” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
+    exp_widget: This wiki survey widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
     faq_widget: "Here are some frequently asked questions:"
     open_source_q_widget: Is all of this open-source?
     open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
@@ -269,12 +269,12 @@ en:
     how_many_votes_q: How many votes can I cast? When does it end?
     how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
     how_many_ideas_q: How many ideas can I add? What happens to my idea once I add it?
-    how_many_ideas_exp: You can add as many ideas as you have. Once an idea is added, it may be reviewed by the person who created the idea marketplace in order to ensure that it is not inappropriate. Once the idea has been reviewed, it will start appearing for people to vote on it.
+    how_many_ideas_exp: You can add as many ideas as you have. Once an idea is added, it may be reviewed by the person who created the wiki survey in order to ensure that it is not inappropriate. Once the idea has been reviewed, it will start appearing for people to vote on it.
     view_results_q: Can I see what everyone else thinks? 
     view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
     make_my_own_q: This is neat. Can I make one of these myself?
-    make_my_own_exp: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace here: http://www.allourideas.org/questions/new."
-    make_my_own_exp_widget: "Sure. It is easy to set up your own idea marketplace, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own idea marketplace widget: http://www.allourideas.org."
+    make_my_own_exp: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey here: http://www.allourideas.org/questions/new."
+    make_my_own_exp_widget: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey widget: http://www.allourideas.org."
   admin: 
     user_ideas: User Ideas
     active_user_ideas: Active User Ideas 
@@ -295,10 +295,10 @@ en:
     replace_logo_exp: Replace logo above with another file
     upload_logo_exp: Upload a logo to be displayed on your idea market place page
     welcome_msg_exp: Add a welcome message for new voters
-    welcome_msg_long_exp: You may wish to include some extra information for users who visit your idea marketplace for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
-    welcome_msg_long_exp2: For example, it may be useful to explain who is leading the idea marketplace or what will be done with the feedback gathered from this question. 
+    welcome_msg_long_exp: You may wish to include some extra information for users who visit your wiki survey for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
+    welcome_msg_long_exp2: For example, it may be useful to explain who is leading the wiki survey or what will be done with the feedback gathered from this question. 
     allow_flag_as_inappropriate: Allow users to flag individual ideas as inappropriate. 
-    allow_flag_as_inappropriate_exp: This setting will allow users to flag ideas as inappropriate or offtopic. After a user submits a flag request, the idea will be automatically deactivated and an email will be sent to the owner of the idea marketplace. The email will contain whatever explanation the user provided along with the option to quickly re-activate an idea.
+    allow_flag_as_inappropriate_exp: This setting will allow users to flag ideas as inappropriate or offtopic. After a user submits a flag request, the idea will be automatically deactivated and an email will be sent to the owner of the wiki survey. The email will contain whatever explanation the user provided along with the option to quickly re-activate an idea.
     default_lang_exp: Change the default language of the voting page interface
     download_idea_marketplace_data: Download Idea Marketplace Data
     list_of_ideas_csv: List of Ideas (CSV File)

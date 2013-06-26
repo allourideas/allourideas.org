@@ -117,7 +117,7 @@ class PromptsController < ApplicationController
                           )
     rescue ActiveResource::ResourceConflict
       skip = nil
-      flash[:error] = "You flagged an idea as inappropriate. We have deactivated this idea temporarily and sent a notification to the idea marketplace owner. Currently, this idea marketplace does not have enough active ideas. Please contact the owner of this marketplace to resolve this situation"
+      flash[:error] = "You flagged an idea as inappropriate. We have deactivated this idea temporarily and sent a notification to the wiki survey owner. Currently, this wiki survey does not have enough active ideas. Please contact the owner of this survey to resolve this situation"
     end
 
     if flag_choice_success && skip

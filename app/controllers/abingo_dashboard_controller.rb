@@ -9,7 +9,7 @@ class AbingoDashboardController < ApplicationController
     end
   end
 
-  ## group results from all idea marketplaces
+  ## group results from all wiki surveys
   def show_groups
     @experiments = Abingo::Experiment.all
     

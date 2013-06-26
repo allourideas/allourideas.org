@@ -928,7 +928,7 @@ class QuestionsController < ApplicationController
                                           :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation', 
                                             :style => { :color => '#919191' }
                                         },
-                                          :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since idea marketplace creation",:enabled => true} },
+                                          :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since wiki survey creation",:enabled => true} },
                                           :y_axis => { :type => 'linear', :min => 0, :title => {:text => 'Number of Appearances'}},
                                           :series => [ { :name => "Data",
                                             :type => 'scatter',
@@ -1178,7 +1178,7 @@ class QuestionsController < ApplicationController
     type = params[:type]
     @earl = Earl.find params[:id]
     unless ((current_user.owns?(@earl)) || current_user.admin? )
-      response = "You are not authorized to export data from this idea marketplace, please contact us at info@allouridea.org if you think this is a mistake"
+      response = "You are not authorized to export data from this wiki survey, please contact us at info@allouridea.org if you think this is a mistake"
       render :text => response and return
     end
 

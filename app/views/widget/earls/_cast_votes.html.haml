@@ -7,7 +7,9 @@
       Cookies are required for voting and it looks like third-party cookies may be disabled in your browser.
       In order to vote, you may
       = link_to("vote on the main site", @cast_votes_url, :target => '_blank')
-      or allow third-party cookies in your browser.
+      or allow
+      = link_to("third-party cookies", 'http://en.wikipedia.org/wiki/Third-party_cookie#Privacy_and_third-party_cookies', :target => '_blank')
+      in your browser.
 #voting-container.scrollbar_container
   .question_container
     %table.question.center.no_padding

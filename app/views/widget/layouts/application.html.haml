@@ -53,10 +53,8 @@
       document.cookie = "cookieTest="+cookieValue;
       if (document.cookie.indexOf("cookieTest="+cookieValue) === -1) {
         var cookies_failed = document.getElementById('cookies-failed');
-        var voting_container = document.getElementById('voting-container');
-        if (cookies_failed && voting_container) {
+        if (cookies_failed) {
           cookies_failed.style.display = 'block';
-          voting_container.style.display = 'none';
         }
       }
       else {

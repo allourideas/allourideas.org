@@ -55,6 +55,8 @@
         var cookies_failed = document.getElementById('cookies-failed');
         if (cookies_failed) {
           cookies_failed.style.display = 'block';
+          var img = new Image();
+          img.src = '/cookies_blocked.gif?question_id=#{@earl.question_id}&session_id=#{@user_session.session_id}&referrer=' + encodeURIComponent(document.referrer);
         }
       }
       else {

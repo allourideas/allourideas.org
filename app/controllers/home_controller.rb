@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   before_filter :authenticate, :only => [:admin]
   before_filter :admin_only, :only => [:no_google_tracking]
 
+  skip_before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
+
   def index
     @example_earl = 'planyc_example'
     Question.timeout = 0.5
@@ -16,6 +18,12 @@ class HomeController < ApplicationController
   end
 
   def no_google_tracking
+  end
+
+  def cookies_blocked
+    BlockedCookie.create(:ip_addr => request.remote_ip, :question_id => params[:question_id], :referrer => params[:referrer], :source => request.referrer, :user_agent => request.env["HTTP_USER_AGENT"], :session_id => params[:session_id])
+    # send 1x1 gif in response
+    send_data(Base64.decode64('R0lGODlhAQABAAAAADs='), :type => "image/gif", :disposition => "inline")
   end
 
   def example
@@ -48,6 +56,8 @@ class HomeController < ApplicationController
       @available_charts['user_submitted_ideas'] = { :title => "Number of all submitted ideas over time"}
       @available_charts['user_sessions'] = { :title => "Number of all user sessions per day"}
       @available_charts['unique_users'] = { :title => "Number of all unique users per day"}
+
+      @blocked_cookies = BlockedCookie.today.group_by(&:question_id)
     else
       @earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
       @questions = Question.find(:all, :params => {

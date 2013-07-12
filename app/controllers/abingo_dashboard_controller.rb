@@ -1,5 +1,7 @@
 class AbingoDashboardController < ApplicationController
   before_filter :admin_only
+
+  caches_action :show_set, :layout => false
   
   def index
     if params[:all]
@@ -36,7 +38,7 @@ class AbingoDashboardController < ApplicationController
   end
   
   def show_set
-    ids = params[:ids].class == String ? params[:ids].split(/, */).uniq : params[:ids]
+    ids = params[:id].class == String ? params[:id].split(/, */).uniq : params[:id]
     @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
     session_list = []
     admin_users = User.find(:all, :conditions => {:admin => true})
@@ -63,6 +65,10 @@ class AbingoDashboardController < ApplicationController
     # change title to make it a bit prettier on display
     @experiment.test_name = "#{ids.size} experiments aggregated together"
     render :action => :show
+    if ActionController::Base.perform_caching
+      cache_key = 'views' + url_for(:controller => :abingo_dashboard, :action => 'show_set', :id => params[:id]).gsub(/^h.+:\//, '')
+      ActionController::Base.cache_store.delay(:run_at => Time.now.utc + 1.day).delete(cache_key)
+    end
   end
 
   def show

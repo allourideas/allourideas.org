@@ -13,45 +13,13 @@ class AbingoDashboardController < ApplicationController
 
   ## group results from all wiki surveys
   def show_groups
-    @experiments = Abingo::Experiment.all
-    
-    @grouped_experiments = Hash.new()
-    
-    @experiments.each do |e|
-      if e.test_name =~ /^.*test_icecream.*$/
-        next
-      end
-      if e.test_name =~ /^.*_\d{1,5}_(.*)/
-        potential_group = $1
-      # group tests together by having "test_name|#{earl.name}"
-      elsif e.test_name =~ /^(.*?)\|/
-        potential_group = $1
-      elsif e.test_name =~ /^bg_color_aa_/
-        potential_group = 'bg_color_aa'
-      else
-        potential_group = "unknown"
-      end
-      @grouped_experiments[potential_group] = [] unless @grouped_experiments.has_key?(potential_group)
-      @grouped_experiments[potential_group] << e.id
-    end
-
-    @grouped_experiments.each do |group, experiment_ids|
-      limit = 100
-      if experiment_ids.length > limit
-        top_ids = Abingo::Alternative.find(:all,
-            :select => 'experiment_id, SUM(participants) AS total',
-            :conditions => {:experiment_id => experiment_ids},
-            :group => :experiment_id,
-            :order => 'total DESC',
-            :limit => limit
-        ).map{|a| a.experiment_id }
-        @grouped_experiments[group] = top_ids
-      end
-    end
+    @grouped_experiments = group_experiments(Abingo::Experiment.all)
   end
   
   def show_set
-    ids = params[:id].class == String ? params[:id].split(/, */).uniq : params[:id]
+    @grouped_experiments = group_experiments(Abingo::Experiment.all)
+    ids = @grouped_experiments[params[:id]]
+
     @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
     session_list = []
     admin_users = User.find(:all, :conditions => {:admin => true})
@@ -144,6 +112,44 @@ class AbingoDashboardController < ApplicationController
   end
   
   private
+
+  def group_experiments(experiments)
+    grouped_experiments = Hash.new()
+
+    experiments.each do |e|
+      if e.test_name =~ /^.*test_icecream.*$/
+        next
+      end
+      if e.test_name =~ /^.*_\d{1,5}_(.*)/
+        potential_group = $1
+      # group tests together by having "test_name|#{earl.name}"
+      elsif e.test_name =~ /^(.*?)\|/
+        potential_group = $1
+      elsif e.test_name =~ /^bg_color_aa_/
+        potential_group = 'bg_color_aa'
+      else
+        potential_group = "unknown"
+      end
+      grouped_experiments[potential_group] = [] unless grouped_experiments.has_key?(potential_group)
+      grouped_experiments[potential_group] << e.id
+    end
+
+    grouped_experiments.each do |group, experiment_ids|
+      limit = 100
+      if experiment_ids.length > limit
+        top_ids = Abingo::Alternative.find(:all,
+            :select => 'experiment_id, SUM(participants) AS total',
+            :conditions => {:experiment_id => experiment_ids},
+            :group => :experiment_id,
+            :order => 'total DESC',
+            :limit => limit
+        ).map{|a| a.experiment_id }
+        grouped_experiments[group] = top_ids
+      end
+    end
+
+    grouped_experiments
+  end
 
   def get_session_list(experiment, admin_user_list)
     session_list = []

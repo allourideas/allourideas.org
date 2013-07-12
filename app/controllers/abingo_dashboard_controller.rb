@@ -32,9 +32,22 @@ class AbingoDashboardController < ApplicationController
         potential_group = "unknown"
       end
       @grouped_experiments[potential_group] = [] unless @grouped_experiments.has_key?(potential_group)
-      @grouped_experiments[potential_group] << e
+      @grouped_experiments[potential_group] << e.id
     end
 
+    @grouped_experiments.each do |group, experiment_ids|
+      limit = 100
+      if experiment_ids.length > limit
+        top_ids = Abingo::Alternative.find(:all,
+            :select => 'experiment_id, SUM(participants) AS total',
+            :conditions => {:experiment_id => experiment_ids},
+            :group => :experiment_id,
+            :order => 'total DESC',
+            :limit => limit
+        ).map{|a| a.experiment_id }
+        @grouped_experiments[group] = top_ids
+      end
+    end
   end
   
   def show_set

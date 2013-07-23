@@ -24,8 +24,9 @@ class AbingoDashboardController < ApplicationController
     admin_users = User.find(:all, :conditions => {:admin => true})
     admin_user_list = admin_users.inject([]){|list, u| list << u.id}
     session_list = get_session_list(@experiments, admin_user_list)
+    session_ids = session_list.map{|s| s['session_id'] }
     
-    theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_list}.to_json)
+    theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
     @voter_distribution = initialize_distribution_hash(@experiments.first)
     @uploader_distribution= initialize_distribution_hash(@experiments.first)
@@ -53,12 +54,13 @@ class AbingoDashboardController < ApplicationController
     admin_users = User.find(:all, :conditions => {:admin => true})
     admin_user_list = admin_users.inject([]){|list, u| list << u.id}
     session_list = get_session_list(@experiment, admin_user_list)
+    session_ids = session_list.map{|s| s['session_id'] }
 
     # Get the list from the server
     # The Session class uses json for simplicity, we need to do some parsing here
     # It's important that we send parameters in the body here, otherwise some undefined behavior occurs
     #          when the URI gets too long
-    theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_list}.to_json)
+    theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
     @voter_distribution = initialize_distribution_hash(@experiment)
     @uploader_distribution= initialize_distribution_hash(@experiment)
@@ -143,14 +145,15 @@ class AbingoDashboardController < ApplicationController
     else
       experiment_ids = [experiment.id]
     end
-    sql = "SELECT DISTINCT(s.session_id)
+    sql = "SELECT DISTINCT(s.session_id), a.content
             FROM `experiments` e
             LEFT JOIN `alternatives` a ON (a.experiment_id = e.id)
             LEFT JOIN `trials` t ON (t.alternative_id = a.id)
             LEFT JOIN `session_infos` s ON (s.id = t.session_info_id)
             WHERE e.id IN (#{experiment_ids.join(",")})
+            AND s.session_id IS NOT NULL
             AND (s.user_id NOT IN (#{admin_user_list.join(",")}) OR s.user_id IS NULL)"
-    Abingo::Experiment.connection.select_values(sql)
+    Abingo::Experiment.connection.select_all(sql)
   end
 
   def initialize_distribution_hash(experiment)

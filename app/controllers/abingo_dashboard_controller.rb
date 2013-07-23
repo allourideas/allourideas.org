@@ -21,14 +21,9 @@ class AbingoDashboardController < ApplicationController
     ids = @grouped_experiments[params[:id]]
 
     @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
-    session_list = []
     admin_users = User.find(:all, :conditions => {:admin => true})
     admin_user_list = admin_users.inject([]){|list, u| list << u.id}
-    @experiments.each do |experiment|
-      session_list += get_session_list(experiment, admin_user_list)
-    end
-    
-    session_list.uniq!
+    session_list = get_session_list(@experiments, admin_user_list)
     
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_list}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
@@ -57,16 +52,7 @@ class AbingoDashboardController < ApplicationController
     
     admin_users = User.find(:all, :conditions => {:admin => true})
     admin_user_list = admin_users.inject([]){|list, u| list << u.id}
-    # Make a list of sessions we are interested in to get info from the pairwise server
-    #this is to check for irregularities that I believe will be solved by redis
     session_list = get_session_list(@experiment, admin_user_list)
-    origsize = session_list.size
-
-    session_list.uniq!
-
-    if origsize != session_list.size
-      flash[:notice] = "Warning: Experiment #{@experiment.id} has duplicate session ids"
-    end
 
     # Get the list from the server
     # The Session class uses json for simplicity, we need to do some parsing here
@@ -152,17 +138,19 @@ class AbingoDashboardController < ApplicationController
   end
 
   def get_session_list(experiment, admin_user_list)
-    session_list = []
-    experiment.alternatives.each do |alt|
-      alt.session_infos.each do |sess|
-        if sess.user_id and admin_user_list.include?(sess.user_id)
-          next
-        else
-          session_list << sess.session_id
-        end
-      end
+    if experiment.class == Array
+      experiment_ids = experiment.map{|e| e.id}
+    else
+      experiment_ids = [experiment.id]
     end
-    session_list
+    sql = "SELECT DISTINCT(s.session_id)
+            FROM `experiments` e
+            LEFT JOIN `alternatives` a ON (a.experiment_id = e.id)
+            LEFT JOIN `trials` t ON (t.alternative_id = a.id)
+            LEFT JOIN `session_infos` s ON (s.id = t.session_info_id)
+            WHERE e.id IN (#{experiment_ids.join(",")})
+            AND (s.user_id NOT IN (#{admin_user_list.join(",")}) OR s.user_id IS NULL)"
+    Abingo::Experiment.connection.select_values(sql)
   end
 
   def initialize_distribution_hash(experiment)

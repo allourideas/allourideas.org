@@ -166,6 +166,8 @@ logger.info("12: #{(Time.now - start).to_f}")
   end
 
   def get_distributions(session_list, objects_by_session_ids, alternatives)
+logger.info session_list.inspect
+logger.info objects_by_session_ids.inspect
     voter_distribution = {}
     uploader_distribution = {}
     alternatives.each do |a|

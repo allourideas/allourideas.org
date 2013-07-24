@@ -161,10 +161,10 @@ class AbingoDashboardController < ApplicationController
     end
     session_list.each do |s|
       num = objects_by_session_ids[s['session_id']]['votes'] rescue 0
-      voter_distribution[s['content']][num] +=1
+      voter_distribution[s['content']][num.to_i] +=1
 
       num = objects_by_session_ids[s['session_id']]['ideas'] rescue 0
-      uploader_distribution[s['content']][num] +=1
+      uploader_distribution[s['content']][num.to_i] +=1
     end
     [voter_distribution, uploader_distribution]
   end

@@ -17,32 +17,45 @@ class AbingoDashboardController < ApplicationController
   end
   
   def show_set
+start = Time.now
     @grouped_experiments = group_experiments(Abingo::Experiment.all)
     ids = @grouped_experiments[params[:id]]
+logger.info("1: #{(Time.now - start).to_f}")
 
     @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
+logger.info("2: #{(Time.now - start).to_f}")
     admin_users = User.find(:all, :select => 'id', :conditions => {:admin => true})
     admin_user_list = admin_users.map{|u| u.id}
+logger.info("3: #{(Time.now - start).to_f}")
     session_list = get_session_list(@experiments, admin_user_list)
+logger.info("4: #{(Time.now - start).to_f}")
     session_ids = session_list.map{|s| s['session_id'] }
+logger.info("5: #{(Time.now - start).to_f}")
     
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
+logger.info("6: #{(Time.now - start).to_f}")
     @objects_by_session_ids = JSON.parse(theresponse.body) 
+logger.info("7: #{(Time.now - start).to_f}")
 
     distributions = get_distributions(session_list, @objects_by_session_ids, @experiments.first.alternatives)
+logger.info("8: #{(Time.now - start).to_f}")
     @voter_distribution = distributions[0]
     @uploader_distribution = distributions[1]
     
     @summary_stats = calculate_summary_stats(@experiments.first, @voter_distribution, @uploader_distribution)       
+logger.info("9: #{(Time.now - start).to_f}")
     @vote_distribution_chart = create_voter_distribution_chart(@experiments.first, @voter_distribution)
+logger.info("10: #{(Time.now - start).to_f}")
     @experiment = @experiments.first
     # change title to make it a bit prettier on display
     @experiment.test_name = "#{ids.size} experiments aggregated together"
     render :action => :show
+logger.info("11: #{(Time.now - start).to_f}")
     if ActionController::Base.perform_caching
       cache_key = 'views' + url_for(:controller => :abingo_dashboard, :action => 'show_set', :id => params[:id]).gsub(/^h.+:\//, '')
       ActionController::Base.cache_store.delay(:run_at => Time.now.utc + 1.day).delete(cache_key)
     end
+logger.info("12: #{(Time.now - start).to_f}")
   end
 
   def show

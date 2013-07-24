@@ -160,18 +160,11 @@ class AbingoDashboardController < ApplicationController
       uploader_distribution[a.content] = Hash.new(0)
     end
     session_list.each do |s|
-      num = objects_by_session_ids[s['session_id']]['votes'] rescue nil
-      if num
-        voter_distribution[s['content']][num] +=1
-      else
-        voter_distribution[s['content']][0] +=1
-      end
-      num = objects_by_session_ids[s['session_id']]['ideas'] rescue nil
-      if num
-        uploader_distribution[s['content']][num] +=1
-      else
-        uploader_distribution[s['content']][0] +=1
-      end
+      num = objects_by_session_ids[s['session_id']]['votes'] rescue 0
+      voter_distribution[s['content']][num] +=1
+
+      num = objects_by_session_ids[s['session_id']]['ideas'] rescue 0
+      uploader_distribution[s['content']][num] +=1
     end
     [voter_distribution, uploader_distribution]
   end

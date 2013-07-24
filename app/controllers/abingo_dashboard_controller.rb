@@ -21,8 +21,8 @@ class AbingoDashboardController < ApplicationController
     ids = @grouped_experiments[params[:id]]
 
     @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
-    admin_users = User.find(:all, :conditions => {:admin => true})
-    admin_user_list = admin_users.inject([]){|list, u| list << u.id}
+    admin_users = User.find(:all, :select => 'id', :conditions => {:admin => true})
+    admin_user_list = admin_users.map{|u| u.id}
     session_list = get_session_list(@experiments, admin_user_list)
     session_ids = session_list.map{|s| s['session_id'] }
     
@@ -48,8 +48,8 @@ class AbingoDashboardController < ApplicationController
   def show
     @experiment = Abingo::Experiment.find(params[:id], :include => :alternatives)
     
-    admin_users = User.find(:all, :conditions => {:admin => true})
-    admin_user_list = admin_users.inject([]){|list, u| list << u.id}
+    admin_users = User.find(:all, :select => 'id', :conditions => {:admin => true})
+    admin_user_list = admin_users.map{|u| u.id}
     session_list = get_session_list(@experiment, admin_user_list)
     session_ids = session_list.map{|s| s['session_id'] }
 

@@ -131,20 +131,6 @@ logger.info("12: #{(Time.now - start).to_f}")
       grouped_experiments[potential_group] << e.id
     end
 
-    grouped_experiments.each do |group, experiment_ids|
-      limit = 100
-      if experiment_ids.length > limit
-        top_ids = Abingo::Alternative.find(:all,
-            :select => 'experiment_id, SUM(participants) AS total',
-            :conditions => {:experiment_id => experiment_ids},
-            :group => :experiment_id,
-            :order => 'total DESC',
-            :limit => limit
-        ).map{|a| a.experiment_id }
-        grouped_experiments[group] = top_ids
-      end
-    end
-
     grouped_experiments
   end
 

@@ -29,8 +29,9 @@ class AbingoDashboardController < ApplicationController
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
 
-    @voter_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "votes")
-    @uploader_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "ideas")
+    distributions = get_distributions(session_list, @objects_by_session_ids, @experiments.first.alternatives)
+    @voter_distribution = distributions[0]
+    @uploader_distribution = distributions[1]
     
     @summary_stats = calculate_summary_stats(@experiments.first, @voter_distribution, @uploader_distribution)       
     @vote_distribution_chart = create_voter_distribution_chart(@experiments.first, @voter_distribution)
@@ -59,8 +60,9 @@ class AbingoDashboardController < ApplicationController
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
 
-    @voter_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "votes")
-    @uploader_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "ideas")
+    distributions = get_distributions(session_list, @objects_by_session_ids, @experiment.alternatives)
+    @voter_distribution = distributions[0]
+    @uploader_distribution = distributions[1]
 
     # Calculate some summary stats
     @summary_stats = calculate_summary_stats(@experiment, @voter_distribution, @uploader_distribution)      
@@ -150,18 +152,28 @@ class AbingoDashboardController < ApplicationController
     Abingo::Experiment.connection.select_all(sql)
   end
 
-  def add_totals_to_distribution(session_list, objects_by_session_ids, object_type)
-    distribution = {}
+  def get_distributions(session_list, objects_by_session_ids, alternatives)
+    voter_distribution = {}
+    uploader_distribution = {}
+    alternatives.each do |a|
+      voter_distribution[a.content] = Hash.new(0)
+      uploader_distribution[a.content] = Hash.new(0)
+    end
     session_list.each do |s|
-      distribution[s['content']] = Hash.new(0) unless distribution.has_key?(s['content'])
-      num = objects_by_session_ids[s['session_id']][object_type] rescue nil
+      num = objects_by_session_ids[s['session_id']]['votes'] rescue nil
       if num
-        distribution[s['content']][num] +=1
+        voter_distribution[s['content']][num] +=1
       else
-        distribution[s['content']][0] +=1
+        voter_distribution[s['content']][0] +=1
+      end
+      num = objects_by_session_ids[s['session_id']]['ideas'] rescue nil
+      if num
+        uploader_distribution[s['content']][num] +=1
+      else
+        uploader_distribution[s['content']][0] +=1
       end
     end
-    distribution
+    [voter_distribution, uploader_distribution]
   end
 
   def calculate_summary_stats(experiment, voter_distribution, uploader_distribution)

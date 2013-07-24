@@ -28,13 +28,9 @@ class AbingoDashboardController < ApplicationController
     
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
-    @voter_distribution = initialize_distribution_hash(@experiments.first)
-    @uploader_distribution= initialize_distribution_hash(@experiments.first)
-    
-    @experiments.each do |experiment|
-      add_totals_to_distribution(experiment, @voter_distribution, @objects_by_session_ids, "votes", admin_user_list)
-      add_totals_to_distribution(experiment, @uploader_distribution, @objects_by_session_ids, "ideas", admin_user_list)
-    end
+
+    @voter_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "votes")
+    @uploader_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "ideas")
     
     @summary_stats = calculate_summary_stats(@experiments.first, @voter_distribution, @uploader_distribution)       
     @vote_distribution_chart = create_voter_distribution_chart(@experiments.first, @voter_distribution)
@@ -62,11 +58,9 @@ class AbingoDashboardController < ApplicationController
     #          when the URI gets too long
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body) 
-    @voter_distribution = initialize_distribution_hash(@experiment)
-    @uploader_distribution= initialize_distribution_hash(@experiment)
 
-    add_totals_to_distribution(@experiment, @voter_distribution, @objects_by_session_ids, "votes", admin_user_list) 
-    add_totals_to_distribution(@experiment, @uploader_distribution, @objects_by_session_ids, "ideas", admin_user_list)      
+    @voter_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "votes")
+    @uploader_distribution = add_totals_to_distribution(session_list, @objects_by_session_ids, "ideas")
 
     # Calculate some summary stats
     @summary_stats = calculate_summary_stats(@experiment, @voter_distribution, @uploader_distribution)      
@@ -156,30 +150,18 @@ class AbingoDashboardController < ApplicationController
     Abingo::Experiment.connection.select_all(sql)
   end
 
-  def initialize_distribution_hash(experiment)
-    distribution = Hash.new(0)
-    experiment.alternatives.each do |a|
-      distribution[a.content] = Hash.new(0)
-    end
-    distribution
-  end
-
-  def add_totals_to_distribution(experiment, distribution, objects_by_session_ids, object_type, admin_user_list)
-    experiment.alternatives.each do |a|
-      a.session_infos.each do |s|
-        if s.user_id and admin_user_list.include?(s.user_id)
-          next
-        end
-
-        num = objects_by_session_ids[s.session_id][object_type] rescue nil
-                    
-        if num
-          distribution[a.content][num] +=1
-        else
-          distribution[a.content][0] +=1
-        end     
+  def add_totals_to_distribution(session_list, objects_by_session_ids, object_type)
+    distribution = {}
+    session_list.each do |s|
+      distribution[s['content']] = Hash.new(0) unless distribution.has_key?(s['content'])
+      num = objects_by_session_ids[s['session_id']][object_type] rescue nil
+      if num
+        distribution[s['content']][num] +=1
+      else
+        distribution[s['content']][0] +=1
       end
     end
+    distribution
   end
 
   def calculate_summary_stats(experiment, voter_distribution, uploader_distribution)

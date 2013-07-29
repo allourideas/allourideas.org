@@ -161,10 +161,20 @@ logger.info objects_by_session_ids.inspect
       uploader_distribution[a.content] = Hash.new(0)
     end
     session_list.each do |s|
-      num = objects_by_session_ids[s['session_id']]['votes'] rescue 0
+      sess = objects_by_session_ids[s['session_id']]
+      if sess.nil?
+        num = 0
+      else
+        num  = sess['votes']
+      end
       voter_distribution[s['content']][num.to_i] +=1
 
-      num = objects_by_session_ids[s['session_id']]['ideas'] rescue 0
+      sess = objects_by_session_ids[s['session_id']]
+      if sess.nil?
+        num = 0
+      else
+        num  = sess['ideas']
+      end
       uploader_distribution[s['content']][num.to_i] +=1
     end
     [voter_distribution, uploader_distribution]

@@ -15,3 +15,4 @@ Rails::Initializer.run do |config|
   config.action_mailer.delivery_method = :smtp
 
 end
+ActionController::Base.cache_store = :file_store, "#{Rails.root}/tmp/cache"

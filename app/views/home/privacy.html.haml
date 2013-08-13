@@ -2,7 +2,12 @@
 
 %h3 Overview
 
-%p All Our Ideas is a research project lead by #{link_to "Professor Matthew Salganik", "http://www.princeton.edu/~mjs3/"} of #{link_to "Princeton Unversity.", "http://www.princeton.edu/"}  As such, all of our data collection and processing procedures have been approved by the #{link_to "Princeton University Institutional Review Board for Human Subjects", "http://www.princeton.edu/orpa/irb.htm"} (protocol #4783).  Also, all members of our research team who have access to the data have completed a National Institutes of Health course on Protecting Human Research Participants.  In other words, we take data protection very seriously.
+%p
+  - if @photocracy
+    Photocracy
+  - else
+    All Our Ideas
+  is a research project lead by #{link_to "Professor Matthew Salganik", "http://www.princeton.edu/~mjs3/"} of #{link_to "Princeton University.", "http://www.princeton.edu/"}  As such, all of our data collection and processing procedures have been approved by the #{link_to "Princeton University Institutional Review Board for Human Subjects", "http://www.princeton.edu/orpa/irb.htm"} (protocol #4885).  Also, all members of our research team who have access to the data have completed a National Institutes of Health course on Protecting Human Research Participants.  In other words, we take data protection very seriously.
 
 %p Because this is a research project, we need to collect data from the site.  We are interested in broad, aggregate patterns in the data, not in how any one particular person voted.  So, for example, we are interested in the average number of votes cast in each session, but we are not interested in identifying who said they liked chocolate ice cream better than vanilla ice cream.
 

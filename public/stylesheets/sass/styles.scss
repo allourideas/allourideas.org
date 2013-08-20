@@ -132,6 +132,10 @@ form#new_question_form{
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
   }
+  h2 {
+    padding-left: 25px;
+    background: url(/images/blocked_cookies.png) no-repeat left center;
+  }
 }
 .interior-content {
   background-color: white;

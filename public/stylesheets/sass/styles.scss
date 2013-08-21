@@ -315,6 +315,7 @@ ul.footer-social-icons {
         display: block;
         text-indent: -9999px;
         background: url(/images/social_icons.png) no-repeat;
+        background-size: 152px 64px;
         float: left;
         width: 32px;
         height: 32px;
@@ -340,6 +341,14 @@ ul.footer-social-icons {
     }
     li.blog a:hover {
         background-position: -120px -32px;
+    }
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (-o-min-device-pixel-ratio: 3/2),
+    only screen and (min--moz-device-pixel-ratio: 1.5),
+    only screen and (min-device-pixel-ratio: 1.5) {
+        li a {
+            background-image: url(/images/social_icons@2x.png);
+        }
     }
 }
 .navbar .brand {

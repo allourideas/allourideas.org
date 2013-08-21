@@ -389,3 +389,15 @@ ul.footer-social-icons {
 .tooltip {
     font-size: 14px;
 }
+a.glyphicon {
+    color: black;
+    &:hover {
+        text-decoration: none;
+    }
+}
+a i.glyphicon {
+    color: black;
+    &:hover {
+        text-decoration: none;
+    }
+}

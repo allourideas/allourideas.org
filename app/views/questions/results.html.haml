@@ -14,7 +14,7 @@
               %th.score
                 %h4
                   = t('common.score').titleize + " (0 - 100)"
-                  = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                  = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
               %th &nbsp;
           %tbody
             - @choices.each do |choice|
@@ -52,7 +52,7 @@
             .accordion-heading
               .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_ideas'}
                 = link_to(t('results.word_cloud_ideas_title'), url_for(:action => :word_cloud), :"data-preventDefault" => true)
-                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                 %button.close.hide x
             #word_cloud_ideas.accordion-body.collapse
               .accordion-inner
@@ -62,7 +62,7 @@
             .accordion-heading
               .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_weighted'}
                 = link_to(t('results.word_cloud_weighted_title'), url_for(:action => :word_cloud, :type => 'weight_by_score'), :"data-preventDefault" => true)
-                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                 %button.close.hide x
             #word_cloud_weighted.accordion-body.collapse
               #wcdiv-weight_by_score.accordion-inner
@@ -72,7 +72,7 @@
             .accordion-heading
               .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_uploaded'}
                 = link_to(t('results.word_cloud_uploaded_title'), url_for(:action => :word_cloud, :type => 'uploaded'), :"data-preventDefault" => true)
-                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                 %button.close.hide x
             #word_cloud_uploaded.accordion-body.collapse
               .accordion-inner
@@ -82,7 +82,7 @@
             .accordion-heading
               .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => '#word_cloud_uploaded_weighted'}
                 = link_to(t('results.word_cloud_uploaded_weighted_title'), url_for(:action => :word_cloud, :type => 'uploaded_weight_by_score'), :"data-preventDefault" => true)
-                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                = link_to('', '#word_cloud_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                 %button.close.hide x
             #word_cloud_uploaded_weighted.accordion-body.collapse
               .accordion-inner
@@ -140,7 +140,7 @@
               .accordion-heading
                 .accordion-toggle{:"data-toggle" => 'collapse', :"data-target" => "#world_map_bounces"}
                   = link_to("World Map of bounces (viewed once and then left) (super-admin only)", url_for(:action => :voter_map, :type => 'bounces'), :"data-preventDefault" => true)
-                  = link_to('', '#bounce_explanation', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                  = link_to('', '#bounce_explanation', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                   %button.close.hide x
               #world_map_bounces.accordion-body.collapse.map
                 .accordion-inner

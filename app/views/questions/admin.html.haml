@@ -16,12 +16,12 @@
                 %span.question-name
                   = @question.attributes['name']
                 - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
-                  = link_to("<i class='icon-pencil'></i>", '#edit-question', :"data-toggle" => 'modal', :class => 'btn')
+                  = link_to("<i class='glyphicon glyphicon-pencil'></i>", '#edit-question', :"data-toggle" => 'modal', :class => 'btn')
                 - else
-                  = link_to("<i class='icon-pencil'></i>", '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
+                  = link_to("<i class='glyphicon glyphicon-pencil'></i>", '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
               %th.score
                 =  t('items.score')
-                = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'icon-question-sign')
+                = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
               %th.score=  t('questions.source')
               %th.score= t('items.list.status').titleize
           %tbody 
@@ -58,27 +58,27 @@
               .controls
                 = text_field_tag '', @earl.name, :disabled => true, :id => 'question_username'
             .control-group
-              = f.label :pass, t('user.password') + link_to(' <i class="icon-question-sign"></i>', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+              = f.label :pass, t('user.password') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
               .controls
                 = f.text_field :pass
     
             .control-group
-              = f.label :welcome_message, "Welcome message" + link_to(' <i class="icon-question-sign"></i>', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+              = f.label :welcome_message, "Welcome message " + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
               .controls
                 = f.text_area :welcome_message, :rows => 5, :cols => 65, :class => 'input-xxlarge'
             .control-group
-              = f.label :default_lang, "Default language" + link_to(' <i class="icon-question-sign"></i>', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
+              = f.label :default_lang, "Default language " + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
               .controls
                 = # Have English be the first, but sort the rest
                 = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"], ["Albanian", "sq"], ["Chinese", "zh"]].sort
             .control-group
-              = f.label :ga_code, t('admin.google_analytics_code') + link_to(' <i class="icon-quesiton-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
+              = f.label :ga_code, t('admin.google_analytics_code') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
               .controls
                 = f.text_field :ga_code
             .control-group
               %label.control-label
                 = t('admin.widget_embed_code') 
-                = link_to('', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank', :class => 'icon-question-sign')
+                = link_to('', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')
               .controls
                 %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
             #edit-image.control-group
@@ -92,7 +92,7 @@
               .controls
                 %label.checkbox
                   = f.check_box :flag_enabled
-                  = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + link_to(' <i class="icon-question-sign"></i>', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal')
+                  = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + ' ' + link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                   = f.check_box :question_should_autoactivate_ideas
                   = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
             .form-actions
@@ -106,7 +106,7 @@
             %tr
               %th
                 = t('admin.download_idea_marketplace_data')
-                = link_to('', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank', :class => 'icon-question-sign')
+                = link_to('', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')
           %tbody
             %tr
               %td.title

@@ -15,7 +15,9 @@
       %p
         = link_to("Cookies are required", 'http://blog.allourideas.org/post/54515392435/cookies')
         for voting, and it looks like cookies may be disabled in your browser.
-        In order to vote, you should enable cookies in your browser.
+        In order to vote, you must allow cookies from allourideas.org. For more information, please read
+        this blog post about our
+        = link_to('cookie policy.', 'http://blog.allourideas.org/post/54515392435/cookies')
   -if !session[:has_voted] && session[:welcome_msg]
     .row-fluid
       .span10.offset1.welcome-message

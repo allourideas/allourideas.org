@@ -1,115 +1,113 @@
-%html{:xmlns => "http://www.w3.org/1999/xhtml", :'xml:lang' => "en", :lang => "en"}
-  %head 
-    %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
-    %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
-    :css
-      .body {
-        color: #{@text_on_white}; }
+- content_for :head do
+  %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+  %meta{:NAME =>"ROBOTS", :CONTENT => "NOINDEX, NOFOLLOW"}
+  :css
+    .body {
+      color: #{@text_on_white}; }
 
-      .idea_result {
-        color: #{@text_on_white}; }
+    .idea_result {
+      color: #{@text_on_white}; }
 
-      h1, h2, h3, h4, h5, h6, .large-text {
-        color: #{@lighter_text_on_white}; }
+    h1, h2, h3, h4, h5, h6, .large-text {
+      color: #{@lighter_text_on_white}; }
 
-      a {
-        color: #{@flag_text_color}; }
+    a {
+      color: #{@flag_text_color}; }
 
-      .bar-chart > div {
-        background-color: #{@lighter_text_on_white}; }
+    .bar-chart > div {
+      background-color: #{@lighter_text_on_white}; }
 
-      .bottom_status {
-        color: #{@text_on_color};
-        background-color: #{@vote_button_color};
-        border-color: #{@vote_button_color}; } 
+    .bottom_status {
+      color: #{@text_on_color};
+      background-color: #{@vote_button_color};
+      border-color: #{@vote_button_color}; } 
 
-      .question {
-        color: #{@question_text_color}; }
+    .question {
+      color: #{@question_text_color}; }
 
-      table .row0 {
-        color: #{@text_on_color};
+    table .row0 {
+      color: #{@text_on_color};
+      background-color: #{@vote_button_color}; }
+
+    .scrollbar_container {
+      border-color: #{@vote_button_color}; }
+
+    .tabs {
+      border-color: #{@vote_button_color}; }
+      .tabs .current_tab {
         background-color: #{@vote_button_color}; }
+        .tabs .current_tab:hover {
+          background-color: #{@vote_button_color};
+          border-color: #{@vote_button_color}; }
+      .tabs li {
+        border-top-color: #{@vote_button_color};
+        border-left-color: #{@vote_button_color};
+        border-right-color: #{@vote_button_color}; }
+        .tabs li a {
+          color: #{@vote_button_color}; }
+        .tabs li:hover {
+          background-color: #{@tab_hover_color};
+          border-color: #{@tab_hover_color}; }
 
-      .scrollbar_container {
-        border-color: #{@vote_button_color}; }
-
-      .tabs {
-        border-color: #{@vote_button_color}; }
-        .tabs .current_tab {
-          background-color: #{@vote_button_color}; }
-          .tabs .current_tab:hover {
-            background-color: #{@vote_button_color};
-            border-color: #{@vote_button_color}; }
-        .tabs li {
-          border-top-color: #{@vote_button_color};
-          border-left-color: #{@vote_button_color};
-          border-right-color: #{@vote_button_color}; }
-          .tabs li a {
-            color: #{@vote_button_color}; }
-          .tabs li:hover {
-            background-color: #{@tab_hover_color};
-            border-color: #{@tab_hover_color}; }
-
-      .votebox table td.vote_cell {
-        color: #{@text_on_color};
-        background: #{@vote_button_color}; }
-        .votebox table td.vote_cell:hover {
-          background: #{@vote_button_hover_color}; }
-        .votebox table td.vote_cell a {
-          color: #{@text_on_color}; }
-          .votebox table td.vote_cell a:hover {
-            color: #{@text_on_color}; }
-
-      .new_idea_submit, .flag_submit_button, .cd_submit_button {
-        color: #{@text_on_color};
-        background: #{@submit_button_color}; }
-        .new_idea_submit:hover, .flag_submit_button:hover, .cd_submit_button:hover {
-          background-color: #{@submit_button_hover_color}; }
-
-      #cant_decide_btn {
-        color: #{@text_on_color};
-        background: #{@cant_decide_button_color}; }
-        #cant_decide_btn:hover {
-          background-color: #{@cant_decide_button_hover_color}; }
-      .cd_option .cd_box a {
-        color: #{@text_on_color};
-        background: #{@cant_decide_button_color}; }
-        .cd_option .cd_box a:hover {
-          background-color: #{@cant_decide_button_hover_color}; }
-
-      .add_idea .add_idea_button {
-        color: #{@text_on_color};
-        background: #{@add_idea_button_color}; }
-        .add_idea .add_idea_button a {
-          color: #{@text_on_color}; }
-        .add_idea .add_idea_button:hover {
-          background: #{@add_idea_button_hover_color}; }
-
-      .link_style a {
+    .votebox table td.vote_cell {
+      color: #{@text_on_color};
+      background: #{@vote_button_color}; }
+      .votebox table td.vote_cell:hover {
+        background: #{@vote_button_hover_color}; }
+      .votebox table td.vote_cell a {
         color: #{@text_on_color}; }
+        .votebox table td.vote_cell a:hover {
+          color: #{@text_on_color}; }
+
+    .new_idea_submit, .flag_submit_button, .cd_submit_button {
+      color: #{@text_on_color};
+      background: #{@submit_button_color}; }
+      .new_idea_submit:hover, .flag_submit_button:hover, .cd_submit_button:hover {
+        background-color: #{@submit_button_hover_color}; }
+
+    #cant_decide_btn {
+      color: #{@text_on_color};
+      background: #{@cant_decide_button_color}; }
+      #cant_decide_btn:hover {
+        background-color: #{@cant_decide_button_hover_color}; }
+    .cd_option .cd_box a {
+      color: #{@text_on_color};
+      background: #{@cant_decide_button_color}; }
+      .cd_option .cd_box a:hover {
+        background-color: #{@cant_decide_button_hover_color}; }
+
+    .add_idea .add_idea_button {
+      color: #{@text_on_color};
+      background: #{@add_idea_button_color}; }
+      .add_idea .add_idea_button a {
+        color: #{@text_on_color}; }
+      .add_idea .add_idea_button:hover {
+        background: #{@add_idea_button_hover_color}; }
+
+    .link_style a {
+      color: #{@text_on_color}; }
 
 
-%body
-  -@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
+-@the_id = params[:question_id].nil? ? params[:id] : params[:question_id]
 
-  = render :partial => 'shared/header_vote', :locals => {:question => @question}
+= render :partial => 'shared/header_vote', :locals => {:question => @question}
 
-  #cast_votes.current
-    = render 'cast_votes.html.haml'
+#cast_votes.current
+  = render 'cast_votes.html.haml'
 
-  #results{:style => 'display:none'}
-    .scrollbar_container#render_spot
-      %center
-        %br
-        = 'Loading results...'
-    .bottom_status.link_style
-      %span.bottom_padding
-        /* Use a table here to fix a small issue with a non-linking space after the first link */
-        %table.fleft
-          %td{:style => 'padding-left: 5px;'}= link_to(t('nav.view_more_results_widget'),"http://www.allourideas.org" +  @results_url, :target => '_blank', :id => 'view_more_results')
-          %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), "http://www.allourideas.org" + @results_url, :target => '_blank')
-      %span
-        %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget');
+#results{:style => 'display:none'}
+  .scrollbar_container#render_spot
+    %center
+      %br
+      = 'Loading results...'
+  .bottom_status.link_style
+    %span.bottom_padding
+      /* Use a table here to fix a small issue with a non-linking space after the first link */
+      %table.fleft
+        %td{:style => 'padding-left: 5px;'}= link_to(t('nav.view_more_results_widget'), @results_url, :target => '_blank', :id => 'view_more_results')
+        %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), @results_url, :target => '_blank')
+    %span
+      %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget');
 
-  #about{:style => 'display:none'}
-    = render 'questions/about.html.haml'
+#about{:style => 'display:none'}
+  = render 'questions/about.html.haml'

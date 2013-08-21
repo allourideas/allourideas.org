@@ -1,6 +1,17 @@
 -@item_data, @item_ids = [], []
 
-.scrollbar_container
+#cookies-failed.scrollbar_container{:style => "display: none;"}
+  .aboutpage
+    %h2 Cookies Blocked
+    %p
+      = link_to("Cookies are required", 'http://blog.allourideas.org/post/54515392435/cookies', :target => '_blank')
+      for voting, and it looks like third-party cookies may be disabled in your browser.
+      In order to vote, you may
+      = link_to("vote on the main site", @cast_votes_url, :target => '_blank')
+      or allow
+      = link_to("third-party cookies", 'http://en.wikipedia.org/wiki/Third-party_cookie#Privacy_and_third-party_cookies', :target => '_blank')
+      in your browser.
+#voting-container.scrollbar_container
   .question_container
     %table.question.center.no_padding
       %tr

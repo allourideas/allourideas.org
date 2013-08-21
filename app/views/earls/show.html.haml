@@ -9,6 +9,15 @@
 
 - bg_color = ab_test("bg_color_aa_#{@earl.name}", ['#F2F2F2', '#F2F2F1'], :conversion => 'voted')
 .tab-content.question-vote.row-fluid{:style => "background-color: #{bg_color}"}
+  #cookies-failed{:style => "display: none;"}
+    %div
+      %h2 Cookies Blocked
+      %p
+        = link_to("Cookies are required", 'http://blog.allourideas.org/post/54515392435/cookies')
+        for voting, and it looks like cookies may be disabled in your browser.
+        In order to vote, you must allow cookies from allourideas.org. For more information, please read
+        this blog post about our
+        = link_to('cookie policy.', 'http://blog.allourideas.org/post/54515392435/cookies')
   -if !session[:has_voted] && session[:welcome_msg]
     .row-fluid
       .span10.offset1.welcome-message
@@ -92,6 +101,24 @@
 
 
 -content_for :view_javascript do
+  :plain
+    // Test if we can set and read cookies.
+    // If we can't, then the browser probably has 3rd party cookies disabled
+    // unless the user has first navigated to the domain serving the iframe source.
+    var cookieValue = "cookieTest" + new Date().getTime();
+    document.cookie = "cookieTest="+cookieValue;
+    if (document.cookie.indexOf("cookieTest="+cookieValue) === -1) {
+      var cookies_failed = document.getElementById('cookies-failed');
+      if (cookies_failed) {
+        cookies_failed.style.display = 'block';
+        var img = new Image();
+        img.src = '/cookies_blocked.gif?question_id=#{@earl.question_id}&session_id=#{@user_session.session_id}&referrer=' + encodeURIComponent(document.referrer);
+      }
+    }
+    else {
+      // cleanup test cookie
+      document.cookie = 'cookieTest=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
   $('.rounded').corner('5px');
   -unless session[:has_voted]
     :plain

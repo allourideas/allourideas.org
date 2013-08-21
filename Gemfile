@@ -35,6 +35,7 @@ gem "haml", "~> 3.1.7"
 gem "compass-rails", "~> 1.0.3"
 gem "bootstrap-sass", "~> 2.1.1.0"
 gem "mysql2", "0.2.18"
+gem "test-unit", "1.2.3"
 
 group :development do
   gem "engineyard"
@@ -45,7 +46,6 @@ group :production, :staging do
 end
 
 group :test, :cucumber do
-  gem "test-unit", "1.2.3"
   gem 'cucumber', '1.1.0'
   gem 'cucumber-rails2', '~> 0.3.2'
   gem "pickle", "~> 0.4.7"

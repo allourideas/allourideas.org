@@ -54,6 +54,18 @@
             %p
               = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
 -if current_user.admin?
+  -if @blocked_cookies && @blocked_cookies.count > 0
+    %h4 Today's Blocked Cookies
+    %table.table
+      %thead
+        %tr
+          %th Survey
+          %th Count
+      %tbody
+        - @blocked_cookies.each do |question_id, bc|
+          %tr
+            %td= "/#{Earl.find_by_question_id(question_id).name}"
+            %td= bc.count
   %table.table
     %thead
       %tr

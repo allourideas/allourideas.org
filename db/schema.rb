@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110304211014) do
+ActiveRecord::Schema.define(:version => 20130627190740) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -22,6 +22,21 @@ ActiveRecord::Schema.define(:version => 20110304211014) do
 
   add_index "alternatives", ["experiment_id"], :name => "index_alternatives_on_experiment_id"
   add_index "alternatives", ["lookup"], :name => "index_alternatives_on_lookup"
+
+  create_table "blocked_cookies", :force => true do |t|
+    t.string   "referrer",    :default => ""
+    t.integer  "question_id"
+    t.string   "user_agent",  :default => ""
+    t.string   "ip_addr",     :default => ""
+    t.string   "source",      :default => ""
+    t.string   "session_id",  :default => ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blocked_cookies", ["created_at"], :name => "index_blocked_cookies_on_created_at"
+  add_index "blocked_cookies", ["ip_addr"], :name => "index_blocked_cookies_on_ip_addr"
+  add_index "blocked_cookies", ["question_id"], :name => "index_blocked_cookies_on_question_id"
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"

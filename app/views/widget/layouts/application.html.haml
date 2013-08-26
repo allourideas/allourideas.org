@@ -56,7 +56,7 @@
         if (cookies_failed) {
           cookies_failed.style.display = 'block';
           var img = new Image();
-          img.src = '/cookies_blocked.gif?question_id=#{@earl.question_id}&session_id=#{@user_session.session_id}&referrer=' + encodeURIComponent(document.referrer);
+          img.src = '/cookies_blocked.gif?question_id=#{@earl.try(:question_id)}&session_id=#{@user_session.try(:session_id)}&referrer=' + encodeURIComponent(document.referrer);
         }
       }
       else {

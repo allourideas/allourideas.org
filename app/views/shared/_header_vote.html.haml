@@ -16,9 +16,9 @@
           = image_tag(@earl.logo.url(@earl.logo_size.to_sym))
       -if (current_user.try(:owns?, @earl) || current_user.try(:admin?)) && local_assigns.has_key?("show_delete")
         .survey-image-links
-          =link_to("<i class='icon-pencil'></i>", url_for(:action => :admin, :controller => :questions, :id => @the_id, :anchor => 'edit-image'), :class => 'btn')
+          =link_to("<i class='glyphicon glyphicon-pencil'></i>", url_for(:action => :admin, :controller => :questions, :id => @the_id, :anchor => 'edit-image'), :class => 'btn')
           - if !@earl.logo_file_name.nil?
-            =link_to("<i class='icon-trash'></i>", {:action => :delete_logo}, :method => :delete, :class => 'btn')
+            =link_to("<i class='glyphicon glyphicon-trash'></i>", {:action => :delete_logo}, :method => :delete, :class => 'btn')
 .row-fluid
   .span12
     %ul.nav.nav-tabs.vote-tabs.pull-right

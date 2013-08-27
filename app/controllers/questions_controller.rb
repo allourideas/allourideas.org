@@ -1133,12 +1133,14 @@ class QuestionsController < ApplicationController
 
 
     respond_to do |format|
+      old_lang = @earl.default_lang
       if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas))
-        logger.info("Saving new information on earl")
         flash[:notice] = 'Question settings saved successfully!'
-        logger.info("Saved new information on earl")
+        # redirect to new lang if lang was changed
+        if old_lang != @earl.default_lang
+          I18n.locale = @earl.default_lang
+        end
         format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
-        # format.xml  { head :ok }
       else 
         @partial_results_url = "#{@earl.name}/results"
         @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})

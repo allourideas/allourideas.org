@@ -161,7 +161,7 @@
     cant_decide: Jeg kan ikke bestemme meg
     cant_decide_message: Du kan ikke bestemme deg.
     cant_decide_title: Jeg kan ikke bestemme meg fordi…
-    cast_votes: Avgitte stemmer
+    cast_votes: Gi din stemme
     cd_both_same: Jeg syntes begge ideene er like
     cd_dislike_both: Jeg liker ingen av ideene
     cd_dont_know_both: Jeg kan ikke nok om noen av ideene
@@ -207,3 +207,23 @@
       er stor!
     you_chose_winner_over_loser: Du velger %{winner} fremfor %{loser}
     you_skipped_both: Du hoppet over
+  about_page:
+    intro: Du deltar på en “wiki survey” som gjør det mulig å samle og prioritere
+      ideer på en åpen, demokratisk og effektiv måte. Ved å kombinere stemmegivning
+      med mulighet for å laste opp nye ideer, vil man kunne få frem de beste ideene.
+    how_many_votes_q: Hvor mange ganger kan jeg stemme?
+    how_many_votes_exp: Du kan stemme så mange ganger du vil, og du kan stoppe stemmegivningen
+      når du måtte ønske det.
+    how_many_ideas_q: Hvor mange ideer kan jeg legge til? Hva skjer med min ide etter
+      at jeg har lastet den opp?
+    how_many_ideas_exp: Du kan legge til så mange ideer du vil. Etter at du har lastet
+      opp en ny ide blir den vurdert av en moderator for å sikre at ingen støtende
+      ideer blir lastet opp. Straks ideen er godkjent, vil andre kunne stemme på den.
+    view_results_q: Kan jeg se hva alle andre mener?
+    view_results_exp: Ja, ved å klikke på “Vis resultater” vil du kunne se hva andre
+      har stemt på.
+    make_my_own_q: Dette er veldig bra. Kan jeg lage en slik selv?
+    make_my_own_exp: ! 'Det kan du. Det er lett å sette opp din egen wiki survey.
+      Det er også helt gratis takket være tilskudd fra Google og Center for Information
+      Technology Policy (CITP) ved Princeton University. Du kan lage din egen wiki
+      her: http://www.allourideas.org/questions/new.'

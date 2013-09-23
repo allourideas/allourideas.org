@@ -57,16 +57,22 @@ class ApplicationController < ActionController::Base
     return !white_label_request? && (controller_name == 'home' || (controller_name == 'questions' && action_name == 'new'))
   end
 
+  # called when the request is not verified via the authenticity_token
+  def handle_unverified_request
+    super
+    raise(ActionController::InvalidAuthenticityToken)
+  end
+
   def set_session_timestamp
-      # ActiveResource::HttpMock only matches static strings for query parameters
-      # when in test set this to a static value, so we can match the resulting API queries for mocking
-      request.session_options[:id] = "test123" if Rails.env == "test"
-      expiration_time = session[:expiration_time]
-      if expiration_time && expiration_time < Time.now
-	   session[:session_id] = ActiveSupport::SecureRandom.hex(16)
-	   request.session_options[:id] = session[:session_id]
-      end
-      session[:expiration_time] = 10.minutes.from_now
+    # ActiveResource::HttpMock only matches static strings for query parameters
+    # when in test set this to a static value, so we can match the resulting API queries for mocking
+    request.session_options[:id] = "test123" if Rails.env == "test"
+    expiration_time = session[:expiration_time]
+    if expiration_time && expiration_time < Time.now || session[:session_id].nil?
+      session[:session_id] = ActiveSupport::SecureRandom.hex(16)
+      request.session_options[:id] = session[:session_id]
+    end
+    session[:expiration_time] = 10.minutes.from_now
   end
   
   def record_action

@@ -3,6 +3,7 @@ if (!($.browser.msie && parseInt($.browser.version, 10) < 8)) {
   $('.rounded').corner('5px');
 }
 var loadedTime = new Date();
+var rootPath = "<%= root_path %>";
 var count = 0;
 
 /*  ELEMENT RELOADING FUNCTIONALITY  */
@@ -155,7 +156,7 @@ var count = 0;
     
     var question_id = $(this).attr("rel");
 		
-    $.post('/questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
+    $.post(rootPath + 'questions/' + question_id + '/add_idea.js' + '?locale=<%= I18n.locale %>',
         {authenticity_token: AUTH_TOKEN, new_idea : new_idea},
         function(data){
           $.unblockUI();
@@ -242,7 +243,7 @@ var count = 0;
 	  var appearance_lookup = $('#appearance_lookup').val()
 	  $.ajax({
 	     type: "post",
-	     url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
+	     url: rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
 	     dataType: "json",
 	     data: {
 		   'authenticity_token' : AUTH_TOKEN,
@@ -375,7 +376,7 @@ var count = 0;
 	           cursor:    null
 	      }});
 	  var question_id = $(event.target).attr("data-questionid");
-	  $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js'+ '?locale=<%= I18n.locale %>',
+	  $.post(rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/skip.js'+ '?locale=<%= I18n.locale %>',
 	     {
 		   'authenticity_token' : AUTH_TOKEN,
 		   'cant_decide_reason' : reason, 
@@ -454,7 +455,7 @@ var count = 0;
 		}});
 
     var question_id = $(this).attr("rel");
-    $.post('/questions/' + question_id + '/prompts/' + prompt_id + '/flag.js'+ '?locale=<%= I18n.locale %>', 
+    $.post(rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/flag.js'+ '?locale=<%= I18n.locale %>', 
     {
 	    'authenticity_token' : AUTH_TOKEN,
 	    'flag_reason' : user_text,

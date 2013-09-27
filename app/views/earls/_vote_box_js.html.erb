@@ -1,4 +1,5 @@
   var loadedTime = new Date();
+  var rootPath = "<%= root_path %>";
 
   handle_history_events = function(event){
     var left_side_text = $('#left_side_text').val();
@@ -61,7 +62,7 @@
 
     $('.tellmearea').html('');
     var data = {authenticity_token : AUTH_TOKEN, new_idea: new_idea};
-    var url  = '/questions/' + question_id + '/add_idea.js?locale=<%= I18n.locale %>';
+    var url  = rootPath + 'questions/' + question_id + '/add_idea.js?locale=<%= I18n.locale %>';
     $.post(url, data, function(data){
       button.removeClass('disabled');
       // keypress is for counter
@@ -151,7 +152,7 @@
 
       $.ajax({
         type: "post",
-        url: '/questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
+        url: rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,
         dataType: "json",
         timeout: 10000,
         data: {
@@ -215,7 +216,7 @@
         'time_viewed' : time_viewed,
         'appearance_lookup': appearance_lookup
       };
-      var url = '/questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>';
+      var url = rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/skip.js' + '?locale=<%= I18n.locale %>';
       $.post(url, postData, function(data) {
         $.unblockUI();
         loadNewPrompts(data);
@@ -261,7 +262,7 @@
           opacity:         0.0
       }});
 
-      var url = '/questions/' + question_id + '/prompts/' + prompt_id + '/flag.js'+ '?locale=<%= I18n.locale %>';
+      var url = rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/flag.js'+ '?locale=<%= I18n.locale %>';
       var postData = {
         'authenticity_token' : AUTH_TOKEN,
         'flag_reason' : user_text,

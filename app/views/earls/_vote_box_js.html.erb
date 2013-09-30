@@ -83,7 +83,9 @@
         box.find('.idea-success').hide(300);
       }, 5 * 1000);
 
-    }, "json");
+    }, "json").fail(function() {
+        $('#request_error').modal('show');
+    });
   });
 
 
@@ -165,13 +167,7 @@
         error: function(request,error) {
           winningLink.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
           losingLink.addClass('btn-primary').removeClass('disabled');
-          if (error == "timeout") {
-            $('.tellmearea').html('<%= t('vote.vote_timeout_error')%>').effect("highlight", {color: '#ff0000'}, 1500);
-          }
-          else {
-            $('.tellmearea').html("<%= t('vote.vote_other_error') %>").effect("highlight", {color: '#ff0000'}, 1500);
-          }
-
+          $('#request_error').modal('show');
           loadedTime = new Date(); //reset loaded time
         },
         success: function(data){
@@ -225,7 +221,9 @@
         $('#appearance_lookup').val(data["appearance_lookup"]);
         //clear the radio buttons somehow?
         loadedTime = new Date() //reset loaded time
-      },"json");
+      },"json").fail(function() {
+        $('#request_error').modal('show');
+      });;
     });
 
 
@@ -285,5 +283,7 @@
           $('#item_count').html(decrement(current_item_count));
           loadedTime = new Date() //reset loaded time
         }
-      }, "json");
+      }, "json").fail(function() {
+        $('#request_error').modal('show');
+      });
     });

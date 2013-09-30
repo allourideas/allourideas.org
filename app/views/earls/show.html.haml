@@ -50,6 +50,18 @@
       = render :partial => 'items/form'
       .tellmearea
 
+#request_error.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => 'modal'} x
+    %h2 Error Processing Your Request
+  .modal-body
+    %p
+      There was a problem processing your request. Sometimes this happens when your browser cookies are deleted. When you close this message, the page will reload, and you can try again.
+-content_for :view_javascript do
+  :plain
+    $('#request_error').on('hide', function() {
+      window.location.reload(false);
+    });
 #cant_decide_options.hide.modal.fade
   .modal-header
     %button.close{:"data-dismiss" => 'modal'} x

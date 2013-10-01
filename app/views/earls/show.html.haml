@@ -56,7 +56,8 @@
     %h2 Error Processing Your Request
   .modal-body
     %p
-      There was a problem processing your request. Sometimes this happens when your browser cookies are deleted. When you close this message, the page will reload, and you can try again.
+      There was a problem processing your request. Sometimes this happens when your browser cookies are deleted. When you close this message, the page will reload, and you can try again. If the problem persists, please email
+      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
 -content_for :view_javascript do
   :plain
     $('#request_error').on('hide', function() {

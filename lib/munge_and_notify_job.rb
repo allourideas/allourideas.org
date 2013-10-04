@@ -142,8 +142,9 @@ class MungeAndNotifyJob
 
 
                 row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))]
-                row << ['URL Alias', url_alias]
-                row << ['User Agent', user_session.user_agent]
+                # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT
+                row << ['URL Alias', url_alias.force_encoding('ASCII-8BIT')]
+                row << ['User Agent', user_session.user_agent.force_encoding('ASCII-8BIT')]
 
                 # grab most recent referrer from clicks
                 # that is older than this current vote
@@ -156,7 +157,8 @@ class MungeAndNotifyJob
                 session_start = user_session.clicks.find(:first, :conditions => conditions, :order => 'created_at DESC')
                 referrer = (session_start) ? session_start.referrer : 'REFERRER_NOT_FOUND'
                 referrer = 'DIRECT_VISIT' if referrer == '/'
-                row << ['Referrer', referrer]
+                # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT
+                row << ['Referrer', referrer.force_encoding('ASCII-8BIT')]
 
                 vote_click = user_session.find_click_for_vote(row)
                 widget = (vote_click.widget?) ? 'TRUE' : 'FALSE'
@@ -164,7 +166,7 @@ class MungeAndNotifyJob
 
                 info = user_session.find_info_value(row)
                 info = 'NA' unless info 
-                row << ['Info', info]
+                row << ['Info', info.force_encoding('ASCII-8BIT')]
 
                 if current_user.admin?
                   #row << ['Geolocation Info', user_session.loc_info.to_s]

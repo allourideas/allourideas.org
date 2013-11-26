@@ -144,7 +144,7 @@ class MungeAndNotifyJob
                 row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))]
                 # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT
                 row << ['URL Alias', url_alias.force_encoding('ASCII-8BIT')]
-                row << ['User Agent', user_session.user_agent.force_encoding('ASCII-8BIT')]
+                row << ['User Agent', user_session.user_agent.try(:force_encoding, 'ASCII-8BIT')]
 
                 # grab most recent referrer from clicks
                 # that is older than this current vote

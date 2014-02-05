@@ -66,7 +66,7 @@ class QuestionsController < ApplicationController
 
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
-    if params[:all]
+    if params[:all] || ['xml', 'json'].include?(params[:format])
       choices = Choice.find(:all, :params => {:question_id => @question_id})
     else
       choices = Choice.find(:all, :params => {:question_id => @question_id,
@@ -178,6 +178,11 @@ class QuestionsController < ApplicationController
       return
     end
 
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @choices }
+      format.json { render :json => @choices }
+    end
   end
 
   def scatter_num_ratings_by_creation_time

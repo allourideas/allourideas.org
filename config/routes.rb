@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   map.earl '/:id', :controller => 'earls', :action => 'show'
   map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'
   map.connect '/:id/:action', :controller => 'questions'
+  map.connect '/:id/:action.:format', :controller => 'questions'
   # rake routes
   # http://guides.rubyonrails.org/routing.html
 end

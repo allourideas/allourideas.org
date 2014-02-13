@@ -7,25 +7,63 @@ class SurveySessionTest < ActiveSupport::TestCase
     verifier.generate(value)
   end
 
-  should "raise exceptions when no session found" do
-    test_matrix = [
-      {:message => 'No possible keys available', :args => [{}, 1]},
-      {:message => 'No possible keys available', :args => [{'aoi_2_abc' => ''}, 1]},
-      {:message => 'Only possible key did not have valid appearance lookup', :args => [{'aoi_1_abc' => c({:question_id => 1})}, 1, 'lookup']},
-      {:message => 'Question ID did not match cookie name', :args => [{'aoi_1_abc' => c({:question_id => 2})}, 1]},
-      {:message => 'Data is not hash', :args => [{'aoi_1_abc' => c(nil)}, 1, 'lookup']},
-      {:message => 'Data is not hash', :args => [{'aoi_1_abc' => c('')}, 1, 'lookup']},
-      {:message => 'Possible key failed verification', :args => [{'aoi_1_abc' => {}}, 1, 'lookup']},
-      {:message => 'Possible key failed verification', :args => [{"aoi_1_abc" => {}}, 1]},
-      {:message => 'All possible keys failed verification', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1]},
-      {:message => 'No key found valid with appearance_lookup', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1, 'lookup']},
-      {:message => 'No key found valid with appearance_lookup', :args => [{"aoi_1_abc" => c({:question_id => 1}), "aoi_1_def" => {}}, 1, 'lookup']},
-      {:message => 'Data is not hash', :args => [{"aoi_1_abc" => c(nil), "aoi_1_def" => ''}, 1, 'lookup']},
-      {:message => 'Question ID did not match cookie name', :args => [{'aoi_1_abc' => c({:question_id => 2, :appearance_lookup => 'lookup'})}, 1, 'lookup']},
-    ]
-    test_matrix.each do |test|
-      exception = assert_raises(CantFindSessionFromCookies, "ARGS: #{test[:args].inspect}") { SurveySession.send(:find, *test[:args]) }
-      assert_equal(test[:message], exception.message, "ARGS: #{test[:args].inspect}")
+  def exception_test(test)
+    exception = assert_raises(CantFindSessionFromCookies, "ARGS: #{test[:args].inspect}") { SurveySession.send(:find, *test[:args]) }
+    assert_equal(test[:message], exception.message, "ARGS: #{test[:args].inspect}")
+  end
+
+  context "the find method" do
+
+    should "raise an exception when no cookies are sent" do
+      exception_test({:message => 'No possible keys available', :args => [{}, 1]})
+    end
+
+    should "raise an exception when no cookie names match the question_id" do
+      exception_test({:message => 'No possible keys available', :args => [{'aoi_2_abc' => ''}, 1]})
+    end
+
+    should "raise an exception when the only possible key does not have a valid appearance lookup" do
+      exception_test({:message => 'Only possible key did not have valid appearance lookup', :args => [{'aoi_1_abc' => c({:question_id => 1})}, 1, 'lookup']})
+    end
+
+    should "raise an exception when the question id value does not match cookie name" do
+      exception_test({:message => 'Question ID did not match cookie name', :args => [{'aoi_1_abc' => c({:question_id => 2})}, 1]})
+    end
+
+    should "raise an exception when the data is nil" do
+      exception_test({:message => 'Data is not hash', :args => [{'aoi_1_abc' => c(nil)}, 1, 'lookup']})
+    end
+
+    should "raise an exception when the data is an empty string" do
+      exception_test({:message => 'Data is not hash', :args => [{'aoi_1_abc' => c('')}, 1, 'lookup']})
+    end
+
+    should "raise an exception when cookie failed validation with no lookup" do
+      exception_test({:message => 'Possible key failed verification', :args => [{"aoi_1_abc" => {}}, 1]})
+    end
+
+    should "raise an exception when cookie failed validation with a lookup" do
+      exception_test({:message => 'Possible key failed verification', :args => [{'aoi_1_abc' => {}}, 1, 'lookup']})
+    end
+
+    should "raise an exception when all possible keys failed verification" do
+      exception_test({:message => 'All possible keys failed verification', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1]})
+    end
+
+    should "raise an exception when multiple possible cookies found but are invalid" do
+      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1, 'lookup']})
+    end
+
+    should "raise an exception when the possible cookies don't have the proper lookup" do
+      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{"aoi_1_abc" => c({:question_id => 1}), "aoi_1_def" => {}}, 1, 'lookup']})
+    end
+
+    should "raise an exception when multiple possible cookies exist, but have nil data" do
+      exception_test({:message => 'Data is not hash', :args => [{"aoi_1_abc" => c(nil), "aoi_1_def" => ''}, 1, 'lookup']})
+    end
+
+    should "raise an exception when the question id does not match cookie and a lookup is sent" do
+      exception_test({:message => 'Question ID did not match cookie name', :args => [{'aoi_1_abc' => c({:question_id => 2, :appearance_lookup => 'lookup'})}, 1, 'lookup']})
     end
   end
 

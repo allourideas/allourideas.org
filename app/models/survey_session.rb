@@ -12,7 +12,7 @@ class SurveySession
       begin
         data = @@verifier.verify(cookies[possible_keys[0]])
         raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
-        raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id] != question_id
+        raise CantFindSessionFromCookies, "Question ID did not match cookie name" if data[:question_id].to_i != question_id.to_i
         return [data, possible_keys[0]] if appearance_lookup.nil?
         if data[:appearance_lookup] == appearance_lookup
           return [data, possible_keys[0]]
@@ -27,7 +27,7 @@ class SurveySession
         begin
           data = @@verifier.verify(cookies[possible_key])
           raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
-          raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id] != question_id
+          raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id].to_i != question_id.to_i
           return [data, possible_key] if appearance_lookup.nil?
           if data[:appearance_lookup] == appearance_lookup
             return [data, possible_key]

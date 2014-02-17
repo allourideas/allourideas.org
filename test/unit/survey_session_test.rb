@@ -85,11 +85,13 @@ class SurveySessionTest < ActiveSupport::TestCase
     }
     test_matrix = [
       {:args => [{'aoi_1_abc' => c(match_session)}, 1], :result => [match_session, 'aoi_1_abc']},
+      {:args => [{'aoi_1_abc' => c(match_session)}, '1'], :result => [match_session, 'aoi_1_abc']},
       {:args => [{'aoi_1_abc' => c(match_session), 'aoi_1_def' => c(no_match_session)}, 1], :result => [match_session, 'aoi_1_abc']},
       {:args => [{'aoi_1_abc' => c(match_session), 'aoi_2_aaa' => c(no_match_session)}, 1], :result => [match_session, 'aoi_1_abc']},
       {:args => [{'aoi_1_abc' => c(no_match_session), 'aoi_2_aaa' => c(match_2_session)}, 2], :result => [match_2_session, 'aoi_2_aaa']},
       {:args => [{'aoi_1_lookup' => c(match_session), 'aoi_1_aaa' => c(no_match_session)}, 1, 'lookup'], :result => [match_session, 'aoi_1_lookup']},
       {:args => [{'aoi_1_lookup' => c(match_session)}, 1, 'lookup'], :result => [match_session, 'aoi_1_lookup']},
+      {:args => [{'aoi_1_lookup' => c(match_session)}, '1', 'lookup'], :result => [match_session, 'aoi_1_lookup']},
     ]
     test_matrix.each do |test|
       assert_equal(SurveySession.send(:find, *test[:args]), test[:result], "ARGS: #{test[:args].inspect}")

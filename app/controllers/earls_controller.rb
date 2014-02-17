@@ -38,6 +38,7 @@ class EarlsController < ApplicationController
       end
 
 
+        @survey_session.appearance_lookup = @question.attributes["appearance_id"]
        logger.info "inside questions#show " + @question.inspect
 
        # we can probably make this into one api call

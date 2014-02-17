@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :get_survey_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
+  before_filter :initialize_session, :get_survey_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
   after_filter :write_survey_session_cookie
 
   # preprocess photocracy_view_path on boot because
@@ -108,24 +108,13 @@ class ApplicationController < ActionController::Base
       @survey_session.regenerate
     end
     @survey_session.update_expiry
+    logger.info "#{@survey_session.inspect}"
   end
 
   def write_survey_session_cookie
     cookies[@survey_session.cookie_name] = {
       :value => @survey_session.cookie_value
     }
-  end
-
-  def set_session_timestamp
-    # ActiveResource::HttpMock only matches static strings for query parameters
-    # when in test set this to a static value, so we can match the resulting API queries for mocking
-    request.session_options[:id] = "test123" if Rails.env == "test"
-    expiration_time = session[:expiration_time]
-    if expiration_time && expiration_time < Time.now || session[:session_id].nil?
-      session[:session_id] = ActiveSupport::SecureRandom.hex(16)
-      request.session_options[:id] = session[:session_id]
-    end
-    session[:expiration_time] = 10.minutes.from_now
   end
   
   def record_action
@@ -141,7 +130,7 @@ class ApplicationController < ActionController::Base
     end
 
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
-    user_session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
+    user_session = SessionInfo.find_or_create_by_session_id(:session_id => @survey_session.session_id,
 						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
@@ -156,13 +145,6 @@ class ApplicationController < ActionController::Base
 	    user_session.save!
     end
 
-    if current_user 
-      logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
-    else
-      logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in)"
-    end
-   #   Click.create( :sid => request.session_options[:id], :ip_addr => request.remote_ip, :url => request.url,
-#		   :controller => controller_name, :action => action_name, :user => nil, :referrer => request.referrer)
     if (session[:abingo_identity])
 	    Abingo.identity = session[:abingo_identity]
     else

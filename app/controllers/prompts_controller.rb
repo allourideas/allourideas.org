@@ -105,7 +105,7 @@ class PromptsController < ApplicationController
     @choice.prefix_options[:question_id] = question_id
 
     c = @choice.put(:flag,
-                    :visitor_identifier => request.session_options[:id],
+                    :visitor_identifier => @survey_session.session_id,
                     :explanation => reason)
 
     new_choice = Crack::XML.parse(c.body)['choice']
@@ -178,7 +178,7 @@ class PromptsController < ApplicationController
   end
 
   def get_object_request_options(params, request_type)
-     options = { :visitor_identifier => request.session_options[:id],
+     options = { :visitor_identifier => @survey_session.session_id,
                  # use static value of 5 if in test, so we can mock resulting API queries
                  :time_viewed => (Rails.env == 'test') ? 5 : params[:time_viewed],
                  :appearance_lookup => params[:appearance_lookup]
@@ -206,7 +206,7 @@ class PromptsController < ApplicationController
   def get_next_prompt_options
     next_prompt_params = { :with_appearance => true,
                             :with_visitor_stats => true,
-                            :visitor_identifier => request.session_options[:id]
+                            :visitor_identifier => @survey_session.session_id
                           }
     next_prompt_params.merge!(:future_prompts => {:number => 1}) if @photocracy
     next_prompt_params

@@ -1,9 +1,40 @@
 class SurveySession
   @@verifier = ActiveSupport::MessageVerifier.new(APP_CONFIG[:SURVEY_SESSION_SECRET])
+  @@expire_time = 10.minutes
+  @@cookie_prefix = "aoi_"
+
+  attr_reader :cookie_name
+
+  def initialize(data, cookie_name=nil)
+    @data, @cookie_name = data, cookie_name
+
+    if @cookie_name.nil?
+      @cookie_name = "#{@@cookie_prefix}#{@data[:question_id]}_#{ActiveSupport::SecureRandom.hex(2)}"
+    end
+
+    if @data[:session_id].nil?
+      @data[:session_id] = ActiveSupport::SecureRandom.hex(16)
+    end
+    if @data[:expiration_time].nil?
+      @data[:expiration_time] = @@expire_time.from_now.utc
+    end
+  end
+
+  def appearance_lookup=(appearance_id)
+    @data[:appearance_lookup] = appearance_id
+  end
+
+  def expired?
+    @data[:expiration_time] < Time.now.utc
+  end
+
+  def cookie_value
+    @@verifier.generate(@data)
+  end
 
   def self.find(cookies, question_id, appearance_lookup=nil)
     possible_keys = cookies.keys.select do |k|
-      k.index("aoi_#{question_id}_") == 0
+      k.index("#{@@cookie_prefix}#{question_id}_") == 0
     end.sort
 
     if possible_keys.length == 0

@@ -13,7 +13,7 @@ class SurveySession
     end
 
     if @data[:session_id].nil?
-      @data[:session_id] = ActiveSupport::SecureRandom.hex(16)
+      @data[:session_id] = generate_session_id
     end
     if @data[:expiration_time].nil?
       update_expiry
@@ -34,7 +34,7 @@ class SurveySession
 
   def regenerate
     @old_session_id = @data[:session_id]
-    @data[:session_id] = ActiveSupport::SecureRandom.hex(16)
+    @data[:session_id] = generate_session_id
   end
 
   def cookie_value
@@ -82,6 +82,12 @@ class SurveySession
       end
     end
 
+  end
+
+  protected
+  def generate_session_id
+    return 'test123' if Rails.env == 'test'
+    ActiveSupport::SecureRandom.hex(16)
   end
 
 end

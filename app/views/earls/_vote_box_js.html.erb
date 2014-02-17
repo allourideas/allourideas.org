@@ -61,7 +61,7 @@
     }
 
     $('.tellmearea').html('');
-    var data = {authenticity_token : AUTH_TOKEN, new_idea: new_idea};
+    var data = {authenticity_token : AUTH_TOKEN, new_idea: new_idea, appearance_lookup: $('#appearance_lookup').val()};
     var url  = rootPath + 'questions/' + question_id + '/add_idea.js?locale=<%= I18n.locale %>';
     $.post(url, data, function(data){
       button.removeClass('disabled');

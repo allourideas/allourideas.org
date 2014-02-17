@@ -13,9 +13,9 @@ class SurveySession
         data = @@verifier.verify(cookies[possible_keys[0]])
         raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
         raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id] != question_id
-        return data if appearance_lookup.nil?
+        return [data, possible_keys[0]] if appearance_lookup.nil?
         if data[:appearance_lookup] == appearance_lookup
-          return data
+          return [data, possible_keys[0]]
         else
           raise CantFindSessionFromCookies, 'Only possible key did not have valid appearance lookup'
         end
@@ -28,9 +28,9 @@ class SurveySession
           data = @@verifier.verify(cookies[possible_key])
           raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
           raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id] != question_id
-          return data if appearance_lookup.nil?
+          return [data, possible_key] if appearance_lookup.nil?
           if data[:appearance_lookup] == appearance_lookup
-            return data
+            return [data, possible_key]
           end
         rescue ActiveSupport::MessageVerifier::InvalidSignature
         end

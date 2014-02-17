@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
+  before_filter :initialize_session, :get_survey_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
+  after_filter :write_survey_session_cookie
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
@@ -61,6 +62,54 @@ class ApplicationController < ActionController::Base
   def handle_unverified_request
     super
     raise(ActionController::InvalidAuthenticityToken)
+  end
+
+  def set_question_id_earl
+    @question_id = nil
+    if [controller_name, action_name] == ['earls', 'show']
+      @earl = Earl.find_by_name(params[:id])
+      @question_id = @earl.try(:question_id)
+    elsif controller_name == 'prompts'
+      @question_id = params[:question_id]
+    elsif controller_name == 'questions'
+      if ['add_idea', 'visitor_voting_history'].include?(action_name)
+        @question_id = params[:id]
+      elsif ['results', 'about', 'admin', 'update_name'].include?(action_name)
+        @earl = Earl.find_by_name(params[:id])
+        @question_id = @earl.try(:question_id)
+      end
+    elsif controller_name == 'choices'
+      if action_name == 'toggle'
+        @earl = Earl.find(params[:earl_id])
+      else
+        @earl = Earl.find_by_name(params[:question_id])
+      end
+      @question_id = @earl.try(:question_id)
+    end
+  end
+
+  def get_survey_session
+    set_question_id_earl
+
+    begin
+      session_data = SurveySession.find(cookies, @question_id, params[:appearance_lookup])
+    rescue CantFindSessionFromCookies => e
+      # if no appearance_lookup, then we can safely create a new sesssion
+      # otherwise this request ought to fail as they are attempting some action
+      # without the proper session being found
+      if params[:appearance_lookup].nil?
+        session_data = [{:question_id => @question_id }]
+      else
+        raise e
+      end
+    end
+    @survey_session = SurveySession.send(:new, *session_data)
+  end
+
+  def write_survey_session_cookie
+    cookies[@survey_session.cookie_name] = {
+      :value => @survey_session.cookie_value
+    }
   end
 
   def set_session_timestamp

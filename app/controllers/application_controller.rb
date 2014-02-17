@@ -104,6 +104,10 @@ class ApplicationController < ActionController::Base
       end
     end
     @survey_session = SurveySession.send(:new, *session_data)
+    if @survey_session.expired?
+      @survey_session.regenerate
+    end
+    @survey_session.update_expiry
   end
 
   def write_survey_session_cookie

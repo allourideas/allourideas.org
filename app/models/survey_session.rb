@@ -3,7 +3,7 @@ class SurveySession
   @@expire_time = 10.minutes
   @@cookie_prefix = "aoi_"
 
-  attr_reader :cookie_name
+  attr_reader :cookie_name, :old_session_id
 
   def initialize(data, cookie_name=nil)
     @data, @cookie_name = data, cookie_name
@@ -16,7 +16,7 @@ class SurveySession
       @data[:session_id] = ActiveSupport::SecureRandom.hex(16)
     end
     if @data[:expiration_time].nil?
-      @data[:expiration_time] = @@expire_time.from_now.utc
+      update_expiry
     end
   end
 
@@ -26,6 +26,15 @@ class SurveySession
 
   def expired?
     @data[:expiration_time] < Time.now.utc
+  end
+
+  def update_expiry
+    @data[:expiration_time] = @@expire_time.from_now.utc
+  end
+
+  def regenerate
+    @old_session_id = @data[:session_id]
+    @data[:session_id] = ActiveSupport::SecureRandom.hex(16)
   end
 
   def cookie_value

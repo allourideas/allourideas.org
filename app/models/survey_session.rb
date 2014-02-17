@@ -20,6 +20,10 @@ class SurveySession
     end
   end
 
+  def session_id
+    @data[:session_id]
+  end
+
   def appearance_lookup=(appearance_id)
     @data[:appearance_lookup] = appearance_id
   end

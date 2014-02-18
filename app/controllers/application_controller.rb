@@ -31,13 +31,6 @@ class ApplicationController < ActionController::Base
   
   def initialize_session
     session[:session_id] # this forces load of the session in Rails 2.3.x
-    if signed_in?
-      logger.info "current user is #{current_user.inspect}"
-    end
-
-    if white_label_request?
-      logger.info "white_label request - no header and footer displayed"
-    end
   end
 
   helper_method :white_label_request?
@@ -108,7 +101,6 @@ class ApplicationController < ActionController::Base
       @survey_session.regenerate
     end
     @survey_session.update_expiry
-    logger.info "#{@survey_session.inspect}"
   end
 
   def write_survey_session_cookie

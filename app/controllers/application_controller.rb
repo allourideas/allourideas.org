@@ -54,7 +54,9 @@ class ApplicationController < ActionController::Base
   # called when the request is not verified via the authenticity_token
   def handle_unverified_request
     super
-    raise(ActionController::InvalidAuthenticityToken)
+    # Appearance_lookup can act like an authenticity token.
+    # get_survey_session will raise an error if no cookie found with proper appearance_lookup
+    raise(ActionController::InvalidAuthenticityToken) unless params[:appearance_lookup].nil?
   end
 
   def set_question_id_earl

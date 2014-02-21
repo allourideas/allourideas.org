@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
     super
     # Appearance_lookup can act like an authenticity token.
     # get_survey_session will raise an error if no cookie found with proper appearance_lookup
-    raise(ActionController::InvalidAuthenticityToken) unless params[:appearance_lookup].nil?
+    raise(ActionController::InvalidAuthenticityToken) unless params[:appearance_lookup]
   end
 
   def set_question_id_earl

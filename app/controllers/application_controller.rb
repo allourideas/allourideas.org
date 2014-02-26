@@ -54,11 +54,22 @@ class ApplicationController < ActionController::Base
   # called when the request is not verified via the authenticity_token
   def handle_unverified_request
     super
-    # Appearance_lookup can act like an authenticity token.
+    # Appearance_lookup can act like an authenticity token because
     # get_survey_session will raise an error if no cookie found with proper appearance_lookup
     raise(ActionController::InvalidAuthenticityToken) unless params[:appearance_lookup]
   end
 
+  # This method sets question_id based on the URL and parameters of the request
+  # We want to know the question_id early in the request process because we
+  # use it to determine the proper session for this request.
+  #
+  # The different controller / actions have differing ways of determining the
+  # question_id. Some are only passed the Earl.name, while others get the
+  # question_id directly as a parameter.
+  #
+  # Some requests like the homepage will have @question_id = nil. This is
+  # okay as they don't pass any session information to pairwise. A separate
+  # session is kept for requests that have no question_id.
   def set_question_id_earl
     @question_id = nil
     if [controller_name, action_name] == ['earls', 'show']
@@ -83,10 +94,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Called as a before_filter.
   def get_survey_session
+    # First order of business is to set the question_id.
     set_question_id_earl
 
     begin
+      # Based on the cookies, question_id, and appearance_lookup, find the
+      # proper session for this request.
       session_data = SurveySession.find(cookies, @question_id, params[:appearance_lookup])
     rescue CantFindSessionFromCookies => e
       # if no appearance_lookup, then we can safely create a new sesssion
@@ -98,13 +113,22 @@ class ApplicationController < ActionController::Base
         raise e
       end
     end
+    # Create new SurveySession object for this request.
     @survey_session = SurveySession.send(:new, *session_data)
     if @survey_session.expired?
+      # This will regenerate the session_id, saving the old one.
+      # We can send along both the new and old session_id to pairwise
+      # for requests that have sessions that have expired.
       @survey_session.regenerate
     end
+
+    # We want the session to expire after X minutes of inactivity, so update
+    # the expiry with every request.
     @survey_session.update_expiry
   end
 
+  # Called as a after_filter to ensure we pass along the updated survey session
+  # cookie in the response to this request.
   def write_survey_session_cookie
     cookies[@survey_session.cookie_name] = {
       :value => @survey_session.cookie_value

@@ -8,6 +8,17 @@ class SurveySession
   def initialize(data, cookie_name=nil)
     @data, @cookie_name = data, cookie_name
 
+    # Clean up question_id to ensure it is either a positive integer or nil.
+    if !@data.has_key?(:question_id)
+      @data[:question_id] = nil
+    end
+    q_id = @data[:question_id].to_i
+    if q_id < 1
+      @data[:question_id] = nil
+    else
+      @data[:question_id] = q_id
+    end
+
     if @cookie_name.nil?
       # Session is scoped to the question_id, so include that in the name of the
       # cookie. Random portion at end of the cookie_name allows a user to make
@@ -26,6 +37,10 @@ class SurveySession
 
   def session_id
     @data[:session_id]
+  end
+
+  def question_id
+    @data[:question_id]
   end
 
   def appearance_lookup=(appearance_id)

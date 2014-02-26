@@ -8,6 +8,27 @@ class SurveySessionTest < ActiveSupport::TestCase
   end
 
   context "the initialize method" do
+    should "convert question_id to positive integer or nil" do
+      test_map = [
+        ["1", 1],
+        [1, 1],
+        [0, nil],
+        [-1, nil],
+        [-1.20, nil],
+        ["s", nil],
+        [nil, nil],
+      ]
+      test_map.each do |test_data|
+        s = SurveySession.new({:question_id => test_data[0]})
+        assert_equal(test_data[1], s.question_id)
+      end
+    end
+
+    should "set question_id to nil if none is given" do
+      s = SurveySession.new({})
+      assert_equal(nil, s.question_id)
+    end
+
     should "generate a session_id if none given" do
       s = SurveySession.new({:question_id => 1})
       assert_not_nil(s.session_id)

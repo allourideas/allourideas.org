@@ -56,7 +56,7 @@ namespace :l10n do
     CSVBridge.foreach(args[:csvfile], {:headers => :first_row, :return_headers => true, :encoding => 'u'}) do |row|
       row_index += 1
       # Skipping row if key has whitespace of if it is header row
-      if (row['key'].strip =~ /\s/) == nil && !row.header_row?
+      if !row.header_row? && (row['key'].strip =~ /\s/) == nil
         phrase = row[args[:lang]]
         phrase = phrase.strip if phrase
         setValue(phrases, "#{args[:lang]}.#{row['key']}", phrase)

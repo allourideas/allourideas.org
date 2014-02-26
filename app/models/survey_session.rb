@@ -39,11 +39,18 @@ class SurveySession
     @data[:session_id]
   end
 
+  def appearance_lookup
+    @data[:appearance_lookup]
+  end
+
   def question_id
     @data[:question_id]
   end
 
   def appearance_lookup=(appearance_id)
+    if @data[:question_id].nil?
+      raise SessionHasNoQuestionId, "Can't set appearance_id when session has no question_id"
+    end
     @data[:appearance_lookup] = appearance_id
   end
 
@@ -72,6 +79,9 @@ class SurveySession
   # return the cookie data and cookie name in an array that best matches.
   # If there are multiple cookies that match, we return the first that is matched.
   def self.find(cookies, question_id, appearance_lookup=nil)
+    if question_id.to_i < 1 && !appearance_lookup.nil?
+      raise SessionHasNoQuestionId, "Can't find session with appearance_lookup that has no question_id"
+    end
     # Get list of cookie names that  might be a match for this request.
     # Sort this list, so that when returning the first cookie matched it is consistent.
     possible_keys = cookies.keys.select do |k|
@@ -140,4 +150,6 @@ class SurveySession
 
 end
 class CantFindSessionFromCookies < StandardError
+end
+class SessionHasNoQuestionId < StandardError
 end

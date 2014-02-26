@@ -7,6 +7,19 @@ class SurveySessionTest < ActiveSupport::TestCase
     verifier.generate(value)
   end
 
+  context "the appearance_lookup= method" do
+    should "set the appearance_lookup when the session has a question_id" do
+      s = SurveySession.new({:question_id => 1})
+      s.appearance_lookup = 'abc123'
+      assert_equal(s.appearance_lookup, 'abc123')
+    end
+
+    should "raise an exception when question_id is nil" do
+      s = SurveySession.new({:question_id => nil})
+      assert_raises(SessionHasNoQuestionId) { s.appearance_lookup = 'abc123' }
+    end
+  end
+
   context "the initialize method" do
     should "convert question_id to positive integer or nil" do
       test_map = [
@@ -72,6 +85,24 @@ class SurveySessionTest < ActiveSupport::TestCase
   end
 
   context "the find method" do
+
+    should "raise an exception when appearance_lookup exists, but no question_id" do
+      assert_raises(SessionHasNoQuestionId) do
+        SurveySession.find({}, nil, 'abc123')
+      end
+      assert_raises(SessionHasNoQuestionId) do
+        SurveySession.find({}, 0, 'abc123')
+      end
+      assert_raises(SessionHasNoQuestionId) do
+        SurveySession.find({}, -1, 'abc123')
+      end
+      assert_raises(SessionHasNoQuestionId) do
+        SurveySession.find({}, -1.20, 'abc123')
+      end
+      assert_raises(SessionHasNoQuestionId) do
+        SurveySession.find({}, "s", 'abc123')
+      end
+    end
 
     should "raise an exception when no cookies are sent" do
       exception_test({:message => 'No possible keys available', :args => [{}, 1]})

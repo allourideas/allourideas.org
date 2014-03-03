@@ -25,7 +25,7 @@ Feature: Voting
 
     @widget
     @selenium
-    Scenario: User has two choices and votes for the left one
+    Scenario: User visits page with 2 different widgets embedded on the same page
       When I am on the multiple widgets embedded page
       And I click on the left choice within iframe "widget1"
       Then I should see "You chose" within ".tellmearea" within iframe "widget1"
@@ -38,3 +38,18 @@ Feature: Voting
       When I click on the left choice within iframe "widget1"
       Then I should see "You chose" within ".tellmearea" within iframe "widget1"
       And last vote should match session of last earl show for "test"
+
+    @widget
+    @selenium
+    Scenario: User visits page with 2 of the same widget on the same page
+      When I am on the multiple same widgets embedded page
+      And I click on the left choice within iframe "widget1"
+      Then I should see "You chose" within ".tellmearea" within iframe "widget1"
+
+      When I click on the left choice within iframe "widget2"
+      Then I should see "You chose" within ".tellmearea" within iframe "widget2"
+      And last vote should not match the session of the previous vote
+
+      When I click on the left choice within iframe "widget1"
+      Then I should see "You chose" within ".tellmearea" within iframe "widget1"
+      And last vote should not match the session of the previous vote

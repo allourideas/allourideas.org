@@ -92,26 +92,6 @@ class SurveySession
 
     if possible_keys.length == 0
       raise CantFindSessionFromCookies, 'No possible keys available'
-    elsif possible_keys.length == 1
-      begin
-        # Extract data from cookie in a way that ensures no user tampering.
-        data = @@verifier.verify(cookies[possible_keys[0]])
-        # Safe guard against unexpected value of cookie data.
-        raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
-        # The question_id in the cookie_name could be altered by the user. To
-        # protect against tampering, we verify the question_id in the cookie
-        # value matches the one we're looking for.
-        raise CantFindSessionFromCookies, "Question ID did not match cookie name" if data[:question_id].to_i != question_id.to_i
-        # If no appearance_lookup, in request we don't need to check it.
-        return [data, possible_keys[0]] if appearance_lookup.nil?
-        if data[:appearance_lookup] == appearance_lookup
-          return [data, possible_keys[0]]
-        else
-          raise CantFindSessionFromCookies, 'Only possible key did not have valid appearance lookup'
-        end
-      rescue ActiveSupport::MessageVerifier::InvalidSignature
-        raise CantFindSessionFromCookies, 'Possible key failed verification'
-      end
     else
       possible_keys.each do |possible_key|
         begin

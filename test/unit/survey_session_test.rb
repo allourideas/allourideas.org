@@ -118,7 +118,7 @@ class SurveySessionTest < ActiveSupport::TestCase
     end
 
     should "raise an exception when the only possible key does not have a valid appearance lookup" do
-      exception_test({:message => 'Only possible key did not have valid appearance lookup', :args => [{'aoi_1_abc' => c({:question_id => 1})}, 1, 'lookup']})
+      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{'aoi_1_abc' => c({:question_id => 1})}, 1, 'lookup']})
     end
 
     should "raise an exception when the question id value does not match cookie name" do
@@ -134,11 +134,11 @@ class SurveySessionTest < ActiveSupport::TestCase
     end
 
     should "raise an exception when cookie failed validation with no lookup" do
-      exception_test({:message => 'Possible key failed verification', :args => [{"aoi_1_abc" => {}}, 1]})
+      exception_test({:message => 'All possible keys failed verification', :args => [{"aoi_1_abc" => {}}, 1]})
     end
 
     should "raise an exception when cookie failed validation with a lookup" do
-      exception_test({:message => 'Possible key failed verification', :args => [{'aoi_1_abc' => {}}, 1, 'lookup']})
+      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{'aoi_1_abc' => {}}, 1, 'lookup']})
     end
 
     should "raise an exception when all possible keys failed verification" do

@@ -85,36 +85,37 @@ class SurveySession
     end
     # Get list of cookie names that  might be a match for this request.
     # Sort this list, so that when returning the first cookie matched it is consistent.
-    possible_keys = cookies.keys.select do |k|
+    possible_cookie_names = cookies.keys.select do |k|
       # The cookie name must have this prefix.
       k.index("#{@@cookie_prefix}#{question_id}_") == 0
     end.sort
 
-    if possible_keys.length == 0
-      raise CantFindSessionFromCookies, 'No possible keys available'
+    if possible_cookie_names.length == 0
+      raise CantFindSessionFromCookies, 'No possible cookies available'
     else
-      possible_keys.each do |possible_key|
+      possible_cookie_names.each do |cookie_name|
         begin
           # Extract data from cookie in a way that ensures no user tampering.
-          data = @@verifier.verify(cookies[possible_key])
+          data = @@verifier.verify(cookies[cookie_name])
           # Safe guard against unexpected value of cookie data.
           raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
           # The question_id in the cookie_name could be altered by the user. To
           # protect against tampering, we verify the question_id in the cookie
           # value matches the one we're looking for.
           raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id].to_i != question_id.to_i
-          return [data, possible_key] if appearance_lookup.nil?
+          return [data, cookie_name] if appearance_lookup.nil?
           if data[:appearance_lookup] == appearance_lookup
-            return [data, possible_key]
+            return [data, cookie_name]
           end
         # We'll allow verification failures as other cookies match.
         rescue ActiveSupport::MessageVerifier::InvalidSignature
         end
       end
+      # If we've gotten this far, we've failed to find a cookie.
       if appearance_lookup.nil?
-        raise CantFindSessionFromCookies, 'All possible keys failed verification'
+        raise CantFindSessionFromCookies, 'All possible cookies failed verification'
       else
-        raise CantFindSessionFromCookies, 'No key found valid with appearance_lookup'
+        raise CantFindSessionFromCookies, 'No cookie found valid with appearance_lookup'
       end
     end
 

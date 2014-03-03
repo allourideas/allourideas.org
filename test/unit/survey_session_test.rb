@@ -110,15 +110,15 @@ class SurveySessionTest < ActiveSupport::TestCase
     end
 
     should "raise an exception when no cookies are sent" do
-      exception_test({:message => 'No possible keys available', :args => [{}, 1]})
+      exception_test({:message => 'No possible cookies available', :args => [{}, 1]})
     end
 
     should "raise an exception when no cookie names match the question_id" do
-      exception_test({:message => 'No possible keys available', :args => [{'aoi_2_abc' => ''}, 1]})
+      exception_test({:message => 'No possible cookies available', :args => [{'aoi_2_abc' => ''}, 1]})
     end
 
-    should "raise an exception when the only possible key does not have a valid appearance lookup" do
-      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{'aoi_1_abc' => c({:question_id => 1})}, 1, 'lookup']})
+    should "raise an exception when the only possible cookie does not have a valid appearance lookup" do
+      exception_test({:message => 'No cookie found valid with appearance_lookup', :args => [{'aoi_1_abc' => c({:question_id => 1})}, 1, 'lookup']})
     end
 
     should "raise an exception when the question id value does not match cookie name" do
@@ -134,23 +134,23 @@ class SurveySessionTest < ActiveSupport::TestCase
     end
 
     should "raise an exception when cookie failed validation with no lookup" do
-      exception_test({:message => 'All possible keys failed verification', :args => [{"aoi_1_abc" => {}}, 1]})
+      exception_test({:message => 'All possible cookies failed verification', :args => [{"aoi_1_abc" => {}}, 1]})
     end
 
     should "raise an exception when cookie failed validation with a lookup" do
-      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{'aoi_1_abc' => {}}, 1, 'lookup']})
+      exception_test({:message => 'No cookie found valid with appearance_lookup', :args => [{'aoi_1_abc' => {}}, 1, 'lookup']})
     end
 
-    should "raise an exception when all possible keys failed verification" do
-      exception_test({:message => 'All possible keys failed verification', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1]})
+    should "raise an exception when all possible cookies failed verification" do
+      exception_test({:message => 'All possible cookies failed verification', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1]})
     end
 
     should "raise an exception when multiple possible cookies found but are invalid" do
-      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1, 'lookup']})
+      exception_test({:message => 'No cookie found valid with appearance_lookup', :args => [{"aoi_1_abc" => {}, "aoi_1_def" => {}}, 1, 'lookup']})
     end
 
     should "raise an exception when the possible cookies don't have the proper lookup" do
-      exception_test({:message => 'No key found valid with appearance_lookup', :args => [{"aoi_1_abc" => c({:question_id => 1}), "aoi_1_def" => {}}, 1, 'lookup']})
+      exception_test({:message => 'No cookie found valid with appearance_lookup', :args => [{"aoi_1_abc" => c({:question_id => 1}), "aoi_1_def" => {}}, 1, 'lookup']})
     end
 
     should "raise an exception when multiple possible cookies exist, but have nil data" do

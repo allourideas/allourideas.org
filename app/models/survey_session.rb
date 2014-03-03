@@ -12,10 +12,11 @@ class SurveySession
     if !@data.has_key?(:question_id)
       @data[:question_id] = nil
     end
-    q_id = @data[:question_id].to_i
-    if q_id < 1
-      @data[:question_id] = nil
-    else
+    if !@data[:question_id].nil?
+      q_id = @data[:question_id].to_i
+      if q_id < 1
+        raise QuestionIdIsNotPositiveInteger, "Question id must be positive integer or nil"
+      end
       @data[:question_id] = q_id
     end
 
@@ -152,4 +153,6 @@ end
 class CantFindSessionFromCookies < StandardError
 end
 class SessionHasNoQuestionId < StandardError
+end
+class QuestionIdIsNotPositiveInteger < StandardError
 end

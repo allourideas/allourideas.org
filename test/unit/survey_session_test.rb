@@ -25,15 +25,20 @@ class SurveySessionTest < ActiveSupport::TestCase
       test_map = [
         ["1", 1],
         [1, 1],
-        [0, nil],
-        [-1, nil],
-        [-1.20, nil],
-        ["s", nil],
         [nil, nil],
       ]
       test_map.each do |test_data|
         s = SurveySession.new({:question_id => test_data[0]})
         assert_equal(test_data[1], s.question_id)
+      end
+    end
+
+    should "raise an error when question_id is not a positive integer or nil" do
+      test_map = [0, -1, -1.20, "s"]
+      test_map.each do |test_data|
+        assert_raises(QuestionIdIsNotPositiveInteger) do
+          SurveySession.new({:question_id => test_data})
+        end
       end
     end
 

@@ -19,6 +19,21 @@ When /^I click on the (left|right) choice$/ do |side|
   end
 end
 
+When /^(.*) within iframe "(.*)"$/ do |action, iframe_id|
+  within_frame iframe_id do
+    When "#{action}"
+  end
+end
+
+Then /^last vote should match session of last earl show for "([^"]*)"$/ do |url_name|
+  earl_show = Click.find(:first,
+    :conditions => ["controller = ? AND action = ? AND url LIKE ?", "earls", "show", "%/#{url_name}?%"],
+    :order => "id DESC")
+  last_vote = Click.find(:first, :conditions => ["controller = ? AND action = ?", "prompts", "vote"],
+    :order => "id DESC")
+  earl_show.session_info_id.should == last_vote.session_info_id
+end
+
 When /^I click on the left photo$/ do
 	When "I follow \"leftside\""
 end

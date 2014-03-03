@@ -103,6 +103,10 @@ class SurveySession
           # protect against tampering, we verify the question_id in the cookie
           # value matches the one we're looking for.
           raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id].to_i != question_id.to_i
+          # If appearance_lookup is nil, we can return now because we've found
+          # the first cookie that is match. There may be other matches, but we
+          # have no way to determine which might be best. We always return the
+          # first matching cookie for this search.
           return [data, cookie_name] if appearance_lookup.nil?
           if data[:appearance_lookup] == appearance_lookup
             return [data, cookie_name]

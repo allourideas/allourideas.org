@@ -45,11 +45,19 @@ Feature: Voting
       When I am on the multiple same widgets embedded page
       And I click on the left choice within iframe "widget1"
       Then I should see "You chose" within ".tellmearea" within iframe "widget1"
+      Then remember session_info_id of the previous vote as "widget1_vote1_session"
 
       When I click on the left choice within iframe "widget2"
       Then I should see "You chose" within ".tellmearea" within iframe "widget2"
-      And last vote should not match the session of the previous vote
+      Then remember session_info_id of the previous vote as "widget2_vote1_session"
+      And remembered "widget2_vote1_session" should not equal "widget1_vote1_session"
 
       When I click on the left choice within iframe "widget1"
       Then I should see "You chose" within ".tellmearea" within iframe "widget1"
-      And last vote should not match the session of the previous vote
+      Then remember session_info_id of the previous vote as "widget1_vote2_session"
+      And remembered "widget1_vote1_session" should equal "widget1_vote2_session"
+
+      When I click on the left choice within iframe "widget2"
+      Then I should see "You chose" within ".tellmearea" within iframe "widget2"
+      Then remember session_info_id of the previous vote as "widget2_vote2_session"
+      And remembered "widget2_vote1_session" should equal "widget2_vote2_session"

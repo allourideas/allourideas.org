@@ -25,6 +25,22 @@ When /^(.*) within iframe "(.*)"$/ do |action, iframe_id|
   end
 end
 
+Then /^remember session_info_id of the previous vote as "([^"]*)"$/ do |key|
+  @remember = {} unless @remember
+  @remember[key] = Click.find(:first,
+    :conditions => ["controller = ? AND action = ?", "prompts", "vote"],
+    :order => "id DESC"
+  ).session_info_id
+end
+
+Then /^remembered "([^"]*)" should not equal "([^"]*)"$/ do |key1, key2|
+  @remember[key1].should_not == @remember[key2]
+end
+
+Then /^remembered "([^"]*)" should equal "([^"]*)"$/ do |key1, key2|
+  @remember[key1].should == @remember[key2]
+end
+
 Then /^last vote should match session of last earl show for "([^"]*)"$/ do |url_name|
   earl_show = Click.find(:first,
     :conditions => ["controller = ? AND action = ? AND url LIKE ?", "earls", "show", "%/#{url_name}?%"],
@@ -32,12 +48,6 @@ Then /^last vote should match session of last earl show for "([^"]*)"$/ do |url_
   last_vote = Click.find(:first, :conditions => ["controller = ? AND action = ?", "prompts", "vote"],
     :order => "id DESC")
   earl_show.session_info_id.should == last_vote.session_info_id
-end
-
-Then /^last vote should not match the session of the previous vote$/ do
-  last_2_votes = Click.find(:all, :conditions => ["controller = ? AND action = ?", "prompts", "vote"],
-    :order => "id DESC", :limit => 2)
-  last_2_votes[0].session_info_id.should_not == last_2_votes[1].session_info_id
 end
 
 When /^I click on the left photo$/ do

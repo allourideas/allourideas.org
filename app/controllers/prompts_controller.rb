@@ -183,6 +183,9 @@ class PromptsController < ApplicationController
                  :time_viewed => (Rails.env == 'test') ? 5 : params[:time_viewed],
                  :appearance_lookup => params[:appearance_lookup]
      }
+    if @survey_session.old_session_id
+      options.merge!({:old_visitor_identifier => @survey_session.old_session_id})
+    end
      case request_type
        when :vote
            options.merge!({:direction => params[:direction],

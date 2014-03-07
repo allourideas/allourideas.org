@@ -18,8 +18,12 @@ describe PromptsController do
       mock.get "/questions/1.xml?visitor_identifier=test123&with_appearance=true&with_average_votes=true&with_prompt=true&with_visitor_stats=true", {}, question, 200
       mock.get "/questions/1/prompts/1.xml", {}, prompt, 200
       mock.post "/questions/1/prompts/1/vote.xml?next_prompt%5Bvisitor_identifier%5D=test123&next_prompt%5Bwith_appearance%5D=true&next_prompt%5Bwith_visitor_stats%5D=true&question_id=1&vote%5Bappearance_lookup%5D=#{@appearance_lookup}&vote%5Bdirection%5D=left&vote%5Bskip_fraud_protection%5D=true&vote%5Btime_viewed%5D=5&vote%5Btracking%5D%5Bx_click_offset%5D=&vote%5Btracking%5D%5By_click_offset%5D=&vote%5Bvisitor_identifier%5D=test123", {}, prompt2, 200
+      mock.post "/questions/1/prompts/1/vote.xml?next_prompt%5Bvisitor_identifier%5D=test123&next_prompt%5Bwith_appearance%5D=true&next_prompt%5Bwith_visitor_stats%5D=true&question_id=1&vote%5Bappearance_lookup%5D=#{@appearance_lookup}&vote%5Bdirection%5D=left&vote%5Bold_visitor_identifier%5D=expired_session_id&vote%5Bskip_fraud_protection%5D=true&vote%5Btime_viewed%5D=5&vote%5Btracking%5D%5Bx_click_offset%5D=&vote%5Btracking%5D%5By_click_offset%5D=&vote%5Bvisitor_identifier%5D=test123", {}, prompt2, 200
       mock.post "/questions/1/prompts/1/skip.xml?next_prompt%5Bvisitor_identifier%5D=test123&next_prompt%5Bwith_appearance%5D=true&next_prompt%5Bwith_visitor_stats%5D=true&question_id=1&skip%5Bappearance_lookup%5D=#{@appearance_lookup}&skip%5Bskip_reason%5D=&skip%5Btime_viewed%5D=5&skip%5Bvisitor_identifier%5D=test123", {}, prompt2, 200
+      mock.post "/questions/1/prompts/1/skip.xml?next_prompt%5Bvisitor_identifier%5D=test123&next_prompt%5Bwith_appearance%5D=true&next_prompt%5Bwith_visitor_stats%5D=true&question_id=1&skip%5Bappearance_lookup%5D=#{@appearance_lookup}&skip%5Bold_visitor_identifier%5D=expired_session_id&skip%5Bskip_reason%5D=&skip%5Btime_viewed%5D=5&skip%5Bvisitor_identifier%5D=test123", {}, prompt2, 200
+      mock.post "/questions/1/prompts/1/skip.xml?next_prompt%5Bvisitor_identifier%5D=test123&next_prompt%5Bwith_appearance%5D=true&next_prompt%5Bwith_visitor_stats%5D=true&question_id=1&skip%5Bappearance_lookup%5D=#{@appearance_lookup}&skip%5Bold_visitor_identifier%5D=expired_flag_session_id&skip%5Bskip_reason%5D=&skip%5Btime_viewed%5D=5&skip%5Bvisitor_identifier%5D=test123", {}, prompt2, 200
       mock.put "/questions/1/choices/2/flag.xml?explanation=&visitor_identifier=test123", {}, choice, 200
+      mock.put "/questions/1/choices/7/flag.xml?explanation=&visitor_identifier=test123", {}, choice, 200
     end
     @earl = Factory.create(:earl)
   end
@@ -33,6 +37,13 @@ describe PromptsController do
       post(:vote, {:question_id => @earl.question_id, :id => 1, :direction => 'left', :appearance_lookup => @appearance_lookup}, {:session_id => nil})
       assigns[:earl].should == @earl
       assigns[:question_id].to_i.should == @earl.question_id
+    end
+
+    it "sends old_visitor_identifier to pairwise after an expired session" do
+      cookiename = "aoi_#{@earl.question_id}_1234"
+      new_sess = SurveySession.new({:question_id => @earl.question_id, :appearance_lookup => @appearance_lookup, :expiration_time => 1.year.ago.utc, :session_id => 'expired_session_id'}, cookiename)
+      @request.cookies[new_sess.cookie_name] = new_sess.cookie_value
+      post(:vote, {:question_id => @earl.question_id, :id => 1, :direction => 'left', :appearance_lookup => @appearance_lookup}, {:session_id => nil})
     end
 
     it "raises an error when no appearance_lookup set in session" do
@@ -59,6 +70,13 @@ describe PromptsController do
       assigns[:question_id].to_i.should == @earl.question_id
     end
 
+    it "sends old_visitor_identifier to pairwise after an expired session" do
+      cookiename = "aoi_#{@earl.question_id}_1234"
+      new_sess = SurveySession.new({:question_id => @earl.question_id, :appearance_lookup => @appearance_lookup, :expiration_time => 1.year.ago.utc, :session_id => 'expired_session_id'}, cookiename)
+      @request.cookies[new_sess.cookie_name] = new_sess.cookie_value
+      post(:skip, {:question_id => @earl.question_id, :id => 1, :direction => 'left', :appearance_lookup => @appearance_lookup}, {:session_id => nil})
+    end
+
     it "raises an error when no appearance_lookup set in session" do
       cookiename = "aoi_#{@earl.question_id}_1234"
       new_sess = SurveySession.new({:question_id => @earl.question_id}, cookiename)
@@ -81,6 +99,14 @@ describe PromptsController do
       assigns[:earl].should == @earl
       assigns[:question_id].to_i.should == @earl.question_id
     end
+
+    it "sends old_visitor_identifier to pairwise after an expired session" do
+      cookiename = "aoi_#{@earl.question_id}_1234"
+      new_sess = SurveySession.new({:question_id => @earl.question_id, :appearance_lookup => @appearance_lookup, :expiration_time => 1.year.ago.utc, :session_id => 'expired_flag_session_id'}, cookiename)
+      @request.cookies[new_sess.cookie_name] = new_sess.cookie_value
+      post(:flag, {:question_id => @earl.question_id, :id => 1, :direction => 'left', :appearance_lookup => @appearance_lookup}, {:session_id => nil})
+    end
+
 
     it "raises an error when no appearance_lookup set in session" do
       cookiename = "aoi_#{@earl.question_id}_1234"

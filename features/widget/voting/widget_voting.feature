@@ -59,6 +59,7 @@ Feature: Voting
       Then remember session_info_id of the previous vote as "widget2_vote1_session"
       And remembered "widget2_vote1_session" should not equal "widget1_vote1_session"
 
+      # reload page
       When I am on the multiple widgets embedded page
 
       When I click on the left choice within iframe "widget1"
@@ -100,6 +101,7 @@ Feature: Voting
     @selenium
     Scenario: User visits page with 2 of the same widget on the same page and reloads
       When I am on the multiple same widgets embedded page
+      # reload page
       When I am on the multiple same widgets embedded page
       And I click on the left choice within iframe "widget1"
       Then I should see "You chose" within ".tellmearea" within iframe "widget1"

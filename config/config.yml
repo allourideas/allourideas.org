@@ -4,6 +4,7 @@ global: &global
     SIGNUPS_ALLOURIDEAS_EMAIL: signups@example.org
     SIGNUPS_PHOTOCRACY_EMAIL: signups@example.com
     ERRORS_EMAIL: errors@example.org
+    BASE_SESSION_SECRET: 6dba8105d5aea328b336942988bcfd80erwex
 
 development:
     <<: *global
@@ -35,6 +36,7 @@ production:
     SIGNUPS_PHOTOCRACY_EMAIL: <%= ENV['SIGNUPS_PHOTOCRACY_EMAIL'] %>
     ERRORS_EMAIL: <%= ENV['ERRORS_EMAIL'] %>
     SURVEY_SESSION_SECRET: <%= ENV['SURVEY_SESSION_SECRET'] %>
+    BASE_SESSION_SECRET: <%= ENV['BASE_SESSION_SECRET'] %>
 
 staging:
     <<: *global
@@ -49,6 +51,7 @@ staging:
 
     IP_ADDR_HASH_SALT: <%= ENV['IP_ADDR_HASH_SALT'] %> #prevent dictionary attacks on stored ip address hashes
     SURVEY_SESSION_SECRET: <%= ENV['SURVEY_SESSION_SECRET'] %>
+    BASE_SESSION_SECRET: <%= ENV['BASE_SESSION_SECRET'] %>
 
 test:
     <<: *global

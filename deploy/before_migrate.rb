@@ -1,6 +1,6 @@
-run "echo 'release_path: #{release_path}/db/GeoIPCity.dat' >> #{shared_path}/logs.log"
-run "ln -nfs #{shared_path}/GeoLiteCity.dat #{release_path}/db/GeoLiteCity.dat"
+run "echo 'release_path: #{config.release_path}/db/GeoIPCity.dat' >> #{config.shared_path}/logs.log"
+run "ln -nfs #{config.shared_path}/GeoLiteCity.dat #{config.release_path}/db/GeoLiteCity.dat"
 
-if FileTest.exists?("#{shared_path}/config/redis.yml")
-  run "ln -nfs #{shared_path}/config/redis.yml #{release_path}/config/redis.yml"
+if FileTest.exists?("#{config.shared_path}/config/redis.yml")
+  run "ln -nfs #{config.shared_path}/config/redis.yml #{config.release_path}/config/redis.yml"
 end

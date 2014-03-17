@@ -36,6 +36,10 @@ module NavigationHelpers
 	 admin_path
     when /the WIDGET Cast Votes page for '([^'].*)'/i
 	"/"+ $1 + '?widget&width=450&height=410'
+    when /the multiple widgets embedded page/
+      "/tests/multiple-widgets-test.html"
+    when /the multiple same widgets embedded page/
+      "/tests/multiple-same-widgets-test.html"
 
     when /the Deactivate page for the saved (.*) choice/
 	 @earl = Earl.find_by_question_id(@question_id)

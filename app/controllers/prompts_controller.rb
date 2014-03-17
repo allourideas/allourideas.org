@@ -30,6 +30,7 @@ class PromptsController < ApplicationController
         :appearance_lookup => next_prompt['appearance_id'],
         :prompt_id         => next_prompt['id'],
       }
+      @survey_session.appearance_lookup = result[:appearance_lookup]
 
       if wikipedia?
         # wikipedia ideas are prepended by a 4 character integer
@@ -71,6 +72,7 @@ class PromptsController < ApplicationController
         :right_choice_url  => question_choice_path(@earl.name, next_prompt['right_choice_id']),
         :message => t('vote.cant_decide_message')
       }
+      @survey_session.appearance_lookup = result[:appearance_lookup]
 
       if wikipedia?
         # wikipedia ideas are prepended by a 4 character integer
@@ -103,7 +105,7 @@ class PromptsController < ApplicationController
     @choice.prefix_options[:question_id] = question_id
 
     c = @choice.put(:flag,
-                    :visitor_identifier => request.session_options[:id],
+                    :visitor_identifier => @survey_session.session_id,
                     :explanation => reason)
 
     new_choice = Crack::XML.parse(c.body)['choice']
@@ -134,6 +136,7 @@ class PromptsController < ApplicationController
         :prompt_id         => next_prompt['id'],
         :message => t('vote.flag_complete_message')
       }
+      @survey_session.appearance_lookup = result[:appearance_lookup]
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
       render :json => result.to_json
@@ -175,11 +178,14 @@ class PromptsController < ApplicationController
   end
 
   def get_object_request_options(params, request_type)
-     options = { :visitor_identifier => request.session_options[:id],
+     options = { :visitor_identifier => @survey_session.session_id,
                  # use static value of 5 if in test, so we can mock resulting API queries
                  :time_viewed => (Rails.env == 'test') ? 5 : params[:time_viewed],
                  :appearance_lookup => params[:appearance_lookup]
      }
+    if @survey_session.old_session_id
+      options.merge!({:old_visitor_identifier => @survey_session.old_session_id})
+    end
      case request_type
        when :vote
            options.merge!({:direction => params[:direction],
@@ -203,7 +209,7 @@ class PromptsController < ApplicationController
   def get_next_prompt_options
     next_prompt_params = { :with_appearance => true,
                             :with_visitor_stats => true,
-                            :visitor_identifier => request.session_options[:id]
+                            :visitor_identifier => @survey_session.session_id
                           }
     next_prompt_params.merge!(:future_prompts => {:number => 1}) if @photocracy
     next_prompt_params

@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
+  before_filter :initialize_session, :get_survey_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
+  after_filter :write_survey_session_cookie
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
@@ -30,13 +31,6 @@ class ApplicationController < ActionController::Base
   
   def initialize_session
     session[:session_id] # this forces load of the session in Rails 2.3.x
-    if signed_in?
-      logger.info "current user is #{current_user.inspect}"
-    end
-
-    if white_label_request?
-      logger.info "white_label request - no header and footer displayed"
-    end
   end
 
   helper_method :white_label_request?
@@ -60,19 +54,85 @@ class ApplicationController < ActionController::Base
   # called when the request is not verified via the authenticity_token
   def handle_unverified_request
     super
-    raise(ActionController::InvalidAuthenticityToken)
+    # Appearance_lookup can act like an authenticity token because
+    # get_survey_session will raise an error if no cookie found with proper appearance_lookup
+    raise(ActionController::InvalidAuthenticityToken) unless params[:appearance_lookup]
   end
 
-  def set_session_timestamp
-    # ActiveResource::HttpMock only matches static strings for query parameters
-    # when in test set this to a static value, so we can match the resulting API queries for mocking
-    request.session_options[:id] = "test123" if Rails.env == "test"
-    expiration_time = session[:expiration_time]
-    if expiration_time && expiration_time < Time.now || session[:session_id].nil?
-      session[:session_id] = ActiveSupport::SecureRandom.hex(16)
-      request.session_options[:id] = session[:session_id]
+  # This method sets question_id based on the URL and parameters of the request
+  # We want to know the question_id early in the request process because we
+  # use it to determine the proper session for this request.
+  #
+  # The different controller / actions have differing ways of determining the
+  # question_id. Some are only passed the Earl.name, while others get the
+  # question_id directly as a parameter.
+  #
+  # Some requests like the homepage will have @question_id = nil. This is
+  # okay as they don't pass any session information to pairwise. A separate
+  # session is kept for requests that have no question_id.
+  def set_question_id_earl
+    @question_id = nil
+    if [controller_name, action_name] == ['earls', 'show']
+      @earl = Earl.find_by_name(params[:id])
+      @question_id = @earl.try(:question_id)
+    elsif controller_name == 'prompts'
+      @question_id = params[:question_id]
+    elsif controller_name == 'questions'
+      if ['add_idea', 'visitor_voting_history'].include?(action_name)
+        @question_id = params[:id]
+      elsif ['results', 'about', 'admin', 'update_name'].include?(action_name)
+        @earl = Earl.find_by_name(params[:id])
+        @question_id = @earl.try(:question_id)
+      end
+    elsif controller_name == 'choices'
+      if action_name == 'toggle'
+        @earl = Earl.find(params[:earl_id])
+      else
+        @earl = Earl.find_by_name(params[:question_id])
+      end
+      @question_id = @earl.try(:question_id)
     end
-    session[:expiration_time] = 10.minutes.from_now
+  end
+
+  # Called as a before_filter.
+  def get_survey_session
+    # First order of business is to set the question_id.
+    set_question_id_earl
+
+    begin
+      # Based on the cookies, question_id, and appearance_lookup, find the
+      # proper session for this request.
+      session_data = SurveySession.find(cookies, @question_id, params[:appearance_lookup])
+    rescue CantFindSessionFromCookies => e
+      # if no appearance_lookup, then we can safely create a new sesssion
+      # otherwise this request ought to fail as they are attempting some action
+      # without the proper session being found
+      if params[:appearance_lookup].nil?
+        session_data = [{:question_id => @question_id }]
+      else
+        raise e
+      end
+    end
+    # Create new SurveySession object for this request.
+    @survey_session = SurveySession.send(:new, *session_data)
+    if @survey_session.expired?
+      # This will regenerate the session_id, saving the old one.
+      # We can send along both the new and old session_id to pairwise
+      # for requests that have sessions that have expired.
+      @survey_session.regenerate
+    end
+
+    # We want the session to expire after X minutes of inactivity, so update
+    # the expiry with every request.
+    @survey_session.update_expiry
+  end
+
+  # Called as a after_filter to ensure we pass along the updated survey session
+  # cookie in the response to this request.
+  def write_survey_session_cookie
+    cookies[@survey_session.cookie_name] = {
+      :value => @survey_session.cookie_value
+    }
   end
   
   def record_action
@@ -88,7 +148,7 @@ class ApplicationController < ActionController::Base
     end
 
     visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
-    user_session = SessionInfo.find_or_create_by_session_id(:session_id => request.session_options[:id], 
+    user_session = SessionInfo.find_or_create_by_session_id(:session_id => @survey_session.session_id,
 						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],
 						       :white_label_request => white_label_request?, 
@@ -103,13 +163,6 @@ class ApplicationController < ActionController::Base
 	    user_session.save!
     end
 
-    if current_user 
-      logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (User: #{current_user.email})"
-    else
-      logger.info "CLICKSTREAM: #{controller_name}##{action_name} by Session #{request.session_options[:id]} (not logged in)"
-    end
-   #   Click.create( :sid => request.session_options[:id], :ip_addr => request.remote_ip, :url => request.url,
-#		   :controller => controller_name, :action => action_name, :user => nil, :referrer => request.referrer)
     if (session[:abingo_identity])
 	    Abingo.identity = session[:abingo_identity]
     else

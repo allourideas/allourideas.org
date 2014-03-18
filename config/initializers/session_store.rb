@@ -7,7 +7,7 @@
 
 ActionController::Base.session = {
   :key => "_allourideas_ey__session_#{RAILS_ENV}",
-  :secret      => "6dba8105d5aea328b336942988bcfd80erwex"
+  :secret      => APP_CONFIG[:BASE_SESSION_SECRET]
 }
 
 # Use the database for sessions instead of the cookie-based default,

@@ -34,7 +34,7 @@ Feature: Flag as inappropriate
 		And I click the flag submit button
 		Then I should not see "You flagged a choice as inappropriate."
 		
-	@javascript
+	@selenium
 	Scenario: User flags all but one choices in marketplace
 		Given an idea marketplace exists with admin 'flag_test2@test.com' and url 'test_2' and 2 ideas
 	        And idea marketplace 'test_2' has enabled "flag as inappropriate"

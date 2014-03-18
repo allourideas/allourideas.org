@@ -25,7 +25,7 @@ class EarlsController < ApplicationController
       show_params = {:with_prompt => true, 
 		     :with_appearance => true, 
 		     :with_visitor_stats => true,
-		     :visitor_identifier => request.session_options[:id]}
+		     :visitor_identifier => @survey_session.session_id}
 
       show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
 
@@ -38,6 +38,7 @@ class EarlsController < ApplicationController
       end
 
 
+        @survey_session.appearance_lookup = @question.attributes["appearance_id"]
        logger.info "inside questions#show " + @question.inspect
 
        # we can probably make this into one api call
@@ -218,7 +219,6 @@ class EarlsController < ApplicationController
   end
 
   def dumb_cleartext_authentication
-    @earl = Earl.find_by_name(params[:id])
     redirect_to('/') and return unless @earl
     unless @earl.pass.blank?
       authenticate_or_request_with_http_basic(t('questions.owner_password_exp')) do |user_name, password|

@@ -4,6 +4,7 @@ global: &global
     SIGNUPS_ALLOURIDEAS_EMAIL: signups@example.org
     SIGNUPS_PHOTOCRACY_EMAIL: signups@example.com
     ERRORS_EMAIL: errors@example.org
+    BASE_SESSION_SECRET: 6dba8105d5aea328b336942988bcfd80erwex
 
 development:
     <<: *global
@@ -15,6 +16,7 @@ development:
     PHOTOCRACY_PASSWORD: saltines
     PHOTOCRACY_HOST: photocracy:3001 # domain:port of Photocracy (AOI) Server
     IP_ADDR_HASH_SALT: 2039d9ds9ufsdioh2394230 #prevent dictionary attacks on stored ip address hashes
+    SURVEY_SESSION_SECRET: 5SpE)5m?>+W:QvPY:Q!_b@*fe&h~I8_}=wi[rgPu^QhQt/e7~]X_bB'Luki(;wrj
 
 production:
     <<: *global
@@ -33,6 +35,8 @@ production:
     SIGNUPS_ALLOURIDEAS_EMAIL: <%= ENV['SIGNUPS_ALLOURIDEAS_EMAIL'] %>
     SIGNUPS_PHOTOCRACY_EMAIL: <%= ENV['SIGNUPS_PHOTOCRACY_EMAIL'] %>
     ERRORS_EMAIL: <%= ENV['ERRORS_EMAIL'] %>
+    SURVEY_SESSION_SECRET: <%= ENV['SURVEY_SESSION_SECRET'] %>
+    BASE_SESSION_SECRET: <%= ENV['BASE_SESSION_SECRET'] %>
 
 staging:
     <<: *global
@@ -46,6 +50,8 @@ staging:
     PHOTOCRACY_HOST: photocracy.org
 
     IP_ADDR_HASH_SALT: <%= ENV['IP_ADDR_HASH_SALT'] %> #prevent dictionary attacks on stored ip address hashes
+    SURVEY_SESSION_SECRET: <%= ENV['SURVEY_SESSION_SECRET'] %>
+    BASE_SESSION_SECRET: <%= ENV['BASE_SESSION_SECRET'] %>
 
 test:
     <<: *global
@@ -54,6 +60,7 @@ test:
 
     PAIRWISE_USERNAME: 
     PAIRWISE_PASSWORD: 
+    SURVEY_SESSION_SECRET: test_secret
 
 cucumber:
     <<: *global
@@ -66,3 +73,4 @@ cucumber:
     PHOTOCRACY_PASSWORD: saltines
     IP_ADDR_HASH_SALT: 2039d9ds9ufsdioh2394230 #prevent dictionary attacks on stored ip address hashes
     PHOTOCRACY_HOST: photocracy.org
+    SURVEY_SESSION_SECRET: test_secret

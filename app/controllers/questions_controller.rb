@@ -963,7 +963,7 @@ class QuestionsController < ApplicationController
       end
     end
 
-    choice_params = {:visitor_identifier => request.session_options[:id], 
+    choice_params = {:visitor_identifier => @survey_session.session_id,
       :data => new_idea_data, 
       :question_id => params[:id]}
 
@@ -973,7 +973,7 @@ class QuestionsController < ApplicationController
     if @choice = Choice.create(choice_params)
       @question = Question.find(params[:id], :params => {
         :with_visitor_stats => true,
-        :visitor_identifier => request.session_options[:id]
+        :visitor_identifier => @survey_session.session_id
       })
       @earl = Earl.find_by_question_id(params[:id])
 
@@ -1093,7 +1093,7 @@ class QuestionsController < ApplicationController
   def question_params_valid
     if @question.valid?(@photocracy) && (signed_in? || (@user.valid? && @user.save && sign_in(@user)))
       @question.attributes.merge!({'local_identifier' => current_user.id,
-                                  'visitor_identifier' => request.session_options[:id]})
+                                  'visitor_identifier' => @survey_session.session_id})
       return true if @question.save
     else
       return false
@@ -1252,7 +1252,7 @@ class QuestionsController < ApplicationController
   end
 
   def visitor_voting_history
-    @votes = Session.new(:id => request.session_options[:id]).get(:votes, :question_id => params[:id])
+    @votes = Session.new(:id => @survey_session.session_id).get(:votes, :question_id => params[:id])
 
     if @photocracy
       @votes['votes'].each do |vote|

@@ -35,7 +35,7 @@
     		'wmode'          : 'transparent',
     		'buttonImg'      : '/images/photocracy/upload_photos.png',
     		scriptData       : {
-          'session_identifier' : "#{request.session_options[:id]}",
+          'session_identifier' : "#{@survey_session.session_id}",
           'authenticity_token'  : AUTH_TOKEN
         },
         onComplete       : function() {

@@ -114,7 +114,7 @@
             .span4.title
               = t('admin.list_of_votes_csv')
             .span2
-              = link_to(t('admin.request'), {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
+              = link_to(t('admin.request'), {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary", :id => "votes_request_link")
           .row-fluid
             .span4.title
               = t('admin.list_of_non_votes_csv')

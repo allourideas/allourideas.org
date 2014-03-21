@@ -101,26 +101,25 @@
               %a.btn{:href => ""}
                 Cancel
     
-        .form-horizontal
-          %fieldset
-            %legend
-              = t('admin.download_idea_marketplace_data')
-              %small= link_to('', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')
-            .control-group
-              %label.control-label
-                = t('admin.list_of_ideas_csv')
-              .controls
-                = link_to(t('admin.request'), {:action => :export, :params => {:type => :ideas}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
-            .control-group
-              %label.control-label
-                = t('admin.list_of_votes_csv')
-              .controls
-                = link_to(t('admin.request'), {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
-            .control-group
-              %label.control-label
-                = t('admin.list_of_non_votes_csv')
-              .controls
-                = link_to(t('admin.request'), {:action => :export, :params => {:type => :non_votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
+        %fieldset.download-data
+          %legend
+            = t('admin.download_idea_marketplace_data')
+            %small= link_to('', 'http://blog.allourideas.org/post/2739358388/download-your-data', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')
+          .row-fluid
+            .span4.title
+              = t('admin.list_of_ideas_csv')
+            .span2
+              = link_to(t('admin.request'), {:action => :export, :params => {:type => :ideas}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
+          .row-fluid
+            .span4.title
+              = t('admin.list_of_votes_csv')
+            .span2
+              = link_to(t('admin.request'), {:action => :export, :params => {:type => :votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
+          .row-fluid
+            .span4.title
+              = t('admin.list_of_non_votes_csv')
+            .span2
+              = link_to(t('admin.request'), {:action => :export, :params => {:type => :non_votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
         
   #cant-edit-question.modal.hide.fade
     .modal-body

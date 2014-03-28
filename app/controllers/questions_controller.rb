@@ -1193,8 +1193,9 @@ class QuestionsController < ApplicationController
     else
       question = @earl.question
 
-      redis_key  = "export_#{@earl.question_id}_#{type}_#{Time.now.to_i}"
-      redis_key += "_#{Digest::SHA1.hexdigest(redis_key + rand(10000000).to_s)}"
+      o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+      randstring = (0...4).map { o[rand(o.length)] }.join
+      redis_key  = "wikisurvey_#{@earl.question_id}_#{type.gsub("_", "")}_#{Time.now.utc.iso8601}_#{randstring}"
 
       question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
 

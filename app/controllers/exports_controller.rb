@@ -13,7 +13,9 @@ class ExportsController < ApplicationController
     else
       data = e.data
     end
-    send_data(data, :type => 'text/csv; charset=utf-8; header=present', :filename => "#{e.name}.csv")
+    # strip off 4 character random string at end of name
+    filename = e.name.gsub(/_[A-Za-z]{4}$/, "") + ".csv"
+    send_data(data, :type => 'text/csv; charset=utf-8; header=present', :filename => filename)
   end
 
 end

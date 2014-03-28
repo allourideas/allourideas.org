@@ -1195,11 +1195,11 @@ class QuestionsController < ApplicationController
 
       o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
       randstring = (0...4).map { o[rand(o.length)] }.join
-      redis_key  = "wikisurvey_#{@earl.question_id}_#{type.gsub("_", "")}_#{Time.now.utc.iso8601}_#{randstring}"
+      export_key  = "wikisurvey_#{@earl.question_id}_#{type.gsub("_", "")}_#{Time.now.utc.iso8601}_#{randstring}"
 
-      question.post(:export, :type => type, :response_type => 'redis', :redis_key => redis_key)
+      question.post(:export, :type => type, :key => export_key)
 
-      Delayed::Job.enqueue MungeAndNotifyJob.new(@earl.id, type, current_user.email, @photocracy, redis_key), 15
+      Delayed::Job.enqueue MungeAndNotifyJob.new(@earl.id, type, current_user.email, @photocracy, export_key), 15
     end
 
 

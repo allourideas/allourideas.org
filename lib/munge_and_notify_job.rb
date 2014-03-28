@@ -1,8 +1,8 @@
-MungeAndNotifyJob = Struct.new(:earl_id, :type, :email, :photocracy, :redis_key)
+MungeAndNotifyJob = Struct.new(:earl_id, :type, :email, :photocracy, :export_key)
 class MungeAndNotifyJob
 
   def on_permanent_failure
-    date_requested = DateTime.iso8601(redis_key.split('_')[-2])
+    date_requested = DateTime.iso8601(export_key.split('_')[-2])
     IdeaMailer.deliver_export_failed([APP_CONFIG[:ERRORS_EMAIL], email], type, date_requested, photocracy)
   end
 
@@ -16,16 +16,17 @@ class MungeAndNotifyJob
     # so we do this manually
     current_user = User.find_by_email(email)
 
-    r = Redis.new(:host => REDIS_CONFIG['hostname'])
-
-    thekey, zlibcsv = r.blpop(redis_key, (60*10).to_s) # Timeout - 10 minutes
-
-    r.del(redis_key) # client is responsible for deleting key
-
-    zstream = Zlib::Inflate.new
-    csvdata = zstream.inflate(zlibcsv).force_encoding('UTF-8')
-    zstream.finish
-    zstream.close
+    # make HTTP request to pairwise to get export data
+    url = URI.parse("#{APP_CONFIG[:API_HOST]}/exports/#{export_key}")
+    req = Net::HTTP::Get.new(url.path)
+    # important to trigger basic HTTP Auth on pairwise
+    req["Accept"] = "text/csv"
+    req.basic_auth APP_CONFIG[:PAIRWISE_USERNAME], APP_CONFIG[:PAIRWISE_PASSWORD]
+    res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
+    if res.code != "200"
+      raise "Export URL returned response code of #{res.code} for #{url.to_s}"
+    end
+    csvdata = res.body.force_encoding('UTF-8')
 
     # for creating zlibed CSV at the end
     zoutput = Zlib::Deflate.new
@@ -37,7 +38,7 @@ class MungeAndNotifyJob
 
     num_slugs = earl.slugs.size
 
-    modified_csv = CSVBridge.generate do |csv|
+    CSVBridge.generate do |csv|
       CSVBridge.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
 
         if row.header_row?
@@ -172,7 +173,7 @@ class MungeAndNotifyJob
                   #row << ['Geolocation Info', user_session.loc_info.to_s]
                 end
               end
-            end
+          end
             # Zlib the CSV as we create it
             znewcsv << zoutput.deflate(row.to_csv, Zlib::SYNC_FLUSH)
         end
@@ -181,9 +182,9 @@ class MungeAndNotifyJob
     znewcsv << zoutput.finish
     zoutput.close
 
-    export_id = Export.connection.insert("INSERT INTO `exports` (`name`, `data`, `compressed`) VALUES (#{Export.connection.quote(redis_key)}, #{Export.connection.quote(znewcsv)}, 1)")
+    export_id = Export.connection.insert("INSERT INTO `exports` (`name`, `data`, `compressed`) VALUES (#{Export.connection.quote(export_key)}, #{Export.connection.quote(znewcsv)}, 1)")
     Delayed::Job.enqueue DestroyOldExportJob.new(export_id), 20, 3.days.from_now
-    url = "/export/#{redis_key}"
+    url = "/export/#{export_key}"
     IdeaMailer.deliver_export_data_ready(email, url, photocracy)
 
     return true

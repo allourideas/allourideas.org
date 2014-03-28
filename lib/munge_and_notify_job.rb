@@ -22,7 +22,7 @@ class MungeAndNotifyJob
     r.del(redis_key) # client is responsible for deleting key
 
     zstream = Zlib::Inflate.new
-    csvdata = zstream.inflate(zlibcsv)
+    csvdata = zstream.inflate(zlibcsv).force_encoding('UTF-8')
     zstream.finish
     zstream.close
 
@@ -142,9 +142,8 @@ class MungeAndNotifyJob
 
 
                 row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))]
-                # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT
-                row << ['URL Alias', url_alias.force_encoding('ASCII-8BIT')]
-                row << ['User Agent', user_session.user_agent.try(:force_encoding, 'ASCII-8BIT')]
+                row << ['URL Alias', url_alias]
+                row << ['User Agent', user_session.user_agent]
 
                 # grab most recent referrer from clicks
                 # that is older than this current vote
@@ -158,7 +157,7 @@ class MungeAndNotifyJob
                 referrer = (session_start) ? session_start.referrer : 'REFERRER_NOT_FOUND'
                 referrer = 'DIRECT_VISIT' if referrer == '/'
                 # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT
-                row << ['Referrer', referrer.force_encoding('ASCII-8BIT')]
+                row << ['Referrer', referrer]
 
                 vote_click = user_session.find_click_for_vote(row)
                 widget = (vote_click.widget?) ? 'TRUE' : 'FALSE'
@@ -166,7 +165,7 @@ class MungeAndNotifyJob
 
                 info = user_session.find_info_value(row)
                 info = 'NA' unless info 
-                row << ['Info', info.force_encoding('ASCII-8BIT')]
+                row << ['Info', info]
 
                 if current_user.admin?
                   #row << ['Geolocation Info', user_session.loc_info.to_s]

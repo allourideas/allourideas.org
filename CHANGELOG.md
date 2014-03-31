@@ -1,3 +1,10 @@
+## All Our Ideas 3.3.0 (Mar 31, 2014) ###
+ * check for CSV data via pairwise API call instead of redis. Requires pairwise v3.2.0 to work.
+ * include more information in CSV error email
+ * use UTF8 for CSV files
+ * alter layout of CSV file request links
+ * alter name used to identify CSV exports
+
 ## All Our Ideas 3.2.0 (Mar 18, 2014) ###
  * Revamp session handling to better handle expired sessions, one session per wiki survey, multiple tabs. Expects at least pairwise v3.1.0 for proper handling of expired sessions.
 

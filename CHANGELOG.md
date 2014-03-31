@@ -1,3 +1,15 @@
+## All Our Ideas 3.2.0 (Mar 18, 2014) ###
+ * Revamp session handling to better handle expired sessions, one session per wiki survey, multiple tabs. Expects at least pairwise v3.1.0 for proper handling of expired sessions.
+
+## All Our Ideas 3.1.2 (Nov 26, 2013) ###
+ * handle UTF8 characters in CSV data more gracefully
+ * raise error on unverified requests (authenticity token)
+ * update icons / graphics to be retina ready
+ * add cookie check on non-widget voting page
+ * improve widget when 3rd-party cookies are disabled
+ * add caching for i18n calls
+ * use libxml for XML parsing
+
 ## All Our Ideas 3.1.1 (Jun 17, 2013) ###
  * vote optimizations
  * update modal body to be fluid

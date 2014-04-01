@@ -295,7 +295,7 @@ ar:
     allow_flag_as_inappropriate: Allow users to flag individual ideas as inappropriate. 
     allow_flag_as_inappropriate_exp: This setting will allow users to flag ideas as inappropriate or offtopic. After a user submits a flag request, the idea will be automatically deactivated and an email will be sent to the owner of the idea marketplace. The email will contain whatever explanation the user provided along with the option to quickly re-activate an idea.
     default_lang_exp: Change the default language of the voting page interface
-    download_idea_marketplace_data: Download Idea Marketplace Data
+    download_idea_marketplace_data: Download Wiki Survey Data
     list_of_ideas_csv: List of Ideas (CSV File)
     list_of_votes_csv: List of Votes (CSV File)
     list_of_non_votes_csv: List of Non Vote Actions (CSV File)

@@ -68,11 +68,13 @@ class IdeaMailer < ActionMailer::Base
      @body[:photocracy] = photocracy
   end
 
-  def export_failed(email, photocracy=false)
+  def export_failed(email, type, date_requested, photocracy=false)
     setup_email(nil, photocracy)
     @recipients = email
     @subject += "Data export failed"
     @body[:photocracy] = photocracy
+    @body[:date_requested] = date_requested
+    @body[:type] = type
   end
   
   protected

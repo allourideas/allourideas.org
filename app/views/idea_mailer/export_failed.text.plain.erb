@@ -1,6 +1,6 @@
 <%= t('items.email.hello') %>
 
-Your requested export of data from the <%= @photocracy ? 'Photocracy' : 'All Our Ideas'%> site has failed.  We've been notified of the problem and will be working on a fix.
+The <%= @type %> CSV export you requested on <%= @date_requested.to_formatted_s(:long) %> (UTC) from the <%= @photocracy ? 'Photocracy' : 'All Our Ideas'%> site has failed.  We've been notified of the problem and will be working on a fix.
 
 <%= t('items.email.thanks') %>
 <%= render :partial => 'idea_mailer/signature' %>

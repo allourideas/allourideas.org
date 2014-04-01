@@ -15,7 +15,6 @@ AOI.app = (function($) {
         modalAjax();
         preventDefaultLinks();
         makeRowsClickable('.ideas-table tbody tr');
-        makeRowsClickable('.csv-links tbody tr');
         dataVisualizationOpen();
     };
 

@@ -3,10 +3,10 @@ $aoi_lightblue: #58B0E2; // Light blue from Logo
 $aoi_blue: #367BBE;      // Blue from Logo
 $aoi_alt-bg: #eeeeee;
 
-@import "bootstrap";
+@import "bootstrap/bootstrap";
 
 // Include responsive Bootstrap styles
-@import "bootstrap-responsive";
+@import "bootstrap/responsive";
 
 /*!
  * All Our Ideas - Responsive CSS

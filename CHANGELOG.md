@@ -1,3 +1,5 @@
+ * upgrade Bootstrap to 2.3.2 (deployed 2014-04-07T14:22:32Z)
+
 ## All Our Ideas 3.3.0 (Mar 31, 2014) ###
  * check for CSV data via pairwise API call instead of redis. Requires pairwise v3.2.0 to work.
  * include more information in CSV error email

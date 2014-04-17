@@ -62,5 +62,5 @@ group :test, :cucumber do
   gem "fakeweb", "~>1.2.5"
   gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
 end
-gem "newrelic_rpm"
 gem "ey_config"
+gem "newrelic_rpm"

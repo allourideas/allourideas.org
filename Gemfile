@@ -37,7 +37,7 @@ gem "mysql2", "0.2.18"
 gem "test-unit", "1.2.3"
 
 group :development do
-  gem "engineyard"
+  gem "engineyard", "~> 1.4.29"
 end
 
 group :production, :staging do

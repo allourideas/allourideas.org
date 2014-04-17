@@ -115,7 +115,7 @@ GEM
     multi_xml (0.5.3)
     mysql2 (0.2.18)
     net-ssh (2.2.2)
-    newrelic_rpm (3.5.5.38)
+    newrelic_rpm (3.7.3.204)
     nokogiri (1.5.5)
     paperclip (2.7.5)
       activerecord (>= 2.3.0)

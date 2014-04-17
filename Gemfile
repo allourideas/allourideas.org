@@ -63,3 +63,4 @@ group :test, :cucumber do
   gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
 end
 gem "newrelic_rpm"
+gem "ey_config"

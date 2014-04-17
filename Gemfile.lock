@@ -74,6 +74,7 @@ GEM
       json_pure
     escape (0.0.4)
     eventmachine (1.0.0)
+    ey_config (0.0.7)
     factory_girl (1.2.4)
     fakeweb (1.2.8)
     fastercsv (1.5.1)
@@ -195,6 +196,7 @@ DEPENDENCIES
   delayed_job (= 2.0.6)
   email_spec (= 0.4.0)
   engineyard (~> 1.4.29)
+  ey_config
   factory_girl (~> 1.2.1)
   fakeweb (~> 1.2.5)
   fastercsv (= 1.5.1)

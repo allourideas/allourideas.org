@@ -37,7 +37,7 @@ gem "mysql2", "0.2.18"
 gem "test-unit", "1.2.3"
 
 group :development do
-  gem "engineyard"
+  gem "engineyard", "~> 1.4.29"
 end
 
 group :production, :staging do
@@ -63,3 +63,4 @@ group :test, :cucumber do
   gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
 end
 gem "newrelic_rpm"
+gem "ey_config"

@@ -21,7 +21,7 @@ class MungeAndNotifyJob
     req = Net::HTTP::Get.new(url.path)
     # important to trigger basic HTTP Auth on pairwise
     req["Accept"] = "text/csv"
-    req.basic_auth APP_CONFIG[:PAIRWISE_USERNAME], APP_CONFIG[:PAIRWISE_PASSWORD]
+    req.basic_auth Question.user, Question.password
     res = Net::HTTP.start(url.host, url.port) { |http| http.request(req) }
     if res.code != "200"
       raise "Export URL returned response code of #{res.code} for #{url.to_s}"

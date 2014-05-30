@@ -182,7 +182,7 @@ class MungeAndNotifyJob
     znewcsv << zoutput.finish
     zoutput.close
 
-    export_id = Export.connection.insert("INSERT INTO `exports` (`name`, `data`, `compressed`) VALUES (#{Export.connection.quote(export_key)}, #{Export.connection.quote(znewcsv)}, 1)")
+    export_id = Export.connection.insert("INSERT INTO `exports` (`name`, `data`, `compressed`) VALUES (#{Export.connection.quote(export_key)}, #{Export.connection.quote(znewcsv)}, 1)".force_encoding('ASCII-8BIT'))
     Delayed::Job.enqueue DestroyOldExportJob.new(export_id), 20, 3.days.from_now
     url = "/export/#{export_key}"
     IdeaMailer.deliver_export_data_ready(email, url, photocracy)

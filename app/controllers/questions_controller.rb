@@ -946,54 +946,59 @@ class QuestionsController < ApplicationController
   end
 
   def add_idea
-    bingo!('submitted_idea')
-    new_idea_data = params[:new_idea]
+    begin
+      bingo!('submitted_idea')
+      new_idea_data = params[:new_idea]
 
-    if @photocracy
-      new_photo = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
-      if new_photo.valid?
-        new_idea_data = new_photo.id
+      if @photocracy
+        new_photo = Photo.create(:image => params[:new_idea], :original_file_name => params[:new_idea].original_filename)
+        if new_photo.valid?
+          new_idea_data = new_photo.id
+        else
+          render :text => {'errors' => new_photo.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
+        end
       else
-        render :text => {'errors' => new_photo.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
-      end
-    else
-      # remove new lines from new ideas
-      if new_idea_data.class == String
-        new_idea_data.gsub!(/[\n\r]/, ' ') unless wikipedia?
-      end
-    end
-
-    choice_params = {:visitor_identifier => @survey_session.session_id,
-      :data => new_idea_data, 
-      :question_id => params[:id]}
-
-    choice_params.merge!(:local_identifier => current_user.id) if signed_in?
-
-
-    if @choice = Choice.create(choice_params)
-      @question = Question.find(params[:id], :params => {
-        :with_visitor_stats => true,
-        :visitor_identifier => @survey_session.session_id
-      })
-      @earl = Earl.find_by_question_id(params[:id])
-
-        @earl = Earl.find_by_question_id(@question.id)
-        if @choice.active?
-          IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
-        else
-          IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+        # remove new lines from new ideas
+        if new_idea_data.class == String
+          new_idea_data.gsub!(/[\n\r]/, ' ') unless wikipedia?
         end
+      end
 
-        if @photocracy
-          render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
-        else
-          render :json => {
-            :choice_status => @choice.active? ? 'active' : 'inactive',
-            :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
-          }.to_json
-        end
-    else
-      render :json => '{"error" : "Addition of new idea failed"}'
+      choice_params = {:visitor_identifier => @survey_session.session_id,
+        :data => new_idea_data, 
+        :question_id => params[:id]}
+
+      choice_params.merge!(:local_identifier => current_user.id) if signed_in?
+
+
+      if @choice = Choice.create(choice_params)
+        @question = Question.find(params[:id], :params => {
+          :with_visitor_stats => true,
+          :visitor_identifier => @survey_session.session_id
+        })
+        @earl = Earl.find_by_question_id(params[:id])
+
+          @earl = Earl.find_by_question_id(@question.id)
+          if @choice.active?
+            IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+          else
+            IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+          end
+
+          if @photocracy
+            render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
+          else
+            render :json => {
+              :choice_status => @choice.active? ? 'active' : 'inactive',
+              :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
+            }.to_json
+          end
+      else
+        render :json => {:error => "Addition of new idea failed"}.to_json, :status => 500
+      end
+    rescue => e
+      log_error(e)
+      render :json => {:error => e.class.name}.to_json, :status => 500
     end
   end
 

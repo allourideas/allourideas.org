@@ -224,8 +224,8 @@ class ApplicationController < ActionController::Base
   end
 
   #customize error messages
+  rescue_from Exception,                            :with => :render_error
   unless ActionController::Base.consider_all_requests_local
-    rescue_from Exception,                            :with => :render_error
     rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
     rescue_from ActionController::RoutingError,       :with => :render_not_found
     rescue_from ActionController::UnknownController,  :with => :render_not_found
@@ -243,7 +243,10 @@ class ApplicationController < ActionController::Base
     log_error(exception)
     notify_airbrake(exception)
 
-    render :template => "errors/500.html.haml", :status => 500
+    respond_to do |format|
+      format.html { render :template => "errors/500.html.haml", :status => 500 }
+      format.js   { render :json => {:error => exception.class.name}.to_json, :status => 500 }
+    end
   end
 
   helper_method :wikipedia?

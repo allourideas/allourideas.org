@@ -1,3 +1,4 @@
+ * Add better error handling for Ajax requests.
  * upgrade Bootstrap to 2.3.2 (deployed 2014-04-07T14:22:32Z)
 
 ## All Our Ideas 3.3.0 (Mar 31, 2014) ###

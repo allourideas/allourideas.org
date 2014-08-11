@@ -977,21 +977,20 @@ class QuestionsController < ApplicationController
       })
       @earl = Earl.find_by_question_id(params[:id])
 
-        @earl = Earl.find_by_question_id(@question.id)
-        if @choice.active?
-          IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
-        else
-          IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
-        end
+      if @choice.active?
+        IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+      else
+        IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+      end
 
-        if @photocracy
-          render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
-        else
-          render :json => {
-            :choice_status => @choice.active? ? 'active' : 'inactive',
-            :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
-          }.to_json
-        end
+      if @photocracy
+        render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
+      else
+        render :json => {
+          :choice_status => @choice.active? ? 'active' : 'inactive',
+          :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
+        }.to_json
+      end
     else
       render :json => '{"error" : "Addition of new idea failed"}'
     end

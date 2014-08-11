@@ -13,8 +13,9 @@ class IdeaMailer < ActionMailer::Base
     @body[:earl] = earl
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
-    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, true)
+    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, 'activate')
     @body[:photocracy] = photocracy
+    @body[:similar] = find_similar(earl, choice_id).map{|c| get_choice_url(earl.name, c['id'], photocracy, nil)}
     @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
 
   end
@@ -26,8 +27,9 @@ class IdeaMailer < ActionMailer::Base
     @body[:earl] = earl
     @body[:choice_text] = choice_text
     @body[:choice_id] = choice_id
-    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, false)
+    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, 'deactivate')
     @body[:photocracy] = photocracy
+    @body[:similar] = find_similar(earl, choice_id).map{|c| get_choice_url(earl.name, c['id'], photocracy, nil)}
     @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
   end
 
@@ -39,7 +41,7 @@ class IdeaMailer < ActionMailer::Base
     @body[:earl] = earl
     @body[:choice_id] = choice_id
     @body[:choice_data] = choice_data
-    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, true)
+    @body[:choice_url] = get_choice_url(earl.name, choice_id, photocracy, 'activate')
     @body[:explanation] = explanation
     @body[:photocracy] = photocracy
     @body[:object_type] = photocracy ? I18n.t('common.photo') : I18n.t('common.idea')
@@ -90,17 +92,26 @@ class IdeaMailer < ActionMailer::Base
 
     end
 
-    def get_choice_url(earl_name, choice_id, photocracy, activate)
+    def find_similar(earl, choice_id)
+      choice = Choice.new
+      choice.id = choice_id
+      choice.prefix_options[:question_id] = earl.question_id
+      choice.get('similar')
+    end
+
+    def get_choice_url(earl_name, choice_id, photocracy, option)
        url_options = {:question_id => earl_name, :id => choice_id}
        url_options.merge!(:photocracy_mode => true) if photocracy && Rails.env == "cucumber"
        url_options.merge!(:login_reminder => true) if photocracy
 
        if photocracy
            choice_path = question_choice_path(url_options)
-       elsif activate
+       elsif option == 'activate'
            choice_path = activate_question_choice_path(url_options)
-       else
+       elsif option == 'deactivate'
            choice_path = deactivate_question_choice_path(url_options)
+       else
+           choice_path = question_choice_path(url_options)
        end
 
        if photocracy

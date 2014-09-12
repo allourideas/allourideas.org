@@ -85,10 +85,11 @@ en:
       provided_explanation_is: "The user that flagged this %{object_type} provided the following text as explanation:"
       we_have_auto_deactivated: "We have automatically deactivated this idea from your wiki survey. If you believe this idea is not inappropriate, you can re-enable it by visiting the following url:"
       photocracy_we_have_auto_deactivated: "We have automatically deactivated this photo from being shown. You can review this photo and can re-enable it by visiting the following url:"
-      to_your_question: to your question
+      to_your_question: to your wiki survey
       if_you_want_to_activate: "If you want others to be able to vote on this %{object_type}, please activate it by visiting the following url:"
       if_you_dont_want: If you do not want others to vote on this %{object_type}, no action is required.
       if_you_want: If you want others to see this %{object}, no action is required.
+      existing_similar_ideas: You should note that this idea is identical to other active ideas already in your wiki survey:
       see_current_results: "To see current results, or to vote further, you may want to visit the wiki survey that you created: "
       see_current_results_photocracy: "To see current results, or to vote further, visit: "
       we_auto_activated_idea: "Based on your settings, we have auto-activated the %{object} so that it may be seen and voted upon immediately.  If for whatever reason you need to de-activate this %{object}, go to the following url:"

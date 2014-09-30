@@ -50,7 +50,7 @@
       = render :partial => 'items/form'
       .tellmearea
 
-#request_error.hide.modal.fade
+#cookie_request_error.request_error.hide.modal.fade
   .modal-header
     %button.close{:"data-dismiss" => 'modal'} x
     %h2 Error Processing Your Request
@@ -58,9 +58,41 @@
     %p
       There was a problem processing your request. Sometimes this happens when your browser cookies are deleted. When you close this message, the page will reload, and you can try again. If the problem persists, please email
       %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+
+#unknown_request_error.request_error.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => 'modal'} x
+    %h2 Error Processing Your Request
+  .modal-body
+    %p
+      There was a problem processing your request. The error is of type
+      %span.error-type RuntimeError.
+      When you close this message, the page will reload, and you can try again. If the problem persists, please email
+      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+
+#timeout_request_error.request_error.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => 'modal'} x
+    %h2 Error Processing Your Request
+  .modal-body
+    %p
+      There was a problem processing your request. The request timed out while attempting to contact our servers.
+      When you close this message, the page will reload, and you can try again. If the problem persists, please email
+      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+
+#abort_request_error.request_error.hide.modal.fade
+  .modal-header
+    %button.close{:"data-dismiss" => 'modal'} x
+    %h2 Error Processing Your Request
+  .modal-body
+    %p
+      There was a problem processing your request. The request was cancelled.
+      When you close this message, the page will reload, and you can try again. If the problem persists, please email
+      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+
 -content_for :view_javascript do
   :plain
-    $('#request_error').on('hide', function() {
+    $('.request_error').on('hide', function() {
       window.location.reload(false);
     });
 #cant_decide_options.hide.modal.fade

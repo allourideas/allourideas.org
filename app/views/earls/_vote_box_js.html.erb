@@ -83,9 +83,7 @@
         box.find('.idea-success').hide(300);
       }, 5 * 1000);
 
-    }, "json").fail(function() {
-        $('#request_error').modal('show');
-    });
+    }, "json").fail(showAjaxError);
   });
 
 
@@ -167,7 +165,7 @@
         error: function(request,error) {
           winningLink.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
           losingLink.addClass('btn-primary').removeClass('disabled');
-          $('#request_error').modal('show');
+          showAjaxError(request, error);
           loadedTime = new Date(); //reset loaded time
         },
         success: function(data){
@@ -184,6 +182,28 @@
         }// End success
       }); // End ajax method
     });
+
+
+    function showAjaxError(request, error) {
+      if (error == 'error') {
+        if (request.responseText && request.responseText.length > 0) {
+          var response = $.parseJSON(request.responseText);
+          if (response.error == 'CantFindSessionFromCookies') {
+            $('#cookie_request_error').modal('show');
+          }
+          else {
+            $('#unknown_request_error .error-type').html(response.error + '.');
+            $('#unknown_request_error').modal('show');
+          }
+        }
+      }
+      else if (error == 'timeout') {
+        $('#timeout_request_error').modal('show');
+      }
+      else if (error == 'abort') {
+        $('#abort_request_error').modal('show');
+      }
+    }
 
     // handle can't decide click
     $('#cant_decide_options').on('click', 'button', function(ev) {
@@ -221,9 +241,7 @@
         $('#appearance_lookup').val(data["appearance_lookup"]);
         //clear the radio buttons somehow?
         loadedTime = new Date() //reset loaded time
-      },"json").fail(function() {
-        $('#request_error').modal('show');
-      });;
+      },"json").fail(showAjaxError);
     });
 
 
@@ -283,7 +301,5 @@
           $('#item_count').html(decrement(current_item_count));
           loadedTime = new Date() //reset loaded time
         }
-      }, "json").fail(function() {
-        $('#request_error').modal('show');
-      });
+      }, "json").fail(showAjaxError);
     });

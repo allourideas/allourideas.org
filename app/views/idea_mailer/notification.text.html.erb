@@ -7,6 +7,14 @@
 
 <p><%= t('items.email.if_you_dont_want', :object_type => @object_type) %></p>
 
+<% if @similar.length > 0 %>
+<p><%= t('items.email.existing_similar_ideas') %><br />
+  <% @similar.each do |similar_url| %>
+    <%= similar_url %> <br/>
+  <% end %>
+</p>
+<% end %>
+
 <p><%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %><br/>
 <a href="<%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %>"><%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %></a></p>
 

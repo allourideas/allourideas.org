@@ -7,6 +7,13 @@
 
 <%= t('items.email.if_you_want', :object => @object_type) %>
 
+<% if @similar.length > 0 %>
+<%= t('items.email.existing_similar_ideas') %>
+  <% @similar.each do |similar_url| %>
+    <%= similar_url %>
+  <% end %>
+<% end %>
+
 <%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %>
 <%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %>
 

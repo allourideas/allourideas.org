@@ -8,7 +8,7 @@
 <%= t('items.email.if_you_want', :object => @object_type) %>
 
 <% if @similar.length > 0 %>
-Existing ideas that are identical:
+<%= t('items.email.existing_similar_ideas') %>
   <% @similar.each do |similar_url| %>
     <%= similar_url %>
   <% end %>

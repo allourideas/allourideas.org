@@ -89,7 +89,7 @@ en:
       if_you_want_to_activate: "If you want others to be able to vote on this %{object_type}, please activate it by visiting the following url:"
       if_you_dont_want: If you do not want others to vote on this %{object_type}, no action is required.
       if_you_want: If you want others to see this %{object}, no action is required.
-      existing_similar_ideas: You should note that this idea is identical to other active ideas already in your wiki survey:
+      existing_similar_ideas: "You should note that this idea is identical to other active ideas already in your wiki survey:"
       see_current_results: "To see current results, or to vote further, you may want to visit the wiki survey that you created: "
       see_current_results_photocracy: "To see current results, or to vote further, visit: "
       we_auto_activated_idea: "Based on your settings, we have auto-activated the %{object} so that it may be seen and voted upon immediately.  If for whatever reason you need to de-activate this %{object}, go to the following url:"

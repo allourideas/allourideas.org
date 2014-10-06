@@ -13,10 +13,9 @@ GEM
       activesupport (= 2.3.18)
     activesupport (2.3.18)
     addressable (2.2.8)
-    airbrake (3.1.12)
-      activesupport
+    airbrake (4.1.0)
       builder
-      json
+      multi_json
     ambethia-smtp-tls (1.1.2)
     aws-s3 (0.6.2)
       builder
@@ -105,7 +104,7 @@ GEM
       responders (~> 0.4.3)
     jferris-mocha (0.9.5.0.1241126838)
       rake
-    json (1.7.7)
+    json (1.8.1)
     json_pure (1.8.1)
     launchy (2.0.5)
       addressable (~> 2.2.6)

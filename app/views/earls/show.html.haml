@@ -28,14 +28,14 @@
   .row-fluid
     .span10.offset1
       %h2.vote-question= @question.attributes['name']
-  %ul.votebox.answers.row-fluid.unstyled.intro-popover{"data-title" => "Users can vote by clicking one of these options", "data-trigger" => "manual", "data-placement" => "bottom"}
+  %ul.votebox.answers.row-fluid.unstyled
     %li.span5.offset1.leftside
-      %div
+      %div.intro-popover{"data-title" => "Users can vote by clicking one of these options", "data-trigger" => "manual", "data-placement" => "bottom"}
         = render(:partial => 'questions/idea', :locals => {:data => @left_choice_text, :side => "leftside", :choice_id => @left_choice_id})
       -if @earl.flag_enabled?
         %p.flag= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'left_flag', :class=> 'flag_link', :"data-toggle" => 'modal')
     %li.span5.rightside
-      %div
+      %div.intro-popover{"data-title" => "Users can vote by clicking one of these options", "data-trigger" => "manual", "data-placement" => "bottom"}
         = render(:partial => 'questions/idea', :locals => {:data => @right_choice_text, :side => "rightside", :choice_id => @right_choice_id})
       -if @earl.flag_enabled?
         %p.flag= link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link', :"data-toggle" => 'modal')

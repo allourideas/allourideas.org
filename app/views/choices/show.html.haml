@@ -6,7 +6,7 @@
   %thead
     %tr
       %th{:colspan => 2}
-        %h4= @question.name.strip
+        %h4= @question.name.try(:strip)
   %tbody
     %tr
       %th= t('items.idea')

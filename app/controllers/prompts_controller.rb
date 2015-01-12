@@ -3,7 +3,6 @@ class PromptsController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def vote
-    bingo!("voted")
     voted_prompt = Prompt.new
     voted_prompt.id = params[:id]
     voted_prompt.prefix_options = {:question_id => params[:question_id]}

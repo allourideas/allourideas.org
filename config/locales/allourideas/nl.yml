@@ -185,3 +185,13 @@ nl:
      test_stackoverflow:
         first_time: Eerste keer hier? Klik op de keuze die je het meeste aanspreekt om te beginnen met stemmen!
         no_first_time: Klik op de keuze die je het meeste aanspreekt om te beginnen met stemmen!
+  about_page:
+    intro: U neemt deel aan een "wiki onderzoek" welke groepen in gelegenheid stelt om ideeën te prioriteren op een democratische, open en efficiënte wijze. Door een eenvoudig stem proces te combineren met het toevoegen van ideeën komen de beste ideeen boeven drijven.
+    how_many_votes_q: Hoeveel stemmen kan ik uitbrengen? Wanneer is het einde?
+    how_many_votes_exp: U kunt zo veel of weinig als u wilt stemmen, en op ieder moment stoppen.
+    how_many_ideas_q: Hoeveel ideeën kan ik toevoegen? Wat gebeurt er met mijn idee wanneer ik het heb ingestuurd?
+    how_many_ideas_exp: U kunt zoveel ideeën toevoegen als u heeft. Wanneer een idee is verstuurd, kan het beoordeeld worden door de persoon die het wiki onderzoek heeft gestart om ervoor te zorgen dat het niet ongepast is. Wanneer het idee is beoordeeld, zal het gaan verschijnen zodat mensen erop kunnen stemmen.
+    view_results_q: Kan ik zien wat alle andere stemmers vinden?
+    view_results_exp: Ja, door te klikken op "Bekijk resultaten" in het stem scherm. Dit proces is volledig transparant.
+    make_my_own_q: Dit is te gek. Kan ik zelf er ook een maken?
+    make_my_own_exp: "Jazeker! Het is heel eenvoudig om een eigen wiki onderzoek te starten, en het het is helemaal gratis dankzij giften van Google en het Center for Information Technology Policy van de Princeton University. U kunt hier uw eigen wiki onderzoek starten: http://www.allourideas.org/questions/new"

@@ -111,7 +111,8 @@ en:
     change_your_password: Change your password
     choose_password_below: Your password has been reset. Choose a new password below.
     deny_access_error: You must be logged in to perform this action
-    not_authorized_error: You do not have permission to modify this question
+    not_authorized_error: You do not have permission to modify this wiki survey.
+    not_authorized_error_results: You do not have permission to view the results of this wiki survey.
   questions:
     new:
       error:
@@ -277,6 +278,7 @@ en:
     make_my_own_exp: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey here: http://www.allourideas.org/questions/new."
     make_my_own_exp_widget: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey widget: http://www.allourideas.org."
   admin: 
+    hide_results_from_visitors: Hide results from visitors.
     user_ideas: User Ideas
     active_user_ideas: Active User Ideas 
     num_votes: Votes

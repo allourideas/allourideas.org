@@ -48,7 +48,7 @@ class QuestionsController < ApplicationController
 
     unless (@question.user_can_view_results?(current_user, @earl))
       logger.info("Current user is: #{current_user.inspect}")
-      flash[:notice] = t('user.not_authorized_error')
+      flash[:notice] = t('user.not_authorized_error_results')
       redirect_to( "/#{params[:id]}") and return
     end
 
@@ -1133,7 +1133,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       old_lang = @earl.default_lang
-      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas))
+      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results))
         flash[:notice] = 'Question settings saved successfully!'
         # redirect to new lang if lang was changed
         if old_lang != @earl.default_lang

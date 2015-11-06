@@ -16,6 +16,15 @@ class Earl < ActiveRecord::Base
     @question ||= Question.find(self.question_id)
   end
 
+  def hide_results
+    !question.show_results?
+  end
+
+  def hide_results=(value)
+    question.show_results = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+    question.save
+  end
+
   def question_should_autoactivate_ideas
     question.it_should_autoactivate_ideas
   end

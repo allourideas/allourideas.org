@@ -30,4 +30,4 @@ Feature: Activating and deactivating choices
 	Scenario: Logged in as nonowner
 	  Given I have signed in with "nonowner@example.com/password"
 	  When I go to the Deactivate page for the saved left choice
-	  Then I should see "You do not have permission to modify this question"
+	  Then I should see "You do not have permission to modify this wiki survey"

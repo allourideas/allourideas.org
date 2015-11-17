@@ -8,3 +8,16 @@ Feature: Tabbed vote header
      And I am on the Cast Votes page for 'test'
      When I follow "View Results"
      Then I should be on the View Results page for 'test'
+
+  Scenario: Check that view results does not show up in tabs when hidden
+     Given an idea marketplace quickly exists with url 'test'
+     And idea marketplace 'test' has results hidden
+     And I am on the Cast Votes page for 'test'
+     Then I should not see "View Results" within ".vote-tabs"
+
+  Scenario: Admin should see "View Results" tab
+     Given an idea marketplace quickly exists with url 'test'
+     And idea marketplace 'test' has results hidden
+     And I sign in as the admin for 'test'
+     And I am on the Cast Votes page for 'test'
+     Then I should see "View Results" within ".vote-tabs"

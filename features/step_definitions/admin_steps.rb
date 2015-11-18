@@ -88,6 +88,12 @@ Given /^idea marketplace '(.*)' has enabled idea autoactivation$/ do |url|
  @question.save
 end
 
+Given /^idea marketplace '(.*)' has results hidden$/ do |url|
+ set_active_resource_credentials
+ @earl = Earl.find(url)
+ @earl.hide_results = true
+end
+
 Given /^a super admin user exists with credentials "(.*)\/(.*)"$/ do |email, password|
   user = Factory :email_confirmed_user,
     :email                 => email,

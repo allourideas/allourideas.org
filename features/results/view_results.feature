@@ -32,7 +32,7 @@ Feature: View Results
      Given I am on the View Results page for 'test'
      Then I should see "The results from this wiki survey are only visible to the person who created it."
 
-  Scenario: An should be allowed to see the view results page if hidden
+  Scenario: An admin should be allowed to see the view results page if hidden
      Given an idea marketplace quickly exists with url 'test'
      And idea marketplace 'test' has results hidden
      And I sign in as the admin for 'test'

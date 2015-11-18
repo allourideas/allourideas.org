@@ -15,7 +15,7 @@ Feature: Tabbed vote header
      And I am on the Cast Votes page for 'test'
      Then I should not see "View Results" within ".vote-tabs"
 
-  Scenario: Admin should see "View Results" tab
+  Scenario: Admin should see "View Results" tab even when results are hidden
      Given an idea marketplace quickly exists with url 'test'
      And idea marketplace 'test' has results hidden
      And I sign in as the admin for 'test'

@@ -131,21 +131,21 @@ pt:
     next: Próximo >>
     rollover_to_see_more: passe o mouse in cada ponto para saber mais
   about_page: 
-    intro: Você está participando em um mercado de "idéias" que permite que grupos de coletar e priorizar idéias em um processo democrático, aberto e eficiente. Ao combinar um processo de votação simples, com carregamento aberto de idéias, as melhores idéias em seu grupo de bolhas para o topo.
+    intro: Você está participando de um "mercado de ideias" que permite que grupos coletem e priorizem ideias em um processo democrático, aberto e eficiente. Ao combinar um processo de votação simples, com carregamento aberto de ideias, as melhores ideias do grupo vão para o topo.
     exp_widget: Este widget mercado idéia é alimentado por www.allourideas.org, um projecto de investigação liderado pelo Professor Matthew Salganik, Departamento de Sociologia da Universidade de Princeton.
     faq_widget: "Aqui estão algumas perguntas freqüentes:"
     open_source_q_widget: É todo este código-fonte aberto?
     open_source_exp_widget: Absolutamente. Aqui está o alvo <a href="http://github.com/allourideas" target = blank_>o código<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
     contact_q_widget: Eu tenho outra pergunta, como posso entrar em contato com você?
     contact_exp_widget: Envie-nos um email para info@allourideas.org.
-    how_many_votes_q: Quantos votos eu posso elenco? Quando ele termina?
-    how_many_votes_exp: Você pode votar tão pouco ou tanto quanto você quer, e você pode parar de voto a qualquer momento.
-    how_many_ideas_q: Quantas idéias eu posso acrescentar? O que acontece com a minha ideia uma vez que eu adicioná-lo?
-    how_many_ideas_exp: Você pode adicionar tantas idéias como você. Quando uma idéia é adicionado, ele pode ser revisto por quem criou a idéia de mercado, a fim de garantir que não é inadequado. Uma vez que a idéia foi comentado, vai começar a aparecer para as pessoas a votar nele.
+    how_many_votes_q: Quantas vezes eu posso votar? Quando a votação termina?
+    how_many_votes_exp: Você pode votar quantas vezes quiser e pode parar de votar a qualquer momento.
+    how_many_ideas_q: Quantas ideias eu posso acrescentar? O que acontece com a minha ideia uma vez que eu adicioná-la?
+    how_many_ideas_exp: Você pode adicionar quantas ideias você tiver. Quando uma ideia é adicionada, ela pode ser revisada por quem criou a pesquisa, a fim de garantir que não é inadequada. Uma vez que a ideia foi revisada, ela vai começar a aparecer para as pessoas votarem nela.
     view_results_q: Posso ver o que todo mundo pensa?
-    view_results_exp: Sim, simplesmente clique em "Exibir Resultados" da tela de votação. Este processo é completamente transparente.
-    make_my_own_q: Posso fazer uma dessas mim?
-    make_my_own_exp: "Claro. É fácil de configurar sua própria idéia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar seu próprio mercado idéia aqui: http://www.allourideas.org/questions/new"
+    view_results_exp: Sim, simplesmente clique em "Exibir Resultados" na tela de votação. Este processo é completamente transparente.
+    make_my_own_q: Posso criar minha própria pesquisa?
+    make_my_own_exp: "Claro. É fácil de configurar sua própria pesquisa, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar sua própria pesquisa aqui: http://www.allourideas.org/questions/new"
     make_my_own_exp_widget: "Claro. É fácil de configurar sua própria idéia mercado, e é totalmente gratuito graças aos nossos subsídios do Google e do Centro de Tecnologia da Informação Política da Universidade de Princeton. Você pode criar o seu widget próprio mercado idéia: http://www.allourideas.org."
   user:
     # User information that appears in a few places, most importantly the footer

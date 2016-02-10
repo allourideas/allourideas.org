@@ -125,7 +125,7 @@ tr:
     vote_timeout_error: "Üzgünüz, oy vermek çok uzun süre alıyor ... trafik çok yoğun!"
     vote_other_error: "Üzgünüz, oyunuz sayılmadı ... bir hata oldu"
     idea_sent_for_review: Fikriniz değerlendirme için gönderildi. Kısa zamanda görebilirsiniz.
-    powered_widget: "Bu fikir pazarı   tarafından desteklenmektedir" 
+    powered_widget_aoi: "Bu fikir pazarı   tarafından desteklenmektedir %{allourideas}" 
     leveling:
        leveling_message: "Verdiğiniz oy sayısı %{vote_num}, eklediğiniz fikir sayısı %{idea_num}: %{adjective}"
        leveling_message_votes_only: Verdiğiniz oy %{vote_num} %{vote_noun}

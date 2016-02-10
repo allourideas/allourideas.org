@@ -178,7 +178,7 @@ zh:
     others_thought: 点选看其他人的意见
     over: 结束
     please_explain_flag: 请解释为何您觉得这个意见不合适
-    powered_widget: 这个
+    powered_widget_aoi: 这个%{allourideas}
     skip: 跳过
     submit: 提交
     submit_idea_default_error: 很抱歉，不予许空白提交

@@ -115,7 +115,7 @@ nl:
     vote_timeout_error: "Sorry, het stemmen duurt te lang ... teveel verkeer!"
     vote_other_error: "Sorry, je stem is niet meegeteld ... er was een foutmelding"
     idea_sent_for_review: Je idee is verstuurd om beoordeeld te worden. Het zal binnenkort verschijnen.
-    powered_widget: "Deze ideeënmarktplaats draait op " 
+    powered_widget_aoi: "Deze ideeënmarktplaats draait op %{allourideas}" 
     leveling:
        leveling_message: "Je hebt nu %{vote_num} %{vote_noun} uitgebracht en %{idea_num} %{idea_noun} toegevoegd: %{adjective}"
        leveling_message_votes_only: Je hebt nu %{vote_num} %{vote_noun} uitgebracht

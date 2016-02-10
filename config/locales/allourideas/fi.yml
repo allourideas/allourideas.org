@@ -474,7 +474,7 @@ fi:
     others_thought: Napauta nähdäksesi, mitä muut ajattelivat.
     over: loppu
     please_explain_flag: ! 'Selitä, miksi vaihtoehto on sopimaton:'
-    powered_widget: Tätä ideamarkkinaa tukee
+    powered_widget_aoi: Tätä ideamarkkinaa tukee %{allourideas}
     skip: Jätä väliin
     submit: Lähetä
     submit_idea_default_error: Valitettavasti tyhjät ideat eivät ole sallittuja.

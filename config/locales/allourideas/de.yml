@@ -107,7 +107,7 @@ de:
     cant_decide_message: Sie können sich nicht entscheiden.
     click_idea_to_start_widget: Klicken Sie auf einen Vorschlag, um mit der Abstimmung zu beginnen.
     idea_sent_for_review: Ihr Vorschlag wird überprüft. Er wird in Kürze hier erscheinen.
-    powered_widget: "Dieser Marktplatz wird durch Ihre Vorschläge unterstützt."
+    powered_widget_aoi: "Dieser Marktplatz wird durch Ihre Vorschläge unterstützt. %{allourideas}"
     flag_complete_message: Dieser Vorschlag wurde als ungeeignet gemeldet.
     please_explain_flag: "Bitte erklären Sie, warum die Auswahl unpassend ist:"
     you_chose_winner_over_loser: Sie haben %{winner} gegenüber %{loser} bevorzugt

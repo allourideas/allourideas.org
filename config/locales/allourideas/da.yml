@@ -43,7 +43,7 @@ da:
   form:
     create: Opret
     save: Gem
-    submit: Send
+    submit: Tilføj
   home:
     whats_this_txt: Alle vores idéer er en platform, der gør det muligt for grupper
       at indsamle og prioritere ideer i en gennemsigtig, demokratisk og bottom-up
@@ -77,7 +77,7 @@ da:
     header: Log ind på din konto
   nav:
     about: Om
-    about_this_page: Om denne side
+    about_this_page: Om afstemningen
     back: Tilbage
     blog: Blog
     create: Opret
@@ -196,9 +196,9 @@ da:
     others_thought: Klik her for at se hvad andre synes.
     over: forbi
     please_explain_flag: Fortæl os hvorfor denne idé er upassende
-    powered_widget: Denne wiki drives af
+    powered_widget_aoi: Denne wiki drives af %{allourideas}
     skip: spring over
-    submit: Send
+    submit: Tilføj
     submit_idea_default_error: Blanke felter er ikke tilladt
     submit_idea_thankyou: 1000 tak. Din idé er blevet tilføjet. Tilføj gerne flere
       idéer.

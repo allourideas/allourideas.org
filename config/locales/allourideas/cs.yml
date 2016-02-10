@@ -160,10 +160,10 @@ cs:
     cant_decide_message: Nemůžete se rozhodnout.
     cant_decide_title: Nemůžu se rozhodnout, protože...
     cast_votes: Volit
-    cd_both_same: Myslím, že oba návrhy jsou stejné
+    cd_both_same: Myslím, že oba návrhy znamenají totéž
     cd_dislike_both: Oba návrhy mi nevyhovují
-    cd_dont_know_both: Nemám dostatek informací o těchto návrzích
-    cd_dont_know_both_widget: Nemám dostatek informací ani o jednom z těchto dvou
+    cd_dont_know_both: Nemám dostatek informací o těchto dvou návrzích
+    cd_dont_know_both_widget: Nemám dostatek informací o těchto dvou
     cd_dont_know_left: ! 'Nemám dostatek informací o:'
     cd_dont_know_right: ! 'Nemám dostatek informací o:'
     cd_explicit_dont_know_left_widget: Nemám dostatek informací o návrhu vlevo
@@ -172,8 +172,8 @@ cs:
     cd_other: Prostě se nemohu rozhodnout
     cd_user_other: ! 'Jiné:'
     click_idea_to_start_widget: Pro zahájení hlasování klikněte na návrh.
-    flag_as_inappropriate: Označit jako nevhodné
-    flag_complete_message: Označil jste návrh jako nevhodný.
+    flag_as_inappropriate: Nahlásit
+    flag_complete_message: Nahlásil jste návrh jako nevhodný či urážlivý.
     idea_sent_for_review: Váš návrh byl předložen k přezkoumání. Brzy se objeví.
     leveling:
       adjective_0: dobrý
@@ -191,8 +191,8 @@ cs:
       leveling_message_votes_only: Nyní jste zvolil %{vote_num} %{vote_noun}
     others_thought: Klikněte pro zobrazení názorů ostatních.
     over: před
-    please_explain_flag: ! 'Prosím vysvětlete proč je tato možnost nevhodná:'
-    powered_widget: Tento wiki dotazník běží v prostředí
+    please_explain_flag: ! 'Prosím vysvětlete proč je tato možnost nevhodná či urážlivá:'
+    powered_widget_aoi: Tento wiki dotazník běží v prostředí %{allourideas}
     skip: přeskočit
     submit: Přidat
     submit_idea_default_error: Promiňte, prázdné návrhy nejsou povoleny.

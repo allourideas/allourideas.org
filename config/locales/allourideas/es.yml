@@ -78,7 +78,7 @@ es:
     cant_decide_message: No se podría decidir.
     click_idea_to_start_widget: Haga clic en una idea para empezar a votar.
     idea_sent_for_review: Su idea ha sido presentada para su revisión. Se van a aparecer pronto.
-    powered_widget: "Este mercado está alimentado por la idea "
+    powered_widget_aoi: "Este mercado está alimentado por la idea %{allourideas}"
     flag_complete_message: Has marcado una opción como inapropiada.
     leveling:
        leveling_message: "Ahora han puesto %{vote_num} %{vote_noun} y agregó  %{idea_num} %{idea_noun}: %{adjective}"

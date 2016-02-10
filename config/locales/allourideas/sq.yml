@@ -202,7 +202,7 @@ sq:
     others_thought: Klikoni për të parë atë që të tjerët mendojnë.
     over: mbi
     please_explain_flag: ! 'Ju lutem shpjegoni pse kjo zgjedhje është e papërshtatshme:'
-    powered_widget: Ky treg Idesh është mundësuar nga
+    powered_widget_aoi: Ky treg Idesh është mundësuar nga %{allourideas}
     skip: kalo
     submit: Dërgo
     submit_idea_default_error: Na vjen keq, idetë bosh nuk lejohen.

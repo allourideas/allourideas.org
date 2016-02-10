@@ -116,7 +116,7 @@ he:
     vote_timeout_error: "מצטערים, ההצבעה נמשכת יותר מדי זמן...יותר מדי מצביעים!"
     vote_other_error: "מצטערים, הצבעתך לא נרשמה – חלה טעות."
     idea_sent_for_review: רעיונך נשלח לבדיקה. הוא יפורסם בקרוב..
-    powered_widget: "שוק הרעיונות הזה מונע על ידי " 
+    powered_widget_aoi: "שוק הרעיונות הזה מונע על ידי %{allourideas}" 
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
        leveling_message_votes_only: פעמים %{vote_num} הצבעת

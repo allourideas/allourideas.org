@@ -236,7 +236,7 @@ fr:
     others_thought: Cliquez pour voir ce qu'en pense les autres.
     over: plus de
     please_explain_flag: ! 'Expliquez pourquoi cette ptoposition vous semble inappropriée:'
-    powered_widget: Ce "marché des idées" est motorisé par
+    powered_widget_aoi: Ce "marché des idées" est motorisé par %{allourideas}
     skip: Sauter
     submit: Soumettre
     submit_idea_default_error: Désolé, les idées vides ne sont pas autorisées

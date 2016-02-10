@@ -197,7 +197,7 @@ ar:
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
     vote_other_error: "Sorry, your vote wasn't counted ... there was an error"
     idea_sent_for_review: وقد قدم فكرة الخاص بك للمراجعة. وسوف تظهر قريبا.
-    powered_widget: "هذه الفكرة مدعومة من "
+    powered_widget_aoi: "هذه الفكرة مدعومة من %{allourideas}"
     leveling:
        leveling_message: "Now you have cast %{vote_num} %{vote_noun} and added  %{idea_num} %{idea_noun}: %{adjective}"
        leveling_message_votes_only: Now you have cast %{vote_num} %{vote_noun}

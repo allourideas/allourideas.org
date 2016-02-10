@@ -78,7 +78,7 @@ pt:
     cant_decide_message: Você não pode decidir.
     click_idea_to_start_widget: Clique em uma idéia para iniciar a votação.
     idea_sent_for_review: Sua idéia foi apresentada para a revisão. Ele aparecerá em breve.
-    powered_widget: "Essa forma de participação foi desenvolvida pelo "
+    powered_widget_aoi: "Essa forma de participação foi desenvolvida pelo %{allourideas}"
     flag_complete_message: Está marcada como uma escolha inadequada.
     leveling:
        leveling_message: "Agora você tem um elenco %{vote_num} %{vote_noun} e adição de %{idea_num} %{idea_noun}: %{adjective}"

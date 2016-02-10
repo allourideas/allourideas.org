@@ -195,7 +195,7 @@
     others_thought: Klikk for å se hva andre mener.
     over: over
     please_explain_flag: ! 'Forklar hvorfor du mener dette valget er upassende:'
-    powered_widget: Dette idémarkedet er drevet av
+    powered_widget_aoi: Dette idémarkedet er drevet av %{allourideas}
     skip: Hopp over
     submit: Send inn
     submit_idea_default_error: Beklager, ideer uten tekst er ikke tillat.

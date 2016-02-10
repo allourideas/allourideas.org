@@ -126,7 +126,7 @@ it:
     vote_timeout_error: "Ci dispiace, la tua votazione ha impiegato troppo tempo ... troppo traffico!"
     vote_other_error: "Spiacenti, il tuo voto non è stato conteggiato ... è avvenuto un errore"
     idea_sent_for_review: La tua risposta è sotto approvazione. Apparirà a breve.
-    powered_widget: "This idea marketplace is powered by " 
+    powered_widget_aoi: "This idea marketplace is powered by %{allourideas}" 
     leveling:
        leveling_message: "Ora hai espresso %{vote_num} votazioni e aggiunto %{idea_num} risposte: %{adjective}"
        leveling_message_votes_only: Ora hai espresso %{vote_num} %{vote_noun}

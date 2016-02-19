@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/wikipedia-banner-challenge/gallery', :controller => 'home', :action => 'wikipedia_banner_challenge_gallery'
 
   map.earl '/:id', :controller => 'earls', :action => 'show'
+  map.earl_verify '/:id/v/:code', :controller => 'earls', :action => 'verify'
   map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'
   map.connect '/:id/:action', :controller => 'questions'
   # rake routes

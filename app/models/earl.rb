@@ -6,6 +6,9 @@ class Earl < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true, :reserved => @@reserved_names 
   has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
 
+  attr_accessor :ideas
+  before_create :require_verification!, :if => :ideas_look_spammy?
+
   belongs_to :user
 
   def self.reserved_names
@@ -27,6 +30,32 @@ class Earl < ActiveRecord::Base
 
   def question_should_autoactivate_ideas
     question.it_should_autoactivate_ideas
+  end
+
+  def ideas_look_spammy?
+    return false unless ideas
+    return true if ideas.match(/https?:/)
+    return false
+  end
+
+  def verify!(code)
+    return true if self.active
+    if code == verify_code
+      self.verify_code = nil
+      self.active = true
+      return self.save
+    else
+      return false
+    end
+  end
+
+  def requires_verification?
+    return(!self.active? and self.verify_code.present?)
+  end
+
+  def require_verification!
+    self.active = false
+    self.verify_code = ActiveSupport::SecureRandom.hex(8)
   end
 
   def question_should_autoactivate_ideas=(value)

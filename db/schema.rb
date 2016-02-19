@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627190740) do
+ActiveRecord::Schema.define(:version => 20160219184829) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(:version => 20130627190740) do
     t.boolean  "flag_enabled",                     :default => false
     t.string   "ga_code"
     t.boolean  "photocracy",                       :default => false
+    t.boolean  "accept_new_ideas",                 :default => true
+    t.string   "verify_code"
   end
 
   add_index "earls", ["question_id"], :name => "index_earls_on_question_id"

@@ -4,6 +4,16 @@ class EarlsController < ApplicationController
   include ActionView::Helpers::AssetTagHelper
   before_filter :dumb_cleartext_authentication, :except => :export_list
 
+  def verify
+    if @earl.verify!(params[:code])
+      flash[:notice] = t('admin.wiki_survey_verification_succeeded')
+      redirect_to earl_url(:id => @earl.name) and return
+    else
+      flash[:error] = t('admin.wiki_survey_verification_failed')
+      redirect_to '/' and return
+    end
+  end
+
   def show
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
     

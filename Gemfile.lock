@@ -1,5 +1,5 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   remote: http://gems.github.com/
   specs:
     actionmailer (2.3.18)

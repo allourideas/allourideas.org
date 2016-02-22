@@ -30,6 +30,9 @@ class HomeController < ApplicationController
 	  redirect_to("/planyc_example") and return
   end
 
+  def verify
+  end
+
   def about
     #about_question = Question.find(1)#Const::ABOUT_QUESTION_ID)
     # set_pairwise_user(about_question.user.email, about_question.user.decoded_password)

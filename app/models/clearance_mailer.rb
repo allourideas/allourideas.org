@@ -15,7 +15,7 @@ class ClearanceMailer < ActionMailer::Base
                :photocracy => photocracy
   end
 
-  def confirmation(user, earl_name='http://www.allourideas.org', photocracy=false)
+  def confirmation(user, earl, photocracy=false)
     default_url_options[:host] = (photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST])
 
     from_address = photocracy ? APP_CONFIG[:INFO_PHOTOCRACY_EMAIL] : APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]
@@ -26,7 +26,7 @@ class ClearanceMailer < ActionMailer::Base
     recipients user.email
     subject    "Account confirmation"
     body      :user => user, 
-              :earl_name => earl_name,
+              :earl => earl,
               :photocracy => photocracy
   end
 

@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   # session is kept for requests that have no question_id.
   def set_question_id_earl
     @question_id = nil
-    if [controller_name, action_name] == ['earls', 'show']
+    if controller_name == 'earls' and ['show', 'verify'].include? action_name
       @earl = Earl.find_by_name(params[:id])
       @question_id = @earl.try(:question_id)
     elsif controller_name == 'prompts'

@@ -47,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   map.privacy '/privacy', :controller => 'home', :action => 'privacy'
   map.privacy_2009_07_06 '/privacy-2009-07-06', :controller => 'home', :action => 'privacy-2009-07-06'
   map.example '/example', :controller => 'home', :action => 'example'
+  map.verify '/verify', :controller => 'home', :action => 'verify'
   map.connect '/signup', :controller => 'users', :action => 'new'
   map.root :controller => 'home', :action => 'index'
   #map.toggle_question '/questions/:id/toggle', :controller => 'questions'
@@ -60,6 +61,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/wikipedia-banner-challenge/gallery', :controller => 'home', :action => 'wikipedia_banner_challenge_gallery'
 
   map.earl '/:id', :controller => 'earls', :action => 'show'
+  map.earl_verify '/:id/v/:code', :controller => 'earls', :action => 'verify'
   map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'
   map.connect '/:id/:action', :controller => 'questions'
   # rake routes

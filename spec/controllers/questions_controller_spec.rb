@@ -74,6 +74,13 @@ describe QuestionsController do
         post :create, :question => {:name => 'this name', :url => 'urlname'}
         response.should redirect_to(earl_url('urlname', :just_created => true))
       end
+
+      it "redirects to the verify page if suspicious ideas" do
+        sign_in_as Factory.create :admin_confirmed_user
+        Question.stub!(:new).with({"name" => 'this name', "url" => 'newurlname', "ideas" => "http://example.com\nwhat\nnow"}).and_return(mock_question(:save => true, :valid? => true, :attributes => {}, :fq_earl => '/'))
+        post :create, :question => {:name => 'this name', :url => 'newurlname', :ideas => "http://example.com\nwhat\nnow"}
+        response.should redirect_to(verify_url)
+      end
     end
 
     describe "with invalid params" do

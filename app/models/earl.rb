@@ -49,8 +49,12 @@ class Earl < ActiveRecord::Base
     end
   end
 
+  def allows_voting?
+    return self.active? && !self.requires_verification?
+  end
+
   def requires_verification?
-    return(!self.active? and self.verify_code.present?)
+    return self.verify_code.present?
   end
 
   def require_verification!

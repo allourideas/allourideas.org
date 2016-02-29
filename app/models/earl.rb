@@ -160,4 +160,144 @@ class Earl < ActiveRecord::Base
     return {:total => object_total, :votes_by_geoloc => votes_by_geoloc }
   end
 
+  def munge_csv_data(csvdata, type)
+    #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
+    sessions = {}
+    url_aliases = {}
+    num_slugs = self.slugs.size
+
+    Enumerator.new do |y|
+      CSVBridge.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
+
+        if row.header_row?
+          if photocracy
+            if type == 'votes'
+              row << ['Winner Photo Name', 'Winner Photo Name']
+              row << ['Loser Photo Name', 'Loser Photo Name']
+            elsif type == 'non_votes'
+              row << ['Left Photo Name', 'Left Photo Name']
+              row << ['Right Photo Name', 'Right Photo Name']
+            elsif type == 'ideas'
+              row << ['Photo Name', 'Photo Name']
+            end
+          end
+
+          case type
+            when "votes", "non_votes"
+              #We need this to look up SessionInfos, but the user doesn't need to see it
+              row.delete('Session Identifier')
+
+              row << ['Hashed IP Address', 'Hashed IP Address']
+              row << ['URL Alias', 'URL Alias']
+              row << ['User Agent', 'User Agent']
+              row << ['Referrer', 'Referrer']
+              row << ['Widget', 'Widget']
+              row << ['Info', 'Info']
+            when "ideas"
+              row.delete('Session Identifier')
+              row << ['Info', 'Info']
+          end
+          y.yield row.to_csv
+        else
+          if photocracy
+            if    type == 'votes'
+              p1 = Photo.find_by_id(row['Winner Text'])
+              p2 = Photo.find_by_id(row['Loser Text'])
+              row << [ 'Winner Photo Name', p1 ? p1.photo_name : 'NA' ]
+              row << [ 'Loser Photo Name',  p2 ? p2.photo_name : 'NA' ]
+            elsif type == 'non_votes'
+              p1 = Photo.find_by_id(row['Left Choice Text'])
+              p2 = Photo.find_by_id(row['Right Choice Text'])
+              row << [ 'Left Photo Name',  p1 ? p1.photo_name : 'NA' ]
+              row << [ 'Right Photo Name', p2 ? p2.photo_name : 'NA' ]
+            elsif type == 'ideas'
+              p1 = Photo.find_by_id(row['Idea Text'])
+              row << [ 'Photo Name', p1 ? p1.photo_name : 'NA' ]
+            end
+          end
+
+          case type
+            when 'ideas'
+              sid = row['Session Identifier']
+              row.delete('Session Identifier')
+              user_session = sessions[sid]
+              if user_session.nil?
+                user_session = SessionInfo.find_by_session_id(sid)
+                sessions[sid] = user_session
+              end
+              unless user_session.nil?
+                info = user_session.find_info_value(row)
+                info = 'NA' unless info
+                row << ['Info', info]
+              end
+            when "votes", "non_votes"
+
+              sid = row['Session Identifier']
+              row.delete('Session Identifier')
+
+              user_session = sessions[sid]
+              if user_session.nil?
+                user_session = SessionInfo.find_by_session_id(sid)
+                sessions[sid] = user_session
+              end
+
+              unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
+                # Some marketplaces can be accessed via more than one url
+                if num_slugs > 1
+                  url_alias = url_aliases[sid]
+
+                  if url_alias.nil?
+                    max = 0
+                    self.slugs.each do |slug|
+                      num = user_session.clicks.count(:conditions => ['url like ?', '%' + slug.name + '%' ])
+
+                      if num > max
+                        url_alias = slug.name
+                        max = num
+                      end
+                    end
+
+                    url_aliases[sid] = url_alias
+                  end
+                else
+                  url_alias = self.name
+                end
+
+
+
+
+                row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))]
+                row << ['URL Alias', url_alias]
+                row << ['User Agent', user_session.user_agent]
+
+                # grab most recent referrer from clicks
+                # that is older than this current vote
+                # and belongs to this earl
+                slugs = self.slugs
+                slugw = slugs.map {|s| "url like ?"}.join(" OR ")
+                slugv = slugs.map {|s| "%/#{s.name}%"}
+                conditions = ["controller = 'earls' AND action = 'show' AND created_at < ? AND (#{slugw})", row['Created at']]
+                conditions += slugv
+                session_start = user_session.clicks.find(:first, :conditions => conditions, :order => 'created_at DESC')
+                referrer = (session_start) ? session_start.referrer : 'REFERRER_NOT_FOUND'
+                referrer = 'DIRECT_VISIT' if referrer == '/'
+                # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT
+                row << ['Referrer', referrer]
+
+                vote_click = user_session.find_click_for_vote(row)
+                widget = (vote_click.widget?) ? 'TRUE' : 'FALSE'
+                row << ['Widget', widget]
+
+                info = user_session.find_info_value(row)
+                info = 'NA' unless info
+                row << ['Info', info]
+
+              end
+          end
+          y.yield row.to_csv
+        end
+      end
+    end
+  end
+
 end

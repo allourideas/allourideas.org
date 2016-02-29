@@ -74,7 +74,7 @@ class Question < ActiveResource::Base
 
     return errors
   end
-  
+
   protected
   def url_format_valid
     errors.add("URL", "is blank (Step 2)")  if url.blank?

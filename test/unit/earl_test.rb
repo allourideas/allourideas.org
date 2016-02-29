@@ -52,6 +52,16 @@ class EarlTest < ActiveSupport::TestCase
     assert_equal true, e.verify!(nil)
   end
 
+  should "verify code even if survey is considered active" do
+    e = Factory.create(:earl)
+    e.require_verification!
+    e.active = true
+    e.save
+    assert_equal true, e.verify!(e.verify_code)
+    assert_equal nil, e.verify_code
+    assert_equal false, e.requires_verification?
+  end
+
   should "know if it needs verification" do
     e = Factory.create(:earl)
     assert_equal false, e.requires_verification?

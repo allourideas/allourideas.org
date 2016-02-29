@@ -39,7 +39,7 @@ class Earl < ActiveRecord::Base
   end
 
   def verify!(code)
-    return true if self.active
+    return true unless self.requires_verification?
     if code == verify_code
       self.verify_code = nil
       self.active = true

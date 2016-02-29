@@ -28,7 +28,7 @@ Feature: Activating and deactivating choices
 	  Then I should be on the sign in page
 
 	Scenario: Logged in as nonowner
-    Given I sign out
-	  And I have signed in with "nonowner@example.com/password"
+	  When I have signed in with "nonowner@example.com/password"
+	  Then I should see "nonowner@example.com"
 	  When I go to the Deactivate page for the saved left choice
 	  Then I should see "You do not have permission to modify this wiki survey"

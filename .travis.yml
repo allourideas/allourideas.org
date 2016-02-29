@@ -1,13 +1,15 @@
-sudo: required
+sudo: false
 dist: precise
 language: ruby
 rvm:
   - 1.9.3
 services:
  - redis-server
+addons:
+  apt:
+    packages:
+      - libgeoip-dev
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -qq libgeoip-dev
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 before_script:

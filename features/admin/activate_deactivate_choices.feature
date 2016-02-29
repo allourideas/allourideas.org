@@ -7,7 +7,7 @@ Feature: Activating and deactivating choices
 	  Given an idea marketplace quickly exists with url 'test' and 5 ideas
 	  And I am on the Cast Votes page for 'test'
 	  And I save the current two choices
-          And I sign in as the admin for 'test'
+    And I sign in as the admin for 'test'
 
 	Scenario: Activate
 	  When I deactivate the saved left choice
@@ -21,14 +21,3 @@ Feature: Activating and deactivating choices
 	  Then I should see "You have successfully deactivated" 
 	  When I go to the View Results page for 'test'
 	  Then I should not see the saved left choice text
-	 
-	Scenario: Not logged in
-	  When I sign out
-	  And I go to the Deactivate page for the saved left choice
-	  Then I should be on the sign in page
-
-	Scenario: Logged in as nonowner
-	  When I have signed in with "nonowner@example.com/password"
-	  Then I should see "nonowner@example.com"
-	  When I go to the Deactivate page for the saved left choice
-	  Then I should see "You do not have permission to modify this wiki survey"

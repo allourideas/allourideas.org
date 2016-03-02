@@ -278,7 +278,7 @@ en:
     make_my_own_exp: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey here: http://www.allourideas.org/questions/new."
     make_my_own_exp_widget: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey widget: http://www.allourideas.org."
   admin: 
-    accept_responses: Accept responses
+    accept_responses: Accept new responses
     verify_survey_title: Activate Your Wiki Survey
     verify_survey_body: You should soon receive an email with a link to verify and activate your wiki survey. In order to activate your wiki survey, please click the link in the email.
     wiki_survey_verification_succeeded: Thanks for verifying your email address. Your wiki survey ready!

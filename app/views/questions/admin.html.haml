@@ -92,7 +92,7 @@
               .controls
                 %label.checkbox
                   = f.check_box :active
-                  = f.label :active, t('admin.accept_responses')
+                  = f.label :active, "#{t('admin.accept_responses')} #{link_to('', 'http://blog.allourideas.org/post/140411852207/easy-way-to-stop-accepting-responses', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}"
                   = f.check_box :flag_enabled
                   = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + ' ' + link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                   = f.check_box :question_should_autoactivate_ideas

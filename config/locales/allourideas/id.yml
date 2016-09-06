@@ -27,7 +27,7 @@ id:
     items: ide
     photo: foto
     score: skor
-    skips: Lewati / Abaikan
+    skips: Diabaikan
     title: All Our Ideas - Membawa riset survei ke era digital
     title_widget: All Our Ideas
     user_sessions: Sesi pengguna
@@ -65,24 +65,24 @@ id:
       toggle: Ubah
     new:
       too_long: Teks ide/usulan terlalu panjang. Panjang maksimum adalah
-    number_of_votes: Jumlah suara
+    number_of_votes: Jumlah Suara
     score: Skor
     score_explain: Skor dari suatu ide/usulan adalah estimasi dari kemungkinan ide
-      tersebut dipilih oleh pengguna saat dibandingkan dengan ide lain yang ditampilkan
+      tersebut dipilih oleh partisipan saat dibandingkan dengan ide lain yang ditampilkan
       secara acak. Contohnya, skor 100 berarti ide tersebut diprediksikan akan selalu
-      dipilih oleh pengguna setiap saat dan skor 0 berarti ide tersebut diprediksikan
-      akan selalu tidak dipilih setiap saat.
+      dipilih oleh partisipan dibandingkan dengan ide lain, dan skor 0 berarti ide
+      tersebut diprediksikan akan selalu tidak dipilih setiap saat.
     toggle_error: Maaf, kami tidak dapat mengubah status dari pilihan ini karena Anda
       tidak membuat pertanyaan ini.
-    you_have_successfully_activated: Anda telah berhasil mengaktivasi ide
+    you_have_successfully_activated: Anda telah berhasil mengaktifkan ide
     you_have_successfully_deactivated: Anda telah berhasil menonaktifkan ide
-    you_just_submitted: Anda telah menambahkan ide yang dapat dipilih oleh pengguna
+    you_just_submitted: Anda telah menambahkan ide yang dapat dipilih oleh partisipan
       lain
   login:
     header: Masuk ke akun anda
   nav:
     about: Tentang
-    about_this_page: Tentang laman ini
+    about_this_page: Tentang Laman Ini
     back: Kembali
     blog: Blog
     create: Buat
@@ -92,14 +92,14 @@ id:
     manage_question: Pengaturan Laman
     privacy: 
     privacy_policy: Privasi dan Kebijakan
-    return_voting_widget: Kembali ke Pemberian Suara
-    see_all_ideas: Lebih Lanjut / Tampilkan Lebih
+    return_voting_widget: Kembali Memberikan Suara
+    see_all_ideas: Tampilkan lebih banyak...
     signup: daftar
     view_idea: Lihat Ide
     view_more_results_widget: Lihat Lebih Banyak Hasil
     view_results: Lihat Hasil
   results:
-    about_word_cloud: Mengenai word clouds
+    about_word_cloud: Mengenai word cloud
     close_link: ! '[Tutup]'
     data_visualizations: Visualisasi Data
     date: Tanggal
@@ -112,12 +112,12 @@ id:
     number_of_user_sessions_per_day: Jumlah sesi pengguna per hari
     number_of_votes_per_day: Jumlah suara per hari
     original_ideas: Ide Awal
-    overall_total: Total Keseluruhan
+    overall_total: Total Keseluruhan -
     overall_total_votes: Total Keseluruhan - %{count} suara
     per_day: per hari
     previous: << Sebelumnya
-    rollover_to_see_more: Arahkan kursor ke setiap titik untuk info tambahan
-    scatter_ideas_subtitle: Arahkan kursor ke setiap titik untuk info tambahan
+    rollover_to_see_more: Arahkan kursor ke setiap titik data untuk info tambahan
+    scatter_ideas_subtitle: Arahkan kursor ke setiap titik data untuk info tambahan
     scatter_ideas_title: Bandingkan ide tambahan dengan ide awal
     scores_of: Skor dari
     scores_of_uploaded_and_orginal_ideas: Skor dari Ide Tambahan dan Ide Awal
@@ -132,16 +132,16 @@ id:
     word_cloud_exp: Word Cloud yang ditampilkan di laman ini adalah visualisasi dari
       kata-kata yang paling banyak muncul dalam wiki survei ini. Saat ditimbang berdasarkan
       skor, word cloud yang dihasilkan akan menggunakan skor terbaru dari sebuah ide
-      untuk menentukan popularitas ide. Untuk kata yang yang umum atau jarang digunakan
-      dapat disaring keluar dari word cloud yang dihasilkan.
-    word_cloud_ideas_title: Word Cloud ide / Awan Kata Kumpulan Ide
-    word_cloud_uploaded_title: Word Cloud Ide Tambahan / Awan Kata Ide Dari Partisipan
-    word_cloud_uploaded_weighted_title: Word Cloud Ide Tambahan yang ditimbang berdasarkan
-      skor / Awan Kata Ide Terunggah Berdasar Skor
-    word_cloud_weighted_title: Word Cloud dari semua ide ditimbang berdasarkan skor
-    world_map_creators: Peta dunia dari semua pembuat Wiki Survei
+      untuk menentukan popularitas ide. Kata-kata umum atau jarang digunakan akan
+      disaring keluar dari word cloud yang dihasilkan.
+    word_cloud_ideas_title: Word cloud ide
+    word_cloud_uploaded_title: Word cloud ide tambahan dari partisipan
+    word_cloud_uploaded_weighted_title: Word cloud ide tambahan yang ditimbang berdasarkan
+      skor
+    word_cloud_weighted_title: Word cloud dari semua ide ditimbang berdasarkan skor
+    world_map_creators: Peta dunia dari semua pembuat Survei Wiki
     world_map_ideas_title: Peta dunia dari semua ide yang sudah diunggah
-    world_map_title: Peta dunia dari semua
+    world_map_title: Peta dunia dari semua suara
   user:
     change_your_password: Ubah kata sandi Anda
     choose_password_below: Kata sandi Anda telah diubah. Pilih kata sandi baru di
@@ -153,12 +153,12 @@ id:
     forgot_password: Lupa kata sandi Anda?
     login: Masuk
     logout: Keluar
-    not_authorized_error: Anda tidak memiliki akses untuk memodifikasi survei Wiki
+    not_authorized_error: Anda tidak memiliki akses untuk memodifikasi survei wiki
       ini.
     password: Kata Sandi
     password_confirmation: Konfirmasi Kata Sandi
     reset_password_button: Reset Kata Sandi
-    reset_password_explain: Lupa kata sandi Anda? Masukkan alamat email anda di bawa
+    reset_password_explain: Lupa kata sandi Anda? Masukkan alamat email anda di bawah
       ini. Kami akan mengirimkan email berisi tautan untuk mengubah kata sandi anda.
     reset_password_header: Setel ulang kata sandi Anda.
     save_password_button: Simpan kata sandi Anda
@@ -178,12 +178,12 @@ id:
     cd_explicit_dont_know_left_widget: Saya tidak cukup memahami ide di sebelah kanan
     cd_explicit_dont_know_right_widget: Saya tidak cukup memahami ide di sebelah kiri
     cd_like_both: Saya menyukai kedua ide
-    cd_other: Saya hanya tidak dapat menentukan
+    cd_other: Saya hanya tidak bisa menentukan
     cd_user_other: ! 'Lainnya:'
     click_idea_to_start_widget: Klik salah satu ide untuk mulai memberikan suara.
-    flag_as_inappropriate: Tandai sebagai tidak pantas.
+    flag_as_inappropriate: Tandai sebagai tidak pantas
     flag_complete_message: Anda menandai satu pilihan sebagai tidak pantas.
-    idea_sent_for_review: Ide anda telah dimasukkan untuk dikaji. Ide tersebut akan
+    idea_sent_for_review: Ide Anda telah dimasukkan untuk dikaji. Ide tersebut akan
       muncul sesegera mungkin.
     leveling:
       adjective_0: baik
@@ -196,23 +196,23 @@ id:
       adjective_7: hebat
       adjective_8: mengagumkan
       adjective_9: wow
-      leveling_message: ! 'Saat ini anda telah memberikan %{vote_num} %{vote_noun}
+      leveling_message: ! 'Saat ini Anda telah memberikan %{vote_num} %{vote_noun}
         suara dan menambahkan %{idea_num} %{idea_noun}: %{adjective}'
-      leveling_message_votes_only: Saat ini anda telah memberikan %{vote_num} %{vote_noun}
+      leveling_message_votes_only: Saat ini Anda telah memberikan %{vote_num} %{vote_noun}
         suara
     others_thought: Klik untuk melihat apa yang dipikirkan orang lain.
     over: dibandingkan
-    please_explain_flag: ! 'Harap jelaskan mengapa pilihan ini tidak pantas:'
+    please_explain_flag: ! 'Jelaskan mengapa pilihan ini dianggap tidak pantas:'
     powered_widget_aoi: Wiki survei ini didukung oleh
-    skip: Lanjut
+    skip: abaikan
     submit: Masukkan
     submit_idea_default_error: Maaf, ide tanpa teks tidak dapat ditambahkan.
-    submit_idea_thankyou: Terima kasih. Ide anda telah ditambahkan. Silahkan menambahkan
+    submit_idea_thankyou: Terima kasih. Ide Anda telah ditambahkan. Silahkan menambahkan
       lebih banyak ide.
     submit_idea_too_long_error: Maaf, teks ide tidak dapat melebihi 140 karakter.
     view_all_the_results: Lihat semua hasil.
-    vote_other_error: Maaf, suara anda tidak dihitung ... Terdapat error.
+    vote_other_error: Maaf, suara Anda tidak dihitung ... Terdapat error.
     vote_timeout_error: Maaf, memberikan suara memakan waktu lama ... server sibuk,
       sedang banyak pengunjung!
     you_chose_winner_over_loser: Anda memilih %{winner} dibandingkan %{loser}
-    you_skipped_both: Anda memilih melanjutkan.
+    you_skipped_both: Anda memilih mengabaikan

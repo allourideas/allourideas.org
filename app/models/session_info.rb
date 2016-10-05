@@ -71,7 +71,8 @@ class SessionInfo< ActiveRecord::Base
     
     info = ref_ts.map do |ref|
       begin
-        CGI.parse(URI.parse(ref.referrer).query)['info']
+        p = URI::Parser.new(:UNRESERVED => "\\-_.!~*'()a-zA-Z\\d" + "|")
+        CGI.parse(p.parse(ref.referrer).query)['info']
       rescue
         nil
       end

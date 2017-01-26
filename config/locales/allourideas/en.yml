@@ -292,6 +292,7 @@ en:
     user: User
     seed: Seed
     this_question_created: This question created 
+    show_cant_decide: Show "I can't decide" button
     ago: ago
     optional_question_settings: Optional Question Settings
     auto_activate_exp: Allow ideas by users to be automatically activated, without prior approval

@@ -97,6 +97,8 @@
                   = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + ' ' + link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
                   = f.check_box :question_should_autoactivate_ideas
                   = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
+                  = f.check_box :show_cant_decide
+                  = f.label :show_cant_decide, "#{t('admin.show_cant_decide')}"
                   = f.check_box :hide_results
                   = f.label :hide_results, "#{t('admin.hide_results_from_visitors')} #{link_to('', 'http://blog.allourideas.org/post/133264535527/hide-results-from-your-voters', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}"
             .form-actions

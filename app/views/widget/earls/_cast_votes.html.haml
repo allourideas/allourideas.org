@@ -31,10 +31,11 @@
       .no_bottom_padding
         .fright.no_bottom_padding
           = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')  
-    %center.cd_container.two_top_margin
-      .vote-footer
-        %span.rounded#cant_decide_btn
-          = t('vote.cant_decide') 
+    - if @earl.show_cant_decide?
+      %center.cd_container.two_top_margin
+        .vote-footer
+          %span.rounded#cant_decide_btn
+            = t('vote.cant_decide') 
     %center.add_container
       .add_idea      
         %span.add_idea_button.rounded

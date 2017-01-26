@@ -14,3 +14,15 @@ Feature: Cant Decide Feature
 	  And I press "Save"
 	  And I go to the Cast Votes page for 'test'
 	  Then I should not see "I can't decide" within ".question-vote"
+
+  @widget
+	Scenario: cant decide defaults to on
+	  When I go to the Cast Votes page for 'test'
+	  Then I should see "I can't decide" within ".votebox"
+
+  @widget
+	Scenario: I disable cant decide
+	  When I uncheck "earl_show_cant_decide"
+	  And I press "Save"
+	  And I go to the Cast Votes page for 'test'
+	  Then I should not see "I can't decide" within ".votebox"

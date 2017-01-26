@@ -45,24 +45,25 @@
         .tellmearea
           #initial_notice= t('vote.click_idea_to_start_widget')
 
-    #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
-      %h2= t('vote.cant_decide_title')
-      -cd_options= ['like_both', 'dislike_both', 'dont_know_both_widget']
-      .cd_options
-        - cd_options.each do |choice|
-          .cd_option
-            .cd_box
-              %a.rounded{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
-                =t('vote.cd_'+choice)
-                - if choice == 'dont_know_left'
-                  .leftside
-                    %em= h(@left_choice_text)
-                - elsif choice == 'dont_know_right'
-                  .rightside
-                    %em= h(@right_choice_text)
-      .close_and_submit
-        %a.close.fleft{:href => '#page1'}
-          = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
+    - if @earl.show_cant_decide?
+      #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
+        %h2= t('vote.cant_decide_title')
+        -cd_options= ['like_both', 'dislike_both', 'dont_know_both_widget']
+        .cd_options
+          - cd_options.each do |choice|
+            .cd_option
+              .cd_box
+                %a.rounded{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
+                  =t('vote.cd_'+choice)
+                  - if choice == 'dont_know_left'
+                    .leftside
+                      %em= h(@left_choice_text)
+                  - elsif choice == 'dont_know_right'
+                    .rightside
+                      %em= h(@right_choice_text)
+        .close_and_submit
+          %a.close.fleft{:href => '#page1'}
+            = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
 
     .add-box#the_add_box{:style => 'display:none'}
       %br

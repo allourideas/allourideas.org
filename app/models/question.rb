@@ -69,7 +69,6 @@ class Question < ActiveResource::Base
   def validate(photocracy)
     errors.add("Name", "is blank (Step 1)") if name.blank?
     url_format_valid
-    url_unique
     ideas_valid(photocracy)
 
     return errors
@@ -77,24 +76,16 @@ class Question < ActiveResource::Base
 
   protected
   def url_format_valid
-    errors.add("URL", "is blank (Step 2)")  if url.blank?
-    errors.add("URL", "contains spaces (Step 2)")  if url.include? ' '
-    errors.add("URL", "contains special characters (Step 2)") if (url.include?('+') || url.parameterize != url)
-    errors
-  end
-  
-  def url_unique
-    begin
-      if Earl.find_by_name(attributes['url'].strip).nil?
-         Earl.find(attributes['url'].strip)
+    e = Earl.new(:name => url)
+    e.valid?
+    url_errors = e.errors.on(:name)
+    if url_errors
+      url_errors = [url_errors] if url_errors.class == String
+      url_errors.each do |err|
+        errors.add("URL", err)
       end
-      errors.add("URL", "has already been taken (Step 2)")
-    rescue
-      nil
     end
-    if Earl.reserved_names.include?(attributes['url'].strip)
-      errors.add("URL", "has already been taken (Step 2)")
-    end
+    errors
   end
 
   def ideas_valid(photocracy)
@@ -107,7 +98,9 @@ class Question < ActiveResource::Base
   end
 
   def add_sample_idea
-    i = self.ideas.lines.to_a.delete_if {|l| l.blank?}
-    self.ideas += "\nsample choice" if i.length == 1
+    if self.ideas
+      i = self.ideas.lines.to_a.delete_if {|l| l.blank?}
+      self.ideas += "\nsample choice" if i.length == 1
+    end
   end
 end

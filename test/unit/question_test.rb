@@ -1,6 +1,20 @@
 require 'test_helper'
 
-#class QuestionTest < ActiveSupport::TestCase
+class QuestionTest < ActiveSupport::TestCase
+  should "pass along earl validation errors" do
+    invalid_urls = [Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+']
+    invalid_urls.each do |url|
+      q = Question.new(:name => 'What question?', :ideas => "one\ntwo\nthree\nfour", :url => url)
+      assert_equal false, q.valid?
+    end
+  end
+
+  should "allow upper case" do
+    q = Question.new(:name => 'What question?', :ideas => "one\ntwo\nthree\nfour", :url => "UPIOWNR")
+    assert q.valid?
+  end
+
+end
 #
 # # in order to make this work, the test server has to be running:
 #	# export RAILS_ENV=test && ./script/server 4000
@@ -100,6 +114,3 @@ require 'test_helper'
 #    end
 #
 #  end
-#
-#end
-

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
+
   should "pass along earl validation errors" do
     invalid_urls = [Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+']
     invalid_urls.each do |url|
@@ -12,6 +13,11 @@ class QuestionTest < ActiveSupport::TestCase
   should "allow upper case" do
     q = Question.new(:name => 'What question?', :ideas => "one\ntwo\nthree\nfour", :url => "UPIOWNR")
     assert q.valid?
+  end
+
+  should "make information attribute accessible" do
+    q = Question.new(:information => "blah")
+    assert_equal "blah", q.information
   end
 
 end

@@ -29,7 +29,7 @@ class Question < ActiveResource::Base
     Earl.find_by_question_id(id).name
   end
  
-  %w(name url the_name ideas).each do |attr|
+  %w(name url the_name ideas information).each do |attr|
     define_method attr do
       attributes[attr]
     end

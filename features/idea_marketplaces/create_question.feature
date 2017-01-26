@@ -19,20 +19,20 @@ Feature: Creating Idea marketplaces
 	
          Scenarios: invalid registration info
 	   |field       |value    |resulttext                     | landing_page|
-	   |question_url|"bad url"  |Url contains spaces|the questions index page|
-	   |question_url|"bad@url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad@url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad/url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad:url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad=url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad+url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad'url"  |Url contains special characters|the questions index page|
-	   |question_url|"bad$url"  |Url contains special characters|the questions index page|
-	   |question_url|" badurl"  |Url contains special characters|the questions index page|
-	   |question_url|"badurl "  |Url contains special characters|the questions index page|
-	   |question_url|"questions"|Url has already been taken|the questions index page|
-	   |question_url|"admin"    |Url has already been taken|the questions index page|
-	   |question_url|"admin"    |Url has already been taken|the questions index page|
+	   |question_url|"bad url"  |Url allows only|the questions index page|
+	   |question_url|"bad@url"  |Url allows only|the questions index page|
+	   |question_url|"bad@url"  |Url allows only|the questions index page|
+	   |question_url|"bad/url"  |Url allows only|the questions index page|
+	   |question_url|"bad:url"  |Url allows only|the questions index page|
+	   |question_url|"bad=url"  |Url allows only|the questions index page|
+	   |question_url|"bad+url"  |Url allows only|the questions index page|
+	   |question_url|"bad'url"  |Url allows only|the questions index page|
+	   |question_url|"bad$url"  |Url allows only|the questions index page|
+	   |question_url|" badurl"  |Url allows only|the questions index page|
+	   |question_url|"badurl "  |Url allows only|the questions index page|
+	   |question_url|"questions"|is reserved|the questions index page|
+	   |question_url|"admin"    |is reserved|the questions index page|
+	   |question_url|"admin"    |is reserved|the questions index page|
 
 	Scenario: User submits an existing url
 		Given an idea marketplace exists with url 'taken'
@@ -57,7 +57,7 @@ Feature: Creating Idea marketplaces
 		Scenarios: missing fields
 			|field|result_text|
 			|question_name|Name is blank|
-			|question_url|Url is blank|
+			|question_url|Url can't be blank|
 			|question_ideas|Ideas are blank|
 			|question_email|Email can't be blank|
 			|question_password|Password can't be blank|

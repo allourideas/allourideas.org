@@ -10,8 +10,13 @@ class EarlTest < ActiveSupport::TestCase
     assert_valid Factory.create(:earl)
   end
 
-  should "not allow reserved words to be saved" do 
-	  assert_raises(FriendlyId::SlugGenerationError) { Factory.create(:earl, :name => "privacy")}
+  should_allow_values_for :name, "UPPERCASE", "testing", "test12-_."
+  should_not_allow_values_for :name, Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+'
+
+  should "validate uniqueness of name case insensitive" do
+    e = Factory.create(:earl)
+    assert_bad_value(Earl, :name, e.name.upcase)
+    assert_bad_value(Earl, :name, e.name)
   end
 
   should "show nil ideas as not spammy" do

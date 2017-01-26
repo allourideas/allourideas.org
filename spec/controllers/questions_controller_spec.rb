@@ -75,6 +75,20 @@ describe QuestionsController do
         response.should redirect_to(earl_url('urlname', :just_created => true))
       end
 
+      it "allows upper case letters" do
+        sign_in_as Factory.create :admin_confirmed_user
+        Question.stub!(:new).with({"name" => 'this name', "url" => 'UrlName'}).and_return(mock_question(:save => true, :valid? => true, :attributes => {}, :fq_earl => '/'))
+        post :create, :question => {:name => 'this name', :url => 'UrlName'}
+        response.should redirect_to(earl_url('UrlName', :just_created => true))
+      end
+
+      it "redirects to the created question" do
+        sign_in_as Factory.create :admin_confirmed_user
+        Question.stub!(:new).with({"name" => 'this name', "url" => 'urlname'}).and_return(mock_question(:save => true, :valid? => true, :attributes => {}, :fq_earl => '/'))
+        post :create, :question => {:name => 'this name', :url => 'urlname'}
+        response.should redirect_to(earl_url('urlname', :just_created => true))
+      end
+
       it "redirects to the verify page if suspicious ideas" do
         sign_in_as Factory.create :admin_confirmed_user
         Question.stub!(:new).with({"name" => 'this name', "url" => 'newurlname', "ideas" => "http://example.com\nwhat\nnow"}).and_return(mock_question(:save => true, :valid? => true, :attributes => {}, :fq_earl => '/'))

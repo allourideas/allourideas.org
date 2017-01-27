@@ -45,10 +45,11 @@
         = link_to(t('vote.cant_decide'), "#cant_decide_options", :id => "cant_decide_btn", :"data-toggle" => 'modal', :class => "btn span4 offset4")
     %p.vote_stats= render :partial => 'vote_idea_count', :locals => {:question => @question}
 
-  .row.add-idea-row
-    .span10.offset1.add_idea
-      = render :partial => 'items/form'
-      .tellmearea
+  - if @earl.show_add_new_idea?
+    .row.add-idea-row
+      .span10.offset1.add_idea
+        = render :partial => 'items/form'
+        .tellmearea
 
 #cookie_request_error.request_error.hide.modal.fade
   .modal-header

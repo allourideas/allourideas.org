@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161202142726) do
+ActiveRecord::Schema.define(:version => 20161202144215) do
 
   create_table "alternatives", :force => true do |t|
     t.integer "experiment_id"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20161202142726) do
     t.boolean  "accept_new_ideas",                 :default => true
     t.string   "verify_code"
     t.boolean  "show_cant_decide",                 :default => true
+    t.boolean  "show_add_new_idea",                :default => true
   end
 
   add_index "earls", ["question_id"], :name => "index_earls_on_question_id"

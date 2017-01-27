@@ -37,9 +37,10 @@
           %span.rounded#cant_decide_btn
             = t('vote.cant_decide') 
     %center.add_container
-      .add_idea      
-        %span.add_idea_button.rounded
-          = t('vote.add_your_idea_button')  
+      - if @earl.show_add_new_idea
+        .add_idea      
+          %span.add_idea_button.rounded
+            = t('vote.add_your_idea_button')  
       .showmespace
         #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
         .tellmearea

@@ -31,37 +31,40 @@
       .no_bottom_padding
         .fright.no_bottom_padding
           = link_to(t('vote.flag_as_inappropriate'), "#flag_inappropriate", :id => 'right_flag',:class => 'flag_link')  
-    %center.cd_container.two_top_margin
-      .vote-footer
-        %span.rounded#cant_decide_btn
-          = t('vote.cant_decide') 
+    - if @earl.show_cant_decide?
+      %center.cd_container.two_top_margin
+        .vote-footer
+          %span.rounded#cant_decide_btn
+            = t('vote.cant_decide') 
     %center.add_container
-      .add_idea      
-        %span.add_idea_button.rounded
-          = t('vote.add_your_idea_button')  
+      - if @earl.show_add_new_idea
+        .add_idea      
+          %span.add_idea_button.rounded
+            = t('vote.add_your_idea_button')  
       .showmespace
         #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
         .tellmearea
           #initial_notice= t('vote.click_idea_to_start_widget')
 
-    #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
-      %h2= t('vote.cant_decide_title')
-      -cd_options= ['like_both', 'dislike_both', 'dont_know_both_widget']
-      .cd_options
-        - cd_options.each do |choice|
-          .cd_option
-            .cd_box
-              %a.rounded{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
-                =t('vote.cd_'+choice)
-                - if choice == 'dont_know_left'
-                  .leftside
-                    %em= h(@left_choice_text)
-                - elsif choice == 'dont_know_right'
-                  .rightside
-                    %em= h(@right_choice_text)
-      .close_and_submit
-        %a.close.fleft{:href => '#page1'}
-          = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
+    - if @earl.show_cant_decide?
+      #cant_decide_options.no_bottom_padding{:style => 'display:none'}                      
+        %h2= t('vote.cant_decide_title')
+        -cd_options= ['like_both', 'dislike_both', 'dont_know_both_widget']
+        .cd_options
+          - cd_options.each do |choice|
+            .cd_option
+              .cd_box
+                %a.rounded{:href=> "##{choice}", :class => choice, 'data-questionid' => @question.id}
+                  =t('vote.cd_'+choice)
+                  - if choice == 'dont_know_left'
+                    .leftside
+                      %em= h(@left_choice_text)
+                  - elsif choice == 'dont_know_right'
+                    .rightside
+                      %em= h(@right_choice_text)
+        .close_and_submit
+          %a.close.fleft{:href => '#page1'}
+            = image_tag("/facebox/closelabel.gif",:title => "close",  :class => "close_imag")
 
     .add-box#the_add_box{:style => 'display:none'}
       %br

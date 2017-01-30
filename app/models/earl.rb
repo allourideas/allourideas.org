@@ -140,8 +140,13 @@ class Earl < ActiveRecord::Base
 
         display_text = []
         display_fields.each do|key|
-          if session.loc_info[key] && !(/^[0-9]+$/ =~ session.loc_info[key])
-            display_text << session.loc_info[key] 
+          if session.loc_info[key]
+            begin
+              if !(/^[0-9]+$/ =~ session.loc_info[key])
+                display_text << session.loc_info[key]
+              end
+            rescue ArgumentError
+            end
           end
         end
 

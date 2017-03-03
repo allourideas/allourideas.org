@@ -6,7 +6,7 @@ class Earl < ActiveRecord::Base
   validates_format_of :name, :on => :create, :with => /\A[a-zA-Z0-9\.\-\_]+\z/, :message => "allows only 'A-Za-z0-9.-_' characters"
   validates_uniqueness_of :name, :case_sensitive => false
   validates_length_of :welcome_message, :maximum=>350, :allow_nil => true, :allow_blank => true
-  has_friendly_id :name, :use_slug => true, :reserved => @@reserved_names 
+  has_friendly_id :name, :reserved => @@reserved_names
   has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
 
   attr_accessor :ideas

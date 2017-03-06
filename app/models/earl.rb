@@ -176,7 +176,6 @@ class Earl < ActiveRecord::Base
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
     sessions = {}
     url_aliases = {}
-    num_slugs = self.slugs.size
 
     Enumerator.new do |y|
       CSVBridge.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|
@@ -254,29 +253,7 @@ class Earl < ActiveRecord::Base
               end
 
               unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
-                # Some marketplaces can be accessed via more than one url
-                if num_slugs > 1
-                  url_alias = url_aliases[sid]
-
-                  if url_alias.nil?
-                    max = 0
-                    self.slugs.each do |slug|
-                      num = user_session.clicks.count(:conditions => ['url like ?', '%' + slug.name + '%' ])
-
-                      if num > max
-                        url_alias = slug.name
-                        max = num
-                      end
-                    end
-
-                    url_aliases[sid] = url_alias
-                  end
-                else
-                  url_alias = self.name
-                end
-
-
-
+                url_alias = self.name
 
                 row << ['Hashed IP Address', Digest::MD5.hexdigest([user_session.ip_addr, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))]
                 row << ['URL Alias', url_alias]
@@ -285,11 +262,7 @@ class Earl < ActiveRecord::Base
                 # grab most recent referrer from clicks
                 # that is older than this current vote
                 # and belongs to this earl
-                slugs = self.slugs
-                slugw = slugs.map {|s| "url like ?"}.join(" OR ")
-                slugv = slugs.map {|s| "%/#{s.name}%"}
-                conditions = ["controller = 'earls' AND action = 'show' AND created_at < ? AND (#{slugw})", row['Created at']]
-                conditions += slugv
+                conditions = ["controller = 'earls' AND action = 'show' AND created_at < ? AND (url like ?)", row['Created at'], "%/#{self.name}%"]
                 session_start = user_session.clicks.find(:first, :conditions => conditions, :order => 'created_at DESC')
                 referrer = (session_start) ? session_start.referrer : 'REFERRER_NOT_FOUND'
                 referrer = 'DIRECT_VISIT' if referrer == '/'

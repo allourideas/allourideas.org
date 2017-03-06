@@ -67,6 +67,17 @@ class EarlTest < ActiveSupport::TestCase
     assert_equal false, e.requires_verification?
   end
 
+  should "find proper earl by name" do
+    earl_names = ['slug.test', 'slug-test', 'S-TEST', 'S.TEST']
+    earls = []
+    earl_names.each do |name|
+      earls << Factory.create(:earl, :name => name)
+    end
+    earl_names.each_with_index do |name, index|
+      assert_equal Earl.find(name), earls[index]
+    end
+  end
+
   should "know if it needs verification" do
     e = Factory.create(:earl)
     assert_equal false, e.requires_verification?

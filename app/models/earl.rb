@@ -175,7 +175,6 @@ class Earl < ActiveRecord::Base
   def munge_csv_data(csvdata, type)
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job
     sessions = {}
-    url_aliases = {}
 
     Enumerator.new do |y|
       CSVBridge.parse(csvdata, {:headers => :first_row, :return_headers => true}) do |row|

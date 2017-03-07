@@ -78,6 +78,39 @@ class EarlTest < ActiveSupport::TestCase
     end
   end
 
+  should "successfully complete votes munge_csv_data" do
+    earl = Factory.create(:earl)
+    # This data is not specific for this Earl.
+    # Just sending in some data to ensure code runs without errors.
+    dummycsvdata = <<-EOS
+Vote ID,Session ID,Wikisurvey ID,Winner ID,Winner Text,Loser ID,Loser Text,Prompt ID,Appearance ID,Left Choice ID,Right Choice ID,Created at,Updated at,Response Time (s),Missing Response Time Explanation,Session Identifier,Valid
+136,54230,970,23773,Do you have any idea?,23772,What question should I create?,5020697,786,23773,23772,2010-10-29 13:38:33 UTC,2010-10-29 13:38:33 UTC,2.846,"",93aa75f3dd480185818af7420383a5b6,FALSE
+    EOS
+    earl.munge_csv_data(dummycsvdata, 'votes').each {|row| }
+  end
+
+  should "successfully complete non_votes munge_csv_data" do
+    earl = Factory.create(:earl)
+    # This data is not specific for this Earl.
+    # Just sending in some data to ensure code runs without errors.
+    dummycsvdata = <<-EOS
+Record Type,Skip ID,Appearance ID,Session ID,Wikisurvey ID,Left Choice ID,Left Choice Text,Right Choice ID,Right Choice Text,Prompt ID,Reason,Created at,Updated at,Response Time (s),Missing Response Time Explanation,Session Identifier,Valid
+Bounce,NA,247658,54059,970,23773,Do you have any idea?,23772,What question should I create?,5020697,NA,2010-10-18 15:05:26 UTC,2010-10-18 15:05:26 UTC,NA,"",a02b896a7fbddf4b43e4d42b2b03808e,TRUE
+    EOS
+    earl.munge_csv_data(dummycsvdata, 'non_votes').each {|row| }
+  end
+
+  should "successfully complete ideas munge_csv_data" do
+    earl = Factory.create(:earl)
+    # This data is not specific for this Earl.
+    # Just sending in some data to ensure code runs without errors.
+    dummycsvdata = <<-EOS
+Wikisurvey ID,Idea ID,Idea Text,Wins,Losses,Times involved in Cant Decide,Score,User Submitted,Session ID,Created at,Last Activity,Active,Appearances on Left,Appearances on Right,Session Identifier
+970,25635,inooinono n ino,14,6,1,68.1818,TRUE,54474,2011-04-27 13:47:29 UTC,2014-02-14 22:12:40 UTC,FALSE,12,20,f0cfbd2a0be32ca51a53d2e8f2e37757
+    EOS
+    earl.munge_csv_data(dummycsvdata, 'ideas').each {|row| }
+  end
+
   should "know if it needs verification" do
     e = Factory.create(:earl)
     assert_equal false, e.requires_verification?

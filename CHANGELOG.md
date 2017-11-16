@@ -1,3 +1,14 @@
+ * Add link to documentation in CSV download email.
+ * Allow admins to toggle "add new idea" feature.
+ * Allow admins to toggle "can't decide" option.
+ * Allow uppercase characters in wiki survey URLs.
+ * Allow admins to activate / deactivate wiki surveys.
+ * Improve manual process of create CSV exports.
+ * New spammy looking surveys are set to pending and must be approved.
+ * Allow admins to hide results.
+ * Add translations for: Czech, Japanese, Indonesian
+ * Add guide for each vote option.
+ * Add links to similar ideas in new idea email.
  * Add better error handling for Ajax requests.
  * upgrade Bootstrap to 2.3.2 (deployed 2014-04-07T14:22:32Z)
 

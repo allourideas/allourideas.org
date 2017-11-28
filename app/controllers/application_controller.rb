@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   helper :all
   protect_from_forgery
-  
+
   before_filter :initialize_session, :get_survey_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
   after_filter :write_survey_session_cookie
 
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   cattr_accessor :photocracy_view_path
   cattr_accessor :widget_view_path
   @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
-  @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget")) 
+  @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget"))
 
   def view_filter
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (RAILS_ENV == 'test' && $PHOTOCRACY)
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   def set_pairwise_credentials
     SiteConfig.set_pairwise_credentials(@photocracy)
   end
-  
+
   def initialize_session
     session[:session_id] # this forces load of the session in Rails 2.3.x
   end
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   def set_question_id_earl
     @question_id = nil
     if controller_name == 'earls' and ['show', 'verify'].include? action_name
-      @earl = Earl.find_by_name(params[:id])
+      @earl = Earl.find_by_name(params[:id].to_s)
       @question_id = @earl.try(:question_id)
     elsif controller_name == 'prompts'
       @question_id = params[:question_id]
@@ -81,14 +81,14 @@ class ApplicationController < ActionController::Base
       if ['add_idea', 'visitor_voting_history'].include?(action_name)
         @question_id = params[:id]
       elsif ['results', 'about', 'admin', 'update_name'].include?(action_name)
-        @earl = Earl.find_by_name(params[:id])
+        @earl = Earl.find_by_name(params[:id].to_s)
         @question_id = @earl.try(:question_id)
       end
     elsif controller_name == 'choices'
       if action_name == 'toggle'
         @earl = Earl.find(params[:earl_id])
       else
-        @earl = Earl.find_by_name(params[:question_id])
+        @earl = Earl.find_by_name(params[:question_id].to_s)
       end
       @question_id = @earl.try(:question_id)
     end
@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
       :value => @survey_session.cookie_value
     }
   end
-  
+
   def record_action
     visitor_remember_token = cookies[:visitor_remember_token]
 
@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
 	  visitor_remember_token = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{rand(10**10)}--")
 
           cookies[:visitor_remember_token] = {
-            :value   => visitor_remember_token, 
+            :value   => visitor_remember_token,
             :expires => 10.years.from_now.utc
           }
     end
@@ -151,7 +151,7 @@ class ApplicationController < ActionController::Base
     user_session = SessionInfo.find_or_create_by_session_id(:session_id => @survey_session.session_id,
 						       :ip_addr => request.remote_ip,
 						       :user_agent => request.env["HTTP_USER_AGENT"],
-						       :white_label_request => white_label_request?, 
+						       :white_label_request => white_label_request?,
 						       :visitor_id => visitor.id)
     @user_session = user_session
 
@@ -169,19 +169,19 @@ class ApplicationController < ActionController::Base
 	    session[:abingo_identity] = user_session.id
 	    Abingo.identity = user_session.id
     end
-      
+
   end
 
   helper_method :signed_in_as_admin?
-  
+
   def signed_in_as_admin?
     signed_in? && current_user.admin?
   end
-  
+
   def users_only
     deny_access("Please Login or Create an Account to Access that Feature.") unless signed_in?
   end
-  
+
   def admin_only
     deny_access("Please Login as an administrator to Access that Feature.") unless signed_in_as_admin?
   end
@@ -231,14 +231,14 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownController,  :with => :render_not_found
     rescue_from ActionController::UnknownAction,      :with => :render_not_found
     rescue_from ActiveResource::ResourceNotFound,     :with => :render_not_found
-  end 
+  end
 
   def render_not_found(exception)
     log_error(exception)
-    #notify_airbrake(exception) 
+    #notify_airbrake(exception)
     render :template => "errors/404.html.haml", :status => 404
   end
-  
+
   def render_error(exception)
     log_error(exception)
     notify_airbrake(exception)

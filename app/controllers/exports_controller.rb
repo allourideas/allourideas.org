@@ -1,7 +1,7 @@
 class ExportsController < ApplicationController
 
   def download
-    e = Export.find_by_name(params[:name])
+    e = Export.find_by_name(params[:name].to_s)
     if e.nil? || e.data.nil? || e.compressed.nil?
       redirect_to '/' and return
     end

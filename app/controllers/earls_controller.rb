@@ -16,13 +16,13 @@ class EarlsController < ApplicationController
 
   def show
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
-    
+
     if @earl
       unless @earl.allows_voting?
         flash[:notice] = t('questions.not_active_error')
         redirect_to '/' and return
       end
-      
+
 
       if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
@@ -31,9 +31,9 @@ class EarlsController < ApplicationController
       end
 
       begin
-      
-      show_params = {:with_prompt => true, 
-		     :with_appearance => true, 
+
+      show_params = {:with_prompt => true,
+		     :with_appearance => true,
 		     :with_visitor_stats => true,
 		     :visitor_identifier => @survey_session.session_id}
 
@@ -70,14 +70,14 @@ class EarlsController < ApplicationController
           @future_left_choice_photo = Photo.find(@question.attributes['future_left_choice_text_1'])
        end
 
-       if @widget    
+       if @widget
          # Define these here because of bug with ie6 css when color parameters are not defined
          @text_on_white = "#555555"
          @lighter_text_on_white = "#797979"
          @vote_button_hover_color = "#2B88AD"
          @tab_hover_color = "#A3D4E8"
          @flag_text_color = "#54AFE2"
-         @vote_button_color = "#3198c1" 
+         @vote_button_color = "#3198c1"
          @submit_button_color = "#01bb00"
          @submit_button_hover_color = "#228b53"
          @cant_decide_button_color = "#C5C5C5"
@@ -88,14 +88,14 @@ class EarlsController < ApplicationController
          @text_on_color = "#FFFFFF"
 
          if (text_on_white = validate_hex_color(params[:text_on_white]))
-           lighter_text = alter_color(text_on_white, 1.1)  
-           @text_on_white = "##{text_on_white}"  
-           @lighter_text_on_white = "##{lighter_text}" 
+           lighter_text = alter_color(text_on_white, 1.1)
+           @text_on_white = "##{text_on_white}"
+           @lighter_text_on_white = "##{lighter_text}"
 	       end
 
          if (vote_button = validate_hex_color(params[:vote_button]))
            vote_button_hover = alter_color(vote_button, 0.8)
-           @vote_button_color = "##{vote_button}"          
+           @vote_button_color = "##{vote_button}"
            @vote_button_hover_color = "##{vote_button_hover}"
 	       end
 
@@ -104,29 +104,29 @@ class EarlsController < ApplicationController
          end
 
          if (flag_text = validate_hex_color(params[:flag_text]))
-           @flag_text_color = "##{flag_text}"    
+           @flag_text_color = "##{flag_text}"
 	       end
 
          if (submit_button = validate_hex_color(params[:submit_button]))
            submit_button_hover = alter_color(submit_button, 0.8)
-           @submit_button_color = "##{submit_button}"  
-           @submit_button_hover_color = "##{submit_button_hover}"  
+           @submit_button_color = "##{submit_button}"
+           @submit_button_hover_color = "##{submit_button_hover}"
 	       end
 
          if (cant_decide_button = validate_hex_color(params[:cant_decide_button]))
            cant_decide_button_hover = alter_color(cant_decide_button, 0.8)
-           @cant_decide_button_color = "##{cant_decide_button}"  
-           @cant_decide_button_hover_color = "##{cant_decide_button_hover}"  
+           @cant_decide_button_color = "##{cant_decide_button}"
+           @cant_decide_button_hover_color = "##{cant_decide_button_hover}"
 	       end
 
          if (add_idea_button = validate_hex_color(params[:add_idea_button]))
-           add_idea_button_hover = alter_color(add_idea_button, 0.8)  
-           @add_idea_button_color = "##{add_idea_button}"  
-           @add_idea_button_hover_color = "##{add_idea_button_hover}"  
+           add_idea_button_hover = alter_color(add_idea_button, 0.8)
+           @add_idea_button_color = "##{add_idea_button}"
+           @add_idea_button_hover_color = "##{add_idea_button_hover}"
 	       end
 
          if (question_text = validate_hex_color(params[:question_text]))
-           @question_text_color = "##{question_text}"  
+           @question_text_color = "##{question_text}"
 	       end
 
          if (text_on_color = validate_hex_color(params[:text_on_color]))
@@ -154,8 +154,8 @@ class EarlsController < ApplicationController
         thumbnail_image_paths.each do |image|
           @thumbnail_images[File.basename(image, '-thumb.png')] = image_path(image)
         end
-      
-        
+
+
         render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
       end
     else
@@ -179,17 +179,17 @@ class EarlsController < ApplicationController
      if (g < 0)
       g = 0;
      elsif (g > 255)
-      g = 255; 
+      g = 255;
      end
      if (b < 0)
       b = 0;
      elsif (b > 255)
-      b = 255;   
+      b = 255;
      end
 
      return r.floor.to_s(16).rjust(2, '0') + g.floor.to_s(16).rjust(2, '0') + b.floor.to_s(16).rjust(2, '0')
   end
-  
+
   def export_list
      authenticate
 
@@ -213,8 +213,8 @@ class EarlsController < ApplicationController
         :type => 'text/csv; charset=iso-8859-1; header=present',
         :disposition => "attachment; filename=#{outfile}")
   end
-  
-  
+
+
   protected
 
   def validate_hex_color(color)
@@ -237,13 +237,3 @@ class EarlsController < ApplicationController
     end
   end
 end
-
-# @question = Question.find_by_name(params[:id]) #the question has a prompt id with it
-#  #logger.info "inside questions#show " + Question.find(@question.id).inspect
-#  @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
-#  session[:current_prompt_id] = @question.attributes['picked_prompt_id']
-#  #@items = @question.items
-#  @right_choice_text = @prompt.right_choice_text
-#  @left_choice_text = @prompt.left_choice_text
-#  @item_count = @question.attributes['item_count']
-#  @votes_count = @question.attributes['votes_count']

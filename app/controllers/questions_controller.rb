@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.xml
   # def show
   #   @question = Question.find(params[:id])
-  # 
+  #
   #   respond_to do |format|
   #     format.html # show.html.erb
   #     format.xml  { render :xml => @question }
@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
       choices = Choice.find(:all, :params => {:question_id => @question_id})
     else
       choices = Choice.find(:all, :params => {:question_id => @question_id,
-                            :limit => per_page, 
+                            :limit => per_page,
                             :offset => (current_page - 1) * per_page})
     end
 
@@ -173,7 +173,7 @@ class QuestionsController < ApplicationController
         @missing_color = "#CCCCCC"
         render(:template => 'wikipedia/questions_results_heat', :layout => '/wikipedia/layout')
       else
-        render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout')    
+        render(:template => 'wikipedia/questions_results', :layout => '/wikipedia/layout')
       end
       return
     end
@@ -240,7 +240,7 @@ class QuestionsController < ApplicationController
       })
 
       respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"} 
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
         format.js { render :text => @votes_chart }
      end
 
@@ -269,7 +269,7 @@ class QuestionsController < ApplicationController
       "rgb(#{red},#{green},#{blue})"
     end
   end
-  
+
   # TODO: declare as private
   # scale numeric val from array src to array dst range, return integer
   def scale(val, src, dst)
@@ -297,7 +297,7 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     type = params[:type]
 
-    ignore_word_list = %w( a an as and is or the of for in to with on / - &) 
+    ignore_word_list = %w( a an as and is or the of for in to with on / - &)
     @word_frequency = Hash.new(0)
     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
@@ -386,7 +386,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html {render :layout => false}
       format.js
-    end 
+    end
   end
 
   def scatter_plot_user_vs_seed_ideas
@@ -411,11 +411,11 @@ class QuestionsController < ApplicationController
       point[:x] = c.score.round
       point[:y] = c.attributes['user_created'] ? 1 : 0
 
-      jitter[point[:y]][point[:x]] += 0.04 
+      jitter[point[:y]][point[:x]] += 0.04
 
       thejitter = [jitter[point[:y]][point[:x]], 0.5].min
 
-      point[:y] += thejitter 
+      point[:y] += thejitter
 
       if c.attributes['user_created']
         user_data << point
@@ -439,7 +439,7 @@ class QuestionsController < ApplicationController
                       location.href=the_url;}"
 
                       @votes_chart = Highchart.spline({
-                        :chart => { 
+                        :chart => {
                         :renderTo => "#{type}-chart-container",
                         :margin => [50, 25, 60, 100],
                         :borderColor =>  '#919191',
@@ -449,28 +449,28 @@ class QuestionsController < ApplicationController
                         :height => '500'
                       },
                         :legend => { :enabled => false },
-                        :title => { 
+                        :title => {
                         :text => t('results.scores_of_uploaded_and_orginal_ideas'),
                         :style => { :color => '#919191' }
                       },
-                        :subtitle => { 
-                        :text => t('results.rollover_to_see_more'), 
+                        :subtitle => {
+                        :text => t('results.rollover_to_see_more'),
                         :style => { :color => '#919191' }
                       },
-                        :x_axis => { 
-                        :min => '0', 
-                        :max => '100', 
-                        :endOnTick => true, 
+                        :x_axis => {
+                        :min => '0',
+                        :max => '100',
+                        :endOnTick => true,
                         :showLastLabel => true,
-                        :type => 'linear', 
+                        :type => 'linear',
                         :title => {:enabled => true, :text => t('common.score').titleize}
                       },
-                        :y_axis => { 
-                        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')], 
+                        :y_axis => {
+                        :categories => [t('results.original_ideas'), t('results.uploaded_ideas')],
                         :showLastLabel => false,
                         :gridLineWidth => 0,
-                        :max => 1.4, 
-                        :min => 0, 
+                        :max => 1.4,
+                        :min => 0,
                         :plotLines => [{ :id => 1, :color => "#000000", :value => 1, :width => 1 }]
                       },
                         :plotOptions => {
@@ -480,13 +480,13 @@ class QuestionsController < ApplicationController
                         :name => "Uploaded Ideas",
                         :type => 'scatter',
                         :color => 'rgba(223, 83, 83, .5)',
-                        :data => user_data 
+                        :data => user_data
                       },
                         {
                         :name => "Original Ideas",
                         :type => 'scatter',
                         :color => 'rgba( 49,152,193, .5)',
-                        :data => seed_data 
+                        :data => seed_data
                       }
 
                       ],
@@ -495,7 +495,7 @@ class QuestionsController < ApplicationController
                       })
 
     respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"} 
+      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
       format.js { render :text => @votes_chart }
     end
   end
@@ -605,7 +605,7 @@ class QuestionsController < ApplicationController
   end
 
   def scatter_votes_by_session
-    type = params[:type] 
+    type = params[:type]
     @earl = Earl.find params[:id]
     @question = Question.new(:id => @earl.question_id)
 
@@ -925,7 +925,7 @@ class QuestionsController < ApplicationController
                                             :backgroundColor => '#FFFFFF'
                                         },
                                           :legend => { :enabled => false },
-                                          :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation', 
+                                          :title => { :text => 'Number of Appearances per Choice by Number of Days Since Idea Marketplace Creation',
                                             :style => { :color => '#919191' }
                                         },
                                           :x_axis => { :type => 'linear',  :min => -0.5, :title => {:text => "Number of days since wiki survey creation",:enabled => true} },
@@ -964,7 +964,7 @@ class QuestionsController < ApplicationController
     end
 
     choice_params = {:visitor_identifier => @survey_session.session_id,
-      :data => new_idea_data, 
+      :data => new_idea_data,
       :question_id => params[:id]}
 
     choice_params.merge!(:local_identifier => current_user.id) if signed_in?
@@ -975,7 +975,7 @@ class QuestionsController < ApplicationController
         :with_visitor_stats => true,
         :visitor_identifier => @survey_session.session_id
       })
-      @earl = Earl.find_by_question_id(params[:id])
+      @earl = Earl.find_by_question_id(params[:id].to_s)
 
       if @choice.active?
         IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
@@ -1006,7 +1006,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.xml  {  head :ok }
-      format.js  { 
+      format.js  {
         @earl.active = !(@earl.active)
         verb = @earl.active ? t('items.list.activated') : t('items.list.deactivated')
         if @earl.save!
@@ -1020,7 +1020,7 @@ class QuestionsController < ApplicationController
   end
 
   def toggle_autoactivate
-    @earl = Earl.find_by_question_id(params[:id])
+    @earl = Earl.find_by_question_id(params[:id].to_s)
     @question = @earl.question
     unless ((current_user.owns?(@earl)) || current_user.admin?)
       render(:json => {:error => "You do not have access to this question."}.to_json) and return
@@ -1143,7 +1143,7 @@ class QuestionsController < ApplicationController
           I18n.locale = @earl.default_lang
         end
         format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
-      else 
+      else
         @partial_results_url = "#{@earl.name}/results"
         @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
@@ -1170,7 +1170,7 @@ class QuestionsController < ApplicationController
         flash[:notice] = 'Question settings saved successfully!'
         format.html {redirect_to :action => "admin" and return }
         # format.xml  { head :ok }
-      else 
+      else
         format.html { render :action => "admin"}
         #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
       end
@@ -1186,7 +1186,7 @@ class QuestionsController < ApplicationController
       render :text => response and return
     end
 
-    #creates delayed job that: sends request to pairwise, waits for response from pairwise, 
+    #creates delayed job that: sends request to pairwise, waits for response from pairwise,
     #  does some work to add ip address and click information to csv file, store in public/
     #  create delayed job to delete file in 3 days, sends email to user with link
 
@@ -1206,7 +1206,7 @@ class QuestionsController < ApplicationController
 
 
 
-    response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are." 
+    response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are."
 
     render :text => response
     #send_data(csv_data,
@@ -1216,23 +1216,23 @@ class QuestionsController < ApplicationController
   end
 
   def about
-    @earl = Earl.find_by_name!(params[:id])
+    @earl = Earl.find_by_name!(params[:id].to_s)
     @question = @earl.question
   end
 
   def add_photos
-    @earl = Earl.find_by_name!(params[:id])
+    @earl = Earl.find_by_name!(params[:id].to_s)
     @question = @earl.question
   end
 
   def intro
-    @earl = Earl.find_by_name!(params[:id])
+    @earl = Earl.find_by_name!(params[:id].to_s)
   end
 
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos
-    @earl = Earl.find_by_name!(params[:id])
+    @earl = Earl.find_by_name!(params[:id].to_s)
 
     new_photo = Photo.create(:image => params[:Filedata], :original_file_name => params[:Filedata].original_filename)
     if new_photo.valid?

@@ -8,13 +8,13 @@ class PromptsController < ApplicationController
     voted_prompt.prefix_options = {:question_id => params[:question_id]}
     session[:has_voted] = true
 
-    @earl = Earl.find_by_question_id(params[:question_id])
+    @earl = Earl.find_by_question_id(params[:question_id].to_s)
     if params[:direction] &&
       vote = voted_prompt.post(:vote,
         :question_id => params[:question_id],
           :vote => get_object_request_options(params, :vote),
           :next_prompt => get_next_prompt_options
-        
+
       )
 
       next_prompt = Hash.from_xml(vote.body)['prompt']
@@ -53,8 +53,8 @@ class PromptsController < ApplicationController
 
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:question_id]})
-    
-    @earl = Earl.find_by_question_id(params[:question_id])
+
+    @earl = Earl.find_by_question_id(params[:question_id].to_s)
     if skip = @prompt.post(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
@@ -94,10 +94,10 @@ class PromptsController < ApplicationController
     reason = params[:flag_reason]
     inappropriate_side = params[:side]
     question_id = params[:question_id]
-    @earl = Earl.find_by_question_id(question_id)
+    @earl = Earl.find_by_question_id(question_id.to_s)
 
     @prompt = Prompt.find(prompt_id, :params => {:question_id => question_id})
-    choice_id = inappropriate_side == "left_flag" ? @prompt.left_choice_id : @prompt.right_choice_id 
+    choice_id = inappropriate_side == "left_flag" ? @prompt.left_choice_id : @prompt.right_choice_id
 
     @choice = Choice.new
     @choice.id = choice_id
@@ -167,7 +167,7 @@ class PromptsController < ApplicationController
       :future_right_photo   => future_right_photo.image.url(:medium),
       :newleft_url          => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :left),
       :newright_url         => vote_question_prompt_url(question_id, next_prompt['id'], :direction => :right),
-      :newleft_choice_url   => question_choice_url(@earl.name, next_prompt['left_choice_id']), 
+      :newleft_choice_url   => question_choice_url(@earl.name, next_prompt['left_choice_id']),
       :newright_choice_url  => question_choice_url(@earl.name, next_prompt['right_choice_id']),
       :flag_url             => flag_question_prompt_url(question_id, next_prompt['id'], :format => :js),
       :skip_url             => skip_question_prompt_url(question_id, next_prompt['id'], :format => :js),
@@ -196,7 +196,7 @@ class PromptsController < ApplicationController
 	   options.merge!(:skip_reason => params[:cant_decide_reason])
        when :skip_after_flag
 	   options.merge!(:skip_reason => params[:flag_reason])
- 
+
      end
 
       if wikipedia?
@@ -213,5 +213,5 @@ class PromptsController < ApplicationController
     next_prompt_params.merge!(:future_prompts => {:number => 1}) if @photocracy
     next_prompt_params
   end
-      
+
 end

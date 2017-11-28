@@ -67,7 +67,7 @@ class HomeController < ApplicationController
                                    :creator => current_user.id,
                                    :votes_since => Date.today,
                                    :all => true })
-                                   
+
     end
     @questions_map = @questions.inject({}){ |h,q| h[q.id] = q; h }
   end

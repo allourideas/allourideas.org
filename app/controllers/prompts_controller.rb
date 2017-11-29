@@ -58,7 +58,7 @@ class PromptsController < ApplicationController
     if skip = @prompt.post(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
-      next_prompt = Crack::XML.parse(skip.body)['prompt']
+      next_prompt = Hash.from_xml(skip.body)['prompt']
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
@@ -107,7 +107,7 @@ class PromptsController < ApplicationController
                     :visitor_identifier => @survey_session.session_id,
                     :explanation => reason)
 
-    new_choice = Crack::XML.parse(c.body)['choice']
+    new_choice = Hash.from_xml(c.body)['choice']
     flag_choice_success = (c.code == "201" && new_choice['active'] == false)
     IdeaMailer.delay.deliver_flag_notification(@earl, new_choice["id"], new_choice["data"], reason, @photocracy)
 
@@ -122,7 +122,7 @@ class PromptsController < ApplicationController
     end
 
     if flag_choice_success && skip
-      next_prompt = Crack::XML.parse(skip.body)['prompt']
+      next_prompt = Hash.from_xml(skip.body)['prompt']
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

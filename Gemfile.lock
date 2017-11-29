@@ -44,7 +44,6 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    crack (0.1.4)
     cucumber (1.1.0)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
@@ -188,7 +187,6 @@ DEPENDENCIES
   aws-sdk (~> 1.5.0)
   capybara (~> 1.1.2)
   compass-rails (~> 1.0.3)
-  crack (= 0.1.4)
   cucumber (= 1.1.0)
   cucumber-rails2 (~> 0.3.2)
   database_cleaner (= 0.5.0)
@@ -235,3 +233,6 @@ DEPENDENCIES
   will_paginate (= 2.3.14)
   xml-simple (= 1.0.12)
   yfactorial-utility_scopes (= 0.2.2)
+
+BUNDLED WITH
+   1.16.0

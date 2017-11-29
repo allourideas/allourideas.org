@@ -26,7 +26,6 @@ gem "system_timer", "~> 1.2.4", :platform => :ruby_18
 gem "will_paginate", "2.3.14"
 gem "geoip", "1.2.1"
 gem "geokit", "1.5.0"
-gem "crack", "0.1.4"
 gem "friendly_id", "2.2.5"
 gem "sax-machine", "0.0.14"
 gem "i18n", "0.3.7"

@@ -1,3 +1,8 @@
+ * [Remove crack Ruby gem.](https://github.com/allourideas/allourideas.org/pull/50)
+ * [Mitigate security risk with find by methods.](https://github.com/allourideas/allourideas.org/pull/49)
+
+## All Our Ideas 4.0.0 (Nov 17, 2017)
+
  * Add link to documentation in CSV download email.
  * Allow admins to toggle "add new idea" feature.
  * Allow admins to toggle "can't decide" option.

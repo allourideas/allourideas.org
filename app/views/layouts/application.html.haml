@@ -3,13 +3,13 @@
   %head
     %meta{:'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
     = yield :meta
-    <meta name="keywords" content="ideation, online suggestion box, open source suggestion box, crowdsourcing ideas, social suggestion, idea comparison, prioritize ideas, nonprofit, free idea management" /> 
+    <meta name="keywords" content="ideation, online suggestion box, open source suggestion box, crowdsourcing ideas, social suggestion, idea comparison, prioritize ideas, nonprofit, free idea management" />
     %meta{:name => "description", :content => t('home.whats_this_txt')}
     %meta{:property => "og:description", :content => t('home.whats_this_txt')}
     %meta{:property => 'og:image', :content => "#{request.protocol}#{request.host_with_port}" + image_path('favicon.png')}
     %meta{:name => "viewport",  :content => "width=device-width, initial-scale=1.0"}
     <meta property="og:site_name" content="All Our Ideas"/>
-    %link{:rel => "shortcut icon", :href => "http://www.allourideas.org/favicon.ico"}
+    %link{:rel => "shortcut icon", :href => "#{request.protocol}#{request.host_with_port}/favicon.ico"}
     %title= t('common.title')
     = stylesheet_link_tag 'glyphicon', 'flexslider/flexslider.css', 'styles', 'screen'
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
@@ -19,7 +19,7 @@
     = yield :head
     %script{:type => "text/javascript"}
       $(document).ready(function() {
-      = yield :view_javascript    
+      = yield :view_javascript
       });
   - if params[:guides] == 'true'
     :javascript

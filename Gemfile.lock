@@ -13,9 +13,6 @@ GEM
       activesupport (= 2.3.18)
     activesupport (2.3.18)
     addressable (2.2.8)
-    airbrake (4.1.0)
-      builder
-      multi_json
     ambethia-smtp-tls (1.1.2)
     aws-s3 (0.6.2)
       builder
@@ -181,7 +178,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   ambethia-smtp-tls (= 1.1.2)
   aws-s3 (= 0.6.2)
   aws-sdk (~> 1.5.0)

@@ -240,6 +240,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     log_error(exception)
+    Bugsnag.notify(exception)
 
     respond_to do |format|
       format.html { render :template => "errors/500.html.haml", :status => 500 }

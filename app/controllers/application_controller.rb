@@ -235,13 +235,14 @@ class ApplicationController < ActionController::Base
 
   def render_not_found(exception)
     log_error(exception)
-    #notify_airbrake(exception)
     render :template => "errors/404.html.haml", :status => 404
   end
 
   def render_error(exception)
     log_error(exception)
-    notify_airbrake(exception)
+    Bugsnag.notify(exception) do |report|
+      report.severity = "error"
+    end
 
     respond_to do |format|
       format.html { render :template => "errors/500.html.haml", :status => 500 }

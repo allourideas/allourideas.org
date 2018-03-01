@@ -5,7 +5,6 @@ gem "rails", "2.3.18"
 gem "rake", "~> 0.9.0"
 gem "multi_json", "1.0.4"
 gem "json"
-gem "airbrake", :require => 'airbrake/rails'
 gem "libxml-ruby", "2.9.0", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
 gem "paperclip", "~> 2.7.0"
@@ -33,6 +32,7 @@ gem "delayed_job", "2.0.6"
 gem "haml", "~> 3.1.7"
 gem "compass-rails", "~> 1.0.3"
 gem "mysql2", "0.2.18"
+gem "bugsnag", "~> 5.5.0"
 gem "test-unit", "1.2.3"
 
 group :development do

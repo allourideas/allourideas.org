@@ -109,7 +109,7 @@ GEM
     mime-types (1.16)
     multi_json (1.0.4)
     multi_xml (0.5.3)
-    mysql2 (0.2.18)
+    mysql2 (0.2.24)
     net-ssh (2.2.2)
     newrelic_rpm (3.7.3.204)
     nokogiri (1.5.5)
@@ -208,7 +208,7 @@ DEPENDENCIES
   libxml-ruby (= 2.9.0)
   mime-types (= 1.16)
   multi_json (= 1.0.4)
-  mysql2 (= 0.2.18)
+  mysql2 (= 0.2.24)
   newrelic_rpm
   paperclip (~> 2.7.0)
   pickle (~> 0.4.7)

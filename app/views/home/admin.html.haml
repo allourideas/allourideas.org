@@ -48,11 +48,11 @@
               %td
                 %button.toggle_question_status.btn{:class => earl.active? ? 'btn-primary' : '', :"data-earl_id" => earl.id}
                   = earl.active? ? 'Activated' : 'Deactivated'
-      - if current_user.admin? && !current_page?(admin_path(:all => 'true'))
-        .row
-          .span12
-            %p
-              = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
+- if current_user.admin? && !current_page?(admin_path(:all => 'true'))
+  .row
+    .span12
+      %p
+        = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
 -if current_user.admin?
   -if @blocked_cookies && @blocked_cookies.count > 0
     %h4 Today's Blocked Cookies

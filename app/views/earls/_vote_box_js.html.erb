@@ -98,7 +98,7 @@
       var newRight = newRightDiv.find('.btn-vote-idea');
       var bothNew = newLeft.add(newRight);
 
-      bothNew.addClass('btn-primary').removeClass('btn-success').removeClass('disabled');
+      bothNew.addClass('btn-primary').removeClass('btn-success');
 
       newLeft.html(data.newleft);
       newRight.html(data.newright);
@@ -119,7 +119,9 @@
       $('#right_side_text').val(data.newright);
 
       // animation for sliding in / out choices
-      newLeftDiv.add(newRightDiv).slideDown();
+      newLeftDiv.add(newRightDiv).slideDown(function() {
+        bothNew.removeClass('disabled');
+      });
       oldLeftDiv.add(oldRightDiv).slideUp(function() {
         $(this).remove();
       });

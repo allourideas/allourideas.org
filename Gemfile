@@ -32,7 +32,7 @@ gem "delayed_job", "2.0.6"
 gem "haml", "~> 3.1.7"
 gem "compass-rails", "~> 1.0.3"
 gem "mysql2", "0.2.24"
-gem "bugsnag", "~> 5.5.0"
+# gem "bugsnag", "~> 5.5.0"
 gem "test-unit", "1.2.3"
 
 group :development do
@@ -62,4 +62,4 @@ group :test, :cucumber do
   gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha"
 end
 gem "ey_config"
-gem "newrelic_rpm"
+# gem "newrelic_rpm"

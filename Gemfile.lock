@@ -23,7 +23,6 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
-    bugsnag (5.5.0)
     builder (3.2.2)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -182,7 +181,6 @@ DEPENDENCIES
   ambethia-smtp-tls (= 1.1.2)
   aws-s3 (= 0.6.2)
   aws-sdk (~> 1.5.0)
-  bugsnag (~> 5.5.0)
   capybara (~> 1.1.2)
   compass-rails (~> 1.0.3)
   cucumber (= 1.1.0)
@@ -233,4 +231,4 @@ DEPENDENCIES
   yfactorial-utility_scopes (= 0.2.2)
 
 BUNDLED WITH
-   1.16.0
+   1.16.4

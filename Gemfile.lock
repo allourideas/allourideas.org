@@ -48,10 +48,6 @@ GEM
     arel (9.0.0)
     aws-eventstream (1.0.1)
     aws-partitions (1.103.0)
-    aws-s3 (0.6.3)
-      builder
-      mime-types
-      xml-simple
     aws-sdk (3.0.1)
       aws-sdk-resources (~> 3)
     aws-sdk-acm (1.11.0)
@@ -644,6 +640,8 @@ GEM
     aws-sigv2 (1.0.1)
     aws-sigv4 (1.0.3)
     backports (3.11.4)
+    bootsnap (1.3.1)
+      msgpack (~> 1.0)
     builder (3.2.3)
     capybara (3.7.1)
       addressable
@@ -739,7 +737,6 @@ GEM
     json (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    libxml-ruby (3.1.0)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -755,6 +752,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    msgpack (1.2.4)
     multi_json (1.13.1)
     multi_test (0.1.2)
     mysql2 (0.5.2)
@@ -873,8 +871,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-s3 (= 0.6.3)
   aws-sdk (~> 3.0.1)
+  bootsnap (>= 1.1.0)
   capybara (~> 3.7.1)
   clearance (= 0.16.1)
   compass-rails (~> 3.1.0)
@@ -894,7 +892,6 @@ DEPENDENCIES
   i18n
   inherited_resources (= 1.9.0)
   json
-  libxml-ruby (= 3.1.0)
   mime-types (= 3.2.2)
   multi_json (= 1.13.1)
   mysql2 (= 0.5.2)

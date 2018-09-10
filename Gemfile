@@ -5,13 +5,13 @@ gem "rails", "5.2.1"
 gem "rake", "~> 12.3.1"
 gem "multi_json", "1.13.1"
 gem "json"
-gem "libxml-ruby", "3.1.0", :require => "libxml"
+# gem "libxml-ruby", "3.1.0", :require => "libxml"
 #gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls" # obsolete
 #gem "paperclip", "~> 2.7.0" # obsolete
-gem "aws-s3", "0.6.3", :require => "aws/s3"
+#gem "aws-s3", "0.6.3", :require => "aws/s3"
 gem "aws-sdk", "~> 3.0.1"
 gem "mime-types", "3.2.2", :require => "mime/types"
-gem "xml-simple", "1.1.5", :require => "xmlsimple"
+gem "xml-simple", "1.1.5"# , :require => "xmlsimple"
 # gem "yfactorial-utility_scopes", "0.2.2", :require => "utility_scopes" # obsolete
 gem "formtastic"
 gem "inherited_resources",  "1.9.0"
@@ -34,6 +34,7 @@ gem "compass-rails", "~> 3.1.0"
 gem "mysql2", "0.5.2"
 # gem "bugsnag", "~> 5.5.0"
 gem "test-unit", "3.2.8"
+gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development do
   #gem "engineyard", "~> 1.4.29"

@@ -18,3 +18,4 @@ doc/app
 .bundle
 bin/
 vendor/ruby
+.byebug_history

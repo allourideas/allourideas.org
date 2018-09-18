@@ -12,8 +12,6 @@ class HomeController < ApplicationController
     begin
       @stats = Question.get(:site_stats)
     rescue
-      puts('-'*40)
-      puts('rescue')
       @stats = {"total_questions" => 2803, "votes_count" => 3694534, "choices_count" => 139963}
     end
     Question.timeout = nil

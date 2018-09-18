@@ -134,7 +134,7 @@ form#new_question_form{
   }
   h2 {
     padding-left: 25px;
-    background: url(../images/blocked_cookies.png) no-repeat left center;
+    background: asset-url("blocked_cookies.png") no-repeat left center;
   }
 }
 .interior-content {
@@ -338,7 +338,7 @@ ul.footer-social-icons {
     li a {
         display: block;
         text-indent: -9999px;
-        background: url(../images/social_icons.png) no-repeat;
+        background: asset-url("social_icons.png") no-repeat;
         background-size: 152px 64px;
         float: left;
         width: 32px;
@@ -371,7 +371,7 @@ ul.footer-social-icons {
     only screen and (min--moz-device-pixel-ratio: 1.5),
     only screen and (min-device-pixel-ratio: 1.5) {
         li a {
-            background-image: url(../images/social_icons@2x.png);
+            background-image: asset-url("social_icons@2x.png");
         }
     }
 }
@@ -384,7 +384,7 @@ ul.footer-social-icons {
     display: block;
     width: 139px;
     height: 29px;
-    background: url(../images/powered-by-aoi.gif) no-repeat;
+    background: asset-url("powered-by-aoi.gif") no-repeat;
     font-size: 0;
 }
 .powered-by:hover {

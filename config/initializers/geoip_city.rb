@@ -1,1 +1,1 @@
-GEOIP_DB = GeoIP.new(File.join(RAILS_ROOT, 'db/GeoLiteCity.dat'))
+GEOIP_DB = GeoIP.new(File.join(Rails.root, 'db/GeoLiteCity.dat'))

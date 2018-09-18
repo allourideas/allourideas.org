@@ -1,4 +1,6 @@
-class BootstrapPagination < WillPaginate::LinkRenderer
+require 'will_paginate/view_helpers/link_renderer'
+
+class BootstrapPagination < WillPaginate::ViewHelpers::LinkRenderer
 
   def initialize
     @gap_marker = '<li class="disabled gap"><a href="javascript://">&hellip;</a></li>'

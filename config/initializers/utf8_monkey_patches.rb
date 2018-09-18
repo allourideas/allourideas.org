@@ -1,4 +1,4 @@
-unless RUBY_VERSION == '1.8.7'
+unless true # RUBY_VERSION == '1.8.7'
   # Make sure the logger supports encodings properly.
   module ActiveSupport
     class BufferedLogger

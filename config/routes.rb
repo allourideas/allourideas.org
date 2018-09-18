@@ -1,69 +1,73 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resource :session, :controller => "clearance/sessions", :only => [:new, :create, :destroy]
-  map.signin '/sign_in', :controller => "clearance/sessions", :action => :new
-  map.signout '/sign_out', :controller => "clearance/sessions", :action => :destroy
-  map.resource :passwords, :controller => "clearance/passwords"
+Rails.application.routes.draw do 
+  root 'home#index'
+  resource :session, :controller => "clearance/sessions", :only => [:new, :create, :destroy]
+  get '/sign_in' => "clearance/sessions#new", :as => 'signin'
+  get '/sign_out' => "clearance/sessions#destroy", :as => :signout
+  resource :passwords, :controller => "clearance/passwords"
 
-  map.resources :questions,
-    :collection => {
-    },
-    :member => {
-      :update_name => :put,
-      :add_idea => :post,
-      :toggle => :post,
-      :toggle_autoactivate => :post,
-      :delete_logo => :delete,
-      :addphotos => :get,
-      :upload_photos => :post,
-      :admin_stats => :get,
-      :visitor_voting_history => :get
-    } do |question|
-	  question.resources :prompts, 
-		  :only => [:vote, :skip, :flag],
-		  :member => {
-		  	:vote => :post,
-			:skip => :post,
-                        :flag => :post,
-                  }
-	  question.resources :choices, 
-		  :only => [:show, :votes],
-		  :member => {
-		  	:activate => :get, # these shouldn't be get requests, but they need to work in email
-        :deactivate => :get,
-        :rotate => :post,
-        :votes => :get
-		  },
-		  :path_prefix => '/:question_id'
-	  end
+  resources :questions do
+    member do
+      put :update_name
+      post :add_idea
+      post :toggle
+      post :toggle_autoactivate
+      delete :delete_logo
+      get :addphotos
+      post :upload_photos
+      get :admin_stats
+      get :visitor_voting_history
+    end
+    resources :prompts, :only => [] do
+      member do
+        post :vote
+        post :skip
+        post :flag
+      end
+    end
+    resources :choices, :only => [:show] do
+      member do
+        get :votes
+        get :activate
+        get :deactivate
+        post :rotate
+      end
+    end
+  end
 
-  map.resources :earls, :only => [:export_list], :collection => {:export_list=> :get}
-  map.resources :clicks, :collection => {:export=> :get}
+  resources :earls, :only => [] do
+    collection do
+      get :export_list
+    end
+  end
+  resources :clicks do
+    collection do
+      get :export
+    end
+  end
   #map.connect '/questions/:question_id/choices/:id', :controller => 'choices', :action => 'show'
-  map.toggle_choice_status '/questions/:earl_id/choices/:id/toggle.:format', :controller => 'choices', :action => 'toggle', :conditions => { :method => :post }
-  
-  map.cookies_blocked '/cookies_blocked.gif', :controller => 'home', :action => 'cookies_blocked'
-  map.about '/about', :controller => 'home', :action => 'about'
-  map.admin '/admin', :controller => 'home', :action => 'admin'
-  map.privacy '/privacy', :controller => 'home', :action => 'privacy'
-  map.privacy_2009_07_06 '/privacy-2009-07-06', :controller => 'home', :action => 'privacy-2009-07-06'
-  map.example '/example', :controller => 'home', :action => 'example'
-  map.verify '/verify', :controller => 'home', :action => 'verify'
-  map.connect '/signup', :controller => 'users', :action => 'new'
-  map.root :controller => 'home', :action => 'index'
+  post '/questions/:earl_id/choices/:id/toggle.:format' =>  'choices#toggle', :as => 'toggle_choice_status'
+  get '/cookies_blocked.gif' =>  'home#cookies_blocked', :as => 'cookies_blocked'
+  get '/about' => 'home#about', :as => 'about'
+  get '/admin' => 'home#admin', :as => 'admin'
+  get '/privacy' => 'home#privacy', :as => 'privacy'
+  get '/privacy-2009-07-06' => 'home#privacy-2009-07-06', :as => 'privacy-2009-07-06'
+  get '/example' => 'home#example', :as => 'example'
+  get '/verify' => 'home#verify', :as => 'verify'
+  get '/signup' => 'users#new', :as => 'signup'
   #map.toggle_question '/questions/:id/toggle', :controller => 'questions'
-  map.abingoTest "/abingo/:action/:id", :controller=> :abingo_dashboard
-  map.googletracking "/no_google_tracking", :controller=> :home, :action => :no_google_tracking
-   
-  
-  map.connect '/export/:name', :controller => 'exports', :action => 'download'
+  #map.abingoTest "/abingo/:action/:id", :controller=> :abingo_dashboard
+  get "/no_google_tracking" => 'home#no_google_tracking', :as => 'googletracking'
 
-  map.connect '/prompts/load_wikipedia_marketplace', :controller => 'prompts', :action => 'load_wikipedia_marketplace'
-  map.connect '/wikipedia-banner-challenge/gallery', :controller => 'home', :action => 'wikipedia_banner_challenge_gallery'
 
-  map.earl '/:id', :controller => 'earls', :action => 'show'
-  map.earl_verify '/:id/v/:code', :controller => 'earls', :action => 'verify'
-  map.add_photos '/:id/addphotos', :controller => 'questions', :action => 'add_photos'
-  map.connect '/:id/:action', :controller => 'questions'
+  get '/export/:name' => 'exports#download'
+
+  get '/prompts/load_wikipedia_marketplace' => 'prompts#load_wikipedia_marketplace'
+  get '/wikipedia-banner-challenge/gallery' => 'home#wikipedia_banner_challenge_gallery'
+
+  get '/:id' => 'earls#show', :as => 'earl'
+  get '/:id/v/:code' => 'earls#verify', :as => 'earl_verify'
+  get '/:id/addphotos' => 'questions#add_photos', :as => 'add_photos'
+  get '/:id/:action' => 'questions'
   # rake routes
   # http://guides.rubyonrails.org/routing.html
 end

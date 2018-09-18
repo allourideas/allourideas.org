@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget"))
 
   def view_filter
-    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (RAILS_ENV == 'test' && $PHOTOCRACY)
+    if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (Rails.env.test? && $PHOTOCRACY)
       @photocracy = true
       prepend_view_path(@@photocracy_view_path)
     elsif request.url.include?('widget') || request.env['SERVER_NAME'].include?('iphone') || @widget

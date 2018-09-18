@@ -5,10 +5,10 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 
-ActionController::Base.session = {
-  :key => "_allourideas_ey__session_#{RAILS_ENV}",
-  :secret      => APP_CONFIG[:BASE_SESSION_SECRET]
-}
+#ActionController::Base.session = {
+#  :key => "_allourideas_ey__session_#{Rails.env}",
+#  :secret      => APP_CONFIG[:BASE_SESSION_SECRET]
+#}
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

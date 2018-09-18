@@ -5,7 +5,7 @@ module AllOurIdeas
     element :name, :value => :name
     
     def parse_sample_ideas
-      q = AllOurIdeas::Question.parse(File.open(RAILS_ROOT+'/ideas.xml'))
+      q = AllOurIdeas::Question.parse(File.open(Rails.root+'/ideas.xml'))
     end
     
     def add_sample_ideas_to(i)

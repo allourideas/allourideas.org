@@ -9,7 +9,7 @@ class Photo < ActiveRecord::Base
   unless ["cucumber", "development"].include?(Rails.env)
     paperclip_options.merge!({ :path => ":attachment/:id/:style.:extension",
                                :storage => :s3,
-                               :s3_credentials => "#{RAILS_ROOT}/config/s3.yml"
+                               :s3_credentials => "#{Rails.root}/config/s3.yml"
 			      })
   end
 

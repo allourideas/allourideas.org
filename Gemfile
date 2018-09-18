@@ -7,7 +7,7 @@ gem "multi_json", "1.13.1"
 gem "json"
 # gem "libxml-ruby", "3.1.0", :require => "libxml"
 #gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls" # obsolete
-#gem "paperclip", "~> 2.7.0" # obsolete
+gem "paperclip", "~> 5.2.1" # obsolete
 #gem "aws-s3", "0.6.3", :require => "aws/s3"
 gem "aws-sdk", "~> 3.0.1"
 gem "mime-types", "3.2.2", :require => "mime/types"
@@ -17,7 +17,7 @@ gem "formtastic"
 gem "inherited_resources",  "1.9.0"
 gem "has_scope",  "0.7.2"
 gem "responders",  "2.4.0"
-gem "clearance", "0.16.1", :require => "clearance"
+gem "clearance", "1.16.1", :require => "clearance"
 gem "fastercsv", "1.5.5"
 gem "redis-store", "1.5.0"
 gem "redis", "~> 4.0.2"
@@ -38,6 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development do
   #gem "engineyard", "~> 1.4.29"
+  gem "listen"
 end
 
 group :production, :staging do

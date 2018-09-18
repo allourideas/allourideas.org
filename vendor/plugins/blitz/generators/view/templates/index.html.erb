@@ -1,9 +1,0 @@
-<h1><%= resource_class.pluralize %></h1>
-<% if active_record_defined? -%>
-
-<ul>
-  <%% @<%= resources %>.each do |<%= resource %>| -%>
-    <li><%%= link_to <%= resource %>.to_s, <%= resource %>_path(<%= resource %>) %></li>
-  <%% end -%>
-</ul>
-<% end -%>

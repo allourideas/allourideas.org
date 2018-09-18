@@ -65,7 +65,7 @@ namespace :heroku do
   task :deploy => :dependencies do
     `git push heroku`
     `heroku rake db:migrate`
-    `heroku rake hoptoad:deploy TO=#{RAILS_ENV}`
+    `heroku rake hoptoad:deploy TO=#{Rails.env}`
   end
 
   task :dependencies do

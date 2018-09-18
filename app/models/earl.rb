@@ -62,7 +62,7 @@ class Earl < ActiveRecord::Base
 
   def require_verification!
     self.active = false
-    self.verify_code = ActiveSupport::SecureRandom.hex(8)
+    self.verify_code = SecureRandom.hex(8)
   end
 
   def question_should_autoactivate_ideas=(value)

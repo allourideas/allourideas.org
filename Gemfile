@@ -35,10 +35,12 @@ gem "mysql2", "0.5.2"
 # gem "bugsnag", "~> 5.5.0"
 gem "test-unit", "3.2.8"
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'activeresource'
 
 group :development do
   #gem "engineyard", "~> 1.4.29"
   gem "listen"
+  gem "byebug"
 end
 
 group :production, :staging do

@@ -4,24 +4,23 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
 
-  before_filter :initialize_session, :get_survey_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
-  after_filter :write_survey_session_cookie
-
-  # preprocess photocracy_view_path on boot because
-  # doing pathset generation during a request is very costly.
-  cattr_accessor :photocracy_view_path
-  cattr_accessor :widget_view_path
-  @@photocracy_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "photocracy"))
-  @@widget_view_path = ActionView::Base.process_view_paths(File.join(Rails.root, "app", "views", "widget"))
+  before_action :initialize_session,
+    :get_survey_session,
+    :record_action,
+    :view_filter,
+    :set_pairwise_credentials,
+    :set_locale,
+    :set_p3p_header
+  after_action :write_survey_session_cookie
 
   def view_filter
     if request.url.include?('photocracy') || request.url.include?('fotocracy') || @photocracy || (Rails.env.test? && $PHOTOCRACY)
       @photocracy = true
-      prepend_view_path(@@photocracy_view_path)
+      prepend_view_path(File.join(Rails.root, "app", "views", "photocracy"))
     elsif request.url.include?('widget') || request.env['SERVER_NAME'].include?('iphone') || @widget
       @widget= true
       @widget_stylesheet = "widget/screen"
-      prepend_view_path(@@widget_view_path)
+      prepend_view_path(File.join(Rails.root, "app", "views", "widget"))
     end
   end
 
@@ -35,15 +34,15 @@ class ApplicationController < ActionController::Base
 
   helper_method :white_label_request?
   def white_label_request?
-	  @_white_label ||= session[:white_label]
-	  if @_white_label.nil?
-		  if params[:white_label] == "true"
-			 @_white_label = session[:white_label] = true
-		  else
-			 @_white_label = session[:white_label] = false
-		  end
-	  end
-	  @_white_label
+    @_white_label ||= session[:white_label]
+    if @_white_label.nil?
+      if params[:white_label] == "true"
+       @_white_label = session[:white_label] = true
+      else
+       @_white_label = session[:white_label] = false
+      end
+    end
+    @_white_label
   end
 
   helper_method :show_aoi_nav?
@@ -73,7 +72,7 @@ class ApplicationController < ActionController::Base
   def set_question_id_earl
     @question_id = nil
     if controller_name == 'earls' and ['show', 'verify'].include? action_name
-      @earl = Earl.find_by_name(params[:id].to_s)
+      @earl = Earl.find_by(name: params[:id].to_s)
       @question_id = @earl.try(:question_id)
     elsif controller_name == 'prompts'
       @question_id = params[:question_id]
@@ -81,14 +80,14 @@ class ApplicationController < ActionController::Base
       if ['add_idea', 'visitor_voting_history'].include?(action_name)
         @question_id = params[:id]
       elsif ['results', 'about', 'admin', 'update_name'].include?(action_name)
-        @earl = Earl.find_by_name(params[:id].to_s)
+        @earl = Earl.find_by(name: params[:id].to_s)
         @question_id = @earl.try(:question_id)
       end
     elsif controller_name == 'choices'
       if action_name == 'toggle'
         @earl = Earl.find(params[:earl_id])
       else
-        @earl = Earl.find_by_name(params[:question_id].to_s)
+        @earl = Earl.find_by(name: params[:question_id].to_s)
       end
       @question_id = @earl.try(:question_id)
     end
@@ -139,7 +138,7 @@ class ApplicationController < ActionController::Base
     visitor_remember_token = cookies[:visitor_remember_token]
 
     unless visitor_remember_token
-	  visitor_remember_token = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{rand(10**10)}--")
+    visitor_remember_token = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{rand(10**10)}--")
 
           cookies[:visitor_remember_token] = {
             :value   => visitor_remember_token,
@@ -147,28 +146,28 @@ class ApplicationController < ActionController::Base
           }
     end
 
-    visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
-    user_session = SessionInfo.find_or_create_by_session_id(:session_id => @survey_session.session_id,
-						       :ip_addr => request.remote_ip,
-						       :user_agent => request.env["HTTP_USER_AGENT"],
-						       :white_label_request => white_label_request?,
-						       :visitor_id => visitor.id)
+    visitor = Visitor.find_or_create_by(:remember_token => visitor_remember_token)
+    user_session = SessionInfo.find_or_create_by(:session_id => @survey_session.session_id,
+                   :ip_addr => request.remote_ip,
+                   :user_agent => request.env["HTTP_USER_AGENT"],
+                   :white_label_request => white_label_request?,
+                   :visitor_id => visitor.id)
     @user_session = user_session
 
     sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.try(:id), request.referrer, user_session.try(:id), Time.now.utc, Time.now.utc])
     ActiveRecord::Base.connection.execute(sql)
 
     if current_user && !user_session.user_id
-	    user_session.user_id = current_user.id
-	    user_session.save!
+      user_session.user_id = current_user.id
+      user_session.save!
     end
 
-    if (session[:abingo_identity])
-	    Abingo.identity = session[:abingo_identity]
-    else
-	    session[:abingo_identity] = user_session.id
-	    Abingo.identity = user_session.id
-    end
+    #if (session[:abingo_identity])
+    #  Abingo.identity = session[:abingo_identity]
+    #else
+    #  session[:abingo_identity] = user_session.id
+    #  Abingo.identity = user_session.id
+    #end
 
   end
 
@@ -189,7 +188,7 @@ class ApplicationController < ActionController::Base
   def earl_owner_or_admin_only
     @earl = Earl.find(params[:question_id])
     unless (current_user && (current_user.owns?(@earl) || current_user.admin?))
-    	deny_access(t('user.not_authorized_error'))
+      deny_access(t('user.not_authorized_error'))
     end
   end
 
@@ -205,18 +204,19 @@ class ApplicationController < ActionController::Base
     if params[:locale].blank?
       I18n.locale = I18n.default_locale
     else
-	    I18n.locale = params[:locale]
+      I18n.locale = params[:locale]
     end
   end
 
 
   def default_url_options(options={})
     if I18n.locale != I18n.default_locale
-  	  options.merge!({ :locale => I18n.locale })
+      options.merge!({ :locale => I18n.locale })
     end
     if Rails.env == "cucumber" && @photocracy
           options.merge!({:photocracy_mode => true})
     end
+    options
   end
 
   def set_p3p_header
@@ -224,14 +224,14 @@ class ApplicationController < ActionController::Base
   end
 
   #customize error messages
-  rescue_from Exception,                            :with => :render_error
-  unless ActionController::Base.consider_all_requests_local
-    rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
-    rescue_from ActionController::RoutingError,       :with => :render_not_found
-    rescue_from ActionController::UnknownController,  :with => :render_not_found
-    rescue_from ActionController::UnknownAction,      :with => :render_not_found
-    rescue_from ActiveResource::ResourceNotFound,     :with => :render_not_found
-  end
+  #rescue_from Exception,                            :with => :render_error
+  #unless ActionController::Base.consider_all_requests_local
+  #  rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
+  #  rescue_from ActionController::RoutingError,       :with => :render_not_found
+  #  rescue_from ActionController::UnknownController,  :with => :render_not_found
+  #  rescue_from ActionController::UnknownAction,      :with => :render_not_found
+  #  rescue_from ActiveResource::ResourceNotFound,     :with => :render_not_found
+  #end
 
   def render_not_found(exception)
     log_error(exception)
@@ -255,7 +255,7 @@ class ApplicationController < ActionController::Base
     if @earl
       @earl.name == 'wikipedia-banner-challenge'
     elsif controller_name == 'questions' && params[:id]
-      e = Earl.find_by_name('wikipedia-banner-challenge')
+      e = Earl.find_by(name: 'wikipedia-banner-challenge')
       !e.blank? && e.question_id == params[:id].to_i
     end
   end

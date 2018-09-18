@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
   include ActionView::Helpers::TextHelper
   #caches_page :about, :tour, :privacy
-  before_filter :authenticate, :only => [:admin]
-  before_filter :admin_only, :only => [:no_google_tracking]
+  before_action :authenticate, :only => [:admin]
+  before_action :admin_only, :only => [:no_google_tracking]
 
-  skip_before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
+  skip_before_action :initialize_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
 
   def index
     @example_earl = 'planyc_example'
@@ -12,6 +12,8 @@ class HomeController < ApplicationController
     begin
       @stats = Question.get(:site_stats)
     rescue
+      puts('-'*40)
+      puts('rescue')
       @stats = {"total_questions" => 2803, "votes_count" => 3694534, "choices_count" => 139963}
     end
     Question.timeout = nil
@@ -27,7 +29,7 @@ class HomeController < ApplicationController
   end
 
   def example
-	  redirect_to("/planyc_example") and return
+    redirect_to("/planyc_example") and return
   end
 
   def verify

@@ -25,7 +25,7 @@ class SurveySession
       # cookie. Random portion at end of the cookie_name allows a user to make
       # simultaneous requests and ensures that neither cookies gets overwritten
       # by whichever request completes last.
-      @cookie_name = "#{@@cookie_prefix}#{@data[:question_id]}_#{ActiveSupport::SecureRandom.hex(2)}"
+      @cookie_name = "#{@@cookie_prefix}#{@data[:question_id]}_#{SecureRandom.hex(2)}"
     end
 
     if @data[:session_id].nil?
@@ -85,7 +85,7 @@ class SurveySession
     end
     # Get list of cookie names that  might be a match for this request.
     # Sort this list, so that when returning the first cookie matched it is consistent.
-    possible_cookie_names = cookies.keys.select do |k|
+    possible_cookie_names = cookies.to_hash.keys.select do |k|
       # The cookie name must have this prefix.
       k.index("#{@@cookie_prefix}#{question_id}_") == 0
     end.sort
@@ -131,7 +131,7 @@ class SurveySession
     # when in test set this to a static value, so we can match the resulting API
     # queries for mocking.
     return 'test123' if Rails.env == 'test'
-    ActiveSupport::SecureRandom.hex(16)
+    SecureRandom.hex(16)
   end
 
 end

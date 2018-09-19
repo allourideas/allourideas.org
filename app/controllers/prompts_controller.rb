@@ -10,7 +10,7 @@ class PromptsController < ApplicationController
 
     @earl = Earl.find_by_question_id(params[:question_id].to_s)
     if params[:direction] &&
-      vote = voted_prompt.post(:vote,
+      vote = voted_prompt.put(:vote,
         :question_id => params[:question_id],
           :vote => get_object_request_options(params, :vote),
           :next_prompt => get_next_prompt_options
@@ -109,7 +109,7 @@ class PromptsController < ApplicationController
 
     new_choice = Hash.from_xml(c.body)['choice']
     flag_choice_success = (c.code == "201" && new_choice['active'] == false)
-    IdeaMailer.delay.deliver_flag_notification(@earl, new_choice["id"], new_choice["data"], reason, @photocracy)
+    IdeaMailer.delay.flag_notification(@earl, new_choice["id"], new_choice["data"], reason, @photocracy)
 
     begin
       skip = @prompt.post(:skip, :question_id => question_id,

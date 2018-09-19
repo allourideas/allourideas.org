@@ -29,6 +29,7 @@ gem "friendly_id", "5.2.4"
 gem "sax-machine", "1.3.2"
 gem "i18n"
 gem "delayed_job", "4.1.5"
+gem 'delayed_job_active_record'
 gem "haml", "~> 5.0.4"
 gem "compass-rails", "~> 3.1.0"
 gem "mysql2", "0.5.2"

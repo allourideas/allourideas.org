@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_100043) do
+ActiveRecord::Schema.define(version: 2018_09_19_132734) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer "experiment_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_100043) do
     t.string "locked_by", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "queue"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 

@@ -1,57 +1,59 @@
 example_id                                               | status  | run_time        |
 -------------------------------------------------------- | ------- | --------------- |
-./spec/controllers/application_controller_spec.rb[1:1]   | unknown |                 |
-./spec/controllers/application_controller_spec.rb[1:2]   | unknown |                 |
-./spec/controllers/application_controller_spec.rb[1:3]   | unknown |                 |
-./spec/controllers/application_controller_spec.rb[1:4]   | unknown |                 |
-./spec/controllers/earls_controller_spec.rb[1:1:1]       | passed  | 0.24682 seconds |
-./spec/controllers/earls_controller_spec.rb[1:1:2]       | passed  | 0.21907 seconds |
-./spec/controllers/earls_controller_spec.rb[1:1:3]       | passed  | 0.17933 seconds |
-./spec/controllers/earls_controller_spec.rb[1:1:4]       | passed  | 0.50391 seconds |
-./spec/controllers/prompts_controller_spec.rb[1:1:1]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:1:2]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:1:3]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:1:4]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:2:1]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:2:2]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:2:3]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:2:4]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:3:1]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:3:2]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:3:3]     | unknown |                 |
-./spec/controllers/prompts_controller_spec.rb[1:3:4]     | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:1:1:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:1:2:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:1:3:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:2:1:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:2:2:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:3:1]   | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:1:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:1:2] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:1:3] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:1:4] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:1:5] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:2:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:4:2:2] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:5:1:1] | unknown |                 |
-./spec/controllers/questions_controller_spec.rb[1:5:1:2] | unknown |                 |
-./spec/helpers/application_helper_spec.rb[1:1]           | unknown |                 |
-./spec/helpers/questions_helper_spec.rb[1:1]             | unknown |                 |
-./spec/integration/voting_spec.rb[1:1]                   | unknown |                 |
-./spec/models/visitor_spec.rb[1:1]                       | unknown |                 |
-./spec/models/visitor_spec.rb[1:2]                       | unknown |                 |
-./spec/models/visitor_spec.rb[1:3]                       | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:1]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:2]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:3]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:4]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:5]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:6]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:1:7]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:1]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:2]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:3]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:4]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:5]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:6]          | unknown |                 |
-./spec/routing/questions_routing_spec.rb[1:2:7]          | unknown |                 |
+./spec/controllers/application_controller_spec.rb[1:1]   | failed  | 0.03364 seconds |
+./spec/controllers/application_controller_spec.rb[1:2]   | passed  | 0.03224 seconds |
+./spec/controllers/application_controller_spec.rb[1:3]   | passed  | 0.02806 seconds |
+./spec/controllers/application_controller_spec.rb[1:4]   | passed  | 0.03364 seconds |
+./spec/controllers/earls_controller_spec.rb[1:1:1]       | passed  | 0.52734 seconds |
+./spec/controllers/earls_controller_spec.rb[1:1:2]       | passed  | 0.1486 seconds  |
+./spec/controllers/earls_controller_spec.rb[1:1:3]       | passed  | 0.30909 seconds |
+./spec/controllers/earls_controller_spec.rb[1:1:4]       | passed  | 0.21538 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:1:1]     | failed  | 0.03569 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:1:2]     | failed  | 0.03321 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:1:3]     | failed  | 0.0362 seconds  |
+./spec/controllers/prompts_controller_spec.rb[1:1:4]     | failed  | 0.03579 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:2:1]     | failed  | 0.04528 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:2:2]     | failed  | 0.03988 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:2:3]     | failed  | 0.03773 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:2:4]     | failed  | 0.03343 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:3:1]     | failed  | 0.03925 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:3:2]     | failed  | 0.02861 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:3:3]     | failed  | 0.03319 seconds |
+./spec/controllers/prompts_controller_spec.rb[1:3:4]     | failed  | 0.03938 seconds |
+./spec/controllers/questions_controller_spec.rb[1:1:1:1] | failed  | 0.0282 seconds  |
+./spec/controllers/questions_controller_spec.rb[1:1:2:1] | failed  | 0.04384 seconds |
+./spec/controllers/questions_controller_spec.rb[1:1:3:1] | failed  | 0.03614 seconds |
+./spec/controllers/questions_controller_spec.rb[1:2:1:1] | failed  | 0.03755 seconds |
+./spec/controllers/questions_controller_spec.rb[1:2:2:1] | failed  | 0.1114 seconds  |
+./spec/controllers/questions_controller_spec.rb[1:3:1]   | failed  | 0.03258 seconds |
+./spec/controllers/questions_controller_spec.rb[1:4:1:1] | failed  | 0.03239 seconds |
+./spec/controllers/questions_controller_spec.rb[1:4:1:2] | failed  | 0.03249 seconds |
+./spec/controllers/questions_controller_spec.rb[1:4:1:3] | failed  | 0.03246 seconds |
+./spec/controllers/questions_controller_spec.rb[1:4:1:4] | failed  | 0.02909 seconds |
+./spec/controllers/questions_controller_spec.rb[1:4:1:5] | failed  | 0.0375 seconds  |
+./spec/controllers/questions_controller_spec.rb[1:4:2:1] | failed  | 0.02817 seconds |
+./spec/controllers/questions_controller_spec.rb[1:4:2:2] | failed  | 0.03109 seconds |
+./spec/controllers/questions_controller_spec.rb[1:5:1:1] | failed  | 0.03975 seconds |
+./spec/controllers/questions_controller_spec.rb[1:5:1:2] | failed  | 0.03309 seconds |
+./spec/helpers/application_helper_spec.rb[1:1]           | failed  | 0.05111 seconds |
+./spec/helpers/questions_helper_spec.rb[1:1]             | failed  | 0.03401 seconds |
+./spec/integration/voting_spec.rb[1:1]                   | failed  | 0.0309 seconds  |
+./spec/models/delayed_job_spec.rb[1:1]                   | pending | 0.00001 seconds |
+./spec/models/earl_spec.rb[1:1]                          | passed  | 0.34591 seconds |
+./spec/models/visitor_spec.rb[1:1]                       | passed  | 0.08212 seconds |
+./spec/models/visitor_spec.rb[1:2]                       | pending | 0 seconds       |
+./spec/models/visitor_spec.rb[1:3]                       | pending | 0 seconds       |
+./spec/routing/questions_routing_spec.rb[1:1:1]          | failed  | 0.03018 seconds |
+./spec/routing/questions_routing_spec.rb[1:1:2]          | failed  | 0.03304 seconds |
+./spec/routing/questions_routing_spec.rb[1:1:3]          | failed  | 0.03345 seconds |
+./spec/routing/questions_routing_spec.rb[1:1:4]          | failed  | 0.02916 seconds |
+./spec/routing/questions_routing_spec.rb[1:1:5]          | failed  | 0.0303 seconds  |
+./spec/routing/questions_routing_spec.rb[1:1:6]          | failed  | 0.03591 seconds |
+./spec/routing/questions_routing_spec.rb[1:1:7]          | failed  | 0.03246 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:1]          | failed  | 0.03012 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:2]          | failed  | 0.02755 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:3]          | failed  | 0.03914 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:4]          | failed  | 0.03323 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:5]          | failed  | 0.03195 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:6]          | failed  | 0.03028 seconds |
+./spec/routing/questions_routing_spec.rb[1:2:7]          | failed  | 0.02911 seconds |

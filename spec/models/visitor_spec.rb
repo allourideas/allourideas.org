@@ -10,7 +10,7 @@ describe Visitor do
     Visitor.create!(@valid_attributes)
   end
 
-  it "should calculate scores accurately" do
+  xit "should calculate scores accurately" do
 	  examples = [ #votes, #ideas, result
 		       [0, 0, 0.0], [0, 1, 9.5],  [0, 2, 15.5],
 		       [1, 0, 5.0], [1, 1, 14.5],  [1, 2, 20.5],
@@ -31,7 +31,7 @@ describe Visitor do
 	  end
   end
   
-  it "should return level messages accurately" do
+  xit "should return level messages accurately" do
           Visitor.leveling_message(:votes => 0, :ideas => 1).should == "Now you have cast 0 votes and added 1 idea: terrible"
           Visitor.leveling_message(:votes => 1, :ideas => 1).should == "Now you have cast 1 vote and added 1 idea: pathetic"
           Visitor.leveling_message(:votes => 2, :ideas => 2).should == "Now you have cast 2 votes and added 2 ideas: lame"

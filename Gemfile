@@ -40,6 +40,9 @@ gem 'activeresource'
 group :development do
   #gem "engineyard", "~> 1.4.29"
   gem "listen"
+end
+
+group :development, :test do
   gem "byebug"
 end
 
@@ -55,6 +58,7 @@ group :test, :cucumber do
   gem "sqlite3", ">=1.3.13"
   gem "database_cleaner", "1.7.0"
   gem "capybara", "~> 3.7.1"
+  gem 'capybara-screenshot'
   gem "factory_bot", "~>4.11.0"
   gem "shoulda", "~> 3.6.0"
   gem "timecop", "0.9.1"
@@ -64,6 +68,8 @@ group :test, :cucumber do
   gem "sendgrid", "1.2.4"
   # gem "fakeweb", "~>1.2.5" # obsolete
   # gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha" # obsolete
+  gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 # gem "ey_config" # engine yard
 # gem "newrelic_rpm"

@@ -2,7 +2,7 @@ class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::AssetTagHelper
-  before_filter :dumb_cleartext_authentication, :except => :export_list
+  before_action :dumb_cleartext_authentication, :except => :export_list
 
   def verify
     if @earl.verify!(params[:code])
@@ -25,17 +25,17 @@ class EarlsController < ApplicationController
 
 
       if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
-	      I18n.locale = @earl.default_lang
+        I18n.locale = @earl.default_lang
 
-	      redirect_to :action => :show, :controller => :earls, :id => @earl.name and return
+        redirect_to :action => :show, :controller => :earls, :id => @earl.name and return
       end
 
       begin
 
       show_params = {:with_prompt => true,
-		     :with_appearance => true,
-		     :with_visitor_stats => true,
-		     :visitor_identifier => @survey_session.session_id}
+         :with_appearance => true,
+         :with_visitor_stats => true,
+         :visitor_identifier => @survey_session.session_id}
 
       show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
 
@@ -91,13 +91,13 @@ class EarlsController < ApplicationController
            lighter_text = alter_color(text_on_white, 1.1)
            @text_on_white = "##{text_on_white}"
            @lighter_text_on_white = "##{lighter_text}"
-	       end
+         end
 
          if (vote_button = validate_hex_color(params[:vote_button]))
            vote_button_hover = alter_color(vote_button, 0.8)
            @vote_button_color = "##{vote_button}"
            @vote_button_hover_color = "##{vote_button_hover}"
-	       end
+         end
 
          if (tab_hover = validate_hex_color(params[:tab_hover]))
            @tab_hover_color = "##{tab_hover}"
@@ -105,29 +105,29 @@ class EarlsController < ApplicationController
 
          if (flag_text = validate_hex_color(params[:flag_text]))
            @flag_text_color = "##{flag_text}"
-	       end
+         end
 
          if (submit_button = validate_hex_color(params[:submit_button]))
            submit_button_hover = alter_color(submit_button, 0.8)
            @submit_button_color = "##{submit_button}"
            @submit_button_hover_color = "##{submit_button_hover}"
-	       end
+         end
 
          if (cant_decide_button = validate_hex_color(params[:cant_decide_button]))
            cant_decide_button_hover = alter_color(cant_decide_button, 0.8)
            @cant_decide_button_color = "##{cant_decide_button}"
            @cant_decide_button_hover_color = "##{cant_decide_button_hover}"
-	       end
+         end
 
          if (add_idea_button = validate_hex_color(params[:add_idea_button]))
            add_idea_button_hover = alter_color(add_idea_button, 0.8)
            @add_idea_button_color = "##{add_idea_button}"
            @add_idea_button_hover_color = "##{add_idea_button_hover}"
-	       end
+         end
 
          if (question_text = validate_hex_color(params[:question_text]))
            @question_text_color = "##{question_text}"
-	       end
+         end
 
          if (text_on_color = validate_hex_color(params[:text_on_color]))
            @text_on_color = "##{text_on_color}"
@@ -207,7 +207,7 @@ class EarlsController < ApplicationController
         @earls.each do |e|
            csv << [ e.id, e.name, e.question_id, e.user_id, e.active, !e.logo_file_name.nil?, ! (e.pass.nil? || e.pass.empty?),
                    e.created_at, e.updated_at]
-  	end
+        end
      end
     send_data(csv_data,
         :type => 'text/csv; charset=iso-8859-1; header=present',

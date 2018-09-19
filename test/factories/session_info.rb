@@ -1,2 +1,4 @@
-Factory.define :session_info do |session_info|
+FactoryBot.define do
+  factory :session_info do
+  end
 end

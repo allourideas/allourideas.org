@@ -1,2 +1,4 @@
-Factory.define :trial do |trial|
+FactoryBot.define do
+  factory :trial do
+  end
 end

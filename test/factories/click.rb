@@ -1,2 +1,4 @@
-Factory.define :click do |click|
+FactoryBot.define do
+  factory :click do
+  end
 end

@@ -1,2 +1,4 @@
-Factory.define :visitor do |visitor|
+FactoryBot.define do
+  factory :visitor do
+  end
 end

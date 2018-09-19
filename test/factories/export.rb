@@ -1,4 +1,6 @@
-Factory.define :export do |export|
-  export.data 
-  export.name { 'string' }
+FactoryBot.define do
+  factory :export do
+    data
+    name { 'string' }
+  end
 end

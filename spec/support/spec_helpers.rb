@@ -17,3 +17,7 @@ module SpecHelper
     page.should have_content(user.email)
   end
 end
+
+RSpec.configure do |config|
+  config.include(SpecHelper)
+end

@@ -1,12 +1,12 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 require 'active_resource/http_mock'
 
 describe 'A User on the vote page' do
   before do
     ActiveResource::HttpMock.respond_to do |mock|
-      question = Factory.build(:question, :id => 1, :picked_prompt_id => 1).attributes.to_xml(:root => 'question')
-      prompt   = Factory.build(:prompt, :id => 1).attributes.to_xml(:root => 'prompt')
-      prompt2  = Factory.build(:prompt, :id => 2).attributes.to_xml(:root => 'prompt')
+      question = build(:question, :id => 1, :picked_prompt_id => 1).attributes.to_xml(:root => 'question')
+      prompt   = build(:prompt, :id => 1).attributes.to_xml(:root => 'prompt')
+      prompt2  = build(:prompt, :id => 2).attributes.to_xml(:root => 'prompt')
       mock.get "/questions/1.xml?visitor_identifier=test123&with_appearance=true&with_prompt=true&with_visitor_stats=true", {}, question, 200
       mock.get "/questions/1.xml?visitor_identifier=test123&with_appearance=true&with_average_votes=true&with_prompt=true&with_visitor_stats=true", {}, question, 200
       mock.get "/questions/1/prompts/1.xml", {}, prompt, 200
@@ -14,13 +14,12 @@ describe 'A User on the vote page' do
     end
   end
 
-  it "should be able to vote and get new prompts and see the vote count increment" do
-    Capybara.current_driver = Capybara.javascript_driver
-    u = Factory.build(:email_confirmed_user)
-    e = Factory.create(:earl, :user => u)
+  it "should be able to vote and get new prompts and see the vote count increment", js: true do
+    u = build(:email_confirmed_user)
+    e = create(:earl, :user => u)
 
     visit earl_path(e.name)
-    page.should have_content("Cast Votes")
+    expect(page).to have_content("Cast Votes")
     # save for later tests
     number_of_votes = find('#votes_count').text.to_i
     left_idea_text = find('.leftside').text

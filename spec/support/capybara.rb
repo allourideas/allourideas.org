@@ -2,6 +2,8 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 
+include Capybara::DSL
+
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(
     app,
@@ -20,7 +22,7 @@ RSpec.configure do |config|
   end
 end
 
-if false
+if true
   require 'capybara-screenshot/rspec'
   Capybara::Screenshot.autosave_on_failure = true
 end

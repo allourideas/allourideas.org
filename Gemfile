@@ -45,6 +45,7 @@ end
 
 group :development, :test do
   gem "byebug"
+  gem "puma"
 end
 
 group :production, :staging do

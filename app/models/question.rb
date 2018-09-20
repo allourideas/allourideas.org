@@ -1,8 +1,4 @@
 class Question < ActiveResource::Base
-  self.site = APP_CONFIG[:API_HOST]
-  self.user = APP_CONFIG[:PAIRWISE_USERNAME]
-  self.password = APP_CONFIG[:PAIRWISE_PASSWORD]
-  self.format = :xml
 
   attr_accessor :question_text, :ideas, :url, :information, :email, :password
   
@@ -79,7 +75,7 @@ class Question < ActiveResource::Base
   def url_format_valid
     e = Earl.new(:name => url)
     e.valid?
-    url_errors = e.errors.on(:name)
+    url_errors = e.errors[:name]
     if url_errors
       url_errors = [url_errors] if url_errors.class == String
       url_errors.each do |err|

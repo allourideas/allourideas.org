@@ -43,7 +43,7 @@ group :development do
   gem "listen"
 end
 
-group :development, :test do
+group :development, :test, :cucumber do
   gem "byebug"
   gem "puma"
 end

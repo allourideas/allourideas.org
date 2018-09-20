@@ -95,7 +95,7 @@ Given /^idea marketplace '(.*)' has results hidden$/ do |url|
 end
 
 Given /^a super admin user exists with credentials "(.*)\/(.*)"$/ do |email, password|
-  user = Factory :email_confirmed_user,
+  user = FactoryBot :email_confirmed_user,
     :email                 => email,
     :password              => password,
     :password_confirmation => password,

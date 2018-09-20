@@ -1,6 +1,6 @@
 %h1= t('login.header')
 %br
--form_for :session, :url => session_path do |form|
+= form_for :session, :url => session_path do |form|
   %table.left
     %tr
       %td= form.label :email, t('user.email')

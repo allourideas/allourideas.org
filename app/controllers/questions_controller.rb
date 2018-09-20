@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   require 'geokit'
-  before_action :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
+  before_action :require_login, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_action :admin_only, :only => [:index, :admin_stats]
   #caches_page :results
 
@@ -66,21 +66,19 @@ class QuestionsController < ApplicationController
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]
-      choices = Choice.find(:all, :params => {:question_id => @question_id})
+      choices = Choice.where(:question_id => @question_id)
     else
-      choices = Choice.find(:all, :params => {:question_id => @question_id,
-                            :limit => per_page,
-                            :offset => (current_page - 1) * per_page})
+      choices = Choice.where(:question_id => @question_id)
+        .limit(per_page)
+        .offset((current_page - 1) * per_page)
     end
 
     if @photocracy
       per_page = 10
-      choices = Choice.find(:all, :params => {
-        :question_id => @question_id,
-        :limit => per_page,
-        :offset => (current_page - 1) * per_page
-      })
-      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
+      choices = Choice.where(:question_id => @question_id)
+        .limit(per_page)
+        .offset((current_page - 1) * per_page)
+      @all_choices = Choice.where(:question_id => @question_id)
     end
 
     @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
@@ -148,7 +146,7 @@ class QuestionsController < ApplicationController
   #        "Just like a flower needs water,\nWikipedia needs your donation"
         ]
         @scores = {}
-        choices = Choice.find(:all, :params => {:question_id => @question_id})
+        choices = Choice.where(:question_id => @question_id)
         scores = choices.map(&:score)
         if params[:dynamic_range] and params[:dynamic_range] == 'true'
           @max_score = scores.max
@@ -182,7 +180,7 @@ class QuestionsController < ApplicationController
   def scatter_num_ratings_by_creation_time
       type = params[:type] # should be scatter_num_ratings_by_date_added
       @earl = Earl.find params[:id]
-      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+      @choices = Choice.where(:question_id => @earl.question_id)
 
       @choices.sort!{|a, b| a.created_at <=> b.created_at}
 
@@ -288,7 +286,7 @@ class QuestionsController < ApplicationController
     @question = @earl.question
     @partial_results_url = "#{@earl.name}/results"
 
-    @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+    @choices = Choice.where(:question_id => @question.id, :include_inactive => true)
 
   end
 
@@ -298,7 +296,7 @@ class QuestionsController < ApplicationController
 
     ignore_word_list = %w( a an as and is or the of for in to with on / - &)
     @word_frequency = Hash.new(0)
-    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+    @choices = Choice.where(:question_id => @earl.question_id)
 
     min_val = nil
     @choices.each do|c|
@@ -391,7 +389,7 @@ class QuestionsController < ApplicationController
   def scatter_plot_user_vs_seed_ideas
     type = params[:type] # should be scatter_ideas
     @earl = Earl.find params[:id]
-    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+    @choices = Choice.where(:question_id => @earl.question_id)
 
     seed_data = []
     user_data = []
@@ -563,7 +561,7 @@ class QuestionsController < ApplicationController
 
   def scatter_score_vs_votes
     @earl = Earl.find params[:id]
-    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
+    @choices = Choice.where(:question_id => @earl.question_id)
 
     chart_data = []
 
@@ -727,7 +725,8 @@ class QuestionsController < ApplicationController
       if totals == "true"
         chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
         y_axis_title = t('results.number_of') + t('common.users')
-        result = SessionInfo.find(:all, :select => 'date(created_at) as date, visitor_id, count(*) as session_id_count', :group => 'date(created_at), visitor_id')
+        result = SessionInfo.select('date(created_at) as date, visitor_id, count(*) as session_id_count')
+          .group('date(created_at), visitor_id')
         votes_count_hash = Hash.new(0)
 
         result.each do |r|
@@ -804,7 +803,7 @@ class QuestionsController < ApplicationController
 
   def density_graph
     @earl = Earl.find params[:id]
-    @densities = Density.find(:all, :params=> {:question_id => @earl.question_id})
+    @densities = Density.where(:question_id => @earl.question_id)
 
     type = params[:type]
 
@@ -974,7 +973,7 @@ class QuestionsController < ApplicationController
         :with_visitor_stats => true,
         :visitor_identifier => @survey_session.session_id
       })
-      @earl = Earl.find_by_question_id(params[:id].to_s)
+      @earl = Earl.find_by(question_id: params[:id].to_s)
 
       if @choice.active?
         IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
@@ -1019,7 +1018,7 @@ class QuestionsController < ApplicationController
   end
 
   def toggle_autoactivate
-    @earl = Earl.find_by_question_id(params[:id].to_s)
+    @earl = Earl.find_by(question_id: params[:id].to_s)
     @question = @earl.question
     unless ((current_user.owns?(@earl)) || current_user.admin?)
       render(:json => {:error => "You do not have access to this question."}.to_json) and return
@@ -1065,17 +1064,16 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    @question = Question.new(params[:question].slice(:name, :ideas, :url, :information))
+    @question = Question.new(question_params)
     @user = User.new(:email => params[:question]['email'],
-                     :password => params[:question]['password'],
-                     :password_confirmation => params[:question]['password']) unless signed_in?
+                     :password => params[:question]['password']) unless signed_in?
 
     if question_params_valid
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
       earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
       earl = current_user.earls.create(earl_options)
-      ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
-      IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
+      ClearanceMailer.delay.confirmation(current_user, earl, @photocracy)
+      IdeaMailer.delay.extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
       if earl.requires_verification?
         redirect_to verify_url and return
       end
@@ -1135,7 +1133,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       old_lang = @earl.default_lang
-      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea))
+      if @earl.update_attributes(earl_params)
         flash[:notice] = 'Question settings saved successfully!'
         # redirect to new lang if lang was changed
         if old_lang != @earl.default_lang
@@ -1144,7 +1142,7 @@ class QuestionsController < ApplicationController
         format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
       else
         @partial_results_url = "#{@earl.name}/results"
-        @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+        @choices = Choice.where(:question_id => @question.id, :include_inactive => true)
 
         format.html { render :action => 'admin'}
         #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
@@ -1215,23 +1213,23 @@ class QuestionsController < ApplicationController
   end
 
   def about
-    @earl = Earl.find_by_name!(params[:id].to_s)
+    @earl = Earl.find_by!(name: params[:id].to_s)
     @question = @earl.question
   end
 
   def add_photos
-    @earl = Earl.find_by_name!(params[:id].to_s)
+    @earl = Earl.find_by!(name: params[:id].to_s)
     @question = @earl.question
   end
 
   def intro
-    @earl = Earl.find_by_name!(params[:id].to_s)
+    @earl = Earl.find_by!(name: params[:id].to_s)
   end
 
   # necessary because the flash isn't sending AUTH_TOKEN correctly for some reason
   protect_from_forgery :except => [:upload_photos]
   def upload_photos
-    @earl = Earl.find_by_name!(params[:id].to_s)
+    @earl = Earl.find_by!(name: params[:id].to_s)
 
     new_photo = Photo.create(:image => params[:Filedata], :original_file_name => params[:Filedata].original_filename)
     if new_photo.valid?
@@ -1291,7 +1289,7 @@ class QuestionsController < ApplicationController
 
     if @can_find_question
       begin
-        choices = Choice.find(:all, :params => {:question_id => question.id, :limit => 1})
+        choices = Choice.where(:question_id => question.id, :limit => 1)
       rescue
       end
       @can_find_choices = choices.class == Array
@@ -1311,5 +1309,13 @@ class QuestionsController < ApplicationController
         hash[a["visitor_id"]] = a["count"]
       end
       return hash
+    end
+
+    def question_params
+      params[:question].slice(:name, :ideas, :url, :information)
+    end
+
+    def earl_params
+      params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea)
     end
 end

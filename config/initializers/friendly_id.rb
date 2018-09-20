@@ -46,14 +46,14 @@ FriendlyId.defaults do |config|
   # performance because it will avoid Rails-internal code that makes runtime
   # calls to `Module.extend`.
   #
-  # config.use :finders
+  config.use :finders
   #
   # ## Slugs
   #
   # Most applications will use the :slugged module everywhere. If you wish
   # to do so, uncomment the following line.
   #
-  # config.use :slugged
+  config.use :slugged
   #
   # By default, FriendlyId's :slugged addon expects the slug column to be named
   # 'slug', but you can change it if you wish.
@@ -62,7 +62,7 @@ FriendlyId.defaults do |config|
   #
   # By default, slug has no size limit, but you can change it if you wish.
   #
-  # config.slug_limit = 255
+  config.slug_limit = 255
   #
   # When FriendlyId can not generate a unique ID from your base method, it appends
   # a UUID, separated by a single dash. You can configure the character used as the
@@ -89,7 +89,7 @@ FriendlyId.defaults do |config|
   # is included after the anonymous module defined in the initializer, so it
   # overrides the `should_generate_new_friendly_id?` method from the anonymous module.
   #
-  config.use :slugged
+  # config.use :slugged
   # config.use Module.new {
   #   def should_generate_new_friendly_id?
   #     slug.blank? || <your_column_name_here>_changed?

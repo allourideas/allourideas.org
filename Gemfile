@@ -71,6 +71,7 @@ group :test, :cucumber do
   # gem "jferris-mocha", "0.9.5.0.1241126838", :require => "mocha" # obsolete
   gem 'simplecov', require: false
   gem 'rails-controller-testing'
+  gem 'rspec-activemodel-mocks'
 end
 # gem "ey_config" # engine yard
 # gem "newrelic_rpm"

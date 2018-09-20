@@ -66,19 +66,21 @@ class QuestionsController < ApplicationController
     logger.info "@question is #{@question.inspect}."
     @partial_results_url = "#{@earl.name}/results"
     if params[:all]
-      choices = Choice.where(:question_id => @question_id)
+      choices = Choice.find(:all, :params => {:question_id => @question_id})
     else
-      choices = Choice.where(:question_id => @question_id)
-        .limit(per_page)
-        .offset((current_page - 1) * per_page)
+      choices = Choice.find(:all, :params => {:question_id => @question_id,
+                            :limit => per_page,
+                            :offset => (current_page - 1) * per_page})
     end
 
     if @photocracy
       per_page = 10
-      choices = Choice.where(:question_id => @question_id)
-        .limit(per_page)
-        .offset((current_page - 1) * per_page)
-      @all_choices = Choice.where(:question_id => @question_id)
+      choices = Choice.find(:all, :params => {
+        :question_id => @question_id,
+        :limit => per_page,
+        :offset => (current_page - 1) * per_page
+      })
+      @all_choices = Choice.find(:all, :params => {:question_id => @question_id})
     end
 
     @choices= WillPaginate::Collection.create(current_page, per_page) do |pager|
@@ -146,7 +148,7 @@ class QuestionsController < ApplicationController
   #        "Just like a flower needs water,\nWikipedia needs your donation"
         ]
         @scores = {}
-        choices = Choice.where(:question_id => @question_id)
+        choices = Choice.find(:all, :params => {:question_id => @question_id})
         scores = choices.map(&:score)
         if params[:dynamic_range] and params[:dynamic_range] == 'true'
           @max_score = scores.max
@@ -180,7 +182,7 @@ class QuestionsController < ApplicationController
   def scatter_num_ratings_by_creation_time
       type = params[:type] # should be scatter_num_ratings_by_date_added
       @earl = Earl.find params[:id]
-      @choices = Choice.where(:question_id => @earl.question_id)
+      @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
       @choices.sort!{|a, b| a.created_at <=> b.created_at}
 
@@ -286,7 +288,7 @@ class QuestionsController < ApplicationController
     @question = @earl.question
     @partial_results_url = "#{@earl.name}/results"
 
-    @choices = Choice.where(:question_id => @question.id, :include_inactive => true)
+    @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
   end
 
@@ -296,7 +298,7 @@ class QuestionsController < ApplicationController
 
     ignore_word_list = %w( a an as and is or the of for in to with on / - &)
     @word_frequency = Hash.new(0)
-    @choices = Choice.where(:question_id => @earl.question_id)
+    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
     min_val = nil
     @choices.each do|c|
@@ -389,7 +391,7 @@ class QuestionsController < ApplicationController
   def scatter_plot_user_vs_seed_ideas
     type = params[:type] # should be scatter_ideas
     @earl = Earl.find params[:id]
-    @choices = Choice.where(:question_id => @earl.question_id)
+    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
     seed_data = []
     user_data = []
@@ -561,7 +563,7 @@ class QuestionsController < ApplicationController
 
   def scatter_score_vs_votes
     @earl = Earl.find params[:id]
-    @choices = Choice.where(:question_id => @earl.question_id)
+    @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
     chart_data = []
 
@@ -803,7 +805,7 @@ class QuestionsController < ApplicationController
 
   def density_graph
     @earl = Earl.find params[:id]
-    @densities = Density.where(:question_id => @earl.question_id)
+    @densities = Density.find(:all, :params=> {:question_id => @earl.question_id})
 
     type = params[:type]
 
@@ -973,7 +975,7 @@ class QuestionsController < ApplicationController
         :with_visitor_stats => true,
         :visitor_identifier => @survey_session.session_id
       })
-      @earl = Earl.find_by(question_id: params[:id].to_s)
+      Earl.find_by(question_id: params[:id].to_s)
 
       if @choice.active?
         IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
@@ -1142,7 +1144,7 @@ class QuestionsController < ApplicationController
         format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
       else
         @partial_results_url = "#{@earl.name}/results"
-        @choices = Choice.where(:question_id => @question.id, :include_inactive => true)
+        @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
         format.html { render :action => 'admin'}
         #format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
@@ -1289,7 +1291,7 @@ class QuestionsController < ApplicationController
 
     if @can_find_question
       begin
-        choices = Choice.where(:question_id => question.id, :limit => 1)
+        choices = Choice.find(:all, :params => {:question_id => question.id, :limit => 1})
       rescue
       end
       @can_find_choices = choices.class == Array

@@ -1,16 +1,16 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
-  before_filter :authenticate, :only => [:toggle]
-  before_filter :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
+  before_action :authenticate, :only => [:toggle]
+  before_action :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
 
   def show
     @earl = Earl.find params[:question_id]
     @question = Question.find(@earl.question_id)
     
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
-	      I18n.locale = @earl.default_lang
-	      redirect_to :action => :show, :controller => :choices, 
-		      :question_id => params[:question_id], :id => params[:id]  and return
+        I18n.locale = @earl.default_lang
+        redirect_to :action => :show, :controller => :choices, 
+          :question_id => params[:question_id], :id => params[:id]  and return
     end
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     @num_votes = @choice.wins + @choice.losses
@@ -21,7 +21,7 @@ class ChoicesController < ApplicationController
 
       if params[:login_reminder]
           unless (current_user && (current_user.owns?(@earl) || current_user.admin?))
-    	      deny_access(t('user.deny_access_error')) and return
+            deny_access(t('user.deny_access_error')) and return
           end
       end
     end

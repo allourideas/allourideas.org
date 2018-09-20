@@ -75,9 +75,9 @@ Then /^I should not see the saved (.*) choice text$/ do |side|
 end
 
 Then /^I should see the saved (.*) choice text$/ do |side|
-	choice = (side == "left") ? @left_choice : @right_choice
-
-	Then "I should see \"#{choice.data}\""
+  choice = (side == "left") ? @left_choice : @right_choice
+  #Then "I should see \"#{choice.data}\""
+  expect(page).to have_content(choice.data)
 end
 
 Given /^idea marketplace '(.*)' has enabled idea autoactivation$/ do |url|
@@ -104,6 +104,6 @@ end
 
 Given /^I sign in as the admin for '(.*)'$/ do |url|
   earl = Earl.find(url)
-  Given "I sign in as \"#{earl.user.email}/password\""
+  visit root_path(as: earl.user)
 end
 

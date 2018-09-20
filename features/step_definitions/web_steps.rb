@@ -103,83 +103,51 @@ end
 
 Then /^(?:|I )should see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      page.should have_content(text)
-    else
-      assert page.has_content?(text)
-    end
+    expect(page).to have_content(text)
   end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selector|
   regexp = Regexp.new(regexp)
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      page.should have_xpath('//*', :text => regexp)
-    else
-      assert page.has_xpath?('//*', :text => regexp)
-    end
+    expect(page).to have_xpath('//*', :text => regexp)
   end
 end
 
 Then /^(?:|I )should not see "([^\"]*)"(?: within "([^\"]*)")?$/ do |text, selector|
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      page.should have_no_content(text)
-    else
-      assert page.has_no_content?(text)
-    end
+    expect(page).to have_no_content(text)
   end
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^\"]*)")?$/ do |regexp, selector|
   regexp = Regexp.new(regexp)
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      page.should have_no_xpath('//*', :text => regexp)
-    else
-      assert page.has_no_xpath?('//*', :text => regexp)
-    end
+    expect(page).to have_no_xpath('//*', :text => regexp)
   end
 end
 
 Then /^the "([^\"]*)" field(?: within "([^\"]*)")? should contain "([^\"]*)"$/ do |field, selector, value|
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      find_field(field).value.should =~ /#{value}/
-    else
-      assert_match(/#{value}/, field_labeled(field).value)
-    end
+    expect(find_field(field).value).to match /#{value}/
   end
 end
 
 Then /^the "([^\"]*)" field(?: within "([^\"]*)")? should not contain "([^\"]*)"$/ do |field, selector, value|
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      find_field(field).value.should_not =~ /#{value}/
-    else
-      assert_no_match(/#{value}/, find_field(field).value)
-    end
+    expect(find_field(field).value).to_not match /#{value}/
   end
 end
 
 Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should be checked$/ do |label, selector|
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      find_field(label)['checked'].to_s.should == "true"
-    else
-      assert_equal 'checked', field_labeled(label)['checked']
-    end
+    expect(find_field(label)['checked'].to_s).to eq "true"
   end
 end
 
 Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should not be checked$/ do |label, selector|
   with_scope(selector) do
-    if defined?(Spec::Rails::Matchers)
-      find_field(label)['checked'].to_s.should_not == 'true'
-    else
-      assert_not_equal 'checked', field_labeled(label)['checked']
-    end
+    expect(find_field(label)['checked'].to_s).to_not eq 'true'
   end
 end
  

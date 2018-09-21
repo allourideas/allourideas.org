@@ -33,13 +33,17 @@
   
     %div{:style => 'border:1px solid #ccc;padding:10px;margin-bottom:20px;float:left;'}
       %h6=t('admin.additional_settings')
-      -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
-        -unless f.error_messages.blank?
+      = form_for @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true} do |f|
+        - if @earl.errors.any?
           :javascript
             $(document).ready(function(){
               document.getElementById('errorExplanation').scrollIntoView(true);
             });
-          =f.error_messages
+          .errorExplanation
+            %h2= "#{@earl.errors.size} #{t('questions.new.error.header')}"
+            %ul
+              - @earl.errors.full_messages.each do |message|
+                %li= message
       
         %h7.strong.no_margin= t('admin.password_protect_exp')
         %p

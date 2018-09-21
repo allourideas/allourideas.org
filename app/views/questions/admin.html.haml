@@ -16,14 +16,16 @@
                 %span.question-name
                   = @question.attributes['name']
                 - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
-                  = link_to("<i class='glyphicon glyphicon-pencil'></i>", '#edit-question', :"data-toggle" => 'modal', :class => 'btn')
+                  = link_to '#edit-question', :"data-toggle" => 'modal', :class => 'btn' do
+                    %i.glyphicon.glyphicon-pencil
                 - else
-                  = link_to("<i class='glyphicon glyphicon-pencil'></i>", '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
+                  = link_to '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn' do
+                    %i.glyphicon.glyphicon-pencil
               %th.score
                 =  t('items.score')
                 = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
               %th.score=  t('questions.source')
-              %th.score= t('items.list.status').titleize
+              %th.score#status-th= t('items.list.status').titleize
           %tbody 
             -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
               %tr
@@ -42,14 +44,18 @@
     
     .row-fluid
       .span12.question-admin-form
-        -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
-          -unless f.error_messages.blank?
+        = form_for @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
+          - if @earl.errors.any?
             :javascript
               $(document).ready(function(){
                 document.getElementById('errorExplanation').scrollIntoView(true);
               });
             .alert.alert-error
-              = f.error_messages
+              .errorExplanation
+                %h2= "#{@earl.errors.size} #{t('questions.new.error.header')}"
+                %ul
+                  - @earl.errors.full_messages.each do |message|
+                    %li= message
           %fieldset
             %legend Wiki Survey Settings
             .control-group
@@ -58,21 +64,35 @@
               .controls
                 = text_field_tag '', @earl.name, :disabled => true, :id => 'question_username'
             .control-group
-              = f.label :pass, t('user.password') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+              = f.label :pass, :class => 'control-label' do
+                = t('user.password')
+                = ' '
+                = link_to '#password_explanation', :"data-toggle" => 'modal' do
+                  %i.glyphicon.glyphicon-question-sign
               .controls
                 = f.text_field :pass
     
             .control-group
-              = f.label :welcome_message, "Welcome message " + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+              = f.label :welcome_message, :class => 'control-label' do
+                = 'Welcome message '
+                = link_to '#welcome_msg_explanation', :"data-toggle" => 'modal' do
+                  %i.glyphicon.glyphicon-question-sign
               .controls
                 = f.text_area :welcome_message, :rows => 5, :cols => 65, :class => 'input-xxlarge'
             .control-group
-              = f.label :default_lang, "Default language " + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank'), :class => 'control-label'
+              = f.label :default_lang, :class => 'control-label' do
+                = "Default language "
+                = link_to 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank' do
+                  %i.glyphicon.glyphicon-question-sign
               .controls
                 = # Have English be the first, but sort the rest
                 = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"], ["Albanian", "sq"], ["Chinese", "zh"], ["Norwegian", "no"], ["Danish", "da"], ["Czech", "cs"], ["Japanese", "ja"], ["Indonesian", "id"]].sort
             .control-group
-              = f.label :ga_code, t('admin.google_analytics_code') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
+              = f.label :ga_code, :class => 'control-label' do
+                = t('admin.google_analytics_code')
+                = ' '
+                = link_to 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank' do
+                  %i.glyphicon.glyphicon-question-sign
               .controls
                 = f.text_field :ga_code
             .control-group
@@ -92,9 +112,9 @@
               .controls
                 %label.checkbox
                   = f.check_box :active
-                  = f.label :active, "#{t('admin.accept_responses')} #{link_to('', 'http://blog.allourideas.org/post/140411852207/easy-way-to-stop-accepting-responses', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}"
+                  = f.label :active, "#{t('admin.accept_responses')} #{link_to('', 'http://blog.allourideas.org/post/140411852207/easy-way-to-stop-accepting-responses', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}".html_safe
                   = f.check_box :flag_enabled
-                  = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + ' ' + link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
+                  = f.label :flag_enabled, "#{t('admin.allow_flag_as_inappropriate')} #{link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')}".html_safe
                   = f.check_box :question_should_autoactivate_ideas
                   = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
                   = f.check_box :show_cant_decide
@@ -102,7 +122,7 @@
                   = f.check_box :show_add_new_idea
                   = f.label :show_add_new_idea, "#{t('admin.show_add_new_idea')}"
                   = f.check_box :hide_results
-                  = f.label :hide_results, "#{t('admin.hide_results_from_visitors')} #{link_to('', 'http://blog.allourideas.org/post/133264535527/hide-results-from-your-voters', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}"
+                  = f.label :hide_results, "#{t('admin.hide_results_from_visitors')} #{link_to('', 'http://blog.allourideas.org/post/133264535527/hide-results-from-your-voters', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}".html_safe
             .form-actions
               %button.btn.btn-primary{:type => 'submit'}
                 Save changes
@@ -140,7 +160,7 @@
       %button.close{:"data-dismiss" => 'modal'} x
       %h2= t('questions.edit_question')
     .modal-body
-      - form_tag update_name_question_path(@earl), :method => :put do
+      = form_tag update_name_question_path(@earl), :method => :put do
         %p
           =t('questions.your_current_question_text', :question_text => h(@question.name), :"1" => '<span class="question-name">', :"_1" => '</span>')
         %p 

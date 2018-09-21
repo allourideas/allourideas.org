@@ -1109,7 +1109,7 @@ class QuestionsController < ApplicationController
       if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
         if params[:question][:name]
           @question.name = params[:question][:name]
-          if @question.save
+          if @question.save(validate: false)
             format.json { render :json => { :status => 'success', :question => @question}, :status => 200 }
           else
             format.json { render :json => { :status => 'failed', :question => @question}, :status => 403 }
@@ -1207,7 +1207,7 @@ class QuestionsController < ApplicationController
 
     response = "You have requested a data export of all #{params[:type]}. Our servers are hard at work compiling the necessary data right now. You should receive an email at #{current_user.email} with a link to your data export when the file is ready. Please be patient, this process can take up to an hour, depending on how much information is requested and how busy our servers are."
 
-    render :text => response
+    render :plain => response
     #send_data(csv_data,
     #    :type => 'text/csv; charset=iso-8859-1; header=present',
     #    :disposition => "attachment; filename=#{outfile}")
@@ -1314,10 +1314,10 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params[:question].slice(:name, :ideas, :url, :information)
+      params.require(:question).permit(:name, :ideas, :url, :information)
     end
 
     def earl_params
-      params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea)
+      params.require(:earl).permit(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea)
     end
 end

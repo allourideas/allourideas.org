@@ -152,11 +152,7 @@ Then /^the "([^\"]*)" checkbox(?: within "([^\"]*)")? should not be checked$/ do
 end
  
 Then /^(?:|I )should be on (.+)$/ do |page_name|
-  if defined?(Spec::Rails::Matchers)
-    URI.parse(current_url).path.should == path_to(page_name)
-  else
-    assert_equal path_to(page_name), URI.parse(current_url).path
-  end
+  expect(current_path).to eq path_to(page_name)
 end
 
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|

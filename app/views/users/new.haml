@@ -1,0 +1,11 @@
+%h2 Sign up
+= semantic_form_for @user do |form|
+  - if @user.errors.any?
+    .errorExplanation
+      %h2= "#{@user.errors.size} #{t('questions.new.error.header')}"
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+  = render :partial => "/users/inputs", :locals => { :form => form }
+  - form.buttons do
+    = form.commit_button "Sign up"

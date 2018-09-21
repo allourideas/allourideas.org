@@ -28,8 +28,8 @@ class Earl < ActiveRecord::Base
   end
 
   def hide_results=(value)
-    question.show_results = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
-    question.save
+    question.show_results = ActiveModel::Type::Boolean::FALSE_VALUES.include?(value)
+    question.save(validate: false)
   end
 
   def question_should_autoactivate_ideas
@@ -67,8 +67,8 @@ class Earl < ActiveRecord::Base
   end
 
   def question_should_autoactivate_ideas=(value)
-    question.it_should_autoactivate_ideas = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
-    question.save
+    question.it_should_autoactivate_ideas = !ActiveModel::Type::Boolean::FALSE_VALUES.include?(value)
+    question.save(validate: false)
   end
 
   def self.voter_map(earl_name, type)

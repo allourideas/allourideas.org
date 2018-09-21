@@ -2,9 +2,14 @@
   .grid_8
     %h4= t('questions.new.header')
 
-    -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
+    = form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
       %p
-        = f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
+        - if @question.errors.any?
+          .errorExplanation
+            %h2= "#{@question.errors.size} #{t('questions.new.error.header')}"
+            %ul
+              - @question.errors.full_messages.each do |message|
+                %li= message
         - if @user && @user.errors.any?
           #errorExplanation.errorExplanation
             %h6{:style => 'color:red;'}=t('questions.new.error.registration')

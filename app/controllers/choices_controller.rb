@@ -1,6 +1,6 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
-  before_action :authenticate, :only => [:toggle]
+  before_action :require_login, :only => [:toggle]
   before_action :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
 
   def show

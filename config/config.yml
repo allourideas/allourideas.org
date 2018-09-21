@@ -8,8 +8,8 @@ global: &global
 
 development:
     <<: *global
-    HOST: localhost:3001 # domain:port of AOI server
-    API_HOST: http://localhost:3000 # URL for pairwise API server
+    HOST: localhost:3000 # domain:port of AOI server
+    API_HOST: http://localhost:4001 # URL for pairwise API server
     PAIRWISE_USERNAME: pairwisetest@dkapadia.com
     PAIRWISE_PASSWORD: wheatthins
     PHOTOCRACY_USERNAME: photocracytest@dkapadia.com

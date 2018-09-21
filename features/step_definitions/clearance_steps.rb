@@ -15,17 +15,15 @@ Given /^no user exists with an email of "(.*)"$/ do |email|
 end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
-  user = FactoryBot :user,
+  user = FactoryBot.create( :user,
     :email                 => email,
-    :password              => password,
-    :password_confirmation => password
-end 
+    :password              => password)
+end
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
-  user = FactoryBot :email_confirmed_user,
+  user = FactoryBot.create( :email_confirmed_user,
     :email                 => email,
-    :password              => password,
-    :password_confirmation => password
+    :password              => password)
 end
 
 # Session
@@ -46,8 +44,13 @@ When /^session is cleared$/ do
 end
 
 Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
-  Given %{I am signed up and confirmed as "#{email}/#{password}"}
-  And %{I sign in as "#{email}/#{password}"}
+  user = FactoryBot.create( :email_confirmed_user,
+    :email                 => email,
+    :password              => password)
+  visit root_path(as: user)
+
+  #Given %{I am signed up and confirmed as "#{email}/#{password}"}
+  #And %{I sign in as "#{email}/#{password}"}
 end
 
 # Emails
@@ -95,10 +98,15 @@ end
 # Actions
 
 When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
-  When %{I go to the sign in page}
-  And %{I fill in "Email" with "#{email}"}
-  And %{I fill in "Password" with "#{password}"}
-  And %{I press "Log In"}
+  visit new_session_path
+  fill_in('Email', :with => email)
+  fill_in('Password', :with => password)
+  click_button('Log In')
+
+  #When %{I go to the sign in page}
+  #And %{I fill in "Email" with "#{email}"}
+  #And %{I fill in "Password" with "#{password}"}
+  #And %{I press "Log In"}
 end
 
 When /^I sign out$/ do

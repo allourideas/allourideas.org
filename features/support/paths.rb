@@ -7,7 +7,7 @@ module NavigationHelpers
     when /the sign up page/i
       new_user_path
     when /the sign in page/i
-      new_session_path
+      signin_path
     when /the password reset request page/i
       new_password_path
 

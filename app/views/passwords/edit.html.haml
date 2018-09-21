@@ -2,8 +2,13 @@
 
 %p= t('user.choose_password_below')
 
--form_for :user, :url  => user_password_path(@user, :token => @user.confirmation_token), :html => { :method => :put } do |form|
-  = error_messages_for :user
+= form_for :user, :url  => user_password_path(@user, :token => @user.confirmation_token), :html => { :method => :put } do |form|
+  - if @user.errors.any?
+    .errorExplanation
+      %h2= "#{@user.errors.size} #{t('questions.new.error.header')}"
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
   %table.left
     %tr
       %td= form.label :password, t('user.password')

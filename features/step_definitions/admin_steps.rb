@@ -4,20 +4,20 @@ Given /^I am on the the super admin dashboard page$/ do
 end
 
 Given /^there are no Delayed Jobs$/ do
-	Delayed::Job.delete_all
+  Delayed::Job.delete_all
 end
 
 When /^I click on the link for an idea marketplace creator map$/ do
-	  pending # express the regexp above with the code you wish you had
+    pending # express the regexp above with the code you wish you had
 end
 
 Then /^the map should load with no errors$/ do
-	  pending # express the regexp above with the code you wish you had
+    pending # express the regexp above with the code you wish you had
 end
 
 When /^I click on the request button for the (.*) CSV file$/ do |type|
-	 When "I follow \"#{type.downcase.gsub(/ +/, "_")}_request_link\""
-
+  click_link("#{type.downcase.gsub(/ +/, "_")}_request_link")
+  #When "I follow \"#{type.downcase.gsub(/ +/, "_")}_request_link\""
 end
 
 When /^I click "([^"]*)"$/ do |arg1|
@@ -25,53 +25,57 @@ When /^I click "([^"]*)"$/ do |arg1|
 end
 
 Then /^a background job should have been created$/ do
-	Delayed::Job.count.should == 1
+  Delayed::Job.where("handler LIKE '%MungeAndNotifyJob%'").count == 1
 end
 
 Then /^the the background job should call '(.*)'$/ do |method|
-	Delayed::Job.last.name == method
-	
+  Delayed::Job.last.name == method
+  
 end
 
-When /^I click on the edit link for the question$/ do 
-	find('th.header:first a').click
+When /^I click on the edit link for the question$/ do
+  find('th.header', match: :first).find('a').click
 end
 
-When /^I click on the Status header column$/ do 
-	find('th.score:last').click
+When /^I click on the Status header column$/ do
+  find('#status-th').click
 end
-When /^I click on the toggle link for the first choice$/ do 
+When /^I click on the toggle link for the first choice$/ do
         sleep(3) # "activate a deactivated idea" can fail without this
-	find('.toggle_choice_status').click
+  find('.toggle_choice_status', match: :first).click
 end
 Then /^the first choice should be (.*)$/ do |status|
-	Then "I should see \"#{status}\" within \".toggle_choice_status\""
+  with_scope(".ideas-table tr:first-child .toggle_choice_status") do
+    expect(page).to have_content(status)
+  end
+  #Then "I should see \"#{status}\" within \".toggle_choice_status\""
 end
 When /^I deactivate the two saved choices$/ do
-	# reload kills prefix options, rails hasn't merged in a fix yet, see 
-	# https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/810
-	@left_choice.reload
-	@left_choice.prefix_options[:question_id] = @question_id
+  # reload kills prefix options, rails hasn't merged in a fix yet, see 
+  # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/810
+  @left_choice.reload
+  @left_choice.prefix_options[:question_id] = @question_id
         @left_choice.active = false
-	@left_choice.save
+  @left_choice.save
 
-	@right_choice.reload
-	@right_choice.prefix_options[:question_id] = @question_id
+  @right_choice.reload
+  @right_choice.prefix_options[:question_id] = @question_id
         @right_choice.active = false
         @right_choice.save
 end
 
 When /^I deactivate the saved left choice$/ do
-	@left_choice.reload
-	@left_choice.prefix_options[:question_id] = @question_id
-	@left_choice.active = false
-	@left_choice.save
+  @left_choice.reload
+  @left_choice.prefix_options[:question_id] = @question_id
+  @left_choice.active = false
+  @left_choice.save
 end
 
 Then /^I should not see the saved (.*) choice text$/ do |side|
-	choice = (side == "left") ? @left_choice : @right_choice
+  choice = (side == "left") ? @left_choice : @right_choice
 
-	Then "I should not see \"#{choice.data}\""
+  #Then "I should not see \"#{choice.data}\""
+  expect(page).to have_no_content(choice.data)
 end
 
 Then /^I should see the saved (.*) choice text$/ do |side|
@@ -95,11 +99,10 @@ Given /^idea marketplace '(.*)' has results hidden$/ do |url|
 end
 
 Given /^a super admin user exists with credentials "(.*)\/(.*)"$/ do |email, password|
-  user = FactoryBot :email_confirmed_user,
+  user = FactoryBot.create(:email_confirmed_user,
     :email                 => email,
     :password              => password,
-    :password_confirmation => password,
-    :admin		   => true
+    :admin                 => true)
 end
 
 Given /^I sign in as the admin for '(.*)'$/ do |url|

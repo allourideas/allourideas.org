@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   include ActionView::Helpers::TextHelper
   #caches_page :about, :tour, :privacy
-  before_action :authenticate, :only => [:admin]
+  before_action :require_login, :only => [:admin]
   before_action :admin_only, :only => [:no_google_tracking]
 
   skip_before_action :initialize_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
@@ -43,9 +43,9 @@ class HomeController < ApplicationController
   def admin
     if current_user.admin?
       if @photocracy
-        @earls = Earl.find(:all, :conditions => {:photocracy => true})
+        @earls = Earl.where(:photocracy => true)
       else
-        @earls = Earl.find(:all, :conditions => {:photocracy => false})
+        @earls = Earl.where(:photocracy => false)
       end
       all = params[:all] == 'true'
       @questions = Question.find(:all, :params => {
@@ -73,7 +73,7 @@ class HomeController < ApplicationController
   end
 
   def wikipedia_banner_challenge_gallery
-    @earl = Earl.find_by_name('wikipedia-banner-challenge')
+    @earl = Earl.find_by(name: 'wikipedia-banner-challenge')
     @images = {
       "0001" => "http://meta.wikimedia.org/wiki/File:Jimmy.png",
       "0002" => "http://meta.wikimedia.org/wiki/File:Jamesbanner.png",

@@ -3,16 +3,16 @@ Feature: Ignore votes immediately after skips
   A user
   Should have their votes immediately after a skip marked invalid
 
-  Background: 
+  Background:
     Given an idea marketplace quickly exists with url 'test'
     And I am on the Cast Votes page for 'test'
-  
+
   @javascript
   Scenario: Votes should appear counted, but not actually count
     When I click the I can't decide button
     And I pick "I like both ideas"
     And the vote count should be 0
-    When I click on the left choice 
+    When I click on the left choice
     Then the vote count should be 1
     When I go to the Cast Votes page for 'test'
     Then the vote count should be 0

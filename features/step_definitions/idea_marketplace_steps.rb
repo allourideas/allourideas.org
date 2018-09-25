@@ -53,6 +53,10 @@ Given /^an idea marketplace exists with admin '(.*)' and url '(.*)' and (\d+) id
   Capybara.reset_sessions!
 end
 
+Given /^I fill in all fields with valid data except "([^\"]*)"$/ do |field_id|
+  fill_in_all_fields_with_valid_data_except(field_id)
+end
+
 def fill_in_all_fields_with_valid_data_except(field_id)
   valid_data = Hash[
       "question_name" => "Valid question",

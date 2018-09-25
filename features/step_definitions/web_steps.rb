@@ -66,7 +66,8 @@ end
 When /^(?:|I )fill in the following(?: within "([^\"]*)")?:$/ do |selector, fields|
   with_scope(selector) do
     fields.rows_hash.each do |name, value|
-      When %{I fill in "#{name}" with "#{value}"}
+      fill_in(name, :with => value)
+      # When %{I fill in "#{name}" with "#{value}"}
     end
   end
 end
@@ -158,12 +159,8 @@ end
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   actual_params   = CGI.parse(URI.parse(current_url).query)
   expected_params = Hash[expected_pairs.rows_hash.map{|k,v| [k,[v]]}]
- 
-  if defined?(Spec::Rails::Matchers)
-    actual_params.should == expected_params
-  else
-    assert_equal expected_params, actual_params
-  end
+
+  expect(actual_params).to eq expected_params
 end
 
 And /^I wait (.*) seconds?$/ do |wait_time|

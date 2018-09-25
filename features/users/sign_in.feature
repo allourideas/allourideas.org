@@ -13,7 +13,8 @@ Feature: Sign in
       Given I signed up with "email@person.com/password"
       When I go to the sign in page
       And I sign in as "email@person.com/password"
-      Then I should see "Signed in"
+      Then I should see "email@person.com" within ".navbar-aoi"
+      #Then I should see "Signed in"
 
    Scenario: User enters wrong password
       Given I am signed up and confirmed as "email@person.com/password"
@@ -25,6 +26,6 @@ Feature: Sign in
       Given I am signed up and confirmed as "email@person.com/password"
       When I go to the sign in page
       And I sign in as "email@person.com/password"
-      Then I should see "Signed in"
+      #Then I should see "Signed in"
       When I return next time
       Then I should see "email@person.com" within ".navbar-aoi"

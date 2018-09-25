@@ -746,6 +746,8 @@ GEM
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
+    highcharts-rails (6.0.3)
+      railties (>= 3.1)
     htmlentities (4.3.4)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
@@ -941,6 +943,7 @@ DEPENDENCIES
   geokit (= 1.13.1)
   haml (~> 5.0.4)
   has_scope (= 0.7.2)
+  highcharts-rails
   i18n
   inherited_resources (= 1.9.0)
   json

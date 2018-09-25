@@ -239,8 +239,8 @@ class QuestionsController < ApplicationController
       })
 
       respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
-        format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
+        format.js { render :plain => @votes_chart }
      end
 
 
@@ -494,8 +494,8 @@ class QuestionsController < ApplicationController
                       })
 
     respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
-      format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
+      format.js { render :plain => @votes_chart }
     end
   end
 
@@ -556,8 +556,8 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
-      format.html { render :text => "<div id='scatter_votes_vs_skips-chart-container'></div><script>#{@votes_chart}</script>" }
-      format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='scatter_votes_vs_skips-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.js { render :plain => @votes_chart }
     end
   end
 
@@ -598,8 +598,8 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
-      format.html { render :text => "<div id='scatter_score_vs_votes-chart-container'></div><script>#{@votes_chart}</script>" }
-      format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='scatter_score_vs_votes-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.js { render :plain => @votes_chart }
     end
   end
 
@@ -676,8 +676,8 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
-      format.html { render :text => "<div id='scatter_#{type}_by_session-chart-container'></div><script>#{@votes_chart}</script>" }
-      format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='scatter_#{type}_by_session-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.js { render :plain => @votes_chart }
     end
   end
 
@@ -739,7 +739,7 @@ class QuestionsController < ApplicationController
     end
 
     if votes_count_hash == "\n"
-      render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')}');" and return
+      render :plain => "$('\##{type}-chart-container').text('#{t('results.no_data_error')}');" and return
     end
 
     votes_count_hash.sort! do |x,y|
@@ -798,8 +798,8 @@ class QuestionsController < ApplicationController
 
     })
     respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script>#{@votes_chart}</script>" }
-      format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='#{type}-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.js { render :plain => @votes_chart }
     end
   end
 
@@ -874,8 +874,8 @@ class QuestionsController < ApplicationController
       })
     end
     respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'>#{text}</div><script>#{@density_chart}</script>"}
-      format.js { render :text => @density_chart}
+      format.html { render :plain => "<div id='#{type}-chart-container'>#{text}</div><script>#{@density_chart}</script>"}
+      format.js { render :plain => @density_chart}
     end
   end
 
@@ -887,7 +887,7 @@ class QuestionsController < ApplicationController
     appearance_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'appearances_by_creation_date')
 
     if appearance_count_hash == "\n"
-      render :text => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"  and return
+      render :plain => "$('\##{type}-chart-container').text('#{t('results.no_data_error')});"  and return
     end
 
     appearance_count_hash.sort! do |x,y|
@@ -940,8 +940,8 @@ class QuestionsController < ApplicationController
 
 
     respond_to do |format|
-      format.html { render :text => "<div id='choice-by-date-chart-container'></div><script>#{@votes_chart}</script>" }
-      format.js { render :text => @votes_chart }
+      format.html { render :plain => "<div id='choice-by-date-chart-container'></div><script>#{@votes_chart}</script>" }
+      format.js { render :plain => @votes_chart }
     end
   end
 
@@ -954,7 +954,7 @@ class QuestionsController < ApplicationController
       if new_photo.valid?
         new_idea_data = new_photo.id
       else
-        render :text => {'errors' => new_photo.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
+        render :plain => {'errors' => new_photo.errors.full_messages.join("\n"), 'response_status' => 500}.to_json and return
       end
     else
       # remove new lines from new ideas
@@ -984,7 +984,7 @@ class QuestionsController < ApplicationController
       end
 
       if @photocracy
-        render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
+        render :plain => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
       else
         render :json => {
           :choice_status => @choice.active? ? 'active' : 'inactive',
@@ -1182,7 +1182,7 @@ class QuestionsController < ApplicationController
     @earl = Earl.find params[:id]
     unless ((current_user.owns?(@earl)) || current_user.admin? )
       response = "You are not authorized to export data from this wiki survey, please contact us at info@allouridea.org if you think this is a mistake"
-      render :text => response and return
+      render :plain => response and return
     end
 
     #creates delayed job that: sends request to pairwise, waits for response from pairwise,
@@ -1190,7 +1190,7 @@ class QuestionsController < ApplicationController
     #  create delayed job to delete file in 3 days, sends email to user with link
 
     if type.nil?
-      render :text => "An error has occured! Please try again later." and return
+      render :plain => "An error has occured! Please try again later." and return
     else
       question = @earl.question
 
@@ -1247,9 +1247,9 @@ class QuestionsController < ApplicationController
     end
 
     if new_photo.valid? && choice.valid?
-      render :text => "yeah!"
+      render :plain => "yeah!"
     else
-      render :text => 'Choice creation failed', :status => 500
+      render :plain => 'Choice creation failed', :status => 500
     end
   end
 

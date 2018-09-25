@@ -7,3 +7,4 @@
 //= require jquery.form
 //= require bootstrap/bootstrap.min
 //= require retina
+//= require highcharts

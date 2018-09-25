@@ -1,4 +1,4 @@
-When /^I click on the (left|right) choice$/ do |side|
+def click_on_the_choice(side)
   css = ".#{side}side.btn-vote"
   begin
     page.has_no_selector?("#{css}.disabled")
@@ -17,6 +17,10 @@ When /^I click on the (left|right) choice$/ do |side|
   rescue
     page.has_no_css?("#{css}.disabled")
   end
+end
+
+When /^I click on the (left|right) choice$/ do |side|
+  click_on_the_choice(side)
 end
 
 When /^(.*) within iframe "(.*)"$/ do |action, iframe_id|
@@ -131,9 +135,11 @@ end
 When /^I vote (\d*) times$/ do |num_votes|
   num_votes.to_i.times do
     if rand(2) == 1
-       When "I click on the left choice" 
+      click_on_the_choice('left')
+      #When "I click on the left choice"
     else
-       When "I click on the right choice"
+      click_on_the_choice('right')
+      #When "I click on the right choice"
     end
 
   end

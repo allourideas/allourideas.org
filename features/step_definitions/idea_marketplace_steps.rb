@@ -141,9 +141,9 @@ When /^idea marketplace '(.*)' has (\d*) ideas$/ do |url, num_ideas|
 
   #Pairwise sorts by last created, but this makes testing pagination annoying, let's create these going down
   (1..num_ideas.to_i).to_a.reverse.each do |n|
-    the_params = {:visitor_identifier => 'test choices', :data => "Idea ##{"%03d" % n}", :question_id => @question.id}
-          c =Choice.create(the_params)
-    c.should_not be_nil
+    the_params = {:visitor_identifier => 'test choices', :data => "Idea ##{"%03d" % n}", :question_id => @question.id, :active => true}
+    choice = Choice.create(the_params)
+    expect(choice).to_not eq nil
   end
 
   unless prev_auto_activate

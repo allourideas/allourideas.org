@@ -79,3 +79,11 @@ group :test, :cucumber do
 end
 # gem "ey_config" # engine yard
 # gem "newrelic_rpm"
+
+group :assets do
+  gem 'therubyracer'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+

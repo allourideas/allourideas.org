@@ -14,12 +14,13 @@
     = yield :head
     %script{:type => "text/javascript"}
       $(document).ready(function() {
-      = yield :view_javascript    
+      = yield :view_javascript
       });
   %body{:class => "lang-#{I18n.locale}"}
-    =javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.to_json};" if protect_against_forgery?
-    .content{:style => white_label_request? ? "overflow:hidden": ""}      
-      .body{:class => white_label_request? ? 'noborder' : ''} 
+    :javascript
+      var AUTH_TOKEN = "#{form_authenticity_token}";
+    .content{:style => white_label_request? ? "overflow:hidden": ""}
+      .body{:class => white_label_request? ? 'noborder' : ''}
         = render :partial => "shared/flashes"
         -if session[:standard_flash]
           %p.notice.example_notice#notice= session[:standard_flash]
@@ -29,7 +30,7 @@
             %p.notice.example_notice#notice= t('home.student_government_explanation')
             -session[:on_example] = nil
         = yield
-        .clear      
+        .clear
       = javascript_include_tag 'jquery.ba-url.min.js', 'jquery.taconite.js', 'jquery.hint.js', 'jquery.blockUI.js','label_over', 'jquery.jqEasyCharCounter.js', 'application'
       -if ['production'].include? Rails.env
         %script{:type => "text/javascript"}

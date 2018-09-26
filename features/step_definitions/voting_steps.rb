@@ -69,6 +69,9 @@ When /^I click the flag link for the (.*) choice$/ do |side|
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
+  if has_css?(".add_idea_button")
+    find(".add_idea_button").try(:click)
+  end
   within '#the_add_box' do
     find('#new_idea_field').trigger(:focus)
     fill_in('new_idea_field', :with => ideatext)

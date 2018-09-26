@@ -39,6 +39,7 @@ gem "test-unit", "3.2.8"
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'activeresource'
 gem 'highcharts-rails'
+gem 'actionpack-page_caching'
 
 group :development do
   #gem "engineyard", "~> 1.4.29"

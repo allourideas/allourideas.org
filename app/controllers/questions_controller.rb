@@ -946,7 +946,7 @@ class QuestionsController < ApplicationController
   end
 
   def add_idea
-    bingo!('submitted_idea')
+    #bingo!('submitted_idea')
     new_idea_data = params[:new_idea]
 
     if @photocracy
@@ -975,12 +975,12 @@ class QuestionsController < ApplicationController
         :with_visitor_stats => true,
         :visitor_identifier => @survey_session.session_id
       })
-      Earl.find_by(question_id: params[:id].to_s)
+      @earl = Earl.find_by(question_id: params[:id].to_s)
 
       if @choice.active?
-        IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+        IdeaMailer.delay.notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
       else
-        IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+        IdeaMailer.delay.notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
       end
 
       if @photocracy

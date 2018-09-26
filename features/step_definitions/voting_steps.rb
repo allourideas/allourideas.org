@@ -60,27 +60,41 @@ end
 
 When /^I click the flag link for the (.*) choice$/ do |side|
   if side == "left"
-    When "I follow \"left_flag\""
+    click_link('left_flag')
+    #When "I follow \"left_flag\""
   else
-    When "I follow \"right_flag\""
+    click_link('right_flag')
+    #When "I follow \"right_flag\""
   end
 end
 
 When /^I upload an idea titled '(.*)'$/ do |ideatext|
-  When "I click the add new idea button"
-  And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
-  has_css?("#submit_btn")
-  find("#submit_btn").click
+  within '#the_add_box' do
+    find('#new_idea_field').trigger(:focus)
+    fill_in('new_idea_field', :with => ideatext)
+    has_css?("#submit_btn")
+    find("#submit_btn").click
+  end
+  #When "I click the add new idea button"
+  #And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
 end
 
 When /^I upload an idea titled$/ do |ideatext|
-  When "I click the add new idea button"
-  And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
-  has_css?("#submit_btn")
-  find("#submit_btn").click
+  within '#the_add_box' do
+    find('#new_idea_field').trigger(:focus)
+    fill_in('new_idea_field', :with => ideatext)
+    has_css?("#submit_btn")
+    find("#submit_btn").click
+  end
+  #When "I click the add new idea button"
+  #And "I fill in \"new_idea_field\" with \"#{ideatext}\" within \"#the_add_box\""
 end
 
 When /^I click the (.*) button$/ do |button_name|
+  click_the_new_idea_photo_button(button_name)
+end
+
+def click_the_new_idea_photo_button(button_name)
       case button_name
       when "I can't decide"
         find("#cant_decide_btn").click
@@ -160,7 +174,10 @@ Then /^the vote count should be (.*)$/ do |num_votes|
 end
 
 Then /^the idea count should be (.*)$/ do |num_ideas|
-  Then "I should see \"#{num_ideas}\" within \"#item_count\""
+  with_scope('#item_count') do
+    expect(page).to have_content(num_ideas)
+  end
+  #Then "I should see \"#{num_ideas}\" within \"#item_count\""
 end
 
 Then /^there should be only two "Click To Vote" elements$/ do

@@ -116,13 +116,13 @@ class IdeaMailer < ActionMailer::Base
       url_options.merge!(:login_reminder => true) if photocracy
 
       if photocracy
-        choice_path = question_choice_path(url_options)
+        choice_path = Rails.application.routes.url_helpers.question_choice_path(url_options)
       elsif option == 'activate'
-        choice_path = activate_question_choice_path(url_options)
+        choice_path = Rails.application.routes.url_helpers.activate_question_choice_path(url_options)
       elsif option == 'deactivate'
-        choice_path = deactivate_question_choice_path(url_options)
+        choice_path = Rails.application.routes.url_helpers.deactivate_question_choice_path(url_options)
       else
-        choice_path = question_choice_path(url_options)
+        choice_path = Rails.application.routes.url_helpers.question_choice_path(url_options)
       end
 
       if photocracy

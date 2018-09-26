@@ -81,11 +81,12 @@ Given /^an idea marketplace quickly exists with url '([^\']*)'$/ do |url|
 end
 
 Given /^an idea marketplace quickly exists with url '([^\']*)' and admin '(.*)\/(.*)'$/ do |url, email, password|
-  u = FactoryBot.create(:email_confirmed_user, :email => email, :password => password, :password_confirmation => password)
-  Given "an idea marketplace quickly exists with url '#{url}'"
-  e = Earl.last
-  e.user = u
-  e.save
+  user = FactoryBot.create(:email_confirmed_user, :email => email, :password => password)
+  question = Question.create(FactoryBot.attributes_for(:question_cucumber))
+  earl = FactoryBot.create(:earl, :name => url, :question_id => question.id)
+  # Given "an idea marketplace quickly exists with url '#{url}'"
+  earl.user = user
+  earl.save
 end
 
 Given /^a photocracy idea marketplace quickly exists with url '([^\']*)'$/ do |url|
@@ -166,5 +167,13 @@ Given /^idea marketplace '(.*)' has enabled "([^\"]*)"$/ do |url, setting|
     e.flag_enabled = true
   end
   e.save!
+end
+
+Given /^admin activates last idea of "([^\"]*)"$/ do |url|
+  earl = Earl.find(url)
+  Choice.find(:all, :params => {:question_id => earl.question_id, :include_inactive => true}).each do |choice|
+    choice.active = true
+    choice.save
+  end
 end
 

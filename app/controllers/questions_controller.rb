@@ -1066,9 +1066,9 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
+    @user = User.new(:email => params[:question].delete('email'),
+                     :password => params[:question].delete('password')) unless signed_in?
     @question = Question.new(question_params)
-    @user = User.new(:email => params[:question]['email'],
-                     :password => params[:question]['password']) unless signed_in?
 
     if question_params_valid
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}

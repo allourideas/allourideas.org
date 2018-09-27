@@ -40,6 +40,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'activeresource'
 gem 'highcharts-rails'
 gem 'actionpack-page_caching'
+gem 'dotenv-rails'
 
 group :development do
   #gem "engineyard", "~> 1.4.29"

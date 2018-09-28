@@ -52,6 +52,10 @@ group :development, :test, :cucumber do
   gem "puma"
 end
 
+group :production, :staging do
+  gem "sendgrid", "1.2.4"
+end
+
 group :test, :cucumber do
   gem 'cucumber', '3.1.2'
   gem 'cucumber-rails', '~> 1.6.0'

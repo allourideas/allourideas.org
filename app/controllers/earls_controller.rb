@@ -197,7 +197,7 @@ class EarlsController < ApplicationController
        flash[:notice] = "You are not authorized to export data"
        redirect_to( {:action => :index, :controller => :home}) and return
      end
-     @earls= Earl.find(:all)
+     @earls= Earl.all
      outfile = "question_list_" + Time.now.strftime("%m-%d-%Y") + ".csv"
      headers = ['Earl ID', 'Name', 'Question ID', 'Creator ID', 'Active', 'Has Logo', 'Has Password',
                       'Created at', 'Updated at']

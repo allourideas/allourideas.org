@@ -8,7 +8,10 @@
       = t('questions.new.exp2')
     - if !logged_in?
       %p
-        = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.')
+        = t('questions.new.if_you_have_an_account')
+        = ' '
+        = link_to(t('questions.new.here'), sign_in_path)
+        ='.'
     .left.create-question
       = form_for @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
         %p
@@ -25,7 +28,10 @@
               %ul
                 -@user.errors.each do |field, error|
                   - if field =~ /Email/i && error =~ /has already been taken/i
-                    %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
+                    %li
+                      = t('questions.new.error.already_taken')
+                      = " "
+                      = link_to(t('questions.new.error.already_taken_link'), '/sign_in')
                   - else
                     %li= "#{field} #{error}".capitalize
       

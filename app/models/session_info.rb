@@ -60,14 +60,14 @@ class SessionInfo< ActiveRecord::Base
 
   def find_click_for_vote(vote)
     conditions = ["controller = 'prompts' AND (action = 'vote' OR action='skip') AND created_at <= ?", vote['Created at']]
-    vote_click = clicks.find(:first, :conditions => conditions, :order => 'id DESC')
+    vote_click = clicks.where(conditions).order('id DESC').first
     vote_click = Click.new unless vote_click
     return vote_click
   end
 
   def find_info_value(vote)
     conditions = ["created_at <= ? AND referrer LIKE '%info=%'", vote['Created at']]
-    ref_ts = clicks.find(:all, :conditions => conditions, :order => 'id DESC')
+    ref_ts = clicks.where(conditions).order('id DESC')
     
     info = ref_ts.map do |ref|
       begin

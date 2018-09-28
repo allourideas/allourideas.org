@@ -104,8 +104,8 @@
     %span.bottom_padding
       /* Use a table here to fix a small issue with a non-linking space after the first link */
       %table.fleft
-        %td{:style => 'padding-left: 5px;'}= link_to(t('nav.view_more_results_widget'), @results_url, :target => '_blank', :id => 'view_more_results')
-        %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), @results_url, :target => '_blank')
+        %td{:style => 'padding-left: 5px;'}= link_to(t('nav.view_more_results_widget'), "//#{APP_CONFIG[:HOST]}#{@results_url}", :target => '_blank', :id => 'view_more_results')
+        %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), "//#{APP_CONFIG[:HOST]}#{@results_url}", :target => '_blank')
     %span
       %a.bottom_padding.fright.return_voting{:href => '#page1'}= t('nav.return_voting_widget');
 

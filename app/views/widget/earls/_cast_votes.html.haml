@@ -103,5 +103,5 @@
   #leveling_message_appended
     /* Use a table here to fix a small issue with a non-linking space after the first link */
     %table.link_style
-      %td= t('vote.powered_widget_aoi', :allourideas => "#{link_to(t('common.title_widget'), 'http://allourideas.org', :target => '_blank')}")
-      %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), 'http://allourideas.org', :target => '_blank')
+      %td= t('vote.powered_widget_aoi', :allourideas => "#{link_to(t('common.title_widget'), "//#{APP_CONFIG[:HOST]}", :target => '_blank')}").html_safe
+      %td= link_to(image_tag('widget/lpadded_outgoing_link.png'), "//#{APP_CONFIG[:HOST]}", :target => '_blank')

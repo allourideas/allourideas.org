@@ -9,6 +9,7 @@ global: &global
 development:
     <<: *global
     HOST: localhost:3000 # domain:port of AOI server
+    WIDGET_HOST: widget.localhost:3000
     API_HOST: http://localhost:4001 # URL for pairwise API server
     PAIRWISE_USERNAME: pairwisetest@dkapadia.com
     PAIRWISE_PASSWORD: wheatthins
@@ -21,6 +22,7 @@ development:
 production:
     <<: *global
     HOST: <%= ENV['ALLOURIDEAS_HOST'] %>
+    WIDGET_HOST: <%= ENV['ALLOURIDEAS_WIDGET_HOST'] %>
     API_HOST: <%= ENV['API_HOST'] %>
     PAIRWISE_USERNAME: <%= ENV['PAIRWISE_USERNAME'] %>
     PAIRWISE_PASSWORD: <%= ENV['PAIRWISE_PASSWORD'] %>
@@ -41,6 +43,7 @@ production:
 staging:
     <<: *global
     HOST: <%= ENV['STAGING_ALLOURIDEAS_HOST'] %>
+    WIDGET_HOST: <%= ENV['STAGING_ALLOURIDEAS_WIDGET_HOST'] %>
     API_HOST: <%= ENV['STAGING_API_HOST'] %>
     PAIRWISE_USERNAME: <%= ENV['PAIRWISE_USERNAME'] %>
     PAIRWISE_PASSWORD: <%= ENV['PAIRWISE_PASSWORD'] %>
@@ -56,6 +59,7 @@ staging:
 test:
     <<: *global
     HOST: localhost
+    WIDGET_HOST: widget.localhost
     API_HOST: http://localhost:4000
 
     PAIRWISE_USERNAME: 
@@ -65,6 +69,7 @@ test:
 cucumber:
     <<: *global
     HOST: localhost
+    WIDGET_HOST: widget.localhost
     # Use a different test database / server for test purposes
     API_HOST: http://localhost:4000
     PAIRWISE_USERNAME: testing@dkapadia.com

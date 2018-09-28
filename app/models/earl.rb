@@ -9,6 +9,7 @@ class Earl < ActiveRecord::Base
   validates_length_of :welcome_message, :maximum=>350, :allow_nil => true, :allow_blank => true
   friendly_id :name
   has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
+  validates_attachment_content_type :logo, :content_type => ["image/jpg", "image/jpeg", "image/png"]
 
   attr_accessor :ideas
   before_create :require_verification!, :if => :ideas_look_spammy?

@@ -1079,7 +1079,7 @@ class QuestionsController < ApplicationController
       if earl.requires_verification?
         redirect_to verify_url and return
       end
-      session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>"
+      session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>".html_safe
 
       if @photocracy
         redirect_to add_photos_url(earl.name) and return

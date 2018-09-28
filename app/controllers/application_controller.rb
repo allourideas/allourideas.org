@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     elsif request.url.include?('widget') || request.env['SERVER_NAME'].include?('iphone') || @widget
       @widget= true
       @widget_stylesheet = "widget/screen"
+      response.headers["X-FRAME-OPTIONS"] = 'ALLOWALL'
       prepend_view_path(File.join(Rails.root, "app", "views", "widget"))
     end
   end

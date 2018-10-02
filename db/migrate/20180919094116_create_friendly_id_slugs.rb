@@ -1,11 +1,4 @@
-migration_class =
-  if ActiveRecord::VERSION::MAJOR >= 5
-    ActiveRecord::Migration[4.2]
-  else
-    ActiveRecord::Migration
-  end
-
-class CreateFriendlyIdSlugs < migration_class
+class CreateFriendlyIdSlugs < ActiveRecord::Migration[4.2]
   def change
     create_table :friendly_id_slugs do |t|
       t.string   :slug,           :null => false

@@ -1,4 +1,4 @@
-class CreateClicks < ActiveRecord::Migration
+class CreateClicks < ActiveRecord::Migration[4.2]
   def self.up
     create_table :clicks do |table|
       table.string :sid
@@ -6,7 +6,7 @@ class CreateClicks < ActiveRecord::Migration
       table.string :ip_addr
       table.string :controller
       table.string :action
-      table.string :url 
+      table.string :url
       table.timestamps
     end
 

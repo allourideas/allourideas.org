@@ -1,4 +1,4 @@
-class AddUseragentAndReferrerToClicks < ActiveRecord::Migration
+class AddUseragentAndReferrerToClicks < ActiveRecord::Migration[4.2]
   def self.up
 	  add_column :clicks, :referrer, :string
 	  add_column :clicks, :user_agent, :string

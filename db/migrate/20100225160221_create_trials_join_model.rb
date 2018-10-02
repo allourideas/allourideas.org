@@ -1,4 +1,4 @@
-class CreateTrialsJoinModel < ActiveRecord::Migration
+class CreateTrialsJoinModel < ActiveRecord::Migration[4.2]
   def self.up
 	  create_table :trials do |t|
 		  t.integer :session_info_id

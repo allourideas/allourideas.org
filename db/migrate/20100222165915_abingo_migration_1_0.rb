@@ -1,6 +1,6 @@
 #Creates the two database tables, plus indexes, you'll need to use A/Bingo.
 
-class AbingoMigration10< ActiveRecord::Migration
+class AbingoMigration10< ActiveRecord::Migration[4.2]
   def self.up
     create_table "experiments", :force => true do |t|
       t.string "test_name"

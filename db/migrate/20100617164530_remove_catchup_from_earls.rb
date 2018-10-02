@@ -1,4 +1,4 @@
-class RemoveCatchupFromEarls < ActiveRecord::Migration
+class RemoveCatchupFromEarls < ActiveRecord::Migration[4.2]
   def self.up
 	remove_column :earls, :uses_catchup
   end

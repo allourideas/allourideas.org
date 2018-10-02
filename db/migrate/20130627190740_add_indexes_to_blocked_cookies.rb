@@ -1,4 +1,4 @@
-class AddIndexesToBlockedCookies < ActiveRecord::Migration
+class AddIndexesToBlockedCookies < ActiveRecord::Migration[4.2]
   def self.up
     change_table :blocked_cookies do |t|
       t.index :question_id

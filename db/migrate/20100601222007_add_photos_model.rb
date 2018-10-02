@@ -1,4 +1,4 @@
-class AddPhotosModel < ActiveRecord::Migration
+class AddPhotosModel < ActiveRecord::Migration[4.2]
   def self.up
     create_table :photos do |table|
       table.string :image_file_name, :default => ""

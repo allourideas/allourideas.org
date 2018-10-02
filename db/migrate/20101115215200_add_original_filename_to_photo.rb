@@ -1,4 +1,4 @@
-class AddOriginalFilenameToPhoto < ActiveRecord::Migration
+class AddOriginalFilenameToPhoto < ActiveRecord::Migration[4.2]
   def self.up
     add_column :photos, :original_file_name, :string
   end

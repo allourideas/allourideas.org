@@ -1,4 +1,4 @@
-class ConvertLastErrorToTextInDelayedJobs < ActiveRecord::Migration
+class ConvertLastErrorToTextInDelayedJobs < ActiveRecord::Migration[4.2]
   def self.up
     change_column(:delayed_jobs, :last_error, :text)
     add_index :delayed_jobs, [:priority, :run_at], :name => 'delayed_jobs_priority'

@@ -1,4 +1,4 @@
-class PopulateSessionInfoTable < ActiveRecord::Migration
+class PopulateSessionInfoTable < ActiveRecord::Migration[4.2]
   def self.up
      add_column :clicks, :session_info_id, :integer
 

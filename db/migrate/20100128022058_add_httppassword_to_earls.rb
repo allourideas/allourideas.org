@@ -1,4 +1,4 @@
-class AddHttppasswordToEarls < ActiveRecord::Migration
+class AddHttppasswordToEarls < ActiveRecord::Migration[4.2]
   def self.up
     add_column :earls, :pass, :string
   end

@@ -1,4 +1,4 @@
-class AddRotationToPhotos < ActiveRecord::Migration
+class AddRotationToPhotos < ActiveRecord::Migration[4.2]
   def self.up
      add_column :photos, :rotation, :integer, :default => 0
   end

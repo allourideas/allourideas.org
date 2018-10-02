@@ -1,4 +1,4 @@
-class AddUserIdToSessionInfos < ActiveRecord::Migration
+class AddUserIdToSessionInfos < ActiveRecord::Migration[4.2]
   def self.up
 	  add_column :session_infos, :user_id, :integer
   end

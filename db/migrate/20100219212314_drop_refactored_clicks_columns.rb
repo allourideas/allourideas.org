@@ -1,4 +1,4 @@
-class DropRefactoredClicksColumns < ActiveRecord::Migration
+class DropRefactoredClicksColumns < ActiveRecord::Migration[4.2]
   def self.up
       remove_column :clicks, :sid
       remove_column :clicks, :ip_addr

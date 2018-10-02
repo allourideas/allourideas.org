@@ -1,4 +1,4 @@
-class AddGoogleAnalyticsCodeToEarls < ActiveRecord::Migration
+class AddGoogleAnalyticsCodeToEarls < ActiveRecord::Migration[4.2]
   def self.up
       add_column :earls, :ga_code, :string
   end

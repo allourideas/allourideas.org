@@ -1,4 +1,4 @@
-class CreateExports < ActiveRecord::Migration
+class CreateExports < ActiveRecord::Migration[4.2]
   def self.up
     create_table :exports do |table|
       table.binary :data

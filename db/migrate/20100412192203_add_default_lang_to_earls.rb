@@ -1,4 +1,4 @@
-class AddDefaultLangToEarls < ActiveRecord::Migration
+class AddDefaultLangToEarls < ActiveRecord::Migration[4.2]
   def self.up
 	  add_column :earls, :default_lang, :string, :default => "en"
   end

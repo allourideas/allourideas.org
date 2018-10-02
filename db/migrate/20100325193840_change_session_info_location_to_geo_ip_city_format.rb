@@ -1,6 +1,6 @@
-class ChangeSessionInfoLocationToGeoIpCityFormat < ActiveRecord::Migration
+class ChangeSessionInfoLocationToGeoIpCityFormat < ActiveRecord::Migration[4.2]
   def self.up
-	  SessionInfo.find(:all).each do |s|
+	  SessionInfo.find_each do |s|
 		  if s.ip_addr
 			  s.geolocate!(s.ip_addr)
 		  end

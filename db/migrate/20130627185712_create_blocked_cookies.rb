@@ -1,4 +1,4 @@
-class CreateBlockedCookies < ActiveRecord::Migration
+class CreateBlockedCookies < ActiveRecord::Migration[4.2]
   def self.up
     create_table :blocked_cookies do |table|
       table.string :referrer, :default => ""

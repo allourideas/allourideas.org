@@ -1,4 +1,4 @@
-class CreateVisitors < ActiveRecord::Migration
+class CreateVisitors < ActiveRecord::Migration[4.2]
   def self.up
     create_table :visitors do |table|
       table.string :remember_token, :default => ""

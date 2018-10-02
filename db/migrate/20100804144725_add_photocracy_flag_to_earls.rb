@@ -1,4 +1,4 @@
-class AddPhotocracyFlagToEarls < ActiveRecord::Migration
+class AddPhotocracyFlagToEarls < ActiveRecord::Migration[4.2]
   def self.up
      add_column :earls, :photocracy, :boolean, :default => false
   end

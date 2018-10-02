@@ -1,4 +1,4 @@
-class CreateEarls < ActiveRecord::Migration
+class CreateEarls < ActiveRecord::Migration[4.2]
   def self.up
     create_table :earls, :force => true do |t|
       t.string :name

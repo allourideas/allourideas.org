@@ -1,4 +1,4 @@
-class UpdateSessionInfosWithExistingUserids < ActiveRecord::Migration
+class UpdateSessionInfosWithExistingUserids < ActiveRecord::Migration[4.2]
   def self.up
 	  Click.all.each do |c|
 		  session = c.session_info
@@ -6,7 +6,7 @@ class UpdateSessionInfosWithExistingUserids < ActiveRecord::Migration
 			  session.user = c.user
 			  session.save!
 		  end
-			  
+
 	  end
   end
 

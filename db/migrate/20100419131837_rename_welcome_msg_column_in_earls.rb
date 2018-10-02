@@ -1,4 +1,4 @@
-class RenameWelcomeMsgColumnInEarls < ActiveRecord::Migration
+class RenameWelcomeMsgColumnInEarls < ActiveRecord::Migration[4.2]
   def self.up
 	  rename_column :earls, :welcome_msg, :welcome_message
   end

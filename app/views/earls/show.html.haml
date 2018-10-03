@@ -149,28 +149,14 @@
 
 -content_for :view_javascript do
   :plain
-    // Test if we can set and read cookies.
-    // If we can't, then the browser probably has 3rd party cookies disabled
-    // unless the user has first navigated to the domain serving the iframe source.
-    var cookieValue = "cookieTest" + new Date().getTime();
-    document.cookie = "cookieTest="+cookieValue;
-    if (document.cookie.indexOf("cookieTest="+cookieValue) === -1) {
-      var cookies_failed = document.getElementById('cookies-failed');
-      if (cookies_failed) {
-        cookies_failed.style.display = 'block';
-        var img = new Image();
-        img.src = '/cookies_blocked.gif?question_id=#{@earl.question_id}&session_id=#{@user_session.session_id}&referrer=' + encodeURIComponent(document.referrer);
-      }
-    }
-    else {
-      // cleanup test cookie
-      document.cookie = 'cookieTest=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
-  $('.rounded').corner('5px');
-  -unless session[:has_voted]
-    :plain
-      $('.firsttime').fadeIn(2000)
-      $('.firsttime, #close, .vote_cell').bind("click", function() {
-        $(".firsttime").fadeOut(500);
-      });
-  =render :partial => 'vote_box_js' 
+    VoteBox.init({
+    root_path: '#{root_path}',
+    vote_submit_idea_default_error: '#{t('vote.submit_idea_default_error')}',
+    vote_submit_idea_too_long_error: '#{t('vote.submit_idea_too_long_error')}',
+    locale: '#{I18n.locale}',
+    vote_submit_idea_thankyou: '#{t('vote.submit_idea_thankyou')}',
+    vote_idea_sent_for_review: '#{t('vote.idea_sent_for_review')}',
+    first_time: #{!!session[:has_voted]},
+    question_id: '#{@earl.question_id}',
+    session_id: '#{@user_session.session_id}'
+    });

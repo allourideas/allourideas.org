@@ -8,3 +8,4 @@
 //= require bootstrap/bootstrap.min
 //= require retina
 //= require highcharts
+//= require vote_box

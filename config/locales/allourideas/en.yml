@@ -265,7 +265,7 @@ en:
     exp_widget: This wiki survey widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
     faq_widget: "Here are some frequently asked questions:"
     open_source_q_widget: Is all of this open-source?
-    open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/images//widget/lpadded_outgoing_link.png" /></a href>.
+    open_source_exp_widget: Absolutely.  Here's <a href="http://github.com/allourideas" target = blank_>the code<img alt="Outgoing link" src="/assets/widget/lpadded_outgoing_link.png" /></a href>.
     contact_q_widget: I have another question, how can I get in touch with you?
     contact_exp_widget: Send us an email at info@allourideas.org.
     how_many_votes_q: How many votes can I cast? When does it end?

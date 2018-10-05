@@ -3,4 +3,6 @@ ui.theme.css jquery.corner.js jquery.blockUI.js highcharts.js modules/exporting.
 excanvas.compiled.js google-termcloud.js google-termcloud.css jquery.tablesorter.min.js
 widget/jquery.scrollTo.js widget/screen.css widget/widget.js jquery.ba-url.min.js
 jquery.taconite.js jquery.hint.js label_over.js jquery.jqEasyCharCounter.js
-widget/jquery.scrollTo-1.4.2-min.js screen.css widget/lpadded_outgoing_link.png)
+widget/jquery.scrollTo-1.4.2-min.js screen.css widget/lpadded_outgoing_link.png
+widget/vote_box.js)
+

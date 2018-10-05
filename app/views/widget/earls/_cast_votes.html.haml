@@ -94,11 +94,27 @@
   =hidden_field_tag 'appearance_lookup', @question.attributes['appearance_id']
 
   -content_for :head do
-    = javascript_include_tag 'jquery.corner', 'widget/jquery.scrollTo'        
+    = javascript_include_tag 'jquery.corner', 'widget/jquery.scrollTo', 'widget/vote_box'
 
-  -content_for :view_javascript do
+  -#content_for :view_javascript do
     =render :partial => 'vote_box_js' 
-
+  - content_for :view_javascript do
+    :plain
+      WidgetVoteBox.init({
+      root_path: '#{root_path}',
+      vote_submit_idea_default_error: '#{t('vote.submit_idea_default_error')}',
+      vote_submit_idea_too_long_error: '#{t('vote.submit_idea_too_long_error')}',
+      locale: '#{I18n.locale}',
+      vote_submit_idea_thankyou: '#{t('vote.submit_idea_thankyou')}',
+      vote_idea_sent_for_review: '#{t('vote.idea_sent_for_review')}',
+      first_time: #{!!session[:has_voted]},
+      question_id: '#{@earl.question_id}',
+      session_id: '#{@user_session.session_id}',
+      vote_you_chose_winner_over_loser: '#{t('vote.you_chose_winner_over_loser', :winner => '%winner%', :loser => '%loser%')}',
+      earl_flag_enabled: #{@earl.flag_enabled?},
+      vote_vote_timeout_error: '#{t('vote.vote_timeout_error')}',
+      vote_vote_other_error: '#{t('vote.vote_other_error')}'
+      });
 .bottom_status.leveling_message{:style => 'display:none'}
   #leveling_message_appended
     /* Use a table here to fix a small issue with a non-linking space after the first link */

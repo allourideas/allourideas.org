@@ -286,4 +286,7 @@ class Earl < ActiveRecord::Base
     end
   end
 
+  def wikipedia?
+    name == 'wikipedia-banner-challenge'
+  end
 end

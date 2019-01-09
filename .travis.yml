@@ -15,7 +15,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - gem update --system 1.8.25
   - gem --version
-  - gem install bundler
+  - gem install bundler -v 1.17.3
 before_script:
   - bundle exec rake --trace db:test:load
   - export PREV_BUNDLE_GEMFILE=$BUNDLE_GEMFILE

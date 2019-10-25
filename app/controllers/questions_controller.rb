@@ -1065,13 +1065,14 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    @question = Question.new(params[:question].slice(:name, :ideas, :url, :information))
+    question_params = params[:question].slice(:name, :ideas, :url, :information)
+    @question = Question.new(question_params)
     @user = User.new(:email => params[:question]['email'],
                      :password => params[:question]['password'],
                      :password_confirmation => params[:question]['password']) unless signed_in?
 
     spam_check = /^[A-Za-z]+$/
-    looks_like_spam = params[:question]['name'].match(spam_check) and params[:question]['url'].match(spam_check) and params[:question]['ideas'].match(spam_check) and params[:question]['information'].match(spam_check)
+    looks_like_spam = question_params['name'].match(spam_check) and question_params['url'].match(spam_check) and question_params['ideas'].match(spam_check) and question_params['information'].match(spam_check)
     if question_params_valid and !looks_like_spam
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
       earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy

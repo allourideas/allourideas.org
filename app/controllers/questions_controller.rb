@@ -1071,8 +1071,8 @@ class QuestionsController < ApplicationController
                      :password => params[:question]['password'],
                      :password_confirmation => params[:question]['password']) unless signed_in?
 
-    spam_check = /^[A-Za-z]+$/
-    looks_like_spam = question_params['name'].match(spam_check) and question_params['url'].match(spam_check) and question_params['ideas'].match(spam_check) and question_params['information'].match(spam_check)
+    spam_check = /\A[a-z]+\z/i
+    looks_like_spam = question_params['name'].try(:match, spam_check) and question_params['url'].try(:match, spam_check) and question_params['ideas'].try(:match, spam_check) and question_params['information'].try(:match, spam_check)
     if question_params_valid and !looks_like_spam
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
       earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy

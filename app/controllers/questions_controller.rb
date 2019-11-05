@@ -1074,6 +1074,7 @@ class QuestionsController < ApplicationController
     spam_check = /\A[a-z]+\z/i
     looks_like_spam = !!question_params['name'].try(:match, spam_check) && !!question_params['url'].try(:match, spam_check) && !!question_params['ideas'].try(:match, spam_check) && !!question_params['information'].try(:match, spam_check)
 
+    @question.errors.add(:base, "Unable to create question. If problem persists email info@allourideas.org") if looks_like_spam
     if !looks_like_spam and question_params_valid
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
       earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy

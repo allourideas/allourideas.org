@@ -18,6 +18,14 @@ class UserTest < ActiveSupport::TestCase
 	  assert user.email_confirmed
   end
 
+  should "support redaction" do
+    user = Factory.create(:user)
+    old_pass = user.encrypted_password
+    user.redact!
+    assert user.email.end_with?(".redacted@host.allourideas")
+    assert_not_equal old_pass, user.encrypted_password
+  end
+
   should "determine ownership of Earls correctly" do
 	  owner = Factory.create(:user)
 	  non_owner = Factory.create(:user)

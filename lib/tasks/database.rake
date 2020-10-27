@@ -43,4 +43,11 @@ namespace :database do
       puts [language.default_lang, num_marketplaces, num_uploaded_ideas ,num_ideas ,num_votes].join(", ")
     end
   end
+
+  desc "Redact a survey by URL name"
+  task :redact_survey, [:name] => [:environment] do |t, args|
+    earl = Earl.find_by_name(args[:name])
+    earl.redact!
+    puts "Redacted #{earl.name}"
+  end
 end

@@ -18,6 +18,13 @@ class Earl < ActiveRecord::Base
     @@reserved_names
   end
 
+  def redact!
+    admin = User.find(:first, ["admin = ? AND email = ?", 1, "mjs3@princeton.edu"])
+    self.active = false
+    self.user = admin
+    self.save!
+  end
+
   def question
     @question ||= Question.find(self.question_id)
   end

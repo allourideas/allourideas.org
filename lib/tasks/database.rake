@@ -43,4 +43,27 @@ namespace :database do
       puts [language.default_lang, num_marketplaces, num_uploaded_ideas ,num_ideas ,num_votes].join(", ")
     end
   end
+
+  desc "Redact a survey by URL name"
+  task :redact_survey, [:name] => [:environment] do |t, args|
+    earl = Earl.find_by_name(args[:name])
+    earl.redact!
+    puts "Redacted survey: #{earl.name}"
+  end
+
+  desc "Redact a user by email"
+  task :redact_user, [:email] => [:environment] do |t, args|
+    question_ids = []
+    user = User.find_by_email(args[:email])
+    raise "User not found by email address: #{args[:email]}" unless user
+    user.redact!
+    user.earls.each do |earl|
+      earl.redact!
+      question_ids << earl.question_id
+      puts "Redacted survey: #{earl.name}"
+    end
+
+    puts "Redacted user: #{args[:email]}"
+    puts "User's question_ids: #{question_ids.join(", ")}" if question_ids.length > 0
+  end
 end

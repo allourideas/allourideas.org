@@ -37,6 +37,16 @@ class EarlTest < ActiveSupport::TestCase
     end
   end
 
+  should "allow redaction" do
+    matt_admin = Factory :email_confirmed_user,
+      :email => "mjs3@princeton.edu",
+      :admin => true
+    e = Factory.create(:earl)
+    e.redact!
+    assert_equal false, e.active
+    assert_equal matt_admin.id, e.user_id
+  end
+
   should "update the proper fields when requiring verification" do
     e = Earl.new
     e.require_verification!

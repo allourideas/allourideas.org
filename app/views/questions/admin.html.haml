@@ -10,7 +10,7 @@
         #question-saved.alert.alert-success.hide
           = t('questions.question_saved')
         %table.table.table-bordered.table-striped.table-condensed.tablesorter.ideas-table
-          %thead 
+          %thead
             %tr
               %th
                 %span.question-name
@@ -24,7 +24,7 @@
                 = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
               %th.score=  t('questions.source')
               %th.score= t('items.list.status').titleize
-          %tbody 
+          %tbody
             -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
               %tr
                 %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), question_choice_url(@earl.name, choice), :id => choice.id, :question_id => @earl.name, :"data-toggle" => "modal-ajax"
@@ -33,13 +33,13 @@
                 %td.votes{:id => "choice_#{choice.id}_status"}
                   -if @choices.size < 3
                     = choice.active? ? t('items.list.activated') : t('items.list.deactivated')
-                  -else 
+                  -else
                     %button.toggle_choice_status.btn{:class => choice.active? ? 'btn-primary' : '', :"data-earl_id" => @earl.id, :"data-choice_id" => choice.id, :"data-status" => "#{choice.active?}"}
                       = choice.active? ? 'Activated' : 'Deactivated'
         %p
-          = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago') 
+          = t('admin.this_question_created') + " #{time_ago_in_words(@earl.created_at)} " + t('admin.ago')
           = t('admin.and_registered_to') + ": " + @earl.user.email
-    
+
     .row-fluid
       .span12.question-admin-form
         -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
@@ -61,7 +61,7 @@
               = f.label :pass, t('user.password') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
               .controls
                 = f.text_field :pass
-    
+
             .control-group
               = f.label :welcome_message, "Welcome message " + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
               .controls
@@ -75,12 +75,6 @@
               = f.label :ga_code, t('admin.google_analytics_code') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank'), :class => 'control-label'
               .controls
                 = f.text_field :ga_code
-            .control-group
-              %label.control-label
-                = t('admin.widget_embed_code') 
-                = link_to('', 'http://blog.allourideas.org/post/912665189/improved-widget-gives-you-more-control', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')
-              .controls
-                %input.widget-embed-code.input-xxlarge{:type => 'text', :readonly => 'readonly', :size => 30, :value => "<iframe src='http://widget.allourideas.org/#{@earl.name}' width='550' height='650' frameborder='0' scrolling='no'></iframe>"}
             #edit-image.control-group
               -if @earl.logo_file_name
                 = f.label :logo_file_name, "Replace logo", :class => 'control-label'
@@ -108,7 +102,7 @@
                 Save changes
               %a.btn{:href => ""}
                 Cancel
-    
+
         %fieldset.download-data
           %legend
             = t('admin.download_idea_marketplace_data')
@@ -128,7 +122,7 @@
               = t('admin.list_of_non_votes_csv')
             .span2
               = link_to(t('admin.request'), {:action => :export, :params => {:type => :non_votes}}, :"data-toggle" => 'modal-ajax', :class => "btn btn-primary")
-        
+
   #cant-edit-question.modal.hide.fade
     .modal-body
       %p= t('questions.cant_edit_question')
@@ -143,14 +137,14 @@
       - form_tag update_name_question_path(@earl), :method => :put do
         %p
           =t('questions.your_current_question_text', :question_text => h(@question.name), :"1" => '<span class="question-name">', :"_1" => '</span>')
-        %p 
+        %p
           =t('questions.type_question_prompt')
         = text_area_tag('question[name]', h(@question.name), :rows => 2, :maxlength => 255, :class => 'new_idea_field input-xxlarge', :id => 'edit_question_text')
         %h3.new_idea_counter
     .modal-footer
       %button.btn{:"data-dismiss" => "modal"} Cancel
       %button.btn.btn-primary.new_idea_submit#edit_question_submit{:rel => @question.id}= t('vote.submit')
-    
+
   #score_explanation.modal.hide.fade
     .modal-header
       %button.close{:"data-dismiss" => 'modal'} x
@@ -163,7 +157,7 @@
       %p= t('admin.password_protect_exp')
     .modal-footer
       %button.close{:"data-dismiss" => 'modal'} x
-    
+
   #welcome_msg_explanation.modal.hide.fade
     .modal-header
       %button.close{:"data-dismiss" => 'modal'} x
@@ -171,7 +165,7 @@
     .modal-body
       %p= t('admin.welcome_msg_long_exp')
       %p= t('admin.welcome_msg_long_exp2')
-  
+
   #allow_flag_as_inappropriate_exp.modal.hide.fade
     .modal-body
       %p= t('admin.allow_flag_as_inappropriate_exp')

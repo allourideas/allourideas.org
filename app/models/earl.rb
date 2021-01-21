@@ -3,7 +3,7 @@ class Earl < ActiveRecord::Base
   validates_presence_of :question_id, :on => :create, :message => "can't be blank"
   validates_presence_of :name, :on => :create, :message => "can't be blank"
   validates_exclusion_of :name, :in => @@reserved_names, :message => "'%{value}' is reserved"
-  validates_format_of :name, :on => :create, :with => /\A[a-zA-Z0-9\.\-\_]+\z/, :message => "allows only 'A-Za-z0-9.-_' characters"
+  validates_format_of :name, :on => :create, :with => /\A[a-zA-Z0-9\-\_]+\z/, :message => "allows only 'A-Za-z0-9-_' characters"
   validates_uniqueness_of :name, :case_sensitive => false
   validates_length_of :welcome_message, :maximum=>350, :allow_nil => true, :allow_blank => true
   has_friendly_id :name, :reserved => @@reserved_names
@@ -87,7 +87,7 @@ class Earl < ActiveRecord::Base
     elsif type == "all_creators"
       votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "creators")
     elsif type == "uploaded_ideas"
-         
+
       earl = Earl.find earl_name
       question = Question.new
       question.id = earl.question_id
@@ -104,7 +104,7 @@ class Earl < ActiveRecord::Base
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => 'votes')
     end
-     
+
     votes_by_geoloc= {}
     object_total = 0
     votes_by_sids.each do |vote|
@@ -118,11 +118,11 @@ class Earl < ActiveRecord::Base
       end
 
       object_total += num_votes
-      if session.nil? || session.loc_info.nil? 
+      if session.nil? || session.loc_info.nil?
         if votes_by_geoloc["Unknown Location"].nil?
           votes_by_geoloc["Unknown Location"] = {}
           votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
-        else 
+        else
           votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
         end
 
@@ -141,7 +141,7 @@ class Earl < ActiveRecord::Base
    #       session.save
    #     end
    #   end
-       
+
       if !session.loc_info.empty?
         display_fields = [:city, :region, :country_code]
 
@@ -170,7 +170,7 @@ class Earl < ActiveRecord::Base
         if votes_by_geoloc["Unknown Location"].nil?
           votes_by_geoloc["Unknown Location"] = {}
           votes_by_geoloc["Unknown Location"][:num_votes] = num_votes
-        else 
+        else
           votes_by_geoloc["Unknown Location"][:num_votes] += num_votes
         end
       end

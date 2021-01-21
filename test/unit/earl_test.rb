@@ -10,8 +10,8 @@ class EarlTest < ActiveSupport::TestCase
     assert_valid Factory.create(:earl)
   end
 
-  should_allow_values_for :name, "UPPERCASE", "testing", "test12-_."
-  should_not_allow_values_for :name, Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+'
+  should_allow_values_for :name, "UPPERCASE", "testing", "test12-_"
+  should_not_allow_values_for :name, Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+', "test.123"
 
   should "validate uniqueness of name case insensitive" do
     e = Factory.create(:earl)
@@ -78,7 +78,7 @@ class EarlTest < ActiveSupport::TestCase
   end
 
   should "find proper earl by name" do
-    earl_names = ['slug.test', 'slug-test', 'S-TEST', 'S.TEST']
+    earl_names = ['slugtest', 'slug-test', 'S-TEST', 'STEST']
     earls = []
     earl_names.each do |name|
       earls << Factory.create(:earl, :name => name)

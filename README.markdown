@@ -5,6 +5,13 @@ All Our Ideas 2.0.  This codebase runs two sites [photocracy.org](http://www.pho
 
 The allourideas.org project provides the user-facing website for doing pairwise voting. This project depends on the API provided by [pairwise-api](https://github.com/allourideas/pairwise-api).  There are several models that are [ActiveResource](http://apidock.com/rails/v2.3.8/ActiveResource/Base) models that connect to the [pairwise API](https://github.com/allourideas/pairwise-api).
 
+Research
+-------------------
+To learn more about the research behind All Our Ideas, please see:
+- Salganik and Levy (2015) "[Wiki Surveys: Open and Quantifiable Social Data Collection](https://doi.org/10.1371/journal.pone.0123483
+)" _PLOS One_.
+- Salganik (2018) [_Bit by Bit: Social Research in the Digital Age_](https://www.bitbybitbook.com), Section 3.5.2 [Wiki surveys](https://www.bitbybitbook.com/en/1st-ed/asking-questions/how/wiki/).
+
 Installing
 -------------------
 

@@ -37,6 +37,7 @@ class EarlsController < ApplicationController
 		     :with_visitor_stats => true,
 		     :visitor_identifier => @survey_session.session_id}
 
+      show_params.merge!(:algorithm => @earl.prompt_algorithm) unless @earl.prompt_algorithm.blank?
       show_params.merge!({:future_prompts => {:number => 1}, :with_average_votes => true}) if @photocracy
 
       @question = Question.find(@earl.question_id, :params => show_params)

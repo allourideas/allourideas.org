@@ -210,6 +210,7 @@ class PromptsController < ApplicationController
                             :with_visitor_stats => true,
                             :visitor_identifier => @survey_session.session_id
                           }
+    next_prompt_params.merge!(:algorithm => @earl.prompt_algorithm) unless @earl.prompt_algorithm.blank?
     next_prompt_params.merge!(:future_prompts => {:number => 1}) if @photocracy
     next_prompt_params
   end

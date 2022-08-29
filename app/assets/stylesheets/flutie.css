@@ -1,0 +1,378 @@
+body {
+  color: #222;
+  font-size: 13px;
+  font-family: arial, "Helvetica Neue", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #111;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Success, error & notice boxes for messages and errors. */
+div.error, div.notice, div.success {
+  padding: .8em;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+div.error {
+  background: #FBE3E4;
+  color: #D12F19;
+  border-color: #FBC2C4;
+}
+div.error a { color: #D12F19; }
+
+div.notice {
+  background: #FFF6BF;
+  color: #817134;
+  border-color: #FFD324;a
+}
+div.notice a { color: #817134; }
+
+div.success {
+  background: #E6EFC2;
+  color: #529214;
+  border-color: #C6D880;
+}
+div.success a { color: #529214; }
+
+/* Misc classes and elements */
+
+/* Use a .box to create a padded box inside a column.  */
+.box {
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  background: #eee;
+}
+
+/* Use this to create a horizontal ruler across a column. */
+hr {
+  background: #ddd;
+  color: #ddd;
+  clear: both;
+  float: none;
+  width: 100%;
+  height: 1px;
+  margin: 0 0 1.4em;
+  border: none;
+}
+hr.space {
+  background: #fff;
+  color: #fff;
+}
+
+/* Clearfix hack I love you */
+.clearfix:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+
+.clearfix {display:inline-block;}
+/* Hide from IE Mac \*/
+.clearfix {display:block;}
+/* End hide from IE Mac */
+/* Forms */
+
+form ol {
+  list-style: none;
+  margin: 0 0 1em 0;
+}
+form ol ol { margin-left: 0; }
+form ol li { margin: 0 0 1em 0; }
+form ol ol li { margin: 0 0 .25em 0; }
+
+form ol li.error input { background: #FBE3E4; }
+p.inline-errors { color: #D12F19; }
+form ol li.file {
+  background: #e1e1e1;
+  border: 1px solid #c8c8c8;
+  padding: 10px;
+}
+
+form abbr { border-bottom: 0; }
+
+label { display: block; }
+.required label { font-weight: bold; }
+.checkbox_field label, .radio_field label { font-weight: normal; }
+
+a.cancel { color: #7d0d0d; }
+.inline-hints {
+  font-size: .8em;
+  color: #666;
+  margin-bottom: .25em;
+}
+
+/* Fieldsets */
+fieldset {
+  margin: 0 0 1.5em 0;
+  background: #f1f1f1;
+  padding: 1.5em 1.5em 1em 1.5em;
+  border: 1px solid #e3e3e3;
+}
+fieldset fieldset, fieldset fieldset fieldset {
+  padding: 0;
+  border: 0;
+}
+legend { font-weight: bold; }
+fieldset.buttons {
+  background: inherit;
+  border: 0;
+  padding: 0;
+}
+fieldset.buttons li { display: inline; }
+.radio fieldset {
+  padding: 0;
+  margin: 0;
+}
+
+/* Text fields */
+input[type="text"], input[type="password"] {
+  width: 300px;
+  padding: 3px 2px;
+  font-size: inherit;
+}
+input[disabled='disabled'] {
+  background-color: #fcfcfc;
+  cursor:default;
+}
+input[type="checkbox"] {
+  margin: 0 3px 0 0;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+input[type="radio"] {
+  margin: 0 3px 0 0;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+.check_boxes label {
+  vertical-align: middle;
+  padding: 0;
+  display: inline;
+}
+.radio label { padding: 0; }
+
+/* Textareas */
+textarea {
+  width: 440px;
+  height: 200px;
+  margin: 0 0.5em 0.5em 0;
+  padding: 5px;
+  font-size: inherit;
+}
+
+/* Select fields */
+fieldset .select select {
+  width:200px;
+  font-size: .9em;
+}
+optgroup { margin: 0 0 .5em 0; }
+
+/* Date & Time */
+form ol li.date ol li, form ol li.time ol li {
+  display: inline;
+}
+form ol li.datetime ol li {
+  display: inline-block;
+}
+form ol li.datetime select, form ol li.date select, form ol li.time select {
+  display: inline;
+  width: auto;
+}
+form ol li.date label, form ol li.time label {
+  display: none;
+}
+/* Lists */
+
+ul, ol {
+  margin-bottom:  1.5em;
+  list-style-position: inside;
+}
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+
+dl {
+  margin-bottom: 1.5em;
+  line-height: 1.4;
+}
+dl dt {
+  font-weight: bold;
+  margin-top: .5em;
+}
+dl dd { margin-bottom: 0em;}
+dd { margin-left: .5em; }
+
+li { line-height: 1.4; }
+
+ol ol, ol ul, ul ul, ul ol {
+  margin-left: 1em;
+}
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* Tables */
+
+table {
+  margin-bottom: 2em;
+  width: 100%;
+}
+th {
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  text-align: left;
+}
+td { border-bottom: 1px solid #ddd; }
+caption, th, td {
+  padding: 4px 10px 4px 0;
+}
+caption {
+  background: #f1f1f1;
+  padding: 10px 0;
+  margin-bottom: 1em;
+}
+
+/* Use this if you use span-x classes on th/td. */
+table .last { padding-right: 0; }
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+
+h1 {
+  font-size: 2.2em;
+  line-height: 1;
+  margin-bottom: 0.25em;
+}
+h2 {
+  font-size: 1.6em;
+  margin-bottom: 0.25em;
+  line-height: 1.1;
+}
+h3 {
+  font-size: 1.3em;
+  line-height: 1;
+  margin-bottom: .25em;
+}
+h4 {
+  font-size: 1.1em;
+  line-height: 1.25;
+  margin-bottom: .25em;
+}
+h5 {
+  font-size: 1em;
+  margin-bottom: .25em;
+}
+h6 {
+  font-size: 1em;
+  margin-bottom: .25em;
+}
+
+/* Text elements */
+
+p.last { margin-bottom: 0; }
+p img {
+  float: left;
+  margin: 1.5em 1.5em 1.5em 0;
+  padding: 0;
+}
+p img.top { margin-top: 0; } /* Use this if the image is at the top of the <p>. */
+img { margin: 0 0 1.5em; }
+
+abbr, acronym {
+  border-bottom: 1px dotted #666;
+  cursor: help;
+}
+address {
+  margin-top: 1.5em;
+  font-style: italic;
+}
+del { color:#666; }
+
+a, a:link {
+  color: #1a4882;
+  text-decoration: underline;
+}
+a:visited { color: #1a4882; }
+a:hover { color: #052246; }
+a:active, a:focus { color: #1a4882; }
+
+blockquote {
+  margin: 1.5em 0;
+  color: #666;
+  font-style: italic;
+  padding-left: 1em;
+  border-left: 4px solid #d1d1d1;
+}
+strong { font-weight: bold; }
+em, dfn { font-style: italic;  }
+dfn { font-weight: bold; }
+pre, code {
+  margin: 1.5em 0;
+  white-space: pre;
+}
+pre, code, tt {
+  font: 1em 'andale mono', 'monotype.com', 'lucida console', monospace;
+  line-height: 1.5;
+}
+pre.code {
+  background: #000;
+  color: #fff;
+  padding: 20px;
+}
+tt {
+  display: block;
+  margin: 1.5em 0;
+  line-height: 1.5;
+}

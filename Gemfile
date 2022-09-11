@@ -17,7 +17,7 @@ gem "rails", "7.0.3.1"
 gem "sprockets-rails"
 gem "libxml-ruby", "2.9.0", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
-gem "paperclip", "2.3.1"
+gem "paperclip", "6.1.0"
 gem "mime-types", "1.16",
     :require => "mime/types"
 gem "xml-simple", "1.1.9",
@@ -71,3 +71,7 @@ gem "newrelic_rpm"
 gem "redis-store", "~> 1.9"
 
 gem "will_paginate", "~> 3.3"
+
+gem "activeresource", "~> 6.0"
+
+gem "friendly_id", "~> 5.4"

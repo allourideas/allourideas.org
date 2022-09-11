@@ -51,9 +51,17 @@ GEM
       globalid (>= 0.3.6)
     activemodel (7.0.3.1)
       activesupport (= 7.0.3.1)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (7.0.3.1)
       activemodel (= 7.0.3.1)
       activesupport (= 7.0.3.1)
+    activeresource (6.0.0)
+      activemodel (>= 6.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (>= 6.0)
     activestorage (7.0.3.1)
       actionpack (= 7.0.3.1)
       activejob (= 7.0.3.1)
@@ -92,6 +100,7 @@ GEM
       bcrypt (>= 3.1.1)
       email_validator (~> 2.0)
       railties (>= 5.0)
+    climate_control (0.2.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     cucumber (1.1.0)
@@ -128,6 +137,8 @@ GEM
       rake
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
+    friendly_id (5.4.2)
+      activerecord (>= 4.0.0)
     gherkin (2.5.4)
       json (>= 1.4.6)
     globalid (1.0.0)
@@ -164,6 +175,9 @@ GEM
     memoist (0.16.2)
     method_source (1.0.0)
     mime-types (1.16)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.1.2)
     minitest (5.16.3)
     msgpack (1.5.6)
@@ -187,7 +201,12 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
-    paperclip (2.3.1)
+    paperclip (6.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     passenger (6.0.14)
       rack
       rake (>= 0.8.1)
@@ -287,6 +306,8 @@ GEM
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     test-unit (1.2.3)
       hoe (>= 1.5.1)
     thor (1.2.1)
@@ -314,6 +335,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activeresource (~> 6.0)
   ambethia-smtp-tls (= 1.1.2)
   bootsnap
   bugsnag (~> 5.5.0)
@@ -330,6 +352,7 @@ DEPENDENCIES
   fakeweb (~> 1.2.5)
   fastercsv (= 1.5.1)
   formtastic (= 4.0.0)
+  friendly_id (~> 5.4)
   has_scope (= 0.8.0)
   iconv
   inherited_resources (= 1.13.1)
@@ -342,7 +365,7 @@ DEPENDENCIES
   mime-types (= 1.16)
   mysql2 (= 0.5.4)
   newrelic_rpm
-  paperclip (= 2.3.1)
+  paperclip (= 6.1.0)
   passenger
   pickle (~> 0.4.7)
   poltergeist (~> 1.0.1)

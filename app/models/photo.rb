@@ -1,16 +1,12 @@
 class Photo < ActiveRecord::Base
-  paperclip_options = {:styles => 
-                         { :large => "600x600>",
-                           :medium => "425x340>",
-                           :thumb => "x50" 
-                         },
-			:processors => [:rotator]
-                      }
+  paperclip_options = { :styles => { :large => "600x600>",
+                                     :medium => "425x340>",
+                                     :thumb => "x50" },
+                        :processors => [:rotator] }
   unless ["cucumber", "development"].include?(Rails.env)
     paperclip_options.merge!({ :path => ":attachment/:id/:style.:extension",
                                :storage => :s3,
-                               :s3_credentials => "#{RAILS_ROOT}/config/s3.yml"
-			      })
+                               :s3_credentials => "#{Rails.root}/config/s3.yml" })
   end
 
   has_attached_file :image, paperclip_options
@@ -23,12 +19,12 @@ class Photo < ActiveRecord::Base
     self.rotation += degrees
     self.rotation -= 360 if self.rotation >= 360
     self.rotation += 360 if self.rotation <= -360
-    
+
     self.rotate = true
     self.image.reprocess!
     self.save
   end
-  
+
   def rotating?
     !self.rotation.nil? and self.rotate
   end
@@ -37,5 +33,4 @@ class Photo < ActiveRecord::Base
   def photo_name
     (original_file_name.blank?) ? self.image.original_filename : original_file_name
   end
-
 end

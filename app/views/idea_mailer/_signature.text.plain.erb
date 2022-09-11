@@ -1,7 +1,7 @@
 <%= @photocracy ? 'Photocracy' : 'All Our Ideas' %>
 145 Wallace Hall
 Princeton, NJ 08544
-<%= @photocracy ? APP_CONFIG[:INFO_PHOTOCRACY_EMAIL] : APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL] %>
+<%= @photocracy ? ENV["INFO_PHOTOCRACY_EMAIL"] : ENV["INFO_ALLOURIDEAS_EMAIL"] %>
 
 <% if @photocracy -%>
 For more about Photocracy:

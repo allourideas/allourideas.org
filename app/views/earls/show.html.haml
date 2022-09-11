@@ -3,7 +3,7 @@
   %meta{:property => 'og:title', :content => "#{h @question.name}"}
   -if @earl && !@earl.logo_file_name.nil?
     %meta{:property => 'og:image', :content => "#{request.protocol}#{request.host_with_port}" + image_path(@earl.logo.url)}
-  
+
 -@item_data, @item_ids = [], []
 = render :partial => 'shared/header_vote', :locals => {:question => @question}
 
@@ -58,7 +58,7 @@
   .modal-body
     %p
       There was a problem processing your request. Sometimes this happens when your browser cookies are deleted. When you close this message, the page will reload, and you can try again. If the problem persists, please email
-      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+      %a{:href => "mailto:#{ENV["INFO_ALLOURIDEAS_EMAIL"]}"}= "#{ENV["INFO_ALLOURIDEAS_EMAIL"]}."
 
 #unknown_request_error.request_error.hide.modal.fade
   .modal-header
@@ -69,7 +69,7 @@
       There was a problem processing your request. The error is of type
       %span.error-type RuntimeError.
       When you close this message, the page will reload, and you can try again. If the problem persists, please email
-      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+      %a{:href => "mailto:#{ENV["INFO_ALLOURIDEAS_EMAIL"]}"}= "#{ENV["INFO_ALLOURIDEAS_EMAIL"]}."
 
 #timeout_request_error.request_error.hide.modal.fade
   .modal-header
@@ -79,7 +79,7 @@
     %p
       There was a problem processing your request. The request timed out while attempting to contact our servers.
       When you close this message, the page will reload, and you can try again. If the problem persists, please email
-      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+      %a{:href => "mailto:#{ENV["INFO_ALLOURIDEAS_EMAIL"]}"}= "#{ENV["INFO_ALLOURIDEAS_EMAIL"]}."
 
 #abort_request_error.request_error.hide.modal.fade
   .modal-header
@@ -89,7 +89,7 @@
     %p
       There was a problem processing your request. The request was cancelled.
       When you close this message, the page will reload, and you can try again. If the problem persists, please email
-      %a{:href => "mailto:#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}"}= "#{APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL]}."
+      %a{:href => "mailto:#{ENV["INFO_ALLOURIDEAS_EMAIL"]}"}= "#{ENV["INFO_ALLOURIDEAS_EMAIL"]}."
 
 -content_for :view_javascript do
   :plain
@@ -112,7 +112,7 @@
                   %p
                     %button.btn.btn-primary.btn-block{:class => choice, :'data-questionid' => @question.id, :"data-reason" => choice, :"data-dismiss" => 'modal'}
                       =t('vote.cd_'+choice)
-                      - if choice == 'dont_know_left' 
+                      - if choice == 'dont_know_left'
                         .leftside
                           %em= h(@left_choice_text)
                       - elsif choice == 'dont_know_right'
@@ -172,4 +172,4 @@
       $('.firsttime, #close, .vote_cell').bind("click", function() {
         $(".firsttime").fadeOut(500);
       });
-  =render :partial => 'vote_box_js' 
+  =render :partial => 'vote_box_js'

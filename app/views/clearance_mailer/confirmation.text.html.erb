@@ -2,16 +2,16 @@
 
 <%- if @earl.requires_verification? %>
 <p>This email confirms your recent activity on http://www.<%= @photocracy ? 'photocracy' : 'allourideas' %>.org. Before your wiki survey is activated, please verify your email address by clicking the link below:<br/>
-<% url = earl_verify_url(:host => @photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST], :id => @earl.name, :code => @earl.verify_code) %>
+<% url = earl_verify_url(:host => @photocracy ? ENV["PHOTOCRACY_HOST"] : ENV["HOST"], :id => @earl.name, :code => @earl.verify_code) %>
 <a href="<%= url %>"><%= url %></a>
 </p>
 <%- else -%>
-<p>This email confirms your recent activity on http://www.<%= @photocracy ? 'photocracy' : 'allourideas' %>.org. Here's the website you created: <%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %></p>
+<p>This email confirms your recent activity on http://www.<%= @photocracy ? 'photocracy' : 'allourideas' %>.org. Here's the website you created: <%= "http://#{@photocracy ? ENV["PHOTOCRACY_HOST"] : ENV["HOST"]}/#{@earl.name}" %></p>
 <%- end -%>
 <%- if @photocracy -%>
 
 <p>The more photos you upload, the better your results.
-Add photos here: <%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}/addphotos" %></p>
+Add photos here: <%= "http://#{@photocracy ? ENV["PHOTOCRACY_HOST"] : ENV["HOST"]}/#{@earl.name}/addphotos" %></p>
 <%- end -%>
 
 <p>Thanks,</p>

@@ -1,11 +1,11 @@
 class SiteConfig
-  def self.set_pairwise_credentials(photocracy=false)
+  def self.set_pairwise_credentials(photocracy = false)
     if photocracy
-       username = APP_CONFIG[:PHOTOCRACY_USERNAME]
-       password = APP_CONFIG[:PHOTOCRACY_PASSWORD]
+      username = ENV["PHOTOCRACY_USERNAME"]
+      password = ENV["PHOTOCRACY_PASSWORD"]
     else
-       username = APP_CONFIG[:PAIRWISE_USERNAME]
-       password = APP_CONFIG[:PAIRWISE_PASSWORD]
+      username = ENV["PAIRWISE_USERNAME"]
+      password = ENV["PAIRWISE_PASSWORD"]
     end
     active_resource_classes = [Choice, Density, Prompt, Question, Session]
     active_resource_classes.each do |klass|

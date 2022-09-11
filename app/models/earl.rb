@@ -6,7 +6,7 @@ class Earl < ActiveRecord::Base
   validates_format_of :name, :on => :create, :with => /\A[a-zA-Z0-9\-\_]+\z/, :message => "allows only 'A-Za-z0-9-_' characters"
   validates_uniqueness_of :name, :case_sensitive => false
   validates_length_of :welcome_message, :maximum => 350, :allow_nil => true, :allow_blank => true
-  #TODO: Get the new friendly_id gem working
+  #TODO: Get the new friendly_id gem
   #has_friendly_id :name, :reserved => @@reserved_names
   has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
 
@@ -258,7 +258,7 @@ class Earl < ActiveRecord::Base
             unless user_session.nil? #edge case, all appearances and votes after april 8 should have session info
               url_alias = self.name
 
-              row << ["Hashed IP Address", Digest::MD5.hexdigest([user_session.ip_addr, APP_CONFIG[:IP_ADDR_HASH_SALT]].join(""))]
+              row << ["Hashed IP Address", Digest::MD5.hexdigest([user_session.ip_addr, ENV["IP_ADDR_HASH_SALT"]].join(""))]
               row << ["URL Alias", url_alias]
               row << ["User Agent", user_session.user_agent]
 

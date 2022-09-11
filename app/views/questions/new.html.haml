@@ -1,7 +1,7 @@
 .row.fluid
   .span12
     %h2= t('questions.new.header')
-    
+
     %p
       = t('questions.new.exp')
       = link_to(t('questions.new.see_an'), "/studentgovernment")
@@ -23,7 +23,7 @@
                     %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
                   - else
                     %li= "#{field} #{error}".capitalize
-      
+
         %fieldset#step1
           %legend= t('questions.new.step1')
           .control-group
@@ -32,15 +32,15 @@
             .controls
               = f.text_field 'name', :size => 60, :placeholder => t('questions.new.step1_exp'), :class => 'required span8', :maxlength => Const::MAX_QUESTION_LENGTH
             = hidden_field_tag 'default_text', t('questions.new.step1_exp')
-        
+
         %fieldset#step2
           %legend= t('questions.new.step2')
           .control-group
             .input-prepend
-              %label.add-on{:for => "question_url"}= "http://#{APP_CONFIG[:HOST]}/"
+              %label.add-on{:for => "question_url"}= "http://#{ENV["HOST"]}/"
               = f.text_field 'url', :class => 'required span4', :placeholder => (@question && @question.url) || t('questions.new.step2_exp')
             = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
-            
+
 
         %fieldset#step3
           %legend= t('questions.new.step3')
@@ -49,13 +49,13 @@
               = t('questions.new.step3_ist')
               = t('questions.new.step3_ist2')
               == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
-    
+
             .controls
               = f.text_area 'ideas', :class => 'required span8', :cols => 85, :rows => 12, :placeholder => t('questions.new.step3_exp')
           = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
-    
+
         -unless signed_in?
-          
+
           %fieldset#step4
             %legend= t('questions.new.step4')
             %p
@@ -65,12 +65,12 @@
               %label.control-label{:for => "question_email"}= "#{t('user.email')}:"
               .controls
                 = f.text_field 'email', :size => 30, :class => 'required email span8', :maxlength => Const::MAX_QUESTION_LENGTH
-    
+
             .control-group
               %label.control-label{:for => "question_password"}= "#{t('user.password')}:"
               .controls
                 = f.password_field 'password', :class => 'password required span8', :size => 20
-    
+
         %fieldset#step5
           -if signed_in?
             %legend= "Step 4 [#{t('questions.new.optional')}]: #{t('questions.new.help_us_out')}"
@@ -82,12 +82,12 @@
               = t('questions.new.tell_us_why2')
             .controls
               = f.text_area 'information', :class => 'span8', :cols => 85, :rows => 12
-        
+
         .form-actions
           %button#question_create_button.btn.btn-large.btn-primary{:type => "submit"}
             = t('form.create')
-        
-    
+
+
     #indicator.indicator{:style => "display:none;"}= image_tag('indicator.gif')
 
 -content_for :view_javascript do

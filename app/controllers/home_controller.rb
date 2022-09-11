@@ -1,18 +1,19 @@
 class HomeController < ApplicationController
   include ActionView::Helpers::TextHelper
   #caches_page :about, :tour, :privacy
-  before_filter :authenticate, :only => [:admin]
-  before_filter :admin_only, :only => [:no_google_tracking]
+  before_action :authenticate, :only => [:admin]
+  before_action :admin_only, :only => [:no_google_tracking]
 
-  skip_before_filter :initialize_session, :set_session_timestamp, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
+  #  skip_before_action  :set_session_timestamp
+  skip_before_action :initialize_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
 
   def index
-    @example_earl = 'planyc_example'
+    @example_earl = "planyc_example"
     Question.timeout = 0.5
     begin
       @stats = Question.get(:site_stats)
     rescue
-      @stats = {"total_questions" => 2803, "votes_count" => 3694534, "choices_count" => 139963}
+      @stats = { "total_questions" => 2803, "votes_count" => 3694534, "choices_count" => 139963 }
     end
     Question.timeout = nil
   end
@@ -23,11 +24,11 @@ class HomeController < ApplicationController
   def cookies_blocked
     BlockedCookie.create(:ip_addr => request.remote_ip, :question_id => params[:question_id], :referrer => params[:referrer], :source => request.referrer, :user_agent => request.env["HTTP_USER_AGENT"], :session_id => params[:session_id])
     # send 1x1 gif in response
-    send_data(Base64.decode64('R0lGODlhAQABAAAAADs='), :type => "image/gif", :disposition => "inline")
+    send_data(Base64.decode64("R0lGODlhAQABAAAAADs="), :type => "image/gif", :disposition => "inline")
   end
 
   def example
-	  redirect_to("/planyc_example") and return
+    redirect_to("/planyc_example") and return
   end
 
   def verify
@@ -43,37 +44,38 @@ class HomeController < ApplicationController
   def admin
     if current_user.admin?
       if @photocracy
-        @earls = Earl.find(:all, :conditions => {:photocracy => true})
+        @earls = Earl.find(:all, :conditions => { :photocracy => true })
       else
-        @earls = Earl.find(:all, :conditions => {:photocracy => false})
+        @earls = Earl.find(:all, :conditions => { :photocracy => false })
       end
-      all = params[:all] == 'true'
+      all = params[:all] == "true"
       @questions = Question.find(:all, :params => {
-                                   :votes_since => Date.today,
-                                   :user_ideas => true,
-                                   :active_user_ideas => true,
-                                   :all => all })
+                                         :votes_since => Date.today,
+                                         :user_ideas => true,
+                                         :active_user_ideas => true,
+                                         :all => all,
+                                       })
 
       @available_charts = {}
-      @available_charts['votes'] = { :title => "Number of all votes over time"}
-      @available_charts['user_submitted_ideas'] = { :title => "Number of all submitted ideas over time"}
-      @available_charts['user_sessions'] = { :title => "Number of all user sessions per day"}
-      @available_charts['unique_users'] = { :title => "Number of all unique users per day"}
+      @available_charts["votes"] = { :title => "Number of all votes over time" }
+      @available_charts["user_submitted_ideas"] = { :title => "Number of all submitted ideas over time" }
+      @available_charts["user_sessions"] = { :title => "Number of all user sessions per day" }
+      @available_charts["unique_users"] = { :title => "Number of all unique users per day" }
 
       @blocked_cookies = BlockedCookie.today.group_by(&:question_id)
     else
-      @earls = current_user.earls.sort_by {|x| [(!x.active).to_s, x.name]}
+      @earls = current_user.earls.sort_by { |x| [(!x.active).to_s, x.name] }
       @questions = Question.find(:all, :params => {
-                                   :creator => current_user.id,
-                                   :votes_since => Date.today,
-                                   :all => true })
-
+                                         :creator => current_user.id,
+                                         :votes_since => Date.today,
+                                         :all => true,
+                                       })
     end
-    @questions_map = @questions.inject({}){ |h,q| h[q.id] = q; h }
+    @questions_map = @questions.inject({}) { |h, q| h[q.id] = q; h }
   end
 
   def wikipedia_banner_challenge_gallery
-    @earl = Earl.find_by_name('wikipedia-banner-challenge')
+    @earl = Earl.find_by_name("wikipedia-banner-challenge")
     @images = {
       "0001" => "http://meta.wikimedia.org/wiki/File:Jimmy.png",
       "0002" => "http://meta.wikimedia.org/wiki/File:Jamesbanner.png",
@@ -112,6 +114,6 @@ class HomeController < ApplicationController
       "0035" => "http://meta.wikimedia.org/wiki/File:Wmf_sdtpa_servers_2009-01-20_34.jpg",
       "0036" => "http://commons.wikimedia.org/wiki/File:Einzelne_Kerze.JPG",
     }
-    render(:template => 'wikipedia/gallery', :layout => '/wikipedia/layout') && return
+    render(:template => "wikipedia/gallery", :layout => "/wikipedia/layout") && return
   end
 end

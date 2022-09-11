@@ -7,7 +7,7 @@
         %p It looks like an error occurred on our servers. Sorry about that. We couldn't find the page you were looking for. Please check the URL you are trying to reach, you may have mis-typed it.
         %p
           If you believe this page should exist, please send us an email -
-          = mail_to(APP_CONFIG[:INFO_PHOTOCRACY_EMAIL])
+          = mail_to(ENV["INFO_PHOTOCRACY_EMAIL"])
         .float_left{:style => 'margin-right:20px'}
           =link_to "Return Home", "/", :class => 'button green'
         .float_left
@@ -18,6 +18,6 @@
     .grid_8
       .padding.center{:style => 'padding:30px'}
         =image_tag('photocracy/homepage_photos_min.png', :width => '325', :height => '325')
-        
-  
+
+
     .clear

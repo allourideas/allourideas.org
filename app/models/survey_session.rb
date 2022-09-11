@@ -1,11 +1,11 @@
 class SurveySession
-  @@verifier = ActiveSupport::MessageVerifier.new(APP_CONFIG[:SURVEY_SESSION_SECRET])
+  @@verifier = ActiveSupport::MessageVerifier.new(ENV["SURVEY_SESSION_SECRET"])
   @@expire_time = 10.minutes
   @@cookie_prefix = "aoi_"
 
   attr_reader :cookie_name, :old_session_id
 
-  def initialize(data, cookie_name=nil)
+  def initialize(data, cookie_name = nil)
     @data, @cookie_name = data, cookie_name
 
     # Clean up question_id to ensure it is either a positive integer or nil.
@@ -79,7 +79,7 @@ class SurveySession
   # Given a hash of cookies, a question_id, and appearance_lookup,
   # return the cookie data and cookie name in an array that best matches.
   # If there are multiple cookies that match, we return the first that is matched.
-  def self.find(cookies, question_id, appearance_lookup=nil)
+  def self.find(cookies, question_id, appearance_lookup = nil)
     if question_id.to_i < 1 && !appearance_lookup.nil?
       raise SessionHasNoQuestionId, "Can't find session with appearance_lookup that has no question_id"
     end
@@ -91,18 +91,18 @@ class SurveySession
     end.sort
 
     if possible_cookie_names.length == 0
-      raise CantFindSessionFromCookies, 'No possible cookies available'
+      raise CantFindSessionFromCookies, "No possible cookies available"
     else
       possible_cookie_names.each do |cookie_name|
         begin
           # Extract data from cookie in a way that ensures no user tampering.
           data = @@verifier.verify(cookies[cookie_name])
           # Safe guard against unexpected value of cookie data.
-          raise CantFindSessionFromCookies, 'Data is not hash' if data.class != Hash
+          raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash
           # The question_id in the cookie_name could be altered by the user. To
           # protect against tampering, we verify the question_id in the cookie
           # value matches the one we're looking for.
-          raise CantFindSessionFromCookies, 'Question ID did not match cookie name' if data[:question_id].to_i != question_id.to_i
+          raise CantFindSessionFromCookies, "Question ID did not match cookie name" if data[:question_id].to_i != question_id.to_i
           # If appearance_lookup is nil, we can return now because we've found
           # the first cookie that is match. There may be other matches, but we
           # have no way to determine which might be best. We always return the
@@ -111,33 +111,35 @@ class SurveySession
           if data[:appearance_lookup] == appearance_lookup
             return [data, cookie_name]
           end
-        # We'll allow verification failures as other cookies match.
+          # We'll allow verification failures as other cookies match.
         rescue ActiveSupport::MessageVerifier::InvalidSignature
         end
       end
       # If we've gotten this far, we've failed to find a cookie.
       if appearance_lookup.nil?
-        raise CantFindSessionFromCookies, 'All possible cookies failed verification'
+        raise CantFindSessionFromCookies, "All possible cookies failed verification"
       else
-        raise CantFindSessionFromCookies, 'No cookie found valid with appearance_lookup'
+        raise CantFindSessionFromCookies, "No cookie found valid with appearance_lookup"
       end
     end
-
   end
 
   protected
+
   def generate_session_id
     # ActiveResource::HttpMock only matches static strings for query parameters
     # when in test set this to a static value, so we can match the resulting API
     # queries for mocking.
-    return 'test123' if Rails.env == 'test'
+    return "test123" if Rails.env == "test"
     ActiveSupport::SecureRandom.hex(16)
   end
-
 end
+
 class CantFindSessionFromCookies < StandardError
 end
+
 class SessionHasNoQuestionId < StandardError
 end
+
 class QuestionIdIsNotPositiveInteger < StandardError
 end

@@ -2,7 +2,7 @@
   .span8
     %h1 About this project
     %p
-      All Our Ideas is a research project that seeks to develop a new form of social data collection by combining the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups. 
+      All Our Ideas is a research project that seeks to develop a new form of social data collection by combining the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups.
     %p
       The All Our Ideas research group is led by Matthew Salganik from the Department of Sociology at Princeton University. Our project grew out of discussions between Matt and Josh Weinstein, then president of the Princeton Undergraduate Student Government, about how to collect and prioritize the ideas of Princeton students. A research group was formed, and our first project, a collaboration with the Princeton student government, called <a href="http://www.dailyprincetonian.com/2008/11/06/22005/">"Which do you want more?"</a> was launched in November 2008. All Our Ideas was then launched in February 2010. Current and former group members include (in chronological order): Josh Weinstein, Nadia Heninger, Bill Zeller, Peter Lubell-Doughtie, Dhwani Shah, Adam Sanders, Bambi Tsui, Pius Uzamere, Karen Levy, Dhruv Kapadia, Dmitri Garbuzov, Brian Tubergen, Chap Ambrose, Calvin Lee, and Luke Baker.
     %p
@@ -13,7 +13,7 @@
       For more frequent updates on the project, you can <a href="http://blog.allourideas.org/">read our blog</a>, <a href="http://twitter.com/allourideas">follow us on Twitter</a> or <a href="https://www.facebook.com/allourideas">Like us on Facebook.</a>
     %p
       You can contact us by email at
-      = mail_to(APP_CONFIG[:INFO_ALLOURIDEAS_EMAIL])
+      = mail_to(ENV["INFO_ALLOURIDEAS_EMAIL"])
     %p
       = link_to(t('nav.privacy_policy'), privacy_path)
 

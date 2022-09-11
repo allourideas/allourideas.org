@@ -16,7 +16,7 @@
 <% end %>
 
 <p><%= @photocracy ? t('items.email.see_current_results_photocracy') : t('items.email.see_current_results') %><br/>
-<a href="<%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %>"><%= "http://#{@photocracy ? APP_CONFIG[:PHOTOCRACY_HOST] : APP_CONFIG[:HOST]}/#{@earl.name}" %></a></p>
+<a href="<%= "http://#{@photocracy ? ENV["PHOTOCRACY_HOST"] : ENV["HOST"]}/#{@earl.name}" %>"><%= "http://#{@photocracy ? ENV["PHOTOCRACY_HOST"] : ENV["HOST"]}/#{@earl.name}" %></a></p>
 
 <p><%= t('items.email.thanks') %></p>
 <%= render :partial => 'idea_mailer/signature' %>

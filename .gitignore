@@ -18,7 +18,7 @@ doc/app
 .bundle
 bin/
 vendor/ruby
-#config/database.yml
+config/database.yml
 
 # Ignore bundler config.
 /.bundle
@@ -37,6 +37,7 @@ vendor/ruby
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
+
 
 # Ignore uploaded files in development.
 /storage/*

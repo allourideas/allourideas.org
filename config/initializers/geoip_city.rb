@@ -1,1 +1,5 @@
-GEOIP_DB = GeoIP.new(File.join(RAILS_ROOT, 'db/GeoLiteCity.dat'))
+#require 'maxmind/geoip2'
+
+#GEOIP_DB = MaxMind::GeoIP2::Reader.new(
+#  database: 'db/GeoLiteCity.dat',
+#)

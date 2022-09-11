@@ -1,4 +1,5 @@
-class BootstrapPagination < WillPaginate::LinkRenderer
+=begin
+class BootstrapPagination < WillPaginate::ViewHelpers::LinkRenderer
 
   def initialize
     @gap_marker = '<li class="disabled gap"><a href="javascript://">&hellip;</a></li>'
@@ -7,7 +8,7 @@ class BootstrapPagination < WillPaginate::LinkRenderer
   def page_link_or_span(page, span_class, text = nil)
     text ||= page.to_s
     if span_class.include?('prev_page')
-      classname = 'prev' 
+      classname = 'prev'
     elsif span_class.include?('next_page')
       classname = 'next'
     else
@@ -23,3 +24,4 @@ class BootstrapPagination < WillPaginate::LinkRenderer
   end
 
 end
+=end

@@ -1,1 +1,3 @@
-Geokit::Geocoders::request_timeout = 3
+#require "geokit"
+
+#Geokit::Geocoders::request_timeout = 3

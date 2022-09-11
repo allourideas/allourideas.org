@@ -5,15 +5,15 @@ require_relative "config/application"
 
 Rails.application.load_tasks
 
-require 'tasks/rails'
-require 'bugsnag/tasks'
+#require 'tasks/rails'
+#require 'bugsnag/tasks'
 
-task :default => [:test, :features]
+#task :default => [:test, :features]
 
-begin
-    require 'delayed_job'
-	  require 'delayed/tasks'
-rescue LoadError
-	  STDERR.puts "Run `rake gems:install` to install delayed_job"
-end
+#begin
+#    require 'delayed_job'
+#	  require 'delayed/tasks'
+#rescue LoadError
+#	  STDERR.puts "Run `rake gems:install` to install delayed_job"
+#end
 #autoload :Delayed, 'delayed_job'

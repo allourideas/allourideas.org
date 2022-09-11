@@ -3,24 +3,16 @@
 
 development: &default
   adapter: mysql2
-  user: root
-  database: allourideas_development
+  database: aoi_web_development
+  username: root
+  password: bjahdh69
   pool: 5
   timeout: 5000
 
-#development: &default
-#  adapter: sqlite3
-#  database: db/development.sqlite3
-#  pool: 5
-#  timeout: 5000
-
-test: &TEST
-  adapter: sqlite3
-  database: db/test.sqlite3
-
-staging:
+test: &test
   <<: *default
-
+  database: pairwise_test
 
 cucumber:
-  <<: *TEST
+  <<: *test
+

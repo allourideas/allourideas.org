@@ -7,6 +7,5 @@
 #TODO: Look at this file and see if it's still needed.
 ActiveSupport::SecureRandom = SecureRandom
 
-puts "URL OPTIONS"
-puts Rails.application.routes.default_url_options
+#require '../lib/const.rb';
 #puts Rails.application.routes.default_url_options = "localhost:3000"

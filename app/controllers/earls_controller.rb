@@ -2,7 +2,7 @@ class EarlsController < ApplicationController
   #caches_page :show
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::AssetTagHelper
-  before_filter :dumb_cleartext_authentication, :except => :export_list
+  before_action :dumb_cleartext_authentication, :except => :export_list
 
   def verify
     if @earl.verify!(params[:code])

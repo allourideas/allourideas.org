@@ -10,9 +10,9 @@
       %p
         = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.')
     .left.create-question
-      -form_for :question, @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
+      -form_for @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
         %p
-          = f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
+          = #f.error_messages :header_message => "#{@question.errors.length} #{t('questions.new.error.header')}"
           - if @user && @user.errors.any?
             #errorExplanation.errorExplanation
               %h2=t('questions.new.error.registration')

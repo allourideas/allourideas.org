@@ -58,10 +58,12 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+  config.autoload_paths << "#{root}/lib"
 
   # Suppress logger output for asset requests.
   config.assets.quiet = false
-  config.assets.debugging = true
+  config.assets.debugging = false
+  config.assets.compile = true
   config.action_mailer.smtp_settings = {
     :user_name => "apikey",
     :password => "***",

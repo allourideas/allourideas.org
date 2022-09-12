@@ -1,3 +1,20 @@
+class SiteConfig
+  def self.set_pairwise_credentials(photocracy = false)
+    if photocracy
+      username = ENV["PHOTOCRACY_USERNAME"]
+      password = ENV["PHOTOCRACY_PASSWORD"]
+    else
+      username = ENV["PAIRWISE_USERNAME"]
+      password = ENV["PAIRWISE_PASSWORD"]
+    end
+    active_resource_classes = [Choice, Density, Prompt, Question, Session]
+    active_resource_classes.each do |klass|
+      klass.user = username
+      klass.password = password
+    end
+  end
+end
+
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
 
@@ -18,7 +35,7 @@ class ApplicationController < ActionController::Base
   @@widget_view_path = File.join(Rails.root, "app", "views", "widget")
 
   def view_filter
-    if request.url.include?("photocracy") || request.url.include?("fotocracy") || @photocracy || (RAILS_ENV == "test" && $PHOTOCRACY)
+    if request.url.include?("photocracy") || request.url.include?("fotocracy") || @photocracy || (Rails.env == "test" && $PHOTOCRACY)
       @photocracy = true
       prepend_view_path(@@photocracy_view_path)
     elsif request.url.include?("widget") || request.env["SERVER_NAME"].include?("iphone") || @widget
@@ -152,12 +169,12 @@ class ApplicationController < ActionController::Base
       }
     end
 
-    visitor = Visitor.find_or_create_by_remember_token(:remember_token => visitor_remember_token)
-    user_session = SessionInfo.find_or_create_by_session_id(:session_id => @survey_session.session_id,
-                                                            :ip_addr => request.remote_ip,
-                                                            :user_agent => request.env["HTTP_USER_AGENT"],
-                                                            :white_label_request => white_label_request?,
-                                                            :visitor_id => visitor.id)
+    visitor = Visitor.find_or_create_by(:remember_token => visitor_remember_token)
+    user_session = SessionInfo.find_or_create_by(:session_id => @survey_session.session_id,
+                                                 :ip_addr => request.remote_ip,
+                                                 :user_agent => request.env["HTTP_USER_AGENT"],
+                                                 :white_label_request => white_label_request?,
+                                                 :visitor_id => visitor.id)
     @user_session = user_session
 
     sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.try(:id), request.referrer, user_session.try(:id), Time.now.utc, Time.now.utc])
@@ -168,12 +185,14 @@ class ApplicationController < ActionController::Base
       user_session.save!
     end
 
+=begin
     if (session[:abingo_identity])
       Abingo.identity = session[:abingo_identity]
     else
       session[:abingo_identity] = user_session.id
       Abingo.identity = user_session.id
     end
+=end
   end
 
   helper_method :signed_in_as_admin?
@@ -227,22 +246,22 @@ class ApplicationController < ActionController::Base
   end
 
   #customize error messages
-  rescue_from Exception, :with => :render_error
+  #rescue_from Exception, :with => :render_error
   unless Rails.configuration.consider_all_requests_local
-    rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
-    rescue_from ActionController::RoutingError, :with => :render_not_found
-    rescue_from ActionController::UnknownController, :with => :render_not_found
-    rescue_from ActionController::UnknownAction, :with => :render_not_found
-    rescue_from ActiveResource::ResourceNotFound, :with => :render_not_found
+    #rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+    #rescue_from ActionController::RoutingError, :with => :render_not_found
+    #rescue_from ActionController::UnknownController, :with => :render_not_found
+    #rescue_from ActionController::UnknownAction, :with => :render_not_found
+    #rescue_from ActiveResource::ResourceNotFound, :with => :render_not_found
   end
 
   def render_not_found(exception)
-    log_error(exception)
+    logger.error(exception)
     render :template => "errors/404.html.haml", :status => 404
   end
 
   def render_error(exception)
-    log_error(exception)
+    logger.error(exception)
     Bugsnag.notify(exception) do |report|
       report.severity = "error"
     end

@@ -1,17 +1,16 @@
-require 'test_helper'
+require "test_helper"
 
 class QuestionTest < ActiveSupport::TestCase
-
   should "pass along earl validation errors" do
-    invalid_urls = [Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+']
+    invalid_urls = [Earl.reserved_names.first, Earl.reserved_names.last, "test12-_,.", "with space", "", "bals@bla", "test/this", "askdf|", "=sdkjfs", "+"]
     invalid_urls.each do |url|
-      q = Question.new(:name => 'What question?', :ideas => "one\ntwo\nthree\nfour", :url => url)
+      q = Question.new(:name => "What question?", :ideas => "one\ntwo\nthree\nfour", :url => url)
       assert_equal false, q.valid?
     end
   end
 
   should "allow upper case" do
-    q = Question.new(:name => 'What question?', :ideas => "one\ntwo\nthree\nfour", :url => "UPIOWNR")
+    q = Question.new(:name => "What question?", :ideas => "one\ntwo\nthree\nfour", :url => "UPIOWNR")
     assert q.valid?
   end
 
@@ -19,31 +18,31 @@ class QuestionTest < ActiveSupport::TestCase
     q = Question.new(:information => "blah")
     assert_equal "blah", q.information
   end
-
 end
+
 #
 # # in order to make this work, the test server has to be running:
-#	# export RAILS_ENV=test && ./script/server 4000
+#	# export Rails.env=test && ./script/server 4000
 #
 #  should "be valid with factories" do
 #    q = Question.new(Factory.attributes_for(:question)) # we'll probably have to use this method for active resource objects
 #    assert_valid q
-#    
+#
 #  end
-#  
+#
 #  should "validate urls correctly" do
 #
 #    invalid_urls = ['contains aspace', "", "bals@bla", "test/this", "askdf|", "=sdkjfs", '+']
 #
 #    invalid_urls.each do |url|
-#    	q = Question.new(Factory.attributes_for(:question, :url => url)) 
+#    	q = Question.new(Factory.attributes_for(:question, :url => url))
 #    	assert !q.valid?
 #    end
 #
 #  end
-#  
+#
 #  should "validate names correctly" do
-#      q = Question.new(Factory.attributes_for(:question, :name  => "")) 
+#      q = Question.new(Factory.attributes_for(:question, :name  => ""))
 #      assert !q.valid?
 #  end
 #

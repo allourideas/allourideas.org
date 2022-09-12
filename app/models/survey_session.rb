@@ -85,7 +85,7 @@ class SurveySession
     end
     # Get list of cookie names that  might be a match for this request.
     # Sort this list, so that when returning the first cookie matched it is consistent.
-    possible_cookie_names = cookies.keys.select do |k|
+    possible_cookie_names = cookies.each do |k|
       # The cookie name must have this prefix.
       k.index("#{@@cookie_prefix}#{question_id}_") == 0
     end.sort

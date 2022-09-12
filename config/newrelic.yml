@@ -650,7 +650,7 @@ common: &default_settings
   # utilization.detect_pcf: true
 
 # Environment-specific settings are in this section.
-# RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
+# Rails.env or RACK_ENV (as appropriate) is used to determine the environment.
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings

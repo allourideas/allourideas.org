@@ -2,6 +2,7 @@ AllOurIdeas::Application.routes.draw do
   resource :session, :only => [:new, :create, :destroy]
   match "/sign_in" => "clearance/sessions#new", :as => :signin, via: [:get, :post]
   match "/sign_out" => "clearance/sessions#destroy", :as => :signout, via: [:get, :post]
+  match "/sign_up" => "clearance/users#new", :as => :signup, via: [:get, :post]
   resource :passwords
   resources :questions do
     collection do

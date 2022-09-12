@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = params[:locale]
     end
   end
-
+=begin
   def default_url_options(options = {})
     if I18n.locale != I18n.default_locale
       options.merge!({ :locale => I18n.locale })
@@ -240,7 +240,7 @@ class ApplicationController < ActionController::Base
       options.merge!({ :photocracy_mode => true })
     end
   end
-
+=end
   def set_p3p_header
     response.headers["P3P"] = 'policyref="/w3c/p3p.xml", CP="NOI CURa ADMa DEVa PSAa OUR SAMa IND NAV CNT LOC OTC"'
   end

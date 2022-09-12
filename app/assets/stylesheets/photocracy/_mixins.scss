@@ -1,0 +1,51 @@
+@mixin rounded($radius: 10px) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($offset-x: 1px, $offset-y: 3px, $blur: 3px, $color: #333) {
+  box-shadow: $offset-x $offset-y $blur $color;
+  -moz-box-shadow: $offset-x $offset-y $blur $color;
+  -webkit-box-shadow: $offset-x $offset-y $blur $color;
+}
+
+@mixin marble-fade($color: #ccc) {
+  background: $color;
+  background: -moz-linear-gradient(lighten($color, 30%), $color);
+  background:
+	-webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1.00, lighten($color, 30%)),
+		color-stop(0.00, $color)
+	);
+}
+
+@mixin fade($color1: #ccc, $color2: #666) {
+  background: $color1;
+  background: -moz-linear-gradient($color1, $color2);
+  background:
+	-webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1.00, $color1),
+		color-stop(0.00, $color2)
+	);
+}
+
+@mixin fade-down($color: #ccc) {
+  background: $color;
+  background: -moz-linear-gradient(darken($color, 10%), $color, $color, $color);
+  background:
+	-webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(1.00, darken($color, 10%)),
+		color-stop(0.80, $color)
+	);
+}
+

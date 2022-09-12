@@ -16,6 +16,9 @@ Rails.application.configure do
 
   # Enable server timing
   config.server_timing = true
+  #config.default_url_options = { host: "localhost:3000" }
+  #config.action_controller.default_url_options = { :host => "localhost:3000" }
+  #config.action_mailer.default_url_options = { :host => "localhost:3000" }
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -25,14 +28,14 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+      "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = false
 
     config.cache_store = :null_store
   end
-
+  #routes.default_url_options[:host] = "localhost:3000"
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
@@ -59,7 +62,15 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = false
   config.assets.debugging = false
-
+  config.action_mailer.smtp_settings = {
+    :user_name => "apikey",
+    :password => "***",
+    :domain => "yourdomain.com",
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true,
+  }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -70,8 +81,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 end
 
-HOST = 'localhost'
+HOST = "localhost"
 
 ALLOURIDEAS_SITE_ID = 13
-ActiveSupport::XmlMini.backend = 'LibXML'
+ActiveSupport::XmlMini.backend = "LibXML"
 Paperclip.options[:command_path] = "/usr/bin/"

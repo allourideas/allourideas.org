@@ -2,6 +2,9 @@
 // Modals
 // --------------------------------------------------
 
+@import "variables";
+@import "mixins";
+
 // Background
 .modal-backdrop {
   position: fixed;

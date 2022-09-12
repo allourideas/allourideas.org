@@ -2,6 +2,9 @@
 // Pagination (multiple pages)
 // --------------------------------------------------
 
+@import "variables";
+@import "mixins";
+
 // Space out pagination from surrounding content
 .pagination {
   margin: $baseLineHeight 0;

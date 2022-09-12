@@ -66,4 +66,6 @@ AllOurIdeas::Application.routes.draw do
   post "/:id/v/:code" => "earls#verify", :as => :earl_verify
   post "/:id/addphotos" => "questions#add_photos", :as => :add_photos
   get "/:id/:action" => "questions#index"
+
+  root :to => 'home#index'
 end

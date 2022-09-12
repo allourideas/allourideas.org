@@ -92,7 +92,7 @@
       =javascript_tag "var AUTH_TOKEN = '';"
     .content.container-fluid{:style => white_label_request? ? "overflow:hidden": ""}
       .body{:class => white_label_request? ? 'noborder' : ''}
-        - if flash.length > 0 || session[:standard_flash] || (session[:has_voted] && session[:welcome_msg])
+        - if flash.any? || session[:standard_flash] || (session[:has_voted] && session[:welcome_msg])
           .row-fluid
             .span12
               = render :partial => "shared/flashes"

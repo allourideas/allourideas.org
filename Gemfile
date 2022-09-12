@@ -75,3 +75,8 @@ gem "will_paginate", "~> 3.3"
 gem "activeresource", "~> 6.0"
 
 gem "friendly_id", "~> 5.4"
+
+gem "haml", "~> 5.2"
+
+gem "sass-rails", "~> 6.0"
+

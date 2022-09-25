@@ -1085,8 +1085,9 @@ class QuestionsController < ApplicationController
       earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
       earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
       earl = current_user.earls.create(earl_options)
-      ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
-      IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
+      #TODO: Get mail working
+      #ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
+      #IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
       if earl.requires_verification?
         redirect_to verify_url and return
       end

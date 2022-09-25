@@ -1065,8 +1065,14 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.xml
   def create
-    question_params = params[:question].slice(:name, :ideas, :url, :information)
-    @question = Question.new(question_params)
+    question_params = params[:question]
+    @question = Question.new(
+      :name => question_params[:name],
+      :ideas => question_params[:ideas],
+      :url => question_params[:url],
+      :information => question_params[:information],
+      :user_id => current_user.id
+    )
     @user = User.new(:email => params[:question]['email'],
                      :password => params[:question]['password'],
                      :password_confirmation => params[:question]['password']) unless signed_in?

@@ -1,9 +1,28 @@
 AllOurIdeas::Application.routes.draw do
-  resource :session, :only => [:new, :create, :destroy]
-  match "/sign_in" => "clearance/sessions#new", :as => :signin, via: [:get, :post]
-  match "/sign_out" => "clearance/sessions#destroy", :as => :signout, via: [:get, :post]
-  match "/sign_up" => "clearance/users#new", :as => :signup, via: [:get, :post]
-  resource :passwords
+  resources :passwords,
+    controller: 'clearance/passwords',
+    only: [:create, :new]
+
+  resource :session,
+    controller: 'clearance/sessions',
+    only: [:create]
+
+  resources :users,
+    controller: 'clearance/users',
+    only: Clearance.configuration.user_actions do
+      resource :password,
+        controller: 'clearance/passwords',
+        only: [:edit, :update]
+    end
+
+  #get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
+  #delete '/sign_out' => 'clearance/sessions#destroy', as: 'sign_out'
+
+  if Clearance.configuration.allow_sign_up?
+    #get '/sign_up' => 'clearance/users#new', as: 'sign_up'
+  end
+
+#  resource :passwords
   resources :questions do
     collection do
     end
@@ -56,7 +75,6 @@ AllOurIdeas::Application.routes.draw do
   get "/privacy-2009-07-06" => "home#privacy-2009-07-06", :as => :privacy_2009_07_06
   get "/example" => "home#example", :as => :example
   get "/verify" => "home#verify", :as => :verify
-  post "/signup" => "users#new"
   get "/" => "home#index"
   #match "/abingo/:action/:id" => "abingo_dashboard#index", :as => :abingoTest
   get "/no_google_tracking" => "home#no_google_tracking", :as => :googletracking

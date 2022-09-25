@@ -1,3 +1,12 @@
+class CantFindSessionFromCookies < StandardError
+end
+
+class SessionHasNoQuestionId < StandardError
+end
+
+class QuestionIdIsNotPositiveInteger < StandardError
+end
+
 class SurveySession
   @@verifier = ActiveSupport::MessageVerifier.new(ENV["SURVEY_SESSION_SECRET"])
   @@expire_time = 10.minutes
@@ -135,11 +144,3 @@ class SurveySession
   end
 end
 
-class CantFindSessionFromCookies < StandardError
-end
-
-class SessionHasNoQuestionId < StandardError
-end
-
-class QuestionIdIsNotPositiveInteger < StandardError
-end

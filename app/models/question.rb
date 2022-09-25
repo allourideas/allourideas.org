@@ -78,8 +78,10 @@ class Question < ActiveResource::Base
 
   def url_format_valid
     e = Earl.new(:name => url)
-    e.valid?
-    url_errors = e.errors.on(:name)
+    puts "IJIJIJIJIJIJ"
+    puts url
+    puts e.valid?
+    url_errors = e.errors.messages_for(:name)
     if url_errors
       url_errors = [url_errors] if url_errors.class == String
       url_errors.each do |err|

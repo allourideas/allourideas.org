@@ -2,13 +2,11 @@
   .span8
     %h1 About this project
     %p
-      All Our Ideas is a research project that seeks to develop a new form of social data collection by combining the best features of quantitative and qualitative methods. Using the power of the web, we are creating a data collection tool that has the scale, speed, and quantification of a survey while still allowing for new information to "bubble up" from respondents as happens in interviews, participant observation, and focus groups.
+      All Our Ideas is an open source project maintained by the nonprofit Citizens Foundation which also provides a cloud service...
     %p
-      The All Our Ideas research group is led by Matthew Salganik from the Department of Sociology at Princeton University. Our project grew out of discussions between Matt and Josh Weinstein, then president of the Princeton Undergraduate Student Government, about how to collect and prioritize the ideas of Princeton students. A research group was formed, and our first project, a collaboration with the Princeton student government, called <a href="http://www.dailyprincetonian.com/2008/11/06/22005/">"Which do you want more?"</a> was launched in November 2008. All Our Ideas was then launched in February 2010. Current and former group members include (in chronological order): Josh Weinstein, Nadia Heninger, Bill Zeller, Peter Lubell-Doughtie, Dhwani Shah, Adam Sanders, Bambi Tsui, Pius Uzamere, Karen Levy, Dhruv Kapadia, Dmitri Garbuzov, Brian Tubergen, Chap Ambrose, Calvin Lee, and Luke Baker.
+      All Our Ideas grew out of a research group is led by Matthew Salganik from the Department of Sociology and Center for Information Technology Policy at Princeton University. Our project grew out of discussions between Matt and Josh Weinstein, then president of the Princeton Undergraduate Student Government, about how to collect and prioritize the ideas of Princeton students. A research group was formed, and our first project, a collaboration with the Princeton student government, called "Which do you want more?" was launched in November 2008. All Our Ideas was then launched in February 2010. Current and former group members include (in chronological order): Josh Weinstein, Nadia Heninger, Bill Zeller, Peter Lubell-Doughtie, Dhwani Shah, Adam Sanders, Bambi Tsui, Pius Uzamere, Karen Levy, Dhruv Kapadia, Dmitri Garbuzov, Brian Tubergen, Chap Ambrose, Calvin Lee, and Luke Baker.  When it was a research project, All Our Ideas was supported by grants from Google, the US National Science Foundation, the World Bank, and the Center For Information Technology at Princeton University.
     %p
-      Because All Our Ideas is a research project, we will be analyzing the data that you create. However, we will respect your privacy, and we will never sell your data to anyone. These issues are described more fully in our privacy and consent policy.
-    %p
-      All Our Ideas is powered by <a href="https://github.com/allourideas">open source</a> software. Feel free to review, remix, or redesign. Also, you can use our <a href="https://github.com/allourideas/pairwise-api/wiki/API-Documentation">API</a> to create your own pairwise comparison site.
+      All Our Ideas is powered by <a href="https://github.com/CitizensFoundation/allourideas.org">open source</a> software. Feel free to review, remix, or redesign. Also, you can use our <a href="https://github.com/allourideas/pairwise-api/wiki/API-Documentation">API</a> to create your own pairwise comparison site.
     %p
       For more frequent updates on the project, you can <a href="http://blog.allourideas.org/">read our blog</a>, <a href="http://twitter.com/allourideas">follow us on Twitter</a> or <a href="https://www.facebook.com/allourideas">Like us on Facebook.</a>
     %p
@@ -29,9 +27,14 @@
   .span4
     %h3= t('about.current_contributors')
     %p
+      %strong= link_to('Robert Bjarnason', 'https://citizens.is')
+      %br
+      Robert Bjarnason, Citizens Foundation
+    %p
       %strong= link_to('Matthew Salganik', 'http://sociology.princeton.edu/Faculty/Salganik/')
       %br
       Department of Sociology, Princeton University
+    %h3= t('about.past_contributors')
     %p
       %strong= link_to('Karen Levy', 'http://www.karen-levy.net/')
       %br
@@ -40,7 +43,6 @@
       %strong= link_to('Luke Baker', 'http://www.agathongroup.com/')
       %br
       Agathon Group
-    %h3= t('about.past_contributors')
     %p
       %strong Josh Weinstein
       %br

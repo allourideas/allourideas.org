@@ -25,7 +25,7 @@
               %th.score=  t('questions.source')
               %th.score= t('items.list.status').titleize
           %tbody
-            -for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
+            for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
               %tr
                 %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), question_choice_url(@earl.name, choice), :id => choice.id, :question_id => @earl.name, :"data-toggle" => "modal-ajax"
                 %td.votes= choice.attributes['score'].round.to_s
@@ -42,14 +42,14 @@
 
     .row-fluid
       .span12.question-admin-form
-        -form_for :earl, @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
-          -unless f.error_messages.blank?
+        =form_for @earl, :url => { :action => "update" }, :html => {:method => :put, :multipart => true, :class => 'form-horizontal'} do |f|
+          -unless @earl.errors.blank?
             :javascript
               $(document).ready(function(){
                 document.getElementById('errorExplanation').scrollIntoView(true);
               });
             .alert.alert-error
-              = f.error_messages
+              = @earl.errors
           %fieldset
             %legend Wiki Survey Settings
             .control-group

@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   #require 'geokit'
-  before_action :authenticate, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
+  before_action :require_login, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_action :admin_only, :only => [:index, :admin_stats]
   #caches_page :results
 
@@ -277,7 +277,7 @@ class QuestionsController < ApplicationController
 
   def admin
     logger.info "@question = Question.find_by_name(#{params[:id]}) ..."
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
 
     unless ((current_user.owns?(@earl)) || current_user.admin?)
       logger.info("Current user is: #{current_user.inspect}")
@@ -289,7 +289,6 @@ class QuestionsController < ApplicationController
     @partial_results_url = "#{@earl.name}/results"
 
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
-
   end
 
   def word_cloud

@@ -52,6 +52,7 @@ class EarlsController < ApplicationController
        logger.info "inside questions#show " + @question.inspect
 
        # we can probably make this into one api call
+       puts @question.attributes
        @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
 
        @right_choice_text = @prompt.right_choice_text

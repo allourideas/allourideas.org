@@ -27,6 +27,8 @@ class Earl < ActiveRecord::Base
   end
 
   def question
+    puts "QUESTION"
+    puts self.question_id
     @question ||= Question.find(self.question_id)
   end
 

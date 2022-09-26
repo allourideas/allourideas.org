@@ -9,15 +9,16 @@ class PromptsController < ApplicationController
     session[:has_voted] = true
 
     @earl = Earl.where(question_id: params[:question_id]).first
+    puts "voted_prompt.id: #{voted_prompt.id}"
     if params[:direction] &&
-      vote = voted_prompt.post(:vote,
-        :question_id => params[:question_id],
+      vote = voted_prompt.put(:vote,
+          :question_id => params[:question_id],
           :vote => get_object_request_options(params, :vote),
           :next_prompt => get_next_prompt_options
 
       )
 
-      next_prompt = Hash.from_xml(vote.body)['prompt']
+      next_prompt = Hash.from_json(vote.body)['prompt']
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

@@ -50,10 +50,17 @@ class EarlsController < ApplicationController
 
         @survey_session.appearance_lookup = @question.attributes["appearance_id"]
        logger.info "inside questions#show " + @question.inspect
-
++
        # we can probably make this into one api call
-       puts @question.attributes
-       @prompt = Prompt.find(@question.attributes['picked_prompt_id'], :params => {:question_id => @question.id})
+       picked_prompt_id = @question.attributes[:picked_prompt_id]
+       question_id = @question.id
+
+       puts "picked_prompt_id: #{picked_prompt_id}"
+       puts "question_id: #{question_id}"
+
+       @prompt = Prompt.find(picked_prompt_id, :params => {
+        :question_id => question_id
+       })
 
        @right_choice_text = @prompt.right_choice_text
        @left_choice_text = @prompt.left_choice_text

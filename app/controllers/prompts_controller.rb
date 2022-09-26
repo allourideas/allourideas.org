@@ -8,7 +8,7 @@ class PromptsController < ApplicationController
     voted_prompt.prefix_options = {:question_id => params[:question_id]}
     session[:has_voted] = true
 
-    @earl = Earl.find_by_question_id(params[:question_id].to_s)
+    @earl = Earl.where(question_id: params[:question_id]).first
     if params[:direction] &&
       vote = voted_prompt.post(:vote,
         :question_id => params[:question_id],

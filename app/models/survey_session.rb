@@ -102,10 +102,13 @@ class SurveySession
     if possible_cookie_names.length == 0
       raise CantFindSessionFromCookies, "No possible cookies available"
     else
-      possible_cookie_names.each do |cookie_name|
+      cookies.each do |cookie|
         begin
           # Extract data from cookie in a way that ensures no user tampering.
-          data = @@verifier.verify(cookies[cookie_name])
+
+          data = @@verifier.verify(cookie[1])
+          puts "DEBUG XXXXX #{data.inspect}"
+
           # Safe guard against unexpected value of cookie data.
           raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash
           # The question_id in the cookie_name could be altered by the user. To
@@ -116,9 +119,10 @@ class SurveySession
           # the first cookie that is match. There may be other matches, but we
           # have no way to determine which might be best. We always return the
           # first matching cookie for this search.
-          return [data, cookie_name] if appearance_lookup.nil?
+          puts "DEBUG XXXXX #{data}"
+          return [data, cookie[0]] if appearance_lookup.nil?
           if data[:appearance_lookup] == appearance_lookup
-            return [data, cookie_name]
+            return [data, cookie[0]]
           end
           # We'll allow verification failures as other cookies match.
         rescue ActiveSupport::MessageVerifier::InvalidSignature

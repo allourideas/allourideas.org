@@ -107,7 +107,6 @@ class SurveySession
           # Extract data from cookie in a way that ensures no user tampering.
 
           data = @@verifier.verify(cookie[1])
-          puts "DEBUG XXXXX #{data.inspect}"
 
           # Safe guard against unexpected value of cookie data.
           raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash
@@ -119,7 +118,6 @@ class SurveySession
           # the first cookie that is match. There may be other matches, but we
           # have no way to determine which might be best. We always return the
           # first matching cookie for this search.
-          puts "DEBUG XXXXX #{data}"
           return [data, cookie[0]] if appearance_lookup.nil?
           if data[:appearance_lookup] == appearance_lookup
             return [data, cookie[0]]

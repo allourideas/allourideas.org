@@ -3,7 +3,7 @@
 = t('common.X_votes_on_Y_ideas',
       :votes_count => @votes_count,
       :ideas_count => @item_count,
-      :"1" => '<span id="votes_count">',
+      :"1" => '<span id="votes_count">0',
       :"_1" => "</span>",
       :"2" => '<span id="item_count">',
-      :"_2" => '</span>')
+      :"_2" => '</span>').html_safe

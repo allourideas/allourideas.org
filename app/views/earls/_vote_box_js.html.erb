@@ -1,6 +1,11 @@
   var loadedTime = new Date();
   var rootPath = "<%= root_path %>";
 
+  function increment(number)
+  {
+    return parseInt(number, 10) + 1;
+  }
+
   handle_history_events = function(event){
     var left_side_text = $('#left_side_text').val();
     var right_side_text = $('#right_side_text').val();

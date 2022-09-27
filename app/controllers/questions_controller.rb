@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
   #   end
   # end
   def results
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
 
     @question = @earl.question
     @question_id = @question.id
@@ -181,7 +181,7 @@ class QuestionsController < ApplicationController
 
   def scatter_num_ratings_by_creation_time
       type = params[:type] # should be scatter_num_ratings_by_date_added
-      @earl = Earl.find params[:id]
+      @earl = Earl.find_by_name params[:id]
       @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
       @choices.sort!{|a, b| a.created_at <=> b.created_at}
@@ -292,7 +292,7 @@ class QuestionsController < ApplicationController
   end
 
   def word_cloud
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     type = params[:type]
 
     ignore_word_list = %w( a an as and is or the of for in to with on / - &)
@@ -389,7 +389,7 @@ class QuestionsController < ApplicationController
 
   def scatter_plot_user_vs_seed_ideas
     type = params[:type] # should be scatter_ideas
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
     seed_data = []
@@ -499,7 +499,7 @@ class QuestionsController < ApplicationController
   end
 
   def scatter_votes_vs_skips
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     @question = Question.new(:id => @earl.question_id)
     votes_by_sids = object_info_to_hash(@question.get(:object_info_by_visitor_id, :object_type => 'votes'))
 
@@ -561,7 +561,7 @@ class QuestionsController < ApplicationController
   end
 
   def scatter_score_vs_votes
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     @choices = Choice.find(:all, :params => {:question_id => @earl.question_id})
 
     chart_data = []
@@ -604,7 +604,7 @@ class QuestionsController < ApplicationController
 
   def scatter_votes_by_session
     type = params[:type]
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     @question = Question.new(:id => @earl.question_id)
 
     votes_by_sids = object_info_to_hash(@question.get(:object_info_by_visitor_id, :object_type => 'votes'))
@@ -685,7 +685,7 @@ class QuestionsController < ApplicationController
     type = params[:type] || 'votes'
 
     if !totals || totals != "true"
-      @earl = Earl.find params[:id]
+      @earl = Earl.find_by_name params[:id]
       @question = Question.new(:id => @earl.question_id)
     end
 
@@ -802,7 +802,7 @@ class QuestionsController < ApplicationController
   end
 
   def density_graph
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     @densities = Density.find(:all, :params=> {:question_id => @earl.question_id})
 
     type = params[:type]
@@ -879,7 +879,7 @@ class QuestionsController < ApplicationController
 
   def choices_by_creation_date
     #authenticate admin only
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     @question = Question.new(:id => @earl.question_id)
 
     appearance_count_hash = @question.get(:object_info_totals_by_date, :object_type => 'appearances_by_creation_date')
@@ -1163,7 +1163,7 @@ class QuestionsController < ApplicationController
     end
   end
   def delete_logo
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
 
     unless ((current_user.owns?(@earl)) || current_user.admin? )
       logger.info("Current user is: #{current_user.inspect}")
@@ -1190,7 +1190,7 @@ class QuestionsController < ApplicationController
 
   def export
     type = params[:type]
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by_name params[:id]
     unless ((current_user.owns?(@earl)) || current_user.admin? )
       response = "You are not authorized to export data from this wiki survey, please contact us at info@allouridea.org if you think this is a mistake"
       render :text => response and return

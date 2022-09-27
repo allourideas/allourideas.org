@@ -90,17 +90,17 @@ class Earl < ActiveRecord::Base
     elsif type == "all_creators"
       votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "creators")
     elsif type == "uploaded_ideas"
-      earl = Earl.find earl_name
+      earl = Earl.find_by_name earl_name
       question = Question.new
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => "uploaded_ideas")
     elsif type == "bounces"
-      earl = Earl.find earl_name
+      earl = Earl.find_by_name earl_name
       question = Question.new
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => "bounces")
     elsif type == "votes"
-      earl = Earl.find earl_name
+      earl = Earl.find_by_name earl_name
       question = Question.new
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => "votes")

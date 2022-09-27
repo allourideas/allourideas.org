@@ -17,8 +17,8 @@ class PromptsController < ApplicationController
           :next_prompt => get_next_prompt_options
 
       )
-
-      next_prompt = from_xml(vote.body)['prompt']
+      puts "JJJJJJJJJJJJJJJJJJJJJ #{vote.body.inspect}"
+      next_prompt = JSON(vote.body)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

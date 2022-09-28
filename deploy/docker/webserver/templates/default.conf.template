@@ -1,0 +1,108 @@
+server {
+        listen 80;
+        listen [::]:80;
+        server_name _;
+
+        location ~ /.well-known/acme-challenge {
+          allow all;
+          root /var/www/html;
+          break;
+        }
+
+        location / {
+                rewrite ^ https://$host$request_uri? permanent;
+        }
+}
+
+upstream minio {
+        server localhost:9000;
+        server localhost:9002;
+        server localhost:9004;
+        server localhost:9006;
+}
+
+upstream nodejs {
+        server localhost:8080;
+        server localhost:8081;
+        server localhost:8082;
+        server localhost:8083;
+        server localhost:8084;
+        server localhost:8085;
+        server localhost:8086;
+}
+
+server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        server_name _;
+
+        server_tokens off;
+
+        ssl_certificate /etc/letsencrypt/live/${CERTBOT_CERT_FOLDER}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${CERTBOT_CERT_FOLDER}/privkey.pem;
+
+        ssl_buffer_size 8k;
+
+        ssl_dhparam /etc/ssl/certs/dhparam-2048.pem;
+
+        ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+        ssl_prefer_server_ciphers on;
+
+        ssl_ciphers ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
+
+        ssl_ecdh_curve secp384r1;
+        ssl_session_tickets off;
+
+        ssl_stapling on;
+        ssl_stapling_verify on;
+        resolver 8.8.8.8;
+
+	ignore_invalid_headers off;
+
+        client_max_body_size 0;
+        client_body_buffer_size 64m;
+
+        proxy_buffering off;
+
+#	location /minio {
+#		try_files $uri @minio;
+#	}
+
+	location /minio {
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_connect_timeout 300;
+            # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
+            proxy_http_version 1.1;
+            proxy_set_header Connection "";
+            chunked_transfer_encoding off;
+
+            proxy_pass http://minio;
+        }
+
+  #      location / {
+   #             try_files $uri @nodejs;
+   #     }
+
+        location / {
+                proxy_set_header Host $http_host;
+                proxy_pass http://nodejs;
+                add_header X-Frame-Options "SAMEORIGIN" always;
+                add_header X-XSS-Protection "1; mode=block" always;
+                add_header X-Content-Type-Options "nosniff" always;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-NginX-Proxy true;
+                add_header Referrer-Policy "no-referrer-when-downgrade" always;
+                #add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'" always;
+                # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+                # enable strict transport security only if you understand the implications
+        }
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+}

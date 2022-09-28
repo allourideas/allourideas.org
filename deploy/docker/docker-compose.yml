@@ -1,0 +1,126 @@
+version: "3.9"
+services:
+  mail:
+    image: bytemark/smtp
+    restart: always
+
+  plausible_db:
+    image: postgres:12
+    restart: always
+    volumes:
+      - pg-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  plausible_events_db:
+    image: yandex/clickhouse-server:21.3.2.5
+    restart: always
+    volumes:
+      - event-data:/var/lib/clickhouse
+      - ./clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
+      - ./clickhouse/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+  plausible:
+    image: plausible/analytics:stable
+    restart: always
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
+    depends_on:
+      - plausible_db
+      - plausible_events_db
+      - mail
+    ports:
+      - 127.0.0.1:8000:8000
+    env_file:
+      - plausible-conf.env
+
+  mysql_db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - mysql-db-data:/var/lib/mysql
+
+  redis_db:
+    image: redis:6.2.7-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - redis-db-data:/data
+
+  webserver:
+    container_name: webserver
+    restart: always
+    env_file: .env
+    build:
+      context: ./webserver/
+      dockerfile: Dockerfile
+      args:
+        - CERTBOT_CERT_FOLDER=${CERTBOT_CERT_FOLDER}
+    #ports:
+    #  - "80:80"
+    #  - "443:443"
+    volumes:
+      - ./webserver/templates:/etc/nginx/templates
+      - certbot-env:/etc/letsencrypt/
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+      - client-app-dist:/usr/src/your-priorities/client/build/bundle
+      - admin-app-dist:/usr/src/your-priorities/admin_app/dist
+      - analytics-app-dist:/usr/src/your-priorities/analytics_app/dist
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/api/users/has/AutoTranslation"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    network_mode: host
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "2000"
+        max-size: "25m"
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    env_file: .env
+    volumes:
+      - certbot-env:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+
+volumes:
+  pg-db-data:
+    driver: local
+  event-data:
+    driver: local
+  geoip:
+    driver: local
+  mysql-db-data:
+    driver: local
+  redis-db-data:
+    driver: local
+  certbot-var:
+  certbot-env:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: webserver/letsEncryptCerts
+
+

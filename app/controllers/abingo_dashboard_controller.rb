@@ -2,7 +2,7 @@ class AbingoDashboardController < ApplicationController
   before_filter :admin_only
 
   caches_action :show_set, :layout => false
-  
+
   def index
     if params[:all]
        @experiments = Abingo::Experiment.all
@@ -15,25 +15,25 @@ class AbingoDashboardController < ApplicationController
   def show_groups
     @grouped_experiments = group_experiments(Abingo::Experiment.all)
   end
-  
+
   def show_set
     @grouped_experiments = group_experiments(Abingo::Experiment.all)
     ids = @grouped_experiments[params[:id]]
 
     @experiments = Abingo::Experiment.find(ids, :include => :alternatives)
-    admin_users = User.find(:all, :select => 'id', :conditions => {:admin => true})
+    admin_users = User.select('id').where(:admin => true)
     admin_user_list = admin_users.map{|u| u.id}
     session_list = get_session_list(@experiments, admin_user_list)
     session_ids = session_list.map{|s| s['session_id'] }
-    
+
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
-    @objects_by_session_ids = JSON.parse(theresponse.body) 
+    @objects_by_session_ids = JSON.parse(theresponse.body)
 
     distributions = get_distributions(session_list, @objects_by_session_ids, @experiments.first.alternatives)
     @voter_distribution = distributions[0]
     @uploader_distribution = distributions[1]
-    
-    @summary_stats = calculate_summary_stats(@experiments.first, @voter_distribution, @uploader_distribution)       
+
+    @summary_stats = calculate_summary_stats(@experiments.first, @voter_distribution, @uploader_distribution)
     @vote_distribution_chart = create_voter_distribution_chart(@experiments.first, @voter_distribution)
     @experiment = @experiments.first
     # change title to make it a bit prettier on display
@@ -47,8 +47,8 @@ class AbingoDashboardController < ApplicationController
 
   def show
     @experiment = Abingo::Experiment.find(params[:id], :include => :alternatives)
-    
-    admin_users = User.find(:all, :select => 'id', :conditions => {:admin => true})
+
+    admin_users = User.select('id').where(:admin => true)
     admin_user_list = admin_users.map{|u| u.id}
     session_list = get_session_list(@experiment, admin_user_list)
     session_ids = session_list.map{|s| s['session_id'] }
@@ -58,20 +58,20 @@ class AbingoDashboardController < ApplicationController
     # It's important that we send parameters in the body here, otherwise some undefined behavior occurs
     #          when the URI gets too long
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
-    @objects_by_session_ids = JSON.parse(theresponse.body) 
+    @objects_by_session_ids = JSON.parse(theresponse.body)
 
     distributions = get_distributions(session_list, @objects_by_session_ids, @experiment.alternatives)
     @voter_distribution = distributions[0]
     @uploader_distribution = distributions[1]
 
     # Calculate some summary stats
-    @summary_stats = calculate_summary_stats(@experiment, @voter_distribution, @uploader_distribution)      
+    @summary_stats = calculate_summary_stats(@experiment, @voter_distribution, @uploader_distribution)
 
-    #Now that we have the data, format into a pretty graph  
+    #Now that we have the data, format into a pretty graph
 
     @vote_distribution_chart = create_voter_distribution_chart(@experiment, @voter_distribution)
   end
-  
+
   def end_experiment
     @alternative = Abingo::Alternative.find(params[:id])
     @experiment = Abingo::Experiment.find(@alternative.experiment_id)
@@ -87,14 +87,14 @@ class AbingoDashboardController < ApplicationController
   def mean(array)
     array.inject(0) { |sum, x| sum += x } / array.size.to_f
   end
-  
-  def median(array, already_sorted=false) 
+
+  def median(array, already_sorted=false)
     return nil if array.empty?
     array = array.sort unless already_sorted
     m_pos = array.size / 2
     return array.size % 2 == 1 ? array[m_pos] : mean(array[m_pos-1..m_pos])
   end
-  
+
   private
 
   def group_experiments(experiments)
@@ -174,7 +174,7 @@ class AbingoDashboardController < ApplicationController
         summary_stats[a.content][:total_votes] += num_votes * num_sessions
         summary_stats[a.content][:total_sessions] += num_sessions
 
-        num_sessions.times do 
+        num_sessions.times do
           votes_for_median << num_votes
         end
       end
@@ -191,7 +191,7 @@ class AbingoDashboardController < ApplicationController
       summary_stats[a.content][:median_votes_of_voters] = median(votes_for_median-[0])
 
       summary_stats[a.content][:percent_of_sessions_greater_than_0_ideas] = ((total - uploader_distribution[a.content][0]).to_f / total) * 100
-    end 
+    end
     summary_stats
   end
 

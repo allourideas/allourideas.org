@@ -44,9 +44,9 @@ class HomeController < ApplicationController
   def admin
     if current_user.admin?
       if @photocracy
-        @earls = Earl.find(:all, :conditions => { :photocracy => true })
+        @earls = Earl.where(:photocracy => true)
       else
-        @earls = Earl.find(:all, :conditions => { :photocracy => false })
+        @earls = Earl.where(:photocracy => false)
       end
       all = params[:all] == "true"
       @questions = Question.find(:all, :params => {

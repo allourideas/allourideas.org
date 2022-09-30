@@ -268,7 +268,7 @@ class Earl < ActiveRecord::Base
               # that is older than this current vote
               # and belongs to this earl
               conditions = ["controller = 'earls' AND action = 'show' AND created_at < ? AND (url like ?)", row["Created at"], "%/#{self.name}%"]
-              session_start = user_session.clicks.find(:first, :conditions => conditions, :order => "created_at DESC")
+              session_start = user_session.clicks.where(conditions).order("created_at DESC").first
               referrer = (session_start) ? session_start.referrer : "REFERRER_NOT_FOUND"
               referrer = "DIRECT_VISIT" if referrer == "/"
               # we've had some referrers be UTF-8, rest of CSV is ASCII-8BIT

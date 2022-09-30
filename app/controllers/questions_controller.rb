@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.xml
   def index
-    @questions = Question.find(:all)
+    @questions = Question.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -726,7 +726,7 @@ class QuestionsController < ApplicationController
       if totals == "true"
         chart_title = t('results.number_of') +  t('common.users').titleize + t('results.per_day')
         y_axis_title = t('results.number_of') + t('common.users')
-        result = SessionInfo.find(:all, :select => 'date(created_at) as date, visitor_id, count(*) as session_id_count', :group => 'date(created_at), visitor_id')
+        result = SessionInfo.select('date(created_at) as date, visitor_id, count(*) as session_id_count').group('date(created_at), visitor_id')
         votes_count_hash = Hash.new(0)
 
         result.each do |r|

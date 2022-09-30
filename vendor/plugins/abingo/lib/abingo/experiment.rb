@@ -46,7 +46,7 @@ class Abingo::Experiment < ActiveRecord::Base
   def self.alternatives_for_test(test_name)
     cache_key = "Abingo::#{test_name}::alternatives".gsub(" ", "_")
     Abingo.cache.fetch(cache_key) do
-      experiment = Abingo::Experiment.find_by_test_name(test_name)
+      experiment = Abingo::Experiment.find_by(test_name: test_name)
       alternatives_array = Abingo.cache.fetch(cache_key) do
         tmp_array = experiment.alternatives.map do |alt|
           [alt.content, alt.weight]

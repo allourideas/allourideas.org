@@ -1,9 +1,0 @@
-log/*
-tmp/**/*
-db/schema.rb
-db/*.sqlite3
-*.DS_Store
-test/rails_root/vendor/plugins/coulda
-test/rails_root/log/*
-*.swp
-*.swo

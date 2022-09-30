@@ -17,7 +17,7 @@ module NavigationHelpers
       new_question_path
     when /the questions index page/i
       questions_path
-    
+
     when /the Cast Votes page for '([^'].*)'/i
 	"/"+ $1
     when /the Crossfade Cast Votes page for '([^'].*)'/i
@@ -42,25 +42,25 @@ module NavigationHelpers
       "/tests/multiple-same-widgets-test.html"
 
     when /the Deactivate page for the saved (.*) choice/
-	 @earl = Earl.find_by_question_id(@question_id)
+	 @earl = Earl.find_by(question_id: @question_id)
 	 choice = ($1 == "left") ? @left_choice : @right_choice
 	 deactivate_question_choice_path(:question_id => @earl, :id => choice.id)
-    
+
     when /the Activate page for the saved (.*) choice/
-	 @earl = Earl.find_by_question_id(@question_id)
+	 @earl = Earl.find_by(question_id: @question_id)
 	 choice = ($1 == "left") ? @left_choice : @right_choice
 	 activate_question_choice_path(:question_id => @earl, :id => choice.id)
 
-    
+
     when /the Idea Detail page for the saved left choice(.*)?/i
-	 @earl = Earl.find_by_question_id(@question_id)
+	 @earl = Earl.find_by(question_id: @question_id)
 	 url_opts = {:question_id => @earl, :id => @left_choice.id}
 	 if($1 =~ /with login reminder/i)
 		 url_opts.merge!(:login_reminder => true)
 	 end
 	 question_choice_path(url_opts)
     when /the Idea Detail page for the saved right choice/i
-	 @earl = Earl.find_by_question_id(@question_id)
+	 @earl = Earl.find_by(question_id: @question_id)
 	 question_choice_path(:question_id => @earl, :id => @right_choice.id)
     # Add more page name => path mappings here
 
@@ -70,7 +70,7 @@ module NavigationHelpers
     if @photocracy_mode
 	path += (path.include?("?")) ? "&" : "?"
         path += "photocracy_mode=true"
-    end 
+    end
     path
   end
 end

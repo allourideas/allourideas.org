@@ -11,7 +11,7 @@ end
 # Database
 
 Given /^no user exists with an email of "(.*)"$/ do |email|
-  assert_nil User.find_by_email(email)
+  assert_nil User.find_by(email: email)
 end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
@@ -19,7 +19,7 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
     :email                 => email,
     :password              => password,
     :password_confirmation => password
-end 
+end
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user = Factory :email_confirmed_user,
@@ -53,23 +53,23 @@ end
 # Emails
 
 Then /^a confirmation message should be sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by(email: email)
   sent = ActionMailer::Base.deliveries.first
   assert_equal [user.email], sent.to
   assert_match /confirm/i, sent.subject
   assert !user.confirmation_token.blank?
-#  assert_match /#{user.confirmation_token}/, sent.body 
+#  assert_match /#{user.confirmation_token}/, sent.body
   # We don't include the confirm token
 end
 
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by(email: email)
   visit new_user_confirmation_path(:user_id => user,
                                    :token   => user.confirmation_token)
 end
 
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by(email: email)
   assert !user.confirmation_token.blank?
   Then "\"#{email}\" should receive an email"
   When "\"#{email}\" opens the email"
@@ -78,13 +78,13 @@ Then /^a password reset message should be sent to "(.*)"$/ do |email|
 end
 
 When /^I follow the password reset link sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by(email: email)
   visit edit_user_password_path(:user_id => user,
                                 :token   => user.confirmation_token)
 end
 
 When /^I try to change the password of "(.*)" without token$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by(email: email)
   visit edit_user_password_path(:user_id => user)
 end
 

@@ -58,9 +58,9 @@ class AbingoTest < ActiveSupport::TestCase
     test_name = "participants_counted_test"
     alternative = Abingo.test(test_name, %w{a b c})
 
-    ex = Abingo::Experiment.find_by_test_name(test_name)
+    ex = Abingo::Experiment.find_by(test_name: test_name)
     lookup = Abingo::Alternative.calculate_lookup(test_name, alternative)
-    chosen_alt = Abingo::Alternative.find_by_lookup(lookup)
+    chosen_alt = Abingo::Alternative.find_by(lookup: lookup)
     assert_equal 1, ex.participants
     assert_equal 1, chosen_alt.participants
   end
@@ -69,16 +69,16 @@ class AbingoTest < ActiveSupport::TestCase
     test_name = "conversion_test_by_name"
     alternative = Abingo.test(test_name, %w{a b c})
     Abingo.bingo!(test_name)
-    ex = Abingo::Experiment.find_by_test_name(test_name)
+    ex = Abingo::Experiment.find_by(test_name: test_name)
     lookup = Abingo::Alternative.calculate_lookup(test_name, alternative)
-    chosen_alt = Abingo::Alternative.find_by_lookup(lookup)
+    chosen_alt = Abingo::Alternative.find_by(lookup: lookup)
     assert_equal 1, ex.conversions
     assert_equal 1, chosen_alt.conversions
     Abingo.bingo!(test_name)
 
     #Should still only have one because this conversion should not be double counted.
     #We haven't specified that in the test options.
-    assert_equal 1, Abingo::Experiment.find_by_test_name(test_name).conversions
+    assert_equal 1, Abingo::Experiment.find_by(test_name: test_name).conversions
   end
 
   test "conversion tracking by conversion name" do
@@ -90,7 +90,7 @@ class AbingoTest < ActiveSupport::TestCase
 
     Abingo.bingo!(conversion_name)
     tests.map do |test_name|
-      assert_equal 1, Abingo::Experiment.find_by_test_name(test_name).conversions
+      assert_equal 1, Abingo::Experiment.find_by(test_name: test_name).conversions
     end
   end
 
@@ -98,14 +98,14 @@ class AbingoTest < ActiveSupport::TestCase
     conversion_name = "purchase"
     test_name = "short circuit test"
     alt_picked = Abingo.test(test_name, %w{A B}, :conversion => conversion_name)
-    ex = Abingo::Experiment.find_by_test_name(test_name)
+    ex = Abingo::Experiment.find_by(test_name: test_name)
     alt_not_picked = (%w{A B} - [alt_picked]).first
 
     ex.end_experiment!(alt_not_picked, conversion_name)
 
     ex.reload
     assert_equal "Finished", ex.status
-    
+
     Abingo.bingo!(test_name)  #Should not be counted, test is over.
     assert_equal 0, ex.conversions
 
@@ -143,19 +143,19 @@ class AbingoTest < ActiveSupport::TestCase
 
     assert_false Abingo.is_human?, "Identity not marked as human yet."
 
-    ex = Abingo::Experiment.find_by_test_name(test_name)
+    ex = Abingo::Experiment.find_by(test_name: test_name)
     Abingo.bingo!(test_name)
     assert_equal 0, ex.participants, "Not human yet, so should have no participants."
     assert_equal 0, ex.conversions, "Not human yet, so should have no conversions."
 
     Abingo.human!
-    
+
     #Setting up second participant who doesn't convert.
     Abingo.identity = "unsure_if_human_2_#{Time.now.to_i}"
     Abingo.test(test_name, %w{does_not matter})
     Abingo.human!
 
-    ex = Abingo::Experiment.find_by_test_name(test_name)
+    ex = Abingo::Experiment.find_by(test_name: test_name)
     assert_equal 2, ex.participants, "Now that we're human, our participation should matter."
     assert_equal 1, ex.conversions, "Now that we're human, our conversions should matter, but only one of us converted."
   end
@@ -173,7 +173,7 @@ class AbingoTest < ActiveSupport::TestCase
       assert test_names.include? key
       assert test_alternatives.include? value
     end
-    
+
     assert_equal 3, Abingo.participating_tests(false).size #pairs for three tests
     Abingo.participating_tests(false).each do |key, value|
       assert test_names.include? key

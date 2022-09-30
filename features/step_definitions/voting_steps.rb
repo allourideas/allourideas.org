@@ -113,7 +113,7 @@ When /^I click the (.*) button$/ do |button_name|
 end
 
 When /^I pick "(.*)"$/ do |radio_label|
-	case radio_label 
+	case radio_label
 	when "I like both ideas"
     find('.cd_options .like_both').click
     page.has_css?(".leftside.disabled")
@@ -131,7 +131,7 @@ end
 When /^I vote (\d*) times$/ do |num_votes|
 	num_votes.to_i.times do
 		if rand(2) == 1
-		   When "I click on the left choice" 
+		   When "I click on the left choice"
 		else
 		   When "I click on the right choice"
 		end
@@ -180,16 +180,16 @@ Given /^I save the current (.*) (choices|choice|photos)?$/ do |side,type|
 	if @photocracy_mode
 	   Capybara.ignore_hidden_elements = false
 	   @question_id = page.find('#choose_file')[:question_id].to_i
-	   Capybara.ignore_hidden_elements = true 
+	   Capybara.ignore_hidden_elements = true
 	else
 	   @question_id = page.find('#leftside')[:"data-question_id"].to_i
 	end
 	
-	@earl = Earl.find_by_question_id(@question_id)
+	@earl = Earl.find_by(question_id: @question_id)
         begin
 	  @prompt_id = page.find('#prompt_id').value
-	  #The above doesn't work with selenium, for some unknown reason. Fall back to using jquery: 
-	rescue 
+	  #The above doesn't work with selenium, for some unknown reason. Fall back to using jquery:
+	rescue
           @prompt_id = page.evaluate_script("$('#prompt_id').val()").to_i
 	end
 	if @prompt_id.blank?
@@ -211,7 +211,7 @@ Then /^the saved left choice should not be active$/ do
 	@left_choice.should_not be_active
 end
 
-Given /^I save the current appearance lookup?$/ do 
+Given /^I save the current appearance lookup?$/ do
   Capybara.ignore_hidden_elements = false
   @appearance_lookup = page.find('#appearance_lookup').value
   Capybara.ignore_hidden_elements = true

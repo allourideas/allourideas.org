@@ -90,17 +90,17 @@ class Earl < ActiveRecord::Base
     elsif type == "all_creators"
       votes_by_sids = Question.get(:all_num_votes_by_visitor_id, :scope => "creators")
     elsif type == "uploaded_ideas"
-      earl = Earl.find_by_name earl_name
+      earl = Earl.find_by(name: earl_name)
       question = Question.new
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => "uploaded_ideas")
     elsif type == "bounces"
-      earl = Earl.find_by_name earl_name
+      earl = Earl.find_by(name: earl_name)
       question = Question.new
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => "bounces")
     elsif type == "votes"
-      earl = Earl.find_by_name earl_name
+      earl = Earl.find_by(name: earl_name)
       question = Question.new
       question.id = earl.question_id
       votes_by_sids = question.get(:object_info_by_visitor_id, :object_type => "votes")
@@ -112,7 +112,7 @@ class Earl < ActiveRecord::Base
       sid = vote["visitor_id"]
       num_votes = vote["count"]
       num_votes = num_votes.to_i
-      session = SessionInfo.find_by_session_id(sid)
+      session = SessionInfo.find_by(session_id: sid)
 
       if type == "bounces" && session.clicks.size > 1
         next
@@ -218,17 +218,17 @@ class Earl < ActiveRecord::Base
         else
           if photocracy
             if type == "votes"
-              p1 = Photo.find_by_id(row["Winner Text"])
-              p2 = Photo.find_by_id(row["Loser Text"])
+              p1 = Photo.find_by(id: row["Winner Text"])
+              p2 = Photo.find_by(id: row["Loser Text"])
               row << ["Winner Photo Name", p1 ? p1.photo_name : "NA"]
               row << ["Loser Photo Name", p2 ? p2.photo_name : "NA"]
             elsif type == "non_votes"
-              p1 = Photo.find_by_id(row["Left Choice Text"])
-              p2 = Photo.find_by_id(row["Right Choice Text"])
+              p1 = Photo.find_by(id: row["Left Choice Text"])
+              p2 = Photo.find_by(id: row["Right Choice Text"])
               row << ["Left Photo Name", p1 ? p1.photo_name : "NA"]
               row << ["Right Photo Name", p2 ? p2.photo_name : "NA"]
             elsif type == "ideas"
-              p1 = Photo.find_by_id(row["Idea Text"])
+              p1 = Photo.find_by(id: row["Idea Text"])
               row << ["Photo Name", p1 ? p1.photo_name : "NA"]
             end
           end
@@ -239,7 +239,7 @@ class Earl < ActiveRecord::Base
             row.delete("Session Identifier")
             user_session = sessions[sid]
             if user_session.nil?
-              user_session = SessionInfo.find_by_session_id(sid)
+              user_session = SessionInfo.find_by(session_id: sid)
               sessions[sid] = user_session
             end
             unless user_session.nil?
@@ -253,7 +253,7 @@ class Earl < ActiveRecord::Base
 
             user_session = sessions[sid]
             if user_session.nil?
-              user_session = SessionInfo.find_by_session_id(sid)
+              user_session = SessionInfo.find_by(session_id: sid)
               sessions[sid] = user_session
             end
 

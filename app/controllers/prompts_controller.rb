@@ -55,7 +55,7 @@ class PromptsController < ApplicationController
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:question_id]})
 
-    @earl = Earl.find_by_question_id(params[:question_id].to_s)
+    @earl = Earl.find_by(question_id: params[:question_id].to_s)
     if skip = @prompt.post(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
@@ -95,7 +95,7 @@ class PromptsController < ApplicationController
     reason = params[:flag_reason]
     inappropriate_side = params[:side]
     question_id = params[:question_id]
-    @earl = Earl.find_by_question_id(question_id.to_s)
+    @earl = Earl.find_by(question_id: question_id.to_s)
 
     @prompt = Prompt.find(prompt_id, :params => {:question_id => question_id})
     choice_id = inappropriate_side == "left_flag" ? @prompt.left_choice_id : @prompt.right_choice_id

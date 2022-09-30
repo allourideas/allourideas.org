@@ -10,7 +10,7 @@ class Question < ActiveResource::Base
   end
 
   def earl
-    "/#{Earl.find_by_question_id(id).name}" rescue nil
+    "/#{Earl.find_by(question_id: id).name}" rescue nil
   end
 
   def user_can_view_results?(user, earl)
@@ -22,11 +22,11 @@ class Question < ActiveResource::Base
   end
 
   def fq_earl
-    "http://#{ENV["HOST"]}/#{Earl.find_by_question_id(id).name}" rescue nil
+    "http://#{ENV["HOST"]}/#{Earl.find_by(question_id: id).name}" rescue nil
   end
 
   def slug
-    Earl.find_by_question_id(id).name
+    Earl.find_by(question_id: id).name
   end
 
   %w(name url the_name ideas information).each do |attr|

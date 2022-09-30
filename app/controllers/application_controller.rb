@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   def set_question_id_earl
     @question_id = nil
     if controller_name == "earls" and ["show", "verify"].include? action_name
-      @earl = Earl.find_by_name(params[:id].to_s)
+      @earl = Earl.find_by(name: params[:id].to_s)
       @question_id = @earl.try(:question_id)
     elsif controller_name == "prompts"
       @question_id = params[:question_id]
@@ -104,14 +104,14 @@ class ApplicationController < ActionController::Base
       if ["add_idea", "visitor_voting_history"].include?(action_name)
         @question_id = params[:id]
       elsif ["results", "about", "admin", "update_name"].include?(action_name)
-        @earl = Earl.find_by_name(params[:id].to_s)
+        @earl = Earl.find_by(name: params[:id].to_s)
         @question_id = @earl.try(:question_id)
       end
     elsif controller_name == "choices"
       if action_name == "toggle"
         @earl = Earl.find(params[:earl_id])
       else
-        @earl = Earl.find_by_name(params[:question_id].to_s)
+        @earl = Earl.find_by(name: params[:question_id].to_s)
       end
       @question_id = @earl.try(:question_id)
     end
@@ -279,7 +279,7 @@ class ApplicationController < ActionController::Base
     if @earl
       @earl.name == "wikipedia-banner-challenge"
     elsif controller_name == "questions" && params[:id]
-      e = Earl.find_by_name("wikipedia-banner-challenge")
+      e = Earl.find_by(name: "wikipedia-banner-challenge")
       !e.blank? && e.question_id == params[:id].to_i
     end
   end

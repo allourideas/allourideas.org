@@ -75,7 +75,7 @@ class HomeController < ApplicationController
   end
 
   def wikipedia_banner_challenge_gallery
-    @earl = Earl.find_by_name("wikipedia-banner-challenge")
+    @earl = Earl.find_by(name: "wikipedia-banner-challenge")
     @images = {
       "0001" => "http://meta.wikimedia.org/wiki/File:Jimmy.png",
       "0002" => "http://meta.wikimedia.org/wiki/File:Jamesbanner.png",

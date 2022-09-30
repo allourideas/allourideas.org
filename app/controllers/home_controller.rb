@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   include ActionView::Helpers::TextHelper
   #caches_page :about, :tour, :privacy
-  before_action :authenticate, :only => [:admin]
+  before_action :require_login, :only => [:admin]
   before_action :admin_only, :only => [:no_google_tracking]
 
   #  skip_before_action  :set_session_timestamp

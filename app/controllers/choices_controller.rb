@@ -1,15 +1,15 @@
 class ChoicesController < ApplicationController
   include ActionView::Helpers::TextHelper
-  before_filter :authenticate, :only => [:toggle]
-  before_filter :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
+  before_action :require_login, :only => [:toggle]
+  before_action :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
 
   def show
     @earl = Earl.find params[:question_id]
     @question = Question.find(@earl.question_id)
-    
+
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
 	      I18n.locale = @earl.default_lang
-	      redirect_to :action => :show, :controller => :choices, 
+	      redirect_to :action => :show, :controller => :choices,
 		      :question_id => params[:question_id], :id => params[:id]  and return
     end
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
@@ -34,7 +34,7 @@ class ChoicesController < ApplicationController
       redirect_to('/') and return
     end
   end
-  
+
   def toggle
     @earl = Earl.find(params[:earl_id])
     unless (current_user.owns?(@earl) || current_user.admin?)
@@ -42,13 +42,13 @@ class ChoicesController < ApplicationController
     end
     @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
     @choice.active = !@choice.active
-    
+
     verb = {true => t('items.list.activated'), false => t('items.list.deactivated')}
-    
+
     respond_to do |format|
         format.xml  {  head :ok }
-        format.js  { 
-          
+        format.js  {
+
         if @choice.save
           render :json => {:verb => verb[@choice.active?], :active => @choice.active?}.to_json
         else
@@ -57,13 +57,13 @@ class ChoicesController < ApplicationController
         }
     end
   end
-  
-  
+
+
   def activate
     set_choice_active(true,  t('items.you_have_successfully_activated'))
   end
-  
-  
+
+
   def deactivate
     set_choice_active(false, t('items.you_have_successfully_deactivated'))
   end
@@ -74,20 +74,20 @@ class ChoicesController < ApplicationController
        @image = Photo.find(@choice.data.strip)
        rotation = params[:deg].to_f
        rotation ||= 90 # Optional, otherwise, check for nil!
-    
+
        @image.rotate!(rotation)
        flash[:notice] = "The image has been rotated. If it does not appear rotated on your screen, please hit the reload button on your browser."
     end
-     
+
     redirect_to question_choice_path
   end
-  
-  protected 
+
+  protected
 
   def set_choice_active(value, success_message)
     @choice = Choice.find(params[:id], :params => {:question_id => @earl.question_id})
     @choice.active = value
-    
+
     respond_to do |format|
        if @choice.save
          flash[:notice] = success_message + " '#{@choice.attributes['data']}'"
@@ -99,5 +99,5 @@ class ChoicesController < ApplicationController
     end
 
   end
-  
+
 end

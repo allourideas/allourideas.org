@@ -1,5 +1,5 @@
 FROM phusion/passenger-ruby31:2.3.1
-MAINTAINER Robert Vidar Bjarnason <robert@citizens.is>
+LABEL MAINTAINER="Robert Vidar Bjarnason <robert@citizens.is>"
 
 RUN echo 'version 1.0'
 

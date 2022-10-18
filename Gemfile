@@ -71,7 +71,7 @@ gem "newrelic_rpm"
 gem "redis-store", "~> 1.9"
 
 gem "will_paginate", "~> 3.3"
-
+gem 'will_paginate-bootstrap'
 gem "activeresource", "~> 6.0"
 
 gem "friendly_id", "~> 5.4"

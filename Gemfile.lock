@@ -340,6 +340,8 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (3.3.1)
+    will_paginate-bootstrap (1.0.2)
+      will_paginate (>= 3.0.3)
     xml-simple (1.1.9)
       rexml
     xpath (0.1.4)
@@ -406,6 +408,7 @@ DEPENDENCIES
   tzinfo-data
   webrat (= 0.5.3)
   will_paginate (~> 3.3)
+  will_paginate-bootstrap
   xml-simple (= 1.1.9)
 
 RUBY VERSION

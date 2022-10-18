@@ -99,7 +99,7 @@
               -if session[:standard_flash]
                 .alert
                   %a.close{:type => 'button', :"data-dismiss" => 'alert'} &times;
-                  %p= session[:standard_flash]
+                  %p= session[:standard_flash].html_safe
                 -session[:standard_flash] = nil
               -unless session[:has_voted]
                 -if session[:welcome_msg]

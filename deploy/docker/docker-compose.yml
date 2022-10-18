@@ -78,11 +78,8 @@ services:
       - certbot-env:/etc/letsencrypt/
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
-      - client-app-dist:/usr/src/your-priorities/client/build/bundle
-      - admin-app-dist:/usr/src/your-priorities/admin_app/dist
-      - analytics-app-dist:/usr/src/your-priorities/analytics_app/dist
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/api/users/has/AutoTranslation"]
+      test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/"]
       interval: 30s
       timeout: 20s
       retries: 3

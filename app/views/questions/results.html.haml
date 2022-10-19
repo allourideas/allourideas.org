@@ -24,7 +24,10 @@
                   .hidden-phone.progress.progress-gray
                     .bar{:style => "width:#{choice.attributes['score']}%"}
                   .score
-                    %strong= choice.attributes['score'].round.to_s
+                    - unless choice.attributes['score'].nil?
+                      %strong= choice.attributes['score'].round.to_s
+                    - else
+                      = "N/A"
     .row-fluid
       .span12
         -if !params[:all]
@@ -37,6 +40,9 @@
 
     .row-fluid
       #data-vis.span12
+
+
+
         %h3.data-vis-header=t('results.data_visualizations')
         #visualizations.accordion
           .accordion-group

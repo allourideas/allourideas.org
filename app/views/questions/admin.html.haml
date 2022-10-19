@@ -16,16 +16,16 @@
                 %span.question-name
                   = @question.attributes['name']
                 - if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
-                  = link_to("<i class='glyphicon glyphicon-pencil'></i>", '#edit-question', :"data-toggle" => 'modal', :class => 'btn')
+                  = link_to("<i class='glyphicon glyphicon-pencil'></i>".html_safe, '#edit-question', :"data-toggle" => 'modal', :class => 'btn')
                 - else
-                  = link_to("<i class='glyphicon glyphicon-pencil'></i>", '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
+                  = link_to("<i class='glyphicon glyphicon-pencil'></i>".html_safe, '#cant-edit-question', :"data-toggle" => 'modal', :class => 'btn')
               %th.score
                 =  t('items.score')
                 = link_to('', '#score_explanation', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign')
               %th.score=  t('questions.source')
               %th.score= t('items.list.status').titleize
           %tbody
-            for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
+            - for choice in @choices #.sort_by {|x| [(!!x.attributes['active']).to_s, x.data]}
               %tr
                 %td.title= link_to h(truncate(choice.data, :length => 140, :omission => '…')), question_choice_url(@earl.name, choice), :id => choice.id, :question_id => @earl.name, :"data-toggle" => "modal-ajax"
                 %td.votes= choice.attributes['score'].round.to_s

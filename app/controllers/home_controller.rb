@@ -71,6 +71,7 @@ class HomeController < ApplicationController
                                          :all => true,
                                        })
     end
+    puts "questions: #{@questions}"
     @questions_map = @questions.inject({}) { |h, q| h[q.id] = q; h }
   end
 

@@ -1135,7 +1135,7 @@ class QuestionsController < ApplicationController
   # # PUT /questions/1
   # # PUT /questions/1.xml
   def update
-    @earl = Earl.find params[:id]
+    @earl = Earl.find_by(name: params[:id])
     @question = @earl.question
 
     unless ( (current_user.owns? @earl) || current_user.admin?)

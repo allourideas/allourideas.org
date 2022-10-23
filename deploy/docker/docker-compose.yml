@@ -35,7 +35,7 @@ services:
     ports:
       - 127.0.0.1:8000:8000
     env_file:
-      - plausible-conf.env
+      - .env
 
   mysql_db:
     image: mysql:5.7
@@ -108,16 +108,16 @@ services:
         max-file: "2000"
         max-size: "25m"
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    env_file: .env
-    volumes:
-      - certbot-env:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    depends_on:
-      - webserver
+  #certbot:
+  #  image: certbot/certbot
+  #  container_name: certbot
+  #  env_file: .env
+  #  volumes:
+  #    - certbot-env:/etc/letsencrypt
+  #    - certbot-var:/var/lib/letsencrypt
+  #    - web-root:/var/www/html
+  #  depends_on:
+  #    - webserver
 
 volumes:
   pg-db-data:

@@ -61,25 +61,43 @@ services:
     volumes:
       - redis-db-data:/data
 
-  webserver:
-    container_name: webserver
+  allourideas-web:
+    container_name: allourideas-web
     restart: always
     env_file: .env
     build:
-      context: ./webserver/
+      context: ./allourideas-web/
       dockerfile: Dockerfile
-      args:
-        - CERTBOT_CERT_FOLDER=${CERTBOT_CERT_FOLDER}
-    #ports:
-    #  - "80:80"
-    #  - "443:443"
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./webserver/templates:/etc/nginx/templates
-      - certbot-env:/etc/letsencrypt/
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
+      - allourideas:/
     healthcheck:
       test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    network_mode: host
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "2000"
+        max-size: "25m"
+
+  pairwise-api:
+    container_name: pairwise-api
+    restart: always
+    env_file: .env
+    build:
+      context: ./pairwise-api/
+      dockerfile: Dockerfile
+    ports:
+      - "3050:3050"
+    volumes:
+      - pairwise-api:/home/app/pairwise-api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://${FULL_HOSTNAME}/"]
       interval: 30s
       timeout: 20s
       retries: 3

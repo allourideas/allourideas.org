@@ -6,6 +6,7 @@ services:
 
   plausible_db:
     image: postgres:12
+    network_mode: host
     restart: always
     volumes:
       - pg-db-data:/var/lib/postgresql/data
@@ -16,6 +17,7 @@ services:
 
   plausible_events_db:
     image: yandex/clickhouse-server:21.3.2.5
+    network_mode: host
     restart: always
     volumes:
       - event-data:/var/lib/clickhouse
@@ -28,6 +30,7 @@ services:
 
   plausible:
     image: plausible/analytics:stable
+    network_mode: host
     restart: always
     command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
     depends_on:
@@ -42,6 +45,7 @@ services:
   mysql_db:
     image: mysql:5.7
     restart: always
+    network_mode: host
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -62,6 +66,7 @@ services:
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    network_mode: host
     volumes:
       - redis-db-data:/data
 
@@ -76,7 +81,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - all-our-ideas:/
+      - all-our-ideas:/root
     healthcheck:
       test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/"]
       interval: 30s
@@ -97,11 +102,11 @@ services:
       context: ./pairwise-api/
       dockerfile: Dockerfile
     ports:
-      - "3050:3050"
+      - "3072:3072"
     volumes:
-      - pairwise-api:/
+      - pairwise-api:/root
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://${FULL_HOSTNAME}:3050/"]
+      test: ["CMD", "curl", "-f", "http://${FULL_HOSTNAME}:3072/"]
       interval: 30s
       timeout: 20s
       retries: 3

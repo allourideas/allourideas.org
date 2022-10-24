@@ -1,4 +1,8 @@
 #! /bin/bash
+mkdir -p /home/app
+cd /home/app
+git clone https://github.com/CitizensFoundation/pairwise-api.git
+
 chown -R app:app /home/app/pairwise-api
 cd /home/app/pairwise-api
 

@@ -108,7 +108,7 @@ services:
     ports:
       - "3072:3072"
     volumes:
-      - pairwise-api:/root
+      - pairwise-api:/home
     healthcheck:
       test: ["CMD", "curl", "-f", "http://${FULL_HOSTNAME}:3072/"]
       interval: 30s

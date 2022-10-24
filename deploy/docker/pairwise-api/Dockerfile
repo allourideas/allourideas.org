@@ -22,7 +22,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR "/home/app"
 
-RUN cd /home/app
-RUN git clone https://github.com/CitizensFoundation/pairwise-api.git
-
 EXPOSE 3072

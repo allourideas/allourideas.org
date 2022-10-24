@@ -24,6 +24,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN git clone https://github.com/CitizensFoundation/allourideas.org.git
 
-WORKDIR "allourideas.org"
+WORKDIR "/root/allourideas.org"
 
 EXPOSE 443

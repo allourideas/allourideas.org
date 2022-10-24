@@ -12,7 +12,7 @@ RUN apt-get --assume-yes install mysql-client
 RUN apt-get --assume-yes install sudo
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
-
+ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 ADD nginx.conf /etc/nginx/sites-enabled/oai_web_website.conf
 ADD self_signed/bundle.pem /root/bundle.pem
 ADD self_signed/private.pem /root/private.pem

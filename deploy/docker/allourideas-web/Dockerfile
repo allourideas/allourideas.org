@@ -13,12 +13,9 @@ RUN apt-get --assume-yes install sudo
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
 
-ADD nginx.conf /etc/nginx/sites-enabled/oav_website.conf
+ADD nginx.conf /etc/nginx/sites-enabled/oai_web_website.conf
 ADD self_signed/bundle.pem /root/bundle.pem
 ADD self_signed/private.pem /root/private.pem
-
-# Add the rails-env configuration file
-ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 
 RUN mkdir -p /etc/my_init.d
 ADD setup_app.sh /etc/my_init.d/setup_app.sh

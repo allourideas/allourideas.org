@@ -85,7 +85,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - all-our-ideas:/root
+      - all-our-ideas:/home
     healthcheck:
       test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/"]
       interval: 30s
@@ -108,7 +108,7 @@ services:
     ports:
       - "3072:3072"
     volumes:
-      - pairwise-api:/root
+      - pairwise-api:/home
     healthcheck:
       test: ["CMD", "curl", "-f", "http://${FULL_HOSTNAME}:3072/"]
       interval: 30s

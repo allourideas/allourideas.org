@@ -1,3 +1,7 @@
+export AOI_MYSQL_USER=
+export AOI_MYSQL_PASSWORD=
+export AOI_MYSQL_HOST=
+export AOI_MYSQL_DATABASE=aoi_web_development
 export RAILS_MASTER_KEY=
 export HOST=
 export API_HOST=

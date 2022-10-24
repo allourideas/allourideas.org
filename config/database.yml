@@ -3,11 +3,21 @@
 
 development: &default
   adapter: mysql2
-  database: aoi_web_development
-  username: root
-  password: bjahdh69
+  database: <%= ENV['AOI_MYSQL_DEV_DATABASE'] %>
+  username: <%= ENV['AOI_MYSQL_USER'] %>
+  password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
   pool: 5
   timeout: 5000
+  host: <%= ENV['AOI_MYSQL_HOST'] %>
+
+production: &default
+  adapter: mysql2
+  database: <%= ENV['AOI_MYSQL_PRODUCTION_DATABASE'] %>
+  username: <%= ENV['AOI_MYSQL_USER'] %>
+  password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
+  pool: 5
+  timeout: 5000
+  host: <%= ENV['AOI_MYSQL_HOST'] %>
 
 test: &test
   <<: *default

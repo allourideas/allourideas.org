@@ -18,7 +18,6 @@ doc/app
 .bundle
 bin/
 vendor/ruby
-config/database.yml
 
 # Ignore bundler config.
 /.bundle

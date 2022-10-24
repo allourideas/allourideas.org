@@ -21,4 +21,11 @@ ADD setup_app.sh /etc/my_init.d/setup_app.sh
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN git clone https://github.com/CitizensFoundation/allourideas.org.git
+
+WORKDIR "allourideas"
+
+RUN bundle install
+RUN RAILS_ENV=production rails assets:precompile
+
 EXPOSE 3050

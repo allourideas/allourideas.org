@@ -125,6 +125,7 @@ services:
 
 volumes:
   all-our-ideas:
+    driver: local
   pairwise-api:
     driver: local
   pg-db-data:

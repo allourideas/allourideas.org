@@ -48,6 +48,8 @@ services:
     image: mysql:5.7
     restart: always
     network_mode: host
+    env_file:
+      - .mysql-env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -59,8 +61,6 @@ services:
       - '3306'
     volumes:
       - mysql-db-data:/var/lib/mysql
-    env_file:
-      - .mysql-env
 
   redis_db:
     image: redis:6.2.7-alpine

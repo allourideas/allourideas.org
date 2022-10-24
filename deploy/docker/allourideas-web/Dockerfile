@@ -12,7 +12,11 @@ RUN apt-get --assume-yes install mysql-client
 RUN apt-get --assume-yes install sudo
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
+
 ADD nginx.conf /etc/nginx/sites-enabled/oav_website.conf
+ADD self_signed/bundle.pem /root/bundle.pem
+ADD self_signed/private.pem /root/private.pem
+
 # Add the rails-env configuration file
 ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 
@@ -23,9 +27,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN git clone https://github.com/CitizensFoundation/allourideas.org.git
 
-WORKDIR "allourideas"
+WORKDIR "allourideas.org"
 
 RUN bundle install
 RUN RAILS_ENV=production rails assets:precompile
 
-EXPOSE 3050
+EXPOSE 443

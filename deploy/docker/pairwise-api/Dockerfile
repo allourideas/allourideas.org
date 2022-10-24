@@ -21,4 +21,10 @@ ADD setup_app.sh /etc/my_init.d/setup_app.sh
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN git clone https://github.com/CitizensFoundation/pairwise-api.git
+
+WORKDIR "pairwise-api"
+
+RUN bundle install
+
 EXPOSE 3050

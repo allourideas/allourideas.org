@@ -20,6 +20,8 @@ ADD setup_app.sh /etc/my_init.d/setup_app.sh
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+WORKDIR "/root"
+
 RUN git clone https://github.com/CitizensFoundation/pairwise-api.git
 
 WORKDIR "/root/pairwise-api"

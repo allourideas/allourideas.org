@@ -1,7 +1,12 @@
 #! /bin/bash
 chown -R app:app /root/pairwise-api
+cd /root
+ls -l
 cd /root/pairwise-api
 ls -l
+pwd
+sudo su app
+cd /root/pairwise-api
 pwd
 bundle install --verbose
 bundle exec rake db:create RAILS_ENV=production

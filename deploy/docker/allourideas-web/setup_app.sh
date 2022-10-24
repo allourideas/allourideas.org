@@ -9,7 +9,7 @@ pwd
 sudo su app
 cd /root/allourideas.org
 pwd
-bundle install --verbose
-bundle exec rake db:create RAILS_ENV=production
-bundle exec rake db:schema:load RAILS_ENV=production
+bundle install
+rake db:create RAILS_ENV=production
+rake db:schema:load RAILS_ENV=production
 

@@ -15,4 +15,3 @@ rake db:create RAILS_ENV=production
 sudo -u app bundle exec rake db:create RAILS_ENV=production
 sudo -u app bundle exec rake db:schema:load RAILS_ENV=production
 
-

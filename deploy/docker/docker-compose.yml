@@ -19,6 +19,8 @@ services:
     image: yandex/clickhouse-server:21.3.2.5
     network_mode: host
     restart: always
+    env_file:
+      - .plausible-env
     volumes:
       - event-data:/var/lib/clickhouse
       - ./clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
@@ -65,6 +67,8 @@ services:
     restart: always
     ports:
       - '6379:6379'
+    env_file:
+      - .plausible-env
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     network_mode: host
     volumes:
@@ -73,7 +77,7 @@ services:
   allourideas-web:
     container_name: allourideas-web
     restart: always
-    env_file: .env
+    env_file: .allourideas-env
     build:
       context: ./allourideas-web/
       dockerfile: Dockerfile
@@ -97,7 +101,7 @@ services:
   pairwise-api:
     container_name: pairwise-api
     restart: always
-    env_file: .env
+    env_file: .pairwise-env
     build:
       context: ./pairwise-api/
       dockerfile: Dockerfile

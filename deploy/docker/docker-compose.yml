@@ -11,6 +11,8 @@ services:
       - pg-db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .plausible-env
 
   plausible_events_db:
     image: yandex/clickhouse-server:21.3.2.5
@@ -35,7 +37,7 @@ services:
     ports:
       - 127.0.0.1:8000:8000
     env_file:
-      - .env
+      - .plausible-env
 
   mysql_db:
     image: mysql:5.7
@@ -51,6 +53,8 @@ services:
       - '3306'
     volumes:
       - mysql-db-data:/var/lib/mysql
+    env_file:
+      - .mysql-env
 
   redis_db:
     image: redis:6.2.7-alpine

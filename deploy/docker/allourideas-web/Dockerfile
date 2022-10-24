@@ -29,10 +29,4 @@ RUN git clone https://github.com/CitizensFoundation/allourideas.org.git
 
 WORKDIR "allourideas.org"
 
-RUN bundle install
-RUN RAILS_ENV=production rails db:create
-RUN RAILS_ENV=production rails db:schema:load
-
-RUN RAILS_ENV=production rails assets:precompile
-
 EXPOSE 443

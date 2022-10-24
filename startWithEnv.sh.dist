@@ -19,4 +19,3 @@ export SENDGRID_API_KEY=
 export GOOGLE_ANALYTICS_TRACKER_ID=
 export RAILS_CREDENTIALS=
 rails s -p 3072
-aoi_pairwise_development

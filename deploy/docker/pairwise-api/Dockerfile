@@ -25,9 +25,4 @@ RUN git clone https://github.com/CitizensFoundation/pairwise-api.git
 
 WORKDIR "pairwise-api"
 
-RUN bundle install
-RUN RAILS_ENV=production rails db:create
-RUN RAILS_ENV=production rails db:schema:load
-RUN RAILS_ENV=production rails db:seed
-
-EXPOSE 3050
+EXPOSE 3072

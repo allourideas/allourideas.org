@@ -101,7 +101,7 @@ services:
   pairwise-api:
     container_name: pairwise-api
     restart: always
-    env_file: .pairwise-env
+#    env_file: .pairwise-env
     environment:
       - PAIRWISE_MYSQL_USER=${PAIRWISE_MYSQL_USER}
       - PAIRWISE_MYSQL_PASSWORD=${PAIRWISE_MYSQL_PASSWORD}

@@ -9,7 +9,7 @@ cd /home/app/pairwise-api
 ls -l
 ls -l config
 
-sudo -i -u app bundle install
-sudo -i -u app bundle exec rake db:create RAILS_ENV=production
-sudo -i -u app bundle exec rake db:schema:load RAILS_ENV=production
-sudo -i -u app bundle exec rake db:seed RAILS_ENV=production
+sudo -E -u app bundle install
+sudo -E -u app bundle exec rake db:create RAILS_ENV=production
+sudo -E -u app bundle exec rake db:schema:load RAILS_ENV=production
+sudo -E -u app bundle exec rake db:seed RAILS_ENV=production

@@ -102,6 +102,11 @@ services:
     container_name: pairwise-api
     restart: always
     env_file: .pairwise-env
+    environment:
+      - PAIRWISE_MYSQL_USER=${PAIRWISE_MYSQL_USER}
+      - PAIRWISE_MYSQL_PASSWORD=${PAIRWISE_MYSQL_PASSWORD}
+      - PAIRWISE_MYSQL_DATABASE=${PAIRWISE_MYSQL_DATABASE}
+      - PAIRWISE_MYSQL_HOST=${PAIRWISE_MYSQL_HOST}
     build:
       context: ./pairwise-api/
       dockerfile: Dockerfile

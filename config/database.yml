@@ -1,23 +1,26 @@
 # SQLite version 3.x
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 
-development: &default
+development:
   adapter: mysql2
-  database: <%= ENV['AOI_MYSQL_DEV_DATABASE'] %>
+  database: <%= ENV['AOI_MYSQL_DATABASE'] %>
   username: <%= ENV['AOI_MYSQL_USER'] %>
   password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
   pool: 5
   timeout: 5000
+  collation: utf8_general_ci
   host: <%= ENV['AOI_MYSQL_HOST'] %>
 
-production: &default
+production:
   adapter: mysql2
-  database: <%= ENV['AOI_MYSQL_PRODUCTION_DATABASE'] %>
+  database: <%= ENV['AOI_MYSQL_DATABASE'] %>
   username: <%= ENV['AOI_MYSQL_USER'] %>
   password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
   pool: 5
   timeout: 5000
+  collation: utf8_general_ci
   host: <%= ENV['AOI_MYSQL_HOST'] %>
+  port: <%= ENV['AOI_MYSQL_PORT'] %>
 
 test: &test
   <<: *default

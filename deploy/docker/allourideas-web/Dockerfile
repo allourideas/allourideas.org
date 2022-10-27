@@ -21,6 +21,8 @@ ADD setup_app.sh /etc/my_init.d/setup_app.sh
 ADD self_signed/bundle.pem /root/bundle.pem
 ADD self_signed/private.pem /root/private.pem
 
+ADD mime-info.xml /usr/local/share/mime/packages/freedesktop.org.xml
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 443

@@ -1,17 +1,14 @@
 #! /bin/bash
-chown -R app:app /root/allourideas.org
-cd /root/allourideas.org
-cd /root
-ls -l
-cd /root/allourideas.org
-ls -l
-pwd
-sudo su app
-cd /root/allourideas.org
-sudo -u app bundle install
-pwd
-bundle install
-rake db:create RAILS_ENV=production
-sudo -u app bundle exec rake db:create RAILS_ENV=production
-sudo -u app bundle exec rake db:schema:load RAILS_ENV=production
+mkdir -p /home/app
+cd /home/app
+git clone https://github.com/CitizensFoundation/allourideas.org.git
+chown -R app:app /home/app/allourideas.org
 
+cd /home/app/allourideas.org
+
+ls -l
+ls -l config
+
+sudo -E -u app bundle install
+sudo -E -u app bundle exec rake db:create RAILS_ENV=production
+sudo -E -u app bundle exec rake db:schema:load RAILS_ENV=production

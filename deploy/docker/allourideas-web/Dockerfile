@@ -18,6 +18,9 @@ ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 RUN mkdir -p /etc/my_init.d
 ADD setup_app.sh /etc/my_init.d/setup_app.sh
 
+ADD self_signed/bundle.pem /root/bundle.pem
+ADD self_signed/private.pem /root/private.pem
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 443

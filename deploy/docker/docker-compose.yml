@@ -45,7 +45,7 @@ services:
       - .plausible-env
 
   mysql_db:
-    image: mysql:5.7
+    image: mysql:8.0
     restart: always
     network_mode: host
     env_file:

@@ -2,9 +2,7 @@
 mkdir -p /home/app
 cd /home/app
 
-if [[ -z "${AOI_CLEAR_GIT}"] ]; then
-  rm -r allourideas.org
-fi
+rm -r allourideas.org
 
 git clone https://github.com/CitizensFoundation/allourideas.org.git
 chown -R app:app /home/app/allourideas.org

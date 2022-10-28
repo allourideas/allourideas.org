@@ -1,7 +1,7 @@
 class AbingoDashboardController < ApplicationController
   before_action :admin_only
 
-  caches_action :show_set, :layout => false
+  #caches_action :show_set, :layout => false
 
   def index
     if params[:all]

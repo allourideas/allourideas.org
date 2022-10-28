@@ -107,6 +107,7 @@ class SurveySession
           # Extract data from cookie in a way that ensures no user tampering.
 
           data = @@verifier.verify(cookie[1])
+          puts "DEBUG data: #{data.inspect}"
 
           # Safe guard against unexpected value of cookie data.
           raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash

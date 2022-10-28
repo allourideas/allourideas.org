@@ -1,5 +1,5 @@
 class AbingoDashboardController < ApplicationController
-  before_filter :admin_only
+  action_filter :admin_only
 
   caches_action :show_set, :layout => false
 

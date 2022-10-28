@@ -1,6 +1,9 @@
 #! /bin/bash
 mkdir -p /home/app
 cd /home/app
+
+rm -r allourideas.org
+
 git clone https://github.com/CitizensFoundation/allourideas.org.git
 chown -R app:app /home/app/allourideas.org
 

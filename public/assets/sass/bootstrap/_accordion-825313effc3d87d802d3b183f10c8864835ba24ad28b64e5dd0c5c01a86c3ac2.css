@@ -1,0 +1,35 @@
+/* line 8, app/assets/stylesheets/sass/bootstrap/_accordion.scss */
+.accordion {
+  margin-bottom: 20px;
+}
+
+/* line 13, app/assets/stylesheets/sass/bootstrap/_accordion.scss */
+.accordion-group {
+  margin-bottom: 2px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 18, app/assets/stylesheets/sass/bootstrap/_accordion.scss */
+.accordion-heading {
+  border-bottom: 0;
+}
+
+/* line 21, app/assets/stylesheets/sass/bootstrap/_accordion.scss */
+.accordion-heading .accordion-toggle {
+  display: block;
+  padding: 8px 15px;
+}
+
+/* line 27, app/assets/stylesheets/sass/bootstrap/_accordion.scss */
+.accordion-toggle {
+  cursor: pointer;
+}
+
+/* line 32, app/assets/stylesheets/sass/bootstrap/_accordion.scss */
+.accordion-inner {
+  padding: 9px 15px;
+  border-top: 1px solid #e5e5e5;
+}

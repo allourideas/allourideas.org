@@ -1,0 +1,407 @@
+/* line 3, app/assets/stylesheets/photocracy/application_main.scss */
+html, body {
+  background: #eee;
+}
+
+/* line 7, app/assets/stylesheets/photocracy/application_main.scss */
+#hd {
+  padding-top: 1em;
+}
+
+/* line 11, app/assets/stylesheets/photocracy/application_main.scss */
+h1 {
+  text-shadow: 1px 1px #ddd;
+}
+
+/* line 15, app/assets/stylesheets/photocracy/application_main.scss */
+#vs {
+  background: #ccc;
+  color: #fff;
+  padding: 7px 10px;
+  width: 30px;
+  margin: 0 auto;
+  border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  margin-top: 150px;
+  box-shadow: 2px 2px 2px #fff;
+  -moz-box-shadow: 2px 2px 2px #fff;
+  -webkit-box-shadow: 2px 2px 2px #fff;
+  font-size: 170%;
+  margin-bottom: 5em;
+}
+
+/* line 28, app/assets/stylesheets/photocracy/application_main.scss */
+#prompt {
+  margin-bottom: -20px;
+}
+
+/* line 32, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame {
+  display: block;
+  height: 350px;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  position: relative;
+}
+
+/* line 40, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame table {
+  text-align: center;
+  valign: middle;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+/* line 51, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame table.fade {
+  z-index: 2;
+}
+
+/* line 55, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame table.current {
+  z-index: 1;
+}
+
+/* line 59, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame table td, a.photo_frame table tr {
+  vertical-align: middle;
+}
+
+/* line 64, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame img {
+  border: 3px solid #000;
+}
+
+/* line 68, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame.loading img {
+  border: none;
+}
+
+/* line 72, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame.checked .fade img {
+  border: 3px solid #fa7f00;
+}
+
+/* line 77, app/assets/stylesheets/photocracy/application_main.scss */
+a.photo_frame:hover {
+  cursor: pointer;
+}
+
+/* line 81, app/assets/stylesheets/photocracy/application_main.scss */
+.click_to_vote {
+  position: relative;
+  top: 40%;
+  z-index: 5;
+  text-align: center;
+  color: #000;
+  background: #fff;
+  opacity: 0.8;
+  width: 160px;
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 2px 2px 2px #000;
+  -moz-box-shadow: 2px 2px 2px #000;
+  -webkit-box-shadow: 2px 2px 2px #000;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+}
+
+/* line 98, app/assets/stylesheets/photocracy/application_main.scss */
+.button {
+  padding: .5em 2.5em;
+  background: #ccc;
+  background: -moz-linear-gradient(white, #ccc);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, white), color-stop(0, #ccc));
+  border: 1px solid #666;
+  font-weight: bold;
+  color: #333;
+  font-size: 17px;
+  text-shadow: #fff -2px 0px 10px;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 1px 3px 3px #333;
+  -moz-box-shadow: 1px 3px 3px #333;
+  -webkit-box-shadow: 1px 3px 3px #333;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+/* line 112, app/assets/stylesheets/photocracy/application_main.scss */
+.button:hover {
+  background: #fff;
+  text-shadow: none;
+  border: 1px solid #333;
+}
+
+/* line 118, app/assets/stylesheets/photocracy/application_main.scss */
+.button.blue {
+  background: #2b6fc0;
+  background: -moz-linear-gradient(#9bbfe9, #2b6fc0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #9bbfe9), color-stop(0, #2b6fc0));
+  border: 1px solid #327FDB;
+  color: #fff;
+  text-shadow: #235a9b -2px 0px 10px;
+}
+
+/* line 125, app/assets/stylesheets/photocracy/application_main.scss */
+.button.blue:hover {
+  background: #337bd1;
+  background: -moz-linear-gradient(#b0cced, #337bd1);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #b0cced), color-stop(0, #337bd1));
+  border: 1px solid #235a9b;
+}
+
+/* line 130, app/assets/stylesheets/photocracy/application_main.scss */
+.button.green {
+  font-size: 20px;
+  background: #698D00;
+  background: -moz-linear-gradient(#c8ff27, #698D00);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #c8ff27), color-stop(0, #698D00));
+  border: 1px solid #698D00;
+  color: #fff;
+  text-shadow: #666 -2px 0px 10px;
+}
+
+/* line 138, app/assets/stylesheets/photocracy/application_main.scss */
+.button.green:hover {
+  background: #7ca700;
+  background: -moz-linear-gradient(#ceff41, #7ca700);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #ceff41), color-stop(0, #7ca700));
+  border: 1px solid #fff;
+}
+
+/* line 144, app/assets/stylesheets/photocracy/application_main.scss */
+#secondary_content .grid_4 {
+  background: #fff;
+  width: 32.93%;
+  margin: 0 .2%;
+  border-bottom: 1px solid #fa7f00;
+  min-height: 200px;
+}
+
+/* line 152, app/assets/stylesheets/photocracy/application_main.scss */
+#secondary_content h5 {
+  background: #fa7f00;
+  background: -moz-linear-gradient(#c76500, #fa7f00, #fa7f00, #fa7f00);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #c76500), color-stop(0.8, #fa7f00));
+  color: #000;
+  text-align: center;
+  padding: 5px;
+  text-shadow: #fff 1px 1px 2px;
+}
+
+/* line 160, app/assets/stylesheets/photocracy/application_main.scss */
+#secondary_content img {
+  vertical-align: middle;
+}
+
+/* line 165, app/assets/stylesheets/photocracy/application_main.scss */
+ul#your_votes {
+  margin: 0;
+  list-style-type: none;
+  zoom: 1;
+}
+
+/* line 170, app/assets/stylesheets/photocracy/application_main.scss */
+ul#your_votes li {
+  text-align: center;
+  zoom: 1;
+  padding: 5px;
+  margin: 0;
+}
+
+/* line 178, app/assets/stylesheets/photocracy/application_main.scss */
+ul#your_votes img.loser {
+  opacity: 0.5;
+}
+
+/* line 182, app/assets/stylesheets/photocracy/application_main.scss */
+ul.results {
+  list-style-type: none;
+}
+
+/* line 185, app/assets/stylesheets/photocracy/application_main.scss */
+ul.results li {
+  margin: 0;
+  padding: .5em;
+}
+
+/* line 189, app/assets/stylesheets/photocracy/application_main.scss */
+ul.results li a {
+  padding: .5em;
+  -moz-border-radius: 5px;
+  display: inline-block;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+/* line 196, app/assets/stylesheets/photocracy/application_main.scss */
+ul.results li a.active, ul.results li a.active:hover {
+  text-decoration: none;
+  background: #fa7f00;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* line 203, app/assets/stylesheets/photocracy/application_main.scss */
+ul.results li a:hover {
+  background: #ccc;
+}
+
+/* line 210, app/assets/stylesheets/photocracy/application_main.scss */
+p.results_label {
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0;
+  color: #666;
+}
+
+/* line 217, app/assets/stylesheets/photocracy/application_main.scss */
+p.score_explanation {
+  font-style: italic;
+  color: #666;
+}
+
+/* line 222, app/assets/stylesheets/photocracy/application_main.scss */
+#results #hd {
+  text-align: center;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  background: #eee url(/../../images/photocracy/hd_fade.png) bottom repeat-x;
+}
+
+/* line 230, app/assets/stylesheets/photocracy/application_main.scss */
+#ft {
+  margin-top: 2em;
+  color: #999;
+  text-align: center;
+  padding: 1em;
+}
+
+/* line 236, app/assets/stylesheets/photocracy/application_main.scss */
+#ft a {
+  color: #666;
+}
+
+/* line 241, app/assets/stylesheets/photocracy/application_main.scss */
+#flash {
+  color: red;
+}
+
+/* line 245, app/assets/stylesheets/photocracy/application_main.scss */
+#flash .notice {
+  padding: 10px;
+  background: #ffffcb;
+}
+
+/* line 250, app/assets/stylesheets/photocracy/application_main.scss */
+#results #primary_content {
+  margin-top: 8em;
+}
+
+/* line 254, app/assets/stylesheets/photocracy/application_main.scss */
+.chosen {
+  background: url(/../../images/photocracy/chosen.png) center center no-repeat !important;
+}
+
+/* line 259, app/assets/stylesheets/photocracy/application_main.scss */
+table.admin th {
+  padding: 10px;
+}
+
+/* line 263, app/assets/stylesheets/photocracy/application_main.scss */
+table.admin td {
+  line-height: 50px;
+  padding: 10px;
+}
+
+/* line 268, app/assets/stylesheets/photocracy/application_main.scss */
+table.admin img {
+  vertical-align: middle;
+}
+
+/* line 273, app/assets/stylesheets/photocracy/application_main.scss */
+.blue_fade {
+  zoom: 1;
+  color: #fff;
+  background: #354F68;
+  background: -moz-linear-gradient(#354F68, #637F96);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(1, #354F68), color-stop(0, #637F96));
+}
+
+/* line 279, app/assets/stylesheets/photocracy/application_main.scss */
+strong, .strong {
+  font-weight: bold;
+}
+
+/* line 283, app/assets/stylesheets/photocracy/application_main.scss */
+.center {
+  text-align: center;
+}
+
+/* line 287, app/assets/stylesheets/photocracy/application_main.scss */
+.no_margin {
+  margin: 0;
+}
+
+/* line 291, app/assets/stylesheets/photocracy/application_main.scss */
+.padding {
+  padding: 1em;
+}
+
+/* line 295, app/assets/stylesheets/photocracy/application_main.scss */
+.normal {
+  font-weight: normal;
+}
+
+/* line 299, app/assets/stylesheets/photocracy/application_main.scss */
+.float_left {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 304, app/assets/stylesheets/photocracy/application_main.scss */
+.float_right {
+  float: right;
+  margin-left: 10px;
+}
+
+/* line 309, app/assets/stylesheets/photocracy/application_main.scss */
+.margin_bottom {
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+
+/* line 314, app/assets/stylesheets/photocracy/application_main.scss */
+.small_margin_bottom {
+  margin-bottom: 5px;
+}
+
+/* line 318, app/assets/stylesheets/photocracy/application_main.scss */
+.gray, a.gray, .Deactivated, .deactivated {
+  color: #666;
+}
+
+/* line 322, app/assets/stylesheets/photocracy/application_main.scss */
+.microcopy {
+  color: #666;
+  font-size: .8em;
+}
+
+/* line 327, app/assets/stylesheets/photocracy/application_main.scss */
+.errorExplanation {
+  color: red;
+}

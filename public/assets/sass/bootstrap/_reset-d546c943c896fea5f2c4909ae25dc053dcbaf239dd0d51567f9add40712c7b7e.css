@@ -1,0 +1,214 @@
+/* line 12, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+/* line 28, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 39, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+audio:not([controls]) {
+  display: none;
+}
+
+/* line 46, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 52, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* line 56, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* line 64, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+/* line 71, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 74, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 81, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+img {
+  /* Responsive images (ensure images don't scale beyond their parents) */
+  max-width: 100%;
+  /* Part 1: Set a maxium relative to the parent */
+  width: auto\9;
+  /* IE7-8 need help adjusting responsive images */
+  height: auto;
+  /* Part 2: Scale the height according to the width, otherwise you get stretching */
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+/* line 93, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+#map_canvas img,
+.google-maps img {
+  max-width: none;
+}
+
+/* line 102, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+
+/* line 110, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+button,
+input {
+  *overflow: visible;
+  line-height: normal;
+}
+
+/* line 115, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* line 120, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 127, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+label,
+select,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* line 137, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+/* line 141, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* line 145, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+@media print {
+  /* line 157, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  * {
+    text-shadow: none !important;
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  /* line 164, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  a,
+a:visited {
+    text-decoration: underline;
+  }
+  /* line 169, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  /* line 173, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  /* line 178, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  .ir a:after,
+a[href^="javascript:"]:after,
+a[href^="#"]:after {
+    content: "";
+  }
+  /* line 184, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  pre,
+blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  /* line 190, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  thead {
+    display: table-header-group;
+  }
+  /* line 194, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  tr,
+img {
+    page-break-inside: avoid;
+  }
+  /* line 199, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 0.5cm;
+  }
+  /* line 207, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  p,
+h2,
+h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  /* line 214, app/assets/stylesheets/sass/bootstrap/_reset.scss */
+  h2,
+h3 {
+    page-break-after: avoid;
+  }
+}

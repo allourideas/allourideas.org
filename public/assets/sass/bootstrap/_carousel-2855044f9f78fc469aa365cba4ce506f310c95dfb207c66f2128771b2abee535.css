@@ -1,0 +1,168 @@
+/* line 8, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel {
+  position: relative;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+/* line 14, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* line 22, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .item {
+  display: none;
+  position: relative;
+  -webkit-transition: 0.6s ease-in-out left;
+  -moz-transition: 0.6s ease-in-out left;
+  -o-transition: 0.6s ease-in-out left;
+  transition: 0.6s ease-in-out left;
+}
+
+/* line 28, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  line-height: 1;
+}
+
+/* line 35, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  display: block;
+}
+
+/* line 39, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .active {
+  left: 0;
+}
+
+/* line 43, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/* line 50, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .next {
+  left: 100%;
+}
+
+/* line 53, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .prev {
+  left: -100%;
+}
+
+/* line 56, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+  left: 0;
+}
+
+/* line 61, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .active.left {
+  left: -100%;
+}
+
+/* line 64, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-inner > .active.right {
+  left: 100%;
+}
+
+/* line 73, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-control {
+  position: absolute;
+  top: 40%;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  font-size: 60px;
+  font-weight: 100;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+  background: #222;
+  border: 3px solid #fff;
+  -webkit-border-radius: 23px;
+  -moz-border-radius: 23px;
+  border-radius: 23px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+/* line 98, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-control.right {
+  left: auto;
+  right: 15px;
+}
+
+/* line 104, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-control:hover, .carousel-control:focus {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+/* line 114, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-indicators {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+  margin: 0;
+  list-style: none;
+}
+
+/* line 122, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-indicators li {
+  display: block;
+  float: left;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  text-indent: -999px;
+  background-color: #ccc;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+}
+
+/* line 133, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-indicators .active {
+  background-color: #fff;
+}
+
+/* line 141, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  background: #333;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* line 150, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-caption h4,
+.carousel-caption p {
+  color: #fff;
+  line-height: 20px;
+}
+
+/* line 155, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-caption h4 {
+  margin: 0 0 5px;
+}
+
+/* line 158, app/assets/stylesheets/sass/bootstrap/_carousel.scss */
+.carousel-caption p {
+  margin-bottom: 0;
+}

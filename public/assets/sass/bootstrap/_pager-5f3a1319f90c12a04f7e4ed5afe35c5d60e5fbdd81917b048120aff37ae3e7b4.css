@@ -1,0 +1,65 @@
+/* line 8, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager {
+  margin: 20px 0;
+  list-style: none;
+  text-align: center;
+  *zoom: 1;
+}
+
+/* line 13, app/assets/stylesheets/sass/bootstrap/_mixins.scss */
+.pager:before, .pager:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+/* line 21, app/assets/stylesheets/sass/bootstrap/_mixins.scss */
+.pager:after {
+  clear: both;
+}
+
+/* line 14, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager li {
+  display: inline;
+}
+
+/* line 17, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager li > a,
+.pager li > span {
+  display: inline-block;
+  padding: 5px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/* line 25, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager li > a:hover,
+.pager li > a:focus {
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+/* line 30, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager .next > a,
+.pager .next > span {
+  float: right;
+}
+
+/* line 34, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager .previous > a,
+.pager .previous > span {
+  float: left;
+}
+
+/* line 38, app/assets/stylesheets/sass/bootstrap/_pager.scss */
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+  color: #999;
+  background-color: #fff;
+  cursor: default;
+}

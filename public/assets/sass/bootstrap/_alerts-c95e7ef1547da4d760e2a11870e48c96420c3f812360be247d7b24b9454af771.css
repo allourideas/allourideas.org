@@ -1,0 +1,85 @@
+/* line 11, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* line 19, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert,
+.alert h4 {
+  color: #c09853;
+}
+
+/* line 24, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert h4 {
+  margin: 0;
+}
+
+/* line 29, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 20px;
+}
+
+/* line 40, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+
+/* line 45, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-success h4 {
+  color: #468847;
+}
+
+/* line 48, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-danger,
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+
+/* line 54, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-danger h4,
+.alert-error h4 {
+  color: #b94a48;
+}
+
+/* line 58, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+
+/* line 63, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-info h4 {
+  color: #3a87ad;
+}
+
+/* line 71, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* line 75, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-block > p,
+.alert-block > ul {
+  margin-bottom: 0;
+}
+
+/* line 79, app/assets/stylesheets/sass/bootstrap/_alerts.scss */
+.alert-block p + p {
+  margin-top: 5px;
+}

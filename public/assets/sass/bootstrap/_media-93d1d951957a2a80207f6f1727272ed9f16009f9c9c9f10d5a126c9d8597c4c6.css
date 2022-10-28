@@ -1,0 +1,44 @@
+/* line 12, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media,
+.media-body {
+  overflow: hidden;
+  *overflow: visible;
+  zoom: 1;
+}
+
+/* line 20, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media,
+.media .media {
+  margin-top: 15px;
+}
+
+/* line 24, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media:first-child {
+  margin-top: 0;
+}
+
+/* line 29, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media-object {
+  display: block;
+}
+
+/* line 34, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media-heading {
+  margin: 0 0 5px;
+}
+
+/* line 42, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media > .pull-left {
+  margin-right: 10px;
+}
+
+/* line 45, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media > .pull-right {
+  margin-left: 10px;
+}
+
+/* line 54, app/assets/stylesheets/sass/bootstrap/_media.scss */
+.media-list {
+  margin-left: 0;
+  list-style: none;
+}

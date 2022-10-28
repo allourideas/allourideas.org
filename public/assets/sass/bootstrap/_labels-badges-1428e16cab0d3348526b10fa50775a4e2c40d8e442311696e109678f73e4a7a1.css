@@ -1,0 +1,156 @@
+/* line 9, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label,
+.badge {
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #fff;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #999;
+}
+
+/* line 23, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 26, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+/* line 35, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label:empty,
+.badge:empty {
+  display: none;
+}
+
+/* line 42, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* line 56, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-important {
+  background-color: #b94a48;
+}
+
+/* line 57, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-important[href] {
+  background-color: #953b39;
+}
+
+/* line 59, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-warning {
+  background-color: #f89406;
+}
+
+/* line 60, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-warning[href] {
+  background-color: #c67605;
+}
+
+/* line 62, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-success {
+  background-color: #468847;
+}
+
+/* line 63, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-success[href] {
+  background-color: #356635;
+}
+
+/* line 65, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-info {
+  background-color: #3a87ad;
+}
+
+/* line 66, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-info[href] {
+  background-color: #2d6987;
+}
+
+/* line 68, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-inverse {
+  background-color: #333;
+}
+
+/* line 69, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.label-inverse[href] {
+  background-color: #1a1a1a;
+}
+
+/* line 56, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-important {
+  background-color: #b94a48;
+}
+
+/* line 57, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-important[href] {
+  background-color: #953b39;
+}
+
+/* line 59, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-warning {
+  background-color: #f89406;
+}
+
+/* line 60, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-warning[href] {
+  background-color: #c67605;
+}
+
+/* line 62, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-success {
+  background-color: #468847;
+}
+
+/* line 63, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-success[href] {
+  background-color: #356635;
+}
+
+/* line 65, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-info {
+  background-color: #3a87ad;
+}
+
+/* line 66, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-info[href] {
+  background-color: #2d6987;
+}
+
+/* line 68, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-inverse {
+  background-color: #333;
+}
+
+/* line 69, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.badge-inverse[href] {
+  background-color: #1a1a1a;
+}
+
+/* line 74, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.btn .label,
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+
+/* line 81, app/assets/stylesheets/sass/bootstrap/_labels-badges.scss */
+.btn-mini .label,
+.btn-mini .badge {
+  top: 0;
+}

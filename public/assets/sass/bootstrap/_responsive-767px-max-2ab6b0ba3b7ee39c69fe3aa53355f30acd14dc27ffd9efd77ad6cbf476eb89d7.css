@@ -1,0 +1,179 @@
+@media (max-width: 767px) {
+  /* line 11, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  /* line 16, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .navbar-fixed-top,
+.navbar-fixed-bottom,
+.navbar-static-top {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  /* line 23, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .container-fluid {
+    padding: 0;
+  }
+  /* line 31, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .dl-horizontal dt {
+    float: none;
+    clear: none;
+    width: auto;
+    text-align: left;
+  }
+  /* line 37, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .dl-horizontal dd {
+    margin-left: 0;
+  }
+  /* line 45, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .container {
+    width: auto;
+  }
+  /* line 49, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .row-fluid {
+    width: 100%;
+  }
+  /* line 53, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .row,
+.thumbnails {
+    margin-left: 0;
+  }
+  /* line 57, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .thumbnails > li {
+    float: none;
+    margin-left: 0;
+  }
+  /* line 62, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  [class*="span"],
+.uneditable-input[class*="span"],
+.row-fluid [class*="span"] {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  /* line 71, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .span12,
+.row-fluid .span12 {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  /* line 76, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .row-fluid [class*="offset"]:first-child {
+    margin-left: 0;
+  }
+  /* line 83, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .input-large,
+.input-xlarge,
+.input-xxlarge,
+input[class*="span"],
+select[class*="span"],
+textarea[class*="span"],
+.uneditable-input {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  /* line 93, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .input-prepend input,
+.input-append input,
+.input-prepend input[class*="span"],
+.input-append input[class*="span"] {
+    display: inline-block;
+    width: auto;
+  }
+  /* line 100, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .controls-row [class*="span"] + [class*="span"] {
+    margin-left: 0;
+  }
+  /* line 105, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .modal {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    width: auto;
+    margin: 0;
+  }
+  /* line 112, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .modal.fade {
+    top: -100px;
+  }
+  /* line 113, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .modal.fade.in {
+    top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* line 126, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .nav-collapse {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  /* line 131, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .page-header h1 small {
+    display: block;
+    line-height: 20px;
+  }
+  /* line 137, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  input[type="checkbox"],
+input[type="radio"] {
+    border: 1px solid #ccc;
+  }
+  /* line 144, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .form-horizontal .control-label {
+    float: none;
+    width: auto;
+    padding-top: 0;
+    text-align: left;
+  }
+  /* line 151, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .form-horizontal .controls {
+    margin-left: 0;
+  }
+  /* line 155, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .form-horizontal .control-list {
+    padding-top: 0;
+  }
+  /* line 159, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .form-horizontal .form-actions {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  /* line 167, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .media .pull-left,
+.media .pull-right {
+    float: none;
+    display: block;
+    margin-bottom: 10px;
+  }
+  /* line 174, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .media-object {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  /* line 180, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .modal {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+  /* line 185, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .modal-header .close {
+    padding: 10px;
+    margin: -10px;
+  }
+  /* line 191, app/assets/stylesheets/sass/bootstrap/_responsive-767px-max.scss */
+  .carousel-caption {
+    position: static;
+  }
+}

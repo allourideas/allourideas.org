@@ -45,7 +45,7 @@ vendor/ruby
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets
+#/public/assets
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

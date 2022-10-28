@@ -1,0 +1,37 @@
+/* line 9, app/assets/stylesheets/sass/bootstrap/_layouts.scss */
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  *zoom: 1;
+}
+
+/* line 13, app/assets/stylesheets/sass/bootstrap/_mixins.scss */
+.container:before, .container:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+/* line 21, app/assets/stylesheets/sass/bootstrap/_mixins.scss */
+.container:after {
+  clear: both;
+}
+
+/* line 14, app/assets/stylesheets/sass/bootstrap/_layouts.scss */
+.container-fluid {
+  padding-right: 20px;
+  padding-left: 20px;
+  *zoom: 1;
+}
+
+/* line 13, app/assets/stylesheets/sass/bootstrap/_mixins.scss */
+.container-fluid:before, .container-fluid:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+/* line 21, app/assets/stylesheets/sass/bootstrap/_mixins.scss */
+.container-fluid:after {
+  clear: both;
+}

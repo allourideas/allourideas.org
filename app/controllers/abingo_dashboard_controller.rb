@@ -24,7 +24,7 @@ class AbingoDashboardController < ApplicationController
     admin_users = User.select('id').where(:admin => true)
     admin_user_list = admin_users.map{|u| u.id}
     session_list = get_session_list(@experiments, admin_user_list)
-    session_ids = session_list.map{|s| s['session_id'] }
+    session_ids = session_flist.map{|s| s['session_id'] }
 
     theresponse = Session.post(:objects_by_session_ids, {}, {:session_ids => session_ids}.to_json)
     @objects_by_session_ids = JSON.parse(theresponse.body)

@@ -119,21 +119,23 @@ class SurveySession
           data = @@verifier.verify(cookie[1])
           puts "DEBUG data 3: #{data.inspect}"
 
-          # Safe guard against unexpected value of cookie data.
-          raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash
-          # The question_id in the cookie_name could be altered by the user. To
-          # protect against tampering, we verify the question_id in the cookie
-          # value matches the one we're looking for.
-          raise CantFindSessionFromCookies, "Question ID did not match cookie name" if data[:question_id].to_i != question_id.to_i
-          # If appearance_lookup is nil, we can return now because we've found
-          # the first cookie that is match. There may be other matches, but we
-          # have no way to determine which might be best. We always return the
-          # first matching cookie for this search.
-          return [data, cookie[0]] if appearance_lookup.nil?
-          if data[:appearance_lookup] == appearance_lookup
-            return [data, cookie[0]]
+          if data[:question_id]
+            # Safe guard against unexpected value of cookie data.
+            raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash
+            # The question_id in the cookie_name could be altered by the user. To
+            # protect against tampering, we verify the question_id in the cookie
+            # value matches the one we're looking for.
+            raise CantFindSessionFromCookies, "Question ID did not match cookie name" if data[:question_id].to_i != question_id.to_i
+            # If appearance_lookup is nil, we can return now because we've found
+            # the first cookie that is match. There may be other matches, but we
+            # have no way to determine which might be best. We always return the
+            # first matching cookie for this search.
+            return [data, cookie[0]] if appearance_lookup.nil?
+            if data[:appearance_lookup] == appearance_lookup
+              return [data, cookie[0]]
+            end
+            # We'll allow verification failures as other cookies match.
           end
-          # We'll allow verification failures as other cookies match.
         rescue ActiveSupport::MessageVerifier::InvalidSignature
         end
       end

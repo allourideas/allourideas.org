@@ -17,10 +17,15 @@ class SurveySession
   def initialize(data, cookie_name = nil)
     @data, @cookie_name = data, cookie_name
 
+    puts "DEBUG cookie init data 1: #{@data.inspect} #{@cookie_name.inspect}"
+
     # Clean up question_id to ensure it is either a positive integer or nil.
     if !@data.has_key?(:question_id)
       @data[:question_id] = nil
     end
+
+    puts "DEBUG cookie init data 2: #{@data.inspect}"
+
     if !@data[:question_id].nil?
       q_id = @data[:question_id].to_i
       if q_id < 1
@@ -29,6 +34,8 @@ class SurveySession
       @data[:question_id] = q_id
     end
 
+    puts "DEBUG cookie init data 3: #{@data.inspect}"
+
     if @cookie_name.nil?
       # Session is scoped to the question_id, so include that in the name of the
       # cookie. Random portion at end of the cookie_name allows a user to make
@@ -36,6 +43,8 @@ class SurveySession
       # by whichever request completes last.
       @cookie_name = "#{@@cookie_prefix}#{@data[:question_id]}_#{ActiveSupport::SecureRandom.hex(2)}"
     end
+
+    puts "DEBUG cookie init data 4: #{@data.inspect} #{@cookie_name.inspect}"
 
     if @data[:session_id].nil?
       @data[:session_id] = generate_session_id

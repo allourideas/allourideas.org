@@ -105,9 +105,10 @@ class SurveySession
       cookies.each do |cookie|
         begin
           # Extract data from cookie in a way that ensures no user tampering.
-
+          puts "DEBUG data 1: #{cookie.inspect}"
+          puts "DEBUG data 2: #{cookie[1]}"
           data = @@verifier.verify(cookie[1])
-          puts "DEBUG data: #{data.inspect}"
+          puts "DEBUG data 3: #{data.inspect}"
 
           # Safe guard against unexpected value of cookie data.
           raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash

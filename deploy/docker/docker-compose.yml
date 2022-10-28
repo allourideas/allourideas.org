@@ -58,13 +58,13 @@ services:
       - mysql-db-data:/var/lib/mysql
 
   redis_db:
-    image: redis:5.0.14-alpine
+    image: redis:6.2.7-alpine
     restart: always
     ports:
       - '6379:6379'
     env_file:
       - .plausible-env
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    command: redis-server --save 20 1 --loglevel warning
     network_mode: host
     volumes:
       - redis-db-data:/data

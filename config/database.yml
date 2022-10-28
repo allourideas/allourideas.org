@@ -23,7 +23,6 @@ production:
   port: <%= ENV['AOI_MYSQL_PORT'] %>
 
 test: &test
-  <<: *default
   database: pairwise_test
 
 cucumber:

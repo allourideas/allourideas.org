@@ -119,6 +119,7 @@ class SurveySession
           data = @@verifier.verify(cookie[1])
           puts "DEBUG data 3: #{data.inspect}"
 
+          #TODO: Look into this. It seems like the cookie is not being set properly.
           if data[:question_id]
             # Safe guard against unexpected value of cookie data.
             raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash

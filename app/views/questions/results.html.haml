@@ -33,7 +33,7 @@
         -if !params[:all]
           .pagination
             %ul
-              = paginated = will_paginate @choices, :previous_label => "«", :next_label => "»", :renderer => ::BootstrapPagination, :container => false
+              = paginated = will_paginate @choices, :previous_label => "«", :next_label => "»", :container => false
               -if paginated
                 %li
                   =link_to("View All", :action => :results, :all => true)

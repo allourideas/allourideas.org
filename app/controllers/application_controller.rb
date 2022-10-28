@@ -119,35 +119,45 @@ class ApplicationController < ActionController::Base
 
   # Called as a before_filter.
   def get_survey_session
+    puts "DEBUG SURVEY SESSION 1: #{params[:appearance_lookup]}"
     # First order of business is to set the question_id.
     set_question_id_earl
+    puts "DEBUG SURVEY SESSION 2: #{@question_id}"
 
     begin
       # Based on the cookies, question_id, and appearance_lookup, find the
       # proper session for this request.
       session_data = SurveySession.find(cookies, @question_id, params[:appearance_lookup])
+      puts "DEBUG SURVEY SESSION 3: #{session_data.inspect}"
     rescue CantFindSessionFromCookies => e
       # if no appearance_lookup, then we can safely create a new sesssion
       # otherwise this request ought to fail as they are attempting some action
       # without the proper session being found
+      puts "DEBUG SURVEY SESSION 4: #{e.message}"
       if params[:appearance_lookup].nil?
         session_data = [{ :question_id => @question_id }]
+        puts "DEBUG SURVEY SESSION 5: #{session_data.inspect}"
       else
         raise e
       end
     end
     # Create new SurveySession object for this request.
+    puts "DEBUG SURVEY SESSION 7"
     @survey_session = SurveySession.send(:new, *session_data)
+    puts "DEBUG SURVEY SESSION 8 #{@survey_session.inspect}"
     if @survey_session.expired?
+      puts "DEBUG SURVEY SESSION 9"
       # This will regenerate the session_id, saving the old one.
       # We can send along both the new and old session_id to pairwise
       # for requests that have sessions that have expired.
       @survey_session.regenerate
+      puts "DEBUG SURVEY SESSION 10 #{@survey_session.inspect}"
     end
 
     # We want the session to expire after X minutes of inactivity, so update
     # the expiry with every request.
     @survey_session.update_expiry
+    puts "DEBUG SURVEY SESSION 11 #{@survey_session.inspect}"
   end
 
   # Called as a after_filter to ensure we pass along the updated survey session

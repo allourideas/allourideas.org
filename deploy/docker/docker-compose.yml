@@ -58,7 +58,7 @@ services:
       - mysql-db-data:/var/lib/mysql
 
   redis_db:
-    image: redis:6.2.7-alpine
+    image: redis:5.0.14-alpine
     restart: always
     ports:
       - '6379:6379'

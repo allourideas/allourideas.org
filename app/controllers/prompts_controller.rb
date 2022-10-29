@@ -60,7 +60,7 @@ class PromptsController < ApplicationController
     @earl = Earl.find_by(question_id: params[:question_id].to_s)
 
     puts "DEBUG EARL: #{@earl.inspect}"
-    if skip = @prompt.post(:skip, :question_id => question_id,
+    if skip = @prompt.put(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
       next_prompt = JSON(skip.body)['prompt']
@@ -112,7 +112,7 @@ class PromptsController < ApplicationController
                     :visitor_identifier => @survey_session.session_id,
                     :explanation => reason)
 
-    new_choice = Hash.from_xml(c.body)['choice']
+    new_choice = JSON(c.body)['choice']
     flag_choice_success = (c.code == "201" && new_choice['active'] == false)
     IdeaMailer.delay.deliver_flag_notification(@earl, new_choice["id"], new_choice["data"], reason, @photocracy)
 

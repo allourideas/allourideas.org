@@ -55,11 +55,15 @@ class PromptsController < ApplicationController
     logger.info "Getting ready to skip out on Prompt #{prompt_id}, Question #{params[:id]}"
     @prompt = Prompt.find(prompt_id, :params => {:question_id => params[:question_id]})
 
+    puts "DEBUG PROMPT: #{@prompt.inspect}"
+
     @earl = Earl.find_by(question_id: params[:question_id].to_s)
+
+    puts "DEBUG EARL: #{@earl.inspect}"
     if skip = @prompt.post(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
-      next_prompt = Hash.from_xml(skip.body)['prompt']
+      next_prompt = JSON(skip.body)['prompt']
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

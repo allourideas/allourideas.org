@@ -40,6 +40,8 @@ class QuestionsController < ApplicationController
   #   end
   # end
   def results
+    #TODO: Get pagination is working again
+    params[:all]="true"
     @earl = Earl.find_by(name: params[:id])
 
     @question = @earl.question

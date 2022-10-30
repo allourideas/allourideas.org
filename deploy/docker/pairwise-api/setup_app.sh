@@ -5,6 +5,7 @@ cd /home/app
 if [ -d "/home/app/pairwise-api" ]
 then
     cd /home/app/pairwise-api
+    git config --global --add safe.directory /home/app/pairwise-api
     git pull
 else
     git clone https://github.com/CitizensFoundation/pairwise-api.git

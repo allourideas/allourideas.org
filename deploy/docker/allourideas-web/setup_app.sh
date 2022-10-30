@@ -4,6 +4,7 @@ cd /home/app
 
 if [ -d "/home/app/allourideas.org" ]
 then
+    git config --global --add safe.directory /home/app/allourideas.org
     cd /home/app/allourideas.org
     git pull
 else

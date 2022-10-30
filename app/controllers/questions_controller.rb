@@ -41,7 +41,7 @@ class QuestionsController < ApplicationController
   # end
   def results
     #TODO: Get pagination is working again
-    params[:all]="true"
+    #params[:all]="true"
     @earl = Earl.find_by(name: params[:id])
 
     @question = @earl.question
@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
     current_page = params[:page] || 1
     current_page = current_page.to_i
     current_page = 1 if current_page == 0
-    per_page = 10
+    per_page = 1000
 
     logger.info "current page is #{current_page} but params is #{params[:page]}"
 
@@ -1067,18 +1067,26 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     question_params = params[:question]
+
+    puts "DEBUG #{question_params.inspect} #{signed_in?}"
+
     @user = User.new(:email => question_params[:email],
       :password => question_params[:password],
       :password_confirmation => question_params[:password]) unless signed_in?
-      @question = Question.new(
-        :name => question_params[:name],
-        :ideas => question_params[:ideas],
-        :url => question_params[:url],
-        :information => question_params[:information],
-      )
 
-      if @user.save
-      sign_in @user
+    @question = Question.new(
+      :name => question_params[:name],
+      :ideas => question_params[:ideas],
+      :url => question_params[:url],
+      :information => question_params[:information],
+    )
+
+    if signed_in? or (@user and @user.save)
+      if not signed_in?
+        sign_in @user
+      else
+        @user = current_user
+      end
       puts "user is #{@user.inspect}"
 
       @question.user_id = @user.id

@@ -98,6 +98,8 @@ class SurveySession
   # return the cookie data and cookie name in an array that best matches.
   # If there are multiple cookies that match, we return the first that is matched.
   def self.find(cookies, question_id, appearance_lookup = nil)
+    appearance_lookup = nil if appearance_lookup==""
+    puts "DEBUG data 0: #{question_id} #{appearance_lookup}"
     if question_id.to_i < 1 && !appearance_lookup.nil?
       raise SessionHasNoQuestionId, "Can't find session with appearance_lookup that has no question_id"
     end

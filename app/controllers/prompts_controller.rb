@@ -10,6 +10,7 @@ class PromptsController < ApplicationController
 
     @earl = Earl.where(question_id: params[:question_id]).first
     puts "voted_prompt.id: #{voted_prompt.id}"
+    puts "DEBUG EARL: #{@earl.inspect}"
     if params[:direction] &&
       vote = voted_prompt.put(:vote,
           :question_id => params[:question_id],
@@ -63,7 +64,10 @@ class PromptsController < ApplicationController
     if skip = @prompt.put(:skip, :question_id => question_id,
                            :skip => get_object_request_options(params, :skip),
                            :next_prompt => get_next_prompt_options)
-      next_prompt = JSON(skip.body)['prompt']
+
+      puts "DEBUG JSONBODY: #{JSON(skip.body).inspect}"
+
+      next_prompt = JSON(skip.body)
 
       result = {
         :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),

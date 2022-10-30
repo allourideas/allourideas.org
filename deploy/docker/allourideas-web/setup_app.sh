@@ -9,7 +9,7 @@ then
 else
     git clone https://github.com/CitizensFoundation/allourideas.org.git
     chown -R app:app /home/app/allourideas.org
-    cd /home/app/pairwise-api
+    cd /home/app/allourideas.org
 fi
 
 sudo -E -u app bundle install

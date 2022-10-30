@@ -120,7 +120,8 @@ class SurveySession
           puts "DEBUG data 3: #{data.inspect}"
 
           #TODO: Look into this. It seems like the cookie is not being set properly.
-          if data[:question_id] and data[:question_id].to_i == question_id.to_i
+          if data[:question_id] and data[:question_id].to_i == question_id.to_i or
+             (data[:question_id].nil? and question_id.nil?)
             # Safe guard against unexpected value of cookie data.
             raise CantFindSessionFromCookies, "Data is not hash" if data.class != Hash
             # The question_id in the cookie_name could be altered by the user. To

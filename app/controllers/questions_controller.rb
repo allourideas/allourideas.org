@@ -1067,39 +1067,48 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     question_params = params[:question]
-    @question = Question.new(
-      :name => question_params[:name],
-      :ideas => question_params[:ideas],
-      :url => question_params[:url],
-      :information => question_params[:information],
-      :user_id => current_user.id
-    )
-    @user = User.new(:email => params[:question]['email'],
-                     :password => params[:question]['password'],
-                     :password_confirmation => params[:question]['password']) unless signed_in?
+    @user = User.new(:email => question_params[:email],
+      :password => question_params[:password],
+      :password_confirmation => question_params[:password]) unless signed_in?
+      @question = Question.new(
+        :name => question_params[:name],
+        :ideas => question_params[:ideas],
+        :url => question_params[:url],
+        :information => question_params[:information],
+      )
 
-    spam_check = /\A[a-z]+\z/i
-    looks_like_spam = !!question_params['name'].try(:match, spam_check) && !!question_params['url'].try(:match, spam_check) && !!question_params['ideas'].try(:match, spam_check) && !!question_params['information'].try(:match, spam_check)
+      if @user.save
+      sign_in @user
+      puts "user is #{@user.inspect}"
 
-    @question.errors.add(:base, "Unable to create question. If problem persists, email info@allourideas.org") if looks_like_spam
-    if !looks_like_spam and question_params_valid
-      earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
-      earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
-      earl = current_user.earls.create(earl_options)
-      #TODO: Get mail working
-      #ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
-      #IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
-      if earl.requires_verification?
-        redirect_to verify_url and return
-      end
-      session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>".html_safe
+      @question.user_id = @user.id
 
-      if @photocracy
-        redirect_to add_photos_url(earl.name) and return
+      spam_check = /\A[a-z]+\z/i
+      looks_like_spam = !!question_params['name'].try(:match, spam_check) && !!question_params['url'].try(:match, spam_check) && !!question_params['ideas'].try(:match, spam_check) && !!question_params['information'].try(:match, spam_check)
+
+      @question.errors.add(:base, "Unable to create question. If problem persists, email info@allourideas.org") if looks_like_spam
+      if !looks_like_spam and question_params_valid
+        earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
+        earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
+        earl = current_user.earls.create(earl_options)
+        #TODO: Get mail working
+        #ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
+        #IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
+        if earl.requires_verification?
+          redirect_to verify_url and return
+        end
+        session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>".html_safe
+
+        if @photocracy
+          redirect_to add_photos_url(earl.name) and return
+        else
+          redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls') and return
+        end
       else
-        redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls') and return
+        render(:action => "new")
       end
     else
+      @question.errors.add(:base, "Unable to create user")
       render(:action => "new")
     end
   end

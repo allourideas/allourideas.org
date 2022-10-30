@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :earls
   has_many :session_infos
   has_many :clicks
-  attr_accessible :default
+  attr_accessible :default, :email, :password
   before_validation :set_confirmed_email
 
   def owns?(earl)

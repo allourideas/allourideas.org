@@ -9,6 +9,7 @@ then
 else
     git clone https://github.com/CitizensFoundation/allourideas.org.git
     chown -R app:app /home/app/allourideas.org
+    git config --global --add safe.directory /home/app/allourideas.org
     cd /home/app/allourideas.org
 fi
 

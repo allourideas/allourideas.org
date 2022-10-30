@@ -4,13 +4,13 @@ cd /home/app
 
 if [ -d "/home/app/allourideas.org" ]
 then
-    git config --global --add safe.directory /home/app/allourideas.org
+    chown -R root:root /home/app/allourideas.org
     cd /home/app/allourideas.org
     git pull
+    chown -R app:app /home/app/allourideas.org
 else
     git clone https://github.com/CitizensFoundation/allourideas.org.git
     chown -R app:app /home/app/allourideas.org
-    git config --global --add safe.directory /home/app/allourideas.org
     cd /home/app/allourideas.org
 fi
 

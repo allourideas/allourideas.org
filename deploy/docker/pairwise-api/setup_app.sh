@@ -4,13 +4,13 @@ cd /home/app
 
 if [ -d "/home/app/pairwise-api" ]
 then
+    chown -R root:root /home/app/pairwise-api
     cd /home/app/pairwise-api
-    git config --global --add safe.directory /home/app/pairwise-api
     git pull
+    chown -R app:app /home/app/pairwise-api
 else
     git clone https://github.com/CitizensFoundation/pairwise-api.git
     chown -R app:app /home/app/pairwise-api
-    git config --global --add safe.directory /home/app/pairwise-api
     cd /home/app/pairwise-api
 fi
 

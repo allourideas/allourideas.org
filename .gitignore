@@ -50,4 +50,3 @@ vendor/ruby
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /startWithEnv.sh
-config/credentials.yml.enc

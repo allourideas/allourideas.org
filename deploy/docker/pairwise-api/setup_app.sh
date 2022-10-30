@@ -4,13 +4,16 @@ cd /home/app
 
 rm -r pairwise-api
 
-git clone https://github.com/CitizensFoundation/pairwise-api.git
-chown -R app:app /home/app/pairwise-api
 
-cd /home/app/pairwise-api
-
-ls -l
-ls -l config
+if [ -d "/home/app/pairwise-api" ]
+then
+    cd /home/app/pairwise-api
+    git pull
+else
+    git clone https://github.com/CitizensFoundation/pairwise-api.git
+    chown -R app:app /home/app/pairwise-api
+    cd /home/app/pairwise-api
+fi
 
 sudo -E -u app bundle install
 sudo -E -u app bundle exec rake db:create RAILS_ENV=production

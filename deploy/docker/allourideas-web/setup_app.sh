@@ -2,15 +2,15 @@
 mkdir -p /home/app
 cd /home/app
 
-rm -r allourideas.org
-
-git clone https://github.com/CitizensFoundation/allourideas.org.git
-chown -R app:app /home/app/allourideas.org
-
-cd /home/app/allourideas.org
-
-ls -l
-ls -l config
+if [ -d "/home/app/allourideas.org" ]
+then
+    cd /home/app/allourideas.org
+    git pull
+else
+    git clone https://github.com/CitizensFoundation/allourideas.org.git
+    chown -R app:app /home/app/allourideas.org
+    cd /home/app/pairwise-api
+fi
 
 sudo -E -u app bundle install
 sudo -E -u app bundle exec rake db:create RAILS_ENV=production

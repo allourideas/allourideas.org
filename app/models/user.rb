@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_many :clicks
   attr_accessible :default
   before_validation_on_create :set_confirmed_email
+
+  # plucked from a newer version of Clearance; better email validation
+  validates_format_of       :email, :with => %r{^[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$}i, :allow_blank => true
   
   def owns?(earl)
     earl.user_id == id

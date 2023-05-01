@@ -53,10 +53,10 @@
             .controls
               = f.text_area 'ideas', :class => 'required span8', :cols => 85, :rows => 12, :placeholder => t('questions.new.step3_exp')
             - if ENV['OPENAI_API_KEY'].present?
-              %button#ai-ideas-button.btn.btn-primary{:type => "button"}
-                = t('questions.new.get_ai_ideas')
-              %div#ai-ideas-spinner.spinner{style: "display:none;"}
-                %i.fas.fa-spinner.fa-spin
+              %div.button-spinner-container
+                %button#ai-ideas-button.btn.btn-primary{:type => "button"}
+                  = t('questions.new.generate_answer_ideas_with_artificial_intelligence')
+                %div#ai-ideas-spinner.spinner{style: "display:none;"}
           = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
 
         -unless signed_in?

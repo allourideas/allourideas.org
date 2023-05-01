@@ -23,7 +23,8 @@ module AiHelper
                     The answers should be unique, wide ranging, creative and thoughtful.
                     The answers should never be more than one sentence. You never explain and you only output the 10 answers, nothing else.
                     If there are previous ideas do not output them again.
-                    Never output the answer number at the front.",
+                    The maximum length of an answer is 140 characters.
+                    Never output the answer number at the start of a sentence.",
         },
         {
           role: "user",

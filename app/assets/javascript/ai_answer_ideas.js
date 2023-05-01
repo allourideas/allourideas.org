@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     spinner.style.display = "block";
 
     const question = document.getElementById("question_name").value;
+    aiIdeasButton.disabled = true;
 
     fetch(`/questions/get_ai_answer_ideas?question=${question}&previous_ideas=${ideasTextArea.value}`, {
       headers: {
@@ -26,14 +27,18 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(response => response.text())
     .then(data => {
+      aiIdeasButton.disabled = false;
       console.log("Success fetching AI answer ideas:", data);
       let newValue = ideasTextArea.value+"\n"+data.replace("\n\n","\n");
       newValue = removeNumbersAndExtraLines(newValue);
+      newValue = newValue.replace(/&quot;/g, '"');
+      newValue = newValue.trim();
       ideasTextArea.value = newValue;
       spinner.style.display = "none";
       ideasTextArea.scrollTop = ideasTextArea.scrollHeight;
     })
     .catch(error => {
+      aiIdeasButton.disabled = false;
       console.error("Error fetching AI answer ideas:", error);
       spinner.style.display = "none";
     });

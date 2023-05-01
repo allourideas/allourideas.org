@@ -11,7 +11,7 @@ en:
    active: active
    inactive: inactive
    title: All Our Ideas - Bringing survey research into the digital age
-   title_widget: All Our Ideas   
+   title_widget: All Our Ideas
    characters: characters
    idea_marketplace: Idea Marketplace
    votes: Votes
@@ -105,7 +105,7 @@ en:
     logout: Logout
     forgot_password: Forgot your password?
     reset_password_header: Reset your password
-    reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password. 
+    reset_password_explain: Forgot your password? Enter your login email below. We will send you an email with a link to reset your password.
     reset_password_button: Reset password
     save_password_button: Save this password
     change_your_password: Change your password
@@ -118,7 +118,7 @@ en:
       error:
         registration: Sorry, we couldn't register you.
         header: errors prohibited this website from being created.
-        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.photocracy.org? You can 
+        already_taken: I'm sorry, but that email address has already been taken. Do you have an account on http://www.photocracy.org? You can
         already_taken_link: log-in with your photocracy.org account
 
       header: Create your website and get ready to discover the best ideas...
@@ -143,7 +143,7 @@ en:
       exp2: or get started using the steps below.
       if_you_have_an_account: If you already have an account, please login
       here: here
-      your_email_address: Your Email Address  
+      your_email_address: Your Email Address
       optional: Optional
       help_us_out: Help Us Out
       tell_us_why: Please tell us a bit about what you are trying to accomplish with All Our Ideas.
@@ -187,7 +187,7 @@ en:
     cd_both_same: I think both ideas are the same
     cd_other: I just can't decide
     cd_user_other: "Other:"
-    cd_explicit_dont_know_left_widget: I don't know enough about the left idea            
+    cd_explicit_dont_know_left_widget: I don't know enough about the left idea
     cd_explicit_dont_know_right_widget: I don't know enough about the right idea
     cant_decide_message: You couldn't decide.
     click_idea_to_start_widget: Click on an idea to start voting.
@@ -197,7 +197,7 @@ en:
     submit: Submit
     view_all_the_results: View all the results
     others_thought: Click to see what others thought.
-    submit_idea_default_error: Sorry, blank ideas are not allowed. 
+    submit_idea_default_error: Sorry, blank ideas are not allowed.
     submit_idea_too_long_error: Sorry, ideas need to be less than 140 characters.
     submit_idea_thankyou: Thank you. Your idea has been added. Please add some more ideas.
     vote_timeout_error: "Sorry, voting is taking too long ... too much traffic!"
@@ -226,6 +226,7 @@ en:
     date: Date
     number_of_votes_per_day: Number of Votes per day
     data_visualizations: Data Visualizations
+    analytics_and_promptions: Analytics and Promotions
     world_map_title: World map of all votes
     world_map_ideas_title: World map of all uploaded ideas
     world_map_creators: World map of all wiki survey creators
@@ -252,7 +253,7 @@ en:
     overall_total_votes: "Overall total - %{count} votes"
     unable_to_find_location_of_X_votes: "We were unable to find the location of %{count} votes"
     vote_map_geo_error: "We were unable to find the location of "
-    previous: << Previous 
+    previous: << Previous
     next: Next >>
     rollover_to_see_more: Roll over each point to learn more
   about:
@@ -260,8 +261,8 @@ en:
     contact: Contact Us
     current_contributors: Current Contributors
     past_contributors: Past Contributors
-  about_page: 
-    intro: You are participating in an “wiki survey” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top. 
+  about_page:
+    intro: You are participating in an “wiki survey” that enables groups to collect and prioritize ideas in a democratic, open, and efficient process. By combining a simple voting process with open uploading of ideas, the best ideas in your group will bubble to the top.
     exp_widget: This wiki survey widget is powered by www.allourideas.org, a research project led by Prof. Matthew Salganik, Department of Sociology, Princeton University.
     faq_widget: "Here are some frequently asked questions:"
     open_source_q_widget: Is all of this open-source?
@@ -272,12 +273,12 @@ en:
     how_many_votes_exp: You can vote as little or as much as you want, and you can stop voting at any time.
     how_many_ideas_q: How many ideas can I add? What happens to my idea once I add it?
     how_many_ideas_exp: You can add as many ideas as you have. Once an idea is added, it may be reviewed by the person who created the wiki survey in order to ensure that it is not inappropriate. Once the idea has been reviewed, it will start appearing for people to vote on it.
-    view_results_q: Can I see what everyone else thinks? 
+    view_results_q: Can I see what everyone else thinks?
     view_results_exp: Yes, simply click on “View Results” from the voting screen. This process is completely transparent.
     make_my_own_q: This is neat. Can I make one of these myself?
     make_my_own_exp: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey here: http://www.allourideas.org/questions/new."
     make_my_own_exp_widget: "Sure. It is easy to set up your own wiki survey, and it is completely free thanks to our grants from Google and the Center for Information Technology Policy at Princeton University. You can create your own wiki survey widget: http://www.allourideas.org."
-  admin: 
+  admin:
     accept_responses: Accept new responses
     verify_survey_title: Activate Your Wiki Survey
     verify_survey_body: You should soon receive an email with a link to verify and activate your wiki survey. In order to activate your wiki survey, please click the link in the email.
@@ -285,20 +286,20 @@ en:
     wiki_survey_verification_failed: Whoops, that wasn't the proper verification code. Be sure you're visiting the URL included in your email.
     hide_results_from_visitors: Hide results from visitors.
     user_ideas: User Ideas
-    active_user_ideas: Active User Ideas 
+    active_user_ideas: Active User Ideas
     num_votes: Votes
     num_votes_today: "Votes (Today)"
     created: Created
     user: User
     seed: Seed
-    this_question_created: This question created 
+    this_question_created: This question created
     show_cant_decide: Show "I can't decide" button
     show_add_new_idea: Show add new idea box
     ago: ago
     optional_question_settings: Optional Question Settings
     auto_activate_exp: Allow ideas by users to be automatically activated, without prior approval
     enabled: Enabled
-    disabled: Disabled 
+    disabled: Disabled
     additional_settings: Additional Settings
     password_protect_exp: Require users to enter the following user/password combination before voting
     username: Username
@@ -306,8 +307,8 @@ en:
     upload_logo_exp: Upload a logo to be displayed on your idea market place page
     welcome_msg_exp: Add a welcome message for new voters
     welcome_msg_long_exp: You may wish to include some extra information for users who visit your wiki survey for the first time. This message will appear as a yellow box directly above your question until a user votes for the first time. Note that this text is limited to 255 characters.
-    welcome_msg_long_exp2: For example, it may be useful to explain who is leading the wiki survey or what will be done with the feedback gathered from this question. 
-    allow_flag_as_inappropriate: Allow users to flag individual ideas as inappropriate. 
+    welcome_msg_long_exp2: For example, it may be useful to explain who is leading the wiki survey or what will be done with the feedback gathered from this question.
+    allow_flag_as_inappropriate: Allow users to flag individual ideas as inappropriate.
     allow_flag_as_inappropriate_exp: This setting will allow users to flag ideas as inappropriate or offtopic. After a user submits a flag request, the idea will be automatically deactivated and an email will be sent to the owner of the wiki survey. The email will contain whatever explanation the user provided along with the option to quickly re-activate an idea.
     default_lang_exp: Change the default language of the voting page interface
     download_idea_marketplace_data: Download Wiki Survey Data

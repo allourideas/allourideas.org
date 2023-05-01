@@ -3,6 +3,8 @@ source "https://rubygems.org"
 ruby '3.2.2'
 
 gem 'protected_attributes_continued'
+gem 'chart-js-rails'
+gem "ruby-openai"
 gem "memoist"
 gem "rtiss_acts_as_versioned"
 gem "delayed_job_active_record"

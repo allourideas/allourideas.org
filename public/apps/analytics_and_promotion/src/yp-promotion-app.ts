@@ -241,15 +241,21 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
       window.appGlobals.setupTranslationSystem('/apps/analytics_and_promotion/dist');
     }
 
-    let pathname = window.location.pathname;
-    if (pathname.endsWith('/'))
-      pathname = pathname.substring(0, pathname.length - 1);
-    const split = pathname.split('/');
-    this.collectionType = "question"//split[split.length - 2];
-
-    this.originalCollectionType = this.collectionType;
-
-    this.collectionId = split[split.length - 1];
+    let searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has('questionId')) {
+      this.collectionType = "question";
+      this.originalCollectionType = this.collectionType;
+      this.collectionId = searchParams.get('questionId') as string;
+    } else {
+      // Fallback to the original code if the query parameter is not present
+      let pathname = window.location.pathname;
+      if (pathname.endsWith('/'))
+        pathname = pathname.substring(0, pathname.length - 1);
+      const split = pathname.split('/');
+      this.collectionType = "question";
+      this.originalCollectionType = this.collectionType;
+      this.collectionId = split[split.length - 1];
+    }
 
   }
 

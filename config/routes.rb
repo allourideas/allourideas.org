@@ -9,7 +9,9 @@ AllOurIdeas::Application.routes.draw do
       only: [:edit, :update]
   end
 
-  get '/analytics-and-promotion', to: redirect('/apps/analytics_and_promotion/dist/index.html')
+  get '/analytics-and-promotion/:questionId', to: redirect { |params, request|
+    "/apps/analytics_and_promotion/dist/?questionId=#{params[:questionId]}"
+  }
 
   put '/api/analytics/:questionId/plausibleStatsProxy', to: 'analytics#plausible_stats_proxy', as: :plausible_stats_proxy
   get '/api/analytics/:questionId/:type/getPlausibleSeries', to: 'analytics#get_plausible_series', as: :get_plausible_series
@@ -28,6 +30,7 @@ AllOurIdeas::Application.routes.draw do
 #  resource :passwords
   resources :questions do
     collection do
+      get :get_ai_answer_ideas
     end
     member do
       put :update_name

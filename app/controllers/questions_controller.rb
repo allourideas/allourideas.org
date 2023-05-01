@@ -1,8 +1,12 @@
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
+  include AiHelper
+
   #require 'geokit'
   before_action :require_login, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_action :admin_only, :only => [:index, :admin_stats]
+  skip_before_action :verify_authenticity_token, :only => [:get_ai_answer_ideas]
+  skip_before_action :record_action, :only => [:get_ai_answer_ideas]
   #caches_page :results
 
   # GET /questions
@@ -13,6 +17,12 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @questions }
+    end
+  end
+
+  def get_ai_answer_ideas
+    respond_to do |format|
+      format.json { render :json => get_answer_ideas(params[:question], params[:previous_ideas]) }
     end
   end
 
@@ -197,57 +207,15 @@ class QuestionsController < ApplicationController
         chart_data << point
       end
 
-      choice_url = url_for(:action => 'show', :controller => "choices", :id => 'fakeid', :question_id => @earl.name)
-      tooltipformatter = "function() {  var splitresult = this.point.name.split('@@@');
-                                        var name = splitresult[0];
-          var id = splitresult[1];
-          var created = splitresult[2];
-
-          return '<b>' + name + '</b>: '+ this.y + ' ratings <br /> Created: ' + created; }"
-
-      moreinfoclickfn= "function() {  var splitresult = this.name.split('@@@');
-                                        var name = splitresult[0];
-          var id = splitresult[1];
-          var created = splitresult[2];
-
-          var fake_url= '#{choice_url}';
-          var the_url = fake_url.replace('fakeid',id);
-
-          location.href=the_url;}"
-      @votes_chart = Highchart.spline({
-        :chart => { :renderTo => "#{type}-chart-container",
-        :margin => [50, 25, 60, 100],
-        :borderColor =>  '#919191',
-        :borderWidth =>  '1',
-        :borderRadius => '0',
-        :backgroundColor => '#FFFFFF'
-#       :height => '500'
-      },
-      :legend => { :enabled => false },
-            :title => { :text => "Number of ratings per idea by creation date",
-            :style => { :color => '#919191' }
-      },
-      :x_axis => {:type => 'linear',
-          :title => {:enabled => true, :text => "Non Uniform Date Intervals"}},
-          :y_axis => {:type => 'linear', :min => 0,
-          :title => {:enabled => true, :text => "Number of ratings"}},
-          :plotOptions => {:scatter => { :point => {:events => {:click => moreinfoclickfn }}}},
-          :series => [ { :name => "#{type.gsub("_", " ").capitalize}",
-          :type => 'scatter',
-          :color => 'rgba( 49,152,193, .5)',
-          :data => chart_data }],
-          :tooltip => { :formatter => tooltipformatter }
-
-      })
+      @chart_data = chart_data
+      @type = type
+      @choice_url_template = url_for(action: 'show', controller: 'choices', id: 'fakeid', question_id: @earl.name)
 
       respond_to do |format|
-      format.html { render :text => "<div id='#{type}-chart-container'></div><script type='text/javascript'>#{@votes_chart}</script>"}
-        format.js { render :text => @votes_chart }
-     end
-
-
+        format.html
+        format.js
+      end
   end
-
 
   # TODO: declare as private
   # calculate color heat map

@@ -1,5 +1,7 @@
 let firstMessage = true;
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
   const aiIdeasButton = document.getElementById("ai-ideas-button");
   const spinner = document.getElementById("ai-ideas-spinner");
@@ -13,13 +15,20 @@ document.addEventListener("DOMContentLoaded", function() {
       .join('\n');
   }
 
+  const getPreviousIdeas = () => {
+    let previousIdeas = ideasTextArea.value;
+    // Replace all new lines with "  \n"
+    previousIdeas = previousIdeas.replace(/\n/g, "aoirvb8735");
+    return previousIdeas;
+  };
+
   aiIdeasButton.addEventListener("click", function() {
     spinner.style.display = "block";
 
     const question = document.getElementById("question_name").value;
     aiIdeasButton.disabled = true;
 
-    fetch(`/questions/get_ai_answer_ideas?question=${question}&previous_ideas=${ideasTextArea.value}&first_message=${firstMessage}`, {
+    fetch(`/questions/get_ai_answer_ideas?question=${question}&previous_ideas=${getPreviousIdeas()}&first_message=${firstMessage}`, {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",

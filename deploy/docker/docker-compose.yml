@@ -5,7 +5,7 @@ services:
     restart: always
 
   plausible_db:
-    image: postgres:13
+    image: postgres:12
     network_mode: host
     restart: always
     volumes:

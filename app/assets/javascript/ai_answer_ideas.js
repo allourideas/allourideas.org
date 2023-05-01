@@ -1,3 +1,5 @@
+let firstMessage = true;
+
 document.addEventListener("DOMContentLoaded", function() {
   const aiIdeasButton = document.getElementById("ai-ideas-button");
   const spinner = document.getElementById("ai-ideas-spinner");
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const question = document.getElementById("question_name").value;
     aiIdeasButton.disabled = true;
 
-    fetch(`/questions/get_ai_answer_ideas?question=${question}&previous_ideas=${ideasTextArea.value}`, {
+    fetch(`/questions/get_ai_answer_ideas?question=${question}&previous_ideas=${ideasTextArea.value}&first_message=${firstMessage}`, {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(response => response.text())
     .then(data => {
+      firstMessage = false;
       aiIdeasButton.disabled = false;
       console.log("Success fetching AI answer ideas:", data);
       let newValue = ideasTextArea.value+"\n"+data.replace("\n\n","\n");

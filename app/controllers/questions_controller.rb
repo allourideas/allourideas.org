@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
 
   def get_ai_answer_ideas
     respond_to do |format|
-      format.json { render :json => get_answer_ideas(params[:question], params[:previous_ideas]) }
+      format.json { render :json => get_answer_ideas(params[:question], params[:previous_ideas], params[:first_message]) }
     end
   end
 

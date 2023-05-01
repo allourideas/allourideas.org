@@ -238,7 +238,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
     if (window.location.href.indexOf('localhost:9010') > -1) {
       window.appGlobals.setupTranslationSystem();
     } else {
-      window.appGlobals.setupTranslationSystem('/promotion');
+      window.appGlobals.setupTranslationSystem('/apps/analytics_and_promotion/dist');
     }
 
     let pathname = window.location.pathname;
@@ -549,7 +549,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
   }
 
   exitToMainApp() {
-    window.location.href = `/${this.originalCollectionType}/${this.collectionId}`;
+    window.location.href = `/${this.collectionId}/results`;
   }
 
   async _displaySnackbar(event: CustomEvent) {

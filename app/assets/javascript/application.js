@@ -4,9 +4,9 @@
 //= jquery-ui
 //= jquery.hint
 //= jquery.corner
-//= highcharts
 //= facebox
 //= jquery.jqEasyCharCounter
 //= jquery.blockUI
 //= application_main
+//= require analytics
 //= require_self

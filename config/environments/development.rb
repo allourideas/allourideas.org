@@ -62,8 +62,9 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = false
-  config.assets.debugging = false
   config.assets.compile = true
+  config.assets.debug = true
+  config.assets.digest = false
   config.action_mailer.smtp_settings = {
     :user_name => "apikey",
     :password => "***",

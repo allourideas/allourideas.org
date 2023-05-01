@@ -50,3 +50,4 @@ vendor/ruby
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /startWithEnv.sh
+startWithEnvMigrate.sh

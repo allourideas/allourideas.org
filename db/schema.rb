@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_233751) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_01_001232) do
   create_table "alternatives", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "experiment_id"
     t.string "content"
@@ -34,6 +34,33 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_233751) do
     t.index ["created_at"], name: "index_blocked_cookies_on_created_at"
     t.index ["ip_addr"], name: "index_blocked_cookies_on_ip_addr"
     t.index ["question_id"], name: "index_blocked_cookies_on_question_id"
+  end
+
+  create_table "campaigns", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.json "configuration"
+    t.integer "user_id", null: false
+    t.integer "post_id"
+    t.integer "group_id"
+    t.integer "community_id"
+    t.integer "domain_id"
+    t.string "question_code"
+    t.integer "question_id"
+    t.boolean "deleted", default: false, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id", "community_id", "deleted", "active"], name: "index_campaigns_on_id_and_community_id_and_deleted_and_active"
+    t.index ["id", "community_id", "deleted"], name: "index_campaigns_on_id_and_community_id_and_deleted"
+    t.index ["id", "domain_id", "deleted", "active"], name: "index_campaigns_on_id_and_domain_id_and_deleted_and_active"
+    t.index ["id", "domain_id", "deleted"], name: "index_campaigns_on_id_and_domain_id_and_deleted"
+    t.index ["id", "group_id", "deleted", "active"], name: "index_campaigns_on_id_and_group_id_and_deleted_and_active"
+    t.index ["id", "group_id", "deleted"], name: "index_campaigns_on_id_and_group_id_and_deleted"
+    t.index ["id", "post_id", "deleted", "active"], name: "index_campaigns_on_id_and_post_id_and_deleted_and_active"
+    t.index ["id", "post_id", "deleted"], name: "index_campaigns_on_id_and_post_id_and_deleted"
+    t.index ["id", "question_code", "deleted"], name: "index_campaigns_on_id_and_question_code_and_deleted"
+    t.index ["id", "question_id", "deleted"], name: "index_campaigns_on_id_and_question_id_and_deleted"
+    t.index ["id", "user_id", "deleted", "active"], name: "index_campaigns_on_id_and_user_id_and_deleted_and_active"
+    t.index ["id", "user_id", "deleted"], name: "index_campaigns_on_id_and_user_id_and_deleted"
   end
 
   create_table "clicks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

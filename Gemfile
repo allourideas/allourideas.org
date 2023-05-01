@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby '3.1.2'
+ruby '3.2.2'
 
 gem 'protected_attributes_continued'
 gem "memoist"
@@ -9,11 +9,12 @@ gem "delayed_job_active_record"
 gem "puma"
 gem "passenger"
 gem "iconv"
+gem 'http'
 gem 'bootsnap', require: false
 gem "bugsnag", "~> 5.5.0"
 gem "rake", ">= 13.0.6"
 gem "rdoc", "~> 3.12"
-gem "rails", "7.0.4"
+gem "rails", "7.0.4.3"
 gem "sprockets-rails"
 gem "libxml-ruby", "2.9.0", :require => "libxml"
 gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"

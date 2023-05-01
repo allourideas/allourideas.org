@@ -9,6 +9,19 @@ AllOurIdeas::Application.routes.draw do
       only: [:edit, :update]
   end
 
+  get '/analytics-and-promotion', to: redirect('/apps/analytics_and_promotion/dist/index.html')
+
+  put '/api/analytics/:questionId/plausibleStatsProxy', to: 'analytics#plausible_stats_proxy', as: :plausible_stats_proxy
+  get '/api/analytics/:questionId/:type/getPlausibleSeries', to: 'analytics#get_plausible_series', as: :get_plausible_series
+  post '/createActivityFromApp', to: 'analytics#create_activity_from_app', as: :create_activity_from_app
+
+  scope '/api/analytics/:question_id', controller: :campaigns do
+    get 'get_campaigns', action: :index
+    post 'create_campaign', action: :create
+    put ':campaign_id/update_campaign', action: :update
+    delete ':campaign_id/delete_campaign', action: :destroy
+  end
+
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "clearance/users#new", as: "sign_up"

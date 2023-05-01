@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Put your description here.">
+
+  <!--TODO: Dont load all the icons only a subset-->
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+  <link href="https://yrpri-eu-direct-assets.s3.eu-west-1.amazonaws.com/promotionAppFavIcon.png" rel="icon">
+  <base href="/">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: var(--md-sys-color-surface, #fefefe);
+    }
+  </style>
+  <script>
+    // Use Google Analytics
+    const USE_GOOGLE_ANALYTICS = true;
+
+    if (USE_GOOGLE_ANALYTICS) {
+      // Setup Google Analytics;
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  </script>
+
+  <script src="node_modules/d3/d3.min.js"></script>
+  <script src="node_modules/topojson/topojson.min.js"></script>
+  <script src="node_modules/datamaps/dist/datamaps.world.min.js"></script>
+
+  <title>Your Priorities Promotion App</title>
+
+</head>
+
+<body>
+  <yp-promotion-app></yp-promotion-app>
+
+  <script type="module" src="./out-tsc/src/yp-promotion-app.js"></script>
+</body>
+
+</html>

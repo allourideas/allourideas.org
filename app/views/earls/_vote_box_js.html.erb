@@ -157,6 +157,8 @@
       var appearance_lookup = $('#appearance_lookup').val()
       $('.tellmearea').html('');
 
+      window.logActivity(null, "aoi-vote-"+winningSide, winningSide)
+
       $.ajax({
         type: "post",
         url: rootPath + 'questions/' + question_id + '/prompts/' + prompt_id + '/vote.js' + '?locale=' + the_locale,

@@ -51,7 +51,7 @@
               == #{t('questions.new.step3_ist3')} #{Const::MAX_ITEM_LENGTH} #{t('common.characters')}.
 
             .controls
-              = f.text_area 'ideas', :class => 'required span8', :cols => 85, :rows => 12, :placeholder => t('questions.new.step3_exp')
+              = f.text_area 'ideas', :class => 'required span8', :style => "width: 100%",:cols => 85, :rows => 12, :placeholder => t('questions.new.step3_exp')
             - if ENV['OPENAI_API_KEY'].present?
               %div.button-spinner-container
                 %button#ai-ideas-button.btn.btn-primary{:type => "button"}

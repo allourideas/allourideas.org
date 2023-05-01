@@ -130,7 +130,7 @@
       // and others modify those attrs
       changeIdeas(data);
       updateUrlsAndHiddenFields(data);
-      $('.vote').removeClass('loading'); 
+      $('.vote').removeClass('loading');
       $('.vote').removeClass('chosen');
       $('#spinner img').hide();
       PAGE_LOADED_AT = new Date(); // reset the page load time
@@ -333,7 +333,7 @@
   .modal-header
     =link_to 'x', '#', :class => 'close'
     %h3= t('vote.cant_decide_title')
-  .modal-body        
+  .modal-body
     -cd_options= [['I like both banners', 'like_both'], ['I think both banners are basically the same', 'both_same'], ["I don't like either banner",'dislike_both']]
     - cd_options.each do |choice|
       %p= link_to_function choice[0], "submitCantDecide('#{choice[1]}')"
@@ -342,7 +342,7 @@
   %h2 Wikipedia Banner Challenge
   %h3 The <strike>encyclopedia</strike> fundraiser that anyone can edit
   %p
-    Only about one in a thousand Wikipedia users donates, but we think we can improve that -- by finding better banners.  Please vote for the banner that makes you want to donate more.  If you have new ideas for banners, please upload them.  Some of the best banners will appear on Wikipedia during the fundraiser. 
+    Only about one in a thousand Wikipedia users donates, but we think we can improve that -- by finding better banners.  Please vote for the banner that makes you want to donate more.  If you have new ideas for banners, please upload them.  Some of the best banners will appear on Wikipedia during the fundraiser.
 
 .row.bottom
   %h3 FAQ

@@ -15,15 +15,18 @@ module AiHelper
 
     if flagged == true
       Rails.logger.error("Flagged: "+question)
+      return null
     else
       messages = [
         {
           role: "system",
-          content: "You generate 10 possible one sentence answers to a single question.
+          content: "You are a higlhly competent AI that is able to generate short answer ideas for questions.
+                    You will generate 10 very short one sentence answers to a single question.
                     The answers should be unique, wide ranging, creative and thoughtful.
-                    The answers should never be more than one sentence. You never explain and you only output the 10 answers, nothing else.
-                    If there are previous ideas do not output them again.
-                    The maximum length of an answer is 140 characters.
+                    The answer should never be more than one very short sentence.
+                    If there are previous ideas do not output them or very similar ideas again.
+                    Write the answers out the clearly as an answer to the question without directly referencing the question.
+                    You never explain and you only output the 10 answers, nothing else.
                     Never output the answer number at the start of a sentence.",
         },
         {

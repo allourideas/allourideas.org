@@ -1,1 +1,5 @@
 .env
+.mysql-env
+.pairwise-env
+.plausible-env
+.allourideas-env

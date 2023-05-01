@@ -1,2 +1,5 @@
-%button.btn.btn-vote.btn-vote-idea.btn-primary{:id => side, :class => side, :"data-question_id" => @question.id, :"data-side" => side, :"data-choice_id" => choice_id, :"data-question_slug" => @question.slug, :"data-choice_url" => question_choice_path(@question.slug, choice_id)}
+%button.btn.btn-vote.btn-vote-idea.btn-primary{
+  :id => side, :class => side, :"data-question_id" => @question.id, :"data-side" => side,
+  :"data-choice_id" => choice_id, :"data-question_slug" => @question.slug,
+  :"data-choice_url" => question_choice_path(@question.slug, choice_id)}
   = h(truncate(data, :length => 140, :omission => '…'))

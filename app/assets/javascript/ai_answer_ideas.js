@@ -27,16 +27,17 @@ document.addEventListener("DOMContentLoaded", function() {
       },
       credentials: "same-origin"
     })
-    .then(response => response.text())
-    .then(data => {
+    .then(response => response.json())
+    .then(jsonData => {
+      const answerIdeas = jsonData.answerIdeas;
       firstMessage = false;
       aiIdeasButton.disabled = false;
-      console.log("Success fetching AI answer ideas:", data);
-      let newValue = ideasTextArea.value+"\n"+data.replace("\n\n","\n");
-      newValue = removeNumbersAndExtraLines(newValue);
-      newValue = newValue.replace(/&quot;/g, '"');
-      newValue = newValue.trim();
-      ideasTextArea.value = newValue;
+      console.log("Success fetching AI answer ideas:", answerIdeas);
+      let cleanedAnswerIdeas = ideasTextArea.value+"\n"+answerIdeas.replace("\n\n","\n");
+      cleanedAnswerIdeas = removeNumbersAndExtraLines(cleanedAnswerIdeas);
+      cleanedAnswerIdeas = cleanedAnswerIdeas.replace(/&quot;/g, '"');
+      cleanedAnswerIdeas = cleanedAnswerIdeas.trim();
+      ideasTextArea.value = cleanedAnswerIdeas;
       spinner.style.display = "none";
       ideasTextArea.scrollTop = ideasTextArea.scrollHeight;
     })

@@ -22,8 +22,11 @@ class PromptsController < ApplicationController
       next_prompt = JSON(vote.body)
 
       result = {
-        :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
-        :newright          => CGI::escapeHTML(truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…')),
+#        :newleft           => CGI::escapeHTML(truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…')),
+#        :newright          => CGI::escapeHTML(truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…')),
+        #TODO: Make sure user generated ideas are escaped properly
+        :newleft           => truncate(next_prompt['left_choice_text'], :length => 140, :omission => '…'),
+        :newright          => truncate(next_prompt['right_choice_text'], :length => 140, :omission => '…'),
         :left_choice_id    => next_prompt['left_choice_id'],
         :left_choice_url   => question_choice_path(@earl.name, next_prompt['left_choice_id']),
         :right_choice_id   => next_prompt['right_choice_id'],

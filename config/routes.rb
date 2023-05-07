@@ -13,6 +13,10 @@ AllOurIdeas::Application.routes.draw do
     "/apps/analytics_and_promotion/dist/?questionId=#{params[:questionId]}"
   }
 
+  get '/apps/aoi_survey/dist/:id', to: redirect { |params, request|
+    "/apps/aoi_survey/dist?name=#{params[:id]}"
+  }
+
   put '/api/analytics/:questionId/plausibleStatsProxy', to: 'analytics#plausible_stats_proxy', as: :plausible_stats_proxy
   get '/api/analytics/:questionId/:type/getPlausibleSeries', to: 'analytics#get_plausible_series', as: :get_plausible_series
   post '/createActivityFromApp', to: 'analytics#create_activity_from_app', as: :create_activity_from_app

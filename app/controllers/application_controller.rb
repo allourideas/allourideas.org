@@ -167,6 +167,7 @@ class ApplicationController < ActionController::Base
       :value => @survey_session.cookie_value,
       :expires => 24.hours
     }
+    puts "DEBUG SURVEY WRITING"
   end
 
   def record_action

@@ -26,7 +26,7 @@ export default {
     /** Enable using HTML as rollup entrypoint */
     html({
       minify: true,
-        publicPath: '/static'
+        publicPath: '/apps/aoi_survey/dist'
 //      injectServiceWorker: true,
 //      serviceWorkerPath: 'dist/sw.js',
     }),

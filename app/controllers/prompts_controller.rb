@@ -2,6 +2,8 @@
 class PromptsController < ApplicationController
   include ActionView::Helpers::TextHelper
 
+  skip_before_action :verify_authenticity_token, :only => [:vote, :skip]
+
   def vote
     puts "JJJJJJJJJJJJJJJJJJJJJ #{params.inspect}"
     voted_prompt = Prompt.new

@@ -77,7 +77,14 @@ export class AoiSurveyApp extends YpBaseElement {
     super();
 
     const urlParts = window.location.href.split('/');
-    this.earlName = urlParts[urlParts.length - 1];
+    const queryString = new URLSearchParams(window.location.search);
+    const earlName = queryString.get('name');
+
+    if (earlName) {
+      this.earlName = earlName;
+    } else {
+      this.earlName = urlParts[urlParts.length - 1];
+    }
 
     window.aoiServerApi = new AoiServerApi();
     window.appGlobals = new AoiAppGlobals();

@@ -190,7 +190,10 @@ class QuestionsController < ApplicationController
       end
       return
     end
-
+    respond_to do |format|
+      format.html
+      format.json { render :json => @choices.to_json }
+    end
   end
 
   def scatter_num_ratings_by_creation_time

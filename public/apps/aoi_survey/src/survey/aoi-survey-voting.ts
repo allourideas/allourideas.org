@@ -58,7 +58,8 @@ export class AoiSurveyVoting extends YpBaseElement {
       css`
         .buttonContainer md-elevated-button {
           min-width: 100px;
-          min-height: 100px;
+          min-height: 400px;
+          height: 400px;
           display: flex;
           align-items: center;
           justify-content: center;

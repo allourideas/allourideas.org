@@ -75,6 +75,7 @@ class SurveySession
       raise SessionHasNoQuestionId, "Can't set appearance_id when session has no question_id"
     end
     @data[:appearance_lookup] = appearance_id
+    puts "DEBUG SURVEY data YYY: #{appearance_id}"
   end
 
   def expired?
@@ -103,14 +104,18 @@ class SurveySession
   # If there are multiple cookies that match, we return the first that is matched.
   def self.find(cookies, question_id, appearance_lookup = nil)
     appearance_lookup = nil if appearance_lookup==""
-    puts "DEBUG data 0: #{question_id} #{appearance_lookup}"
+    puts "DEBUG SURVEY data 0: #{question_id} #{appearance_lookup}"
     if question_id.to_i < 1 && !appearance_lookup.nil?
       raise SessionHasNoQuestionId, "Can't find session with appearance_lookup that has no question_id"
     end
     # Get list of cookie names that  might be a match for this request.
     # Sort this list, so that when returning the first cookie matched it is consistent.
-    possible_cookie_names = cookies.each do |k|
+    cookies = cookies.request.cookies # Access cookies from the request object
+
+    #puts "DEBUG data 0.5: #{cookies.inspect}"
+    possible_cookie_names = cookies.keys.select do |k|
       # The cookie name must have this prefix.
+      #puts "DEBUG data 0.6: #{k.inspect}"
       k.index("#{@@cookie_prefix}#{question_id}_") == 0
     end.sort
 
@@ -120,10 +125,10 @@ class SurveySession
       cookies.each do |cookie|
         begin
           # Extract data from cookie in a way that ensures no user tampering.
-          puts "DEBUG data 1: #{cookie.inspect}"
-          puts "DEBUG data 2: #{cookie[1]}"
+          #puts "DEBUG SURVEY data 1: #{cookie.inspect}"
+          #puts "DEBUG data 2: #{cookie[1]}"
           data = @@verifier.verify(cookie[1])
-          puts "DEBUG data 3: #{data.inspect}"
+          puts "DEBUG SURVEY data 3: #{data.inspect}"
 
           #TODO: Look into this. It seems like the cookie is not being set properly.
           if data[:question_id] and data[:question_id].to_i == question_id.to_i or

@@ -72,7 +72,7 @@ interface AoiEarlResponse {
 interface AoiVoteResponse {
   prompt_id: number;
   question_id: number;
-  appearance_lookup: null;
+  appearance_lookup: string;
   left_choice_id: number;
   left_choice_url: string;
   message?: string;

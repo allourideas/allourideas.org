@@ -308,7 +308,7 @@ export class AoiSurveyApp extends YpBaseElement {
           return html`<aoi-survey-voting
             .earl="${this.earl}"
             .question="${this.question}"
-            .prompt="${this.prompt}"
+            .firstPrompt="${this.prompt}"
             @theme-dark-mode="${this.updateThemeDarkMode}"
             @theme-color="${this.updateThemeColor}"
           ></aoi-survey-voting>`;

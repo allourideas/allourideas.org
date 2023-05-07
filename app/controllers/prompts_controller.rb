@@ -3,6 +3,7 @@ class PromptsController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def vote
+    puts "JJJJJJJJJJJJJJJJJJJJJ #{params.inspect}"
     voted_prompt = Prompt.new
     voted_prompt.id = params[:id]
     voted_prompt.prefix_options = {:question_id => params[:question_id]}
@@ -150,7 +151,10 @@ class PromptsController < ApplicationController
       @survey_session.appearance_lookup = result[:appearance_lookup]
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
-      render :json => result.to_json
+
+      respond_to do |format|
+        format.json { render :json => result.to_json }
+      end
     else
       render :json => {:error => "Flag of choice failed",
       :redirect => url_for(:controller => :home, :action => :index )}.to_json

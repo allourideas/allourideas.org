@@ -93,15 +93,7 @@ AllOurIdeas::Application.routes.draw do
   get "/:id/:action" => "questions#index"
 
   scope '/api' do
-    resources :questions do
-      resources :prompts, :only => [:vote, :skip, :flag] do
-        member do
-          post :vote
-          post :skip
-          post :flag
-        end
-      end
-    end
+     post "/questions/:question_id/prompts/:id/votes.js" => "prompts#vote"
      get "/earls/:id" => "earls#show", :as => :earl_two
   end
 

@@ -65,6 +65,9 @@ Rails.application.configure do
   config.assets.compile = true
   config.assets.debug = true
   config.assets.digest = false
+
+  #config.session_store :cookie_store, key: '_aoi_test_cookie', same_site: :none, secure: false
+
   config.action_mailer.smtp_settings = {
     :user_name => "apikey",
     :password => "***",

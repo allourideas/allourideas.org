@@ -18,7 +18,10 @@ export class AoiSurveyVoting extends YpBaseElement {
   question!: AoiQuestionData;
 
   @property({ type: Object })
-  prompt!: AoiPromptData;
+  firstPrompt!: AoiPromptData;
+
+  @property({ type: Number })
+  promptId!: number;
 
   @property({ type: Number })
   voteCount = 0;
@@ -29,14 +32,20 @@ export class AoiSurveyVoting extends YpBaseElement {
   @property({ type: String })
   rightAnswer: string | undefined;
 
+  @property({ type: String })
+  appearanceLookup!: string;
+
   timer: number;
 
   async connectedCallback() {
+    this.leftAnswer = this.firstPrompt.left_choice_text;
+    this.rightAnswer = this.firstPrompt.right_choice_text;
+    this.promptId = this.firstPrompt.id;
+    this.appearanceLookup = this.question.appearance_id;
+
     super.connectedCallback();
     window.appGlobals.activity('open', 'surveyVoting');
     this.resetTimer();
-    this.leftAnswer = this.prompt.left_choice_text;
-    this.rightAnswer = this.prompt.right_choice_text;
   }
 
   resetTimer(){
@@ -127,15 +136,18 @@ export class AoiSurveyVoting extends YpBaseElement {
   async voteForAnswer(direction: 'left' | 'right') {
     const voteData: AoiVoteData = {
       time_viewed: new Date().getTime() - this.timer,
-      prompt_id: this.prompt.id,
+      prompt_id: this.promptId,
       direction,
-      appearance_lookup: this.question.appearance_id
+      appearance_lookup: this.appearanceLookup
     };
 
-    const postVoteResponse = await window.aoiServerApi.postVote(this.question.id, this.prompt.id, this.language, voteData);
+    const postVoteResponse = await window.aoiServerApi.postVote(this.question.id, this.promptId, this.language, voteData);
 
     this.leftAnswer = postVoteResponse.newleft;
     this.rightAnswer = postVoteResponse.newright;
+
+    this.promptId = postVoteResponse.prompt_id;
+    this.appearanceLookup = postVoteResponse.appearance_lookup;
 
     this.resetTimer();
   }

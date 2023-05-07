@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :clicks
   attr_accessible :default, :email, :password
   before_validation :set_confirmed_email
+  #TODO: Make sure is ok in Rails 7
+  #validates_format_of :email, :with => %r{^[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$}i, :allow_blank => true
 
   def owns?(earl)
     earl.user_id == id

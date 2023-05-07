@@ -166,6 +166,15 @@ class EarlsController < ApplicationController
 
         render(:template => 'wikipedia/earls_show', :layout => '/wikipedia/layout') && return
       end
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json  { render :json => {
+          prompt: @prompt,
+          question: @question,
+          earl: @earl
+        }}
+      end
     else
       redirect_to('/') and return
     end

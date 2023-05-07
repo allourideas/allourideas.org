@@ -19,7 +19,7 @@ module AiHelper
       previous_ideas = "Previous answer ideas:\n"+previous_ideas+"\n\n"
 
       if first_message
-        first_message_with_previous_ideas_template = "For your answers please follow the tone of voice, style and length of the Previous answer ideas\n"
+        first_message_with_previous_ideas_template = "For your answers please follow the tone of voice, prose, style and length of the Previous answer ideas\n"
       end
     end
 

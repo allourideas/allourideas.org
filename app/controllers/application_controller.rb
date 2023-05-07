@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_session
-    session[:session_id] # this forces load of the session in Rails 2.3.x
+    #session[:session_id] # this forces load of the session in Rails 2.3.x
   end
 
   helper_method :white_label_request?
@@ -165,6 +165,7 @@ class ApplicationController < ActionController::Base
   def write_survey_session_cookie
     cookies[@survey_session.cookie_name] = {
       :value => @survey_session.cookie_value,
+      :expires => 24.hours
     }
   end
 
@@ -195,15 +196,6 @@ class ApplicationController < ActionController::Base
       user_session.user_id = current_user.id
       user_session.save!
     end
-
-=begin
-    if (session[:abingo_identity])
-      Abingo.identity = session[:abingo_identity]
-    else
-      session[:abingo_identity] = user_session.id
-      Abingo.identity = user_session.id
-    end
-=end
   end
 
   helper_method :signed_in_as_admin?

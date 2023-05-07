@@ -1,0 +1,152 @@
+{
+  "scripts": {
+    "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "test": "tsc && web-test-runner --coverage --node-resolve",
+    "test:watch": "web-test-runner --watch --node-resolve",
+    "storybook": "concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
+    "storybook:build": "build-storybook",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js",
+    "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
+    "start": "concurrently --kill-others --names tsc,web-dev-server \"npm run tsc:watch\" \"web-dev-server --app-index index.html --node-resolve --open --watch\"",
+    "tsc:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.18.10",
+    "@babel/preset-env": "^7.16.6",
+    "@babel/runtime": "^7.18.9",
+    "@custom-elements-manifest/analyzer": "^0.6.4",
+    "@open-wc/building-rollup": "^2.0.2",
+    "@open-wc/eslint-config": "^9.2.2",
+    "@open-wc/testing": "3.1.7",
+    "@open-wc/testing-helpers": "2.1.4",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/fetch-mock": "^7.3.5",
+    "@types/google.analytics": "0.0.42",
+    "@types/i18next": "^13.0.0",
+    "@types/insert-text-at-cursor": "^0.3.0",
+    "@types/linkifyjs": "^2.1.4",
+    "@types/lodash-es": "^4.17.6",
+    "@types/marked": "^4.0.8",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "18.14.5",
+    "@types/recordrtc": "^5.6.8",
+    "@types/twemoji": "^13.1.2",
+    "@types/sanitize-html": "^2.8.1",
+    "@types/wavesurfer.js": "^5.2.2",
+    "@types/webappsec-credential-management": "^0.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/parser": "^5.34.0",
+    "@web/dev-server": "^0.1.34",
+    "@web/dev-server-rollup": "^0.3.19",
+    "@web/rollup-plugin-html": "^1.11.0",
+    "@web/rollup-plugin-import-meta-assets": "^1.0.7",
+    "@web/test-runner": "^0.15.1",
+    "babel-plugin-template-html-minifier": "^4.1.0",
+    "chai": "^4.3.6",
+    "concurrently": "^7.3.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "fetch-mock": "^9.11.0",
+    "koa-proxies": "^0.12.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "rimraf": "^4.2.0",
+    "rollup": "^2.78.1",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-workbox": "^6.2.0",
+    "sinon": "^15.0.1",
+    "tslib": "^2.4.0",
+    "typescript": "~4.9.5"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "@open-wc",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "overrides": [
+        {
+          "rules": {
+            "no-unused-expressions": "off",
+            "no-unused-vars": "off",
+            "eslint-disable wc/guard-super-call": "off",
+            "eslint-disable no-nested-ternary": "off",
+            "eslint-disable no-else-return": "off",
+            "eslint-disable no-plusplus": "off",
+            "eslint-disable import/no-duplicates": "off",
+            "eslint-disable import/order": "off",
+            "eslint-disable class-methods-use-this": "off"
+          }
+        }
+      ],
+      "no-unused-vars": "off",
+      "eslint-disable wc/guard-super-call": "off",
+      "eslint-disable no-nested-ternary": "off",
+      "eslint-disable no-else-return": "off",
+      "eslint-disable no-plusplus": "off",
+      "eslint-disable import/no-duplicates": "off",
+      "eslint-disable import/order": "off",
+      "eslint-disable class-methods-use-this": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error"
+      ],
+      "import/no-unresolved": "off",
+      "import/extensions": [
+        "error",
+        "always",
+        {
+          "ignorePackages": true
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "name": "aoi-survey-app",
+  "version": "1.0.0",
+  "description": "aoi-survey-app",
+  "author": "Citizens Foundation",
+  "license": "AGPL",
+  "dependencies": {
+    "@lit-labs/virtualizer": "^1.0.1",
+    "@material/material-color-utilities": "^0.2.6",
+    "@material/web": "^1.0.0-pre.7",
+    "@picmo/popup-picker": "^5.8.3",
+    "@picmo/renderer-twemoji": "^5.8.3",
+    "@vaadin/vaadin-grid": "^23.1.6",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
+    "classnames": "^2.3.1",
+    "i18next": "22.4.10",
+    "i18next-http-backend": "2.1.1",
+    "insert-text-at-cursor": "^0.3.0",
+    "intl-messageformat": "^10.1.3",
+    "linkify-html": "^4.1.0",
+    "lit": "^2.7.4",
+    "lit-flexbox-literals": "0.0.7",
+    "lit-google-map": "^1.0.1",
+    "lodash-es": "^4.17.21",
+    "marked": "^4.2.12",
+    "pwa-helpers": "^0.9.1",
+    "rollup-plugin-copy": "^3.4.0",
+    "sanitize-html": "^2.10.0",
+    "share-menu": "^5.0.0-rc.4",
+    "twemoji": "^14.0.2",
+    "vanilla-colorful": "^0.7.1"
+  }
+}

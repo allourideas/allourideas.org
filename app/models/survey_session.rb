@@ -9,7 +9,7 @@ end
 
 class SurveySession
   @@verifier = ActiveSupport::MessageVerifier.new(ENV["SURVEY_SESSION_SECRET"])
-  @@expire_time = 10.minutes
+  @@expire_time = 24.hours
   @@cookie_prefix = "aoi_"
 
   attr_reader :cookie_name, :old_session_id
@@ -60,6 +60,10 @@ class SurveySession
 
   def appearance_lookup
     @data[:appearance_lookup]
+  end
+
+  def expiration_time
+    @data[:expiration_time]
   end
 
   def question_id

@@ -22,6 +22,7 @@ const getQuestionIdFromPath = () => {
 }
 
 async function logActivity(questionId, type, object, context, target) {
+  return
   let actor;
 
   if (!questionId)  {

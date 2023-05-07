@@ -92,5 +92,18 @@ AllOurIdeas::Application.routes.draw do
   post "/:id/addphotos" => "questions#add_photos", :as => :add_photos
   get "/:id/:action" => "questions#index"
 
+  scope '/api' do
+    resources :questions do
+      resources :prompts, :only => [:vote, :skip, :flag] do
+        member do
+          post :vote
+          post :skip
+          post :flag
+        end
+      end
+    end
+     get "/earls/:id" => "earls#show", :as => :earl_two
+  end
+
   root :to => 'home#index'
 end

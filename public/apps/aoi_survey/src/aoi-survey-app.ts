@@ -27,6 +27,7 @@ import { Layouts } from './flexbox-literals/classes.js';
 
 import './survey/aoi-survey-intro.js';
 import './survey/aoi-survey-voting.js';
+import './survey/aoi-survey-results.js';
 import { AoiServerApi } from './survey/AoiServerApi.js';
 import { AoiAppGlobals } from './AoiAppGlobals.js';
 
@@ -47,7 +48,7 @@ declare global {
 @customElement('aoi-survey-app')
 export class AoiSurveyApp extends YpBaseElement {
   @property({ type: Number })
-  pageIndex = 2;
+  pageIndex = 3;
 
   @property({ type: String })
   lastSnackbarText: string | undefined;
@@ -114,7 +115,7 @@ export class AoiSurveyApp extends YpBaseElement {
 
   async getEarl() {
     const earlResponse = await window.aoiServerApi.getEarl(this.earlName);
-    this.earl = earlResponse.earl;
+    this.earl = earlResponse.earlContainer.earl;
     this.question = earlResponse.question;
     this.prompt = earlResponse.prompt;
 
@@ -316,14 +317,12 @@ export class AoiSurveyApp extends YpBaseElement {
             .earl="${this.earl}"
             .question="${this.question}"
             .firstPrompt="${this.prompt}"
-            @theme-dark-mode="${this.updateThemeDarkMode}"
-            @theme-color="${this.updateThemeColor}"
           ></aoi-survey-voting>`;
         case PagesTypes.Results:
-          return html`<oai-results
-            @theme-dark-mode="${this.updateThemeDarkMode}"
-            @theme-color="${this.updateThemeColor}"
-          ></aoi-results>`;
+          return html`<aoi-survey-results
+          .earl="${this.earl}"
+          .question="${this.question}"
+        ></aoi-survey-results>`;
         case PagesTypes.Share:
           return html` ${this.renderShare()} `;
         default:

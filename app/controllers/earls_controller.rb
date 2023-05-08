@@ -50,7 +50,7 @@ class EarlsController < ApplicationController
 
         @survey_session.appearance_lookup = @question.attributes["appearance_id"]
        logger.info "inside questions#show " + @question.inspect
-+
+
        # we can probably make this into one api call
        picked_prompt_id = @question.attributes[:picked_prompt_id]
        question_id = @question.id
@@ -172,7 +172,7 @@ class EarlsController < ApplicationController
         format.json  { render :json => {
           prompt: @prompt,
           question: @question,
-          earl: @earl
+          earlContainer: @earl
         }}
       end
     else

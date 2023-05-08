@@ -64,7 +64,7 @@ interface AoiEarlConfigurationData {
 }
 
 interface AoiEarlResponse {
-  earl: AoiEarlData;
+  earlContainer: AoiEarlContainerData;
   prompt: AoiPromptData;
   question: AoiQuestionData;
 }
@@ -93,6 +93,21 @@ interface AoiVoteSkipData {
   time_viewed: number;
   cant_decide_reason: string;
   appearance_lookup: string;
+}
+
+interface AoiResultData {
+  id: number;
+  created_at: string;
+  active: boolean;
+  score: number;
+  wins: number;
+  losses: number;
+  data: string;
+  user_created: boolean;
+}
+
+interface AoiEarlContainerData {
+  earl: AoiEarlData;
 }
 
 

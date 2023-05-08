@@ -12,6 +12,12 @@ export class AoiServerApi extends YpServerApiBase {
     ) as unknown as AoiEarlResponse;
   }
 
+  public getSurveyResults(earlName: string): AoiResultData[] {
+    return this.fetchWrapper(
+      this.baseUrlPath + `/questions/${earlName}/results.json`
+    ) as unknown as AoiResultData[];
+  }
+
   public postVote(
     questionId: number,
     promptId: number,

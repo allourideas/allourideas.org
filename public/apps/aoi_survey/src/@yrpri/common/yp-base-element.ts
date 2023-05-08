@@ -1,6 +1,7 @@
 import { LitElement, css } from 'lit';
 import { property } from 'lit/decorators.js';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
+import { Layouts } from '../../flexbox-literals/classes';
 
 export class YpBaseElement extends LitElement {
   @property({ type: String })
@@ -22,7 +23,9 @@ export class YpBaseElement extends LitElement {
   themeDarkMode: boolean | undefined;
 
   static get styles() {
-    return [] as any;
+    return [
+      Layouts
+    ] as any;
   }
 
   connectedCallback() {

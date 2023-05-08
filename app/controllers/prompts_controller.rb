@@ -19,7 +19,6 @@ class PromptsController < ApplicationController
           :question_id => params[:question_id],
           :vote => get_object_request_options(params, :vote),
           :next_prompt => get_next_prompt_options
-
       )
       puts "JJJJJJJJJJJJJJJJJJJJJ #{vote.body.inspect}"
       next_prompt = JSON(vote.body)

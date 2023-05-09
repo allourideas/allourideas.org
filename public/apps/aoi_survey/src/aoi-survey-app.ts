@@ -3,12 +3,12 @@ import { property, customElement, query } from 'lit/decorators.js';
 
 import '@material/web/navigationbar/navigation-bar.js';
 import '@material/web/navigationtab/navigation-tab.js';
-//import '@material/web/iconbutton/filled-link-icon-button.js';
+//import '@material/web/navigationdrawer/lib/navigation-drawer-styles.css.js';
 import '@material/web/navigationdrawer/navigation-drawer.js';
 import '@material/web/list/list-item.js';
-//import '@material/web/list/list-item-icon.js';
 import '@material/web/list/list.js';
-//import '@material/web/list/list-divider.js';
+import '@material/web/icon/icon.js';
+import '@material/web/iconbutton/outlined-icon-button.js';
 import {
   argbFromHex,
   themeFromSourceColor,
@@ -24,18 +24,19 @@ import { YpBaseElement } from './@yrpri/common/yp-base-element.js';
 //import './chat/yp-chat-assistant.js';
 import { Layouts } from './flexbox-literals/classes.js';
 
-
 import './survey/aoi-survey-intro.js';
 import './survey/aoi-survey-voting.js';
 import './survey/aoi-survey-results.js';
 import { AoiServerApi } from './survey/AoiServerApi.js';
 import { AoiAppGlobals } from './AoiAppGlobals.js';
+import { NavigationDrawer } from '@material/web/navigationdrawer/lib/navigation-drawer.js';
 
 const PagesTypes = {
   Introduction: 1,
   Voting: 2,
   Results: 3,
-  Share: 4,
+  Analysis: 4,
+  Share: 5,
 };
 
 declare global {
@@ -48,7 +49,7 @@ declare global {
 @customElement('aoi-survey-app')
 export class AoiSurveyApp extends YpBaseElement {
   @property({ type: Number })
-  pageIndex = 3;
+  pageIndex = 1;
 
   @property({ type: String })
   lastSnackbarText: string | undefined;
@@ -73,6 +74,8 @@ export class AoiSurveyApp extends YpBaseElement {
 
   @property({ type: Object })
   prompt!: AoiPromptData;
+
+  drawer: NavigationDrawer;
 
   constructor() {
     super();
@@ -118,17 +121,11 @@ export class AoiSurveyApp extends YpBaseElement {
     this.earl = earlResponse.earlContainer.earl;
     this.question = earlResponse.question;
     this.prompt = earlResponse.prompt;
-
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this._removeEventListeners();
-  }
-
-  updateThemeDarkMode(e: CustomEvent) {
-    this.themeDarkMode = e.detail;
-    this.themeChanged();
   }
 
   themeChanged(target: HTMLElement | undefined = undefined) {
@@ -152,7 +149,7 @@ export class AoiSurveyApp extends YpBaseElement {
         : this.themeDarkMode;
 
     // Apply the theme to the body by updating custom properties for material tokens
-    applyTheme(theme, { target: target || this, dark: systemDark });
+    applyTheme(theme, { target: target || document.body, dark: systemDark });
   }
 
   snackbarclosed() {
@@ -194,7 +191,7 @@ export class AoiSurveyApp extends YpBaseElement {
       changedProperties.has('themeColor') ||
       changedProperties.has('themeDarkMode')
     ) {
-      this.themeChanged(document.body);
+      this.themeChanged();
     }
   }
 
@@ -237,6 +234,12 @@ export class AoiSurveyApp extends YpBaseElement {
         .rightPanel {
           margin-left: 16px;
           width: 100%;
+        }
+
+        .drawer {
+          margin-left: 16px;
+          padding-left: 8px;
+          margin-right: 16px;
         }
 
         md-list-item {
@@ -284,12 +287,12 @@ export class AoiSurveyApp extends YpBaseElement {
         .mainPageContainer {
           margin-top: 16px;
         }
-
-        yp-promotion-dashboard {
-          max-width: 1100px;
-        }
       `,
     ];
+  }
+
+  changeTabTo(tabId: number) {
+    this.tabChanged({ detail: { activeIndex: tabId } } as CustomEvent);
   }
 
   updateThemeColor(event: CustomEvent) {
@@ -304,6 +307,15 @@ export class AoiSurveyApp extends YpBaseElement {
     return html` <div class="layout vertical center-center"></div> `;
   }
 
+  toggleDarkMode() {
+    this.themeDarkMode = !this.themeDarkMode;
+    this.themeChanged();
+  }
+
+  startVoting() {
+    this.pageIndex = 2;
+  }
+
   _renderPage() {
     if (this.earl) {
       switch (this.pageIndex) {
@@ -311,6 +323,7 @@ export class AoiSurveyApp extends YpBaseElement {
           return html`<aoi-survey-intro
             .earl="${this.earl}"
             .question="${this.question}"
+            @startVoting="${this.startVoting}"
           ></aoi-survey-intro>`;
         case PagesTypes.Voting:
           return html`<aoi-survey-voting
@@ -320,9 +333,9 @@ export class AoiSurveyApp extends YpBaseElement {
           ></aoi-survey-voting>`;
         case PagesTypes.Results:
           return html`<aoi-survey-results
-          .earl="${this.earl}"
-          .question="${this.question}"
-        ></aoi-survey-results>`;
+            .earl="${this.earl}"
+            .question="${this.question}"
+          ></aoi-survey-results>`;
         case PagesTypes.Share:
           return html` ${this.renderShare()} `;
         default:
@@ -335,27 +348,14 @@ export class AoiSurveyApp extends YpBaseElement {
     }
   }
 
-  renderTopBar() {
-    return html`
-      <div class="layout vertical center-center">
-        <div class="layout horizontal topAppBar">
-          <div class="layout horizontal headerContainer">
-            <div class="analyticsHeaderText layout horizontal center-center">
-              <div>
-                <img class="collectionLogoImage" src="" />
-              </div>
-              <div>Hackathon template</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
+  renderScore() {
+    return html` <div class="layout vertical center-center"></div> `;
   }
 
   renderNavigationBar() {
     if (this.wide) {
       return html`
-        <md-navigation-drawer opened>
+        <div class="drawer">
           <div class="layout horizontal headerContainer">
             <div class="analyticsHeaderText layout horizontal center-center">
               <div>
@@ -371,101 +371,89 @@ export class AoiSurveyApp extends YpBaseElement {
 
           <md-list>
             <md-list-item
-              class="${this.pageIndex == 1 && 'selectedContainer'}"
-              @click="${() => (this.pageIndex = 1)}"
-              headline="${this.t('Analytics')}"
-              supportingText="${this.t('Historical and realtime')}"
+              class="${this.pageIndex == PagesTypes.Introduction &&
+              'selectedContainer'}"
+              headline="${this.t('Introduction')}"
+              @click="${() => this.changeTabTo(0)}"
+              supportingText="${this.t('Why you should participate')}"
             >
               <md-list-item-icon slot="start">
-                <md-icon>insights</md-icon>
+                <md-icon>info</md-icon>
               </md-list-item-icon></md-list-item
             >
+            <md-list-divider></md-list-divider>
             <md-list-item
-              class="${this.pageIndex == 2 && 'selectedContainer'}"
-              @click="${() => (this.pageIndex = 2)}"
-              headline="${this.t('Promotion')}"
-              supportingText="${this.collectionType == 'posts'
-                ? this.t('Promote your idea')
-                : this.t('Promote your project')}"
+              class="${this.pageIndex == PagesTypes.Voting &&
+              'selectedContainer'}"
+              @click="${() => this.changeTabTo(1)}"
+              headline="${this.t('Pairwise Voting')}"
+              supportingText="${this.t('Vote on a pair of answers')}"
             >
               <md-list-item-icon slot="start"
-                ><md-icon>ads_click</md-icon></md-list-item-icon
-              ></md-list-item
-            >
-            <md-list-item
-              class="${this.pageIndex == 3 && 'selectedContainer'}"
-              @click="${() => (this.pageIndex = 3)}"
-              ?hidden="${this.collectionType == 'posts'}"
-              headline="${this.t('Email Templates')}"
-              supportingText="${this.t('Send promotional emails')}"
-            >
-              <md-list-item-icon slot="start"
-                ><md-icon
-                  ><span class="material-symbols-outlined"
-                    >schedule_send</span
-                  ></md-icon
-                ></md-list-item-icon
-              ></md-list-item
-            >
-            <md-list-item
-              class="${this.pageIndex == 4 && 'selectedContainer'}"
-              @click="${() => (this.pageIndex = 4)}"
-              ?hidden="${this.collectionType == 'posts'}"
-              headline="${this.t('AI Analysis')}"
-              supportingText="${this.t('Text analysis with AI')}"
-            >
-              <md-list-item-icon slot="start"
-                ><md-icon>document_scanner</md-icon></md-list-item-icon
+                ><md-icon>thumb_up</md-icon></md-list-item-icon
               ></md-list-item
             >
             <md-list-divider></md-list-divider>
             <md-list-item
-              class="${this.pageIndex == 5 && 'selectedContainer'}"
-              @click="${() => (this.pageIndex = 5)}"
-              headline="${this.t('Setting')}"
-              supportingText="${this.t('Theme, language, etc.')}"
+              class="${this.pageIndex == PagesTypes.Results &&
+              'selectedContainer'}"
+              @click="${() => this.changeTabTo(2)}"
+              headline="${this.t('Voting Results')}"
+              supportingText="${this.t('Voting results from all')}"
             >
               <md-list-item-icon slot="start"
-                ><md-icon>settings</md-icon></md-list-item-icon
+                ><md-icon>grading</md-icon></md-list-item-icon
               ></md-list-item
             >
             <md-list-item
-              headline="${this.t('Exit')}"
-              supportingText="${this.t('Exit back to project')}"
-              @click="${this.exitToMainApp}"
+              class="${this.pageIndex == PagesTypes.Analysis &&
+              'selectedContainer'}"
+              @click="${() => this.changeTabTo(3)}"
+              headline="${this.t('Vote Analysis')}"
+              supportingText="${this.t('Analysis of the voting results')}"
             >
               <md-list-item-icon slot="start"
-                ><md-icon>arrow_back</md-icon></md-list-item-icon
+                ><md-icon>insights</md-icon></md-list-item-icon
               ></md-list-item
             >
-            <div class="layout horizontal center-center">
-              <div>
-                <img
-                  class="ypLogo"
-                  height="65"
-                  alt="Your Priorities Logo"
-                  src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/YpLogos/YourPriorites-Trans-Wide.png"
-                />
-              </div>
-            </div>
+            ${!this.themeDarkMode
+              ? html`
+                  <md-outlined-icon-button
+                    class="darkModeButton"
+                    @click="${this.toggleDarkMode}"
+                    >dark_mode</md-outlined-icon-button
+                  >
+                `
+              : html`
+                  <md-outlined-icon-button
+                    class="darkModeButton"
+                    @click="${this.toggleDarkMode}"
+                    >light_mode</md-outlined-icon-button
+                  >
+                `}
+            ${this.renderScore()}
           </md-list>
-        </md-navigation-drawer>
+        </div>
       `;
     } else {
       return html`
         <div class="navContainer">
           <md-navigation-bar @navigation-bar-activated="${this.tabChanged}">
-            <md-navigation-tab .label="${this.t('Analytics')}"
-              ><md-icon slot="activeIcon">insights</md-icon>
-              <md-icon slot="inactiveIcon">insights</md-icon></md-navigation-tab
+            <md-navigation-tab .label="${this.t('Intro')}"
+              ><md-icon slot="activeIcon">info</md-icon>
+              <md-icon slot="inactiveIcon">info</md-icon></md-navigation-tab
             >
-            <md-navigation-tab .label="${this.t('Campaign')}">
-              <md-icon slot="activeIcon">ads_click</md-icon>
-              <md-icon slot="inactiveIcon">ads_click</md-icon>
+            <md-navigation-tab .label="${this.t('Voting')}">
+              <md-icon slot="activeIcon">thumb_up</md-icon>
+              <md-icon slot="inactiveIcon">thumb_up</md-icon>
             </md-navigation-tab>
-            <md-navigation-tab .label="${this.t('Settings')}">
-              <md-icon slot="activeIcon">settings</md-icon>
-              <md-icon slot="inactiveIcon">settings</md-icon>
+            <md-navigation-tab .label="${this.t('Results')}">
+              <md-icon slot="activeIcon">grading</md-icon>
+              <md-icon slot="inactiveIcon">grading</md-icon>
+            </md-navigation-tab>
+            <md-navigation-tab .label="${this.t('Analysis')}">
+              <md-icon slot="activeIcon">insights</md-icon>
+              <md-icon slot="inactiveIcon">insights</md-icon>
             </md-navigation-tab>
           </md-navigation-bar>
         </div>
@@ -474,6 +462,13 @@ export class AoiSurveyApp extends YpBaseElement {
   }
 
   render() {
-    return html` <div class="mainPageContainer">${this._renderPage()}</div> `;
+    return html`<div class="layout horizontal">
+      ${this.renderNavigationBar()}
+      <div class="rightPanel">
+        <main>
+          <div class="mainPageContainer">${this._renderPage()}</div>
+        </main>
+      </div>
+    </div>`;
   }
 }

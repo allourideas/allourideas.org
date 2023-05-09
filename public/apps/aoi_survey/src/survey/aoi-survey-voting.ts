@@ -59,7 +59,7 @@ export class AoiSurveyVoting extends YpBaseElement {
         .buttonContainer md-elevated-button {
           margin: 8px;
           width: 400px;
-          --md-elevated-button-container-height: 200px;
+          --md-elevated-button-container-height: 120px;
         }
 
         .progressBarContainer {

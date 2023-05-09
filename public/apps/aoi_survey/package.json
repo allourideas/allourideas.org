@@ -125,8 +125,8 @@
   "license": "AGPL",
   "dependencies": {
     "@lit-labs/virtualizer": "^1.0.1",
-    "@material/material-color-utilities": "^0.2.6",
-    "@material/web": "^1.0.0-pre.7",
+    "@material/material-color-utilities": "^0.2.4",
+    "@material/web": "^1.0.0-pre.8",
     "@picmo/popup-picker": "^5.8.3",
     "@picmo/renderer-twemoji": "^5.8.3",
     "@vaadin/vaadin-grid": "^23.1.6",

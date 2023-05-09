@@ -161,7 +161,9 @@ export class AoiSurveyApp extends YpBaseElement {
       this.pageIndex = 1;
     } else if (event.detail.activeIndex == 1) {
       this.pageIndex = 2;
-    } else if (event.detail.activeIndex == 2) {
+    }  else if (event.detail.activeIndex == 2) {
+      this.pageIndex = 3;
+    } else if (event.detail.activeIndex == 3) {
       this.pageIndex = 4;
     }
   }
@@ -287,6 +289,27 @@ export class AoiSurveyApp extends YpBaseElement {
         .mainPageContainer {
           margin-top: 16px;
         }
+
+        .navContainer {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          z-index: 7;
+        }
+
+        @media (max-width: 960px) {
+          .mainPageContainer {
+            max-width: 100%;
+            width: 100%;
+            margin-bottom: 96px;
+            margin-top: 0;
+          }
+
+          prompt-promotion-dashboard {
+            max-width: 100%;
+          }
+        }
       `,
     ];
   }
@@ -387,7 +410,7 @@ export class AoiSurveyApp extends YpBaseElement {
               'selectedContainer'}"
               @click="${() => this.changeTabTo(1)}"
               headline="${this.t('Pairwise Voting')}"
-              supportingText="${this.t('Vote on a pair of answers')}"
+              supportingText="${this.t('Vote on answers pairs')}"
             >
               <md-list-item-icon slot="start"
                 ><md-icon>thumb_up</md-icon></md-list-item-icon

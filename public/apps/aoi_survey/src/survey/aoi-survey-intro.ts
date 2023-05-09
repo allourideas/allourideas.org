@@ -8,6 +8,7 @@ import { YpMediaHelpers } from '../@yrpri/common/YpMediaHelpers.js';
 import '../@yrpri/common/yp-image.js';
 
 import '@material/web/fab/fab.js'
+import { SharedStyles } from './SharedStyles.js';
 
 @customElement('aoi-survey-intro')
 export class AoiSurveyIntro extends YpBaseElement {
@@ -37,23 +38,12 @@ export class AoiSurveyIntro extends YpBaseElement {
   static get styles() {
     return [
       super.styles,
+      SharedStyles,
       css`
         .footerHtml {
           margin-top: 32px;
           max-width: 600px;
           color: var(--md-sys-color-on-surface-variant);
-        }
-
-        .title {
-          padding: 18px;
-          font-size: 24px;
-          background-color: var(--md-sys-color-primary);
-          color: var(--md-sys-color-on-primary);
-          padding: 16px;
-          text-align: center;
-          margin-top: 32px;
-          border-radius: 16px;
-          margin-bottom: 8px;
         }
 
         .fab {
@@ -91,7 +81,7 @@ export class AoiSurveyIntro extends YpBaseElement {
             max-width: 300px;
           }
 
-          .title {
+          .questionTitle {
             margin-left: 16px;
             margin-right: 16px;
             margin-bottom: 32px;
@@ -118,7 +108,7 @@ export class AoiSurveyIntro extends YpBaseElement {
           sizing="contain"
           src="${this.earl.logo_file_name}"
         ></yp-image>
-        <div class="title">${this.question.name}</div>
+        <div class="questionTitle">${this.question.name}</div>
         <div class="description">${unsafeHTML(this.formattedDescription)}</div>
         <md-fab
           extended

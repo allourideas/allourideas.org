@@ -4,9 +4,13 @@ import { property, customElement } from 'lit/decorators.js';
 import '../@yrpri/common/yp-image.js';
 import { YpFormattingHelpers } from '../@yrpri/common/YpFormattingHelpers.js';
 import { YpBaseElement } from '../@yrpri/common/yp-base-element.js';
+import { SharedStyles } from './SharedStyles.js';
+
+import '@material/web/checkbox/checkbox.js';
+import { Checkbox } from '@material/web/checkbox/lib/checkbox.js';
 
 @customElement('aoi-survey-results')
-export class PromptCommunityHighScores extends YpBaseElement {
+export class AoiSurveyResuls extends YpBaseElement {
   @property({ type: Array })
   results!: AoiResultData[];
 
@@ -15,6 +19,9 @@ export class PromptCommunityHighScores extends YpBaseElement {
 
   @property({ type: Object })
   earl!: AoiEarlData;
+
+  @property({ type: Boolean })
+  showScores = false;
 
   async connectedCallback() {
     super.connectedCallback();
@@ -32,9 +39,15 @@ export class PromptCommunityHighScores extends YpBaseElement {
     }
   }
 
+  toggleScores() {
+    const checkbox = this.$$('#showScores') as Checkbox;
+    this.showScores = checkbox.checked;
+  }
+
   static get styles() {
     return [
       super.styles,
+      SharedStyles,
       css`
         .title {
           font-family: monospace;
@@ -61,17 +74,16 @@ export class PromptCommunityHighScores extends YpBaseElement {
           padding: 12px;
           margin: 12px;
           border-radius: 16px;
-          background-color: var(--md-sys-color-secondary);
-          color: var(--md-sys-color-on-secondary);
+          background-color: var(--md-sys-color-primary);
+          color: var(--md-sys-color-on-primary);
 
           min-width: 350px;
           width: 550px;
 
-          font-family: monospace;
-          font-size: 16px;
-          letter-spacing: 0.22em;
-          line-height: 1.7;
+          font-size: 22px;
           vertical-align: center;
+
+          padding-bottom: 16px;
         }
 
         .row[current-user] {
@@ -95,9 +107,30 @@ export class PromptCommunityHighScores extends YpBaseElement {
           width: 100%;
         }
 
-        .score {
-          padding-top: 2px;
+        .scores {
+          margin-top: 16px;
+          padding: 16px;
+          margin-bottom: 0px;
+          background-color: var(--md-sys-color-secondary);
+          color: var(--md-sys-color-on-secondary);
+          border-radius: 24px;
+          font-size: 20px;
+          line-height: 1.3;
         }
+
+        .checkboxText {
+          color: var(--md-sys-color-primary);
+          margin-top: 14px;
+        }
+
+        md-checkbox {
+          padding-bottom: 8px;
+        }
+
+        .scores[hidden] {
+          display: none;
+        }
+
         @media (max-width: 1000px) {
           .title {
             font-size: 18px;
@@ -108,7 +141,7 @@ export class PromptCommunityHighScores extends YpBaseElement {
 
           .row {
             min-width: 300px;
-            width: 300px;+
+            width: 300px;
             margin: 16px;
           }
         }
@@ -118,15 +151,24 @@ export class PromptCommunityHighScores extends YpBaseElement {
 
   renderRow(index: number, result: AoiResultData) {
     return html`
-      <div
-        class="row layout horizontal"
-
-      >
+      <div class="row layout horizontal">
         <div class="column index">${index + 1}.</div>
         <div class="layout horizontal center-center nameAndScore">
           <div class="layout vertical center-center">
             <div class="column nickname">${result.data}</div>
-            <div class="column score">${YpFormattingHelpers.number(result.wins)} / ${YpFormattingHelpers.number(result.losses)}</div>
+            <div
+              class="column layout vertical center-center scores"
+              ?hidden="${!this.showScores}"
+            >
+              <div>
+                <b>${this.t('How likly to win')}: ${Math.round(result.score)}%</b>
+              </div>
+              <div>
+                ${this.t('Wins')}: ${YpFormattingHelpers.number(result.wins)}
+                ${this.t('Losses')}:
+                ${YpFormattingHelpers.number(result.losses)}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -134,11 +176,23 @@ export class PromptCommunityHighScores extends YpBaseElement {
   }
 
   render() {
-    return this.results ? html`
-      <div class="topContainer layout vertical wrap center-center">
-        <div class="title">${this.t("Results")}</div>
-        ${this.results.map((result, index) => this.renderRow(index,result))}
-      </div>
-    ` : nothing;
+    return this.results
+      ? html`
+          <div class="topContainer layout vertical wrap center-center">
+            <div class="questionTitle">${this.question.name}</div>
+            <div class="title">${this.t('Voting Results')}</div>
+            <div class="layout horizontal">
+              <md-checkbox
+                id="showScores"
+                @change="${this.toggleScores}"
+              ></md-checkbox>
+              <div class="checkboxText">${this.t('Show scores')}</div>
+            </div>
+            ${this.results.map((result, index) =>
+              this.renderRow(index, result)
+            )}
+          </div>
+        `
+      : nothing;
   }
 }

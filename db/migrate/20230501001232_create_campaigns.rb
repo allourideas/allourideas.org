@@ -15,7 +15,6 @@ class CreateCampaigns < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_index :campaigns, :configuration, type: :fulltext
     add_index :campaigns, [:id, :group_id, :deleted]
     add_index :campaigns, [:id, :community_id, :deleted]
     add_index :campaigns, [:id, :domain_id, :deleted]

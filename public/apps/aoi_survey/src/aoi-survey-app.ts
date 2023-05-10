@@ -65,7 +65,7 @@ export class AoiSurveyApp extends YpBaseElement {
   currentError: string | undefined;
 
   @property({ type: String })
-  themeColor = '#75553b';
+  themeColor = '#0489cf';
 
   @property({ type: Object })
   earl!: AoiEarlData;
@@ -75,6 +75,9 @@ export class AoiSurveyApp extends YpBaseElement {
 
   @property({ type: Object })
   prompt!: AoiPromptData;
+
+  @property({ type: Boolean })
+  tempHackDisableVoting = false;
 
   drawer: NavigationDrawer;
 
@@ -122,6 +125,22 @@ export class AoiSurveyApp extends YpBaseElement {
     this.earl = earlResponse.earlContainer.earl;
     this.question = earlResponse.question;
     this.prompt = earlResponse.prompt;
+
+    if (!this.earl.configuration) {
+      this.earl.configuration = {
+        welcome_html: '<p>Footer HTML</p>',
+        target_votes: 300,
+        lock_results_until_target_votes: false,
+        theme_color: '#0489cf',
+        temp_logo_url:
+          'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/3/9/1236638626755/Newly-Identified-portrait-001.jpg?width=465&quality=85&dpr=1&s=none',
+      };
+    }
+
+    if (this.earl.configuration.theme_color) {
+      this.themeColor = this.earl.configuration.theme_color;
+      this.themeChanged();
+    }
   }
 
   disconnectedCallback() {
@@ -359,7 +378,6 @@ export class AoiSurveyApp extends YpBaseElement {
           ></aoi-survey-intro>`;
         case PagesTypes.Voting:
           return html`<aoi-survey-voting
-            @needs-new-earl="${this.getEarl}"
             .earl="${this.earl}"
             .question="${this.question}"
             .firstPrompt="${this.prompt}"

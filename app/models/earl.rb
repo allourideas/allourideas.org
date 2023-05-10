@@ -15,6 +15,11 @@ class Earl < ActiveRecord::Base
 
   belongs_to :user
 
+  store_accessor :configuration, :welcome_html
+  store_accessor :configuration, :temp_logo_url
+  store_accessor :configuration, :target_votes
+  store_accessor :configuration, :theme_color
+
   def self.reserved_names
     @@reserved_names
   end
@@ -37,7 +42,7 @@ class Earl < ActiveRecord::Base
   end
 
   def hide_results=(value)
-    question.show_results = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+    question.show_results = !ActiveModel::Type::Boolean.new.cast(value)
     question.save
   end
 
@@ -76,7 +81,7 @@ class Earl < ActiveRecord::Base
   end
 
   def question_should_autoactivate_ideas=(value)
-    question.it_should_autoactivate_ideas = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+    question.it_should_autoactivate_ideas = ActiveModel::Type::Boolean.new.cast(value)
     question.save
   end
 

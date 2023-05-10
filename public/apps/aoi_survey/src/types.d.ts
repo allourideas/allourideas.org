@@ -58,9 +58,11 @@ interface AoiEarlData {
 
 
 interface AoiEarlConfigurationData {
-  footerHtml?: string;
-  targetVotes: number;
-  lockResultsUntilTargetVotes: boolean;
+  welcome_html?: string;
+  target_votes: number;
+  lock_results_until_target_votes: boolean;
+  temp_logo_url?: string;
+  theme_color?: string;
 }
 
 interface AoiEarlResponse {

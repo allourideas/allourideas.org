@@ -58,23 +58,35 @@
               .controls
                 = text_field_tag '', @earl.name, :disabled => true, :id => 'question_username'
             .control-group
-              = f.label :pass, t('user.password') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+              = f.label :pass, t('user.password').html_safe + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, '#password_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
               .controls
                 = f.text_field :pass
 
             .control-group
-              = f.label :welcome_message, "Welcome message " + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, '#welcome_msg_explanation', :"data-toggle" => 'modal'), :class => 'control-label'
+              = f.label :welcome_message, ("Welcome message (300 characters max)" + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, '#welcome_msg_explanation', :"data-toggle" => 'modal')).html_safe, :class => 'control-label'
               .controls
-                = f.text_area :welcome_message, :rows => 5, :cols => 65, :class => 'input-xxlarge'
+                = f.text_area :welcome_message, :rows => 5, :cols => 65, :max=> 350, :class => 'input-xxlarge'
             .control-group
-              = f.label :default_lang, "Default language " + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank').html_safe, :class => 'control-label'
+              = f.label :welcome_html, ("Welcome HTML"), :class => 'control-label'
+              .controls
+                = f.text_area :welcome_html, :rows => 5, :cols => 65, :class => 'input-xxlarge'
+            .control-group
+              = f.label :temp_logo_url, ("Logo URL"), :class => 'control-label'
+              .controls
+                = f.text_field :temp_logo_url
+            .control-group
+              = f.label :target_votes, ("Number of target votes per user"), :class => 'control-label'
+              .controls
+                = f.text_field :target_votes
+            .control-group
+              = f.label :theme_color, ("The primary theme color"), :class => 'control-label'
+              .controls
+                = f.text_field :theme_color
+            .control-group
+              = f.label :default_lang, ("Default language " + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank')).html_safe, :class => 'control-label'
               .controls
                 = # Have English be the first, but sort the rest
                 = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"], ["Albanian", "sq"], ["Chinese", "zh"], ["Norwegian", "no"], ["Danish", "da"], ["Czech", "cs"], ["Japanese", "ja"], ["Indonesian", "id"]].sort
-            .control-group
-              = f.label :ga_code, t('admin.google_analytics_code') + ' ' + link_to('<i class="glyphicon glyphicon-question-sign"></i>', 'http://blog.allourideas.org/post/947544304/add-google-analytics-on-your-idea-marketplace', :target=> '_blank').html_safe, :class => 'control-label'
-              .controls
-                = f.text_field :ga_code
             #edit-image.control-group
               -if @earl.logo_file_name
                 = f.label :logo_file_name, "Replace logo", :class => 'control-label'
@@ -88,7 +100,7 @@
                   = f.check_box :active
                   = f.label :active, "#{t('admin.accept_responses')} #{link_to('', 'http://blog.allourideas.org/post/140411852207/easy-way-to-stop-accepting-responses', :target=> '_blank', :class => 'glyphicon glyphicon-question-sign')}".html_safe
                   = f.check_box :flag_enabled
-                  = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate') + ' ' + link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign').html_safe
+                  = f.label :flag_enabled, t('admin.allow_flag_as_inappropriate').html_safe + ' ' + link_to('', '#allow_flag_as_inappropriate_exp', :"data-toggle" => 'modal', :class => 'glyphicon glyphicon-question-sign').html_safe
                   = f.check_box :question_should_autoactivate_ideas
                   = f.label :question_should_autoactivate_ideas, t('admin.auto_activate_exp')
                   = f.check_box :show_cant_decide

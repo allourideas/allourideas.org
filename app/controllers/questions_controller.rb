@@ -1135,10 +1135,9 @@ class QuestionsController < ApplicationController
       redirect_to( {:action => :show, :controller => :earls},  :id=> params[:id]) and return
     end
 
-
     respond_to do |format|
       old_lang = @earl.default_lang
-      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea))
+      if @earl.update(earl_params)
         flash[:notice] = 'Question settings saved successfully!'
         # redirect to new lang if lang was changed
         if old_lang != @earl.default_lang
@@ -1154,6 +1153,7 @@ class QuestionsController < ApplicationController
       end
     end
   end
+
   def delete_logo
     @earl = Earl.find_by(name: params[:id])
 
@@ -1314,5 +1314,13 @@ class QuestionsController < ApplicationController
         hash[a["visitor_id"]] = a["count"]
       end
       return hash
+    end
+
+    def earl_params
+      params.require(:earl).permit(
+        :question_id, :name, :welcome_message, :default_lang, :logo_size,
+        :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
+        :verify_code, :show_cant_decide, :show_add_new_idea,
+        :welcome_html, :target_votes, :temp_logo_url, :theme_color)
     end
 end

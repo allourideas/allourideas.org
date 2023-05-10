@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_01_001232) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_10_013513) do
   create_table "alternatives", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "experiment_id"
     t.string "content"
@@ -111,6 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_001232) do
     t.string "verify_code"
     t.boolean "show_cant_decide", default: true
     t.boolean "show_add_new_idea", default: true
+    t.json "configuration"
     t.index ["question_id"], name: "index_earls_on_question_id"
   end
 
@@ -185,6 +186,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_001232) do
     t.datetime "updated_at"
     t.boolean "default", default: false
     t.boolean "admin", default: false
+    t.json "configuration"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["id", "confirmation_token"], name: "index_users_on_id_and_confirmation_token"

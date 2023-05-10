@@ -46,6 +46,7 @@ export class AoiSurveyVoting extends YpBaseElement {
     this.promptId = this.firstPrompt.id;
     this.appearanceLookup = this.question.appearance_id;
     super.connectedCallback();
+    this.fire("needs-new-earl")
 
     window.appGlobals.activity('open', 'surveyVoting');
     this.resetTimer();
@@ -77,7 +78,7 @@ export class AoiSurveyVoting extends YpBaseElement {
           border-radius: 5px;
           overflow: hidden;
           box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-          margin-top: 0px;
+          margin-top: 4px;
         }
 
         .progressBar {
@@ -144,7 +145,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   renderProgressBar() {
     if (this.earl.configuration) {
-      const targetVotes = this.earl.configuration.targetVotes;
+      const targetVotes = this.earl.configuration.target_votes || 30;
       const progressPercentage = Math.min(
         (this.question.visitor_votes / targetVotes) * 100,
         100

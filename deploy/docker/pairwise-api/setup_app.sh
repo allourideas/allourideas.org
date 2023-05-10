@@ -15,7 +15,8 @@ else
 fi
 
 sudo -E -u app bundle install
-sudo -E -u app bundle exec rake db:create RAILS_ENV=production
-sudo -E -u app bundle exec rake db:schema:load RAILS_ENV=production
-sudo -E -u app bundle exec rake db:seed RAILS_ENV=production
+#sudo -E -u app bundle exec rake db:create RAILS_ENV=production
+#sudo -E -u app bundle exec rake db:schema:load RAILS_ENV=production
+#sudo -E -u app bundle exec rake db:seed RAILS_ENV=production
+sudo -E -u app bundle exec rake db:migrate RAILS_ENV=production
 true

@@ -64,7 +64,7 @@ export class AoiSurveyApp extends YpBaseElement {
   currentError: string | undefined;
 
   @property({ type: String })
-  themeColor = '#013B70';
+  themeColor = '#01fB70';
 
   @property({ type: Object })
   earl!: AoiEarlData;
@@ -219,6 +219,11 @@ export class AoiSurveyApp extends YpBaseElement {
           background-color: var(--md-sys-color-surface, #fefefe);
         }
 
+        :host {
+            --md-fab-container-color: var(--md-sys-color-surface);
+          }
+
+
         body {
           background-color: var(--md-sys-color-surface, #fefefe);
         }
@@ -234,7 +239,6 @@ export class AoiSurveyApp extends YpBaseElement {
         }
 
         .rightPanel {
-          margin-left: 16px;
           width: 100%;
         }
 
@@ -359,6 +363,11 @@ export class AoiSurveyApp extends YpBaseElement {
             .earl="${this.earl}"
             .question="${this.question}"
           ></aoi-survey-results>`;
+        case PagesTypes.Analysis:
+          return html`<aoi-survey-analysis
+            .earl="${this.earl}"
+            .question="${this.question}"
+          ></aoi-survey-analysis>`;
         case PagesTypes.Share:
           return html` ${this.renderShare()} `;
         default:
@@ -381,13 +390,11 @@ export class AoiSurveyApp extends YpBaseElement {
         <div class="drawer">
           <div class="layout horizontal headerContainer">
             <div class="analyticsHeaderText layout horizontal center-center">
-              <div>
-                <yp-image
+            <yp-image
                   class="collectionLogoImage"
                   sizing="contain"
-                  src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/YpLogos/YourPriorites-Trans-Wide.png"
+                  src="https://raw.githubusercontent.com/allourideas/allourideas.org/master/public/images/favicon.png"
                 ></yp-image>
-              </div>
               <div></div>
             </div>
           </div>

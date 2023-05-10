@@ -8,6 +8,8 @@ import { YpMediaHelpers } from '../@yrpri/common/YpMediaHelpers.js';
 import '../@yrpri/common/yp-image.js';
 
 import '@material/web/button/elevated-button.js';
+import '@material/web/button/outlined-button.js';
+
 import { SharedStyles } from './SharedStyles.js';
 
 @customElement('aoi-survey-voting')
@@ -58,6 +60,10 @@ export class AoiSurveyVoting extends YpBaseElement {
       super.styles,
       SharedStyles,
       css`
+        :host {
+          --md-elevated-button-container-color: var(--md-sys-color-surface);
+        }
+
         .buttonContainer md-elevated-button {
           margin: 8px;
           width: 400px;
@@ -65,24 +71,44 @@ export class AoiSurveyVoting extends YpBaseElement {
         }
 
         .progressBarContainer {
-          width: 80%;
+          width: 450px;
           height: 10px;
-          background-color: var(--md-sys-color-on-tertiary);
+          background-color: var(--md-sys-color-on-primary);
           border-radius: 5px;
           overflow: hidden;
           box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+          margin-top: 0px;
         }
 
         .progressBar {
           height: 100%;
-          background-color: var(--md-sys-color-tertiary);
+          background-color: var(--md-sys-color-primary);
           transition: width 0.4s ease-in-out;
         }
 
-        .or {
-          font-size: 24px;
-          padding: 16px;
+        .progressBarText {
+          font-size: 12px;
+          text-align: right;
+          padding-top: 4px;
           color: var(--md-sys-color-secondary);
+          width: 450px;
+        }
+
+        .or {
+          font-size: 22px;
+          padding: 8px;
+          color: var(--md-sys-color-secondary);
+        }
+
+        .questionTitle {
+          margin-bottom: 16px;
+          margin-top: 16px;
+          margin-left: 32px;
+          margin-right: 32px;
+        }
+
+        .newIdeaButton {
+          margin-top: 16px;
         }
 
         .buttonContainer {
@@ -91,10 +117,26 @@ export class AoiSurveyVoting extends YpBaseElement {
 
         @media (max-width: 960px) {
           .buttonContainer md-elevated-button {
-          margin: 8px;
-          width: 100%;
-          --md-elevated-button-container-height: 120px;
-        }
+            margin: 8px;
+            width: 100%;
+            margin-right: 32px;
+            margin-left: 32px;
+            --md-elevated-button-container-height: 100px;
+          }
+
+          .progressBarContainer {
+            width: 80%;
+          }
+
+          .progressBarText {
+            width: 80%;
+          }
+
+          .or {
+            font-size: 22px;
+            padding: 4px;
+            color: var(--md-sys-color-secondary);
+          }
         }
       `,
     ];
@@ -112,6 +154,10 @@ export class AoiSurveyVoting extends YpBaseElement {
         <div class="progressBarContainer">
           <div class="progressBar" style="width: ${progressPercentage}%;"></div>
         </div>
+        <div class="progressBarText">
+          ${this.question.visitor_votes} ${this.t('votes of')} ${targetVotes}
+          ${this.t('target')}
+        </div>
       `;
     } else {
       return nothing;
@@ -121,8 +167,8 @@ export class AoiSurveyVoting extends YpBaseElement {
   render() {
     return html`
       <div class="topContainer layout vertical wrap center-center">
-        ${this.renderProgressBar()}
         <div class="questionTitle">${this.question.name}</div>
+        ${this.renderProgressBar()}
         <div class="buttonContainer layout horizontal wrap center-center">
           <md-elevated-button
             class="leftAnswer"
@@ -138,6 +184,9 @@ export class AoiSurveyVoting extends YpBaseElement {
             ${this.rightAnswer}
           </md-elevated-button>
         </div>
+        <md-outlined-button class="newIdeaButton">
+          ${this.t('Add your own answer')}
+        </md-outlined-button>
         <div class="layout horizontal wrap center-center"></div>
       </div>
     `;

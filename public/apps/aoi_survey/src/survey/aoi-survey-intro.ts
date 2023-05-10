@@ -24,7 +24,7 @@ export class AoiSurveyIntro extends YpBaseElement {
 
     this.earl.configuration = {
       footerHtml: '<p>Footer HTML</p>',
-      targetVotes: 100,
+      targetVotes: 300,
       lockResultsUntilTargetVotes: false,
     };
 
@@ -59,7 +59,7 @@ export class AoiSurveyIntro extends YpBaseElement {
           max-width: 600px;
           vertical-align: center;
           margin-bottom: 32px;
-          margin-top: 16px;
+          margin-top: 8px;
           padding: 16px;
           color: var(--md-sys-color-primary);
           background-color: var(--md-sys-color-on-primary);
@@ -79,13 +79,10 @@ export class AoiSurveyIntro extends YpBaseElement {
 
           .description {
             max-width: 300px;
+            margin-top: 0px;
           }
 
-          .questionTitle {
-            margin-left: 16px;
-            margin-right: 16px;
-            margin-bottom: 32px;
-          }
+
         }
       `,
     ];

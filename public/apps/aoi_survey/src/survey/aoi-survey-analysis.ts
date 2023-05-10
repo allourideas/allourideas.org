@@ -9,8 +9,8 @@ import { SharedStyles } from './SharedStyles.js';
 import '@material/web/checkbox/checkbox.js';
 import { Checkbox } from '@material/web/checkbox/lib/checkbox.js';
 
-@customElement('aoi-survey-results')
-export class AoiSurveyResuls extends YpBaseElement {
+@customElement('aoi-survey-analysis')
+export class AoiSurveyAnalysis extends YpBaseElement {
   @property({ type: Array })
   results!: AoiResultData[];
 
@@ -19,9 +19,6 @@ export class AoiSurveyResuls extends YpBaseElement {
 
   @property({ type: Object })
   earl!: AoiEarlData;
-
-  @property({ type: Boolean })
-  showScores = false;
 
   async connectedCallback() {
     super.connectedCallback();
@@ -41,7 +38,7 @@ export class AoiSurveyResuls extends YpBaseElement {
 
   toggleScores() {
     const checkbox = this.$$('#showScores') as Checkbox;
-    this.showScores = checkbox.checked;
+//    this.showScores = checkbox.checked;
   }
 
   static get styles() {
@@ -167,7 +164,7 @@ export class AoiSurveyResuls extends YpBaseElement {
             <div class="column nickname">${result.data}</div>
             <div
               class="column layout vertical center-center scores"
-              ?hidden="${!this.showScores}"
+
             >
               <div>
                 <b

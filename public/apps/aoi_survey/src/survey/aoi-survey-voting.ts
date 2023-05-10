@@ -41,12 +41,9 @@ export class AoiSurveyVoting extends YpBaseElement {
   timer: number;
 
   async connectedCallback() {
-    this.leftAnswer = this.firstPrompt.left_choice_text;
-    this.rightAnswer = this.firstPrompt.right_choice_text;
-    this.promptId = this.firstPrompt.id;
-    this.appearanceLookup = this.question.appearance_id;
     super.connectedCallback();
-    this.fire("needs-new-earl")
+    this.fire('needs-new-earl');
+    console.error('aoi-survey-voting connectedCallback');
 
     window.appGlobals.activity('open', 'surveyVoting');
     this.resetTimer();
@@ -194,6 +191,7 @@ export class AoiSurveyVoting extends YpBaseElement {
   }
 
   async voteForAnswer(direction: 'left' | 'right') {
+    console.error(`voteForAnswer ${this.appearanceLookup}`);
     const voteData: AoiVoteData = {
       time_viewed: new Date().getTime() - this.timer,
       prompt_id: this.promptId,
@@ -210,9 +208,17 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     this.leftAnswer = postVoteResponse.newleft;
     this.rightAnswer = postVoteResponse.newright;
-
     this.promptId = postVoteResponse.prompt_id;
     this.appearanceLookup = postVoteResponse.appearance_lookup;
+
+    console.error(`next ${this.appearanceLookup}`);
+
+    this.fire('update-appearance-lookup', {
+      appearanceLookup: this.appearanceLookup,
+      promptId: this.promptId,
+      leftAnswer: this.leftAnswer,
+      rightAnswer: this.rightAnswer,
+    });
 
     this.question.visitor_votes += 1;
     this.requestUpdate();

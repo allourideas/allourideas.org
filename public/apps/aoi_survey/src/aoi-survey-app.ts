@@ -79,6 +79,18 @@ export class AoiSurveyApp extends YpBaseElement {
   @property({ type: Boolean })
   tempHackDisableVoting = false;
 
+  @property({ type: String })
+  appearanceLookup!: string;
+
+  @property({ type: String })
+  currentLeftAnswer: string;
+
+  @property({ type: String })
+  currentRightAnswer: string;
+
+  @property({ type: String })
+  currentPromptId: number;
+
   drawer: NavigationDrawer;
 
   constructor() {
@@ -125,6 +137,10 @@ export class AoiSurveyApp extends YpBaseElement {
     this.earl = earlResponse.earlContainer.earl;
     this.question = earlResponse.question;
     this.prompt = earlResponse.prompt;
+    this.appearanceLookup = this.question.appearance_id;
+    this.currentLeftAnswer = this.prompt.left_choice_text;
+    this.currentRightAnswer = this.prompt.right_choice_text;
+    this.currentPromptId = this.prompt.id;
 
     if (!this.earl.configuration) {
       this.earl.configuration = {
@@ -349,6 +365,14 @@ export class AoiSurveyApp extends YpBaseElement {
     this.themeColor = event.detail;
   }
 
+  updateappearanceLookup(event: CustomEvent) {
+    this.appearanceLookup = event.detail.appearanceLookup;
+    this.currentPromptId = event.detail.promptId;
+    this.currentLeftAnswer = event.detail.leftAnswer;
+    this.currentRightAnswer = event.detail.rightAnswer;
+    debugger;
+  }
+
   renderIntroduction() {
     return html` <div class="layout vertical center-center"></div> `;
   }
@@ -377,11 +401,15 @@ export class AoiSurveyApp extends YpBaseElement {
             .themeDarkMode="${this.themeDarkMode}"
           ></aoi-survey-intro>`;
         case PagesTypes.Voting:
-          return html`<aoi-survey-voting
+          return cache(html`<aoi-survey-voting
             .earl="${this.earl}"
             .question="${this.question}"
-            .firstPrompt="${this.prompt}"
-          ></aoi-survey-voting>`;
+            .leftAnswer="${this.currentLeftAnswer}"
+            .rightAnswer="${this.currentRightAnswer}"
+            .promptId="${this.currentPromptId}"
+            .appearanceLookup="${this.appearanceLookup}"
+            @update-appearance-lookup="${this.updateappearanceLookup}"
+          ></aoi-survey-voting>`);
         case PagesTypes.Results:
           return html`<aoi-survey-results
             .earl="${this.earl}"

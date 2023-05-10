@@ -6,7 +6,11 @@ class QuestionsController < ApplicationController
   before_action :require_login, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_action :admin_only, :only => [:index, :admin_stats]
   skip_before_action :verify_authenticity_token, :only => [:get_ai_answer_ideas]
-  skip_before_action :record_action, :only => [:get_ai_answer_ideas]
+  skip_before_action :record_action, :only => [:get_ai_answer_ideas, :results]
+
+  skip_before_action :get_survey_session, :only => [:results]
+  skip_after_action :write_survey_session_cookie, :only => [:results]
+
   #caches_page :results
 
   # GET /questions

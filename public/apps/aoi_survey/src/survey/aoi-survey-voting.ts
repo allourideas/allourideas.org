@@ -45,8 +45,8 @@ export class AoiSurveyVoting extends YpBaseElement {
     this.rightAnswer = this.firstPrompt.right_choice_text;
     this.promptId = this.firstPrompt.id;
     this.appearanceLookup = this.question.appearance_id;
-
     super.connectedCallback();
+
     window.appGlobals.activity('open', 'surveyVoting');
     this.resetTimer();
   }
@@ -102,7 +102,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
         .questionTitle {
           margin-bottom: 16px;
-          margin-top: 16px;
+          margin-top: 32px;
           margin-left: 32px;
           margin-right: 32px;
         }
@@ -112,7 +112,7 @@ export class AoiSurveyVoting extends YpBaseElement {
         }
 
         .buttonContainer {
-          margin-top: 16px;
+          margin-top: 32px;
         }
 
         @media (max-width: 960px) {
@@ -133,7 +133,7 @@ export class AoiSurveyVoting extends YpBaseElement {
           }
 
           .or {
-            font-size: 22px;
+            font-size: 18px;
             padding: 4px;
             color: var(--md-sys-color-secondary);
           }

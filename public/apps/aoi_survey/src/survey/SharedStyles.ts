@@ -20,5 +20,9 @@ export const SharedStyles = css`
     .questionTitle {
       margin-bottom: 16px;
     }
-  }
+
+    .questionTitle[dark-mode] {
+      margin-bottom: 32px;
+    }
+}
 `;

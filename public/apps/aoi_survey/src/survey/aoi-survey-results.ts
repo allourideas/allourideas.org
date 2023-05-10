@@ -97,7 +97,7 @@ export class AoiSurveyResuls extends YpBaseElement {
         }
 
         .index {
-          font-size: 22px;
+          font-size: 16px;
         }
 
         .nickname {

@@ -43,6 +43,7 @@ declare global {
   interface Window {
     appGlobals: any;
     aoiServerApi: AoiServerApi;
+    needsNewEarl: boolean;
   }
 }
 
@@ -64,7 +65,7 @@ export class AoiSurveyApp extends YpBaseElement {
   currentError: string | undefined;
 
   @property({ type: String })
-  themeColor = '#01fB70';
+  themeColor = '#75553b';
 
   @property({ type: Object })
   earl!: AoiEarlData;
@@ -161,7 +162,7 @@ export class AoiSurveyApp extends YpBaseElement {
       this.pageIndex = 1;
     } else if (event.detail.activeIndex == 1) {
       this.pageIndex = 2;
-    }  else if (event.detail.activeIndex == 2) {
+    } else if (event.detail.activeIndex == 2) {
       this.pageIndex = 3;
     } else if (event.detail.activeIndex == 3) {
       this.pageIndex = 4;
@@ -220,9 +221,8 @@ export class AoiSurveyApp extends YpBaseElement {
         }
 
         :host {
-            --md-fab-container-color: var(--md-sys-color-surface);
-          }
-
+          --md-fab-container-color: var(--md-sys-color-surface);
+        }
 
         body {
           background-color: var(--md-sys-color-surface, #fefefe);
@@ -246,6 +246,7 @@ export class AoiSurveyApp extends YpBaseElement {
           margin-left: 16px;
           padding-left: 8px;
           margin-right: 16px;
+          padding-bottom: 560px;
         }
 
         md-list-item {
@@ -272,6 +273,10 @@ export class AoiSurveyApp extends YpBaseElement {
           --md-list-container-color: var(--md-sys-color-surface);
         }
 
+        md-navigation-bar {
+          --md-navigation-bar-container-color: var(--md-sys-color-surface);
+        }
+
         .topAppBar {
           border-radius: 48px;
           background-color: var(--md-sys-color-primary-container);
@@ -284,10 +289,9 @@ export class AoiSurveyApp extends YpBaseElement {
         }
 
         .collectionLogoImage {
-          width: 120px;
-          height: 68px;
-          margin-right: 16px;
-          margin-left: 16px;
+          width: 60px;
+          height: 60px;
+          margin-left: 64px;
         }
 
         .mainPageContainer {
@@ -351,9 +355,11 @@ export class AoiSurveyApp extends YpBaseElement {
             .earl="${this.earl}"
             .question="${this.question}"
             @startVoting="${this.startVoting}"
+            .themeDarkMode="${this.themeDarkMode}"
           ></aoi-survey-intro>`;
         case PagesTypes.Voting:
           return html`<aoi-survey-voting
+            @needs-new-earl="${this.getEarl}"
             .earl="${this.earl}"
             .question="${this.question}"
             .firstPrompt="${this.prompt}"
@@ -390,12 +396,11 @@ export class AoiSurveyApp extends YpBaseElement {
         <div class="drawer">
           <div class="layout horizontal headerContainer">
             <div class="analyticsHeaderText layout horizontal center-center">
-            <yp-image
-                  class="collectionLogoImage"
-                  sizing="contain"
-                  src="https://raw.githubusercontent.com/allourideas/allourideas.org/master/public/images/favicon.png"
-                ></yp-image>
-              <div></div>
+              <yp-image
+                class="collectionLogoImage"
+                sizing="contain"
+                src="https://raw.githubusercontent.com/allourideas/allourideas.org/master/public/images/favicon.png"
+              ></yp-image>
             </div>
           </div>
 

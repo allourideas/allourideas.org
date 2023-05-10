@@ -7,7 +7,7 @@ import { YpMediaHelpers } from '../@yrpri/common/YpMediaHelpers.js';
 
 import '../@yrpri/common/yp-image.js';
 
-import '@material/web/fab/fab.js'
+import '@material/web/fab/fab.js';
 import { SharedStyles } from './SharedStyles.js';
 
 @customElement('aoi-survey-intro')
@@ -29,8 +29,8 @@ export class AoiSurveyIntro extends YpBaseElement {
     };
 
     this.earl.welcome_message =
-//      "Dive into the world of Shakespeare and help us determine his most exceptional work! In this engaging survey, we are posing a single thought-provoking question: Which of Shakespeare's writings is the best, and why? Engage in a unique opportunity to evaluate a variety of his masterpieces and voice your preference through an innovative pairwise voting system. By participating, you're contributing to a broader understanding of Shakespeare's enduring impact on literature and culture.";
-"Join our Shakespeare survey and help us identify his greatest work! We ask one compelling question: Which of Shakespeare's writings is the best and why? Participants will vote on their top picks using a pairwise voting system, fostering engaging discussion and shedding light on our collective view of Shakespeare's legacy."
+      //      "Dive into the world of Shakespeare and help us determine his most exceptional work! In this engaging survey, we are posing a single thought-provoking question: Which of Shakespeare's writings is the best, and why? Engage in a unique opportunity to evaluate a variety of his masterpieces and voice your preference through an innovative pairwise voting system. By participating, you're contributing to a broader understanding of Shakespeare's enduring impact on literature and culture.";
+      "Join our Shakespeare survey and help us identify his greatest work! We ask one compelling question: Which of Shakespeare's writings is the best and why? Participants will vote on their top picks using a pairwise voting system, fostering engaging discussion and shedding light on our collective view of Shakespeare's legacy.";
     this.earl.logo_file_name =
       'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/3/9/1236638626755/Newly-Identified-portrait-001.jpg?width=465&quality=85&dpr=1&s=none';
   }
@@ -71,6 +71,11 @@ export class AoiSurveyIntro extends YpBaseElement {
           margin-top: 32px;
         }
 
+        .questionTitle[dark-mode] {
+          margin-bottom: 16px;
+          margin-top: 24px;
+        }
+
         @media (max-width: 960px) {
           .image {
             width: 332px;
@@ -81,8 +86,10 @@ export class AoiSurveyIntro extends YpBaseElement {
             max-width: 300px;
             margin-top: 0px;
           }
-
-
+        .questionTitle[dark-mode] {
+          margin-bottom: 16px;
+          margin-top: 24px;
+        }
         }
       `,
     ];
@@ -105,7 +112,9 @@ export class AoiSurveyIntro extends YpBaseElement {
           sizing="contain"
           src="${this.earl.logo_file_name}"
         ></yp-image>
-        <div class="questionTitle">${this.question.name}</div>
+        <div class="questionTitle" ?dark-mode="${this.themeDarkMode}">${
+      this.question.name
+    }</div>
         <div class="description">${unsafeHTML(this.formattedDescription)}</div>
         <md-fab
           extended
@@ -114,9 +123,11 @@ export class AoiSurveyIntro extends YpBaseElement {
           .label="${this.t('Start Voting')}"
         ><md-icon slot="icon">thumbs_up_down</md-fab>
         <div class="footerHtml">
-          ${this.earl.configuration && this.earl.configuration.footerHtml
-            ? unsafeHTML(this.earl.configuration.footerHtml)
-            : nothing}
+          ${
+            this.earl.configuration && this.earl.configuration.footerHtml
+              ? unsafeHTML(this.earl.configuration.footerHtml)
+              : nothing
+          }
         </div>
       </div>
     `;

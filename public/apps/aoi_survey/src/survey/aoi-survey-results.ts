@@ -8,6 +8,7 @@ import { SharedStyles } from './SharedStyles.js';
 
 import '@material/web/checkbox/checkbox.js';
 import { Checkbox } from '@material/web/checkbox/lib/checkbox.js';
+import '@material/web/button/outlined-button.js';
 
 @customElement('aoi-survey-results')
 export class AoiSurveyResuls extends YpBaseElement {
@@ -42,6 +43,30 @@ export class AoiSurveyResuls extends YpBaseElement {
   toggleScores() {
     const checkbox = this.$$('#showScores') as Checkbox;
     this.showScores = checkbox.checked;
+  }
+
+  exportToCSV(): void {
+    const replacer = (key: string, value: any) => (value === null ? '' : value); // specify types for key and value
+    const header = Object.keys(this.results[0]);
+    let csv = this.results.map(row =>
+      header
+        .map(fieldName => JSON.stringify((row as any)[fieldName], replacer))
+        .join(',')
+    ); // specify type for row
+    csv.unshift(header.join(','));
+    const csvString = csv.join('\r\n');
+
+    // Create a downloadable link
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'survey_results.csv';
+    link.click();
+
+    // Clean up
+    URL.revokeObjectURL(url);
+    setTimeout(() => link.remove(), 0);
   }
 
   static get styles() {
@@ -135,6 +160,11 @@ export class AoiSurveyResuls extends YpBaseElement {
           display: none;
         }
 
+        .exportButton {
+          margin-bottom: 128px;
+          margin-top: 32px;
+        }
+
         @media (min-width: 960px) {
           .questionTitle {
             margin-bottom: 16px;
@@ -203,6 +233,12 @@ export class AoiSurveyResuls extends YpBaseElement {
             ${this.results.map((result, index) =>
               this.renderRow(index, result)
             )}
+            <md-outlined-button
+              @click=${this.exportToCSV}
+              class="exportButton"
+            >
+              ${this.t('Download Results as CSV')}
+            </md-outlined-button>
           </div>
         `
       : nothing;

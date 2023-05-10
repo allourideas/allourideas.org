@@ -112,5 +112,11 @@ interface AoiEarlContainerData {
   earl: AoiEarlData;
 }
 
+interface AoiSurveyAnalysisData {
+  name: string;
+  label: string;
+  analysis?: string;
+  answerRows?: AoiResultData[];
+}
 
 

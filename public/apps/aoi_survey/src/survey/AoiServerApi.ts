@@ -1,6 +1,7 @@
 import { YpServerApiBase } from '../@yrpri/common/YpServerApiBase.js';
 
 export class AoiServerApi extends YpServerApiBase {
+
   constructor(urlPath: string = '/api') {
     super();
     this.baseUrlPath = urlPath;
@@ -16,6 +17,12 @@ export class AoiServerApi extends YpServerApiBase {
     return this.fetchWrapper(
       this.baseUrlPath + `/questions/${earlName}/results.json`
     ) as unknown as AoiResultData[];
+  }
+
+  getSurveyAnalysis(earlName: string, analysisName: string): AoiSurveyAnalysisData {
+    return this.fetchWrapper(
+      this.baseUrlPath + `/questions/${earlName}/${analysisName}/analysis.json`
+    ) as unknown as AoiSurveyAnalysisData;
   }
 
   public postVote(

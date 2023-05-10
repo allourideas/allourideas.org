@@ -6,8 +6,7 @@ import { YpFormattingHelpers } from '../@yrpri/common/YpFormattingHelpers.js';
 import { YpBaseElement } from '../@yrpri/common/yp-base-element.js';
 import { SharedStyles } from './SharedStyles.js';
 
-import '@material/web/checkbox/checkbox.js';
-import { Checkbox } from '@material/web/checkbox/lib/checkbox.js';
+import '@material/web/circularprogress/circular-progress.js';
 
 @customElement('aoi-survey-analysis')
 export class AoiSurveyAnalysis extends YpBaseElement {
@@ -20,12 +19,45 @@ export class AoiSurveyAnalysis extends YpBaseElement {
   @property({ type: Object })
   earl!: AoiEarlData;
 
+  analysisTypes = [
+    {
+      name: 'topFiveAnswersPositiveImpacts',
+      label: 'Top 5 Answers - Possible Positive Impacts',
+    },
+    {
+      name: 'topFiveAnswersNegativeImpacts',
+      label: 'Top 5 Answers - Possible Negative Impacts',
+    },
+    {
+      name: 'bottomFiveAnswersPositiveImpacts',
+      label: 'Bottom 5 Answers - Possible Positive Impacts',
+    },
+    {
+      name: 'bottomFiveAnswersNegativeImpacts',
+      label: 'Bottom 5 Answers - Possible Negative Impacts',
+    },
+  ] as AoiSurveyAnalysisData[];
+
   async connectedCallback() {
     super.connectedCallback();
   }
 
   async fetchResults() {
-    this.results = await window.aoiServerApi.getSurveyResults(this.earl.name);
+    for (let a = 0; a < this.analysisTypes.length; a++) {
+      const analysisData = await window.aoiServerApi.getSurveyAnalysis(
+        this.earl.name,
+        this.analysisTypes[a].name
+      );
+
+      if (!analysisData) {
+        this.analysisTypes[a].analysis = 'error';
+        this.analysisTypes[a].answerRows = [];
+      } else {
+        this.analysisTypes[a].analysis = analysisData.analysis;
+        this.analysisTypes[a].answerRows = analysisData.answerRows;
+      }
+      this.requestUpdate();
+    }
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {
@@ -34,11 +66,6 @@ export class AoiSurveyAnalysis extends YpBaseElement {
     if (changedProperties.has('earl') && this.earl) {
       this.fetchResults();
     }
-  }
-
-  toggleScores() {
-    const checkbox = this.$$('#showScores') as Checkbox;
-//    this.showScores = checkbox.checked;
   }
 
   static get styles() {
@@ -59,18 +86,28 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           margin-bottom: 8px;
         }
 
-        .profileImage {
-          width: 50px;
-          height: 50px;
-          min-height: 50px;
-          min-width: 50px;
-          margin-right: 8px;
+        .analysisTitle {
+          font-size: 18px;
+          margin: 16px;
+          text-align: center;
+          text-decoration: underline;
         }
 
-        .row {
+        .analysisResults {
+          padding: 24px;
+          padding-top: 16px;
+          padding-bottom: 16px;
+          margin: 16px;
+          margin-top: 8px;
+          margin-bottom: 0px;
+          border-radius: 16px;
+          color: var(--md-sys-color-secondary);
+          background-color: var(--md-sys-color-on-secondary);
+        }
+
+        .analysisContainer {
           padding: 8px;
           margin: 8px;
-          border-radius: 16px;
           background-color: var(--md-sys-color-on-primary);
           color: var(--md-sys-color-primary);
 
@@ -84,9 +121,15 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           padding-bottom: 16px;
         }
 
-        .row[current-user] {
-          background-color: var(--md-sys-color-teriary);
-          color: var(--md-sys-color-on-primary);
+        .analysisRow {
+          margin-bottom: 16px;
+          width: 100%;
+        }
+
+
+        .renderAnalysisRow {
+          padding: 0px;
+          margin: 0px;
         }
 
         .column {
@@ -94,7 +137,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         }
 
         .index {
-          font-size: 22px;
+          font-size: 16px;
         }
 
         .nickname {
@@ -105,31 +148,8 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           width: 100%;
         }
 
-        .scores {
-          margin-top: 16px;
-          padding: 16px;
-          padding-top: 8px;
-          padding-bottom: 8px;
-
-          margin-bottom: 0px;
-          background-color: var(--md-sys-color-secondary);
-          color: var(--md-sys-color-on-secondary);
-          border-radius: 24px;
-          font-size: 14px;
-          line-height: 1.2;
-        }
-
-        .checkboxText {
-          color: var(--md-sys-color-primary);
-          margin-top: 14px;
-        }
-
-        md-checkbox {
-          padding-bottom: 8px;
-        }
-
-        .scores[hidden] {
-          display: none;
+        .renderAnalysisRow {
+          width: 80%;
         }
 
         @media (min-width: 960px) {
@@ -155,53 +175,64 @@ export class AoiSurveyAnalysis extends YpBaseElement {
     ];
   }
 
-  renderRow(index: number, result: AoiResultData) {
+  renderAnswerRow(index: number, result: AoiResultData) {
     return html`
-      <div class="row layout horizontal">
+      <div class="renderAnalysisRow layout horizontal">
         <div class="column index">${index + 1}.</div>
-        <div class="layout horizontal center-center nameAndScore">
-          <div class="layout vertical center-center">
-            <div class="column nickname">${result.data}</div>
-            <div
-              class="column layout vertical center-center scores"
-
-            >
-              <div>
-                <b
-                  >${this.t('How likely to win')}:
-                  ${Math.round(result.score)}%</b
-                >
-              </div>
-              <div>
-                ${this.t('Wins')}: ${YpFormattingHelpers.number(result.wins)}
-                ${this.t('Losses')}:
-                ${YpFormattingHelpers.number(result.losses)}
-              </div>
-            </div>
-          </div>
+        <div class="column layout vertical center-center">
+          <div class="">${result.data}</div>
         </div>
       </div>
     `;
   }
 
+  renderAnalysisRow(analysisItem: AoiSurveyAnalysisData) {
+    let analysisHtml;
+
+    console.log(analysisItem);
+
+    if (analysisItem.analysis && analysisItem.analysis != 'error') {
+      analysisHtml = html`
+        ${analysisItem.answerRows.map((result, index) =>
+          this.renderAnswerRow(index, result)
+        )}
+        <div class="analysisResults">${analysisItem.analysis}</div>
+      </div>`;
+    } else if (analysisItem.analysis && analysisItem.analysis == 'error') {
+      analysisHtml = html`<div class=" layout horizontal center-center">
+        ${this.t('Error fetching analysis')}
+      </div>`;
+    } else {
+      analysisHtml = html`<div class=" layout horizontal center-center">
+        <md-circular-progress indeterminate></md-circular-progress>
+      </div>`;
+    }
+
+    return html`<div class="analysisRow"><div class="analysisTitle">${analysisItem.label}</div>
+      ${analysisHtml}</div>`;
+  }
+
+  renderAnalysis() {
+    let outHtml = html``;
+
+    for (let a = 0; a < this.analysisTypes.length; a++) {
+      outHtml = html`${outHtml}${this.renderAnalysisRow(
+        this.analysisTypes[a]
+      )}`;
+    }
+
+    return outHtml;
+  }
+
   render() {
-    return this.results
-      ? html`
-          <div class="topContainer layout vertical wrap center-center">
-            <div class="title">${this.t('Voting Results')}</div>
-            <div class="questionTitle">${this.question.name}</div>
-            <div class="layout horizontal">
-              <md-checkbox
-                id="showScores"
-                @change="${this.toggleScores}"
-              ></md-checkbox>
-              <div class="checkboxText">${this.t('Show scores')}</div>
-            </div>
-            ${this.results.map((result, index) =>
-              this.renderRow(index, result)
-            )}
-          </div>
-        `
-      : nothing;
+    return html`
+      <div class="topContainer layout vertical wrap center-center">
+        <div class="title">${this.t('Vote Analysis')}</div>
+        <div class="questionTitle">${this.question.name}</div>
+        <div class="layout vertical center-center analysisContainer">
+          ${this.renderAnalysis()}
+        </div>
+      </div>
+    `;
   }
 }

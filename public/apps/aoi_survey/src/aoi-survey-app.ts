@@ -27,6 +27,7 @@ import { Layouts } from './flexbox-literals/classes.js';
 import './survey/aoi-survey-intro.js';
 import './survey/aoi-survey-voting.js';
 import './survey/aoi-survey-results.js';
+import './survey/aoi-survey-analysis.js';
 import { AoiServerApi } from './survey/AoiServerApi.js';
 import { AoiAppGlobals } from './AoiAppGlobals.js';
 import { NavigationDrawer } from '@material/web/navigationdrawer/lib/navigation-drawer.js';

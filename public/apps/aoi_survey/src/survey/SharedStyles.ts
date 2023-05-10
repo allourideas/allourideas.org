@@ -14,6 +14,7 @@ export const SharedStyles = css`
     margin-top: 16px;
     margin-left: 32px;
     margin-right: 32px;
+    max-width: 632px;
   }
 
   @media (max-width: 960px) {

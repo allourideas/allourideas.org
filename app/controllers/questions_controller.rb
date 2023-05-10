@@ -6,10 +6,10 @@ class QuestionsController < ApplicationController
   before_action :require_login, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_action :admin_only, :only => [:index, :admin_stats]
   skip_before_action :verify_authenticity_token, :only => [:get_ai_answer_ideas]
-  skip_before_action :record_action, :only => [:get_ai_answer_ideas, :results]
+  skip_before_action :record_action, :only => [:get_ai_answer_ideas]
 
-  skip_before_action :get_survey_session, :only => [:results]
-  skip_after_action :write_survey_session_cookie, :only => [:results]
+  #skip_before_action :get_survey_session, :only => [:results]
+  #skip_after_action :write_survey_session_cookie, :only => [:results]
 
   #caches_page :results
 
@@ -44,6 +44,46 @@ class QuestionsController < ApplicationController
       format.json { render :json => response.to_json }
     end
   end
+
+  def analysis
+    @earl = Earl.find_by(name: params[:id])
+    type = params[:type]
+
+    @question = @earl.question
+    @question_id = @question.id
+
+    choices_count = @question.choices_count
+
+    unless (@question.user_can_view_results?(current_user, @earl))
+      logger.info("Current user is: #{current_user.inspect}")
+      flash[:notice] = t('user.not_authorized_error_results')
+      redirect_to( "/#{params[:id]}") and return
+    end
+
+    logger.info "@question is #{@question.inspect}."
+
+    per_page = 5
+    offset = type.start_with?('bottom') ? [choices_count - per_page, 0].max : 0
+
+    choices = Choice.find(:all, :params => {:question_id => @question_id,
+      :limit => per_page,
+      :offset => offset})
+
+    analysis_cache_key = "#{@question_id}_#{type}_ai_analysis_v1"
+    #analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 15.minutes) do
+    #  get_ai_analysis(@question_id, type, choices)
+    #end
+    analysis = "The top five answers for the best Shakespeare writing, as rated by the public, primarily highlight the plays' diverse themes and the masterful ways in which they are presented. The positive impact of these answers lies in the recognition of Shakespeare's capacity to seamlessly blend various elements, such as romance, magic, political intrigue, morality, and authority, while exploring the complexities of human nature. Furthermore, the appreciation for his poetic language and his ability to challenge societal prejudices enhances the understanding of the relevance and timelessness of his work. The selected plays showcase Shakespeare's versatility and the public's admiration for his unique storytelling, which continues to resonate with audiences across centuries. "
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => {
+        answerRows: choices,
+        analysis: analysis }.to_json
+      }
+    end
+  end
+
 
   # GET /questions/1
   # GET /questions/1.xml
@@ -1312,6 +1352,54 @@ class QuestionsController < ApplicationController
   end
 
   private
+    def get_ai_analysis(question_id, type, answers)
+      if ENV.fetch("OPENAI_API_KEY")
+        client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
+
+        answers_text = answers.map { |answer| "#{answer.data} (Won: #{answer.wins}, Lost: #{answer.losses})" }.join("\n")
+
+        moderation_response = client.moderations(parameters: { input: answers_text })
+        puts "Moderation response: "+moderation_response.to_s
+        flagged = moderation_response.dig("results", 0, "flagged")
+
+        if flagged == true
+          Rails.logger.error("Flagged: "+answers_text)
+          return ""
+        else
+          messages = [
+            {
+              role: "system",
+              content: "You are a highly competent AI that is able to analyize the impact of various answers to a given question.
+                        You will generate a short one page paragraph analysing the answers based on the provide type.
+                        The type indicates that you are either analyzing the five top or bottom answers and the potential positive or negative impact of those answers.
+                        The answers have been rated by the public using a pairwisa voting method, so the users is always selecting one to win or one to lose.
+                        Generally do not include the number of wins and losses in your answers.
+                        If the type mentions positive only do an analysis on the positive impact.
+                        If the type mentions negative only do an analysis on the negative impact.
+                        Please do not write out a summary of each answer just an overview analysis on the positive or negative impact of the answers combined.
+                        Keep you output short, under 150 words.
+                        Wins and losses are provided with each answer and if there are very few, under 10 for most of the answers then output a disclamer to that end, in a second paragraph.",
+            },
+            {
+              role: "user",
+              content: "The question: #{@question.name}\n\nThe type: #{type}\n\nAnswers:\n#{answers_text}",
+            }
+          ]
+          puts "Messages: "+messages.to_s
+          response = client.chat(
+            parameters: {
+                model: "gpt-4",
+                messages: messages,
+                temperature: 0.7,
+            })
+          puts "Response: "+response.to_s
+          return response.dig("choices", 0, "message", "content")
+        end
+      else
+        return "No AI API key"
+      end
+    end
+
     def object_info_to_hash(array)
       hash = {}
       array.each do |a|

@@ -191,7 +191,6 @@ export class AoiSurveyVoting extends YpBaseElement {
   }
 
   async voteForAnswer(direction: 'left' | 'right') {
-    console.error(`voteForAnswer ${this.appearanceLookup}`);
     const voteData: AoiVoteData = {
       time_viewed: new Date().getTime() - this.timer,
       prompt_id: this.promptId,
@@ -210,8 +209,6 @@ export class AoiSurveyVoting extends YpBaseElement {
     this.rightAnswer = postVoteResponse.newright;
     this.promptId = postVoteResponse.prompt_id;
     this.appearanceLookup = postVoteResponse.appearance_lookup;
-
-    console.error(`next ${this.appearanceLookup}`);
 
     this.fire('update-appearance-lookup', {
       appearanceLookup: this.appearanceLookup,

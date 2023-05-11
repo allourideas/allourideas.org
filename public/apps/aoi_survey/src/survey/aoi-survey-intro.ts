@@ -29,7 +29,7 @@ export class AoiSurveyIntro extends YpBaseElement {
       SharedStyles,
       css`
         .footerHtml {
-          margin-top: 32px;
+          margin: 32px;
           max-width: 600px;
           color: var(--md-sys-color-on-surface-variant);
         }

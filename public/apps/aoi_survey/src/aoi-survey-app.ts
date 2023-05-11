@@ -313,6 +313,14 @@ export class AoiSurveyApp extends YpBaseElement {
           --md-navigation-bar-container-color: var(--md-sys-color-surface);
         }
 
+        .loading {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100vh;
+        }
+
         .topAppBar {
           border-radius: 48px;
           background-color: var(--md-sys-color-primary-container);
@@ -340,6 +348,11 @@ export class AoiSurveyApp extends YpBaseElement {
           left: 0;
           width: 100%;
           z-index: 7;
+        }
+
+        .darkModeButton {
+          margin-top: 16px;
+          margin-left: 80px;
         }
 
         @media (max-width: 960px) {
@@ -371,7 +384,6 @@ export class AoiSurveyApp extends YpBaseElement {
     this.currentPromptId = event.detail.promptId;
     this.currentLeftAnswer = event.detail.leftAnswer;
     this.currentRightAnswer = event.detail.rightAnswer;
-    debugger;
   }
 
   renderIntroduction() {
@@ -429,7 +441,9 @@ export class AoiSurveyApp extends YpBaseElement {
           `;
       }
     } else {
-      return html`Loading...`;
+      return html` <div class="loading">
+      <md-circular-progress indeterminate></md-circular-progress>
+    </div>`;
     }
   }
 
@@ -469,7 +483,7 @@ export class AoiSurveyApp extends YpBaseElement {
               'selectedContainer'}"
               @click="${() => this.changeTabTo(1)}"
               headline="${this.t('Pairwise Voting')}"
-              supportingText="${this.t('Vote on answers pairs')}"
+              supportingText="${this.t('Vote on pairs of ideas')}"
             >
               <md-list-item-icon slot="start"
                 ><md-icon>thumb_up</md-icon></md-list-item-icon

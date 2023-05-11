@@ -21,20 +21,20 @@ export class AoiSurveyAnalysis extends YpBaseElement {
 
   analysisTypes = [
     {
-      name: 'topFiveAnswersPositiveImpacts',
-      label: 'Top 5 Answers - Possible Positive Impacts',
+      name: 'topThreeAnswersPositiveImpacts',
+      label: 'Top 3 Answers - Possible Positive Impacts',
     },
     {
-      name: 'topFiveAnswersNegativeImpacts',
-      label: 'Top 5 Answers - Possible Negative Impacts',
+      name: 'topThreeAnswersNegativeImpacts',
+      label: 'Top 3 Answers - Possible Negative Impacts',
     },
     {
-      name: 'bottomFiveAnswersPositiveImpacts',
-      label: 'Bottom 5 Answers - Possible Positive Impacts',
+      name: 'bottomThreeAnswersPositiveImpacts',
+      label: 'Bottom 3 Answers - Possible Positive Impacts',
     },
     {
-      name: 'bottomFiveAnswersNegativeImpacts',
-      label: 'Bottom 5 Answers - Possible Negative Impacts',
+      name: 'bottomThreeAnswersNegativeImpacts',
+      label: 'Bottom 3 Answers - Possible Negative Impacts',
     },
   ] as AoiSurveyAnalysisData[];
 
@@ -93,22 +93,27 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           text-decoration: underline;
         }
 
+        .generatingInfo {
+          font-size: 16px;
+          margin-top: 8px;
+          margin-bottom: 16px;
+          font-style: italic;
+        }
+
         .analysisResults {
           padding: 24px;
           padding-top: 16px;
           padding-bottom: 16px;
           margin: 16px;
           margin-top: 8px;
-          margin-bottom: 0px;
-          border-radius: 16px;
-          color: var(--md-sys-color-secondary);
-          background-color: var(--md-sys-color-on-secondary);
+          margin-bottom: 16px;
+          color: var(--md-sys-color-primary);
+          background-color: var(--md-sys-color-on-primary);
         }
 
         .analysisContainer {
           padding: 8px;
           margin: 8px;
-          background-color: var(--md-sys-color-on-primary);
           color: var(--md-sys-color-primary);
 
           min-width: 350px;
@@ -126,10 +131,10 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           width: 100%;
         }
 
-
-        .renderAnalysisRow {
+        .analysisRow {
           padding: 0px;
           margin: 0px;
+          border-radius: 16px;
         }
 
         .column {
@@ -148,8 +153,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           width: 100%;
         }
 
-        .renderAnalysisRow {
-          width: 80%;
+        .analysisRow {
         }
 
         @media (min-width: 960px) {
@@ -174,8 +178,17 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           .analysisContainer {
             min-width: 100%;
             width: 100%;
-            margin-left: 16px;
-            margin-right: 16px;
+            padding-left: 0;
+            padding-right: 0;
+            margin: 0;
+          }
+
+          .analysisResults {
+            border-radius: 16px;
+          }
+
+          .analysisRow {
+            width: 100%;
           }
         }
       `,
@@ -184,7 +197,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
 
   renderAnswerRow(index: number, result: AoiResultData) {
     return html`
-      <div class="renderAnalysisRow layout horizontal">
+      <div class="answers layout horizontal center-center">
         <div class="column index">${index + 1}.</div>
         <div class="column layout vertical center-center">
           <div class="">${result.data}</div>
@@ -193,7 +206,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
     `;
   }
 
-  renderAnalysisRow(analysisItem: AoiSurveyAnalysisData) {
+  analysisRow(analysisItem: AoiSurveyAnalysisData) {
     let analysisHtml;
 
     console.log(analysisItem);
@@ -210,22 +223,25 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         ${this.t('Error fetching analysis')}
       </div>`;
     } else {
-      analysisHtml = html`<div class=" layout horizontal center-center">
+      analysisHtml = html`<div class=" layout vertical center-center">
         <md-circular-progress indeterminate></md-circular-progress>
+        <div class="generatingInfo">
+          ${this.t('Generating analysis with GPT-4')}
+        </div>
       </div>`;
     }
 
-    return html`<div class="analysisRow"><div class="analysisTitle">${analysisItem.label}</div>
-      ${analysisHtml}</div>`;
+    return html`<div class="analysisRow">
+      <div class="analysisTitle">${analysisItem.label}</div>
+      ${analysisHtml}
+    </div>`;
   }
 
   renderAnalysis() {
     let outHtml = html``;
 
     for (let a = 0; a < this.analysisTypes.length; a++) {
-      outHtml = html`${outHtml}${this.renderAnalysisRow(
-        this.analysisTypes[a]
-      )}`;
+      outHtml = html`${outHtml}${this.analysisRow(this.analysisTypes[a])}`;
     }
 
     return outHtml;

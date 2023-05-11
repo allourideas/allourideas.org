@@ -58,8 +58,17 @@ export class AoiSurveyVoting extends YpBaseElement {
       super.styles,
       SharedStyles,
       css`
-        :host {
+        .hosta {
           --md-elevated-button-container-color: var(--md-sys-color-surface);
+        }
+
+        :host {
+          --md-elevated-button-container-color: var(
+            --md-sys-color-primary-container
+          );
+          --md-elevated-button-label-text-color: var(
+            --md-sys-color-on-primary-container
+          );
         }
 
         .buttonContainer md-elevated-button {
@@ -75,7 +84,7 @@ export class AoiSurveyVoting extends YpBaseElement {
           border-radius: 5px;
           overflow: hidden;
           box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-          margin-top: 4px;
+          margin-top: 32px;
         }
 
         .progressBar {
@@ -99,14 +108,14 @@ export class AoiSurveyVoting extends YpBaseElement {
         }
 
         .questionTitle {
-          margin-bottom: 16px;
+          margin-bottom: 0px;
           margin-top: 32px;
           margin-left: 32px;
           margin-right: 32px;
         }
 
         .newIdeaButton {
-          margin-top: 16px;
+          margin-top: 24px;
         }
 
         .buttonContainer {
@@ -166,7 +175,6 @@ export class AoiSurveyVoting extends YpBaseElement {
     return html`
       <div class="topContainer layout vertical wrap center-center">
         <div class="questionTitle">${this.question.name}</div>
-        ${this.renderProgressBar()}
         <div class="buttonContainer layout horizontal wrap center-center">
           <md-elevated-button
             class="leftAnswer"
@@ -183,8 +191,9 @@ export class AoiSurveyVoting extends YpBaseElement {
           </md-elevated-button>
         </div>
         <md-outlined-button class="newIdeaButton">
-          ${this.t('Add your own answer')}
+          ${this.t('Add your own idea')}
         </md-outlined-button>
+        ${this.renderProgressBar()}
         <div class="layout horizontal wrap center-center"></div>
       </div>
     `;
@@ -215,6 +224,12 @@ export class AoiSurveyVoting extends YpBaseElement {
       promptId: this.promptId,
       leftAnswer: this.leftAnswer,
       rightAnswer: this.rightAnswer,
+    });
+
+    // Find all html element md-elevated-button and blur them
+    const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
+    buttons?.forEach(button => {
+      button.blur();
     });
 
     this.question.visitor_votes += 1;

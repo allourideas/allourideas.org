@@ -53,6 +53,15 @@ export class AoiSurveyIntro extends YpBaseElement {
           background-color: var(--md-sys-color-on-primary);
         }
 
+        :host {
+          --md-elevated-button-container-color: var(
+            --md-sys-color-primary-container
+          );
+          --md-elevated-button-label-text-color: var(
+            --md-sys-color-on-primary-container
+          );
+        }
+
         .image {
           width: 632px;
           height: 356px;

@@ -9,6 +9,7 @@ import { SharedStyles } from './SharedStyles.js';
 import '@material/web/checkbox/checkbox.js';
 import { Checkbox } from '@material/web/checkbox/lib/checkbox.js';
 import '@material/web/button/outlined-button.js';
+import '@material/web/circularprogress/circular-progress.js';
 
 @customElement('aoi-survey-results')
 export class AoiSurveyResuls extends YpBaseElement {
@@ -156,6 +157,14 @@ export class AoiSurveyResuls extends YpBaseElement {
           padding-bottom: 8px;
         }
 
+        .loading {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100vh;
+        }
+
         .scores[hidden] {
           display: none;
         }
@@ -171,7 +180,12 @@ export class AoiSurveyResuls extends YpBaseElement {
           }
         }
 
-        @media (max-width: 1000px) {
+        @media (max-width: 960px) {
+          .loading {
+            width: 100vw;
+            height: 100vh;
+          }
+
           .title {
             font-size: 18px;
             letter-spacing: 0.15em;
@@ -233,14 +247,13 @@ export class AoiSurveyResuls extends YpBaseElement {
             ${this.results.map((result, index) =>
               this.renderRow(index, result)
             )}
-            <md-outlined-button
-              @click=${this.exportToCSV}
-              class="exportButton"
-            >
+            <md-outlined-button @click=${this.exportToCSV} class="exportButton">
               ${this.t('Download Results as CSV')}
             </md-outlined-button>
           </div>
         `
-      : nothing;
+      : html`<div class="loading">
+          <md-circular-progress indeterminate></md-circular-progress>
+        </div>`;
   }
 }

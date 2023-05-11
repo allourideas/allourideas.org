@@ -62,15 +62,17 @@ class QuestionsController < ApplicationController
 
     logger.info "@question is #{@question.inspect}."
 
-    per_page = 5
+    per_page = 3
     offset = type.start_with?('bottom') ? [choices_count - per_page, 0].max : 0
 
     choices = Choice.find(:all, :params => {:question_id => @question_id,
       :limit => per_page,
       :offset => offset})
 
-    analysis_cache_key = "#{@question_id}_#{type}_ai_analysis_v2"
-    analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 59.minutes) do
+    choice_ids = choices.map { |choice| "#{choice.id}" }.join("-")
+
+    analysis_cache_key = "#{@question_id}_#{type}_#{choice_ids}_ai_analysis_v5"
+    analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 12.hours) do
       get_ai_analysis(@question_id, type, choices)
     end
 
@@ -1351,53 +1353,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-    def get_ai_analysis(question_id, type, answers)
-      if ENV.fetch("OPENAI_API_KEY")
-        client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
-
-        answers_text = answers.map { |answer| "#{answer.data} (Won: #{answer.wins}, Lost: #{answer.losses})" }.join("\n")
-
-        moderation_response = client.moderations(parameters: { input: answers_text })
-        puts "Moderation response: "+moderation_response.to_s
-        flagged = moderation_response.dig("results", 0, "flagged")
-
-        if flagged == true
-          Rails.logger.error("Flagged: "+answers_text)
-          return ""
-        else
-          messages = [
-            {
-              role: "system",
-              content: "You are a highly competent AI that is able to analyize the impact of various answers to a given question.
-                        You will generate a short one page paragraph analysing the answers based on the provide type.
-                        The type indicates that you are either analyzing the five top or bottom answers and the potential positive or negative impact of those answers.
-                        The answers have been rated by the public using a pairwisa voting method, so the users is always selecting one to win or one to lose.
-                        Generally do not include the number of wins and losses in your answers.
-                        If the type mentions positive only do an analysis on the positive impact.
-                        If the type mentions negative only do an analysis on the negative impact.
-                        Please do not write out a summary of each answer just an overview analysis on the positive or negative impact of the answers combined.
-                        Keep you output short, under 150 words.
-                        Wins and losses are provided with each answer and if there are very few, under 10 for most of the answers then output a disclamer to that end, in a second paragraph.",
-            },
-            {
-              role: "user",
-              content: "The question: #{@question.name}\n\nThe type: #{type}\n\nAnswers:\n#{answers_text}",
-            }
-          ]
-          puts "Messages: "+messages.to_s
-          response = client.chat(
-            parameters: {
-                model: "gpt-4",
-                messages: messages,
-                temperature: 0.7,
-            })
-          puts "Response: "+response.to_s
-          return response.dig("choices", 0, "message", "content")
-        end
-      else
-        return "No AI API key"
-      end
-    end
 
     def object_info_to_hash(array)
       hash = {}

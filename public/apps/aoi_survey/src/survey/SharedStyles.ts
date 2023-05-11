@@ -23,7 +23,7 @@ export const SharedStyles = css`
     }
 
     .questionTitle[dark-mode] {
-      margin-bottom: 32px;
+
     }
 }
 `;

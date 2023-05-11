@@ -87,10 +87,13 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         }
 
         .analysisTitle {
-          font-size: 18px;
+          font-size: 16px;
           margin: 16px;
+          padding: 8px;
+          border-radius: 16px;
           text-align: center;
-          text-decoration: underline;
+          color: var(--md-sys-color-on-secondary);
+          background-color: var(--md-sys-color-secondary);
         }
 
         .generatingInfo {
@@ -101,11 +104,12 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         }
 
         .analysisResults {
-          padding: 24px;
+          padding: 16px;
           padding-top: 16px;
           padding-bottom: 16px;
           margin: 16px;
           margin-top: 8px;
+          border-radius: 24px;
           margin-bottom: 16px;
           color: var(--md-sys-color-primary);
           background-color: var(--md-sys-color-on-primary);
@@ -190,6 +194,11 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           .analysisRow {
             width: 100%;
           }
+
+          .answers {
+            padding-left: 16px;
+            padding-right: 16px;
+          }
         }
       `,
     ];
@@ -216,7 +225,12 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         ${analysisItem.answerRows.map((result, index) =>
           this.renderAnswerRow(index, result)
         )}
-        <div class="analysisResults">${analysisItem.analysis}</div>
+        <div class="analysisResults">
+        ${analysisItem.analysis}
+        <div class="generatingInfo">
+          ${this.t('Written by GPT-4')}
+        </div>
+      </div>
       </div>`;
     } else if (analysisItem.analysis && analysisItem.analysis == 'error') {
       analysisHtml = html`<div class=" layout horizontal center-center">

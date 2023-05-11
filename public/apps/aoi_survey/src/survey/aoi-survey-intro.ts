@@ -29,14 +29,15 @@ export class AoiSurveyIntro extends YpBaseElement {
       SharedStyles,
       css`
         .footerHtml {
-          margin: 32px;
+          margin: 16px;
           max-width: 600px;
           color: var(--md-sys-color-on-surface-variant);
         }
 
         .fab {
-          margin-top: 0;
+          margin-top: 16px;
           margin-bottom: 8px;
+          cursor: pointer !important;
         }
 
         .description {
@@ -48,18 +49,14 @@ export class AoiSurveyIntro extends YpBaseElement {
           vertical-align: center;
           margin-bottom: 32px;
           margin-top: 8px;
-          padding: 16px;
+          padding: 24px;
           color: var(--md-sys-color-primary);
           background-color: var(--md-sys-color-on-primary);
         }
 
         :host {
-          --md-elevated-button-container-color: var(
-            --md-sys-color-primary-container
-          );
-          --md-elevated-button-label-text-color: var(
-            --md-sys-color-on-primary-container
-          );
+          --md-fab-container-color: var(--md-sys-color-primary-container);
+          --md-fab-label-text-color: var(--md-sys-color-on-primary-container);
         }
 
         .image {
@@ -69,7 +66,6 @@ export class AoiSurveyIntro extends YpBaseElement {
         }
 
         .questionTitle[dark-mode] {
-          margin-bottom: 16px;
           margin-top: 24px;
         }
 
@@ -81,7 +77,6 @@ export class AoiSurveyIntro extends YpBaseElement {
 
           .description {
             max-width: 300px;
-            margin-top: 0px;
           }
 
           .footerHtml {
@@ -89,8 +84,6 @@ export class AoiSurveyIntro extends YpBaseElement {
           }
 
           .questionTitle[dark-mode] {
-            margin-bottom: 16px;
-            margin-top: 24px;
           }
         }
       `,
@@ -117,13 +110,28 @@ export class AoiSurveyIntro extends YpBaseElement {
         <div class="questionTitle" ?dark-mode="${this.themeDarkMode}">${
       this.question.name
     }</div>
-        <div class="description">${unsafeHTML(this.formattedDescription)}</div>
         <md-fab
           extended
           class="fab"
           @click="${this.clickStart}"
           .label="${this.t('Start Voting')}"
         ><md-icon slot="icon">thumbs_up_down</md-fab>
+        <div class="description">${this.formattedDescription}</div>
+        ${!this.themeDarkMode
+              ? html`
+                  <md-outlined-icon-button
+                    class="darkModeButton"
+                    @click="${() => this.fire('toggle-dark-mode')}"
+                    >dark_mode</md-outlined-icon-button
+                  >
+                `
+              : html`
+                  <md-outlined-icon-button
+                    class="darkModeButton"
+                    @click="${() => this.fire('toggle-dark-mode')}"
+                    >light_mode</md-outlined-icon-button
+                  >
+                `}
         <div class="footerHtml">
           ${
             this.earl.configuration && this.earl.configuration.welcome_html

@@ -173,7 +173,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   render() {
     return html`
-      <div class="topContainer layout vertical wrap center-center">
+      <div class="topContainer layout vertical wrap center-center" tabindex="-1">
         <div class="questionTitle">${this.question.name}</div>
         <div class="buttonContainer layout horizontal wrap center-center">
           <md-elevated-button
@@ -196,6 +196,10 @@ export class AoiSurveyVoting extends YpBaseElement {
         ${this.renderProgressBar()}
         <div class="layout horizontal wrap center-center"></div>
       </div>
+      ${!this.wide ? html`
+      <input type="text" id="dummyInput" style="position:absolute;opacity:0;">
+
+      ` : nothing}
     `;
   }
 
@@ -226,11 +230,12 @@ export class AoiSurveyVoting extends YpBaseElement {
       rightAnswer: this.rightAnswer,
     });
 
-    // Find all html element md-elevated-button and blur them
     const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
     buttons?.forEach(button => {
-      button.blur();
+      //TODO: IMPORTANT GET THIS WORKING ON MOBILES
+      this.blur();
     });
+
 
     this.question.visitor_votes += 1;
     this.requestUpdate();

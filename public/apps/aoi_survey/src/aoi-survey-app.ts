@@ -218,10 +218,13 @@ export class AoiSurveyApp extends YpBaseElement {
   _setupEventListeners() {
     this.addListener('app-error', this._appError);
     this.addListener('display-snackbar', this._displaySnackbar);
+    this.addListener('toggle-dark-mode', this.toggleDarkMode.bind(this));
   }
 
   _removeEventListeners() {
     this.removeListener('display-snackbar', this._displaySnackbar);
+    this.removeListener('app-error', this._appError);
+    this.removeListener('toggle-dark-mode', this.toggleDarkMode.bind(this));
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {

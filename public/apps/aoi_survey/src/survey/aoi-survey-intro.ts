@@ -74,6 +74,11 @@ export class AoiSurveyIntro extends YpBaseElement {
             max-width: 300px;
             margin-top: 0px;
           }
+
+          .footerHtml {
+            max-width: 100%;
+          }
+
           .questionTitle[dark-mode] {
             margin-bottom: 16px;
             margin-top: 24px;

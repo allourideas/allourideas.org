@@ -158,7 +158,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           }
         }
 
-        @media (max-width: 1000px) {
+        @media (max-width: 960px) {
           .title {
             font-size: 18px;
             letter-spacing: 0.15em;
@@ -167,6 +167,11 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           }
 
           .row {
+            min-width: 300px;
+            width: 300px;
+          }
+
+          .analysisContainer {
             min-width: 300px;
             width: 300px;
           }

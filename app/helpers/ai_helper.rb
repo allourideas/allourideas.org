@@ -83,7 +83,7 @@ module AiHelper
             If the type mentions positive only do an analysis on the positive impact.
             If the type mentions negative only do an analysis on the negative impact.
             Please do not write out a summary of each answer, just an overview analysis on the positive or negative impact of the answers combined.
-            If an answer sounds unplausible as an answer to the question, then include a short observation in your analysis.
+            If an answer sounds implausible as an answer to the question, then include a short observation in your analysis.
             Keep your output short, under 150 words.
             Wins and losses are provided with each answer and if there are very few, under 10 for most of the answers then output a disclaimer to that end, in a second paragraph.",
           },

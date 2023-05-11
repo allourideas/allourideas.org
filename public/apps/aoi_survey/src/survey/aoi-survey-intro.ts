@@ -117,21 +117,27 @@ export class AoiSurveyIntro extends YpBaseElement {
           .label="${this.t('Start Voting')}"
         ><md-icon slot="icon">thumbs_up_down</md-fab>
         <div class="description">${this.formattedDescription}</div>
-        ${!this.themeDarkMode
-              ? html`
-                  <md-outlined-icon-button
-                    class="darkModeButton"
-                    @click="${() => this.fire('toggle-dark-mode')}"
-                    >dark_mode</md-outlined-icon-button
-                  >
-                `
-              : html`
-                  <md-outlined-icon-button
-                    class="darkModeButton"
-                    @click="${() => this.fire('toggle-dark-mode')}"
-                    >light_mode</md-outlined-icon-button
-                  >
-                `}
+        ${
+          !this.wide
+            ? html`
+                ${!this.themeDarkMode
+                  ? html`
+                      <md-outlined-icon-button
+                        class="darkModeButton"
+                        @click="${() => this.fire('toggle-dark-mode')}"
+                        >dark_mode</md-outlined-icon-button
+                      >
+                    `
+                  : html`
+                      <md-outlined-icon-button
+                        class="darkModeButton"
+                        @click="${() => this.fire('toggle-dark-mode')}"
+                        >light_mode</md-outlined-icon-button
+                      >
+                    `}
+              `
+            : nothing
+        }
         <div class="footerHtml">
           ${
             this.earl.configuration && this.earl.configuration.welcome_html

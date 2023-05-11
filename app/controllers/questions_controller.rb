@@ -69,11 +69,10 @@ class QuestionsController < ApplicationController
       :limit => per_page,
       :offset => offset})
 
-    analysis_cache_key = "#{@question_id}_#{type}_ai_analysis_v1"
-    #analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 15.minutes) do
-    #  get_ai_analysis(@question_id, type, choices)
-    #end
-    analysis = "The top five answers for the best Shakespeare writing, as rated by the public, primarily highlight the plays' diverse themes and the masterful ways in which they are presented. The positive impact of these answers lies in the recognition of Shakespeare's capacity to seamlessly blend various elements, such as romance, magic, political intrigue, morality, and authority, while exploring the complexities of human nature. Furthermore, the appreciation for his poetic language and his ability to challenge societal prejudices enhances the understanding of the relevance and timelessness of his work. The selected plays showcase Shakespeare's versatility and the public's admiration for his unique storytelling, which continues to resonate with audiences across centuries. "
+    analysis_cache_key = "#{@question_id}_#{type}_ai_analysis_v2"
+    analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 59.minutes) do
+      get_ai_analysis(@question_id, type, choices)
+    end
 
     respond_to do |format|
       format.html

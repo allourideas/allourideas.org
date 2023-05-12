@@ -46,14 +46,13 @@ export class AoiSurveyAnalysis extends YpBaseElement {
 
         if (!analysisData) {
           analysis.analysisTypes[typeIndex].analysis = 'error';
-          analysis.analysisTypes[typeIndex].answerRows = [];
+          analysis.ideaRows = [];
         } else {
           analysis.analysisTypes[typeIndex].analysis = analysisData.analysis;
-          analysis.analysisTypes[typeIndex].answerRows =
-            analysisData.answerRows;
+          analysis.ideaRows = analysisData.ideaRowsFromServer;
         }
+        this.requestUpdate();
       }
-      this.requestUpdate();
     }
   }
 
@@ -87,10 +86,23 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           font-size: 16px;
           margin: 16px;
           padding: 8px;
+          margin-top: 8px;
           border-radius: 16px;
           text-align: center;
           color: var(--md-sys-color-on-secondary);
           background-color: var(--md-sys-color-secondary);
+        }
+
+        .ideasLabel {
+          font-size: 16px;
+          margin: 16px;
+          padding: 8px;
+          margin-bottom: 8px;
+          width: 80%;
+          border-radius: 16px;
+          text-align: center;
+          color: var(--md-sys-color-on-primary);
+          background-color: var(--md-sys-color-primary);
         }
 
         .generatingInfo {
@@ -101,10 +113,16 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         }
 
         .analysisResults {
+          padding: 8px;
+          padding-top: 0;
+        }
+
+        .rowsContainer {
           padding: 16px;
           padding-top: 16px;
           padding-bottom: 16px;
           margin: 16px;
+          width: 100%;
           margin-top: 8px;
           border-radius: 24px;
           margin-bottom: 16px;
@@ -201,7 +219,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
     ];
   }
 
-  renderAnswerRow(index: number, result: AoiResultData) {
+  renderIdeas(index: number, result: AoiResultData) {
     return html`
       <div class="answers layout horizontal center-center">
         <div class="column index">${index + 1}.</div>
@@ -219,18 +237,15 @@ export class AoiSurveyAnalysis extends YpBaseElement {
 
     if (analysisItem.analysis && analysisItem.analysis != 'error') {
       analysisHtml = html`
-        ${analysisItem.answerRows.map((result, index) =>
-          this.renderAnswerRow(index, result)
-        )}
         <div class="analysisResults">
-        ${resolveMarkdown(analysisItem.analysis, {
-          includeImages: true,
-          includeCodeBlockClassNames: true,
-        })}
-        <div class="generatingInfo">
-          ${this.t('Written by GPT-4')}
+          ${resolveMarkdown(analysisItem.analysis, {
+            includeImages: true,
+            includeCodeBlockClassNames: true,
+          })}
+          <div class="generatingInfo">
+            ${this.t('Written by GPT-4')}
+          </div>
         </div>
-      </div>
       </div>`;
     } else if (analysisItem.analysis && analysisItem.analysis == 'error') {
       analysisHtml = html`<div class=" layout horizontal center-center">
@@ -260,11 +275,17 @@ export class AoiSurveyAnalysis extends YpBaseElement {
       i++
     ) {
       const analysis = this.earl.configuration.analysis_config.analyses[i];
+      outHtml = html`${outHtml}
+        <div class="ideasLabel">${analysis.ideasLabel}</div>
+
+        ${analysis.ideaRows?.map((result, index) =>
+          this.renderIdeas(index, result)
+        )} `;
+      let innerHtml = html``;
       for (let a = 0; a < analysis.analysisTypes.length; a++) {
-        outHtml = html`${outHtml}${this.analysisRow(
-          analysis.analysisTypes[a]
-        )}`;
+        innerHtml = html`${innerHtml} ${this.analysisRow(analysis.analysisTypes[a])} `;
       }
+      outHtml = html`${outHtml}<div class="rowsContainer">${innerHtml}</div>`;
     }
 
     return outHtml;

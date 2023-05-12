@@ -92,7 +92,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => {
-        answerRows: choices,
+        ideaRowsFromServer: choices,
         analysis: analysis }.to_json
       }
     end

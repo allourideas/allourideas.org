@@ -125,11 +125,12 @@ interface AnalysisTypeData {
   label: string;
   contextPrompt?: string;
   analysis?: string;
-  answerRows?: AoiResultData[];
+  ideaRowsFromServer?: AoiResultData[];
 }
 
 interface AoiSurveyAnalysisData {
   ideasLabel: string;
   ideasIdsRange: number;
   analysisTypes: AnalysisTypeData[]
+  ideaRows?: AoiResultData[];
 }

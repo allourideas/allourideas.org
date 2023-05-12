@@ -1,3 +1,5 @@
+require 'digest'
+
 class QuestionsController < ApplicationController
   include ActionView::Helpers::TextHelper
   include AiHelper
@@ -47,8 +49,6 @@ class QuestionsController < ApplicationController
 
   def analysis
     @earl = Earl.find_by(name: params[:id])
-    type = params[:type]
-
     @question = @earl.question
     @question_id = @question.id
 
@@ -62,8 +62,18 @@ class QuestionsController < ApplicationController
 
     logger.info "@question is #{@question.inspect}."
 
-    per_page = 3
-    offset = type.start_with?('bottom') ? [choices_count - per_page, 0].max : 0
+    analysisIndex = params[:analysisIndex].to_i
+    typeIndex = params[:typeIndex].to_i
+
+    # Parse the JSON string into a Ruby object
+    analysis_config = JSON.parse(@earl.configuration["analysis_config"])
+
+    analysis_idea_config = analysis_config["analyses"][analysisIndex]
+    ideasIdsRange = analysis_idea_config["ideasIdsRange"]
+    analysis = analysis_idea_config["analysisTypes"][typeIndex]
+
+    per_page = ideasIdsRange.abs
+    offset = ideasIdsRange < 0 ? [choices_count - per_page, 0].max : 0
 
     choices = Choice.find(:all, :params => {:question_id => @question_id,
       :limit => per_page,
@@ -71,9 +81,12 @@ class QuestionsController < ApplicationController
 
     choice_ids = choices.map { |choice| "#{choice.id}" }.join("-")
 
-    analysis_cache_key = "#{@question_id}_#{type}_#{choice_ids}_ai_analysis_v5"
+    prompt_hash = Digest::SHA256.hexdigest(analysis["contextPrompt"])[0...8]
+
+    analysis_cache_key = "#{@question_id}_#{choice_ids}_#{prompt_hash}_ai_analysis_v5"
+
     analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 12.hours) do
-      get_ai_analysis(@question_id, type, choices)
+      get_ai_analysis(@question_id, analysis["contextPrompt"], choices)
     end
 
     respond_to do |format|

@@ -58,7 +58,7 @@ module AiHelper
         end
   end
 
-  def get_ai_analysis(question_id, type, label, answers)
+  def get_ai_analysis(question_id, contextPrompt, answers)
     if ENV.fetch("OPENAI_API_KEY")
       client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
@@ -75,11 +75,11 @@ module AiHelper
         messages = [
           {
             role: "system",
-            content: ""
+            content: contextPrompt
           },
           {
             role: "user",
-            content: "The question: #{@question.name}\n\nAnswers:\n#{answers_text}",
+            content: "The question: #{@question.name}\n\nAnswers to analyse:\n#{answers_text}",
           }
         ]
         puts "Messages: "+messages.to_s

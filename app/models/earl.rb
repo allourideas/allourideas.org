@@ -33,12 +33,10 @@ class Earl < ActiveRecord::Base
           "ideasIdsRange" => 3,
           "analysisTypes" => [
             {
-              "type" => "mostPopularPositive",
               "label" => "Positive impact",
               "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important positive impacts of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
             },
             {
-              "type" => "mostPopularNegative",
               "label" => "Negative impact",
               "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important negative impacts of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
             },
@@ -49,12 +47,10 @@ class Earl < ActiveRecord::Base
           "ideasIdsRange" => -3,
           "analysisTypes" => [
             {
-              "type" => "leastPopularPositive",
               "label" => "Positive impact",
               "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important positive impacts of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
             },
             {
-              "type" => "leastPopularNegative",
               "label" => "Negative impact",
               "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important negative impacts of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
             },
@@ -81,8 +77,8 @@ class Earl < ActiveRecord::Base
     if self.configuration['analysis_config']
       config = JSON.parse(self.configuration['analysis_config'])
       config['analyses'].each do |analysis|
-        analysis['analysisTypes'].each do |analysis_type, details|
-          details['contextPrompt'] = nil
+        analysis['analysisTypes'].each do |analysis_type|
+          analysis_type['contextPrompt'] = nil
         end
       end
       config
@@ -90,6 +86,7 @@ class Earl < ActiveRecord::Base
       return []
     end
   end
+
 
   def analysis_config_must_be_valid_json
     begin

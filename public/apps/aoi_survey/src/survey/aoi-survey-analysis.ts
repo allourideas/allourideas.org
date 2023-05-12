@@ -1,5 +1,6 @@
 import { css, html, nothing } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+import { resolveMarkdown } from './litMarkdown.js';
 
 import '../@yrpri/common/yp-image.js';
 import { YpFormattingHelpers } from '../@yrpri/common/YpFormattingHelpers.js';
@@ -22,27 +23,36 @@ export class AoiSurveyAnalysis extends YpBaseElement {
   async connectedCallback() {
     super.connectedCallback();
   }
+
   async fetchResults() {
     const analysis_config = this.earl.configuration.analysis_config;
 
-    for (const analysis of analysis_config.analyses) {
-      const analysisTypes = analysis.analysisTypes;
-
-      for (const [key, analysisType] of Object.entries<AnalysisTypeData>(analysisTypes)) {
+    for (
+      let analysisIndex = 0;
+      analysisIndex < analysis_config.analyses.length;
+      analysisIndex++
+    ) {
+      const analysis = analysis_config.analyses[analysisIndex];
+      for (
+        let typeIndex = 0;
+        typeIndex < analysis.analysisTypes.length;
+        typeIndex++
+      ) {
         const analysisData = await window.aoiServerApi.getSurveyAnalysis(
           this.earl.name,
-          key
+          analysisIndex,
+          typeIndex
         );
 
         if (!analysisData) {
-          analysisType.analysis = 'error';
-          analysisType.answerRows = [];
+          analysis.analysisTypes[typeIndex].analysis = 'error';
+          analysis.analysisTypes[typeIndex].answerRows = [];
         } else {
-          analysisType.analysis = analysisData.analysis;
-          analysisType.answerRows = analysisData.answerRows;
+          analysis.analysisTypes[typeIndex].analysis = analysisData.analysis;
+          analysis.analysisTypes[typeIndex].answerRows =
+            analysisData.answerRows;
         }
       }
-
       this.requestUpdate();
     }
   }
@@ -202,7 +212,7 @@ export class AoiSurveyAnalysis extends YpBaseElement {
     `;
   }
 
-  analysisRow(analysisItem: AoiSurveyAnalysisData) {
+  analysisRow(analysisItem: AnalysisTypeData) {
     let analysisHtml;
 
     console.log(analysisItem);
@@ -213,7 +223,10 @@ export class AoiSurveyAnalysis extends YpBaseElement {
           this.renderAnswerRow(index, result)
         )}
         <div class="analysisResults">
-        ${analysisItem.analysis}
+        ${resolveMarkdown(analysisItem.analysis, {
+          includeImages: true,
+          includeCodeBlockClassNames: true,
+        })}
         <div class="generatingInfo">
           ${this.t('Written by GPT-4')}
         </div>
@@ -241,8 +254,17 @@ export class AoiSurveyAnalysis extends YpBaseElement {
   renderAnalysis() {
     let outHtml = html``;
 
-    for (let a = 0; a < this.analysisTypes.length; a++) {
-      outHtml = html`${outHtml}${this.analysisRow(this.analysisTypes[a])}`;
+    for (
+      let i = 0;
+      i < this.earl.configuration.analysis_config.analyses.length;
+      i++
+    ) {
+      const analysis = this.earl.configuration.analysis_config.analyses[i];
+      for (let a = 0; a < analysis.analysisTypes.length; a++) {
+        outHtml = html`${outHtml}${this.analysisRow(
+          analysis.analysisTypes[a]
+        )}`;
+      }
     }
 
     return outHtml;

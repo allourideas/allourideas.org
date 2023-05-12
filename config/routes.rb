@@ -100,7 +100,7 @@ AllOurIdeas::Application.routes.draw do
      post "/questions/:question_id/prompts/:id/votes.js" => "prompts#vote"
      get "/earls/:id" => "earls#show", :as => :earl_two
      get "/questions/:id/results" => "questions#results", :as => :questions_results
-     get "/questions/:id/:type/analysis" => "questions#analysis", :as => :questions_analysis
+     get "/questions/:id/:analysisIndex/:typeIndex/analysis" => "questions#analysis", :as => :questions_analysis
   end
 
   root :to => 'home#index'

@@ -17,14 +17,14 @@ class SurveySession
   def initialize(data, cookie_name = nil)
     @data, @cookie_name = data, cookie_name
 
-    puts "DEBUG cookie init data 1: #{@data.inspect} #{@cookie_name.inspect}"
+    #puts "DEBUG cookie init data 1: #{@data.inspect} #{@cookie_name.inspect}"
 
     # Clean up question_id to ensure it is either a positive integer or nil.
     if !@data.has_key?(:question_id)
       @data[:question_id] = nil
     end
 
-    puts "DEBUG cookie init data 2: #{@data.inspect}"
+    #puts "DEBUG cookie init data 2: #{@data.inspect}"
 
     if !@data[:question_id].nil?
       q_id = @data[:question_id].to_i
@@ -34,7 +34,7 @@ class SurveySession
       @data[:question_id] = q_id
     end
 
-    puts "DEBUG cookie init data 3: #{@data.inspect}"
+    #puts "DEBUG cookie init data 3: #{@data.inspect}"
 
     if @cookie_name.nil?
       # Session is scoped to the question_id, so include that in the name of the
@@ -44,7 +44,7 @@ class SurveySession
       @cookie_name = "#{@@cookie_prefix}#{@data[:question_id]}_#{ActiveSupport::SecureRandom.hex(2)}"
     end
 
-    puts "DEBUG cookie init data 4: #{@data.inspect} #{@cookie_name.inspect}"
+    #puts "DEBUG cookie init data 4: #{@data.inspect} #{@cookie_name.inspect}"
 
     if @data[:session_id].nil?
       @data[:session_id] = generate_session_id
@@ -75,7 +75,7 @@ class SurveySession
       raise SessionHasNoQuestionId, "Can't set appearance_id when session has no question_id"
     end
     @data[:appearance_lookup] = appearance_id
-    puts "DEBUG SURVEY data YYY: #{appearance_id}"
+    #puts "DEBUG SURVEY data YYY: #{appearance_id}"
   end
 
   def expired?
@@ -104,7 +104,7 @@ class SurveySession
   # If there are multiple cookies that match, we return the first that is matched.
   def self.find(cookies, question_id, appearance_lookup = nil)
     appearance_lookup = nil if appearance_lookup==""
-    puts "DEBUG SURVEY data 0: #{question_id} #{appearance_lookup}"
+    #puts "DEBUG SURVEY data 0: #{question_id} #{appearance_lookup}"
     if question_id.to_i < 1 && !appearance_lookup.nil?
       raise SessionHasNoQuestionId, "Can't find session with appearance_lookup that has no question_id"
     end
@@ -125,10 +125,10 @@ class SurveySession
       cookies.each do |cookie|
         begin
           # Extract data from cookie in a way that ensures no user tampering.
-          #puts "DEBUG SURVEY data 1: #{cookie.inspect}"
+          ##puts "DEBUG SURVEY data 1: #{cookie.inspect}"
           #puts "DEBUG data 2: #{cookie[1]}"
           data = @@verifier.verify(cookie[1])
-          puts "DEBUG SURVEY data 3: #{data.inspect}"
+          #puts "DEBUG SURVEY data 3: #{data.inspect}"
 
           #TODO: Look into this. It seems like the cookie is not being set properly.
           if data[:question_id] and data[:question_id].to_i == question_id.to_i or

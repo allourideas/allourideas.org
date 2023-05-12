@@ -1182,6 +1182,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       old_lang = @earl.default_lang
+      puts "XXXXXXXXXXXXXXXX #{earl_params.inspect}"
       if @earl.update(earl_params)
         flash[:notice] = 'Question settings saved successfully!'
         # redirect to new lang if lang was changed
@@ -1367,6 +1368,7 @@ class QuestionsController < ApplicationController
         :question_id, :name, :welcome_message, :default_lang, :logo_size,
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
         :verify_code, :show_cant_decide, :show_add_new_idea,
-        :welcome_html, :target_votes, :temp_logo_url, :theme_color)
+        :welcome_html, :target_votes, :temp_logo_url, :theme_color,
+        :analysis_config)
     end
 end

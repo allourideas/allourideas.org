@@ -66,10 +66,18 @@
               = f.label :welcome_message, ("Welcome message (300 characters max)" + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, '#welcome_msg_explanation', :"data-toggle" => 'modal')).html_safe, :class => 'control-label'
               .controls
                 = f.text_area :welcome_message, :rows => 5, :cols => 65, :max=> 350, :class => 'input-xxlarge'
+
             .control-group
               = f.label :welcome_html, ("Welcome HTML"), :class => 'control-label'
               .controls
                 = f.text_area :welcome_html, :rows => 5, :cols => 65, :class => 'input-xxlarge'
+
+            .control-group
+              = f.label :analysis_config, ("Analysis Config (Paste JSON Here)"), :class => 'control-label'
+              .controls{:style => "position: relative;"}
+                = f.text_area :analysis_config, :rows => 5, :cols => 65, :class => 'input-xxlarge', :id => 'analysis_config'
+                .error-message{:style => "margin-top: 4px;position: absolute; top: 100%; left: 0; right: 0; text-align: center; color: #F00;"}
+                  %span#json-error-message
             .control-group
               = f.label :temp_logo_url, ("Logo URL"), :class => 'control-label'
               .controls
@@ -192,3 +200,14 @@
   $('.tablesorter').tablesorter({ textExtraction : 'complex', headers: { 0: {sorter: 'text'}, 1 : { sorter: 'digit' } , 2 : { sorter: 'text' }, 3 : { sorter: 'text'}, 4 : { sorter: false }, } });
   $('input.widget-embed-code').focus(function(ev) { $(this).select(); ev.preventDefault();});
 
+:javascript
+  $(document).ready(function() {
+    $('#analysis_config').on('change', function() {
+      var analysisConfig = $(this).val();
+      try {
+        JSON.parse(analysisConfig);
+        $('#json-error-message').text('');
+      } catch(e) {
+        $('#json-error-message').text('Invalid JSON').css('color', '#F00');      }
+    });
+  });

@@ -58,7 +58,7 @@ module AiHelper
         end
   end
 
-  def get_ai_analysis(question_id, type, answers)
+  def get_ai_analysis(question_id, type, label, answers)
     if ENV.fetch("OPENAI_API_KEY")
       client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
@@ -75,21 +75,11 @@ module AiHelper
         messages = [
           {
             role: "system",
-            content: "You are a highly competent AI that is able to analyze the impact of various answers to a given question.
-            You will generate a short one page paragraph analyzing the answers based on the provided type.
-            The type indicates that you are either analyzing the three top or bottom answers and the potential positive or negative impact of those answers.
-            The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose.
-            Generally do not include the number of wins and losses in your answers.
-            If the type mentions positive only do an analysis on the positive impact.
-            If the type mentions negative only do an analysis on the negative impact.
-            Please do not write out a summary of each answer, just an overview analysis on the positive or negative impact of the answers combined.
-            If an answer sounds implausible as an answer to the question, then include a short observation in your analysis.
-            Keep your output short, under 150 words.
-            Wins and losses are provided with each answer and if there are very few, under 10 for most of the answers then output a disclaimer to that end, in a second paragraph.",
+            content: ""
           },
           {
             role: "user",
-            content: "The question: #{@question.name}\n\nThe type: #{type}\n\nAnswers:\n#{answers_text}",
+            content: "The question: #{@question.name}\n\nAnswers:\n#{answers_text}",
           }
         ]
         puts "Messages: "+messages.to_s

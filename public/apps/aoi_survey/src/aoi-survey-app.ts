@@ -143,17 +143,6 @@ export class AoiSurveyApp extends YpBaseElement {
     this.currentRightAnswer = this.prompt.right_choice_text;
     this.currentPromptId = this.prompt.id;
 
-    if (!this.earl.configuration) {
-      this.earl.configuration = {
-        welcome_html: '<p>Footer HTML</p>',
-        target_votes: 300,
-        lock_results_until_target_votes: false,
-        theme_color: '#0489cf',
-        temp_logo_url:
-          'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/3/9/1236638626755/Newly-Identified-portrait-001.jpg?width=465&quality=85&dpr=1&s=none',
-      };
-    }
-
     if (this.earl.configuration.theme_color) {
       this.themeColor = this.earl.configuration.theme_color;
       this.themeChanged();

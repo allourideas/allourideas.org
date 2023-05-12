@@ -172,7 +172,7 @@ class EarlsController < ApplicationController
         format.json  { render :json => {
           prompt: @prompt,
           question: @question,
-          earlContainer: @earl
+          earl: @earl
         }}
       end
     else

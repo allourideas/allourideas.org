@@ -63,6 +63,14 @@ interface AoiEarlConfigurationData {
   lock_results_until_target_votes: boolean;
   temp_logo_url?: string;
   theme_color?: string;
+  welcome_html: string;
+  target_votes: number;
+  lock_results_until_target_votes: boolean;
+  theme_color: string;
+  temp_logo_url: string;
+  analysis_config: {
+    analyses: AoiSurveyAnalysisData[];
+  };
 }
 
 interface AoiEarlResponse {
@@ -112,11 +120,16 @@ interface AoiEarlContainerData {
   earl: AoiEarlData;
 }
 
-interface AoiSurveyAnalysisData {
-  name: string;
+
+interface AnalysisTypeData {
   label: string;
+  contextPrompt?: string;
   analysis?: string;
   answerRows?: AoiResultData[];
 }
 
-
+interface AoiSurveyAnalysisData {
+  ideasLabel: string;
+  ideasIdsRange: number;
+  analysisTypes: AnalysisTypeData[]
+}

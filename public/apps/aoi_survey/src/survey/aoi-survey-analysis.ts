@@ -19,43 +19,30 @@ export class AoiSurveyAnalysis extends YpBaseElement {
   @property({ type: Object })
   earl!: AoiEarlData;
 
-  analysisTypes = [
-    {
-      name: 'topThreeAnswersPositiveImpacts',
-      label: 'Top 3 Answers - Possible Positive Impacts',
-    },
-    {
-      name: 'topThreeAnswersNegativeImpacts',
-      label: 'Top 3 Answers - Possible Negative Impacts',
-    },
-    {
-      name: 'bottomThreeAnswersPositiveImpacts',
-      label: 'Bottom 3 Answers - Possible Positive Impacts',
-    },
-    {
-      name: 'bottomThreeAnswersNegativeImpacts',
-      label: 'Bottom 3 Answers - Possible Negative Impacts',
-    },
-  ] as AoiSurveyAnalysisData[];
-
   async connectedCallback() {
     super.connectedCallback();
   }
-
   async fetchResults() {
-    for (let a = 0; a < this.analysisTypes.length; a++) {
-      const analysisData = await window.aoiServerApi.getSurveyAnalysis(
-        this.earl.name,
-        this.analysisTypes[a].name
-      );
+    const analysis_config = this.earl.configuration.analysis_config;
 
-      if (!analysisData) {
-        this.analysisTypes[a].analysis = 'error';
-        this.analysisTypes[a].answerRows = [];
-      } else {
-        this.analysisTypes[a].analysis = analysisData.analysis;
-        this.analysisTypes[a].answerRows = analysisData.answerRows;
+    for (const analysis of analysis_config.analyses) {
+      const analysisTypes = analysis.analysisTypes;
+
+      for (const [key, analysisType] of Object.entries<AnalysisTypeData>(analysisTypes)) {
+        const analysisData = await window.aoiServerApi.getSurveyAnalysis(
+          this.earl.name,
+          key
+        );
+
+        if (!analysisData) {
+          analysisType.analysis = 'error';
+          analysisType.answerRows = [];
+        } else {
+          analysisType.analysis = analysisData.analysis;
+          analysisType.answerRows = analysisData.answerRows;
+        }
       }
+
       this.requestUpdate();
     }
   }

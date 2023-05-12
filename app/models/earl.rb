@@ -19,6 +19,85 @@ class Earl < ActiveRecord::Base
   store_accessor :configuration, :temp_logo_url
   store_accessor :configuration, :target_votes
   store_accessor :configuration, :theme_color
+  store_accessor :configuration, :analysis_config
+
+  before_validation :set_default_analysis_config, on: [:create, :update]
+
+  validate :analysis_config_must_be_valid_json
+
+  def set_default_analysis_config
+    default_analysis_config = {
+      "analyses" => [
+        {
+          "ideasLabel" => "Three most popular ideas",
+          "ideasIdsRange" => 3,
+          "analysisTypes" => [
+            {
+              "type" => "mostPopularPositive",
+              "label" => "Positive impact",
+              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important positive impacts of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+            },
+            {
+              "type" => "mostPopularNegative",
+              "label" => "Negative impact",
+              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important negative impacts of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+            },
+          ]
+        },
+        {
+          "ideasLabel" => "Three least popular ideas",
+          "ideasIdsRange" => -3,
+          "analysisTypes" => [
+            {
+              "type" => "leastPopularPositive",
+              "label" => "Positive impact",
+              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important positive impacts of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+            },
+            {
+              "type" => "leastPopularNegative",
+              "label" => "Negative impact",
+              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important negative impacts of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+            },
+          ]
+        }
+      ]
+    }
+
+    if self.analysis_config.blank? or self.analysis_config == [] or self.analysis_config == "[]"
+      self.analysis_config = default_analysis_config.to_json
+    end
+  end
+
+  def as_json(options = {})
+    modified_configuration = self.configuration.clone
+    modified_configuration.delete('analysis_config')
+    super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo_file_name, :logo_content_type, :logo_file_size, :logo_updated_at, :welcome_message, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
+      json["earl"]["configuration"] = modified_configuration
+      json["earl"]["configuration"]["analysis_config"] = analysis_config_without_prompts
+    end
+  end
+
+  def analysis_config_without_prompts
+    if self.configuration['analysis_config']
+      config = JSON.parse(self.configuration['analysis_config'])
+      config['analyses'].each do |analysis|
+        analysis['analysisTypes'].each do |analysis_type, details|
+          details['contextPrompt'] = nil
+        end
+      end
+      config
+    else
+      return []
+    end
+  end
+
+  def analysis_config_must_be_valid_json
+    begin
+      JSON.parse(analysis_config)
+    rescue JSON::ParserError
+      errors.add(:analysis_config, "must be valid JSON")
+    end
+  end
 
   def self.reserved_names
     @@reserved_names

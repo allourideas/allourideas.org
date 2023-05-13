@@ -175,6 +175,15 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         .analysisRow {
         }
 
+        .answers {
+          text-align: left;
+          align-items: left;
+          width: 100%;
+        }
+
+        .questionTitle {
+        }
+
         @media (min-width: 960px) {
           .questionTitle {
             margin-bottom: 16px;
@@ -221,9 +230,9 @@ export class AoiSurveyAnalysis extends YpBaseElement {
 
   renderIdeas(index: number, result: AoiResultData) {
     return html`
-      <div class="answers layout horizontal center-center">
+      <div class="answers layout horizontal">
         <div class="column index">${index + 1}.</div>
-        <div class="column layout vertical center-center">
+        <div class="column layout vertical">
           <div class="">${result.data}</div>
         </div>
       </div>
@@ -295,7 +304,9 @@ export class AoiSurveyAnalysis extends YpBaseElement {
     return html`
       <div class="topContainer layout vertical wrap center-center">
         <div class="title">${this.t('Vote Analysis')}</div>
-        <div class="questionTitle">${this.question.name}</div>
+        <div class="layout vertical self-start">
+          <div class="questionTitle">${this.question.name}</div>
+        </div>
         <div class="layout vertical center-center analysisContainer">
           ${this.renderAnalysis()}
         </div>

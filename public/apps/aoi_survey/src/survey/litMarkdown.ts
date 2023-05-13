@@ -118,6 +118,13 @@ export class MarkdownDirective extends AsyncDirective {
             margin-bottom: 8px;
           }
 
+          blockquote, pre {
+            font-family: monospace;
+            font-size: 16px;
+            margin-left: 8px;
+            margin-right: 8px;
+          }
+
           pre {
             white-space: pre-wrap;
             white-space: -moz-pre-wrap;

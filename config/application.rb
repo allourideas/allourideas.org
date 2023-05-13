@@ -10,6 +10,7 @@ module AllOurIdeas
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.i18n.available_locales = [:en]
+   # config.action_controller.allow_forgery_protection = true
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

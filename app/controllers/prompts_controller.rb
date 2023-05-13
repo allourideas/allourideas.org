@@ -1,26 +1,22 @@
 # encoding: utf-8
 class PromptsController < ApplicationController
   include ActionView::Helpers::TextHelper
-
+  #TODO: Fix this or use another method to make sure the user is coming from the web app
   skip_before_action :verify_authenticity_token, :only => [:vote, :skip]
 
   def vote
-    puts "JJJJJJJJJJJJJJJJJJJJJ #{params.inspect}"
     voted_prompt = Prompt.new
     voted_prompt.id = params[:id]
     voted_prompt.prefix_options = {:question_id => params[:question_id]}
     session[:has_voted] = true
 
     @earl = Earl.where(question_id: params[:question_id]).first
-    puts "voted_prompt.id: #{voted_prompt.id}"
-    puts "DEBUG EARL: #{@earl.inspect}"
     if params[:direction] &&
       vote = voted_prompt.put(:vote,
           :question_id => params[:question_id],
           :vote => get_object_request_options(params, :vote),
           :next_prompt => get_next_prompt_options
       )
-      puts "JJJJJJJJJJJJJJJJJJJJJ #{vote.body.inspect}"
       next_prompt = JSON(vote.body)
 
       result = {
@@ -48,6 +44,7 @@ class PromptsController < ApplicationController
       end
 
       result = add_photocracy_info(result, next_prompt, params[:question_id]) if @photocracy
+      result["csrfToken"] = form_authenticity_token
       render :json => result.to_json
     else
       render :text => 'Vote unsuccessful.', :status => :unprocessable_entity

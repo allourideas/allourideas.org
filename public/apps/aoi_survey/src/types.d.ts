@@ -77,6 +77,7 @@ interface AoiEarlResponse {
   earlContainer: AoiEarlContainerData;
   prompt: AoiPromptData;
   question: AoiQuestionData;
+  csrfToken: string;
 }
 
 interface AoiVoteResponse {
@@ -90,6 +91,7 @@ interface AoiVoteResponse {
   newright: string;
   right_choice_id: number;
   right_choice_url: string;
+  csrfToken: string;
 }
 
 interface AoiVoteData {
@@ -133,4 +135,10 @@ interface AoiSurveyAnalysisData {
   ideasIdsRange: number;
   analysisTypes: AnalysisTypeData[]
   ideaRows?: AoiResultData[];
+}
+
+interface AoiAddIdeaResponse {
+  error?: string;
+  flagged: boolean;
+  active: boolean;
 }

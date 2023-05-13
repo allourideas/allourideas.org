@@ -24,6 +24,12 @@ export class AoiNewIdeaDialog extends YpBaseElement {
   @property({ type: Boolean })
   submitting = false;
 
+  @property({ type: String })
+  currentError: string | undefined;
+
+  @query("#ideaText")
+  ideaText!: HTMLInputElement;
+
   async connectedCallback() {
     super.connectedCallback();
   }
@@ -32,8 +38,30 @@ export class AoiNewIdeaDialog extends YpBaseElement {
     super.disconnectedCallback();
   }
 
-  submit() {
+  async submit() {
+    this.currentError = undefined;
     this.submitting = true;
+    let addIdeaResponse;
+    try {
+      addIdeaResponse = await window.aoiServerApi.submitIdea(this.question.id, this.ideaText.value);
+    } catch (error: any) {
+      console.error(error);
+    }
+    this.submitting = false;
+    if (!addIdeaResponse || addIdeaResponse.error) {
+      this.fire("display-snackbar", this.t("Your idea has been added, you can continue voting."))
+      this.currentError = this.t('An error occurred. Please try again.');
+    } else if (addIdeaResponse.flagged) {
+      this.currentError = this.t('Your idea has been flagged as inappropriate. Please try again.');
+    } else {
+      if (addIdeaResponse.active) {
+        this.fire("display-snackbar", this.t("Your idea has been added, you can continue voting."))
+      } else {
+        this.fire("display-snackbar", this.t("Your idea is in a moderation queue."))
+      }
+
+      this.dialog.close();
+    }
   }
 
   @query('#dialog')
@@ -49,6 +77,11 @@ export class AoiNewIdeaDialog extends YpBaseElement {
 
   open() {
     this.dialog.show();
+    this.currentError = undefined;
+  }
+
+  cancel() {
+    this.dialog.close()
   }
 
   textAreaKeyDown(e: KeyboardEvent) {
@@ -91,6 +124,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
           width: 100%;
         }
 
+
         #ideaText {
           margin-top: 8px;
           width: 500px;
@@ -99,6 +133,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
         .questionTitle {
           margin-top: 0;
           margin-bottom: 16px;
+          line-height: normal;
         }
 
         mwc-textarea {
@@ -131,6 +166,11 @@ export class AoiNewIdeaDialog extends YpBaseElement {
           margin-left: 8px;
         }
 
+        .error {
+          color: var(--md-sys-color-error);
+          font-size: 16px;
+          margin: 8px;
+        }
 
         @media (max-width: 960px) {
           #dialog {
@@ -166,7 +206,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
   renderContent() {
     return html`
       <div class="questionTitle">${this.question.name}</div>
-      <div class="layout horizontal center-center">
+      <div class="layout vertical center-center">
         <mwc-textarea
           id="ideaText"
           type="text"
@@ -177,6 +217,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
           label="${this.t('Your idea')}"
         >
         </mwc-textarea>
+        <div class="error" ?hidden="${!this.currentError}">${this.currentError}</div>
       </div>
     `;
   }
@@ -185,12 +226,14 @@ export class AoiNewIdeaDialog extends YpBaseElement {
     return html` <div class="layout horizontal footer">
       <md-text-button
         class="cancelButton"
-        @click="${() => this.dialog.close()}"
+        @click="${this.cancel}"
         ?disabled="${this.submitting}"
       >
         ${this.t('Cancel')}
       </md-text-button>
-      <md-outlined-button class="submitButton" @click="${this.submit}">
+      <md-outlined-button
+        class="submitButton"
+        @click="${this.submit}">
         ${this.t('Submit Idea')}
       </md-outlined-button>
     </div>`;

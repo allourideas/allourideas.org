@@ -29,6 +29,18 @@ export class AoiServerApi extends YpServerApiBase {
     ) as unknown as AnalysisTypeData;
   }
 
+  public submitIdea(questionId: number, newIdea: string): AoiAddIdeaResponse {
+    return this.fetchWrapper(
+      this.baseUrlPath +
+        `/questions/${questionId}/add_idea.js`,
+      {
+        method: 'POST',
+        body: JSON.stringify({new_idea: newIdea}),
+      },
+      false
+    ) as unknown as AoiAddIdeaResponse;
+  }
+
   public postVote(
     questionId: number,
     promptId: number,

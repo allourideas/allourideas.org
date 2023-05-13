@@ -72,6 +72,8 @@ export class AoiSurveyVoting extends YpBaseElement {
       voteData
     );
 
+    window.csrfToken = postVoteResponse.csrfToken;
+
     this.leftAnswer = postVoteResponse.newleft;
     this.rightAnswer = postVoteResponse.newright;
     this.promptId = postVoteResponse.prompt_id;

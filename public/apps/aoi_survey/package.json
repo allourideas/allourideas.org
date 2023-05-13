@@ -126,6 +126,7 @@
   "dependencies": {
     "@lit-labs/virtualizer": "^1.0.1",
     "@material/material-color-utilities": "^0.2.6",
+    "@material/mwc-snackbar": "^0.27.0",
     "@material/mwc-textarea": "^0.27.0",
     "@material/web": "^1.0.0-pre.8",
     "@picmo/popup-picker": "^5.8.3",

@@ -7,7 +7,9 @@ class QuestionsController < ApplicationController
   #require 'geokit'
   before_action :require_login, :only => [:admin, :toggle, :toggle_autoactivate, :update, :delete_logo, :export, :add_photos, :update_name]
   before_action :admin_only, :only => [:index, :admin_stats]
-  skip_before_action :verify_authenticity_token, :only => [:get_ai_answer_ideas]
+
+  #TODO: Fix this or use another method to make sure the user is coming from the web app
+  skip_before_action :verify_authenticity_token, :only => [:get_ai_answer_ideas, :add_idea]
   skip_before_action :record_action, :only => [:get_ai_answer_ideas]
 
   #skip_before_action :get_survey_session, :only => [:results]
@@ -978,7 +980,7 @@ class QuestionsController < ApplicationController
   end
 
   def add_idea
-    bingo!('submitted_idea')
+    #bingo!('submitted_idea')
     new_idea_data = params[:new_idea]
 
     if @photocracy
@@ -1001,6 +1003,7 @@ class QuestionsController < ApplicationController
 
     choice_params.merge!(:local_identifier => current_user.id) if signed_in?
 
+    puts "choice_params: #{choice_params.inspect}"
 
     if @choice = Choice.create(choice_params)
       @question = Question.find(params[:id], :params => {
@@ -1009,16 +1012,29 @@ class QuestionsController < ApplicationController
       })
       @earl = Earl.find_by(question_id: params[:id].to_s)
 
-      if @choice.active?
-        IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+      if ENV.fetch("OPENAI_API_KEY")
+        flagged = get_moderation_flag(new_idea_data)
+        if not flagged
+          @choice.activate!
+        end
       else
-        IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+        flagged = false
+      end
+
+
+      #TODO: Get emails working
+      if @choice.active?
+        #IdeaMailer.delay.deliver_notification_for_active(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
+      else
+        #IdeaMailer.delay.deliver_notification(@earl, @question.name, new_idea_data, @choice.id, @photocracy)
       end
 
       if @photocracy
         render :text => {'thumbnail_url' => new_photo.image.url(:thumb), 'response_status' => 200}.to_json #text content_type is important with ajaxupload
       else
         render :json => {
+          :active => @choice.active?,
+          :flagged => flagged,
           :choice_status => @choice.active? ? 'active' : 'inactive',
           :message => "#{t('items.you_just_submitted')}: #{CGI::escapeHTML(new_idea_data)}"
         }.to_json
@@ -1198,6 +1214,9 @@ class QuestionsController < ApplicationController
       old_lang = @earl.default_lang
       puts "XXXXXXXXXXXXXXXX #{earl_params.inspect}"
       if @earl.update(earl_params)
+        @earl.question_should_autoactivate_ideas = params[:question_should_autoactivate_ideas]
+        @question.it_should_autoactivate_ideas = params[:question_should_autoactivate_ideas]
+        @question.save
         flash[:notice] = 'Question settings saved successfully!'
         # redirect to new lang if lang was changed
         if old_lang != @earl.default_lang
@@ -1383,6 +1402,7 @@ class QuestionsController < ApplicationController
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
         :verify_code, :show_cant_decide, :show_add_new_idea, :hide_results,
         :welcome_html, :target_votes, :temp_logo_url, :theme_color,
-        :analysis_config, :pass, :active, :question_should_autoactivate_ideas)
+        :analysis_config, :pass, :active,
+        :question_should_autoactivate_ideas)
     end
 end

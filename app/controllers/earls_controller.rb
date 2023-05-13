@@ -172,7 +172,8 @@ class EarlsController < ApplicationController
         format.json  { render :json => {
           prompt: @prompt,
           question: @question,
-          earlContainer: @earl
+          earlContainer: @earl,
+          csrfToken: form_authenticity_token
         }}
       end
     else

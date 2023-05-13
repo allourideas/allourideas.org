@@ -9,6 +9,7 @@ import '@material/web/list/list-item.js';
 import '@material/web/list/list.js';
 import '@material/web/icon/icon.js';
 import '@material/web/iconbutton/outlined-icon-button.js';
+import '@material/mwc-snackbar/mwc-snackbar.js';
 import {
   argbFromHex,
   themeFromSourceColor,
@@ -31,6 +32,7 @@ import './survey/aoi-survey-analysis.js';
 import { AoiServerApi } from './survey/AoiServerApi.js';
 import { AoiAppGlobals } from './AoiAppGlobals.js';
 import { NavigationDrawer } from '@material/web/navigationdrawer/lib/navigation-drawer.js';
+import { Snackbar } from '@material/mwc-snackbar/mwc-snackbar.js';
 
 const PagesTypes = {
   Introduction: 1,
@@ -45,6 +47,7 @@ declare global {
     appGlobals: any;
     aoiServerApi: AoiServerApi;
     needsNewEarl: boolean;
+    csrfToken: string;
   }
 }
 
@@ -143,6 +146,8 @@ export class AoiSurveyApp extends YpBaseElement {
     this.currentRightAnswer = this.prompt.right_choice_text;
     this.currentPromptId = this.prompt.id;
 
+    window.csrfToken = earlResponse.csrfToken
+
     if (this.earl.configuration.theme_color) {
       this.themeColor = this.earl.configuration.theme_color;
       this.themeChanged();
@@ -201,7 +206,7 @@ export class AoiSurveyApp extends YpBaseElement {
   async _displaySnackbar(event: CustomEvent) {
     this.lastSnackbarText = event.detail;
     await this.updateComplete;
-    //(this.$$('#snackbar') as Snackbar).show();
+    (this.$$('#snackbar') as Snackbar).show();
   }
 
   _setupEventListeners() {
@@ -557,6 +562,18 @@ export class AoiSurveyApp extends YpBaseElement {
           <div class="mainPageContainer">${this._renderPage()}</div>
         </main>
       </div>
-    </div>`;
+    </div>
+
+    </div>
+      ${this.lastSnackbarText
+        ? html`
+            <mwc-snackbar
+              id="snackbar"
+              @MDCSnackbar:closed="${this.snackbarclosed}"
+              style="text-align: center;"
+              .labelText="${this.lastSnackbarText}"
+            ></mwc-snackbar>
+          `
+        : nothing}`;
   }
 }

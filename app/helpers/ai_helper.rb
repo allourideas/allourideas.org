@@ -58,6 +58,16 @@ module AiHelper
         end
   end
 
+  def get_moderation_flag(input_text)
+    if ENV.fetch("OPENAI_API_KEY")
+      client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
+      moderation_response = client.moderations(parameters: { input: input_text })
+      return moderation_response.dig("results", 0, "flagged")
+    else
+      return false
+    end
+  end
+
   def get_ai_analysis(question_id, contextPrompt, answers)
     if ENV.fetch("OPENAI_API_KEY")
       base_pre_prompt = "

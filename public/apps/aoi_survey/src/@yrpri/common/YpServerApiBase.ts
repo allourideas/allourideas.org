@@ -36,15 +36,23 @@ export class YpServerApiBase extends YpCodeBase {
     showUserError = true,
     errorId: string | undefined = undefined
   ) {
+
     if (!options.headers) {
       options.headers = {
         'Content-Type': 'application/json',
       };
     }
+
+    if (options.method !== 'GET') {
+      //@ts-ignore
+      //options.headers['X-CSRF-Token'] = window.csrfToken;
+    }
+
     if (!navigator.onLine && options.method==="POST" && window.fetch!==undefined) {
       window.appGlobals.offline.sendWhenOnlineNext({
         body: options.body,
         method: options.method,
+        headers: options.headers,
         params: {},
         url: url
       });

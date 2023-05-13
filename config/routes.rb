@@ -98,6 +98,7 @@ AllOurIdeas::Application.routes.draw do
 
   scope '/api' do
      post "/questions/:question_id/prompts/:id/votes.js" => "prompts#vote"
+     post "/questions/:id/add_idea.js" => "questions#add_idea"
      get "/earls/:id" => "earls#show", :as => :earl_two
      get "/questions/:id/results" => "questions#results", :as => :questions_results
      get "/questions/:id/:analysisIndex/:typeIndex/analysis" => "questions#analysis", :as => :questions_analysis

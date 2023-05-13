@@ -79,7 +79,8 @@ class QuestionsController < ApplicationController
       :limit => per_page,
       :offset => offset})
 
-    choice_ids = choices.map { |choice| "#{choice.id}" }.join("-")
+    sorted_choices = choices.sort_by { |choice| choice.id }
+    choice_ids = sorted_choices.map { |choice| "#{choice.id}" }.join("-")
 
     prompt_hash = Digest::SHA256.hexdigest(analysis["contextPrompt"])[0...8]
 
@@ -1380,8 +1381,8 @@ class QuestionsController < ApplicationController
       params.require(:earl).permit(
         :question_id, :name, :welcome_message, :default_lang, :logo_size,
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
-        :verify_code, :show_cant_decide, :show_add_new_idea,
+        :verify_code, :show_cant_decide, :show_add_new_idea, :hide_results,
         :welcome_html, :target_votes, :temp_logo_url, :theme_color,
-        :analysis_config)
+        :analysis_config, :pass, :active, :question_should_autoactivate_ideas)
     end
 end

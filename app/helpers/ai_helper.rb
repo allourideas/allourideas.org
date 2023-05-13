@@ -60,6 +60,17 @@ module AiHelper
 
   def get_ai_analysis(question_id, contextPrompt, answers)
     if ENV.fetch("OPENAI_API_KEY")
+      base_pre_prompt = "
+         You are a highly competent text and ideas analysis AI.
+         If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis.
+         Keep your output short, under 200 words.
+         The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose.
+         Generally, do not include the number of wins and losses in your answers.
+         If there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph.
+         Don't output Idea 1, Idea 2 in your answer.
+         Be creative and think step by step.
+         If the prompt asks for a table always output a markdown table.
+      "
       client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
       answers_text = answers.map { |answer| "#{answer.data} (Won: #{answer.wins}, Lost: #{answer.losses})" }.join("\n")
@@ -75,7 +86,7 @@ module AiHelper
         messages = [
           {
             role: "system",
-            content: contextPrompt
+            content: "#{base_pre_prompt}\n#{contextPrompt}"
           },
           {
             role: "user",

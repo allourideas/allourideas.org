@@ -113,12 +113,12 @@ export class AoiSurveyAnalysis extends YpBaseElement {
         }
 
         .analysisResults {
-          padding: 8px;
+          padding: 16px;
           padding-top: 0;
         }
 
         .rowsContainer {
-          padding: 16px;
+          padding: 0;
           padding-top: 16px;
           padding-bottom: 16px;
           margin: 16px;

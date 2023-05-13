@@ -71,10 +71,10 @@ export class MarkdownDirective extends AsyncDirective {
         const cssStyles = `
           table {
             border-collapse: collapse;
-            border-radius: 5px;
             background-color: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
-            margin: 16px;
+            margin: 0;
+            border-radius: 8px;
             width: 100%;
           }
 

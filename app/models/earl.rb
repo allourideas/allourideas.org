@@ -33,12 +33,12 @@ class Earl < ActiveRecord::Base
           "ideasIdsRange" => 3,
           "analysisTypes" => [
             {
-              "label" => "Possible Positive impact",
-              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important positive impacts of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+              "label" => "Main points for",
+              "contextPrompt" => "You will analyze and report main points in favor of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, Only output points in favor of those ideas. Output in the format of a very short idea name then three sub bullets with the points in favor of. Never use bold markup code."
             },
             {
-              "label" => "Possible Negative impact",
-              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important negative impacts of the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+              "label" => "Main points against",
+              "contextPrompt" => "You will analyze and report main points against the three most popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, Only output points against those ideas. Output in the format of a very short idea name then three sub bullets with the points against. Never use bold markup code."
             },
           ]
         },
@@ -47,12 +47,12 @@ class Earl < ActiveRecord::Base
           "ideasIdsRange" => -3,
           "analysisTypes" => [
             {
-              "label" => "Possible Positive impact",
-              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important positive impacts of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+              "label" => "Main points for",
+              "contextPrompt" => "You will analyze and report main points in favor of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, Only output points in favor of those ideas. Output in the format of a very short idea name then three sub bullets with the points in favor of. Never use bold markup code."
             },
             {
-              "label" => "Possible Negative impact",
-              "contextPrompt" => "You are a highly competent text analysis AI. You will analyze the three most important negative impacts of the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, be creative and think step by step. If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis. Keep your output short, under 150 words. The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose. Generally, do not include the number of wins and losses in your answers, if there are very few wins or losses, under 10 for most of the answers then output a disclaimer to that end, in a separate second paragraph, after the bullet points."
+              "label" => "Main points against",
+              "contextPrompt" => "You will analyze and report main points against the three least popular ideas to a given question and output bullet points in markdown. Please do not write out a summary of each answer, Only output points against those ideas. Output in the format of a very short idea name then three sub bullets with the points against. Never use bold markup code."
             },
           ]
         }

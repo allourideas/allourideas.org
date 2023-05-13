@@ -53,10 +53,6 @@ export class AoiNewIdeaDialog extends YpBaseElement {
     }
     this.submitting = false;
     if (!addIdeaResponse || addIdeaResponse.error) {
-      this.fire(
-        'display-snackbar',
-        this.t('Your idea has been added, you can continue voting.')
-      );
       this.currentError = this.t('An error occurred. Please try again.');
     } else if (addIdeaResponse.flagged) {
       this.currentError = this.t(

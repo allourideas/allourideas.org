@@ -147,6 +147,7 @@ export class AoiSurveyApp extends YpBaseElement {
     this.currentPromptId = this.prompt.id;
 
     window.csrfToken = earlResponse.csrfToken
+    document.title = this.question.name;
 
     if (this.earl.configuration.theme_color) {
       this.themeColor = this.earl.configuration.theme_color;

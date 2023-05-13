@@ -15,6 +15,7 @@ import './aoi-new-idea-dialog.js';
 import { SharedStyles } from './SharedStyles.js';
 import { Dialog } from '@material/web/dialog/lib/dialog.js';
 import { AoiNewIdeaDialog } from './aoi-new-idea-dialog.js';
+import { YpFormattingHelpers } from '../@yrpri/common/YpFormattingHelpers.js';
 
 @customElement('aoi-survey-voting')
 export class AoiSurveyVoting extends YpBaseElement {
@@ -232,14 +233,14 @@ export class AoiSurveyVoting extends YpBaseElement {
             class="leftAnswer"
             @click=${() => this.voteForAnswer('left')}
           >
-            ${this.leftAnswer}
+            ${YpFormattingHelpers.truncate(this.leftAnswer, 140)}
           </md-elevated-button>
           <span class="or">${this.t('or')}</span>
           <md-elevated-button
             class="rightAnswer"
             @click=${() => this.voteForAnswer('right')}
           >
-            ${this.rightAnswer}
+            ${YpFormattingHelpers.truncate(this.rightAnswer, 140)}
           </md-elevated-button>
         </div>
         <md-outlined-button

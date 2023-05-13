@@ -33,7 +33,7 @@ module AiHelper
           content: "You are a highly competent AI that is able to generate short answer ideas for questions.
                     You will generate 10 short one sentence answers to a single question.
                     The answers should be unique, wide ranging, creative, unbiased and thoughtful.
-                    The answer should never be more than one short sentence.
+                    The answer should never be more than one short sentence at most 140 characters long or 27 words.
                     If there are previous ideas do not output them or very similar ideas again.
                     #{first_message_with_previous_ideas_template}
                     Please always answer in the language used in the user question.

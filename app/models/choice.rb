@@ -3,7 +3,7 @@ class Choice < ActiveResource::Base
   self.site = "#{ENV["API_HOST"]}/questions/:question_id/"
   self.password = ENV["PAIRWISE_PASSWORD"]
 
-  attr_accessor :name, :question_text, :question_ideas
+  attr_accessor :name, :question_text, :question_ideas, :visitor_identifier
 
   def question_id
     prefix_options[:question_id]

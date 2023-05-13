@@ -126,8 +126,9 @@ export class AoiSurveyResuls extends YpBaseElement {
           font-size: 16px;
         }
 
-        .nickname {
+        .ideaName {
           padding-bottom: 0;
+          width: 100%;
         }
 
         .nameAndScore {
@@ -137,12 +138,12 @@ export class AoiSurveyResuls extends YpBaseElement {
         .scores {
           margin-top: 16px;
           padding: 16px;
-          padding-top: 8px;
-          padding-bottom: 8px;
-
+          padding-top: 12px;
+          padding-bottom: 12px;
           margin-bottom: 0px;
-          background-color: var(--md-sys-color-secondary);
-          color: var(--md-sys-color-on-secondary);
+          text-align: center;
+          background-color: var(--md-sys-color-surface-variant);
+          color: var(--md-sys-color-on-surface-variant);
           border-radius: 24px;
           font-size: 14px;
           line-height: 1.2;
@@ -167,6 +168,14 @@ export class AoiSurveyResuls extends YpBaseElement {
 
         .scores[hidden] {
           display: none;
+        }
+
+        .winLosses {
+          margin-top: 4px;
+        }
+
+        .scoreAndNameContainer {
+          width: 100%;
         }
 
         .exportButton {
@@ -206,9 +215,9 @@ export class AoiSurveyResuls extends YpBaseElement {
     return html`
       <div class="row layout horizontal">
         <div class="column index">${index + 1}.</div>
-        <div class="layout horizontal center-center nameAndScore">
-          <div class="layout vertical center-center">
-            <div class="column nickname">${result.data}</div>
+        <div class="layout horizontal nameAndScore">
+          <div class="layout vertical scoreAndNameContainer">
+            <div class="column ideaName ">${result.data}</div>
             <div
               class="column layout vertical center-center scores"
               ?hidden="${!this.showScores}"
@@ -219,7 +228,7 @@ export class AoiSurveyResuls extends YpBaseElement {
                   ${Math.round(result.score)}%</b
                 >
               </div>
-              <div>
+              <div class="winLosses">
                 ${this.t('Wins')}: ${YpFormattingHelpers.number(result.wins)}
                 ${this.t('Losses')}:
                 ${YpFormattingHelpers.number(result.losses)}

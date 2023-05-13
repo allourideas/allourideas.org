@@ -9,6 +9,7 @@ import { MdDialog } from '@material/web/dialog/dialog.js';
 import '@material/web/button/elevated-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/text-button.js';
+import '@material/web/circularprogress/circular-progress.js';
 
 import '@material/mwc-textarea/mwc-textarea.js';
 import { SharedStyles } from './SharedStyles';
@@ -27,7 +28,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
   @property({ type: String })
   currentError: string | undefined;
 
-  @query("#ideaText")
+  @query('#ideaText')
   ideaText!: HTMLInputElement;
 
   async connectedCallback() {
@@ -43,21 +44,36 @@ export class AoiNewIdeaDialog extends YpBaseElement {
     this.submitting = true;
     let addIdeaResponse;
     try {
-      addIdeaResponse = await window.aoiServerApi.submitIdea(this.question.id, this.ideaText.value);
+      addIdeaResponse = await window.aoiServerApi.submitIdea(
+        this.question.id,
+        this.ideaText.value
+      );
     } catch (error: any) {
       console.error(error);
     }
     this.submitting = false;
     if (!addIdeaResponse || addIdeaResponse.error) {
-      this.fire("display-snackbar", this.t("Your idea has been added, you can continue voting."))
+      this.fire(
+        'display-snackbar',
+        this.t('Your idea has been added, you can continue voting.')
+      );
       this.currentError = this.t('An error occurred. Please try again.');
     } else if (addIdeaResponse.flagged) {
-      this.currentError = this.t('Your idea has been flagged as inappropriate. Please try again.');
+      this.currentError = this.t(
+        'Your idea has been flagged as inappropriate. Please try again.'
+      );
     } else {
+      this.ideaText.value = '';
       if (addIdeaResponse.active) {
-        this.fire("display-snackbar", this.t("Your idea has been added, you can continue voting."))
+        this.fire(
+          'display-snackbar',
+          this.t('Your idea has been added, you can continue voting.')
+        );
       } else {
-        this.fire("display-snackbar", this.t("Your idea is in a moderation queue."))
+        this.fire(
+          'display-snackbar',
+          this.t('Your idea is in a moderation queue.')
+        );
       }
 
       this.dialog.close();
@@ -81,7 +97,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
   }
 
   cancel() {
-    this.dialog.close()
+    this.dialog.close();
   }
 
   textAreaKeyDown(e: KeyboardEvent) {
@@ -105,6 +121,11 @@ export class AoiNewIdeaDialog extends YpBaseElement {
           --md-dialog-container-inset-block-start: 0px;
         }
 
+        md-circular-progress {
+          margin-right: 16px;
+          --md-circular-progress-size: 40px;
+        }
+
         .indexNumber {
           margin-top: 12px;
           font-size: 20px;
@@ -123,7 +144,6 @@ export class AoiNewIdeaDialog extends YpBaseElement {
         #dialog {
           width: 100%;
         }
-
 
         #ideaText {
           margin-top: 8px;
@@ -212,18 +232,24 @@ export class AoiNewIdeaDialog extends YpBaseElement {
           type="text"
           charCounter
           @keydown="${this.textAreaKeyDown}"
-          maxLength="250"
-          .rows="${this.wide ? 5 : 8}"
+          maxLength="140"
+          .rows="${this.wide ? 3 : 5}"
           label="${this.t('Your idea')}"
         >
         </mwc-textarea>
-        <div class="error" ?hidden="${!this.currentError}">${this.currentError}</div>
+        <div class="error" ?hidden="${!this.currentError}">
+          ${this.currentError}
+        </div>
       </div>
     `;
   }
 
   renderFooter() {
     return html` <div class="layout horizontal footer">
+      <md-circular-progress
+        ?hidden="${!this.submitting}"
+        indeterminate
+      ></md-circular-progress>
       <md-text-button
         class="cancelButton"
         @click="${this.cancel}"
@@ -233,7 +259,9 @@ export class AoiNewIdeaDialog extends YpBaseElement {
       </md-text-button>
       <md-outlined-button
         class="submitButton"
-        @click="${this.submit}">
+        @click="${this.submit}"
+        ?disabled="${this.submitting}"
+      >
         ${this.t('Submit Idea')}
       </md-outlined-button>
     </div>`;

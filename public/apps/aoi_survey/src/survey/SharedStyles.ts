@@ -17,6 +17,10 @@ export const SharedStyles = css`
     max-width: 632px;
   }
 
+  [hidden] {
+    display: none !important;
+  }
+
   @media (max-width: 960px) {
     .questionTitle {
       margin-bottom: 16px;

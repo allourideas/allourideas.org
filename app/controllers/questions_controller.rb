@@ -1015,7 +1015,7 @@ class QuestionsController < ApplicationController
       if ENV.fetch("OPENAI_API_KEY")
         flagged = get_moderation_flag(new_idea_data)
         if not flagged
-          @choice.activate!
+          #@choice.activate!
         end
       else
         flagged = false

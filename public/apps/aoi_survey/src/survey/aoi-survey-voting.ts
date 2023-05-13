@@ -280,8 +280,8 @@ export class AoiSurveyVoting extends YpBaseElement {
 
         @keyframes slideInFromLeft {
           0% {
-            transform: translateX(-150%);
-            opacity: 0.5;
+            transform: translateX(-120%);
+            opacity: 0.25;
           }
           100% {
             transform: translateX(0);
@@ -291,8 +291,8 @@ export class AoiSurveyVoting extends YpBaseElement {
 
         @keyframes slideInFromRight {
           0% {
-            transform: translateX(150%);
-            opacity: 0.5;
+            transform: translateX(120%);
+            opacity: 0.25;
           }
           100% {
             transform: translateX(0);
@@ -302,11 +302,11 @@ export class AoiSurveyVoting extends YpBaseElement {
 
         @media (max-width: 960px) {
           .animate-up {
-            transform: translateY(-450px);
+            transform: translateY(-550px);
           }
 
           .animate-down {
-            transform: translateY(450px);
+            transform: translateY(550px);
           }
 
           .buttonContainer md-elevated-button {

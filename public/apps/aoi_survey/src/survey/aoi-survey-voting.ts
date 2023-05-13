@@ -63,28 +63,39 @@ export class AoiSurveyVoting extends YpBaseElement {
     this.timer = new Date().getTime();
   }
 
-  animateButtons(direction: 'left' | 'right') {
-    const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
-    const rightButton = this.shadowRoot?.querySelector('#rightAnswerButton');
+  animateButtons(direction: 'left' | 'right'): Promise<void> {
+    return new Promise(resolve => {
+      const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
+      const rightButton = this.shadowRoot?.querySelector('#rightAnswerButton');
 
-    leftButton?.addEventListener('animationend', this.resetAnimation);
-    rightButton?.addEventListener('animationend', this.resetAnimation);
+      leftButton?.addEventListener('animationend', this.resetAnimation);
+      rightButton?.addEventListener('animationend', this.resetAnimation);
 
-    if (direction === 'left') {
-      leftButton?.classList.add('animate-up');
-      rightButton?.classList.add('animate-down');
-    } else {
-      rightButton?.classList.add('animate-up');
-      leftButton?.classList.add('animate-down');
-    }
+      if (direction === 'left') {
+        leftButton?.classList.add('animate-up', 'fade-slow');
+        rightButton?.classList.add('animate-down', 'fade-fast');
+      } else {
+        rightButton?.classList.add('animate-up', 'fade-slow');
+        leftButton?.classList.add('animate-down', 'fade-fast');
+      }
+
+      resolve();
+    });
   }
 
   resetAnimation(event: any) {
-    event.target.classList.remove('animate-up', 'animate-down', 'animate-from-left', 'animate-from-right');
+    console.error('resetAnimation', event);
+    event.target.classList.remove(
+      'animate-up',
+      'animate-down',
+      'animate-from-left',
+      'animate-from-right',
+      'fade-fast',
+      'fade-slow'
+    );
   }
 
   async voteForAnswer(direction: 'left' | 'right') {
-    this.animateButtons(direction);
     const voteData: AoiVoteData = {
       time_viewed: new Date().getTime() - this.timer,
       prompt_id: this.promptId,
@@ -92,12 +103,22 @@ export class AoiSurveyVoting extends YpBaseElement {
       appearance_lookup: this.appearanceLookup,
     };
 
-    const postVoteResponse = await window.aoiServerApi.postVote(
+    const postVotePromise = window.aoiServerApi.postVote(
       this.question.id,
       this.promptId,
       this.language,
       voteData
     );
+
+    let animationPromise = this.animateButtons(direction);
+
+    const [postVoteResponse] = await Promise.all([
+      postVotePromise,
+      animationPromise,
+    ]);
+
+    // Wait for 5 seconds
+    //await new Promise(resolve => setTimeout(resolve, 1000));
 
     window.csrfToken = postVoteResponse.csrfToken;
 
@@ -116,12 +137,21 @@ export class AoiSurveyVoting extends YpBaseElement {
     const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
     const rightButton = this.shadowRoot?.querySelector('#rightAnswerButton');
 
-    leftButton?.classList.remove('animate-up', 'animate-down');
-    rightButton?.classList.remove('animate-up', 'animate-down');
+    leftButton?.classList.remove(
+      'animate-up',
+      'animate-down',
+      'fade-fast',
+      'fade-slow'
+    );
+    rightButton?.classList.remove(
+      'animate-up',
+      'animate-down',
+      'fade-fast',
+      'fade-slow'
+    );
 
     leftButton?.classList.add('animate-from-left');
     rightButton?.classList.add('animate-from-right');
-
 
     const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
     buttons?.forEach(button => {
@@ -212,20 +242,31 @@ export class AoiSurveyVoting extends YpBaseElement {
           transition: transform 0.3s ease-out;
         }
 
-        .animate-up, .animate-down {
-          transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-          opacity: 0;
+        .fade-fast {
+          transition: opacity 0.5s ease-out;
+          opacity: 0.2;
+        }
+
+        .fade-slow {
+          transition: opacity 1s ease-out;
+          opacity: 0.9;
+        }
+
+        .animate-up,
+        .animate-down {
+          transition: transform 1s ease-out;
         }
 
         .animate-up {
-          transform: translateY(-250px);
+          transform: translateY(-450px);
         }
 
         .animate-down {
-          transform: translateY(250px);
+          transform: translateY(450px);
         }
 
-        .animate-from-left, .animate-from-right {
+        .animate-from-left,
+        .animate-from-right {
           opacity: 1;
         }
 
@@ -259,14 +300,26 @@ export class AoiSurveyVoting extends YpBaseElement {
           }
         }
 
-
         @media (max-width: 960px) {
+          .animate-up {
+            transform: translateY(-450px);
+          }
+
+          .animate-down {
+            transform: translateY(450px);
+          }
+
           .buttonContainer md-elevated-button {
             margin: 8px;
             width: 100%;
             margin-right: 32px;
             margin-left: 32px;
             --md-elevated-button-container-height: 100px;
+          }
+
+          .topContainer {
+            overflow-x: clip;
+
           }
 
           .progressBarContainer {

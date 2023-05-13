@@ -10,7 +10,11 @@ import '../@yrpri/common/yp-image.js';
 import '@material/web/button/elevated-button.js';
 import '@material/web/button/outlined-button.js';
 
+import './aoi-new-idea-dialog.js';
+
 import { SharedStyles } from './SharedStyles.js';
+import { Dialog } from '@material/web/dialog/lib/dialog.js';
+import { AoiNewIdeaDialog } from './aoi-new-idea-dialog.js';
 
 @customElement('aoi-survey-voting')
 export class AoiSurveyVoting extends YpBaseElement {
@@ -51,6 +55,49 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   resetTimer() {
     this.timer = new Date().getTime();
+  }
+
+  async voteForAnswer(direction: 'left' | 'right') {
+    const voteData: AoiVoteData = {
+      time_viewed: new Date().getTime() - this.timer,
+      prompt_id: this.promptId,
+      direction,
+      appearance_lookup: this.appearanceLookup,
+    };
+
+    const postVoteResponse = await window.aoiServerApi.postVote(
+      this.question.id,
+      this.promptId,
+      this.language,
+      voteData
+    );
+
+    this.leftAnswer = postVoteResponse.newleft;
+    this.rightAnswer = postVoteResponse.newright;
+    this.promptId = postVoteResponse.prompt_id;
+    this.appearanceLookup = postVoteResponse.appearance_lookup;
+
+    this.fire('update-appearance-lookup', {
+      appearanceLookup: this.appearanceLookup,
+      promptId: this.promptId,
+      leftAnswer: this.leftAnswer,
+      rightAnswer: this.rightAnswer,
+    });
+
+    const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
+    buttons?.forEach(button => {
+      //TODO: IMPORTANT GET THIS WORKING ON MOBILES
+      this.blur();
+    });
+
+    this.question.visitor_votes += 1;
+    this.requestUpdate();
+
+    this.resetTimer();
+  }
+
+  openNewIdeaDialog() {
+    (this.$$('#newIdeaDialog') as AoiNewIdeaDialog).open();
   }
 
   static get styles() {
@@ -173,7 +220,10 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   render() {
     return html`
-      <div class="topContainer layout vertical wrap center-center" tabindex="-1">
+      <div
+        class="topContainer layout vertical wrap center-center"
+        tabindex="-1"
+      >
         <div class="questionTitle">${this.question.name}</div>
         <div class="buttonContainer layout horizontal wrap center-center">
           <md-elevated-button
@@ -190,56 +240,29 @@ export class AoiSurveyVoting extends YpBaseElement {
             ${this.rightAnswer}
           </md-elevated-button>
         </div>
-        <md-outlined-button class="newIdeaButton">
+        <md-outlined-button
+          class="newIdeaButton"
+          @click="${this.openNewIdeaDialog}"
+        >
           ${this.t('Add your own idea')}
         </md-outlined-button>
         ${this.renderProgressBar()}
         <div class="layout horizontal wrap center-center"></div>
       </div>
-      ${!this.wide ? html`
-      <input type="text" id="dummyInput" style="position:absolute;opacity:0;">
-
-      ` : nothing}
+      ${!this.wide
+        ? html`
+            <input
+              type="text"
+              id="dummyInput"
+              style="position:absolute;opacity:0;"
+            />
+          `
+        : nothing}
+      <aoi-new-idea-dialog
+        id="newIdeaDialog"
+        .question=${this.question}
+        .earl=${this.earl}
+      ></aoi-new-idea-dialog>
     `;
-  }
-
-  async voteForAnswer(direction: 'left' | 'right') {
-    const voteData: AoiVoteData = {
-      time_viewed: new Date().getTime() - this.timer,
-      prompt_id: this.promptId,
-      direction,
-      appearance_lookup: this.appearanceLookup,
-    };
-
-    const postVoteResponse = await window.aoiServerApi.postVote(
-      this.question.id,
-      this.promptId,
-      this.language,
-      voteData
-    );
-
-    this.leftAnswer = postVoteResponse.newleft;
-    this.rightAnswer = postVoteResponse.newright;
-    this.promptId = postVoteResponse.prompt_id;
-    this.appearanceLookup = postVoteResponse.appearance_lookup;
-
-    this.fire('update-appearance-lookup', {
-      appearanceLookup: this.appearanceLookup,
-      promptId: this.promptId,
-      leftAnswer: this.leftAnswer,
-      rightAnswer: this.rightAnswer,
-    });
-
-    const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
-    buttons?.forEach(button => {
-      //TODO: IMPORTANT GET THIS WORKING ON MOBILES
-      this.blur();
-    });
-
-
-    this.question.visitor_votes += 1;
-    this.requestUpdate();
-
-    this.resetTimer();
   }
 }

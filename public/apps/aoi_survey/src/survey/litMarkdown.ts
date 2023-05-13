@@ -120,7 +120,7 @@ export class MarkdownDirective extends AsyncDirective {
 
           blockquote, pre {
             font-family: monospace;
-            font-size: 16px;
+            font-size: 15px;
             margin-left: 8px;
             margin-right: 8px;
           }

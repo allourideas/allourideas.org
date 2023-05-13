@@ -37,8 +37,8 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "18.14.5",
     "@types/recordrtc": "^5.6.8",
-    "@types/twemoji": "^13.1.2",
     "@types/sanitize-html": "^2.8.1",
+    "@types/twemoji": "^13.1.2",
     "@types/wavesurfer.js": "^5.2.2",
     "@types/webappsec-credential-management": "^0.6.2",
     "@typescript-eslint/eslint-plugin": "^5.34.0",
@@ -126,6 +126,7 @@
   "dependencies": {
     "@lit-labs/virtualizer": "^1.0.1",
     "@material/material-color-utilities": "^0.2.6",
+    "@material/mwc-textarea": "^0.27.0",
     "@material/web": "^1.0.0-pre.8",
     "@picmo/popup-picker": "^5.8.3",
     "@picmo/renderer-twemoji": "^5.8.3",

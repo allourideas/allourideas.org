@@ -23,6 +23,15 @@ export class AoiSurveyIntro extends YpBaseElement {
     window.appGlobals.activity('open', 'surveyIntro');
   }
 
+  get formattedDescription() {
+    return (this.earl.welcome_message || '').replace(/(\n)/g, '<br>');
+  }
+
+  clickStart() {
+    window.appGlobals.activity('click', 'startFromIntro');
+    this.fire('startVoting');
+  }
+
   static get styles() {
     return [
       super.styles,
@@ -88,15 +97,6 @@ export class AoiSurveyIntro extends YpBaseElement {
         }
       `,
     ];
-  }
-
-  get formattedDescription() {
-    return (this.earl.welcome_message || '').replace(/(\n)/g, '<br>');
-  }
-
-  clickStart() {
-    window.appGlobals.activity('click', 'startFromIntro');
-    this.fire('startVoting');
   }
 
   render() {

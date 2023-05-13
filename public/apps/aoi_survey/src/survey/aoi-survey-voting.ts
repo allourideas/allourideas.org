@@ -45,6 +45,11 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   timer: number;
 
+  constructor() {
+    super();
+    this.resetAnimation = this.resetAnimation.bind(this);
+  }
+
   async connectedCallback() {
     super.connectedCallback();
     this.fire('needs-new-earl');
@@ -58,7 +63,28 @@ export class AoiSurveyVoting extends YpBaseElement {
     this.timer = new Date().getTime();
   }
 
+  animateButtons(direction: 'left' | 'right') {
+    const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
+    const rightButton = this.shadowRoot?.querySelector('#rightAnswerButton');
+
+    leftButton?.addEventListener('animationend', this.resetAnimation);
+    rightButton?.addEventListener('animationend', this.resetAnimation);
+
+    if (direction === 'left') {
+      leftButton?.classList.add('animate-up');
+      rightButton?.classList.add('animate-down');
+    } else {
+      rightButton?.classList.add('animate-up');
+      leftButton?.classList.add('animate-down');
+    }
+  }
+
+  resetAnimation(event: any) {
+    event.target.classList.remove('animate-up', 'animate-down', 'animate-from-left', 'animate-from-right');
+  }
+
   async voteForAnswer(direction: 'left' | 'right') {
+    this.animateButtons(direction);
     const voteData: AoiVoteData = {
       time_viewed: new Date().getTime() - this.timer,
       prompt_id: this.promptId,
@@ -86,6 +112,16 @@ export class AoiSurveyVoting extends YpBaseElement {
       leftAnswer: this.leftAnswer,
       rightAnswer: this.rightAnswer,
     });
+
+    const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
+    const rightButton = this.shadowRoot?.querySelector('#rightAnswerButton');
+
+    leftButton?.classList.remove('animate-up', 'animate-down');
+    rightButton?.classList.remove('animate-up', 'animate-down');
+
+    leftButton?.classList.add('animate-from-left');
+    rightButton?.classList.add('animate-from-right');
+
 
     const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
     buttons?.forEach(button => {
@@ -172,6 +208,58 @@ export class AoiSurveyVoting extends YpBaseElement {
           margin-top: 32px;
         }
 
+        .md-elevated-button {
+          transition: transform 0.3s ease-out;
+        }
+
+        .animate-up, .animate-down {
+          transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+          opacity: 0;
+        }
+
+        .animate-up {
+          transform: translateY(-250px);
+        }
+
+        .animate-down {
+          transform: translateY(250px);
+        }
+
+        .animate-from-left, .animate-from-right {
+          opacity: 1;
+        }
+
+        .animate-from-left {
+          animation: slideInFromLeft 0.7s forwards;
+        }
+
+        .animate-from-right {
+          animation: slideInFromRight 0.7s forwards;
+        }
+
+        @keyframes slideInFromLeft {
+          0% {
+            transform: translateX(-150%);
+            opacity: 0.5;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideInFromRight {
+          0% {
+            transform: translateX(150%);
+            opacity: 0.5;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+
         @media (max-width: 960px) {
           .buttonContainer md-elevated-button {
             margin: 8px;
@@ -230,6 +318,7 @@ export class AoiSurveyVoting extends YpBaseElement {
         <div class="questionTitle">${this.question.name}</div>
         <div class="buttonContainer layout horizontal wrap center-center">
           <md-elevated-button
+            id="leftAnswerButton"
             class="leftAnswer"
             @click=${() => this.voteForAnswer('left')}
           >
@@ -237,6 +326,7 @@ export class AoiSurveyVoting extends YpBaseElement {
           </md-elevated-button>
           <span class="or">${this.t('or')}</span>
           <md-elevated-button
+            id="rightAnswerButton"
             class="rightAnswer"
             @click=${() => this.voteForAnswer('right')}
           >

@@ -59,7 +59,7 @@ module AiHelper
   end
 
   def get_moderation_flag(input_text)
-    if ENV.fetch("OPENAI_API_KEY")
+    if ENV.has_key?("OPENAI_API_KEY")
       client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
       moderation_response = client.moderations(parameters: { input: input_text })
       return moderation_response.dig("results", 0, "flagged")
@@ -69,7 +69,7 @@ module AiHelper
   end
 
   def get_ai_analysis(question_id, contextPrompt, answers)
-    if ENV.fetch("OPENAI_API_KEY")
+    if ENV.has_key?("OPENAI_API_KEY")
       base_pre_prompt = "
          You are a highly competent text and ideas analysis AI.
          If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis.

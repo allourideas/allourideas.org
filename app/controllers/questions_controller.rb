@@ -1012,7 +1012,7 @@ class QuestionsController < ApplicationController
       })
       @earl = Earl.find_by(question_id: params[:id].to_s)
 
-      if ENV.fetch("OPENAI_API_KEY")
+      if ENV.has_key?("OPENAI_API_KEY")
         flagged = get_moderation_flag(new_idea_data)
         if not flagged
           #@choice.activate!

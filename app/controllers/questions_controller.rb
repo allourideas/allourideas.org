@@ -86,9 +86,11 @@ class QuestionsController < ApplicationController
 
     prompt_hash = Digest::SHA256.hexdigest(analysis["contextPrompt"])[0...8]
 
-    analysis_cache_key = "#{@question_id}_#{choice_ids}_#{prompt_hash}_ai_analysis_v6"
+    analysis_cache_key = "#{@question_id}_#{typeIndex}_#{choice_ids}_#{prompt_hash}_ai_analysis_v6"
 
-    analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 12.hours) do
+    puts "analysis_cache_key is #{analysis_cache_key} prompt #{analysis["contextPrompt"][0...15]}..."
+
+    analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 18.hours) do
       get_ai_analysis(@question_id, analysis["contextPrompt"], choices)
     end
 

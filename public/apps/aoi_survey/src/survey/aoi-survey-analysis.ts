@@ -219,9 +219,12 @@ export class AoiSurveyAnalysis extends YpBaseElement {
             width: 100%;
           }
 
-          .answers {
-            padding-left: 16px;
-            padding-right: 16px;
+          .ideaDescription {
+            padding-right: 24px;
+          }
+
+          .ideaIndex {
+            padding-left: 24px;
           }
         }
       `,
@@ -231,8 +234,8 @@ export class AoiSurveyAnalysis extends YpBaseElement {
   renderIdeas(index: number, result: AoiResultData) {
     return html`
       <div class="answers layout horizontal">
-        <div class="column index">${index + 1}.</div>
-        <div class="column layout vertical">
+        <div class="column index ideaIndex">${index + 1}.</div>
+        <div class="column layout vertical ideaDescription">
           <div class="">${result.data}</div>
         </div>
       </div>

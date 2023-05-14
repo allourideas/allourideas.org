@@ -33,6 +33,8 @@ import { AoiServerApi } from './survey/AoiServerApi.js';
 import { AoiAppGlobals } from './AoiAppGlobals.js';
 import { NavigationDrawer } from '@material/web/navigationdrawer/lib/navigation-drawer.js';
 import { Snackbar } from '@material/mwc-snackbar/mwc-snackbar.js';
+import { NavigationTab } from '@material/web/navigationtab/lib/navigation-tab.js';
+import { NavigationBar } from '@material/web/navigationbar/lib/navigation-bar.js';
 
 const PagesTypes = {
   Introduction: 1,
@@ -399,6 +401,9 @@ export class AoiSurveyApp extends YpBaseElement {
 
   startVoting() {
     this.pageIndex = 2;
+    if (this.$$("#navBar") as NavigationBar) {
+      (this.$$("#navBar") as NavigationBar).activeIndex = 1;
+    }
   }
 
   _renderPage() {
@@ -532,12 +537,12 @@ export class AoiSurveyApp extends YpBaseElement {
     } else {
       return html`
         <div class="navContainer">
-          <md-navigation-bar @navigation-bar-activated="${this.tabChanged}">
+          <md-navigation-bar id="navBar" @navigation-bar-activated="${this.tabChanged}">
             <md-navigation-tab .label="${this.t('Intro')}"
               ><md-icon slot="activeIcon">info</md-icon>
               <md-icon slot="inactiveIcon">info</md-icon></md-navigation-tab
             >
-            <md-navigation-tab .label="${this.t('Voting')}">
+            <md-navigation-tab id="votingTab" .label="${this.t('Voting')}">
               <md-icon slot="activeIcon">thumb_up</md-icon>
               <md-icon slot="inactiveIcon">thumb_up</md-icon>
             </md-navigation-tab>

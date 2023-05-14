@@ -245,8 +245,6 @@ export class AoiSurveyAnalysis extends YpBaseElement {
   analysisRow(analysisItem: AnalysisTypeData) {
     let analysisHtml;
 
-    console.log(analysisItem);
-
     if (analysisItem.analysis && analysisItem.analysis != 'error') {
       analysisHtml = html`
         <div class="analysisResults">

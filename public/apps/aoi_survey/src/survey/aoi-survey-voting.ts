@@ -57,7 +57,6 @@ export class AoiSurveyVoting extends YpBaseElement {
   async connectedCallback() {
     super.connectedCallback();
     this.fire('needs-new-earl');
-    console.error('aoi-survey-voting connectedCallback');
 
     window.appGlobals.activity('open', 'surveyVoting');
     this.resetTimer();

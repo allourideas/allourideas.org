@@ -260,7 +260,7 @@ export class AoiSurveyResuls extends YpBaseElement {
             ${this.results.map((result, index) =>
               this.renderRow(index, result)
             )}
-            <div class="title subTitle">${YpFormattingHelpers.number(this.question.votes_count)} ${this.t('votes')}</div>
+            <div class="title subTitle">${YpFormattingHelpers.number(this.question.votes_count)} ${this.t('total votes')}</div>
             <md-outlined-button @click=${this.exportToCSV} class="exportButton">
               ${this.t('Download Results as CSV')}
             </md-outlined-button>

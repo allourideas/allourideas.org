@@ -73,7 +73,7 @@ module AiHelper
       base_pre_prompt = "
          You are a highly competent text and ideas analysis AI.
          If an answer sounds implausible as an answer to the question, then include a short observation about it in your analysis.
-         Keep your output short, under 200 words.
+         Keep your output short, under 300 words.
          The answers have been rated by the public using a pairwise voting method, so the user is always selecting one to win or one to lose.
          Generally, do not include the number of wins and losses in your answers.
          If there are very few wins or losses, under 10 for most of the ideas, then always output a disclaimer to that end, in a separate second paragraph.

@@ -16,6 +16,7 @@ import { SharedStyles } from './SharedStyles.js';
 import { Dialog } from '@material/web/dialog/lib/dialog.js';
 import { AoiNewIdeaDialog } from './aoi-new-idea-dialog.js';
 import { YpFormattingHelpers } from '../@yrpri/common/YpFormattingHelpers.js';
+import { installMediaQueryWatcher } from 'pwa-helpers';
 
 @customElement('aoi-survey-voting')
 export class AoiSurveyVoting extends YpBaseElement {
@@ -43,6 +44,9 @@ export class AoiSurveyVoting extends YpBaseElement {
   @property({ type: String })
   appearanceLookup!: string;
 
+  @property({ type: Boolean })
+  breakForVertical = false;
+
   timer: number;
 
   constructor() {
@@ -57,6 +61,10 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     window.appGlobals.activity('open', 'surveyVoting');
     this.resetTimer();
+
+    installMediaQueryWatcher(`(max-width: 1200px) and (min-width: 960px)`, matches => {
+      this.breakForVertical = matches;
+    });
   }
 
   resetTimer() {
@@ -84,7 +92,6 @@ export class AoiSurveyVoting extends YpBaseElement {
   }
 
   resetAnimation(event: any) {
-    console.error('resetAnimation', event);
     event.target.classList.remove(
       'animate-up',
       'animate-down',
@@ -122,8 +129,12 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     window.csrfToken = postVoteResponse.csrfToken;
 
-    this.leftAnswer = postVoteResponse.newleft.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
-    this.rightAnswer = postVoteResponse.newright.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+    this.leftAnswer = postVoteResponse.newleft
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"');
+    this.rightAnswer = postVoteResponse.newright
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"');
 
     this.promptId = postVoteResponse.prompt_id;
     this.appearanceLookup = postVoteResponse.appearance_lookup;
@@ -320,7 +331,6 @@ export class AoiSurveyVoting extends YpBaseElement {
 
           .topContainer {
             overflow-x: clip;
-
           }
 
           .progressBarContainer {
@@ -370,7 +380,11 @@ export class AoiSurveyVoting extends YpBaseElement {
         tabindex="-1"
       >
         <div class="questionTitle">${this.question.name}</div>
-        <div class="buttonContainer layout horizontal wrap center-center">
+        <div
+          class="buttonContainer layout ${this.breakForVertical
+            ? 'vertical'
+            : 'horizontal'} wrap center-center"
+        >
           <md-elevated-button
             id="leftAnswerButton"
             class="leftAnswer"
@@ -378,7 +392,7 @@ export class AoiSurveyVoting extends YpBaseElement {
           >
             ${YpFormattingHelpers.truncate(this.leftAnswer, 140)}
           </md-elevated-button>
-          <span class="or">${this.t('or')}</span>
+          <span class="or"> ${this.t('or')} </span>
           <md-elevated-button
             id="rightAnswerButton"
             class="rightAnswer"

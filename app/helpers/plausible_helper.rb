@@ -4,7 +4,28 @@ require 'json'
 module PlausibleHelper
   # Add other helper methods here
   ALL_GOALS = [
-    ""
+    "New Idea - submit",
+    "New Idea - general error",
+    "New Idea - moderation flag",
+    "New Idea - added",
+    "New Idea - open",
+    "New Idea - cancel",
+    "Analysis - open",
+    "Analysis - close",
+    "Intro - open",
+    "Intro - close",
+    "Intro - click start",
+    "Results - open",
+    "Results - close",
+    "Results - toggle scores on",
+    "Results - toggle scores off",
+    "Results - export to csv",
+    "Voting - open",
+    "Voting - close",
+    "Voting - left",
+    "Voting - right",
+    "Settings - dark mode",
+    "Settings - light mode"
   ]
 
   def plausible_stats_proxy_helper(plausible_url, props)
@@ -106,6 +127,7 @@ module PlausibleHelper
   end
 
   def add_plausible_goal(event_name)
+    puts "Adding #{event_name}"
     return unless ENV['PLAUSIBLE_BASE_URL'] && ENV['PLAUSIBLE_API_KEY']
 
     uri = URI.parse(ENV['PLAUSIBLE_EVENT_BASE_URL'])
@@ -116,20 +138,22 @@ module PlausibleHelper
     auth = Base64.strict_encode64("#{username}:#{password}")
 
     plausible_url = "https://#{ENV['PLAUSIBLE_BASE_URL'].split('@')[1]}"
+
     options = {
       site_id: ENV['PLAUSIBLE_SITE_NAME'],
       goal_type: 'event',
       event_name: event_name
     }
+    puts "Bearer #{ENV['PLAUSIBLE_API_KEY']}"
 
-    response = HTTP.auth("Bearer #{ENV['PLAUSIBLE_API_KEY']}")
-                  .headers(
-                    'Authorization' => "Basic #{auth}",
+    response = HTTP.headers(
+                    'Authorization' => "Bearer #{ENV['PLAUSIBLE_API_KEY']}",
                     'Content-Type' => 'multipart/form-data',
-                    'User-Agent' => 'your priorities'
+                    'User-Agent' => 'all our ideas'
                   )
                   .put("#{plausible_url}sites/goals", form: options)
 
+    puts "Response: #{response.status} #{response.body}"
     if response.status != 200
       Rails.logger.error("Error in sending to plausible: #{response.status} #{response.body}")
       return response.status

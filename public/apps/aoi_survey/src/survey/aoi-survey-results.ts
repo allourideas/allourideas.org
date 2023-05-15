@@ -50,7 +50,7 @@ export class AoiSurveyResuls extends YpBaseElement {
   toggleScores() {
     const checkbox = this.$$('#showScores') as Checkbox;
     this.showScores = checkbox.checked;
-    window.appGlobals.activity(`Results - toggle scores`);
+    window.appGlobals.activity(`Results - toggle scores ${this.showScores ? 'on' : 'off'}`);
   }
 
   exportToCSV(): void {

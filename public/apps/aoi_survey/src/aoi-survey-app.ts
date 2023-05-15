@@ -394,6 +394,11 @@ export class AoiSurveyApp extends YpBaseElement {
 
   toggleDarkMode() {
     this.themeDarkMode = !this.themeDarkMode;
+    if (this.themeDarkMode) {
+      window.appGlobals.activity("Settings - dark mode")
+    } else {
+      window.appGlobals.activity("Settings - light mode")
+    }
     this.themeChanged();
   }
 

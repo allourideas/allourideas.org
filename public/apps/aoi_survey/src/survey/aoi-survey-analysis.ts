@@ -22,7 +22,14 @@ export class AoiSurveyAnalysis extends YpBaseElement {
 
   async connectedCallback() {
     super.connectedCallback();
+    window.appGlobals.activity(`Analysis - open`);
   }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    window.appGlobals.activity(`Analysis - close`);
+  }
+
 
   async fetchResults() {
     const analysis_config = this.earl.configuration.analysis_config;

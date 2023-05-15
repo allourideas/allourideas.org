@@ -20,7 +20,12 @@ export class AoiSurveyIntro extends YpBaseElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    window.appGlobals.activity('open', 'surveyIntro');
+    window.appGlobals.activity('Intro - open');
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    window.appGlobals.activity(`Intro - close`);
   }
 
   get formattedDescription() {
@@ -28,8 +33,8 @@ export class AoiSurveyIntro extends YpBaseElement {
   }
 
   clickStart() {
-    window.appGlobals.activity('click', 'startFromIntro');
     this.fire('startVoting');
+    window.appGlobals.activity('Intro - click start');
   }
 
   static get styles() {

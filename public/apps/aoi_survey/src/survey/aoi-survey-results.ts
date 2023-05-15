@@ -27,6 +27,7 @@ export class AoiSurveyResuls extends YpBaseElement {
 
   async connectedCallback() {
     super.connectedCallback();
+    window.appGlobals.activity(`Results - open`);
   }
 
   async fetchResults() {
@@ -41,9 +42,15 @@ export class AoiSurveyResuls extends YpBaseElement {
     }
   }
 
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    window.appGlobals.activity(`Results - close`);
+  }
+
   toggleScores() {
     const checkbox = this.$$('#showScores') as Checkbox;
     this.showScores = checkbox.checked;
+    window.appGlobals.activity(`Results - toggle scores`);
   }
 
   exportToCSV(): void {
@@ -68,6 +75,7 @@ export class AoiSurveyResuls extends YpBaseElement {
     // Clean up
     URL.revokeObjectURL(url);
     setTimeout(() => link.remove(), 0);
+    window.appGlobals.activity(`Results - export to csv`);
   }
 
   static get styles() {

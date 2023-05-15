@@ -40,6 +40,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
   }
 
   async submit() {
+    window.appGlobals.activity(`New Idea - submit`);
     this.currentError = undefined;
     this.submitting = true;
     let addIdeaResponse;
@@ -54,10 +55,12 @@ export class AoiNewIdeaDialog extends YpBaseElement {
     this.submitting = false;
     if (!addIdeaResponse || addIdeaResponse.error) {
       this.currentError = this.t('An error occurred. Please try again.');
+      window.appGlobals.activity(`New Idea - general error`);
     } else if (addIdeaResponse.flagged) {
       this.currentError = this.t(
         'Your idea has been flagged as inappropriate. Please try again.'
       );
+      window.appGlobals.activity(`New Idea - moderation flag`);
     } else {
       this.ideaText.value = '';
       if (addIdeaResponse.active) {
@@ -71,7 +74,7 @@ export class AoiNewIdeaDialog extends YpBaseElement {
           this.t('Your idea is in a moderation queue.')
         );
       }
-
+      window.appGlobals.activity(`New Idea - added`);
       this.dialog.close();
     }
   }
@@ -90,10 +93,12 @@ export class AoiNewIdeaDialog extends YpBaseElement {
   open() {
     this.dialog.show();
     this.currentError = undefined;
+    window.appGlobals.activity(`New Idea - open`);
   }
 
   cancel() {
     this.dialog.close();
+    window.appGlobals.activity(`New Idea - cancel`);
   }
 
   textAreaKeyDown(e: KeyboardEvent) {

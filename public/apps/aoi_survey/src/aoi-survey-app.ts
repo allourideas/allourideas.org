@@ -102,18 +102,10 @@ export class AoiSurveyApp extends YpBaseElement {
   constructor() {
     super();
 
-    const urlParts = window.location.href.split('/');
-    const queryString = new URLSearchParams(window.location.search);
-    const earlName = queryString.get('name');
-
-    if (earlName) {
-      this.earlName = earlName;
-    } else {
-      this.earlName = urlParts[urlParts.length - 1];
-    }
-
     window.aoiServerApi = new AoiServerApi();
     window.appGlobals = new AoiAppGlobals();
+    this.earlName = window.appGlobals.earlName;
+    window.appGlobals.activity('pageview');
   }
 
   getServerUrlFromClusterId(clusterId: number) {
@@ -155,6 +147,12 @@ export class AoiSurveyApp extends YpBaseElement {
       this.themeColor = this.earl.configuration.theme_color;
       this.themeChanged();
     }
+
+    this.fireGlobal("set-ids", {
+      earlId: this.earl.id,
+      questionId: this.question.id,
+      promptId: this.prompt.id
+    });
   }
 
   disconnectedCallback() {

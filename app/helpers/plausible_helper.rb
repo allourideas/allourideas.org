@@ -4,159 +4,9 @@ require 'json'
 module PlausibleHelper
   # Add other helper methods here
   ALL_GOALS = [
-    "newPost - completed",
-    "newPost - open",
-    "pointHelpful - clicked",
-    "pointHelpful - completed",
-    "endorse_down - clicked",
-    "endorse_down - completed",
-    "pointDown - add",
-    "pointDown - focus",
-    "Login and Signup - Login Fail",
-    "endorse_up - clicked",
-    "endorse_up - completed",
-    "Login and Signup - Signup/Login Opened",
-    "Login and Signup - Signup Fail",
-    "newPointFor - completed",
-    "Login and Signup - Login Submit",
-    "post.ratings - open",
-    "Login and Signup - Signup Submit",
-    "newPointAgainst - completed",
-    "Login and Signup - Login Success",
-    "Login and Signup - Signup Success",
-    "pointUp - focus",
-    "pages - open",
-    "pointUp - add",
-    "pointNotHelpful - clicked",
-    "pointNotHelpful - completed",
-    "mediaRecorder - open",
-    "videoUpload - starting",
-    "audioUpload - starting",
-    "audioUpload - error",
-    "videoUpload - error",
-    "post - open",
-    "postForward - swipe",
-    "postBackward - swipe",
-    "recommendations - goForward",
-    "recommendations - goBack",
-    "stopTranslation - click",
-    "startTranslation - click",
-    "changeLanguage - click",
-    "video - completed",
-    "audio - completed",
-    "editCommunity - completed",
-    "community.bulkStatusUpdates - open",
-    "community.users - open",
-    "community.admins - open",
-    "community.pagesAdmin - open",
-    "createReportXlsUsers - open",
-    "createReportFraudReport - open",
-    "communityContentModeration - open",
-    "communityFraudManagement - open",
-    "communityAllContentModeration - open",
-    "community.delete - open",
-    "community.deleteContents - open",
-    "community.anonymize - open",
-    "community.edit - open",
-    "community_tab - open",
-    "newGroup - open",
-    "editDomain - completed",
-    "domainUsers - open",
-    "domainAdmins - open",
-    "domain.organizationsGrid - open",
-    "domain.pagesAdmin - open",
-    "domainEdit - open",
-    "domainContentModeration - open",
-    "domainAllContentModeration - open",
-    "organizationEdit - open",
-    "domain_tab_communities - open",
-    "domain_tab_news - open",
-    "newCommunity - open",
-    "newCommunityFolder - open",
-    "ziggeo - open",
-    "attachmentUpload - starting",
-    "imageUpload - starting",
-    "mediaTranscoding - starting",
-    "mediaTranscoding - error",
-    "videoUpload - complete",
-    "audioUpload - complete",
-    "imageUpload - complete",
-    "mediaTranscoding - complete",
-    "mediaUpload - error",
-    "group - open",
-    "groupContentModeration - open",
-    "groupAllContentModeration - open",
-    "group.pagesAdmin - open",
-    "group.users - open",
-    "group.admins - open",
-    "group.edit - open",
-    "createReportDocx - open",
-    "createReportXls - open",
-    "group.deleteContent - open",
-    "group.clone - open",
-    "community.clone - open",
-    "group.anonymize - open",
-    "category.new - open",
-    "twitter - pointShareOpen",
-    "group.delete - open",
-    "group_tab_map - open",
-    "toggleCommunityMembership - clicked",
-    "facebook - pointShareOpen",
-    "editGroup - complete",
-    "group_tab_posts - open",
-    "group_tab_news - open",
-    "pages - close",
-    "toggleGroupMembership - clicked",
-    "community - open",
-    "point.report - open",
-    "email - pointShareOpen",
-    "whatsapp - pointShareOpen",
-    "twitter - postShareCardOpen",
-    "facebook - postShareCardOpen",
-    "email - postShareCardOpen",
-    "whatsapp - postShareCardOpen",
-    "post.report - open",
-    "post.edit - open",
-    "post.delete - open",
-    "postDeleteContent - open",
-    "postAnonymizeContent - open",
-    "filter - click",
-    "search - click",
-    "marker - clicked",
-    "userImage.edit - open",
-    "userImage.delete - open",
-    "newUserImage - open",
-    "post_tab_debate - open",
-    "post_tab_map - open",
-    "post_tab_news - open",
-    "filter - open",
-    "filter - change",
-    "post.ratings - add",
-    "post.ratings - delete",
-    "post.ratings - completed",
-    "post.ratings.dialog - open",
-    "setEmail - cancel",
-    "setEmail - logout",
-    "forgotPasswordFromSetEmail - open",
-    "linkAccountsAjax - confirm",
-    "setEmail - confirm",
-    "registrationAnswers - submit",
-    "user.createApiKey - open",
-    "user.reCreateApiKey - open",
-    "userAllContentModeration - open",
-    "evaluated - point toxicity low",
-    "evaluated - point toxicity medium",
-    "evaluated - point toxicity high",
-    "evaluated - post toxicity low",
-    "evaluated - post toxicity medium",
-    "evaluated - post toxicity high",
-    "open - share dialog options",
-    "open - share dialog - brand:whatsapp",
-    "open - share dialog - brand:facebook",
-    "open - share dialog - brand:twitter",
-    "open - share dialog - clipboard"
-
+    ""
   ]
+
   def plausible_stats_proxy_helper(plausible_url, props)
     return nil unless ENV['PLAUSIBLE_BASE_URL'] && ENV['PLAUSIBLE_API_KEY']
 
@@ -193,9 +43,17 @@ module PlausibleHelper
       search_params['filters'] = filters_content.to_json
     end
 
+    uri = URI.parse(ENV['PLAUSIBLE_EVENT_BASE_URL'])
+
+    username = uri.user
+    password = uri.password
+
+    auth = Base64.strict_encode64("#{username}:#{password}")
+
     new_url = "#{first_part_of_url}?#{search_params.to_query}"
     options = {
       headers: {
+        'Authorization' => "Basic #{auth}",
         'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.3',
         'referrer' => '',
         'Authorization' => "Bearer #{ENV['PLAUSIBLE_API_KEY']}",
@@ -209,6 +67,7 @@ module PlausibleHelper
     if response.status.success?
       response.body.to_s
     else
+      Rails.logger.error("Error in plausibleStatsProxy: #{response.inspect}")
       Rails.logger.error("Error in plausibleStatsProxy: #{response.status.code}")
       raise "Error in plausibleStatsProxy: #{response.status.code}"
     end
@@ -249,6 +108,13 @@ module PlausibleHelper
   def add_plausible_goal(event_name)
     return unless ENV['PLAUSIBLE_BASE_URL'] && ENV['PLAUSIBLE_API_KEY']
 
+    uri = URI.parse(ENV['PLAUSIBLE_EVENT_BASE_URL'])
+
+    username = uri.user
+    password = uri.password
+
+    auth = Base64.strict_encode64("#{username}:#{password}")
+
     plausible_url = "https://#{ENV['PLAUSIBLE_BASE_URL'].split('@')[1]}"
     options = {
       site_id: ENV['PLAUSIBLE_SITE_NAME'],
@@ -258,6 +124,7 @@ module PlausibleHelper
 
     response = HTTP.auth("Bearer #{ENV['PLAUSIBLE_API_KEY']}")
                   .headers(
+                    'Authorization' => "Basic #{auth}",
                     'Content-Type' => 'multipart/form-data',
                     'User-Agent' => 'your priorities'
                   )
@@ -295,20 +162,29 @@ module PlausibleHelper
 
     in_props = work_data[:body][:props] || {}
     props = in_props.merge(
-    #  communityId: community_id,
-    #  groupId: work_data[:groupId],
-    #  domainId: work_data[:domainId],
-    #  postId: work_data[:postId],
-    #  pointId: work_data[:pointId],
-    #  userId: work_data[:userId],
-    #  userLocale: work_data[:body][:userLocale],
-    #  userAutoTranslate: work_data[:body][:userAutoTranslate],
-    #  projectId: project_id,
-    #  externalId: external_id
+      questionId: work_data[:questionId],
+      earlId: work_data[:earlId],
+      earlName: work_data[:earlName],
+      promptId: work_data[:promptId],
+      userId: work_data[:userId],
+      userLocale: work_data[:body][:userLocale],
+      userAutoTranslate: work_data[:body][:userAutoTranslate],
     )
+
+    puts "PROPS PROPS PROPS #{work_data[:body].inspect}}}"
+
+    puts "PROPS PROPS PROPS #{props.inspect}}}"
+
+    uri = URI.parse(ENV['PLAUSIBLE_EVENT_BASE_URL'])
+
+    username = uri.user
+    password = uri.password
+
+    auth = Base64.strict_encode64("#{username}:#{password}")
 
     options = {
       headers: {
+        'Authorization': "Basic #{auth}",
         'X-Forwarded-For': ip_address,
         'User-Agent': user_agent,
         'referer': referrer,
@@ -327,6 +203,8 @@ module PlausibleHelper
 
     response = HTTP.post("#{ENV['PLAUSIBLE_EVENT_BASE_URL']}event/", options)
 
+    puts "API API API #{response.inspect}"
+
     if response.status != 202
       if response.status == 403
         Rails.logger.warn("Got 403 from plausible for #{ip_address} Plausible #{event_name} - #{props.to_json} - #{use_url} - #{referrer} -#{user_agent}")
@@ -339,16 +217,8 @@ module PlausibleHelper
 
   def delayed_create_activity_from_app(work_data)
     if ENV['PLAUSIBLE_API_KEY']
-      plausible_event = if work_data[:body][:type] == "pageview"
-                          "pageview"
-                        elsif !work_data[:body][:useTypeNameUnchanged]
-                          "#{work_data[:body][:object]} - #{work_data[:body][:type]}"
-                        else
-                          work_data[:body][:type]
-                        end
-
       begin
-        add_plausible_event(plausible_event, work_data)
+        add_plausible_event(work_data[:body][:type], work_data)
       rescue => error
         Rails.logger.error("Error adding Plausible event: #{error}")
       end

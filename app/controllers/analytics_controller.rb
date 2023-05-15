@@ -40,7 +40,6 @@ class AnalyticsController < ApplicationController
           actor: params[:actor],
           type: params[:type],
           object: params[:object],
-          target: params[:target],
           path_name: params[:path_name],
           context: params[:context],
           event_time: params[:event_time],
@@ -56,11 +55,10 @@ class AnalyticsController < ApplicationController
           server_timestamp: Time.now.to_i
         },
         userId: current_user ? current_user.id : nil,
-#        domainId: params[:domainId] || params[:ypDomain] ? params[:ypDomain][:id] : nil,
-#        communityId: params[:communityId] || params[:ypCommunity] ? params[:ypCommunity][:id] : nil,
-        groupId: params[:groupId] || nil,
-#        postId: params[:postId] || (params[:object] && params[:object][:postId]) ? params[:object][:postId].split('/post/')[1] : nil,
-        pointId: params[:pointId] || nil
+        questionId: params[:questionId] || nil,
+        earlId: params[:earlId] || nil,
+        promptId: params[:promptId] || nil,
+        earlName: params[:earlName] || nil
       }
 
       #TODO: Move to delayed job

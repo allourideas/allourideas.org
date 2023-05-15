@@ -1,5 +1,7 @@
 let firstMessage = true;
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
   const aiIdeasButton = document.getElementById("ai-ideas-button");
   const spinner = document.getElementById("ai-ideas-spinner");

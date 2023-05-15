@@ -19,7 +19,7 @@ AllOurIdeas::Application.routes.draw do
 
   put '/api/analytics/:questionId/plausibleStatsProxy', to: 'analytics#plausible_stats_proxy', as: :plausible_stats_proxy
   get '/api/analytics/:questionId/:type/getPlausibleSeries', to: 'analytics#get_plausible_series', as: :get_plausible_series
-  post '/createActivityFromApp', to: 'analytics#create_activity_from_app', as: :create_activity_from_app
+  post '/api/analytics/createActivityFromApp', to: 'analytics#create_activity_from_app', as: :create_activity_from_app
 
   scope '/api/analytics/:question_id', controller: :campaigns do
     get 'get_campaigns', action: :index

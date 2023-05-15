@@ -57,12 +57,20 @@ export class AoiSurveyVoting extends YpBaseElement {
   async connectedCallback() {
     super.connectedCallback();
     this.fire('needs-new-earl');
-
-    window.appGlobals.activity('open', 'surveyVoting');
+    window.appGlobals.activity('Voting - open');
     this.resetTimer();
-
     installMediaQueryWatcher(`(max-width: 1200px) and (min-width: 960px)`, matches => {
       this.breakForVertical = matches;
+    });
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    window.appGlobals.activity('Voting - close');
+    this.fireGlobal("set-ids", {
+      earlId: this.earl.id,
+      questionId: this.question.id,
+      promptId: undefined
     });
   }
 
@@ -102,6 +110,8 @@ export class AoiSurveyVoting extends YpBaseElement {
   }
 
   async voteForAnswer(direction: 'left' | 'right') {
+    window.appGlobals.activity(`Voting - ${direction}`);
+
     const voteData: AoiVoteData = {
       time_viewed: new Date().getTime() - this.timer,
       prompt_id: this.promptId,
@@ -143,6 +153,13 @@ export class AoiSurveyVoting extends YpBaseElement {
       promptId: this.promptId,
       leftAnswer: this.leftAnswer,
       rightAnswer: this.rightAnswer,
+    });
+
+
+    this.fireGlobal("set-ids", {
+      earlId: this.earl.id,
+      questionId: this.question.id,
+      promptId: this.promptId
     });
 
     const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');

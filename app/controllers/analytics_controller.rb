@@ -51,7 +51,7 @@ class AnalyticsController < ApplicationController
           originalQueryString: params[:originalQueryString],
           referrer: params[:referrer],
           url: params[:url],
-          ipAddress: request.remote_ip,
+          ip_address: request.remote_ip,
           server_timestamp: Time.now.to_i
         },
         userId: current_user ? current_user.id : nil,

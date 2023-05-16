@@ -37,6 +37,10 @@ export class AoiSurveyIntro extends YpBaseElement {
     window.appGlobals.activity('Intro - click start');
   }
 
+  clickResults() {
+    this.fire('openResults');
+  }
+
   static get styles() {
     return [
       super.styles,
@@ -113,43 +117,50 @@ export class AoiSurveyIntro extends YpBaseElement {
           sizing="contain"
           src="${this.earl.configuration.logo_url}"
         ></yp-image>
-        <div class="questionTitle" ?dark-mode="${this.themeDarkMode}">${
-      this.question.name
-    }</div>
-        <md-fab
-          extended
-          class="fab"
-          @click="${this.clickStart}"
-          .label="${this.t('Start Voting')}"
-        ><md-icon slot="icon">thumbs_up_down</md-fab>
+        <div class="questionTitle" ?dark-mode="${this.themeDarkMode}">
+          ${this.question.name}
+        </div>
+        ${this.earl.active
+          ? html`
+          <md-fab
+            extended
+            class="fab"
+            @click="${this.clickStart}"
+            .label="${this.t('Start Voting')}"
+          ><md-icon slot="icon">thumbs_up_down</md-fab>
+        `
+          : html`
+          <md-fab
+            extended
+            class="fab"
+            @click="${this.clickResults}"
+            .label="${this.t('Open Results')}"
+          ><md-icon slot="icon">grading</md-fab>
+        `}
         <div class="description">${this.formattedDescription}</div>
-        ${
-          !this.wide
-            ? html`
-                ${!this.themeDarkMode
-                  ? html`
-                      <md-outlined-icon-button
-                        class="darkModeButton"
-                        @click="${() => this.fire('toggle-dark-mode')}"
-                        >dark_mode</md-outlined-icon-button
-                      >
-                    `
-                  : html`
-                      <md-outlined-icon-button
-                        class="darkModeButton"
-                        @click="${() => this.fire('toggle-dark-mode')}"
-                        >light_mode</md-outlined-icon-button
-                      >
-                    `}
-              `
-            : nothing
-        }
+        ${!this.wide
+          ? html`
+              ${!this.themeDarkMode
+                ? html`
+                    <md-outlined-icon-button
+                      class="darkModeButton"
+                      @click="${() => this.fire('toggle-dark-mode')}"
+                      >dark_mode</md-outlined-icon-button
+                    >
+                  `
+                : html`
+                    <md-outlined-icon-button
+                      class="darkModeButton"
+                      @click="${() => this.fire('toggle-dark-mode')}"
+                      >light_mode</md-outlined-icon-button
+                    >
+                  `}
+            `
+          : nothing}
         <div class="footerHtml">
-          ${
-            this.earl.configuration && this.earl.configuration.welcome_html
-              ? unsafeHTML(this.earl.configuration.welcome_html)
-              : nothing
-          }
+          ${this.earl.configuration && this.earl.configuration.welcome_html
+            ? unsafeHTML(this.earl.configuration.welcome_html)
+            : nothing}
         </div>
       </div>
     `;

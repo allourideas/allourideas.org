@@ -18,10 +18,10 @@ class EarlsController < ApplicationController
     session[:welcome_msg] = @earl.welcome_message.blank? ? nil: @earl.welcome_message
 
     if @earl
-      unless @earl.allows_voting?
-        flash[:notice] = t('questions.not_active_error')
-        redirect_to '/' and return
-      end
+      #unless @earl.allows_voting?
+      #  flash[:notice] = t('questions.not_active_error')
+      #  redirect_to '/' and return
+      #end
 
 
       if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s

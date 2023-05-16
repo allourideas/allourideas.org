@@ -1201,7 +1201,7 @@ class QuestionsController < ApplicationController
           redirect_to add_photos_url(earl.name) and return
         else
           puts "REDIRECT TO SHOW"
-          redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls') and return
+          redirect_to(:action => 'show', :id => earl.name, :controller => 'earls') and return
         end
       else
         render(:action => "admin")
@@ -1269,7 +1269,9 @@ class QuestionsController < ApplicationController
         if old_lang != @earl.default_lang
           I18n.locale = @earl.default_lang
         end
-        format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
+
+        format.html { redirect_to("/#{@earl.name}") and return }
+        #format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
       else
         @partial_results_url = "#{@earl.name}/results"
         @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})

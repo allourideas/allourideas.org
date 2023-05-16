@@ -78,6 +78,7 @@ interface AoiEarlResponse {
   prompt: AoiPromptData;
   question: AoiQuestionData;
   csrfToken: string;
+  isAdmin: boolean;
 }
 
 interface AoiVoteResponse {

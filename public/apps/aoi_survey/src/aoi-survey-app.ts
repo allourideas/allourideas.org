@@ -83,7 +83,10 @@ export class AoiSurveyApp extends YpBaseElement {
   prompt!: AoiPromptData;
 
   @property({ type: Boolean })
-  tempHackDisableVoting = false;
+  isAdmin = false;
+
+  @property({ type: Boolean })
+  surveyClosed = false;
 
   @property({ type: String })
   appearanceLookup!: string;
@@ -142,6 +145,18 @@ export class AoiSurveyApp extends YpBaseElement {
 
     window.csrfToken = earlResponse.csrfToken
     document.title = this.question.name;
+
+    if (earlResponse.isAdmin===true) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
+    if (this.earl.active) {
+      this.surveyClosed = false;
+    } else {
+      this.surveyClosed = true;
+    }
 
     if (this.earl.configuration.theme_color) {
       this.themeColor = this.earl.configuration.theme_color;
@@ -353,6 +368,10 @@ export class AoiSurveyApp extends YpBaseElement {
           margin-left: 80px;
         }
 
+        [hidden] {
+          display: none !important;
+        }
+
         @media (max-width: 960px) {
           .mainPageContainer {
             max-width: 100%;
@@ -409,6 +428,21 @@ export class AoiSurveyApp extends YpBaseElement {
     }
   }
 
+  openResults() {
+    this.pageIndex = 3;
+    if (this.$$("#navBar") as NavigationBar) {
+      (this.$$("#navBar") as NavigationBar).activeIndex = 2;
+    }
+  }
+
+  openAnalytics() {
+    window.location.href = `/${this.earl.name}/analytics`;
+  }
+
+  goToAdmin() {
+    window.location.href = `/${this.earl.name}/admin`;
+  }
+
   _renderPage() {
     if (this.earl) {
       switch (this.pageIndex) {
@@ -417,6 +451,7 @@ export class AoiSurveyApp extends YpBaseElement {
             .earl="${this.earl}"
             .question="${this.question}"
             @startVoting="${this.startVoting}"
+            @openResults="${this.openResults}"
             .themeDarkMode="${this.themeDarkMode}"
           ></aoi-survey-intro>`;
         case PagesTypes.Voting:
@@ -485,6 +520,7 @@ export class AoiSurveyApp extends YpBaseElement {
             >
             <md-list-divider></md-list-divider>
             <md-list-item
+              ?hidden="${this.surveyClosed}"
               class="${this.pageIndex == PagesTypes.Voting &&
               'selectedContainer'}"
               @click="${() => this.changeTabTo(1)}"
@@ -518,6 +554,27 @@ export class AoiSurveyApp extends YpBaseElement {
                 ><md-icon>insights</md-icon></md-list-item-icon
               ></md-list-item
             >
+            <md-list-item
+              ?hidden="${!this.isAdmin}"
+              @click="${this.openAnalytics}"
+              headline="${this.t('Analytics & Marketing')}"
+              supportingText="${this.t('Usage analytics and marketing features')}"
+            >
+              <md-list-item-icon slot="start"
+                ><md-icon>monitoring</md-icon></md-list-item-icon
+              ></md-list-item
+            >
+            <md-list-item
+              ?hidden="${!this.isAdmin}"
+              @click="${this.goToAdmin}"
+              headline="${this.t('Survey Administration')}"
+              supportingText="${this.t('Administer this survey')}"
+            >
+              <md-list-item-icon slot="start"
+                ><md-icon>settings</md-icon></md-list-item-icon
+              ></md-list-item
+            >
+
             ${!this.themeDarkMode
               ? html`
                   <md-outlined-icon-button
@@ -545,7 +602,7 @@ export class AoiSurveyApp extends YpBaseElement {
               ><md-icon slot="activeIcon">info</md-icon>
               <md-icon slot="inactiveIcon">info</md-icon></md-navigation-tab
             >
-            <md-navigation-tab id="votingTab" .label="${this.t('Voting')}">
+            <md-navigation-tab ?hidden="${this.surveyClosed}" id="votingTab" .label="${this.t('Voting')}">
               <md-icon slot="activeIcon">thumb_up</md-icon>
               <md-icon slot="inactiveIcon">thumb_up</md-icon>
             </md-navigation-tab>

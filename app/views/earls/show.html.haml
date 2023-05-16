@@ -139,9 +139,6 @@
 =hidden_field_tag 'left_side_text', "blank_history"
 =hidden_field_tag 'right_side_text', "blank_history"
 
--if params[:just_created]
-  = render :partial => 'adwords_conversion'
-
 -content_for :head do
   = javascript_include_tag 'jquery.corner', 'jquery.blockUI.js'
 

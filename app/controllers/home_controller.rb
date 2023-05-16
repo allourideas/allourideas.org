@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   skip_before_action :initialize_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header, :only => [:cookies_blocked]
 
   def index
-    @example_earl = "planyc_example"
+    @example_earl = "test-space-worms"
     Question.timeout = 0.5
     begin
       @stats = Question.get(:site_stats)
@@ -71,7 +71,7 @@ class HomeController < ApplicationController
                                          :all => true,
                                        })
     end
-    puts "questions: #{@questions}"
+    puts "questions: #{@questions} #{ @earls}"
     @questions_map = @questions.inject({}) { |h, q| h[q.id] = q; h }
   end
 

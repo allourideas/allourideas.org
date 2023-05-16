@@ -32,10 +32,10 @@
             %tr{"data-admin-stats" => current_user.admin? ? admin_stats_question_url(q.id, :format => :json) : nil}
               %td.title= link_to h(truncate(q.attributes['name'], :length => 140, :omission => '…')), url_for(:controller => :questions, :action => :admin, :id => earl.name)
               %td= q.votes_count
-              %td= q.recent_votes
+              %td= "n/a"
               -if current_user.admin?
-                %td= q.user_ideas
-                %td= q.active_user_ideas
+                %td= #q.user_ideas
+                %td= #q.active_user_ideas
                 %td{"data-stats-key" => "vote_rate"}
                   = image_tag('ajax-loader.gif')
                 %td{"data-stats-key" => "upload_to_participation_rate"}
@@ -53,7 +53,7 @@
     .span12
       %p
         = link_to("See all", admin_path(:all => 'true'), :class => 'btn btn-inverse')
--if current_user.admin?
+-if false and current_user.admin?
   -if @blocked_cookies && @blocked_cookies.count > 0
     %h4 Today's Blocked Cookies
     %table.table
@@ -132,7 +132,6 @@
     %p The average number of votes per uploaded choice.
 
 -content_for :head do
-  = render :partial => "shared/highcharts_header"
   = javascript_include_tag 'jquery.tablesorter.min.js', 'jquery.blockUI.js'
   :javascript
     var results_view_text = function(){ return "#{t('results.view_link')}";};

@@ -4,11 +4,11 @@
 
     %p
       = t('questions.new.exp')
-      = link_to(t('questions.new.see_an'), "/studentgovernment")
+      = link_to(t('questions.new.see_an'), "/test-space-worms")
       = t('questions.new.exp2')
     - if !logged_in?
       %p
-        = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.')
+        = ( "#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path).html_safe + '.').html_safe
     .left.create-question
       =form_for @question, :url => questions_path, :html => {:id => 'new_question_form'} do |f|
         %p
@@ -38,7 +38,7 @@
           .control-group
             .input-prepend
               %label.add-on{:for => "question_url"}= "https://#{ENV["HOST"]}/"
-              = f.text_field 'url', :class => 'required span4', :placeholder => (@question && @question.url) || t('questions.new.step2_exp')
+              = f.text_field 'url', :id=>"question_url", :class => 'required span4', :placeholder => (@question && @question.url) || t('questions.new.step2_exp')
             = hidden_field_tag 'default_text2', t('questions.new.step2_exp')
 
 
@@ -58,6 +58,40 @@
                   = t('questions.new.generate_answer_ideas_with_artificial_intelligence')
                 %div#ai-ideas-spinner.spinner{style: "display:none;"}
           = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
+
+        %fieldset#step3_5
+          %legend= t('questions.new.step3_5')
+          .control-group
+            = label_tag :welcome_message, ("Welcome message (300 characters max)" + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, '#welcome_msg_explanation', :"data-toggle" => 'modal')).html_safe, :class => 'control-label'
+            .controls
+              = text_area_tag :welcome_message,  @welcome_message, :rows => 5, :cols => 65, :max=> 350, :class => 'input-xxlarge'
+
+          .control-group
+            = label_tag :welcome_html, ("Welcome Footer HTML"), :class => 'control-label'
+            .controls
+              = text_area_tag :welcome_html, @welcome_html, :rows => 5, :cols => 65, :class => 'input-xxlarge'
+
+          .control-group
+            = label_tag :logo_url, ("Logo URL (864 x 486px)"), :class => 'control-label'
+            .controls
+              = text_field_tag :logo_url, @logo_url, :size=> 30, :class => 'input-xxlarge'
+
+          .control-group
+            = label_tag :target_votes, ("Number of target votes per user"), :class => 'control-label'
+            .controls
+              = text_field_tag :target_votes, @target_votes || "30"
+
+          .control-group
+            = label_tag :theme_color, ("The primary theme color"), :class => 'control-label'
+            .controls
+              = text_field_tag :theme_color, @theme_color || "#0489CF"
+
+          .control-group
+            = label_tag :analysis_config, ("AI GPT-4 Analysis Config (Paste JSON Here)"), :class => 'control-label'
+            .controls{:style => "position: relative;"}
+              = text_area_tag :analysis_config, @analysis_config, :rows => 5, :cols => 65, :class => 'input-xxlarge', :id => 'analysis_config'
+              .error-message{:style => "margin-top: 4px;position: absolute; top: 100%; left: 0; right: 0; text-align: center; color: #F00;"}
+                %span#json-error-message
 
         -unless signed_in?
 
@@ -100,3 +134,24 @@
     $('#new_question_form').submit(function(){
       $('#indicator').show();
     });
+
+:javascript
+  $(document).ready(function() {
+    $('#analysis_config').on('change', function() {
+      var analysisConfig = $(this).val();
+      try {
+        JSON.parse(analysisConfig);
+        $('#json-error-message').text('');
+      } catch(e) {
+        $('#json-error-message').text('Invalid JSON').css('color', '#F00');      }
+    });
+
+    $('#question_url').on('keypress', function(e) {
+      var key = e.which || e.keyCode;
+      var char = String.fromCharCode(key);
+      // Check if the input is a space or a slash
+      if (/[ \/?&"'<>#%{}|\\^~[\],.]/.test(char)) {
+        e.preventDefault(); // Prevent the input
+      }
+    });
+  });

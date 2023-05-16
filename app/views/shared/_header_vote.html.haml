@@ -27,7 +27,7 @@
       - if @question.user_can_view_results?(current_user, @earl)
         - if params[:all].nil?
           %li.intro-popover{:class => current_page?(@results_url) ? 'active' : '', "data-title" => "Users can view results here", "data-trigger" => "manual", "data-placement" => "bottom"}
-            = link_to(t('nav.view_results'), @results_url)
+            = link_to(t('nav.view_results'), @cast_votes_url)
         - else
           %li{:class => current_page?(@all_results_url) ? 'active' : ''}
             = link_to(t('nav.view_results'), @all_results_url)

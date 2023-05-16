@@ -127,6 +127,7 @@ en:
       step2: "Step 2: Choose your URL"
       step2_exp: studentgovernment
       step3: "Step 3: Upload lots of ideas to seed the site"
+      step3_5: "Configure your survey"
       step3_ist: Upload lots of ideas here. You should put one per line.
       step3_ist2: You can copy and paste from a list that you've already created.
       step3_ist3: The maximum length of an idea is

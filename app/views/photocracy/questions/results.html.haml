@@ -1,5 +1,3 @@
-=render :partial => "shared/highcharts_header"
-
 .container_12
   #primary_content
     #hd.center
@@ -10,7 +8,7 @@
       %p.gray
         View the results of the survey here or
         =link_to 'return to voting.',  url_for(:action => :show, :controller => :earls, :id => params[:id])
-    
+
     .grid_4
       %ul#graphs.results
         %li
@@ -21,10 +19,10 @@
               =link_to t("results.#{graph[:title]}"),
                         url_for(:action => graph[:link], :type => graph[:type]),
                         :div_id => graph[:div_id], :response_type => graph[:response_type], :class => 'ajax_graph'
-          
+
         %br
         =link_to '« Back to voting', url_for(:action => :show, :controller => :earls, :id => params[:id]), :class => 'blue button'
-    
+
     .grid_8
       .target
         -@choices.each do |choice|
@@ -34,13 +32,13 @@
 
           .float_left{:style => 'width:20%'}
             RANKING
-            %h4 
+            %h4
               =(i + 1).ordinalize
 
             SCORE
-            %h4 
+            %h4
               =choice.attributes['score'].round.to_s
-          
+
             -if choice == @choices.first
               .gray
                 %i

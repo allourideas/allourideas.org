@@ -1124,6 +1124,35 @@ class QuestionsController < ApplicationController
       :password => question_params[:password],
       :password_confirmation => question_params[:password]) unless signed_in?
 
+    required_fields = [:name, :ideas, :url]
+    empty_fields = required_fields.select { |f| question_params[f].blank? }
+    earl_required_fields = [:welcome_message, :welcome_html, :logo_url, :target_votes, :theme_color]
+    earl_empty_fields = earl_required_fields.select { |f| params[f].blank? }
+
+    if empty_fields.present? or earl_empty_fields.present?
+      if empty_fields.present? and earl_empty_fields.present?
+        flash[:error] = "The following fields can't be blank: #{empty_fields.join(', ')} #{earl_required_fields.join(', ')}"
+      elsif empty_fields.present?
+        flash[:error] = "The following fields can't be blank: #{empty_fields.join(', ')}"
+      else
+        flash[:error] = "The following fields can't be blank: #{earl_required_fields.join(', ')}"
+      end
+
+      @question = Question.new(question_params.permit(
+        :name,
+        :ideas,
+        :url,
+        :information
+      ))
+      @welcome_html = params[:welcome_html]
+      @welcome_message = params[:welcome_message]
+      @logo_url = params[:logo_url]
+      @target_votes = params[:target_votes]
+      @theme_color = params[:theme_color]
+      @analysis_config = params[:analysis_config]
+      render action: "new" and return
+    end
+
     @question = Question.new(
       :name => question_params[:name],
       :ideas => question_params[:ideas],
@@ -1155,15 +1184,27 @@ class QuestionsController < ApplicationController
         if earl.requires_verification?
           redirect_to verify_url and return
         end
+
+        earl.configuration = {} unless earl.configuration
+        earl.configuration["question_name"] = @question.name
+        earl.configuration["welcome_message"] = params[:welcome_message]
+        earl.configuration["welcome_html"] = params[:welcome_html]
+        earl.configuration["analysis_config"] = params[:analysis_config]
+        earl.configuration["logo_url"] = params[:logo_url]
+        earl.configuration["target_votes"] = params[:target_votes]
+        earl.configuration["theme_color"] = params[:theme_color]
+        earl.save
+
         session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>".html_safe
 
         if @photocracy
           redirect_to add_photos_url(earl.name) and return
         else
+          puts "REDIRECT TO SHOW"
           redirect_to(:action => 'show', :id => earl.name, :just_created => true, :controller => 'earls') and return
         end
       else
-        render(:action => "new")
+        render(:action => "admin")
       end
     else
       @question.errors.add(:base, "Unable to create user")
@@ -1190,6 +1231,9 @@ class QuestionsController < ApplicationController
         if params[:question][:name]
           @question.name = params[:question][:name]
           if @question.save
+            @earl.configuration['question_name'] = @question.name
+            @earl.save
+
             format.json { render :json => { :status => 'success', :question => @question}, :status => 200 }
           else
             format.json { render :json => { :status => 'failed', :question => @question}, :status => 403 }
@@ -1214,7 +1258,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       old_lang = @earl.default_lang
-      puts "XXXXXXXXXXXXXXXX #{earl_params.inspect}"
+      @earl.configuration['question_name'] = @question.name
+
       if @earl.update(earl_params)
         @earl.question_should_autoactivate_ideas = params[:question_should_autoactivate_ideas]
         @question.it_should_autoactivate_ideas = params[:question_should_autoactivate_ideas]
@@ -1403,7 +1448,8 @@ class QuestionsController < ApplicationController
         :question_id, :name, :welcome_message, :default_lang, :logo_size,
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
         :verify_code, :show_cant_decide, :show_add_new_idea, :hide_results,
-        :welcome_html, :target_votes, :temp_logo_url, :theme_color,
+        :welcome_html, :target_votes, :logo_url, :theme_color,
+        :question_name,
         :analysis_config, :pass, :active,
         :question_should_autoactivate_ideas)
     end

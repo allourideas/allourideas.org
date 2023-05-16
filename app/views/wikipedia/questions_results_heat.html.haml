@@ -1,4 +1,3 @@
-= render :partial => "shared/highcharts_header"
 = render :partial => "shared/google_jsapi"
 = '<script type="text/javascript" src="http://www.google.com/uds/?file=visualization&v=1"></script>'
 = javascript_include_tag 'google-termcloud.js'
@@ -207,7 +206,7 @@
         .wcdiv.chart-container#wcdiv-uploaded_weight_by_score
     %tr{:class => cycle("row2", "row1")}
       %td.title= t('results.world_map_title')
-      %td.votes 
+      %td.votes
         = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'votes'), :class => "view_voter_map")
     -if @available_charts
       -@available_charts.each do |type, options|
@@ -249,11 +248,11 @@
             = "World Map of bounces (viewed once and then left) (super-admin only)"
             = link_to('[?]', '#bounce_explanation', 'data-controls-modal' => "bounce_explanation", 'data-backdrop' => 'static')
 
-          %td.votes 
+          %td.votes
             = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'bounces'), :class => "view_voter_map")
         %tr{:class => cycle("row2", "row1")}
           %td.title= "World Map of uploaded ideas (super-admin only)"
-          %td.votes 
+          %td.votes
             = link_to(t('results.view_link'), url_for(:action => :voter_map, :type => 'uploaded_ideas'), :class => "view_voter_map")
         %tr{:class => cycle("row2", "row1")}
           %td.title= "View number of votes per session (super-admin only)"
@@ -303,7 +302,7 @@
       %h2= t('results.about_word_cloud')
     .modal-body
       =t('results.word_cloud_exp')
-  
+
   -if current_user && current_user.admin?
     #bounce_explanation.modal{:style => 'display:none;'}
       .modal-header
@@ -315,5 +314,5 @@
         So if a user refreshes the page after visiting (generates another appearance) they would no longer be considered a bounce.
         %br
         Another example:  a user that views the voting page, then view results, then leaves, would not be considered a bounce
-        %br 
+        %br
         Note that this may not be 100% accurate because of the way that firefox save cookies past their intended expiration date

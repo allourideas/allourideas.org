@@ -35,7 +35,7 @@
         %th Sessions that voted that amount
     %tbody
       -@voter_distribution[a.content].sort.each do |k,v|
-        %tr  
+        %tr
           %td= k.to_s
           %td= v.to_s
 
@@ -44,5 +44,3 @@
 - content_for :view_javascript do
   = @vote_distribution_chart
 
-- content_for :head do 
-  = render :partial => "shared/highcharts_header"

@@ -45,6 +45,7 @@ export class AoiSurveyIntro extends YpBaseElement {
         .footerHtml {
           margin: 16px;
           max-width: 600px;
+          line-height: 1.5;
           color: var(--md-sys-color-on-surface-variant);
         }
 
@@ -57,7 +58,7 @@ export class AoiSurveyIntro extends YpBaseElement {
         .description {
           font-size: 16px;
           letter-spacing: 0.04em;
-          line-height: 1.6;
+          line-height: 1.5;
           border-radius: 8px;
           max-width: 600px;
           vertical-align: center;
@@ -110,7 +111,7 @@ export class AoiSurveyIntro extends YpBaseElement {
         <yp-image
           class="column image"
           sizing="contain"
-          src="${this.earl.configuration.temp_logo_url}"
+          src="${this.earl.configuration.logo_url}"
         ></yp-image>
         <div class="questionTitle" ?dark-mode="${this.themeDarkMode}">${
       this.question.name

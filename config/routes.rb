@@ -9,6 +9,15 @@ AllOurIdeas::Application.routes.draw do
       only: [:edit, :update]
   end
 
+  get "/admin" => "home#admin", :as => :admin
+  get "/privacy" => "home#privacy", :as => :privacy
+  get "/about" => "home#about", :as => :about
+  get "/sign_in" => "clearance/sessions#new", as: "sign_in"
+  get "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
+  get "/sign_up" => "clearance/users#new", as: "sign_up"
+
+  get "/:earlName", to: "static#index", via: :all, constraints: { earlName: /[^\/]+/ }
+
   get '/analytics-and-promotion/:questionId', to: redirect { |params, request|
     "/apps/analytics_and_promotion/dist/?questionId=#{params[:questionId]}"
   }
@@ -28,9 +37,6 @@ AllOurIdeas::Application.routes.draw do
     delete ':campaign_id/delete_campaign', action: :destroy
   end
 
-  get "/sign_in" => "clearance/sessions#new", as: "sign_in"
-  delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
-  get "/sign_up" => "clearance/users#new", as: "sign_up"
 #  resource :passwords
   resources :questions do
     collection do
@@ -79,9 +85,6 @@ AllOurIdeas::Application.routes.draw do
 
   match "/questions/:earl_id/choices/:id/toggle.:format" => "choices#toggle", :as => :toggle_choice_status, :via => :post
   get "/cookies_blocked.gif" => "home#cookies_blocked", :as => :cookies_blocked
-  get "/about" => "home#about", :as => :about
-  get "/admin" => "home#admin", :as => :admin
-  get "/privacy" => "home#privacy", :as => :privacy
   get "/privacy-2009-07-06" => "home#privacy-2009-07-06", :as => :privacy_2009_07_06
   get "/example" => "home#example", :as => :example
   get "/verify" => "home#verify", :as => :verify
@@ -105,4 +108,5 @@ AllOurIdeas::Application.routes.draw do
   end
 
   root :to => 'home#index'
+
 end

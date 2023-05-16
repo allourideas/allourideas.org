@@ -16,7 +16,8 @@ class Earl < ActiveRecord::Base
   belongs_to :user
 
   store_accessor :configuration, :welcome_html
-  store_accessor :configuration, :temp_logo_url
+  store_accessor :configuration, :question_name
+  store_accessor :configuration, :logo_url
   store_accessor :configuration, :target_votes
   store_accessor :configuration, :theme_color
   store_accessor :configuration, :analysis_config

@@ -173,7 +173,8 @@ class EarlsController < ApplicationController
           prompt: @prompt,
           question: @question,
           earlContainer: @earl,
-          csrfToken: form_authenticity_token
+          csrfToken: form_authenticity_token,
+          isAdmin: current_user.owns?(@earl) || current_user.admin?
         }}
       end
     else

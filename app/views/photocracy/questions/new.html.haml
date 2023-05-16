@@ -12,7 +12,7 @@
             %ul
               -@user.errors.each do |error|
                 - if error =~ /Email has already been taken/i
-                  %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in')
+                  %li= t('questions.new.error.already_taken') + " " + link_to(t('questions.new.error.already_taken_link'), '/sign_in').html_safe
                 - else
                   %li= error.capitalize
 
@@ -20,7 +20,7 @@
       %p
         == #{t('questions.new.display_text')} <br />
 
-        = f.text_field 'name', :size => 80, :title => t('questions.new.step1_exp'), :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH, :placeholder => t('questions.new.step1_exp') 
+        = f.text_field 'name', :size => 80, :title => t('questions.new.step1_exp'), :class => 'required', :maxlength => Const::MAX_QUESTION_LENGTH, :placeholder => t('questions.new.step1_exp')
 
 
       %h6.no_margin= t('questions.new.step2')
@@ -33,7 +33,7 @@
         %h6.no_margin= t('questions.new.step4')
         %p
           = t('questions.new.new_account_exp')
-          ="#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here'), sign_in_path) + '.'
+          ="#{t('questions.new.if_you_have_an_account')} " + link_to(t('questions.new.here').html_safe, sign_in_path).html_safe + '.'
         %p
           = "#{t('user.email')} <br />"
           = f.text_field 'email', :class => 'required email', :title => t('questions.new.your_email_address')

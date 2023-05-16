@@ -61,13 +61,13 @@ interface AoiEarlConfigurationData {
   welcome_html?: string;
   target_votes: number;
   lock_results_until_target_votes: boolean;
-  temp_logo_url?: string;
+  logo_url?: string;
   theme_color?: string;
   welcome_html: string;
   target_votes: number;
   lock_results_until_target_votes: boolean;
   theme_color: string;
-  temp_logo_url: string;
+  logo_url: string;
   analysis_config: {
     analyses: AoiSurveyAnalysisData[];
   };

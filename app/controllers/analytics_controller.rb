@@ -8,7 +8,7 @@ class AnalyticsController < ApplicationController
 
    def plausible_stats_proxy
      begin
-       plausible_data = plausible_stats_proxy_helper(params[:plausibleUrl], { questionId: params[:questionId] })
+       plausible_data = plausible_stats_proxy_helper(params[:plausibleUrl], { earlName: params[:earlName] })
        render json: plausible_data
      rescue => error
        Rails.logger.error("Could not get plausibleStatsProxy: #{error}")

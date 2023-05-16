@@ -28,7 +28,7 @@ export class YpPromotionDashboard extends PlausibleDashboard {
 
   connectedCallback(): void {
 
-    this.plausibleSiteName = "all-our-ideas";
+    this.plausibleSiteName = "aoi-localhost";
     this.site = {
       domain: this.plausibleSiteName!,
       hasGoals: true,

@@ -61,7 +61,7 @@ module PlausibleHelper
     else
       filters_content = JSON.parse(search_params['filters'])
       filters_content = filters_content.deep_merge(props)
-      search_params['filters'] = filters_content.to_json
+      #search_params['filters'] = filters_content.to_json
     end
 
     uri = URI.parse(ENV['PLAUSIBLE_EVENT_BASE_URL'])

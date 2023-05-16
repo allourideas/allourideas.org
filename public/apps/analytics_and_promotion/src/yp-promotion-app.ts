@@ -242,10 +242,10 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
     }
 
     let searchParams = new URLSearchParams(window.location.search);
-    if (searchParams.has('questionId')) {
+    if (searchParams.has('earlName')) {
       this.collectionType = "question";
       this.originalCollectionType = this.collectionType;
-      this.collectionId = searchParams.get('questionId') as string;
+      this.collectionId = searchParams.get('earlName') as string;
     } else {
       // Fallback to the original code if the query parameter is not present
       let pathname = window.location.pathname;
@@ -254,7 +254,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
       const split = pathname.split('/');
       this.collectionType = "question";
       this.originalCollectionType = this.collectionType;
-      this.collectionId = split[split.length - 1];
+      this.collectionId = split[1];
     }
 
   }
@@ -502,7 +502,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
               headline="${this.t('Exit')}"
               supportingText="${this.collectionType == 'post'
                 ? this.t('Exit back to idea')
-                : this.t('Exit back to project')}"
+                : this.t('Exit back to survey')}"
               @click="${this.exitToMainApp}"
             >
               <md-list-item-icon slot="start"
@@ -555,7 +555,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
   }
 
   exitToMainApp() {
-    window.location.href = `/${this.collectionId}/results`;
+    window.location.href = `/${this.collectionId}`;
   }
 
   async _displaySnackbar(event: CustomEvent) {

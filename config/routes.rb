@@ -18,6 +18,8 @@ AllOurIdeas::Application.routes.draw do
 
   get "/:earlName", to: "static#index", via: :all, constraints: { earlName: /[^\/]+/ }
 
+  get "/:earlName/analytics", to: "static_analytics#index", via: :all
+
   get '/analytics-and-promotion/:questionId', to: redirect { |params, request|
     "/apps/analytics_and_promotion/dist/?questionId=#{params[:questionId]}"
   }

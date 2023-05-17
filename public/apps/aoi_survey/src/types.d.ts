@@ -41,6 +41,7 @@ interface AoiEarlData {
   updated_at: string;
   active: boolean;
   pass: string;
+  logo_url?: string;
   logo_file_name: string;
   logo_content_type: string;
   logo_file_size: string;
@@ -61,13 +62,11 @@ interface AoiEarlConfigurationData {
   welcome_html?: string;
   target_votes: number;
   lock_results_until_target_votes: boolean;
-  logo_url?: string;
   theme_color?: string;
   welcome_html: string;
   target_votes: number;
   lock_results_until_target_votes: boolean;
   theme_color: string;
-  logo_url: string;
   analysis_config: {
     analyses: AoiSurveyAnalysisData[];
   };

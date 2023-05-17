@@ -115,7 +115,7 @@ export class AoiSurveyIntro extends YpBaseElement {
         <yp-image
           class="column image"
           sizing="contain"
-          src="${this.earl.configuration.logo_url}"
+          src="${this.earl.logo_url}"
         ></yp-image>
         <div class="questionTitle" ?dark-mode="${this.themeDarkMode}">
           ${this.question.name}

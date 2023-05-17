@@ -72,9 +72,11 @@
               = text_area_tag :welcome_html, @welcome_html, :rows => 5, :cols => 65, :class => 'input-xxlarge'
 
           .control-group
-            = label_tag :logo_url, ("Logo URL (864 x 486px)"), :class => 'control-label'
-            .controls
-              = text_field_tag :logo_url, @logo_url, :size=> 30, :class => 'input-xxlarge'
+            = f.fields_for :earl do |earl_form|
+              #edit-image
+                = earl_form.label :logo_file_name, "Upload a logo", :class => 'control-label'
+              .controls
+                = earl_form.file_field :logo, :accept => "image/png,image/gif,image/jpeg"
 
           .control-group
             = label_tag :target_votes, ("Number of target votes per user"), :class => 'control-label'

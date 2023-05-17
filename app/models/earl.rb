@@ -1,3 +1,5 @@
+#include Rails.application.routes.url_helpers
+
 class Earl < ActiveRecord::Base
   @@reserved_names = ["questions", "question", "about", "privacy", "tour", "no_google_tracking", "admin", "abingo", "earls", "signup", "sign_in", "sign_out", "clicks", "fakequestion", "photocracy", "fotocracy"]
   validates_presence_of :question_id, :on => :create, :message => "can't be blank"
@@ -8,18 +10,16 @@ class Earl < ActiveRecord::Base
   validates_length_of :welcome_message, :maximum => 350, :allow_nil => true, :allow_blank => true
 
   has_one_attached :logo
-  validates :logo, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/gif'], size_range: 1..20.megabytes }
+  validate :correct_logo_mime_type
+  validate :acceptable_logo_size
 
   attr_accessor :ideas
   before_create :require_verification!, :if => :ideas_look_spammy?
 
   belongs_to :user
-  validates_attachment_presence :logo
-  validates_attachment_content_type :logo, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   store_accessor :configuration, :welcome_html
   store_accessor :configuration, :question_name
-  store_accessor :configuration, :logo_url
   store_accessor :configuration, :target_votes
   store_accessor :configuration, :theme_color
   store_accessor :configuration, :analysis_config
@@ -70,10 +70,10 @@ class Earl < ActiveRecord::Base
   def as_json(options = {})
     modified_configuration = self.configuration.clone
     modified_configuration.delete('analysis_config')
-    super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo_file_name, :logo_content_type, :logo_file_size, :logo_updated_at, :welcome_message, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
+    super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo, :logo_updated_at, :welcome_message, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
       json["earl"]["configuration"] = modified_configuration
       json["earl"]["configuration"]["analysis_config"] = analysis_config_without_prompts
-      json["earl"]["logo_url"] = rails_blob_url(logo) if logo.attached?
+      json["earl"]["logo_url"] = Rails.application.routes.url_helpers.rails_blob_url(logo) if logo.attached?
     end
   end
 
@@ -90,7 +90,6 @@ class Earl < ActiveRecord::Base
       return []
     end
   end
-
 
   def analysis_config_must_be_valid_json
     begin
@@ -265,6 +264,19 @@ class Earl < ActiveRecord::Base
     return { :total => object_total, :votes_by_geoloc => votes_by_geoloc }
   end
 
+  def correct_logo_mime_type
+    if logo.attached? && !logo.content_type.in?(%w(image/jpeg image/png image/gif))
+      logo.purge # delete the uploaded file
+      errors.add(:logo, 'Must be a JPEG, PNG or GIF')
+    end
+  end
+
+  def acceptable_logo_size
+    if logo.attached? && logo.blob.byte_size > 20.megabytes
+      logo.purge # delete the uploaded file
+      errors.add(:logo, 'Size should be less than 20MB')
+    end
+  end
 
   def munge_csv_data(csvdata, type)
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job

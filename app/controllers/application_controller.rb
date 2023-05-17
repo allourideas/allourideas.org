@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   before_action :initialize_session, :get_survey_session, :record_action, :view_filter, :set_pairwise_credentials, :set_locale, :set_p3p_header
   after_action :write_survey_session_cookie
+  before_action :set_default_url_options
 
   # preprocess photocracy_view_path on boot because
   # doing pathset generation during a request is very costly.
@@ -34,6 +35,10 @@ class ApplicationController < ActionController::Base
 
   @@photocracy_view_path = File.join(Rails.root, "app", "views", "photocracy")
   @@widget_view_path = File.join(Rails.root, "app", "views", "widget")
+
+  def set_default_url_options
+    Rails.application.routes.default_url_options[:host] = request.host_with_port
+  end
 
   def view_filter
     if request.url.include?("photocracy") || request.url.include?("fotocracy") || @photocracy || (Rails.env == "test" && $PHOTOCRACY)

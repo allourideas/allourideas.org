@@ -1,3 +1,5 @@
+#include Rails.application.routes.url_helpers
+
 class StaticController < ApplicationController
   def index
     earlName = params[:earlName]
@@ -11,12 +13,16 @@ class StaticController < ApplicationController
       if @earl.nil?
         render 'home#index'
       else
+        logo_url = ''
+        if @earl.logo.attached?
+          logo_url = Rails.application.routes.url_helpers.rails_blob_url(@earl.logo)
+        end
         file_path = Rails.root.join('public', 'apps', 'aoi_survey', 'dist', 'index.html')
         html = File.read(file_path)
 
         html.gsub!('OG_REPLACE_QUESTION_NAME', @earl.question_name || '')
         html.gsub!('OG_REPLACE_DESCRIPTION', @earl.welcome_message || '')
-        html.gsub!('HTTPS://OG_REPLACE_IMAGE_URL', @earl.logo_url || '')
+        html.gsub!('HTTPS://OG_REPLACE_IMAGE_URL', logo_url)
         url = URI.parse(request.original_url)
         url.query = nil
         stripped_url = url.to_s

@@ -324,6 +324,7 @@ class QuestionsController < ApplicationController
     end
 
     @question = @earl.question
+    puts "question = #{@earl.inspect} #{@the_id}"
     @partial_results_url = "#{@earl.name}/results"
 
     @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
@@ -1126,7 +1127,7 @@ class QuestionsController < ApplicationController
 
     required_fields = [:name, :ideas, :url]
     empty_fields = required_fields.select { |f| question_params[f].blank? }
-    earl_required_fields = [:welcome_message, :welcome_html, :logo_url, :target_votes, :theme_color]
+    earl_required_fields = [:welcome_message, :welcome_html, :target_votes, :theme_color]
     earl_empty_fields = earl_required_fields.select { |f| params[f].blank? }
 
     if empty_fields.present? or earl_empty_fields.present?
@@ -1146,7 +1147,6 @@ class QuestionsController < ApplicationController
       ))
       @welcome_html = params[:welcome_html]
       @welcome_message = params[:welcome_message]
-      @logo_url = params[:logo_url]
       @target_votes = params[:target_votes]
       @theme_color = params[:theme_color]
       @analysis_config = params[:analysis_config]
@@ -1175,9 +1175,13 @@ class QuestionsController < ApplicationController
 
       @question.errors.add(:base, "Unable to create question. If problem persists, email info@allourideas.org") if looks_like_spam
       if !looks_like_spam and question_params_valid
-        earl_options = {:question_id => @question.id, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
+
+        earl_logo = params[:question][:earl][:logo] if params[:question][:earl]
+
+        earl_options = {:question_id => @question.id, :logo => earl_logo, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
         earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
-        earl = current_user.earls.create(earl_options)
+        earl = current_user.earls.create(earl_options.except(:logo))
+        earl.logo.attach(earl_logo) if earl_logo.present?
         #TODO: Get mail working
         #ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
         #IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
@@ -1190,7 +1194,6 @@ class QuestionsController < ApplicationController
         earl.configuration["welcome_message"] = params[:welcome_message]
         earl.configuration["welcome_html"] = params[:welcome_html]
         earl.configuration["analysis_config"] = params[:analysis_config]
-        earl.configuration["logo_url"] = params[:logo_url]
         earl.configuration["target_votes"] = params[:target_votes]
         earl.configuration["theme_color"] = params[:theme_color]
         earl.save
@@ -1450,7 +1453,7 @@ class QuestionsController < ApplicationController
         :question_id, :name, :welcome_message, :default_lang, :logo_size,
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
         :verify_code, :show_cant_decide, :show_add_new_idea, :hide_results,
-        :welcome_html, :target_votes, :logo_url, :theme_color,
+        :welcome_html, :target_votes, :theme_color,
         :question_name, :logo,
         :analysis_config, :pass, :active,
         :question_should_autoactivate_ideas)

@@ -108,6 +108,15 @@ export class AoiSurveyApp extends YpBaseElement {
     window.aoiServerApi = new AoiServerApi();
     window.appGlobals = new AoiAppGlobals();
     this.earlName = window.appGlobals.earlName;
+
+    // Set this.themeDarkMode from localStorage or otherwise to true
+    const savedLightMode = localStorage.getItem('md3-aoi-light-mode');
+    if (savedLightMode) {
+      this.themeDarkMode = false;
+    } else {
+      this.themeDarkMode = true;
+    }
+
     window.appGlobals.activity('pageview');
   }
 
@@ -415,8 +424,11 @@ export class AoiSurveyApp extends YpBaseElement {
     this.themeDarkMode = !this.themeDarkMode;
     if (this.themeDarkMode) {
       window.appGlobals.activity("Settings - dark mode")
+      localStorage.removeItem('md3-aoi-light-mode');
+
     } else {
       window.appGlobals.activity("Settings - light mode")
+      localStorage.setItem('md3-aoi-light-mode', 'true');
     }
     this.themeChanged();
   }

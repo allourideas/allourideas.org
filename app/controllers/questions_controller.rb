@@ -1451,8 +1451,9 @@ class QuestionsController < ApplicationController
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
         :verify_code, :show_cant_decide, :show_add_new_idea, :hide_results,
         :welcome_html, :target_votes, :logo_url, :theme_color,
-        :question_name,
+        :question_name, :logo,
         :analysis_config, :pass, :active,
         :question_should_autoactivate_ideas)
     end
+
 end

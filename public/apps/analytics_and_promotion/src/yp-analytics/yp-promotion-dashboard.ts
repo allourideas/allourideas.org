@@ -27,48 +27,30 @@ export class YpPromotionDashboard extends PlausibleDashboard {
   useProjectId: number | undefined;
 
   connectedCallback(): void {
-
-    this.plausibleSiteName = "aoi-localhost";
-    this.site = {
-      domain: this.plausibleSiteName!,
-      hasGoals: true,
-      embedded: false,
-      offset: 1,
-      statsBegin: this.collection!.created_at!,
-      isDbip: false,
-      flags: {
-        custom_dimension_filter: false,
-      },
-    };
-
-    if (!this.plausibleSiteName) {
-      try {
-        fetch('/api/users/has/PlausibleSiteName', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then(response => response.json())
-          .then(data => {
-            this.plausibleSiteName = data.plausibleSiteName;
-            this.site = {
-              domain: this.plausibleSiteName!,
-              hasGoals: true,
-              embedded: false,
-              offset: 1,
-              statsBegin: this.collection!.created_at!,
-              isDbip: false,
-              flags: {
-                custom_dimension_filter: false,
-              },
-            };
-            super.connectedCallback();
-          });
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      super.connectedCallback();
+    try {
+      fetch(`/api/analytics/${this.collectionId}/get_plausible_site_name`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.plausibleSiteName = data.plausibleSiteName;
+          this.site = {
+            domain: this.plausibleSiteName!,
+            hasGoals: true,
+            embedded: false,
+            offset: 1,
+            statsBegin: this.collection!.created_at!,
+            isDbip: false,
+            flags: {
+              custom_dimension_filter: false,
+            },
+          };
+          super.connectedCallback();
+        });
+    } catch (error) {
+      console.error(error);
     }
   }
 

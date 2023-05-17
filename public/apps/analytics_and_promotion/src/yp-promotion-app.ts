@@ -256,7 +256,6 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
       this.originalCollectionType = this.collectionType;
       this.collectionId = split[1];
     }
-
   }
 
   _languageLoaded() {

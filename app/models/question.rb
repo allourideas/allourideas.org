@@ -68,7 +68,7 @@ class Question < ActiveResource::Base
 
   def validate(photocracy)
     errors.add("Name", "is blank (Step 1)") if name.blank?
-    url_format_valid
+    #url_format_valid
     ideas_valid(photocracy)
 
     return errors

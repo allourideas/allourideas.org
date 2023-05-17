@@ -6,14 +6,16 @@ class Earl < ActiveRecord::Base
   validates_format_of :name, :on => :create, :with => /\A[a-zA-Z0-9\-\_]+\z/, :message => "allows only 'A-Za-z0-9-_' characters"
   validates_uniqueness_of :name, :case_sensitive => false
   validates_length_of :welcome_message, :maximum => 350, :allow_nil => true, :allow_blank => true
-  #TODO: Get the new friendly_id gem
-  #has_friendly_id :name, :reserved => @@reserved_names
-  has_attached_file :logo, :whiny_thumbnails => true, :styles => { :banner => "450x47>", :medium => "150x150>" }
+
+  has_one_attached :logo
+  validates :logo, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/gif'], size_range: 1..20.megabytes }
 
   attr_accessor :ideas
   before_create :require_verification!, :if => :ideas_look_spammy?
 
   belongs_to :user
+  validates_attachment_presence :logo
+  validates_attachment_content_type :logo, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   store_accessor :configuration, :welcome_html
   store_accessor :configuration, :question_name
@@ -71,6 +73,7 @@ class Earl < ActiveRecord::Base
     super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo_file_name, :logo_content_type, :logo_file_size, :logo_updated_at, :welcome_message, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
       json["earl"]["configuration"] = modified_configuration
       json["earl"]["configuration"]["analysis_config"] = analysis_config_without_prompts
+      json["earl"]["logo_url"] = rails_blob_url(logo) if logo.attached?
     end
   end
 
@@ -261,6 +264,7 @@ class Earl < ActiveRecord::Base
 
     return { :total => object_total, :votes_by_geoloc => votes_by_geoloc }
   end
+
 
   def munge_csv_data(csvdata, type)
     #Caching these to prevent repeated lookups for the same session, Hackish, but should be fine for background job

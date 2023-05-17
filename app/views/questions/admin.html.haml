@@ -95,13 +95,13 @@
               .controls
                 = # Have English be the first, but sort the rest
                 = f.select :default_lang, [["English", "en"]] + [["French", "fr"], ["Spanish", "es"], ["Portuguese", "pt"], ["Arabic", "ar"], ["Turkish", "tr"], ["Italian", "it"], ["Dutch", "nl"], ["Hebrew", "he"], ["German", "de"], ["Farsi", "fa"], ["Finnish", "fi"], ["Albanian", "sq"], ["Chinese", "zh"], ["Norwegian", "no"], ["Danish", "da"], ["Czech", "cs"], ["Japanese", "ja"], ["Indonesian", "id"]].sort
-            #edit-image.control-group{:style => 'display: none;'}
+            #edit-image.control-group
               -if @earl.logo_file_name
                 = f.label :logo_file_name, "Replace logo", :class => 'control-label'
               -else
                 = f.label :logo_file_name, "Upload a logo", :class => 'control-label'
               .controls
-                = f.file_field :logo
+                = f.file_field :logo, :accept => "image/png,image/gif,image/jpeg"
             .control-group
               .controls
                 %label.checkbox

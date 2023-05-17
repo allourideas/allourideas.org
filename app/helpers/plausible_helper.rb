@@ -34,6 +34,8 @@ module PlausibleHelper
     first_part_of_url, query_string = plausible_url.split('?')
     search_params = Rack::Utils.parse_nested_query(query_string)
 
+    puts "OKOKOKOKO #{params["earlName"]} #{search_params}"
+
     filters_content = nil
     base_url = ENV['PLAUSIBLE_BASE_URL'].gsub('/api/v1/', '')
 
@@ -60,9 +62,17 @@ module PlausibleHelper
       base_url = "https://#{base_url.split('@')[1]}"
     else
       filters_content = JSON.parse(search_params['filters'])
-      filters_content = filters_content.deep_merge(props)
-      #search_params['filters'] = filters_content.to_json
+
+      first_part_of_url = plausible_url.split("?")[0];
+
+      if first_part_of_url.include?('/property/')
+        props = {}
+      end
+      filters_content = filters_content.merge({props: props})
+      search_params['filters'] = filters_content.to_json
     end
+
+    puts "XXXXX #{search_params}"
 
     uri = URI.parse(ENV['PLAUSIBLE_EVENT_BASE_URL'])
 
@@ -221,9 +231,11 @@ module PlausibleHelper
         screen_width: screen_width.to_i,
         referrer: referrer,
         referer: referrer,
-        props: props.to_json
+        props: props
       }
     }
+
+    puts "IPA IPA IPA #{options.inspect}"
 
     response = HTTP.post("#{ENV['PLAUSIBLE_EVENT_BASE_URL']}event/", options)
 

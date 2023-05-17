@@ -6,6 +6,19 @@ class AnalyticsController < ApplicationController
    skip_before_action :verify_authenticity_token
    skip_before_action :record_action
 
+   def get_plausible_site_name
+    earl = Earl.find_by_name(params[:earlName])
+    respond_to do |format|
+      format.json  { render :json => {
+        plausibleSiteName: ENV['PLAUSIBLE_SITE_NAME'],
+        earl_name: earl.name,
+        question_name: earl.question.name,
+        image_url: earl.image_filename || earl.configuration.image_url,
+        theme_color: earl.configuration.theme_color
+    }}
+    end
+  end
+
    def plausible_stats_proxy
      begin
        plausible_data = plausible_stats_proxy_helper(params[:plausibleUrl], { earlName: params[:earlName] })

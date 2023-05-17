@@ -28,8 +28,9 @@ AllOurIdeas::Application.routes.draw do
     "/apps/aoi_survey/dist?name=#{params[:id]}"
   }
 
-  put '/api/analytics/:questionId/plausibleStatsProxy', to: 'analytics#plausible_stats_proxy', as: :plausible_stats_proxy
-  get '/api/analytics/:questionId/:type/getPlausibleSeries', to: 'analytics#get_plausible_series', as: :get_plausible_series
+  get '/api/analytics/:earlName/get_plausible_site_name', to: 'analytics#get_plausible_site_name', as: :get_plausible_site_name
+  put '/api/analytics/:earlName/plausibleStatsProxy', to: 'analytics#plausible_stats_proxy', as: :plausible_stats_proxy
+  get '/api/analytics/:earlName/:type/getPlausibleSeries', to: 'analytics#get_plausible_series', as: :get_plausible_series
   post '/api/analytics/createActivityFromApp', to: 'analytics#create_activity_from_app', as: :create_activity_from_app
 
   scope '/api/analytics/:question_id', controller: :campaigns do

@@ -1146,8 +1146,22 @@ class QuestionsController < ApplicationController
       name_used = true
     end
 
-    if empty_fields.present? or earl_empty_fields.present? or no_logo or name_used
-      if name_used
+    # check if the analysis config is valid json
+    broken_json_analysis_config = false
+    begin
+      analysis_config = JSON.parse(params[:analysis_config])
+    rescue StandardError => e
+      broken_json_analysis_config = true
+    end
+
+    if empty_fields.present? or
+       earl_empty_fields.present? or
+       no_logo or
+       name_used or
+       broken_json_analysis_config
+      if broken_json_analysis_config
+        flash[:error] = "Analysis configuration JSON is not valid."
+      elsif name_used
         flash[:error] = "URL is already in use, please choose another."
       elsif no_logo
         flash[:error] = "You must upload a logo"
@@ -1295,7 +1309,14 @@ class QuestionsController < ApplicationController
       @earl.configuration = {} unless @earl.configuration
       @earl.configuration['question_name'] = @question.name
 
-      if @earl.update(earl_params)
+      broken_json_analysis_config = false
+      begin
+        analysis_config = JSON.parse(earl_params[:analysis_config])
+      rescue StandardError => e
+        broken_json_analysis_config = true
+      end
+
+      if not broken_json_analysis_config and @earl.update(earl_params)
         @earl.question_should_autoactivate_ideas = params[:question_should_autoactivate_ideas]
         @question.it_should_autoactivate_ideas = params[:question_should_autoactivate_ideas]
         @question.save
@@ -1309,6 +1330,9 @@ class QuestionsController < ApplicationController
         #format.html {redirect_to(:action => 'admin', :id => @earl.name) and return }
       else
         @partial_results_url = "#{@earl.name}/results"
+        if broken_json_analysis_config
+          flash[:error] = "Analysis configuration JSON is not valid."
+        end
         @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
 
         format.html { render :action => 'admin'}

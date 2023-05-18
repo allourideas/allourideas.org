@@ -76,7 +76,7 @@
               = f.label :analysis_config, ("Analysis Config (Paste JSON Here)"), :class => 'control-label'
               .controls{:style => "position: relative;"}
                 = f.text_area :analysis_config, :rows => 5, :cols => 65, :class => 'input-xxlarge', :id => 'analysis_config'
-                .error-message{:style => "margin-top: 4px;position: absolute; top: 100%; left: 0; right: 0; text-align: center; color: #F00;"}
+                .error-message{:style => "margin-top: 4px;position: absolute; margin-bottom: 16px; font-size: 14px; font-weight: bold; text-align: left; color: #F00;"}
                   %span#json-error-message
 
             .control-group
@@ -99,6 +99,9 @@
                 = f.label :logo_file_name, "Upload a logo (864x486 px)", :class => 'control-label'
               .controls
                 = f.file_field :logo, :accept => "image/png,image/gif,image/jpeg"
+              %div{:style => "font-style: italic; margin-top: 8px;margin-bottom: 16px;"}
+                = t('questions.image_info')
+
             .control-group
               .controls
                 %label.checkbox
@@ -198,13 +201,18 @@
   $('input.widget-embed-code').focus(function(ev) { $(this).select(); ev.preventDefault();});
 
 :javascript
+  function checkForJsonError() {
+    var analysisConfig =  $('#analysis_config').val();
+    try {
+      JSON.parse(analysisConfig);
+      $('#json-error-message').text('');
+    } catch(e) {
+      $('#json-error-message').text('Invalid JSON').css('color', '#F00');
+    }
+  }
   $(document).ready(function() {
+    checkForJsonError();
     $('#analysis_config').on('change', function() {
-      var analysisConfig = $(this).val();
-      try {
-        JSON.parse(analysisConfig);
-        $('#json-error-message').text('');
-      } catch(e) {
-        $('#json-error-message').text('Invalid JSON').css('color', '#F00');      }
+     checkForJsonError();
     });
   });

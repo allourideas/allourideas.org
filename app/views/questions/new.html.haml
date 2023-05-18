@@ -57,6 +57,10 @@
                 %button#ai-ideas-button.btn.btn-primary{:type => "button"}
                   = t('questions.new.generate_answer_ideas_with_artificial_intelligence')
                 %div#ai-ideas-spinner.spinner{style: "display:none;"}
+              %div{:style => "font-style: italic; margin-top: 10px;"}
+                = (t('questions.new.ai_ideas_explanation_1')+"<br>".html_safe).html_safe
+                = (t('questions.new.ai_ideas_explanation_2')+"<br>".html_safe).html_safe
+                = (t('questions.new.ai_ideas_explanation_3')+"<br>".html_safe).html_safe
           = hidden_field_tag 'default_text3', t('questions.new.step3_exp')
 
         %fieldset#step3_5
@@ -77,6 +81,8 @@
                 = earl_form.label :logo_file_name, "Upload a logo (864x486 px)", :class => 'control-label'
               .controls
                 = earl_form.file_field :logo, :accept => "image/png,image/gif,image/jpeg"
+            %div{:style => "font-style: italic; margin-top: 8px;margin-bottom: 16px;"}
+              = t('questions.image_info')
 
           .control-group
             = label_tag :target_votes, ("Number of target votes per user"), :class => 'control-label'
@@ -92,7 +98,7 @@
             = label_tag :analysis_config, ("AI GPT-4 Analysis Config (Paste JSON Here)"), :class => 'control-label'
             .controls{:style => "position: relative;"}
               = text_area_tag :analysis_config, @analysis_config, :rows => 5, :cols => 65, :class => 'input-xxlarge', :id => 'analysis_config'
-              .error-message{:style => "margin-top: 4px;position: absolute; top: 100%; left: 0; right: 0; text-align: center; color: #F00;"}
+              .error-message{:style => "margin-top: 4px;position: absolute; font-size: 20px; font-weight: bold; text-align: left; color: #F00;"}
                 %span#json-error-message
 
         -unless signed_in?
@@ -138,14 +144,19 @@
     });
 
 :javascript
+  function checkForJsonError() {
+    var analysisConfig =  $('#analysis_config').val();
+    try {
+      JSON.parse(analysisConfig);
+      $('#json-error-message').text('');
+    } catch(e) {
+      $('#json-error-message').text('Invalid JSON').css('color', '#F00');
+    }
+  }
   $(document).ready(function() {
+    checkForJsonError();
     $('#analysis_config').on('change', function() {
-      var analysisConfig = $(this).val();
-      try {
-        JSON.parse(analysisConfig);
-        $('#json-error-message').text('');
-      } catch(e) {
-        $('#json-error-message').text('Invalid JSON').css('color', '#F00');      }
+     checkForJsonError();
     });
 
     $('#question_url').on('keypress', function(e) {

@@ -114,6 +114,7 @@ en:
     not_authorized_error: You do not have permission to modify this wiki survey.
     not_authorized_error_results: The results from this wiki survey are only visible to the person who created it.
   questions:
+    image_info: "Make sure to choose an image that works well both in dark mode and light mode"
     new:
       error:
         registration: Sorry, we couldn't register you.
@@ -122,7 +123,9 @@ en:
         already_taken_link: log-in with your photocracy.org account
 
       header: Create your website and get ready to discover the best ideas...
-      step1: "Step 1: Create your website"
+      ai_ideas_explanation_1: "* The AI will add ideas never replace ideas already added."
+      ai_ideas_explanation_2: "* The AI Generates 10 ideas each time you click and the generation can take up to a minute."
+      ai_ideas_explanation_3: "* Add 3 example ideas, click Generate, and the AI will generate new ideas in your style."
       step1_exp:   "For example, \"Which do you want more from the student government?\""
       step2: "Step 2: Choose your URL"
       step2_exp: studentgovernment

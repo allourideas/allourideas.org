@@ -327,6 +327,8 @@ interface YpDatabaseItem {
 }
 
 interface YpCollectionData extends YpDatabaseItem {
+  questionName?: string;
+  welcomeMessage?: string;
   objectives?: string;
   theme_id?: number;
   language?: string;

@@ -396,6 +396,7 @@ export class YpNewCampaign extends YpBaseElementWithLogin {
           <div class="previewPromotionText">${this.promotionText}</div>
           <div class="linkImage">
             <yp-file-upload-icon
+              hidden
               target="/api/images?itemType=group-logo"
               method="POST"
               @success="${this.imageUploadCompleted}"
@@ -407,10 +408,10 @@ export class YpNewCampaign extends YpBaseElementWithLogin {
             ></yp-image>
           </div>
           <div class="linkContentPanel">
-            <div class="linkTitle">${this.collection!.name}</div>
+            <div class="linkTitle">${this.collection!.questionName}</div>
             <div class="linkDescription">
               ${YpFormattingHelpers.truncate(
-                this.collection!.description || this.collection?.objectives!,
+                this.collection!.welcomeMessage || this.collection!.description || this.collection?.objectives!,
                 150
               )}
             </div>

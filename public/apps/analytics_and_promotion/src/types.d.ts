@@ -56,4 +56,5 @@ interface AoiBootData {
   question_id: number;
   logo_url: string;
   theme_color: string;
+  welcome_message: string;
 }

@@ -13,6 +13,7 @@ class AnalyticsController < ApplicationController
         plausibleSiteName: ENV['PLAUSIBLE_SITE_NAME'],
         earl_name: earl.name,
         question_name: earl.question_name,
+        welcome_message: earl.welcome_message,
         question_id: earl.question_id,
         logo_url:  Rails.application.routes.url_helpers.rails_blob_url(earl.logo),
         theme_color: earl.theme_color

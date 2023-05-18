@@ -43,6 +43,7 @@ export class YpPromotionDashboard extends PlausibleDashboard {
             earl_name: data.earl_name,
             question_name: data.question_name,
             question_id: data.question_id,
+            welcome_message: data.welcome_message,
             logo_url: data.logo_url,
             theme_color: data.theme_color
           } as AoiBootData)

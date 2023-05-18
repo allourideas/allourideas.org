@@ -91,9 +91,7 @@ export class YpHistorical extends PlausibleHistorical {
         ></yp-campaigns-analytics>
         <pl-goal-graph
           .events="${[
-            'newPost - completed',
-            'newPointAgainst - completed',
-            'newPointFor - completed',
+            'New Idea - added'
           ]}"
           .chartTitle="${this.t('Users who added content')}"
           .query="${this.query}"
@@ -113,11 +111,8 @@ export class YpHistorical extends PlausibleHistorical {
         </pl-goal-graph>
         <pl-goal-graph
           .events="${[
-            'endorse_up - completed',
-            'endorse_down - completed',
-            'pointHelpful - completed',
-            'pointNotHelpful - completed',
-            'post.ratings - add',
+            'Voting - left',
+            'Voting - right'
           ]}"
           .chartTitle="${this.t('Users who rated content')}"
           .query="${this.query}"

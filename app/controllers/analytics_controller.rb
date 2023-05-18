@@ -12,9 +12,10 @@ class AnalyticsController < ApplicationController
       format.json  { render :json => {
         plausibleSiteName: ENV['PLAUSIBLE_SITE_NAME'],
         earl_name: earl.name,
-        question_name: earl.question.name,
-        image_url: earl.image_filename || earl.configuration.image_url,
-        theme_color: earl.configuration.theme_color
+        question_name: earl.question_name,
+        question_id: earl.question_id,
+        logo_url:  Rails.application.routes.url_helpers.rails_blob_url(earl.logo),
+        theme_color: earl.theme_color
     }}
     end
   end

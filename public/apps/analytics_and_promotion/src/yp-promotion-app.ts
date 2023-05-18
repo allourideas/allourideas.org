@@ -104,10 +104,19 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
   @property({ type: Number })
   useProjectId: string | undefined;
 
+  @property({ type: String })
+  logoUrl: string | undefined
+
+  @property({ type: String })
+  earlName: string | undefined;
+
+  @property({ type: String })
+  questionName: string | undefined;
+
+
   originalCollectionType: string | undefined;
 
   collectionURL: string | undefined;
-
 
   static get styles() {
     return [
@@ -425,14 +434,11 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
                 <yp-image
                   class="collectionLogoImage"
                   sizing="contain"
-                  .src="${YpCollectionHelpers.logoImagePath(
-                    this.collectionType,
-                    this.collection!
-                  )}"
+                  .src="${ifDefined(this.logoUrl)}"
                 ></yp-image>
               </div>
               <div class="collectionName">
-                ${this.collection ? this.collection.name : ''}
+                ${this.earlName}
               </div>
             </div>
           </div>
@@ -678,6 +684,15 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
     (this.$$('#errorDialog') as Dialog).open = true;
   }
 
+  _setAoiData(event: CustomEvent) {
+    const aoiData = event.detail as AoiBootData;
+    this.themeColor = aoiData.theme_color;
+    this.logoUrl = aoiData.logo_url;
+    this.earlName = aoiData.earl_name;
+    this.questionName = aoiData.question_name;
+    this.themeChanged(document.body);
+  }
+
   _renderPage() {
     if (this.adminConfirmed) {
       switch (this.pageIndex) {
@@ -692,6 +707,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
                 ${cache(
                   this.collection
                     ? html`<yp-promotion-dashboard
+                        @set-aoi-data="${this._setAoiData}"
                         .collectionType="${this.collectionType}"
                         .collection="${this.collection}"
                         .collectionId="${this.collectionId}"

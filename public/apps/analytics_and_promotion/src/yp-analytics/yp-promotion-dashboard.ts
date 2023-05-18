@@ -36,6 +36,13 @@ export class YpPromotionDashboard extends PlausibleDashboard {
         .then(response => response.json())
         .then(data => {
           this.plausibleSiteName = data.plausibleSiteName;
+          this.fire("set-aoi-data", {
+            earl_name: data.earl_name,
+            question_name: data.question_name,
+            question_id: data.question_id,
+            logo_url: data.logo_url,
+            theme_color: data.theme_color
+          } as AoiBootData)
           this.site = {
             domain: this.plausibleSiteName!,
             hasGoals: true,

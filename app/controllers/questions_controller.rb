@@ -1187,6 +1187,7 @@ class QuestionsController < ApplicationController
       else
         @user = current_user
       end
+
       puts "user is #{@user.inspect}"
 
       @question.user_id = @user.id

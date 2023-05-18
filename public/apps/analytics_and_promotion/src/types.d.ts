@@ -49,3 +49,11 @@ interface YpCampaignAnalyticsData extends YpCampaignData {
   hasData?: boolean;
   mediums: YpCampaignAnalyticsMediumData[];
 }
+
+interface AoiBootData {
+  earl_name: string;
+  question_name: string;
+  question_id: number;
+  logo_url: string;
+  theme_color: string;
+}

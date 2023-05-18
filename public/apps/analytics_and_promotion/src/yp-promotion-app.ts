@@ -668,7 +668,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
     this.questionName = aoiData.question_name;
     this.questionId = aoiData.question_id;
     //@ts-ignore
-    this.collection = { description: aoiData.question_name };
+    this.collection = { description: aoiData.question_name, name: this.earlName };
     this.themeChanged(document.body);
   }
 

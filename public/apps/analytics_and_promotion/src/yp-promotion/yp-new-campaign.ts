@@ -54,6 +54,9 @@ export class YpNewCampaign extends YpBaseElementWithLogin {
   uploadedImageUrl: string | undefined;
 
   @property({ type: String })
+  logoUrl: string | undefined;
+
+  @property({ type: String })
   targetAudience: string | undefined;
 
   @property({ type: String })
@@ -378,10 +381,11 @@ export class YpNewCampaign extends YpBaseElementWithLogin {
   }
 
   get collectionImageUrl() {
-    return this.uploadedImageUrl || YpCollectionHelpers.logoImagePath(
-      this.collectionType,
-      this.collection!
-    )
+    return (
+      this.uploadedImageUrl ||
+      this.logoUrl ||
+      YpCollectionHelpers.logoImagePath(this.collectionType, this.collection!)
+    );
   }
 
   renderPreview() {
@@ -392,7 +396,8 @@ export class YpNewCampaign extends YpBaseElementWithLogin {
           <div class="previewPromotionText">${this.promotionText}</div>
           <div class="linkImage">
             <yp-file-upload-icon
-              target="/api/images?itemType=group-logo" method="POST"
+              target="/api/images?itemType=group-logo"
+              method="POST"
               @success="${this.imageUploadCompleted}"
             ></yp-file-upload-icon>
             <yp-image

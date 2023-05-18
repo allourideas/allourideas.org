@@ -26,6 +26,9 @@ export class YpPromotionDashboard extends PlausibleDashboard {
   @property({ type: Number })
   useProjectId: number | undefined;
 
+  @property({ type: Number })
+  questionId!: unknown;
+
   connectedCallback(): void {
     try {
       fetch(`/api/analytics/${this.collectionId}/get_plausible_site_name`, {
@@ -81,6 +84,7 @@ export class YpPromotionDashboard extends PlausibleDashboard {
             .query="${this.query}"
             .collectionType="${this.collectionType}"
             .collectionId="${this.collectionId}"
+            .questionId="${this.questionId}"
             .history="${this.history}"
             .proxyUrl="${`/api/${YpServerApi.transformCollectionTypeToApi(this.collectionType)}/${this.collectionId}/plausibleStatsProxy${this.useProjectId ? `?projectId=${this.useProjectId}` : ''}`}"
             proxyFaviconBaseUrl="/api/users/PlausibleFavIcon/"
@@ -96,6 +100,7 @@ export class YpPromotionDashboard extends PlausibleDashboard {
             .query="${this.query}"
             .collectionType="${this.collectionType}"
             .collectionId="${this.collectionId}"
+            .questionId="${this.questionId}"
             .proxyUrl="${`/api/${YpServerApi.transformCollectionTypeToApi(this.collectionType)}/${this.collectionId}/plausibleStatsProxy${this.useProjectId ? `?projectId=${this.useProjectId}` : ''}`}"
             proxyFaviconBaseUrl="/api/users/PlausibleFavIcon/"
           ></yp-historical>

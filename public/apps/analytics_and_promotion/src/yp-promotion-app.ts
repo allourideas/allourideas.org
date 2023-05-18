@@ -113,6 +113,8 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
   @property({ type: String })
   questionName: string | undefined;
 
+  @property({ type: String })
+  questionId: number | undefined;
 
   originalCollectionType: string | undefined;
 
@@ -356,32 +358,6 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
     }
     await this.updateComplete;
     this._setAdminConfirmed();
-  }
-
-  renderTopBar() {
-    return html`
-      <div class="layout vertical center-center">
-        <div class="layout horizontal topAppBar">
-          <div class="layout horizontal headerContainer">
-            <div class="analyticsHeaderText layout horizontal center-center">
-              <div>
-                <img
-                  class="collectionLogoImage"
-                  src="${ifDefined(
-                    YpCollectionHelpers.logoImagePath(
-                      this.collectionType,
-                      this.collection!
-                    )
-                  )}"
-                />
-              </div>
-              <div></div>
-              ${this.collection ? this.collection.name : ''}
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
   }
 
   snackbarclosed() {
@@ -690,6 +666,9 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
     this.logoUrl = aoiData.logo_url;
     this.earlName = aoiData.earl_name;
     this.questionName = aoiData.question_name;
+    this.questionId = aoiData.question_id;
+    //@ts-ignore
+    this.collection = { description: aoiData.question_name };
     this.themeChanged(document.body);
   }
 
@@ -708,6 +687,7 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
                   this.collection
                     ? html`<yp-promotion-dashboard
                         @set-aoi-data="${this._setAoiData}"
+                        .questionId="${this.questionId}"
                         .collectionType="${this.collectionType}"
                         .collection="${this.collection}"
                         .collectionId="${this.collectionId}"
@@ -725,7 +705,9 @@ export class YpPromotionApp extends YpBaseElementWithLogin {
                 ? html`<yp-campaign-manager
                     .collectionType="${this.collectionType}"
                     .collection="${this.collection}"
-                    .collectionId="${this.collectionId}"
+                    .collectionId="${this.questionId}"
+                    .earlName="${this.earlName}"
+                    .logoUrl="${this.logoUrl}"
                   >
                   </yp-campaign-manager>`
                 : nothing

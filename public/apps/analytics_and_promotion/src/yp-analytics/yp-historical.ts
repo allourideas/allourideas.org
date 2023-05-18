@@ -22,6 +22,9 @@ export class YpHistorical extends PlausibleHistorical {
   @property({ type: Number })
   collectionId!: number;
 
+  @property({ type: Number })
+  questionId: unknown;
+
   static get styles() {
     return [...super.styles, css``];
   }
@@ -88,6 +91,7 @@ export class YpHistorical extends PlausibleHistorical {
           .proxyUrl="${this.proxyUrl}"
           .collectionType="${this.collectionType}"
           .collectionId="${this.collectionId}"
+          .questionId="${this.questionId}"
         ></yp-campaigns-analytics>
         <pl-goal-graph
           .events="${[

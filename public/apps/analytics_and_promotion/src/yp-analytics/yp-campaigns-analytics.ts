@@ -25,6 +25,9 @@ export class YpCampaignsAnalytics extends PlausibleBaseElementWithState {
   @property({ type: Object })
   collection: YpCollectionData | undefined;
 
+  @property({ type: Number })
+  questionId!: number;
+
   @property({ type: Array })
   campaigns: YpCampaignAnalyticsData[] | undefined;
 
@@ -84,7 +87,7 @@ export class YpCampaignsAnalytics extends PlausibleBaseElementWithState {
   async getCampaigns() {
     this.campaigns = await this.campaignApi.getCampaigns(
       this.collectionType,
-      this.collectionId
+      this.questionId
     );
 
     const utmContents = await api.get(

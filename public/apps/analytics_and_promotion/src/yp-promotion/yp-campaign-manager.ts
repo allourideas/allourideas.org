@@ -23,6 +23,12 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
   @property({ type: Array })
   campaigns: YpCampaignData[] | undefined;
 
+  @property({ type: String })
+  earlName!: string;
+
+  @property({ type: String })
+  logoUrl!: string;
+
   @query('yp-new-campaign')
   private newCampaignElement!: YpNewCampaign;
 
@@ -40,7 +46,7 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
 
   getTrackingUrl(campaign: YpCampaignData, medium: string) {
     const fullHost = location.protocol + '//' + location.host;
-    const url = `${fullHost}/${this.collectionType}/${this.collectionId}?utm_source=${campaign.configuration.utm_source}&utm_medium=${medium}&utm_campaign=${campaign.configuration.utm_campaign}&utm_content=${campaign.id}`;
+    const url = `${fullHost}/${this.earlName}?utm_source=${campaign.configuration.utm_source}&utm_medium=${medium}&utm_campaign=${campaign.configuration.utm_campaign}&utm_content=${campaign.id}`;
     const encodedUrl = encodeURI(url);
     return encodedUrl;
   }
@@ -58,12 +64,14 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
     } as YpCampaignConfigurationData;
 
     const campaign = (await this.campaignApi.createCampaign(
-      this.collectionType,
+      this.collectionType || 'survey',
       this.collectionId,
       {
         configuration,
       }
     )) as YpCampaignData;
+
+    debugger;
 
     campaign.configuration.utm_content = `${campaign.id}`;
 
@@ -77,6 +85,8 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
         active: false,
       });
     }
+
+    debugger;
 
     campaign.configuration.mediums = mediums;
 
@@ -212,6 +222,7 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
       <yp-new-campaign
         .collectionType="${this.collectionType}"
         .collection="${this.collection}"
+        .logoUrl="${this.logoUrl}"
         .collectionId="${this.collectionId}"
         @save="${this.createCampaign}"
       ></yp-new-campaign>

@@ -16,6 +16,9 @@ export class YpRealtime extends PlausibleRealtime {
   @property({ type: Number })
   collectionId!: number;
 
+  @property({ type: Number })
+  questionId: unknown;
+
   static get styles() {
     return [...super.styles, css``];
   }
@@ -77,6 +80,7 @@ export class YpRealtime extends PlausibleRealtime {
           .timer="${this.timer}"
           .collectionType="${this.collectionType}"
           .collectionId="${this.collectionId}"
+          .questionId="${this.questionId}"
         ></yp-campaigns-analytics>
         <pl-goal-graph
           .events="${[

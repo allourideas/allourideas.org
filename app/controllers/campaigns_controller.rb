@@ -10,7 +10,7 @@ class CampaignsController < ApplicationController
       campaigns = Campaign.where(question_id: params[:question_id])
                           .select(:id, :configuration)
                           .order(created_at: :desc)
-      render json: campaigns
+      render json: campaigns.as_json(root: false)
     rescue => error
       logger.error "Could not get campaigns: #{error.message}"
       head :internal_server_error
@@ -28,7 +28,7 @@ class CampaignsController < ApplicationController
       # TODO: Toxicity check
 
       if campaign.save
-        render json: campaign
+        render json: campaign.as_json(root: false)
       else
         head :unprocessable_entity
       end
@@ -48,7 +48,7 @@ class CampaignsController < ApplicationController
         # TODO: Toxicity check
 
         if campaign.save
-          render json: campaign
+          render json: campaign.as_json(root: false)
         else
           head :unprocessable_entity
         end

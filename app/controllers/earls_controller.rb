@@ -174,7 +174,7 @@ class EarlsController < ApplicationController
           question: @question,
           earlContainer: @earl,
           csrfToken: form_authenticity_token,
-          isAdmin: current_user.owns?(@earl) || current_user.admin?
+          isAdmin: (current_user && (current_user.owns?(@earl) || current_user.admin?))
         }}
       end
     else

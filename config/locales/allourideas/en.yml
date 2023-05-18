@@ -114,7 +114,7 @@ en:
     not_authorized_error: You do not have permission to modify this wiki survey.
     not_authorized_error_results: The results from this wiki survey are only visible to the person who created it.
   questions:
-    image_info: "Make sure to choose an image that works well both in dark mode and light mode"
+    image_info: "* Make sure to choose an image that works well both in dark mode and light mode"
     new:
       error:
         registration: Sorry, we couldn't register you.

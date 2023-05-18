@@ -10,8 +10,8 @@ class Earl < ActiveRecord::Base
   validates_length_of :welcome_message, :maximum => 350, :allow_nil => true, :allow_blank => true
 
   has_one_attached :logo
-  validate :correct_logo_mime_type
-  validate :acceptable_logo_size
+  #validate :correct_logo_mime_type
+  #validate :acceptable_logo_size
 
   attr_accessor :ideas
   before_create :require_verification!, :if => :ideas_look_spammy?
@@ -28,8 +28,8 @@ class Earl < ActiveRecord::Base
 
   validate :analysis_config_must_be_valid_json
 
-  def set_default_analysis_config
-    default_analysis_config = {
+  def self.default_analysis_config
+    {
       "analyses" => [
         {
           "ideasLabel" => "Three most popular ideas",
@@ -61,9 +61,11 @@ class Earl < ActiveRecord::Base
         }
       ]
     }
+  end
 
+  def set_default_analysis_config
     if self.analysis_config.blank? or self.analysis_config == [] or self.analysis_config == "[]"
-      self.analysis_config = default_analysis_config.to_json
+      self.analysis_config = Earl.default_analysis_config.to_json
     end
   end
 
@@ -272,6 +274,7 @@ class Earl < ActiveRecord::Base
   end
 
   def acceptable_logo_size
+    puts "DEBUG #{logo.attached?} #{logo.blob.byte_size}"
     if logo.attached? && logo.blob.byte_size > 20.megabytes
       logo.purge # delete the uploaded file
       errors.add(:logo, 'Size should be less than 20MB')

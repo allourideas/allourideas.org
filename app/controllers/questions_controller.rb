@@ -1100,7 +1100,8 @@ class QuestionsController < ApplicationController
   def new
     @errors ||= []
     @question = Question.new
-
+    @welcome_html = "<h1>Welcome ...</h1><p>... to the ... Project</p><ul><li>Item 1</li><li>Item 2</li></ul>"
+    @analysis_config = Earl.default_analysis_config.to_json
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @question }
@@ -1120,6 +1121,7 @@ class QuestionsController < ApplicationController
     question_params = params[:question]
 
     puts "DEBUG #{question_params.inspect} #{signed_in?}"
+    puts "DEBUG #{params.inspect} #{signed_in?}"
 
     @user = User.new(:email => question_params[:email],
       :password => question_params[:password],
@@ -1130,8 +1132,26 @@ class QuestionsController < ApplicationController
     earl_required_fields = [:welcome_message, :welcome_html, :target_votes, :theme_color]
     earl_empty_fields = earl_required_fields.select { |f| params[f].blank? }
 
-    if empty_fields.present? or earl_empty_fields.present?
-      if empty_fields.present? and earl_empty_fields.present?
+    no_logo = false
+
+    if params[:question][:earl].blank? or params[:question][:earl][:logo].blank?
+      no_logo = true
+    end
+
+    name_used = false
+
+    earl_name = params[:question]['url'].strip
+
+    if Earl.find_by(name: earl_name)
+      name_used = true
+    end
+
+    if empty_fields.present? or earl_empty_fields.present? or no_logo or name_used
+      if name_used
+        flash[:error] = "URL is already in use, please choose another."
+      elsif no_logo
+        flash[:error] = "You must upload a logo"
+      elsif empty_fields.present? and earl_empty_fields.present?
         flash[:error] = "The following fields can't be blank: #{empty_fields.join(', ')} #{earl_required_fields.join(', ')}"
       elsif empty_fields.present?
         flash[:error] = "The following fields can't be blank: #{empty_fields.join(', ')}"
@@ -1150,6 +1170,7 @@ class QuestionsController < ApplicationController
       @target_votes = params[:target_votes]
       @theme_color = params[:theme_color]
       @analysis_config = params[:analysis_config]
+      @logo = params[:question][:earl][:logo] unless params[:question][:earl].blank?
       render action: "new" and return
     end
 
@@ -1178,27 +1199,35 @@ class QuestionsController < ApplicationController
 
         earl_logo = params[:question][:earl][:logo] if params[:question][:earl]
 
-        earl_options = {:question_id => @question.id, :logo => earl_logo, :name => params[:question]['url'].strip, :ideas => params[:question].try(:[], :ideas)}
+        earl_options = {:question_id => @question.id, :logo => earl_logo, :name => earl_name, :ideas => params[:question].try(:[], :ideas)}
         earl_options.merge!(:flag_enabled => true, :photocracy => true) if @photocracy # flag is enabled by default for photocracy
         earl = current_user.earls.create(earl_options.except(:logo))
         earl.logo.attach(earl_logo) if earl_logo.present?
-        #TODO: Get mail working
-        #ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
-        #IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
-        if earl.requires_verification?
-          redirect_to verify_url and return
-        end
-
+        puts "DEBUG 1 earl is #{earl.inspect}"
         earl.configuration = {} unless earl.configuration
         earl.configuration["question_name"] = @question.name
-        earl.configuration["welcome_message"] = params[:welcome_message]
+        earl.welcome_message = params[:welcome_message]
         earl.configuration["welcome_html"] = params[:welcome_html]
         earl.configuration["analysis_config"] = params[:analysis_config]
         earl.configuration["target_votes"] = params[:target_votes]
         earl.configuration["theme_color"] = params[:theme_color]
-        earl.save
+        puts "DEBUG 2 earl is #{earl.configuration.inspect}"
+        puts "DEBUG 3 earl is #{earl.inspect}"
+        if earl.save
+          puts "DEBUG EARL SAVE"
+        else
+          puts "DEBUG EARL NOT SAVE #{earl.errors.full_messages}"
+        end
+        puts "DEBUG 4 earl is #{earl.inspect}"
 
-        session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>".html_safe
+        #TODO: Get mail working
+        #ClearanceMailer.delay.deliver_confirmation(current_user, earl, @photocracy)
+        #IdeaMailer.delay.deliver_extra_information(current_user, @question.name, params[:question]['information'], @photocracy) unless params[:question]["information"].blank?
+        if earl.requires_verification?
+          #redirect_to verify_url and return
+        end
+
+        #session[:standard_flash] = "#{t('questions.new.success_flash')}<br /> #{t('questions.new.success_flash2')}: <a href='#{@question.fq_earl}'>#{@question.fq_earl}</a> #{t('questions.new.success_flash3')}<br /> #{t('questions.new.success_flash4')}: <a href=\"#{@question.fq_earl}/admin\"> #{t('nav.manage_question')}</a>".html_safe
 
         if @photocracy
           redirect_to add_photos_url(earl.name) and return
@@ -1234,6 +1263,7 @@ class QuestionsController < ApplicationController
         if params[:question][:name]
           @question.name = params[:question][:name]
           if @question.save
+            @earl.configuration = {} unless @earl.configuration
             @earl.configuration['question_name'] = @question.name
             @earl.save
 
@@ -1261,6 +1291,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       old_lang = @earl.default_lang
+      @earl.configuration = {} unless @earl.configuration
       @earl.configuration['question_name'] = @question.name
 
       if @earl.update(earl_params)

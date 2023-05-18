@@ -189,7 +189,7 @@ export class YpNewCampaign extends YpBaseElementWithLogin {
         }
 
         .previewPromotionText {
-          margin-bottom: 8px;
+          margin-bottom: 32px;
         }
 
         @media (max-width: 1100px) {

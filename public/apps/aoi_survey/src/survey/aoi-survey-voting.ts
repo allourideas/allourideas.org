@@ -47,6 +47,9 @@ export class AoiSurveyVoting extends YpBaseElement {
   @property({ type: Boolean })
   breakForVertical = false;
 
+  @property({ type: Number })
+  levelTwoTargetVotes: number | undefined;
+
   timer: number;
 
   constructor() {
@@ -369,7 +372,14 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   renderProgressBar() {
     if (this.earl.configuration) {
-      const targetVotes = this.earl.configuration.target_votes || 30;
+      let targetVotes = this.levelTwoTargetVotes || this.earl.configuration.target_votes || 30;
+
+      if (!this.levelTwoTargetVotes && this.question.visitor_votes>=targetVotes) {
+        //this.levelTwoTargetVotes = Math.max(Math.round((this.question.choices_count * this.question.choices_count)/4), targetVotes);
+        this.levelTwoTargetVotes = targetVotes*2;
+        targetVotes = this.levelTwoTargetVotes;
+      }
+
       const progressPercentage = Math.min(
         (this.question.visitor_votes / targetVotes) * 100,
         100
@@ -381,7 +391,7 @@ export class AoiSurveyVoting extends YpBaseElement {
         </div>
         <div class="progressBarText">
           ${this.question.visitor_votes} ${this.t('votes of')} ${targetVotes}
-          ${this.t('target')}
+          ${this.t('target')} ${this.levelTwoTargetVotes ? html`(${this.t('Level 2')})` : nothing}
         </div>
       `;
     } else {

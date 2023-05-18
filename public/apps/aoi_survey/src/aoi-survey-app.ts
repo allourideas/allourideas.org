@@ -570,7 +570,7 @@ export class AoiSurveyApp extends YpBaseElement {
               ?hidden="${!this.isAdmin}"
               @click="${this.openAnalytics}"
               headline="${this.t('Analytics & Marketing')}"
-              supportingText="${this.t('Usage analytics and marketing features')}"
+              supportingText="${this.t('Promote your survey')}"
             >
               <md-list-item-icon slot="start"
                 ><md-icon>monitoring</md-icon></md-list-item-icon

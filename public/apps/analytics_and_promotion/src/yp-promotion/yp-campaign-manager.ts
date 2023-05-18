@@ -64,7 +64,7 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
     } as YpCampaignConfigurationData;
 
     const campaign = (await this.campaignApi.createCampaign(
-      this.collectionType || 'survey',
+      this.collectionType,
       this.collectionId,
       {
         configuration,
@@ -85,8 +85,6 @@ export class YpCampaignManager extends YpBaseElementWithLogin {
         active: false,
       });
     }
-
-    debugger;
 
     campaign.configuration.mediums = mediums;
 

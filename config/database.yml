@@ -16,6 +16,7 @@ production:
   database: <%= ENV['AOI_MYSQL_DATABASE'] %>
   username: <%= ENV['AOI_MYSQL_USER'] %>
   password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
+  sslmode: <%= ENV['AOI_MYSQL_SSLMODE'] %>
   pool: 5
   timeout: 5000
   encoding: utf8mb4

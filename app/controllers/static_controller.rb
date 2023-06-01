@@ -19,11 +19,14 @@ class StaticController < ApplicationController
         end
         file_path = Rails.root.join('public', 'apps', 'aoi_survey', 'dist', 'index.html')
         html = File.read(file_path)
+        puts html
 
         html.gsub!('OG_REPLACE_QUESTION_NAME', @earl.question_name || '')
         html.gsub!('OG_REPLACE_DESCRIPTION', @earl.welcome_message || '')
 
-        html.gsub!('<!--REPLASCE_WEB_FONT_CONFIG-->', @earl.theme_font_css || '')
+        if @earl.theme_font_css
+          html.gsub!('<style>', @earl.theme_font_css+'<style>')
+        end
 
         html.gsub!('HTTPS://OG_REPLACE_IMAGE_URL', logo_url)
         url = URI.parse(request.original_url)

@@ -84,7 +84,6 @@ export class AoiSurveyResuls extends YpBaseElement {
       SharedStyles,
       css`
         .title {
-          font-family: monospace;
           font-size: 22px;
           letter-spacing: 0.22em;
           line-height: 1.7;
@@ -119,7 +118,6 @@ export class AoiSurveyResuls extends YpBaseElement {
           width: 550px;
 
           font-size: 16px;
-          font-family: Roboto;
           vertical-align: center;
 
           padding-bottom: 16px;

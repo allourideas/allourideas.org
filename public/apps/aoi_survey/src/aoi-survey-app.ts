@@ -250,7 +250,7 @@ export class AoiSurveyApp extends YpBaseElement {
         this.getHexColor(this.themeColor),
         isDark,
         this.themeScheme,
-        this.themeHighContrast ? 1.0 : 0.0
+        this.themeHighContrast ? 2.0 : 0.0
       );
     } else {
       themeCss = themeFromSourceColor(
@@ -262,7 +262,7 @@ export class AoiSurveyApp extends YpBaseElement {
         },
         isDark,
         "dynamic",
-        this.themeHighContrast ? 1.0 : 0.0
+        this.themeHighContrast ? 2.0 : 0.0
       );
     }
 

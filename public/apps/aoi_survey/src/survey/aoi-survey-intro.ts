@@ -53,6 +53,10 @@ export class AoiSurveyIntro extends YpBaseElement {
           color: var(--md-sys-color-on-surface-variant);
         }
 
+        .footerHtml a {
+          color: var(--md-sys-color-on-surface-variant);
+        }
+
         .fab {
           margin-top: 16px;
           margin-bottom: 8px;

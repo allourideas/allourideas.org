@@ -191,32 +191,53 @@ class PromptsController < ApplicationController
   end
 
   def get_object_request_options(params, request_type)
-     options = { :visitor_identifier => @survey_session.session_id,
-                 # use static value of 5 if in test, so we can mock resulting API queries
-                 :time_viewed => (Rails.env == 'test') ? 5 : params[:time_viewed],
-                 :appearance_lookup => params[:appearance_lookup]
-     }
+    options = {
+      :visitor_identifier => @survey_session.session_id,
+      # use static value of 5 if in test, so we can mock resulting API queries
+      :time_viewed => (Rails.env == 'test') ? 5 : params[:time_viewed],
+      :appearance_lookup => params[:appearance_lookup]
+    }
+
     if @survey_session.old_session_id
       options.merge!({:old_visitor_identifier => @survey_session.old_session_id})
     end
-     case request_type
-       when :vote
-           options.merge!({:direction => params[:direction],
-		     :skip_fraud_protection => true,
-                     :tracking => {:x_click_offset => params[:x_click_offset],
-                                   :y_click_offset => params[:y_click_offset]}
-	       })
-       when :skip
-	   options.merge!(:skip_reason => params[:cant_decide_reason])
-       when :skip_after_flag
-	   options.merge!(:skip_reason => params[:flag_reason])
 
-     end
+    tracking_data = {
+      :user_agent_hash => Digest::SHA256.hexdigest(request.user_agent),
+      :ip_address => request.remote_ip,
+      :browser_id => params[:checksum_a],
+      :fp => params[:checksum_b],
+      :fp_confidence => params[:checksum_c]
+    }
 
-      if wikipedia?
-        options.merge!({:force_invalid_vote => true})
-      end
-     options
+    utm_params = params.permit(
+      :utm_source,
+      :utm_medium,
+      :utm_campaign,
+      :utm_term,
+      :utm_content,
+      :utm_referrer
+    )
+    tracking_data.merge!(utm_params.to_h)
+    options.merge!({:tracking => tracking_data})
+
+    case request_type
+    when :vote
+      options.merge!({
+        :direction => params[:direction],
+        :skip_fraud_protection => true,
+      })
+    when :skip
+      options.merge!(:skip_reason => params[:cant_decide_reason])
+    when :skip_after_flag
+      options.merge!(:skip_reason => params[:flag_reason])
+    end
+
+    if wikipedia?
+      options.merge!({:force_invalid_vote => true})
+    end
+
+    options
   end
 
   def get_next_prompt_options

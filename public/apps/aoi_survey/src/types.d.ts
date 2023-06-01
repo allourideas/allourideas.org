@@ -59,6 +59,11 @@ interface AoiEarlData {
 
 
 interface AoiEarlConfigurationData {
+  theme_scheme: any;
+  theme_neutral_color: string;
+  theme_tertiary_color: string;
+  theme_secondary_color: string;
+  theme_primary_color: string;
   welcome_html?: string;
   target_votes: number;
   lock_results_until_target_votes: boolean;

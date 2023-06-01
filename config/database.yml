@@ -8,7 +8,7 @@ development:
   password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
   pool: 5
   timeout: 5000
-  collation: utf8_general_ci
+  encoding: utf8mb4
   host: <%= ENV['AOI_MYSQL_HOST'] %>
 
 production:
@@ -18,7 +18,7 @@ production:
   password: <%= ENV['AOI_MYSQL_PASSWORD'] %>
   pool: 5
   timeout: 5000
-  collation: utf8_general_ci
+  encoding: utf8mb4
   host: <%= ENV['AOI_MYSQL_HOST'] %>
   port: <%= ENV['AOI_MYSQL_PORT'] %>
 

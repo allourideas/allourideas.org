@@ -1,6 +1,6 @@
-import { YpServerApiBase } from '../@yrpri/common/YpServerApiBase.js';
+import { YpServerApi } from '../@yrpri/common/YpServerApi.js';
 
-export class AoiServerApi extends YpServerApiBase {
+export class AoiServerApi extends YpServerApi {
   constructor(urlPath: string = '/api') {
     super();
     this.baseUrlPath = urlPath;
@@ -31,11 +31,10 @@ export class AoiServerApi extends YpServerApiBase {
 
   public submitIdea(questionId: number, newIdea: string): AoiAddIdeaResponse {
     return this.fetchWrapper(
-      this.baseUrlPath +
-        `/questions/${questionId}/add_idea.js`,
+      this.baseUrlPath + `/questions/${questionId}/add_idea.js`,
       {
         method: 'POST',
-        body: JSON.stringify({new_idea: newIdea}),
+        body: JSON.stringify({ new_idea: newIdea }),
       },
       false
     ) as unknown as AoiAddIdeaResponse;
@@ -47,9 +46,29 @@ export class AoiServerApi extends YpServerApiBase {
     locale: string,
     body: AoiVoteData
   ): AoiVoteResponse {
+    const url = new URL(
+      `${window.location.protocol}//${window.location.host}${this.baseUrlPath}/questions/${questionId}/prompts/${promptId}/votes.js?locale=${locale}`
+    );
+
+    Object.keys(window.appGlobals.originalQueryParameters).forEach(key => {
+      if (key.startsWith('utm_')) {
+        url.searchParams.append(
+          key,
+          window.appGlobals.originalQueryParameters[key]
+        );
+      }
+    });
+
+    const browserId = window.appUser.getBrowserId();
+    const browserFingerprint = window.appUser.browserFingerprint;
+    const browserFingerprintConfidence = window.appUser.browserFingerprintConfidence;
+
+    url.searchParams.append("checksum_a", browserId);
+    url.searchParams.append("checksum_b", browserFingerprint);
+    url.searchParams.append("checksum_c", browserFingerprintConfidence.toString());
+
     return this.fetchWrapper(
-      this.baseUrlPath +
-        `/questions/${questionId}/prompts/${promptId}/votes.js?locale=${locale}`,
+      url.toString(),
       {
         method: 'POST',
         body: JSON.stringify(body),

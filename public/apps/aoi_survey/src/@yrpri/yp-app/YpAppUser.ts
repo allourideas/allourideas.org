@@ -4,6 +4,7 @@ import { YpAccessHelpers } from '../common/YpAccessHelpers.js';
 //import { any /*YpLogin*/ } from '../yp-user/yp-login.js';
 //import { Snackbar } from '@material/mwc-snackbar';
 //import { YpRegistrationQuestionsDialog } from '../yp-user/yp-registration-questions-dialog.js';
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 export class YpAppUser extends YpCodeBase {
   serverApi: YpServerApi;
@@ -86,16 +87,62 @@ export class YpAppUser extends YpCodeBase {
 
   sessionStorage = window.localStorage;
 
-  constructor(serverApi: YpServerApi) {
+  browserFingerprint: string | undefined;
+  browserFingerprintConfidence: number | undefined;
+
+  constructor(serverApi: YpServerApi, skipRegularInit = false) {
     super();
     this.serverApi = serverApi;
-    if (!window.location.pathname.startsWith('/survey/')) {
-      this.checkLogin();
-    } else {
-      console.log('Not checking login in survey mode');
+    this._setupBrowserFingerprint();
+    if (!skipRegularInit) {
+      if (!window.location.pathname.startsWith('/survey/')) {
+        this.checkLogin();
+      } else {
+        console.log('Not checking login in survey mode');
+      }
+      this.addGlobalListener('yp-forgot-password', this._forgotPassword.bind(this));
+      this.addGlobalListener('yp-reset-password', this._resetPassword.bind(this));
     }
-    this.addGlobalListener('yp-forgot-password', this._forgotPassword.bind(this));
-    this.addGlobalListener('yp-reset-password', this._resetPassword.bind(this));
+  }
+
+  getBrowserId() {
+    var currentId = localStorage.getItem("aoi-brid");
+
+    if (!currentId) {
+      currentId = this._generateRandomString(32);
+      localStorage.setItem("yp-brid", currentId);
+    }
+
+    return currentId;
+  }
+
+  _setupBrowserFingerprint() {
+    try {
+      var fpPromise = FingerprintJS.load({
+        monitoring: false
+      });
+
+      fpPromise
+        .then(fp => fp.get())
+        .then(result => {
+          this.browserFingerprint = result.visitorId;
+          this.browserFingerprintConfidence = result.confidence.score;
+        })
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
+  _generateRandomString(length: number) {
+    if (!length) length = 36;
+    if (window.crypto) {
+      var a = window.crypto.getRandomValues(new Uint32Array(3)),
+        token = '';
+      for (var i = 0, l = a.length; i < l; i++) token += a[i].toString(36);
+      return token;
+    } else {
+      return (Math.random() * new Date().getTime()).toString(36).replace( /\./g , '');
+    }
   }
 
   sessionHas(key: string) {

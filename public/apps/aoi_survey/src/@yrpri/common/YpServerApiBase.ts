@@ -52,6 +52,7 @@ export class YpServerApiBase extends YpCodeBase {
       window.appGlobals.offline.sendWhenOnlineNext({
         body: options.body,
         method: options.method,
+        //@ts-ignore
         headers: options.headers,
         params: {},
         url: url

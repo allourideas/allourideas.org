@@ -124,6 +124,7 @@
   "author": "Citizens Foundation",
   "license": "AGPL",
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.4.1",
     "@lit-labs/virtualizer": "^1.0.1",
     "@material/material-color-utilities": "^0.2.6",
     "@material/mwc-snackbar": "^0.27.0",
@@ -131,6 +132,7 @@
     "@material/web": "^1.0.0-pre.8",
     "@picmo/popup-picker": "^5.8.3",
     "@picmo/renderer-twemoji": "^5.8.3",
+    "@types/fingerprintjs": "^0.5.28",
     "@vaadin/vaadin-grid": "^23.1.6",
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "classnames": "^2.3.1",

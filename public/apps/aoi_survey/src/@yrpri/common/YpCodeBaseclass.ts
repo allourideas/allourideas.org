@@ -10,7 +10,7 @@ import { AoiServerApi } from '../../survey/AoiServerApi.js';
 
 declare global {
   interface Window {
-    appGlobals: any /*YpAppGlobals*/;
+    appGlobals: any; /*YpAppGlobals*/
     appUser: YpAppUser;
     appDialogs: any /*YpAppDialogs*/;
     serverApi: YpServerApi;

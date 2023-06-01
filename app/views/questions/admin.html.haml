@@ -83,10 +83,54 @@
               = f.label :target_votes, ("Number of target votes per user"), :class => 'control-label'
               .controls
                 = f.text_field :target_votes
+
+            %h3 Theme
+
             .control-group
-              = f.label :theme_color, ("The primary theme color"), :class => 'control-label'
+              = f.label :theme_font_css, ("Web font css (optional)"), :class => 'control-label'
+              .controls
+                = f.text_area :theme_font_css, :rows => 5, :cols => 65, :class => 'input-xxlarge'
+
+            .control-group
+              = f.label :theme_color, ("Single theme color"), :class => 'control-label'
               .controls
                 = f.text_field :theme_color
+
+            .control-group
+              = f.label :theme_scheme, ("Theme scheme"), :class => 'control-label'
+              .controls
+                = f.select :theme_scheme, options_for_select([
+                  ['Tonal', 'Tonal'],
+                  ['Vibrant', 'Vibrant'],
+                  ['Expressive', 'Expressive'],
+                  ['Content', 'Content'],
+                  ['Neutral', 'Neutral'],
+                  ['Monochrome', 'Monochrome'],
+                  ['Fidelity', 'Fidelity']
+                ], @theme_scheme)
+
+            %h4 OR
+
+            .control-group
+              = f.label :theme_primary_color, ("Theme primary color"), :class => 'control-label'
+              .controls
+                = f.text_field :theme_primary_color
+
+            .control-group
+              = f.label :theme_secondary_color, ("Theme secondary color"), :class => 'control-label'
+              .controls
+                = f.text_field :theme_secondary_color
+
+            .control-group
+              = f.label :theme_tertiary_color, ("Theme tertiary color"), :class => 'control-label'
+              .controls
+                = f.text_field :theme_tertiary_color
+
+            .control-group
+              = f.label :theme_neutral_color, ("Theme neutral color"), :class => 'control-label'
+              .controls
+                = f.text_field :theme_neutral_color
+
             .control-group
               = f.label :default_lang, ("Default language " + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank')).html_safe, :class => 'control-label'
               .controls

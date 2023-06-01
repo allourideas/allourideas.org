@@ -10,11 +10,7 @@ import '@material/web/list/list.js';
 import '@material/web/icon/icon.js';
 import '@material/web/iconbutton/outlined-icon-button.js';
 import '@material/mwc-snackbar/mwc-snackbar.js';
-import {
-  argbFromHex,
-  themeFromSourceColor,
-  applyTheme,
-} from '@material/material-color-utilities';
+import { argbFromHex } from '@material/material-color-utilities';
 
 import '@material/web/menu/menu.js';
 import { cache } from 'lit/directives/cache.js';
@@ -35,6 +31,13 @@ import { NavigationDrawer } from '@material/web/navigationdrawer/lib/navigation-
 import { Snackbar } from '@material/mwc-snackbar/mwc-snackbar.js';
 import { NavigationTab } from '@material/web/navigationtab/lib/navigation-tab.js';
 import { NavigationBar } from '@material/web/navigationbar/lib/navigation-bar.js';
+import {
+  Scheme,
+  applyTheme,
+  themeFromSourceColor,
+} from './@yrpri/common/YpMaterialThemeHelper.js';
+import { YpAppUser } from './@yrpri/yp-app/YpAppUser.js';
+import { AoiAppUser } from './AoiAppUser.js';
 
 const PagesTypes = {
   Introduction: 1,
@@ -46,7 +49,7 @@ const PagesTypes = {
 
 declare global {
   interface Window {
-    appGlobals: any;
+    appGlobals: any /*AoiAppGlobals*/;
     aoiServerApi: AoiServerApi;
     needsNewEarl: boolean;
     csrfToken: string;
@@ -57,6 +60,9 @@ declare global {
 export class AoiSurveyApp extends YpBaseElement {
   @property({ type: Number })
   pageIndex = 1;
+
+  @property({ type: Number })
+  totalNumberOfVotes = 0;
 
   @property({ type: String })
   lastSnackbarText: string | undefined;
@@ -72,6 +78,24 @@ export class AoiSurveyApp extends YpBaseElement {
 
   @property({ type: String })
   themeColor = '#0489cf';
+
+  @property({ type: String })
+  themePrimaryColor = '#000000';
+
+  @property({ type: String })
+  themeSecondaryColor = '#000000';
+
+  @property({ type: String })
+  themeTertiaryColor = '#000000';
+
+  @property({ type: String })
+  themeNeutralColor = '#000000';
+
+  @property({ type: String })
+  themeScheme: Scheme = 'tonal';
+
+  @property({ type: Number })
+  themeContrastBalance = 0.0;
 
   @property({ type: Object })
   earl!: AoiEarlData;
@@ -106,15 +130,16 @@ export class AoiSurveyApp extends YpBaseElement {
     super();
 
     window.aoiServerApi = new AoiServerApi();
-    window.appGlobals = new AoiAppGlobals();
+    window.appGlobals = new AoiAppGlobals(window.aoiServerApi);
+    window.appUser = new AoiAppUser(window.aoiServerApi);
     this.earlName = window.appGlobals.earlName;
 
     // Set this.themeDarkMode from localStorage or otherwise to true
-    const savedLightMode = localStorage.getItem('md3-aoi-light-mode');
-    if (savedLightMode) {
-      this.themeDarkMode = false;
-    } else {
+    const savedDarkMode = localStorage.getItem('md3-aoi-dark-mode');
+    if (savedDarkMode) {
       this.themeDarkMode = true;
+    } else {
+      this.themeDarkMode = false;
     }
 
     window.appGlobals.activity('pageview');
@@ -152,10 +177,10 @@ export class AoiSurveyApp extends YpBaseElement {
     this.currentRightAnswer = this.prompt.right_choice_text;
     this.currentPromptId = this.prompt.id;
 
-    window.csrfToken = earlResponse.csrfToken
+    window.csrfToken = earlResponse.csrfToken;
     document.title = this.question.name;
 
-    if (earlResponse.isAdmin===true) {
+    if (earlResponse.isAdmin === true) {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -169,13 +194,22 @@ export class AoiSurveyApp extends YpBaseElement {
 
     if (this.earl.configuration.theme_color) {
       this.themeColor = this.earl.configuration.theme_color;
+      this.themePrimaryColor = this.earl.configuration.theme_primary_color;
+      this.themeSecondaryColor = this.earl.configuration.theme_secondary_color;
+      this.themeTertiaryColor = this.earl.configuration.theme_tertiary_color;
+      this.themeNeutralColor = this.earl.configuration.theme_neutral_color;
+
+      this.themeScheme = this.earl.configuration.theme_scheme
+        ? this.earl.configuration.theme_scheme.toLowerCase()
+        : 'tonal';
+
       this.themeChanged();
     }
 
-    this.fireGlobal("set-ids", {
+    this.fireGlobal('set-ids', {
       earlId: this.earl.id,
       questionId: this.question.id,
-      promptId: this.prompt.id
+      promptId: this.prompt.id,
     });
   }
 
@@ -184,28 +218,50 @@ export class AoiSurveyApp extends YpBaseElement {
     this._removeEventListeners();
   }
 
-  themeChanged(target: HTMLElement | undefined = undefined) {
-    const theme = themeFromSourceColor(argbFromHex(this.themeColor), [
-      {
-        name: 'up-vote',
-        value: argbFromHex('#0F0'),
-        blend: true,
-      },
-      {
-        name: 'down-vote',
-        value: argbFromHex('#F00'),
-        blend: true,
-      },
-    ]);
+  getHexColor(color: string) {
+    if (color) {
+      // Replace all # with nothing
+      color = color.replace(/#/g, '');
+      if (color.length === 6) {
+        return `#${color}`;
+      } else {
+        return undefined;
+      }
+    } else {
+      return undefined;
+    }
+  }
 
-    // Check if the user has dark mode turned on
-    const systemDark =
+  themeChanged(target: HTMLElement | undefined = undefined) {
+    let themeCss = {} as any;
+
+    const isDark =
       this.themeDarkMode === undefined
         ? window.matchMedia('(prefers-color-scheme: dark)').matches
         : this.themeDarkMode;
 
-    // Apply the theme to the body by updating custom properties for material tokens
-    applyTheme(theme, { target: target || document.body, dark: systemDark });
+    if (this.getHexColor(this.themeColor)) {
+      themeCss = themeFromSourceColor(
+        this.getHexColor(this.themeColor),
+        isDark,
+        this.themeScheme,
+        this.themeContrastBalance
+      );
+    } else {
+      themeCss = themeFromSourceColor(
+        {
+          primary: this.getHexColor(this.themePrimaryColor || "#000000"),
+          secondary: this.getHexColor(this.themeSecondaryColor || "#000000"),
+          tertiary: this.getHexColor(this.themeTertiaryColor || "#000000"),
+          neutral: this.getHexColor(this.themeNeutralColor || "#000000"),
+        },
+        isDark,
+        this.themeScheme,
+        this.themeContrastBalance
+      );
+    }
+
+    applyTheme(document, themeCss);
   }
 
   snackbarclosed() {
@@ -405,11 +461,20 @@ export class AoiSurveyApp extends YpBaseElement {
     this.themeColor = event.detail;
   }
 
+  sendVoteAnalytics() {
+    if (this.totalNumberOfVotes % 10 === 0) {
+      window.appGlobals.activity(`User voted ${this.totalNumberOfVotes} times`);
+    }
+  }
+
   updateappearanceLookup(event: CustomEvent) {
     this.appearanceLookup = event.detail.appearanceLookup;
     this.currentPromptId = event.detail.promptId;
     this.currentLeftAnswer = event.detail.leftAnswer;
     this.currentRightAnswer = event.detail.rightAnswer;
+
+    this.totalNumberOfVotes++;
+    this.sendVoteAnalytics();
   }
 
   renderIntroduction() {
@@ -423,27 +488,26 @@ export class AoiSurveyApp extends YpBaseElement {
   toggleDarkMode() {
     this.themeDarkMode = !this.themeDarkMode;
     if (this.themeDarkMode) {
-      window.appGlobals.activity("Settings - dark mode")
-      localStorage.removeItem('md3-aoi-light-mode');
-
+      window.appGlobals.activity('Settings - dark mode');
+      localStorage.removeItem('md3-aoi-dark-mode');
     } else {
-      window.appGlobals.activity("Settings - light mode")
-      localStorage.setItem('md3-aoi-light-mode', 'true');
+      window.appGlobals.activity('Settings - light mode');
+      localStorage.setItem('md3-aoi-dark-mode', 'true');
     }
     this.themeChanged();
   }
 
   startVoting() {
     this.pageIndex = 2;
-    if (this.$$("#navBar") as NavigationBar) {
-      (this.$$("#navBar") as NavigationBar).activeIndex = 1;
+    if (this.$$('#navBar') as NavigationBar) {
+      (this.$$('#navBar') as NavigationBar).activeIndex = 1;
     }
   }
 
   openResults() {
     this.pageIndex = 3;
-    if (this.$$("#navBar") as NavigationBar) {
-      (this.$$("#navBar") as NavigationBar).activeIndex = 2;
+    if (this.$$('#navBar') as NavigationBar) {
+      (this.$$('#navBar') as NavigationBar).activeIndex = 2;
     }
   }
 
@@ -495,8 +559,8 @@ export class AoiSurveyApp extends YpBaseElement {
       }
     } else {
       return html` <div class="loading">
-      <md-circular-progress indeterminate></md-circular-progress>
-    </div>`;
+        <md-circular-progress indeterminate></md-circular-progress>
+      </div>`;
     }
   }
 
@@ -609,12 +673,19 @@ export class AoiSurveyApp extends YpBaseElement {
     } else {
       return html`
         <div class="navContainer">
-          <md-navigation-bar id="navBar" @navigation-bar-activated="${this.tabChanged}">
+          <md-navigation-bar
+            id="navBar"
+            @navigation-bar-activated="${this.tabChanged}"
+          >
             <md-navigation-tab .label="${this.t('Intro')}"
               ><md-icon slot="activeIcon">info</md-icon>
               <md-icon slot="inactiveIcon">info</md-icon></md-navigation-tab
             >
-            <md-navigation-tab ?hidden="${this.surveyClosed}" id="votingTab" .label="${this.t('Voting')}">
+            <md-navigation-tab
+              ?hidden="${this.surveyClosed}"
+              id="votingTab"
+              .label="${this.t('Voting')}"
+            >
               <md-icon slot="activeIcon">thumb_up</md-icon>
               <md-icon slot="inactiveIcon">thumb_up</md-icon>
             </md-navigation-tab>
@@ -643,15 +714,17 @@ export class AoiSurveyApp extends YpBaseElement {
     </div>
 
     </div>
-      ${this.lastSnackbarText
-        ? html`
-            <mwc-snackbar
-              id="snackbar"
-              @MDCSnackbar:closed="${this.snackbarclosed}"
-              style="text-align: center;"
-              .labelText="${this.lastSnackbarText}"
-            ></mwc-snackbar>
-          `
-        : nothing}`;
+      ${
+        this.lastSnackbarText
+          ? html`
+              <mwc-snackbar
+                id="snackbar"
+                @MDCSnackbar:closed="${this.snackbarclosed}"
+                style="text-align: center;"
+                .labelText="${this.lastSnackbarText}"
+              ></mwc-snackbar>
+            `
+          : nothing
+      }`;
   }
 }

@@ -1,14 +1,17 @@
 import { YpAppGlobals } from './@yrpri/yp-app/YpAppGlobals';
+import { AoiServerApi } from './survey/AoiServerApi';
 
-export class AoiAppGlobals {
+export class AoiAppGlobals extends YpAppGlobals {
   originalQueryParameters: any;
   originalReferrer: string;
   questionId: number;
   earlId: number;
   promptId: number;
   earlName: string;
+  disableParentConstruction = true
 
-  constructor() {
+  constructor(serverApi: AoiServerApi) {
+    super(serverApi, true);
     this.parseQueryString();
     this.earlName = this.getEarlName();
     this.originalReferrer = document.referrer;

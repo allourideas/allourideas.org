@@ -22,10 +22,10 @@ class Earl < ActiveRecord::Base
   store_accessor :configuration, :question_name
   store_accessor :configuration, :target_votes
   store_accessor :configuration, :theme_color
-  store_accessor :configuration, :theme_schema
+  store_accessor :configuration, :theme_scheme
   store_accessor :configuration, :theme_primary_color
   store_accessor :configuration, :theme_secondary_color
-  store_accessor :configuration, :theme_secondary_color
+  store_accessor :configuration, :theme_tertiary_color
   store_accessor :configuration, :theme_neutral_color
   store_accessor :configuration, :theme_font_css
 

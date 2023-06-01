@@ -1509,10 +1509,13 @@ class QuestionsController < ApplicationController
         :question_id, :name, :welcome_message, :default_lang, :logo_size,
         :flag_enabled, :ga_code, :photocracy, :accept_new_ideas,
         :verify_code, :show_cant_decide, :show_add_new_idea, :hide_results,
-        :welcome_html, :target_votes, :theme_color,
+        :welcome_html, :target_votes, :theme_color, :theme_scheme,
+        :theme_primary_color, :theme_secondary_color, :theme_tertiary_color,
+        :theme_neutral_color, :theme_font_css,
         :question_name, :logo,
         :analysis_config, :pass, :active,
-        :question_should_autoactivate_ideas)
+        :question_should_autoactivate_ideas,
+      )
     end
 
 end

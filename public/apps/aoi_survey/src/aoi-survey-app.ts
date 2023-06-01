@@ -192,19 +192,17 @@ export class AoiSurveyApp extends YpBaseElement {
       this.surveyClosed = true;
     }
 
-    if (this.earl.configuration.theme_color) {
-      this.themeColor = this.earl.configuration.theme_color;
-      this.themePrimaryColor = this.earl.configuration.theme_primary_color;
-      this.themeSecondaryColor = this.earl.configuration.theme_secondary_color;
-      this.themeTertiaryColor = this.earl.configuration.theme_tertiary_color;
-      this.themeNeutralColor = this.earl.configuration.theme_neutral_color;
+    this.themeColor = this.earl.configuration.theme_color ? this.earl.configuration.theme_color : undefined;
+    this.themePrimaryColor = this.earl.configuration.theme_primary_color;
+    this.themeSecondaryColor = this.earl.configuration.theme_secondary_color;
+    this.themeTertiaryColor = this.earl.configuration.theme_tertiary_color;
+    this.themeNeutralColor = this.earl.configuration.theme_neutral_color;
 
-      this.themeScheme = this.earl.configuration.theme_scheme
-        ? this.earl.configuration.theme_scheme.toLowerCase()
-        : 'tonal';
+    this.themeScheme = this.earl.configuration.theme_scheme
+      ? this.earl.configuration.theme_scheme.toLowerCase()
+      : 'tonal';
 
-      this.themeChanged();
-    }
+    this.themeChanged();
 
     this.fireGlobal('set-ids', {
       earlId: this.earl.id,
@@ -256,7 +254,7 @@ export class AoiSurveyApp extends YpBaseElement {
           neutral: this.getHexColor(this.themeNeutralColor || "#000000"),
         },
         isDark,
-        this.themeScheme,
+        "dynamic",
         this.themeContrastBalance
       );
     }

@@ -165,6 +165,7 @@ class PromptsController < ApplicationController
   end
 
   private
+
   def add_photocracy_info(result, next_prompt, question_id)
     newright_photo     = Photo.find(next_prompt['right_choice_text'])
     newleft_photo      = Photo.find(next_prompt['left_choice_text'])
@@ -218,6 +219,7 @@ class PromptsController < ApplicationController
       :utm_content,
       :utm_referrer
     )
+
     tracking_data.merge!(utm_params.to_h)
     options.merge!({:tracking => tracking_data})
 

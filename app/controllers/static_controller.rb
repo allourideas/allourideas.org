@@ -22,6 +22,9 @@ class StaticController < ApplicationController
 
         html.gsub!('OG_REPLACE_QUESTION_NAME', @earl.question_name || '')
         html.gsub!('OG_REPLACE_DESCRIPTION', @earl.welcome_message || '')
+
+        html.gsub!('<!--REPLASCE_WEB_FONT_CONFIG-->', @earl.theme_font_css || '')
+
         html.gsub!('HTTPS://OG_REPLACE_IMAGE_URL', logo_url)
         url = URI.parse(request.original_url)
         url.query = nil

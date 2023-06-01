@@ -18,6 +18,9 @@ export class AoiSurveyIntro extends YpBaseElement {
   @property({ type: Object })
   question!: AoiQuestionData;
 
+  @property({ type: Boolean })
+  themeHighContrast = false;
+
   async connectedCallback() {
     super.connectedCallback();
     window.appGlobals.activity('Intro - open');
@@ -108,6 +111,10 @@ export class AoiSurveyIntro extends YpBaseElement {
 
           .questionTitle[dark-mode] {
           }
+
+          .darkModeButton {
+            margin-left: 16px;
+          }
         }
       `,
     ];
@@ -144,21 +151,42 @@ export class AoiSurveyIntro extends YpBaseElement {
         <div class="description">${this.formattedDescription}</div>
         ${!this.wide
           ? html`
-              ${!this.themeDarkMode
-                ? html`
-                    <md-outlined-icon-button
-                      class="darkModeButton"
-                      @click="${() => this.fire('toggle-dark-mode')}"
-                      >dark_mode</md-outlined-icon-button
-                    >
-                  `
-                : html`
-                    <md-outlined-icon-button
-                      class="darkModeButton"
-                      @click="${() => this.fire('toggle-dark-mode')}"
-                      >light_mode</md-outlined-icon-button
-                    >
-                  `}
+              <div class="layout horizontal center-center">
+                ${!this.themeDarkMode
+                  ? html`
+                      <md-outlined-icon-button
+                        class="darkModeButton"
+                        @click="${() => this.fire('toggle-dark-mode')}"
+                        ><md-icon>dark_mode</md-icon></md-outlined-icon-button
+                      >
+                    `
+                  : html`
+                      <md-outlined-icon-button
+                        class="darkModeButton"
+                        @click="${() => this.fire('toggle-dark-mode')}"
+                        ><md-icon>light_mode</md-icon></md-outlined-icon-button
+                      >
+                    `}
+                ${!this.themeHighContrast
+                  ? html`
+                      <md-outlined-icon-button
+                        class="darkModeButton"
+                        @click="${() => this.fire('toggle-high-contrast-mode')}"
+                        ><md-icon>contrast</md-icon></md-outlined-icon-button
+                      >
+                    `
+                  : html`
+                      <md-outlined-icon-button
+                        class="darkModeButton"
+                        @click="${() => this.fire('toggle-high-contrast-mode')}"
+                        ><md-icon
+                          >contrast_rtl_off</md-icon
+                        ></md-outlined-icon-button
+                      >
+                    `}
+              </div>
+
+
             `
           : nothing}
         <div class="footerHtml">

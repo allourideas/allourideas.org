@@ -95,7 +95,7 @@ export class AoiSurveyApp extends YpBaseElement {
   themeScheme: Scheme = 'tonal';
 
   @property({ type: Number })
-  themeContrastBalance = 0.0;
+  themeHighContrast = false;
 
   @property({ type: Object })
   earl!: AoiEarlData;
@@ -140,6 +140,13 @@ export class AoiSurveyApp extends YpBaseElement {
       this.themeDarkMode = true;
     } else {
       this.themeDarkMode = false;
+    }
+
+    const savedHighContrastMode = localStorage.getItem('md3-aoi-high-contrast-mode');
+    if (savedHighContrastMode) {
+      this.themeHighContrast = true;
+    } else {
+      this.themeHighContrast = false;
     }
 
     window.appGlobals.activity('pageview');
@@ -243,7 +250,7 @@ export class AoiSurveyApp extends YpBaseElement {
         this.getHexColor(this.themeColor),
         isDark,
         this.themeScheme,
-        this.themeContrastBalance
+        this.themeHighContrast ? 1.0 : 0.0
       );
     } else {
       themeCss = themeFromSourceColor(
@@ -255,7 +262,7 @@ export class AoiSurveyApp extends YpBaseElement {
         },
         isDark,
         "dynamic",
-        this.themeContrastBalance
+        this.themeHighContrast ? 1.0 : 0.0
       );
     }
 
@@ -292,12 +299,14 @@ export class AoiSurveyApp extends YpBaseElement {
     this.addListener('app-error', this._appError);
     this.addListener('display-snackbar', this._displaySnackbar);
     this.addListener('toggle-dark-mode', this.toggleDarkMode.bind(this));
+    this.addListener('toggle-high-contrast-mode', this.toggleHighContrastMode.bind(this));
   }
 
   _removeEventListeners() {
     this.removeListener('display-snackbar', this._displaySnackbar);
     this.removeListener('app-error', this._appError);
     this.removeListener('toggle-dark-mode', this.toggleDarkMode.bind(this));
+    this.removeListener('toggle-high-contrast-mode', this.toggleHighContrastMode.bind(this));
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {
@@ -428,7 +437,7 @@ export class AoiSurveyApp extends YpBaseElement {
 
         .darkModeButton {
           margin-top: 16px;
-          margin-left: 80px;
+          margin-left: 16px;
         }
 
         [hidden] {
@@ -487,10 +496,22 @@ export class AoiSurveyApp extends YpBaseElement {
     this.themeDarkMode = !this.themeDarkMode;
     if (this.themeDarkMode) {
       window.appGlobals.activity('Settings - dark mode');
-      localStorage.removeItem('md3-aoi-dark-mode');
+      localStorage.setItem('md3-aoi-dark-mode', 'true');
     } else {
       window.appGlobals.activity('Settings - light mode');
-      localStorage.setItem('md3-aoi-dark-mode', 'true');
+      localStorage.removeItem('md3-aoi-dark-mode');
+    }
+    this.themeChanged();
+  }
+
+  toggleHighContrastMode() {
+    this.themeHighContrast = !this.themeHighContrast;
+    if (this.themeHighContrast) {
+      window.appGlobals.activity('Settings - high contrast mode');
+      localStorage.setItem('md3-aoi-high-contrast-mode', 'true');
+    } else {
+      window.appGlobals.activity('Settings - non high contrast mode');
+      localStorage.removeItem('md3-aoi-high-contrast-mode');
     }
     this.themeChanged();
   }
@@ -524,6 +545,7 @@ export class AoiSurveyApp extends YpBaseElement {
           return html`<aoi-survey-intro
             .earl="${this.earl}"
             .question="${this.question}"
+            .themeHighContrast="${this.themeHighContrast}"
             @startVoting="${this.startVoting}"
             @openResults="${this.openResults}"
             .themeDarkMode="${this.themeDarkMode}"
@@ -649,21 +671,40 @@ export class AoiSurveyApp extends YpBaseElement {
               ></md-list-item
             >
 
-            ${!this.themeDarkMode
-              ? html`
-                  <md-outlined-icon-button
-                    class="darkModeButton"
-                    @click="${this.toggleDarkMode}"
-                    >dark_mode</md-outlined-icon-button
-                  >
-                `
-              : html`
-                  <md-outlined-icon-button
-                    class="darkModeButton"
-                    @click="${this.toggleDarkMode}"
-                    >light_mode</md-outlined-icon-button
-                  >
-                `}
+            <div class="layout horizontal center-center">
+              ${!this.themeDarkMode
+                ? html`
+                    <md-outlined-icon-button
+                      class="darkModeButton"
+                      @click="${this.toggleDarkMode}"
+                      ><md-icon>dark_mode</md-icon></md-outlined-icon-button
+                    >
+                  `
+                : html`
+                    <md-outlined-icon-button
+                      class="darkModeButton"
+                      @click="${this.toggleDarkMode}"
+                      ><md-icon>light_mode</md-icon></md-outlined-icon-button
+                    >
+                  `}
+
+              ${!this.themeHighContrast
+                ? html`
+                    <md-outlined-icon-button
+                      class="darkModeButton"
+                      @click="${this.toggleHighContrastMode}"
+                      ><md-icon>contrast</md-icon></md-outlined-icon-button
+                    >
+                  `
+                : html`
+                    <md-outlined-icon-button
+                      class="darkModeButton"
+                      @click="${this.toggleHighContrastMode}"
+                      ><md-icon>contrast_rtl_off</md-icon></md-outlined-icon-button
+                    >
+                  `}
+            </div>
+
             ${this.renderScore()}
           </md-list>
         </div>

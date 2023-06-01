@@ -92,11 +92,6 @@
           %h3 Theme
 
           .control-group
-            = label_tag :theme_font_css, ("Web font css (optional)"), :class => 'control-label'
-            .controls
-              = text_area_tag :theme_font_css, @theme_font_css, :rows => 5, :cols => 65, :class => 'input-xxlarge'
-
-          .control-group
             = label_tag :theme_color, ("Single theme color"), :class => 'control-label'
             .controls
               = text_field_tag :theme_color, @theme_color || "#0489CF"
@@ -104,15 +99,7 @@
           .control-group
             = label_tag :theme_scheme, ("Theme Scheme"), :class => 'control-label'
             .controls
-              = select_tag :theme_scheme, options_for_select([
-                ['Tonal', 'Tonal'],
-                ['Vibrant', 'Vibrant'],
-                ['Expressive', 'Expressive'],
-                ['Content', 'Content'],
-                ['Neutral', 'Neutral'],
-                ['Monochrome', 'Monochrome'],
-                ['Fidelity', 'Fidelity']
-              ], @theme_scheme)
+            = select_tag :theme_scheme, options_for_select(['Tonal', 'Vibrant', 'Expressive', 'Content', 'Neutral', 'Monochrome', 'Fidelity'].map { |scheme| [scheme, scheme] }, @theme_scheme)
 
           %h4 OR
 
@@ -135,6 +122,11 @@
             = label_tag :theme_neutral_color, ("Theme neutral (background) color"), :class => 'control-label'
             .controls
               = text_field_tag :theme_neutral_color, @theme_neutral_color || "#000000"
+
+          .control-group
+            = label_tag :theme_font_css, ("Web font css (optional)"), :class => 'control-label'
+            .controls
+              = text_area_tag :theme_font_css, @theme_font_css, :rows => 5, :cols => 65, :class => 'input-xxlarge'
 
           .control-group
             = label_tag :analysis_config, ("AI GPT-4 Analysis Config (Paste JSON Here)"), :class => 'control-label'

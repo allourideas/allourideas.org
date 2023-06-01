@@ -129,7 +129,7 @@
     "@material/material-color-utilities": "^0.2.6",
     "@material/mwc-snackbar": "^0.27.0",
     "@material/mwc-textarea": "^0.27.0",
-    "@material/web": "^1.0.0-pre.8",
+    "@material/web": "^1.0.0-pre.9",
     "@picmo/popup-picker": "^5.8.3",
     "@picmo/renderer-twemoji": "^5.8.3",
     "@types/fingerprintjs": "^0.5.28",

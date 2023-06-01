@@ -1100,7 +1100,7 @@ class QuestionsController < ApplicationController
   def new
     @errors ||= []
     @question = Question.new
-    @welcome_html = "<h1>Welcome to our project</h1><p>Ever find yourself navigating the vast universe of 'something'? Yes, you read that right! Our project isn't just about something - it's about THAT something, that special, electrifying idea you've been seeking.</p><ul><li>Item 1</li><li>Item 2</li></ul>"
+    @welcome_html = "<h1>Welcome to our project</h1><p>Ever find yourself navigating the vast universe of 'something'? Yes, you read that right! Our project isn't just about something - it's about THAT something.</p><ul><li>Item 1</li><li>Item 2</li></ul>"
     @analysis_config = Earl.default_analysis_config.to_json
     respond_to do |format|
       format.html # new.html.erb

@@ -285,11 +285,17 @@ export class YpCampaign extends YpBaseElementWithLogin {
           <span class="url">${medium.finaUrl}</span>
         </div>
       </div>
-      <div class="layout horizontal center-center">
+      <div class="layout vertical center-center">
         <md-filled-button
           class="copyButton"
           @click="${() => this.copyCurrentTextWithLink(medium)}"
           .label="${this.t('copyTextAndLinkTo') +
+          ` ${mediumName.toUpperCase()}`}"
+        ></md-filled-button>
+        <md-filled-button
+          class="copyButton"
+          @click="${() => this.copyCurrentLink(medium)}"
+          .label="${this.t('copyLinkTo') +
           ` ${mediumName.toUpperCase()}`}"
         ></md-filled-button>
       </div>

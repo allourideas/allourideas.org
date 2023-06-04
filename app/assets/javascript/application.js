@@ -7,7 +7,7 @@
 //= facebox
 //= jquery.jqEasyCharCounter
 //= jquery.blockUI
-//= application_main
+//= require application_main
 //= require analytics
 //= require ai_answer_ideas
 //= require_self

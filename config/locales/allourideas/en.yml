@@ -1,4 +1,8 @@
 en:
+  clearance_mailer:
+    change_password:
+      opening: "Here is a password change request for All Our Ideas"
+      closing: "If you did not request this, please ignore this email and your password will remain unchanged."
   common:
    # Common text elements across the application
    and: and

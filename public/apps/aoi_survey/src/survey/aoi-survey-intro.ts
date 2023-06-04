@@ -53,11 +53,11 @@ export class AoiSurveyIntro extends YpBaseElement {
           margin: 16px;
           max-width: 600px;
           line-height: 1.5;
-          color: var(--md-sys-color-on-surface-variant);
+          color: var(--md-sys-color-on-background);
         }
 
         .footerHtml a {
-          color: var(--md-sys-color-on-surface-variant);
+          color: var(--md-sys-color-on-background);
         }
 
         .fab {
@@ -81,8 +81,6 @@ export class AoiSurveyIntro extends YpBaseElement {
         }
 
         :host {
-          --md-fab-container-color: var(--md-sys-color-primary-container);
-          --md-fab-label-text-color: var(--md-sys-color-on-primary-container);
         }
 
         .image {
@@ -113,8 +111,11 @@ export class AoiSurveyIntro extends YpBaseElement {
           }
 
           .darkModeButton {
-            margin-left: 16px;
+            margin-left: 12px;
+            margin-right: 12px;
           }
+
+
         }
       `,
     ];
@@ -135,6 +136,7 @@ export class AoiSurveyIntro extends YpBaseElement {
           ? html`
           <md-fab
             extended
+            variant="primary"
             class="fab"
             @click="${this.clickStart}"
             .label="${this.t('Start Voting')}"
@@ -143,6 +145,7 @@ export class AoiSurveyIntro extends YpBaseElement {
           : html`
           <md-fab
             extended
+            variant="primary"
             class="fab"
             @click="${this.clickResults}"
             .label="${this.t('Open Results')}"

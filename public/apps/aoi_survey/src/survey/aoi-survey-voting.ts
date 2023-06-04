@@ -205,10 +205,6 @@ export class AoiSurveyVoting extends YpBaseElement {
       super.styles,
       SharedStyles,
       css`
-        .hosta {
-          --md-elevated-button-container-color: var(--md-sys-color-surface);
-        }
-
         :host {
           --md-elevated-button-container-color: var(
             --md-sys-color-primary-container
@@ -222,6 +218,7 @@ export class AoiSurveyVoting extends YpBaseElement {
           margin: 8px;
           width: 400px;
           --md-elevated-button-container-height: 120px;
+          --md-elevated-button-hover-label-text-color: var(--md-sys-color-on-primary-container);
         }
 
         .progressBarContainer {

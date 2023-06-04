@@ -1271,13 +1271,13 @@ class QuestionsController < ApplicationController
 
 
   def update_name
-    @earl = Earl.find params[:id]
+    @earl = Earl.find(params[:id])
     @question = @earl.question
     respond_to do |format|
       if ((@question.votes_count == 0 && current_user.owns?(@earl)) || current_user.admin?)
         if params[:question][:name]
           @question.name = params[:question][:name]
-          if @question.save
+          if @question.save(:validate => false)
             @earl.configuration = {} unless @earl.configuration
             @earl.configuration['question_name'] = @question.name
             @earl.save

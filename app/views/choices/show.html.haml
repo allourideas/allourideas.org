@@ -13,10 +13,10 @@
       %td{:width=>'80%'}= h @choice.data.strip
     %tr
       %th= t('items.added_on')
-      %td= @choice.created_at.getlocal.strftime("%m/%d/%Y")
+      %td= Time.parse(@choice.created_at).getlocal.strftime("%m/%d/%Y")
     %tr
       %th= t('items.score')
-      %td= @choice.score.round.to_s + ' ' + link_to('', '#score_explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal', :class => 'glyphicon glyphicon-question-sign')
+      %td= (@choice.score ? @choice.score.round.to_s : 'N/A').html_safe + ' ' + link_to('', '#score_explanation', :"data-toggle" => 'modal', :"data-dismiss" => 'modal', :class => 'glyphicon glyphicon-question-sign').html_safe
     %tr
       %th= t('items.completed_contests')
       %td#num_votes= @num_votes

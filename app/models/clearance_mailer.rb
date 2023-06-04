@@ -8,11 +8,12 @@ class ClearanceMailer < ActionMailer::Base
 
     from_address = photocracy ? ENV["INFO_PHOTOCRACY_EMAIL"] : ENV["INFO_ALLOURIDEAS_EMAIL"]
 
-    from from_address
-    recipients user.email
-    subject "Change your password"
-    body :user => user,
-         :photocracy => photocracy
+    mail(
+      from: from_address,
+      to: user.email,
+      subject: "Change your password",
+      body: render_to_string('change_password', :locals => { :user => user, :photocracy => photocracy })
+    )
   end
 
   def confirmation(user, earl, photocracy = false)
@@ -21,12 +22,12 @@ class ClearanceMailer < ActionMailer::Base
     from_address = photocracy ? ENV["INFO_PHOTOCRACY_EMAIL"] : ENV["INFO_ALLOURIDEAS_EMAIL"]
     signup_address = photocracy ? [ENV["SIGNUPS_PHOTOCRACY_EMAIL"]] : [ENV["SIGNUPS_ALLOURIDEAS_EMAIL"]]
 
-    from from_address
-    bcc signup_address
-    recipients user.email
-    subject "Account confirmation"
-    body :user => user,
-         :earl => earl,
-         :photocracy => photocracy
+    mail(
+      from: from_address,
+      to: user.email,
+      bcc: signup_address,
+      subject: "Account confirmation",
+      body: render_to_string('confirmation', :locals => { :user => user, :earl => earl, :photocracy => photocracy })
+    )
   end
 end

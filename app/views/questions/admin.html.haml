@@ -119,7 +119,7 @@
                 = f.text_field :theme_neutral_color
 
             .control-group
-              = f.label :theme_font_css, ("Web font css (optional)"), :class => 'control-label'
+              = f.label :theme_font_css, ("Webfont (optionally paste webfont css here)"), :class => 'control-label'
               .controls
                 = f.text_area :theme_font_css, :rows => 5, :cols => 65, :class => 'input-xxlarge'
 
@@ -190,12 +190,8 @@
       %button.close{:"data-dismiss" => 'modal'} x
       %h2= t('questions.edit_question')
     .modal-body
-      - form_tag update_name_question_path(@earl), :method => :put do
-        %p
-          =t('questions.your_current_question_text', :question_text => h(@question.name), :"1" => '<span class="question-name">', :"_1" => '</span>')
-        %p
-          =t('questions.type_question_prompt')
-        = text_area_tag('question[name]', h(@question.name), :rows => 2, :maxlength => 255, :class => 'new_idea_field input-xxlarge', :id => 'edit_question_text')
+      = form_tag update_name_question_path(@earl), :method => :put do
+        = text_area_tag 'question[name]', h(@question.name), :rows => 2, :maxlength => 255, :class => 'new_idea_field input-xxlarge', :id => 'edit_question_text'
         %h3.new_idea_counter
     .modal-footer
       %button.btn{:"data-dismiss" => "modal"} Cancel

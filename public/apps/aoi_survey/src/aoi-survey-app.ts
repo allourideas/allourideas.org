@@ -142,7 +142,9 @@ export class AoiSurveyApp extends YpBaseElement {
       this.themeDarkMode = false;
     }
 
-    const savedHighContrastMode = localStorage.getItem('md3-aoi-high-contrast-mode');
+    const savedHighContrastMode = localStorage.getItem(
+      'md3-aoi-high-contrast-mode'
+    );
     if (savedHighContrastMode) {
       this.themeHighContrast = true;
     } else {
@@ -199,7 +201,9 @@ export class AoiSurveyApp extends YpBaseElement {
       this.surveyClosed = true;
     }
 
-    this.themeColor = this.earl.configuration.theme_color ? this.earl.configuration.theme_color : undefined;
+    this.themeColor = this.earl.configuration.theme_color
+      ? this.earl.configuration.theme_color
+      : undefined;
     this.themePrimaryColor = this.earl.configuration.theme_primary_color;
     this.themeSecondaryColor = this.earl.configuration.theme_secondary_color;
     this.themeTertiaryColor = this.earl.configuration.theme_tertiary_color;
@@ -255,13 +259,13 @@ export class AoiSurveyApp extends YpBaseElement {
     } else {
       themeCss = themeFromSourceColor(
         {
-          primary: this.getHexColor(this.themePrimaryColor || "#000000"),
-          secondary: this.getHexColor(this.themeSecondaryColor || "#000000"),
-          tertiary: this.getHexColor(this.themeTertiaryColor || "#000000"),
-          neutral: this.getHexColor(this.themeNeutralColor || "#000000"),
+          primary: this.getHexColor(this.themePrimaryColor || '#000000'),
+          secondary: this.getHexColor(this.themeSecondaryColor || '#000000'),
+          tertiary: this.getHexColor(this.themeTertiaryColor || '#000000'),
+          neutral: this.getHexColor(this.themeNeutralColor || '#000000'),
         },
         isDark,
-        "dynamic",
+        'dynamic',
         this.themeHighContrast ? 2.0 : 0.0
       );
     }
@@ -299,14 +303,20 @@ export class AoiSurveyApp extends YpBaseElement {
     this.addListener('app-error', this._appError);
     this.addListener('display-snackbar', this._displaySnackbar);
     this.addListener('toggle-dark-mode', this.toggleDarkMode.bind(this));
-    this.addListener('toggle-high-contrast-mode', this.toggleHighContrastMode.bind(this));
+    this.addListener(
+      'toggle-high-contrast-mode',
+      this.toggleHighContrastMode.bind(this)
+    );
   }
 
   _removeEventListeners() {
     this.removeListener('display-snackbar', this._displaySnackbar);
     this.removeListener('app-error', this._appError);
     this.removeListener('toggle-dark-mode', this.toggleDarkMode.bind(this));
-    this.removeListener('toggle-high-contrast-mode', this.toggleHighContrastMode.bind(this));
+    this.removeListener(
+      'toggle-high-contrast-mode',
+      this.toggleHighContrastMode.bind(this)
+    );
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {
@@ -338,15 +348,14 @@ export class AoiSurveyApp extends YpBaseElement {
       Layouts,
       css`
         :host {
-          background-color: var(--md-sys-color-surface, #fefefe);
+          background-color: var(--md-sys-color-background, #fefefe);
         }
 
         :host {
-          --md-fab-container-color: var(--md-sys-color-surface);
         }
 
         body {
-          background-color: var(--md-sys-color-surface, #fefefe);
+          background-color: var(--md-sys-color-background, #fefefe);
         }
 
         .analyticsHeaderText {
@@ -380,9 +389,9 @@ export class AoiSurveyApp extends YpBaseElement {
           --md-list-list-item-container-color: var(
             --md-sys-color-secondary-container
           );
-          color: var(--md-sys-color-on-secondary-container);
+          color: var(--md-sys-color-on-background);
           --md-list-list-item-label-text-color: var(
-            --md-sys-color-on-secondary-container
+            --md-sys-color-on-background
           );
         }
 
@@ -404,6 +413,17 @@ export class AoiSurveyApp extends YpBaseElement {
           align-items: center;
           width: 100%;
           height: 100vh;
+        }
+
+        .lightDarkContainer {
+          padding-left: 8px;
+          padding-right: 8px;
+          color: var(--md-sys-color-on-background);
+          font-size: 14px;
+        }
+
+        .darkModeButton {
+          margin: 16px;
         }
 
         .topAppBar {
@@ -433,11 +453,6 @@ export class AoiSurveyApp extends YpBaseElement {
           left: 0;
           width: 100%;
           z-index: 7;
-        }
-
-        .darkModeButton {
-          margin-top: 16px;
-          margin-left: 16px;
         }
 
         [hidden] {
@@ -588,6 +603,46 @@ export class AoiSurveyApp extends YpBaseElement {
     return html` <div class="layout vertical center-center"></div> `;
   }
 
+  renderThemeToggle() {
+    return html`<div class="layout vertical center-center lightDarkContainer">
+        ${!this.themeDarkMode
+          ? html`
+              <md-outlined-icon-button
+                class="darkModeButton"
+                @click="${this.toggleDarkMode}"
+                ><md-icon>dark_mode</md-icon></md-outlined-icon-button
+              >
+            `
+          : html`
+              <md-outlined-icon-button
+                class="darkModeButton"
+                @click="${this.toggleDarkMode}"
+                ><md-icon>light_mode</md-icon></md-outlined-icon-button
+              >
+            `}
+        <div>${this.t('Light/Dark')}</div>
+      </div>
+
+      <div class="layout vertical center-center lightDarkContainer">
+        ${!this.themeHighContrast
+          ? html`
+            <md-outlined-icon-button
+              class="darkModeButton"
+              @click="${this.toggleHighContrastMode}"
+              ><md-icon>contrast</md-icon></md-outlined-icon-button
+            >
+          </div> `
+          : html`
+              <md-outlined-icon-button
+                class="darkModeButton"
+                @click="${this.toggleHighContrastMode}"
+                ><md-icon>contrast_rtl_off</md-icon></md-outlined-icon-button
+              >
+            `}
+        <div>${this.t('Contrast')}</div>
+      </div>`;
+  }
+
   renderNavigationBar() {
     if (this.wide) {
       return html`
@@ -672,37 +727,7 @@ export class AoiSurveyApp extends YpBaseElement {
             >
 
             <div class="layout horizontal center-center">
-              ${!this.themeDarkMode
-                ? html`
-                    <md-outlined-icon-button
-                      class="darkModeButton"
-                      @click="${this.toggleDarkMode}"
-                      ><md-icon>dark_mode</md-icon></md-outlined-icon-button
-                    >
-                  `
-                : html`
-                    <md-outlined-icon-button
-                      class="darkModeButton"
-                      @click="${this.toggleDarkMode}"
-                      ><md-icon>light_mode</md-icon></md-outlined-icon-button
-                    >
-                  `}
-
-              ${!this.themeHighContrast
-                ? html`
-                    <md-outlined-icon-button
-                      class="darkModeButton"
-                      @click="${this.toggleHighContrastMode}"
-                      ><md-icon>contrast</md-icon></md-outlined-icon-button
-                    >
-                  `
-                : html`
-                    <md-outlined-icon-button
-                      class="darkModeButton"
-                      @click="${this.toggleHighContrastMode}"
-                      ><md-icon>contrast_rtl_off</md-icon></md-outlined-icon-button
-                    >
-                  `}
+              ${this.renderThemeToggle()}
             </div>
 
             ${this.renderScore()}

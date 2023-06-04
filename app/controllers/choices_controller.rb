@@ -4,7 +4,7 @@ class ChoicesController < ApplicationController
   before_action :earl_owner_or_admin_only, :only => [:activate, :deactivate, :rotate]
 
   def show
-    @earl = Earl.find params[:question_id]
+    @earl = Earl.find_by_name params[:question_id]
     @question = Question.find(@earl.question_id)
 
     if params[:locale].nil? && @earl.default_lang != I18n.default_locale.to_s
@@ -14,6 +14,7 @@ class ChoicesController < ApplicationController
     end
     @choice = Choice.find(params[:id], :params => {:question_id => @question.id})
     @num_votes = @choice.wins + @choice.losses
+    puts "choice data: " + @choice.inspect
 
     if @photocracy
       @photo = Photo.find(@choice.data.strip)
@@ -44,16 +45,15 @@ class ChoicesController < ApplicationController
     @choice.active = !@choice.active
 
     verb = {true => t('items.list.activated'), false => t('items.list.deactivated')}
+    puts verb
 
     respond_to do |format|
-        format.xml  {  head :ok }
         format.js  {
-
-        if @choice.save
-          render :json => {:verb => verb[@choice.active?], :active => @choice.active?}.to_json
-        else
-          render :json => {:verb => verb[!@choice.active?], :active => !@choice.active?}.to_json
-        end
+          if @choice.save
+            render :json => {:verb => verb[@choice.active?], :active => @choice.active?}.to_json
+          else
+            render :json => {:verb => verb[!@choice.active?], :active => !@choice.active?}.to_json
+          end
         }
     end
   end

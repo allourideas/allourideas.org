@@ -5,6 +5,7 @@ ruby '3.2.0'
 gem 'protected_attributes_continued'
 gem 'chart-js-rails'
 gem "ruby-openai"
+gem 'sendgrid-ruby'
 gem "memoist"
 gem "rtiss_acts_as_versioned"
 gem "delayed_job_active_record"
@@ -45,7 +46,7 @@ gem "json_pure", "2.6.2"
 gem 'mysql2', '0.5.4'
 
 group :production, :staging do
-  gem "sendgrid", "1.2.4"
+  #gem "sendgrid", "1.2.4"
 end
 
 group :test, :cucumber do

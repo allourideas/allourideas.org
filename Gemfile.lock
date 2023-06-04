@@ -316,6 +316,7 @@ GEM
       faraday (>= 1)
       faraday-multipart (>= 1)
     ruby2_keywords (0.0.5)
+    ruby_http_client (3.5.5)
     rubyzip (1.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -331,8 +332,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sendgrid (1.2.4)
-      json
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     shoulda (2.10.3)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
@@ -431,7 +432,7 @@ DEPENDENCIES
   rtiss_acts_as_versioned
   ruby-openai
   sass-rails (~> 6.0)
-  sendgrid (= 1.2.4)
+  sendgrid-ruby
   shoulda (~> 2.10.1)
   sprockets-rails
   sqlite3 (>= 1.3.3)

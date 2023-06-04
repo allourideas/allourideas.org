@@ -104,6 +104,7 @@ services:
       - "443:443"
     volumes:
       - all-our-ideas:/home
+      - bundle-data:/home/app/allourideas.org/vendor/bundle
     healthcheck:
       test: ["CMD", "curl", "-f", "https://${FULL_HOSTNAME}/"]
       interval: 30s
@@ -127,6 +128,7 @@ services:
       - "3072:3072"
     volumes:
       - pairwise-api:/home
+      - bundle-data:/home/app/pairwise-api/vendor/bundle
     healthcheck:
       test: ["CMD", "curl", "-f", "http://${FULL_HOSTNAME}:3072/"]
       interval: 30s

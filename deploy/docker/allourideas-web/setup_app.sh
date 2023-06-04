@@ -15,7 +15,7 @@ else
 fi
 
 
-sudo -E -u app bundle install
+sudo -E -u app bundle install --path vendor/bundle
 echo "UPDATING DB PAIRWISE"
 sudo -E -u app bundle exec rake db:migrate RAILS_ENV=production
 true

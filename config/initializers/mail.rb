@@ -1,6 +1,6 @@
-require 'sendgrid-ruby'
+#require 'sendgrid-ruby'
 
-SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+#SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
 
 ActionMailer::Base.smtp_settings = {
   :address => "smtp.sendgrid.net",

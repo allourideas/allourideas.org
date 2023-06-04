@@ -11,9 +11,11 @@ class ClearanceMailer < ActionMailer::Base
     mail(
       from: from_address,
       to: user.email,
-      subject: "Change your password",
-      body: render_to_string('change_password', :locals => { :user => user, :photocracy => photocracy })
-    )
+      subject: "All Our Ideas - Change password request"
+    ) do |format|
+      format.html { render 'change_password', :locals => { :user => user, :photocracy => photocracy } }
+      format.text { render 'change_password', :locals => { :user => user, :photocracy => photocracy } }
+    end
   end
 
   def confirmation(user, earl, photocracy = false)

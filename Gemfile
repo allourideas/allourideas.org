@@ -20,7 +20,6 @@ gem "rdoc", "~> 3.12"
 gem "rails", "7.0.4.3"
 gem "sprockets-rails"
 gem "libxml-ruby", "2.9.0", :require => "libxml"
-gem "ambethia-smtp-tls", "1.1.2", :require => "smtp-tls"
 gem "paperclip", "6.1.0"
 gem "mime-types", "1.16",
     :require => "mime/types"

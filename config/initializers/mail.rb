@@ -1,3 +1,7 @@
+require 'sendgrid-ruby'
+
+SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+
 ActionMailer::Base.smtp_settings = {
   :address => "smtp.sendgrid.net",
   :port => 587,
@@ -7,3 +11,4 @@ ActionMailer::Base.smtp_settings = {
   :user_name => "apikey",
   :password => ENV["SENDGRID_API_KEY"],
 }
+

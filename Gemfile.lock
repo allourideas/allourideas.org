@@ -76,7 +76,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
-    ambethia-smtp-tls (1.1.2)
     argon2 (2.2.0)
       ffi (~> 1.15)
       ffi-compiler (~> 1.0)
@@ -383,7 +382,6 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource (~> 6.0)
-  ambethia-smtp-tls (= 1.1.2)
   bootsnap
   bugsnag (~> 5.5.0)
   capybara (~> 1.1.2)

@@ -44,7 +44,7 @@ export class YpAppGlobals extends YpCodeBase {
 
   originalQueryParameters: Record<string, string | number | undefined> = {};
 
-  externalGoalTriggerGroupId: number | undefined;
+  externalGoalTriggerUrl: string | undefined;
 
   externalGoalCounter = 0;
 
@@ -53,11 +53,9 @@ export class YpAppGlobals extends YpCodeBase {
   autoTranslate = false;
 
   goalTriggerEvents: Array<string> = [
-    'newPost',
-    'endorse_up',
-    'endorse_down',
-    'newPointFor',
-    'newPointAgainst',
+    'Voting - left',
+    'Voting - right',
+    'New Idea - added'
   ];
 
   haveLoadedLanguages = false;
@@ -476,21 +474,9 @@ export class YpAppGlobals extends YpCodeBase {
     }
   }
 
-  postLoadGroupProcessing(group: YpGroupData) {
-    if (this.originalQueryParameters['yu']) {
-      this.serverApi.marketingTrackingOpen(
-        group.id,
-        this.originalQueryParameters
-      );
-      this.externalGoalTriggerGroupId = group.id;
-      this.goalTriggerEvents = ['newPost', 'newPointFor', 'newPointAgainst'];
-      this.originalQueryParameters['goalThreshold'] = 1;
-    }
-  }
-
   checkExternalGoalTrigger(type: string) {
     if (
-      this.externalGoalTriggerGroupId &&
+      this.externalGoalTriggerUrl &&
       this.originalQueryParameters &&
       this.originalQueryParameters.goalThreshold &&
       this.goalTriggerEvents.indexOf(type) > -1
@@ -499,10 +485,7 @@ export class YpAppGlobals extends YpCodeBase {
       if (
         this.externalGoalCounter == this.originalQueryParameters.goalThreshold
       ) {
-        this.serverApi.triggerTrackingGoal(
-          this.externalGoalTriggerGroupId,
-          this.originalQueryParameters
-        );
+        this.fireGlobal('yp-external-goal-trigger');
       }
     }
   }
@@ -548,8 +531,10 @@ export class YpAppGlobals extends YpCodeBase {
       user_agent: navigator.userAgent,
     });
 
-    if (type === 'completed' || type === 'clicked') {
-      this.checkExternalGoalTrigger(object as string);
+    if (type === 'Voting - left' ||
+        type === 'Voting - right' ||
+        type === 'New Idea - added') {
+      this.checkExternalGoalTrigger(type);
     }
   }
 

@@ -64,6 +64,7 @@ interface AoiEarlConfigurationData {
   theme_tertiary_color: string;
   theme_secondary_color: string;
   theme_primary_color: string;
+  external_goal_trigger_url?: string;
   welcome_html?: string;
   target_votes: number;
   lock_results_until_target_votes: boolean;

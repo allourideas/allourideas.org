@@ -1512,6 +1512,7 @@ class QuestionsController < ApplicationController
         :welcome_html, :target_votes, :theme_color, :theme_scheme,
         :theme_primary_color, :theme_secondary_color, :theme_tertiary_color,
         :theme_neutral_color, :theme_font_css,
+        :external_goal_trigger_url,
         :question_name, :logo,
         :analysis_config, :pass, :active,
         :question_should_autoactivate_ideas,

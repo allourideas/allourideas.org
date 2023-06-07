@@ -25,7 +25,32 @@ module PlausibleHelper
     "Voting - left",
     "Voting - right",
     "Settings - dark mode",
-    "Settings - light mode"
+    "Settings - light mode",
+    "User voted 10 times",
+    "User voted 20 times",
+    "User voted 30 times",
+    "User voted 40 times",
+    "User voted 50 times",
+    "User voted 60 times",
+    "User voted 70 times",
+    "User voted 80 times",
+    "User voted 90 times",
+    "User voted 100 times",
+    "User voted 110 times",
+    "User voted 120 times",
+    "User voted 130 times",
+    "User voted 140 times",
+    "User voted 150 times",
+    "User voted 160 times",
+    "User voted 170 times",
+    "User voted 180 times",
+    "User voted 190 times",
+    "User voted 200 times",
+    "User voted 210 times",
+    "User voted 220 times",
+    "User voted 230 times",
+    "User voted 240 times",
+    "User voted 250 times"
   ]
 
   def plausible_stats_proxy_helper(plausible_url, props)

@@ -8,8 +8,10 @@ import '@material/web/navigationdrawer/navigation-drawer.js';
 import '@material/web/list/list-item.js';
 import '@material/web/list/list.js';
 import '@material/web/icon/icon.js';
+import '@material/web/iconbutton/standard-icon-button.js';
 import '@material/web/iconbutton/outlined-icon-button.js';
 import '@material/mwc-snackbar/mwc-snackbar.js';
+
 import { argbFromHex } from '@material/material-color-utilities';
 
 import '@material/web/menu/menu.js';
@@ -208,6 +210,8 @@ export class AoiSurveyApp extends YpBaseElement {
     this.themeSecondaryColor = this.earl.configuration.theme_secondary_color;
     this.themeTertiaryColor = this.earl.configuration.theme_tertiary_color;
     this.themeNeutralColor = this.earl.configuration.theme_neutral_color;
+    window.appGlobals.externalGoalTriggerUrl =
+      this.earl.configuration.external_goal_trigger_url;
 
     this.themeScheme = this.earl.configuration.theme_scheme
       ? this.earl.configuration.theme_scheme.toLowerCase()
@@ -307,6 +311,10 @@ export class AoiSurveyApp extends YpBaseElement {
       'toggle-high-contrast-mode',
       this.toggleHighContrastMode.bind(this)
     );
+    this.addGlobalListener(
+      'yp-external-goal-trigger',
+      this.externalGoalTrigger.bind(this)
+    );
   }
 
   _removeEventListeners() {
@@ -317,6 +325,10 @@ export class AoiSurveyApp extends YpBaseElement {
       'toggle-high-contrast-mode',
       this.toggleHighContrastMode.bind(this)
     );
+  }
+
+  externalGoalTrigger() {
+    (this.$$('#goalTriggerSnackbar') as Snackbar).show();
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {
@@ -459,6 +471,18 @@ export class AoiSurveyApp extends YpBaseElement {
           display: none !important;
         }
 
+        md-text-button {
+          --md-text-button-label-text-color: #fefefe;
+        }
+
+        md-standard-icon-button {
+          --md-icon-button-unselected-icon-color: #f0f0f0;
+        }
+
+        #goalTriggerSnackbar {
+          padding: 24px;
+        }
+
         @media (max-width: 960px) {
           .mainPageContainer {
             max-width: 100%;
@@ -551,6 +575,10 @@ export class AoiSurveyApp extends YpBaseElement {
 
   goToAdmin() {
     window.location.href = `/${this.earl.name}/admin`;
+  }
+
+  triggerExternalGoalUrl() {
+    window.location.href = window.appGlobals.externalGoalTriggerUrl;
   }
 
   _renderPage() {
@@ -789,6 +817,29 @@ export class AoiSurveyApp extends YpBaseElement {
               ></mwc-snackbar>
             `
           : nothing
-      }`;
+      }
+
+      ${
+        window.appGlobals.externalGoalTriggerUrl
+          ? html`
+              <mwc-snackbar
+                id="goalTriggerSnackbar"
+                style="text-align: center;"
+                timeoutMs="-1"
+                .labelText="${this.t('Target votes reached!')}"
+              >
+                <md-standard-icon-button slot="dismiss">
+                  <md-icon>close</md-icon>
+                </md-standard-icon-button>
+                <md-text-button
+                  slot="action"
+                  @click="${this.triggerExternalGoalUrl}"
+                  >${this.t('Finish and return')}</md-text-button
+                >
+              </mwc-snackbar>
+            `
+          : nothing
+      }
+      `;
   }
 }

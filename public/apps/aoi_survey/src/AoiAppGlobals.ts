@@ -8,7 +8,7 @@ export class AoiAppGlobals extends YpAppGlobals {
   earlId: number;
   promptId: number;
   earlName: string;
-  disableParentConstruction = true
+  disableParentConstruction = true;
 
   constructor(serverApi: AoiServerApi) {
     super(serverApi, true);
@@ -120,6 +120,14 @@ export class AoiAppGlobals extends YpAppGlobals {
       .then(response => {
         if (!response.ok) {
           console.error(`HTTP error! status: ${response.status}`);
+        } else {
+          if (
+            type === 'Voting - left' ||
+            type === 'Voting - right' ||
+            type === 'New Idea - added'
+          ) {
+            this.checkExternalGoalTrigger(type);
+          }
         }
       })
       .catch(error => {

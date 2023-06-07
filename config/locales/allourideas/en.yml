@@ -5,6 +5,7 @@ en:
       closing: "If you did not request this, please ignore this email and your password will remain unchanged."
   flashes:
     failure_when_forbidden: "Error, token does not match"
+    failure_after_create: "Can't login, either email or password is wrong"
   common:
    # Common text elements across the application
    and: and

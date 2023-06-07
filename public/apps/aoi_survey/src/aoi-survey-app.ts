@@ -328,7 +328,11 @@ export class AoiSurveyApp extends YpBaseElement {
   }
 
   externalGoalTrigger() {
-    (this.$$('#goalTriggerSnackbar') as Snackbar).show();
+    if (false) {
+      //(this.$$('#goalTriggerSnackbar') as Snackbar).show();
+    } else {
+      window.location.href = window.appGlobals.externalGoalTriggerUrl;
+    }
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {

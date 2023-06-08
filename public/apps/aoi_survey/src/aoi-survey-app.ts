@@ -574,7 +574,7 @@ export class AoiSurveyApp extends YpBaseElement {
   }
 
   openAnalytics() {
-    window.location.href = `/${this.earl.name}/analytics`;
+    window.location.href = `/${this.earl.name.toLowerCase()}/analytics`;
   }
 
   goToAdmin() {

@@ -62,18 +62,21 @@ export class AoiSurveyVoting extends YpBaseElement {
     this.fire('needs-new-earl');
     window.appGlobals.activity('Voting - open');
     this.resetTimer();
-    installMediaQueryWatcher(`(max-width: 1200px) and (min-width: 960px)`, matches => {
-      this.breakForVertical = matches;
-    });
+    installMediaQueryWatcher(
+      `(max-width: 1200px) and (min-width: 960px)`,
+      matches => {
+        this.breakForVertical = matches;
+      }
+    );
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
     window.appGlobals.activity('Voting - close');
-    this.fireGlobal("set-ids", {
+    this.fireGlobal('set-ids', {
       earlId: this.earl.id,
       questionId: this.question.id,
-      promptId: undefined
+      promptId: undefined,
     });
   }
 
@@ -158,11 +161,10 @@ export class AoiSurveyVoting extends YpBaseElement {
       rightAnswer: this.rightAnswer,
     });
 
-
-    this.fireGlobal("set-ids", {
+    this.fireGlobal('set-ids', {
       earlId: this.earl.id,
       questionId: this.question.id,
-      promptId: this.promptId
+      promptId: this.promptId,
     });
 
     const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
@@ -218,7 +220,9 @@ export class AoiSurveyVoting extends YpBaseElement {
           margin: 8px;
           width: 400px;
           --md-elevated-button-container-height: 120px;
-          --md-elevated-button-hover-label-text-color: var(--md-sys-color-on-primary-container);
+          --md-elevated-button-hover-label-text-color: var(
+            --md-sys-color-on-primary-container
+          );
         }
 
         .progressBarContainer {
@@ -369,11 +373,18 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   renderProgressBar() {
     if (this.earl.configuration) {
-      let targetVotes = this.levelTwoTargetVotes || this.earl.configuration.target_votes || 30;
+      let targetVotes =
+        this.levelTwoTargetVotes ||
+        window.appGlobals.originalQueryParameters.goalThreshold ||
+        this.earl.configuration.target_votes ||
+        30;
 
-      if (!this.levelTwoTargetVotes && this.question.visitor_votes>=targetVotes) {
+      if (
+        !this.levelTwoTargetVotes &&
+        this.question.visitor_votes >= targetVotes
+      ) {
         //this.levelTwoTargetVotes = Math.max(Math.round((this.question.choices_count * this.question.choices_count)/4), targetVotes);
-        this.levelTwoTargetVotes = targetVotes*2;
+        this.levelTwoTargetVotes = targetVotes * 2;
         targetVotes = this.levelTwoTargetVotes;
       }
 
@@ -388,7 +399,8 @@ export class AoiSurveyVoting extends YpBaseElement {
         </div>
         <div class="progressBarText">
           ${this.question.visitor_votes} ${this.t('votes of')} ${targetVotes}
-          ${this.t('target')} ${this.levelTwoTargetVotes ? html`(${this.t('Level 2')})` : nothing}
+          ${this.t('target')}
+          ${this.levelTwoTargetVotes ? html`(${this.t('Level 2')})` : nothing}
         </div>
       `;
     } else {

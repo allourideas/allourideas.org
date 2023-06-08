@@ -223,7 +223,7 @@ module PlausibleHelper
     props = in_props.merge(
       questionId: work_data[:questionId],
       earlId: work_data[:earlId],
-      earlName: work_data[:earlName],
+      earlName: work_data[:earlName] ? work_data[:earlName].downcase : "",
       promptId: work_data[:promptId],
       userId: work_data[:userId],
       userLocale: work_data[:body][:userLocale],

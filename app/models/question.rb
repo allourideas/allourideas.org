@@ -91,7 +91,7 @@ class Question < ActiveResource::Base
 
   def ideas_valid(photocracy)
     unless photocracy
-      if (ideas.blank? || ideas == "Add your own ideas here...\n\nFor example:\nMore hammocks on campus\nImprove student advising\nMore outdoor tables and benches\nVideo game tournaments\nStart late dinner at 8PM\nLower textbook prices\nBring back parking for sophomores")
+      if (ideas.blank? || ideas == "")
         errors.add("Ideas", "are blank (Step 3)")
       end
       add_sample_idea

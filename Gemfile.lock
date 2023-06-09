@@ -79,6 +79,22 @@ GEM
     argon2 (2.2.0)
       ffi (~> 1.15)
       ffi-compiler (~> 1.0)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.777.0)
+    aws-sdk-core (3.174.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.66.0)
+      aws-sdk-core (~> 3, >= 3.174.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.123.1)
+      aws-sdk-core (~> 3, >= 3.174.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.5.2)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -184,6 +200,7 @@ GEM
       activesupport (>= 5.0.0)
     jferris-mocha (0.9.5.0.1241126838)
       rake
+    jmespath (1.6.2)
     json (1.8.6)
     json_pure (2.6.2)
     jtrupiano-timecop (0.2.1)
@@ -382,6 +399,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource (~> 6.0)
+  aws-sdk-s3
   bootsnap
   bugsnag (~> 5.5.0)
   capybara (~> 1.1.2)

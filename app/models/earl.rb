@@ -83,7 +83,20 @@ class Earl < ActiveRecord::Base
     super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo, :logo_updated_at, :welcome_message, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
       json["earl"]["configuration"] = modified_configuration
       json["earl"]["configuration"]["analysis_config"] = analysis_config_without_prompts
-      json["earl"]["logo_url"] = Rails.application.routes.url_helpers.rails_blob_url(logo) if logo.attached?
+      json["earl"]["logo_url"] = get_logo_url(logo) if logo.attached?
+    end
+  end
+
+  def get_logo_url(logo)
+    begin
+      url = logo.blob.url
+      if ENV["AWS_CLOUDFLARE_ENDPOINT"].present?
+        url.gsub(/s3\.amazonaws\.com/, "")
+      else
+        url
+      end
+    rescue => exception
+      ""
     end
   end
 

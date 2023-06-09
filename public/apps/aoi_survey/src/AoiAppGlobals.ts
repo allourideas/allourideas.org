@@ -110,31 +110,35 @@ export class AoiAppGlobals extends YpAppGlobals {
       screen_width: window.innerWidth,
     };
 
-    fetch('/api/analytics/createActivityFromApp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-      .then(response => {
-        if (!response.ok) {
-          console.error(`HTTP error! status: ${response.status}`);
-        } else {
-          if (
-            type === 'Voting - left' ||
-            type === 'Voting - right' ||
-            type === 'New Idea - added'
-          ) {
-            this.checkExternalGoalTrigger(type);
-          }
-        }
+    try {
+      fetch('/api/analytics/createActivityFromApp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       })
-      .catch(error => {
-        console.error(
-          'There has been a problem with your fetch operation:',
-          error
-        );
-      });
+        .then(response => {
+          if (!response.ok) {
+            console.error(`HTTP error! status: ${response.status}`);
+          } else {
+            if (
+              type === 'Voting - left' ||
+              type === 'Voting - right' ||
+              type === 'New Idea - added'
+            ) {
+              this.checkExternalGoalTrigger(type);
+            }
+          }
+        })
+        .catch(error => {
+          console.error(
+            'There has been a problem with your fetch operation:',
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
 }

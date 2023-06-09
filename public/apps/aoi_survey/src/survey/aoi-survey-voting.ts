@@ -9,6 +9,7 @@ import '../@yrpri/common/yp-image.js';
 
 import '@material/web/button/elevated-button.js';
 import '@material/web/button/outlined-button.js';
+import '@material/web/circularprogress/circular-progress.js';
 
 import './aoi-new-idea-dialog.js';
 
@@ -38,6 +39,9 @@ export class AoiSurveyVoting extends YpBaseElement {
   @property({ type: String })
   leftAnswer: string | undefined;
 
+  @property({ type: Boolean })
+  spinnersActive = false;
+
   @property({ type: String })
   rightAnswer: string | undefined;
 
@@ -59,6 +63,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
   async connectedCallback() {
     super.connectedCallback();
+    this.spinnersActive = false;
     this.fire('needs-new-earl');
     window.appGlobals.activity('Voting - open');
     this.resetTimer();
@@ -134,39 +139,65 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     let animationPromise = this.animateButtons(direction);
 
+    const spinnerTimeout = setTimeout(() => {
+      this.spinnersActive = true;
+    }, 2000);
+
     const [postVoteResponse] = await Promise.all([
       postVotePromise,
       animationPromise,
     ]);
 
-    // Wait for 5 seconds
-    //await new Promise(resolve => setTimeout(resolve, 1000));
+    clearTimeout(spinnerTimeout);
 
-    window.csrfToken = postVoteResponse.csrfToken;
+    this.spinnersActive = false;
 
-    this.leftAnswer = postVoteResponse.newleft
-      .replace(/&#39;/g, "'")
-      .replace(/&quot;/g, '"');
-    this.rightAnswer = postVoteResponse.newright
-      .replace(/&#39;/g, "'")
-      .replace(/&quot;/g, '"');
+    if (!postVoteResponse) {
+      this.fire('display-snackbar', this.t('Network error, please try again.'));
+      this.removeAndInsertFromLeft();
+      return;
+    } else {
+      window.csrfToken = postVoteResponse.csrfToken;
 
-    this.promptId = postVoteResponse.prompt_id;
-    this.appearanceLookup = postVoteResponse.appearance_lookup;
+      this.leftAnswer = postVoteResponse.newleft
+        .replace(/&#39;/g, "'")
+        .replace(/&quot;/g, '"');
+      this.rightAnswer = postVoteResponse.newright
+        .replace(/&#39;/g, "'")
+        .replace(/&quot;/g, '"');
 
-    this.fire('update-appearance-lookup', {
-      appearanceLookup: this.appearanceLookup,
-      promptId: this.promptId,
-      leftAnswer: this.leftAnswer,
-      rightAnswer: this.rightAnswer,
-    });
+      this.promptId = postVoteResponse.prompt_id;
+      this.appearanceLookup = postVoteResponse.appearance_lookup;
 
-    this.fireGlobal('set-ids', {
-      earlId: this.earl.id,
-      questionId: this.question.id,
-      promptId: this.promptId,
-    });
+      this.fire('update-appearance-lookup', {
+        appearanceLookup: this.appearanceLookup,
+        promptId: this.promptId,
+        leftAnswer: this.leftAnswer,
+        rightAnswer: this.rightAnswer,
+      });
 
+      this.fireGlobal('set-ids', {
+        earlId: this.earl.id,
+        questionId: this.question.id,
+        promptId: this.promptId,
+      });
+
+      this.removeAndInsertFromLeft();
+
+      const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
+      buttons?.forEach(button => {
+        //TODO: IMPORTANT GET THIS WORKING ON MOBILES
+        this.blur();
+      });
+
+      this.question.visitor_votes += 1;
+      this.requestUpdate();
+
+      this.resetTimer();
+    }
+  }
+
+  removeAndInsertFromLeft() {
     const leftButton = this.shadowRoot?.querySelector('#leftAnswerButton');
     const rightButton = this.shadowRoot?.querySelector('#rightAnswerButton');
 
@@ -185,17 +216,6 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     leftButton?.classList.add('animate-from-left');
     rightButton?.classList.add('animate-from-right');
-
-    const buttons = this.shadowRoot?.querySelectorAll('md-elevated-button');
-    buttons?.forEach(button => {
-      //TODO: IMPORTANT GET THIS WORKING ON MOBILES
-      this.blur();
-    });
-
-    this.question.visitor_votes += 1;
-    this.requestUpdate();
-
-    this.resetTimer();
   }
 
   openNewIdeaDialog() {
@@ -224,6 +244,16 @@ export class AoiSurveyVoting extends YpBaseElement {
             --md-sys-color-on-primary-container
           );
         }
+
+
+        .spinnerContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 110px;
+            width: 400px;
+          }
+
 
         .progressBarContainer {
           width: 450px;
@@ -349,6 +379,11 @@ export class AoiSurveyVoting extends YpBaseElement {
             --md-elevated-button-container-height: 100px;
           }
 
+          .spinnerContainer {
+            width: 100%;
+            height: 110px;
+          }
+
           .topContainer {
             overflow-x: clip;
           }
@@ -420,17 +455,39 @@ export class AoiSurveyVoting extends YpBaseElement {
             ? 'vertical'
             : 'horizontal'} wrap center-center"
         >
+          ${this.spinnersActive
+            ? html`
+                <div class="spinnerContainer">
+                  <md-circular-progress
+                    class="leftSpinner"
+                    indeterminate
+                  ></md-circular-progress>
+                </div>
+              `
+            : nothing}
           <md-elevated-button
             id="leftAnswerButton"
             class="leftAnswer"
+            ?hidden="${this.spinnersActive}"
             @click=${() => this.voteForAnswer('left')}
           >
             ${YpFormattingHelpers.truncate(this.leftAnswer, 140)}
           </md-elevated-button>
           <span class="or"> ${this.t('or')} </span>
+          ${this.spinnersActive
+            ? html`
+                <div class="spinnerContainer">
+                  <md-circular-progress
+                    class="leftSpinner"
+                    indeterminate
+                  ></md-circular-progress>
+                </div>
+              `
+            : nothing}
           <md-elevated-button
             id="rightAnswerButton"
             class="rightAnswer"
+            ?hidden="${this.spinnersActive}"
             @click=${() => this.voteForAnswer('right')}
           >
             ${YpFormattingHelpers.truncate(this.rightAnswer, 140)}

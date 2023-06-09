@@ -3,15 +3,18 @@ development:
   port: 6379
   password:
   username:
+  ssl: false
 
 test:
   host: 127.0.0.1
   port: 6379
   password:
   username:
+  ssl: false
 
 production:
   host: <%= ENV['REDIS_HOST'] %>
   port: <%= ENV['REDIS_PORT'].to_i %>
   password: <%= ENV['REDIS_PASSWORD'] %>
   username: <%= ENV['REDIS_USERNAME'] %>
+  ssl: <%= ENV['REDIS_USE_SSL'].to_s.downcase == 'true' %>

@@ -9,3 +9,9 @@ Rails.application.config.assets.version = "1.0"
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
+require "active_storage/service/s3_service"
+ActiveStorage::Service::S3Service.class_eval do
+  def object_for(key)
+    bucket.object("#{key}.png")
+  end
+end

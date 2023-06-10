@@ -53,6 +53,37 @@ module PlausibleHelper
     "User voted 250 times"
   ]
 
+  def send_plausible_favicon(source_name)
+    raise "No plausible base url or api key" unless ENV['PLAUSIBLE_BASE_URL'] && ENV['PLAUSIBLE_API_KEY']
+
+    url = ENV['PLAUSIBLE_BASE_URL'].gsub("/api/v1/","/favicon/sources/") + source_name
+    uri = URI(url)
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == 'https'
+
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request['Authorization'] = "Bearer #{ENV['PLAUSIBLE_API_KEY']}"
+    request['Content-Type'] = "image/x-icon"
+    request['X-Forwarded-For'] = "127.0.0.1"
+
+    Rails.logger.info(request.to_hash)
+
+    response = http.request(request)
+
+    if response.code == "200"
+      response.body
+    else
+      Rails.logger.error(response.error!)
+      Rails.logger.error(response)
+      raise response.code
+    end
+  rescue => e
+    Rails.logger.warn("No plausible base url or api key")
+    nil
+  end
+
+
   def plausible_stats_proxy_helper(plausible_url, props)
     return nil unless ENV['PLAUSIBLE_BASE_URL'] && ENV['PLAUSIBLE_API_KEY']
 

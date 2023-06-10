@@ -331,9 +331,20 @@ export class AoiSurveyApp extends YpBaseElement {
     if (false) {
       //(this.$$('#goalTriggerSnackbar') as Snackbar).show();
     } else {
-      window.location.href = window.appGlobals.externalGoalTriggerUrl;
+      try {
+        let triggerUrl = new URL(window.appGlobals.externalGoalTriggerUrl);
+
+        for (const key in window.appGlobals.originalQueryParameters) {
+          triggerUrl.searchParams.append(key, window.appGlobals.originalQueryParameters[key]);
+        }
+
+        window.location.href = triggerUrl.toString();
+      } catch (error) {
+        console.error('Invalid URL:', window.appGlobals.externalGoalTriggerUrl, error);
+      }
     }
   }
+
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {
     super.updated(changedProperties);
@@ -524,6 +535,8 @@ export class AoiSurveyApp extends YpBaseElement {
     this.currentRightAnswer = event.detail.rightAnswer;
 
     this.totalNumberOfVotes++;
+    this.question.votes_count++;
+
     this.sendVoteAnalytics();
   }
 

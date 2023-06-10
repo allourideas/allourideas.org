@@ -141,7 +141,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     const spinnerTimeout = setTimeout(() => {
       this.spinnersActive = true;
-    }, 2000);
+    }, 1500);
 
     const [postVoteResponse] = await Promise.all([
       postVotePromise,

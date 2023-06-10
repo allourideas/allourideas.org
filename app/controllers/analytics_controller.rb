@@ -1,10 +1,20 @@
 class AnalyticsController < ApplicationController
    include PlausibleHelper
 
-   #before_action :authenticate_user!
-   before_action :authorize_edit_group_marketing
+   before_action :require_login
+   #before_action :authorize_edit_group_marketing
    skip_before_action :verify_authenticity_token
    skip_before_action :record_action
+
+   def plausible_favicon
+    begin
+      favicon_data = send_plausible_favicon(params[:sourceName])
+      send_data favicon_data, type: 'image/x-icon', disposition: 'inline'
+    rescue => error
+      Rails.logger.error("Could not get plausible favicon: #{error}")
+      head :internal_server_error
+    end
+  end
 
    def get_plausible_site_name
     earl = Earl.find_by_name(params[:earlName])

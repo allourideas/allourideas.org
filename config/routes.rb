@@ -9,6 +9,12 @@ AllOurIdeas::Application.routes.draw do
       only: [:edit, :update]
   end
 
+  namespace :api do
+    namespace :users do
+      get '/PlausibleFavIcon/:sourceName', to: 'analytics#plausible_favicon', as: :plausible_favicon
+    end
+  end
+
   get "/admin" => "home#admin", :as => :admin
   get "/privacy" => "home#privacy", :as => :privacy
   get "/about" => "home#about", :as => :about

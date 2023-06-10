@@ -26,6 +26,8 @@ module PlausibleHelper
     "Voting - right",
     "Settings - dark mode",
     "Settings - light mode",
+    "Footer - start is visible",
+    "Footer - end is visible",
     "User voted 10 times",
     "User voted 20 times",
     "User voted 30 times",

@@ -21,6 +21,11 @@ export class AoiSurveyIntro extends YpBaseElement {
   @property({ type: Boolean })
   themeHighContrast = false;
 
+  private footer: Element | null = null;
+  private footerEnd: Element | null = null;
+  private footerTopObserver: IntersectionObserver | null = null;
+  private footerEndObserver: IntersectionObserver | null = null;
+
   async connectedCallback() {
     super.connectedCallback();
     window.appGlobals.activity('Intro - open');
@@ -29,6 +34,51 @@ export class AoiSurveyIntro extends YpBaseElement {
   disconnectedCallback(): void {
     super.disconnectedCallback();
     window.appGlobals.activity(`Intro - close`);
+
+    if (this.footerTopObserver) {
+      this.footerTopObserver.disconnect();
+      this.footerTopObserver = null;
+    }
+    if (this.footerEndObserver) {
+      this.footerEndObserver.disconnect();
+      this.footerEndObserver = null;
+    }
+  }
+
+  firstUpdated() {
+    this.setupFooterObserver();
+  }
+
+  setupFooterObserver() {
+    this.footer = this.shadowRoot?.querySelector('#footerStart');
+    this.footerEnd = this.shadowRoot?.querySelector('#footerEnd');
+
+    this.footerTopObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            window.appGlobals.activity('Footer - start is visible');
+            this.footerTopObserver?.disconnect();
+          }
+        });
+      },
+      { rootMargin: '-200px 0px' }
+    );
+
+    this.footerEndObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            window.appGlobals.activity('Footer - end is visible');
+            this.footerEndObserver?.disconnect();
+          }
+        });
+      },
+      { rootMargin: '0px' }
+    );
+
+    if (this.footer) this.footerTopObserver.observe(this.footer);
+    if (this.footerEnd) this.footerEndObserver.observe(this.footerEnd);
   }
 
   get formattedDescription() {
@@ -114,8 +164,6 @@ export class AoiSurveyIntro extends YpBaseElement {
             margin-left: 12px;
             margin-right: 12px;
           }
-
-
         }
       `,
     ];
@@ -188,15 +236,14 @@ export class AoiSurveyIntro extends YpBaseElement {
                       >
                     `}
               </div>
-
-
             `
           : nothing}
-        <div class="footerHtml">
+        <div id="footerStart" class="footerHtml">
           ${this.earl.configuration && this.earl.configuration.welcome_html
             ? unsafeHTML(this.earl.configuration.welcome_html)
             : nothing}
         </div>
+        <div id="footerEnd"> &nbsp; </div>
       </div>
     `;
   }

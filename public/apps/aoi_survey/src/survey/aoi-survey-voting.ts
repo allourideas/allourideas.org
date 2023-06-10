@@ -141,7 +141,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
     const spinnerTimeout = setTimeout(() => {
       this.spinnersActive = true;
-    }, 1250);
+    }, 1000);
 
     const [postVoteResponse] = await Promise.all([
       postVotePromise,
@@ -250,7 +250,8 @@ export class AoiSurveyVoting extends YpBaseElement {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 110px;
+            height: 120px;
+            margin: 8px;
             width: 400px;
           }
 
@@ -381,7 +382,7 @@ export class AoiSurveyVoting extends YpBaseElement {
 
           .spinnerContainer {
             width: 100%;
-            height: 110px;
+            height: 100px;
           }
 
           .topContainer {

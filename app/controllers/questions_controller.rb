@@ -1048,7 +1048,7 @@ class QuestionsController < ApplicationController
   end
 
   def toggle
-    expire_page :action => :results
+    #expire_page :action => :results
     @earl = Earl.find(params[:id])
     unless ((current_user.owns?(@earl)) || current_user.admin? )
       render(:json => {:message => "You don't have permission to do that for question #{params[:id]}"}.to_json) and return

@@ -15,6 +15,8 @@ RUN rm /etc/nginx/sites-enabled/default
 
 ADD nginx.conf /etc/nginx/sites-enabled/aoi_api_website.conf
 ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
+ADD passenger_maxmin.conf /etc/nginx/conf.d/passenger_maxmin.conf
+
 RUN mkdir -p /etc/my_init.d
 ADD setup_app.sh /etc/my_init.d/setup_app.sh
 

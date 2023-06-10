@@ -195,8 +195,12 @@ class ApplicationController < ActionController::Base
                                                  :visitor_id => visitor.id)
     @user_session = user_session
 
-    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.try(:id), request.referrer, user_session.try(:id), Time.now.utc, Time.now.utc])
-    ActiveRecord::Base.connection.execute(sql)
+    begin
+      sql = ActiveRecord::Base.send(:sanitize_sql_array, ["INSERT INTO `clicks` (`url`, `controller`, `action`, `user_id`, `referrer`, `session_info_id`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", request.url, controller_name, action_name, current_user.try(:id), request.referrer, user_session.try(:id), Time.now.utc, Time.now.utc])
+      ActiveRecord::Base.connection.execute(sql)
+    rescue Exception => e
+      puts "Error: #{e.message}"
+    end
 
     if current_user && !user_session.user_id
       user_session.user_id = current_user.id

@@ -98,7 +98,8 @@ GEM
     bcrypt (3.1.18)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    bugsnag (5.5.0)
+    bugsnag (6.25.2)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     capybara (1.1.4)
       mime-types (>= 1.16)
@@ -401,7 +402,7 @@ DEPENDENCIES
   activeresource (~> 6.0)
   aws-sdk-s3
   bootsnap
-  bugsnag (~> 5.5.0)
+  bugsnag (~> 6.25.2)
   capybara (~> 1.1.2)
   chart-js-rails
   clearance

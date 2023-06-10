@@ -11,7 +11,8 @@ class StaticController < ApplicationController
       # Load the Earl model
       @earl = Earl.select(:id, :configuration, :welcome_message).find_by_name(earlName)
       if @earl.nil?
-        render 'home#index'
+        flash[:notice] = 'Survey not found'
+        redirect_to root_path
       else
         logo_url = ''
         if @earl.logo.attached?

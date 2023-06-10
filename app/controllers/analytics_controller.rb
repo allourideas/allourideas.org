@@ -1,7 +1,7 @@
 class AnalyticsController < ApplicationController
    include PlausibleHelper
 
-   before_action :require_login
+   before_action :require_login, :except => :create_activity_from_app
    #before_action :authorize_edit_group_marketing
    skip_before_action :verify_authenticity_token
    skip_before_action :record_action

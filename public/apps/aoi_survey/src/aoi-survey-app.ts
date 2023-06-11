@@ -213,6 +213,8 @@ export class AoiSurveyApp extends YpBaseElement {
     window.appGlobals.externalGoalTriggerUrl =
       this.earl.configuration.external_goal_trigger_url;
 
+    window.appGlobals.exernalGoalParamsWhiteList = this.earl.configuration.external_goal_params_whitelist
+
     this.themeScheme = this.earl.configuration.theme_scheme
       ? this.earl.configuration.theme_scheme.toLowerCase()
       : 'tonal';
@@ -328,20 +330,24 @@ export class AoiSurveyApp extends YpBaseElement {
   }
 
   externalGoalTrigger() {
-    if (false) {
-      //(this.$$('#goalTriggerSnackbar') as Snackbar).show();
-    } else {
-      try {
-        let triggerUrl = new URL(window.appGlobals.externalGoalTriggerUrl);
+    try {
+      let triggerUrl = new URL(window.appGlobals.externalGoalTriggerUrl);
 
-        for (const key in window.appGlobals.originalQueryParameters) {
+      let whiteList = window.appGlobals.exernalGoalParamsWhiteList;
+
+      if (whiteList) {
+        whiteList = whiteList.toLowerCase().split(',').map((param: string) => param.trim());
+      }
+
+      for (const key in window.appGlobals.originalQueryParameters) {
+        if (!whiteList || whiteList.includes(key.toLowerCase())) {
           triggerUrl.searchParams.append(key, window.appGlobals.originalQueryParameters[key]);
         }
-
-        window.location.href = triggerUrl.toString();
-      } catch (error) {
-        console.error('Invalid URL:', window.appGlobals.externalGoalTriggerUrl, error);
       }
+
+      window.location.href = triggerUrl.toString();
+    } catch (error) {
+      console.error('Invalid URL:', window.appGlobals.externalGoalTriggerUrl, error);
     }
   }
 

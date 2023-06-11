@@ -22,6 +22,7 @@ class Earl < ActiveRecord::Base
   store_accessor :configuration, :question_name
   store_accessor :configuration, :target_votes
   store_accessor :configuration, :external_goal_trigger_url
+  store_accessor :configuration, :external_goal_params_whitelist
   store_accessor :configuration, :theme_color
   store_accessor :configuration, :theme_scheme
   store_accessor :configuration, :theme_primary_color

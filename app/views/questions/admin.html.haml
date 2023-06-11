@@ -124,9 +124,14 @@
                 = f.text_area :theme_font_css, :rows => 5, :cols => 65, :class => 'input-xxlarge'
 
             .control-group
-              = f.label :external_goal_trigger_url, ("External Goal Trigger URL (Optional)"), :class => 'control-label'
+              = f.label :external_goal_trigger_url, ("External Goal Trigger URL (Optional for external survey integration)"), :class => 'control-label'
               .controls
                 = f.text_field :external_goal_trigger_url
+
+            .control-group
+              = f.label :external_goal_params_whitelist, ("External Goal Reflected Parameter Whitelist (Optional, comma seperated)"), :class => 'control-label'
+              .controls
+                = f.text_field :external_goal_params_whitelist
 
             .control-group
               = f.label :default_lang, ("Default language " + link_to('<i class="glyphicon glyphicon-question-sign"></i>'.html_safe, 'http://blog.allourideas.org/post/5137327337/languages-and-all-our-ideas', :target=> '_blank')).html_safe, :class => 'control-label'

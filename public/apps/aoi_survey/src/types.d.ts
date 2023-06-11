@@ -59,6 +59,7 @@ interface AoiEarlData {
 
 
 interface AoiEarlConfigurationData {
+  external_goal_params_whitelist?: string;
   theme_scheme: any;
   theme_neutral_color: string;
   theme_tertiary_color: string;

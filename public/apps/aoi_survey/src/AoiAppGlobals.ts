@@ -9,6 +9,7 @@ export class AoiAppGlobals extends YpAppGlobals {
   promptId: number;
   earlName: string;
   disableParentConstruction = true;
+  exernalGoalParamsWhiteList: string | undefined;
 
   constructor(serverApi: AoiServerApi) {
     super(serverApi, true);

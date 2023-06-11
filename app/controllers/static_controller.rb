@@ -6,7 +6,8 @@ class StaticController < ApplicationController
 
     # If path is empty or root, render home#index
     if earlName.blank?
-      render 'home#index'
+      flash[:notice] = 'Survey not found'
+      redirect_to root_path
     else
       # Load the Earl model
       @earl = Earl.select(:id, :configuration, :welcome_message).find_by_name(earlName)

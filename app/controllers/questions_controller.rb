@@ -1405,8 +1405,13 @@ class QuestionsController < ApplicationController
   end
 
   def about
-    @earl = Earl.find_by_name!(params[:id].to_s)
-    @question = @earl.question
+    begin
+      @earl = Earl.find_by_name!(params[:id].to_s)
+      @question = @earl.question
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = 'Survey not found'
+      redirect_to root_path
+    end
   end
 
   def add_photos
@@ -1513,6 +1518,7 @@ class QuestionsController < ApplicationController
         :theme_primary_color, :theme_secondary_color, :theme_tertiary_color,
         :theme_neutral_color, :theme_font_css,
         :external_goal_trigger_url,
+        :external_goal_params_whitelist,
         :question_name, :logo,
         :analysis_config, :pass, :active,
         :question_should_autoactivate_ideas,

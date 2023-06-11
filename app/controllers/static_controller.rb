@@ -44,15 +44,24 @@ class StaticController < ApplicationController
 
   private
 
-    def get_logo_url(logo)
+  def get_logo_url(logo)
     begin
       url = logo.blob.url
       if ENV["AWS_CLOUDFLARE_ENDPOINT"].present?
-        url.gsub(/s3\.amazonaws\.com/, "")
-      else
-        url
+        # Parse the URL to split it into components
+        uri = URI.parse(url)
+
+        # Replace the host (e.g. s3.amazonaws.com) with the Cloudflare endpoint host
+        # and remove the leading part of the path that matches the host
+        cloudflare_host = URI.parse(ENV["AWS_CLOUDFLARE_ENDPOINT"]).host
+        uri.host = cloudflare_host
+        uri.path = uri.path.gsub(/^\/#{cloudflare_host}/, '')
+
+        url = uri.to_s
       end
+      url
     rescue => exception
+      puts "Error getting logo URL: #{exception}"
       ""
     end
   end

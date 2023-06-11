@@ -30,7 +30,7 @@ class StaticController < ApplicationController
           html.gsub!('<style>', @earl.theme_font_css+'<style>')
         end
 
-        html.gsub!('HTTPS://OG_REPLACE_IMAGE_URL', logo_url)
+        html.gsub!('HTTPS://OG_REPLACE_IMAGE_URL', get_logo_url(@earl.logo))
         url = URI.parse(request.original_url)
         url.query = nil
         stripped_url = url.to_s
@@ -39,6 +39,21 @@ class StaticController < ApplicationController
 
         render html: html.html_safe, layout: false
       end
+    end
+  end
+
+  private
+
+    def get_logo_url(logo)
+    begin
+      url = logo.blob.url
+      if ENV["AWS_CLOUDFLARE_ENDPOINT"].present?
+        url.gsub(/s3\.amazonaws\.com/, "")
+      else
+        url
+      end
+    rescue => exception
+      ""
     end
   end
 end

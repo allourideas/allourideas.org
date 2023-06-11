@@ -218,10 +218,12 @@ export class AoiSurveyIntro extends YpBaseElement {
                         ><md-icon>light_mode</md-icon></md-outlined-icon-button
                       >
                     `}
+
                 ${!this.themeHighContrast
                   ? html`
                       <md-outlined-icon-button
                         class="darkModeButton"
+                        ?hidden="${this.isAppleDevice}"
                         @click="${() => this.fire('toggle-high-contrast-mode')}"
                         ><md-icon>contrast</md-icon></md-outlined-icon-button
                       >
@@ -229,6 +231,7 @@ export class AoiSurveyIntro extends YpBaseElement {
                   : html`
                       <md-outlined-icon-button
                         class="darkModeButton"
+                        ?hidden="${this.isAppleDevice}"
                         @click="${() => this.fire('toggle-high-contrast-mode')}"
                         ><md-icon
                           >contrast_rtl_off</md-icon

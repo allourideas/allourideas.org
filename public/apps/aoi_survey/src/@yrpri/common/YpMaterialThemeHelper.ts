@@ -82,7 +82,7 @@ export function hexFromHct(hue: number, chroma: number, tone: number) {
   return hexFromArgb(value);
 }
 
-export function themeFromSourceColor(
+export function themeFromSourceColorWithContrast(
     color: string|{primary: string, secondary: string, tertiary: string, neutral: string},
     isDark: boolean,
     scheme: Scheme,
@@ -194,7 +194,7 @@ export function themeFromScheme(colorScheme: MatScheme) {
   return theme;
 }
 
-export function applyTheme(
+export function applyThemeWithContrast(
   doc: DocumentOrShadowRoot,
   theme: {[name: string]: string},
   ssName = 'material-theme'

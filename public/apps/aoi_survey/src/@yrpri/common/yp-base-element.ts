@@ -82,6 +82,10 @@ export class YpBaseElement extends LitElement {
     );
   }
 
+  get isAppleDevice() {
+    return /Macintosh|iPhone|iPad/.test(navigator.userAgent);
+  }
+
   _changeThemeColor(event: CustomEvent) {
     this.themeColor = event.detail;
   }

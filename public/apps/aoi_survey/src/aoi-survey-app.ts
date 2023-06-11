@@ -12,7 +12,11 @@ import '@material/web/iconbutton/standard-icon-button.js';
 import '@material/web/iconbutton/outlined-icon-button.js';
 import '@material/mwc-snackbar/mwc-snackbar.js';
 
-import { argbFromHex } from '@material/material-color-utilities';
+import {
+  applyTheme,
+  argbFromHex,
+  themeFromSourceColor,
+} from '@material/material-color-utilities';
 
 import '@material/web/menu/menu.js';
 import { cache } from 'lit/directives/cache.js';
@@ -35,8 +39,8 @@ import { NavigationTab } from '@material/web/navigationtab/lib/navigation-tab.js
 import { NavigationBar } from '@material/web/navigationbar/lib/navigation-bar.js';
 import {
   Scheme,
-  applyTheme,
-  themeFromSourceColor,
+  applyThemeWithContrast,
+  themeFromSourceColorWithContrast,
 } from './@yrpri/common/YpMaterialThemeHelper.js';
 import { YpAppUser } from './@yrpri/yp-app/YpAppUser.js';
 import { AoiAppUser } from './AoiAppUser.js';
@@ -213,7 +217,8 @@ export class AoiSurveyApp extends YpBaseElement {
     window.appGlobals.externalGoalTriggerUrl =
       this.earl.configuration.external_goal_trigger_url;
 
-    window.appGlobals.exernalGoalParamsWhiteList = this.earl.configuration.external_goal_params_whitelist
+    window.appGlobals.exernalGoalParamsWhiteList =
+      this.earl.configuration.external_goal_params_whitelist;
 
     this.themeScheme = this.earl.configuration.theme_scheme
       ? this.earl.configuration.theme_scheme.toLowerCase()
@@ -255,28 +260,48 @@ export class AoiSurveyApp extends YpBaseElement {
         ? window.matchMedia('(prefers-color-scheme: dark)').matches
         : this.themeDarkMode;
 
-    if (this.getHexColor(this.themeColor)) {
-      themeCss = themeFromSourceColor(
-        this.getHexColor(this.themeColor),
-        isDark,
-        this.themeScheme,
-        this.themeHighContrast ? 2.0 : 0.0
+    if (this.isAppleDevice) {
+      const theme = themeFromSourceColor(
+        argbFromHex(this.themeColor || this.themePrimaryColor || '#000000'),
+        [
+          {
+            name: 'up-vote',
+            value: argbFromHex('#0F0'),
+            blend: true,
+          },
+          {
+            name: 'down-vote',
+            value: argbFromHex('#F00'),
+            blend: true,
+          },
+        ]
       );
-    } else {
-      themeCss = themeFromSourceColor(
-        {
-          primary: this.getHexColor(this.themePrimaryColor || '#000000'),
-          secondary: this.getHexColor(this.themeSecondaryColor || '#000000'),
-          tertiary: this.getHexColor(this.themeTertiaryColor || '#000000'),
-          neutral: this.getHexColor(this.themeNeutralColor || '#000000'),
-        },
-        isDark,
-        'dynamic',
-        this.themeHighContrast ? 2.0 : 0.0
-      );
-    }
 
-    applyTheme(document, themeCss);
+      applyTheme(theme, { target: document.body, dark: isDark });
+    } else {
+      if (this.getHexColor(this.themeColor)) {
+        themeCss = themeFromSourceColorWithContrast(
+          this.getHexColor(this.themeColor),
+          isDark,
+          this.themeScheme,
+          this.themeHighContrast ? 2.0 : 0.0
+        );
+      } else {
+        themeCss = themeFromSourceColorWithContrast(
+          {
+            primary: this.getHexColor(this.themePrimaryColor || '#000000'),
+            secondary: this.getHexColor(this.themeSecondaryColor || '#000000'),
+            tertiary: this.getHexColor(this.themeTertiaryColor || '#000000'),
+            neutral: this.getHexColor(this.themeNeutralColor || '#000000'),
+          },
+          isDark,
+          'dynamic',
+          this.themeHighContrast ? 2.0 : 0.0
+        );
+      }
+
+      applyThemeWithContrast(document, themeCss);
+    }
   }
 
   snackbarclosed() {
@@ -336,21 +361,30 @@ export class AoiSurveyApp extends YpBaseElement {
       let whiteList = window.appGlobals.exernalGoalParamsWhiteList;
 
       if (whiteList) {
-        whiteList = whiteList.toLowerCase().split(',').map((param: string) => param.trim());
+        whiteList = whiteList
+          .toLowerCase()
+          .split(',')
+          .map((param: string) => param.trim());
       }
 
       for (const key in window.appGlobals.originalQueryParameters) {
         if (!whiteList || whiteList.includes(key.toLowerCase())) {
-          triggerUrl.searchParams.append(key, window.appGlobals.originalQueryParameters[key]);
+          triggerUrl.searchParams.append(
+            key,
+            window.appGlobals.originalQueryParameters[key]
+          );
         }
       }
 
       window.location.href = triggerUrl.toString();
     } catch (error) {
-      console.error('Invalid URL:', window.appGlobals.externalGoalTriggerUrl, error);
+      console.error(
+        'Invalid URL:',
+        window.appGlobals.externalGoalTriggerUrl,
+        error
+      );
     }
   }
-
 
   updated(changedProperties: Map<string | number | symbol, unknown>): void {
     super.updated(changedProperties);
@@ -674,7 +708,10 @@ export class AoiSurveyApp extends YpBaseElement {
         <div>${this.t('Light/Dark')}</div>
       </div>
 
-      <div class="layout vertical center-center lightDarkContainer">
+      <div
+        class="layout vertical center-center lightDarkContainer"
+        ?hidden="${this.isAppleDevice}"
+      >
         ${!this.themeHighContrast
           ? html`
             <md-outlined-icon-button

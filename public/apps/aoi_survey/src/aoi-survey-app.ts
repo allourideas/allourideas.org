@@ -754,6 +754,7 @@ export class AoiSurveyApp extends YpBaseElement {
               'selectedContainer'}"
               headline="${this.t('Introduction')}"
               @click="${() => this.changeTabTo(0)}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(0); } }}"
               supportingText="${this.t('Why you should participate')}"
             >
               <md-list-item-icon slot="start">
@@ -766,6 +767,7 @@ export class AoiSurveyApp extends YpBaseElement {
               class="${this.pageIndex == PagesTypes.Voting &&
               'selectedContainer'}"
               @click="${() => this.changeTabTo(1)}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(1); } }}"
               headline="${this.t('Pairwise Voting')}"
               supportingText="${this.t('Vote on pairs of ideas')}"
             >
@@ -778,6 +780,7 @@ export class AoiSurveyApp extends YpBaseElement {
               class="${this.pageIndex == PagesTypes.Results &&
               'selectedContainer'}"
               @click="${() => this.changeTabTo(2)}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(2); } }}"
               headline="${this.t('Voting Results')}"
               supportingText="${this.t('Voting results from all')}"
             >
@@ -789,6 +792,7 @@ export class AoiSurveyApp extends YpBaseElement {
               class="${this.pageIndex == PagesTypes.Analysis &&
               'selectedContainer'}"
               @click="${() => this.changeTabTo(3)}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(3); } }}"
               headline="${this.t('Vote Analysis')}"
               supportingText="${this.t('Analysis of the voting results')}"
             >
@@ -798,6 +802,7 @@ export class AoiSurveyApp extends YpBaseElement {
             >
             <md-list-item
               ?hidden="${!this.isAdmin}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.openAnalytics(); } }}"
               @click="${this.openAnalytics}"
               headline="${this.t('Analytics & Marketing')}"
               supportingText="${this.t('Promote your survey')}"
@@ -808,6 +813,7 @@ export class AoiSurveyApp extends YpBaseElement {
             >
             <md-list-item
               ?hidden="${!this.isAdmin}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.goToAdmin(); } }}"
               @click="${this.goToAdmin}"
               headline="${this.t('Survey Administration')}"
               supportingText="${this.t('Administer this survey')}"

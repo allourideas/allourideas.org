@@ -4,6 +4,10 @@ module AiHelper
   def get_answer_ideas(question, previous_ideas, first_message)
     client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
+    if !previous_ideas
+      previous_ideas = ""
+    end
+
     # Replace previous_ides text "||n" with new lines
     previous_ideas = previous_ideas.gsub("aoirvb8735", "\n")
 
@@ -49,13 +53,13 @@ module AiHelper
       puts "Messages: "+messages.to_s
       response = client.chat(
         parameters: {
-            model: "gpt-4",
+            model: "gpt-4-0613",
             messages: messages,
             temperature: 0.7,
         })
       puts "Response: "+response.to_s
       return response.dig("choices", 0, "message", "content")
-        end
+    end
   end
 
   def get_moderation_flag(input_text)
@@ -106,7 +110,7 @@ module AiHelper
         puts "Messages: "+messages.to_s
         response = client.chat(
           parameters: {
-              model: "gpt-4",
+              model: "gpt-4-0613",
               messages: messages,
               temperature: 0.7,
           })

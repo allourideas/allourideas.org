@@ -96,19 +96,26 @@ class QuestionsController < ApplicationController
 
     prompt_hash = Digest::SHA256.hexdigest(analysis["contextPrompt"])[0...8]
 
-    analysis_cache_key = "#{@question_id}_#{typeIndex}_#{choice_ids}_#{prompt_hash}_ai_analysis_v6"
+    analysis_cache_key = "#{@question_id}_#{typeIndex}_#{choice_ids}_#{prompt_hash}_ai_analysis_v8"
 
     puts "analysis_cache_key is #{analysis_cache_key} prompt #{analysis["contextPrompt"][0...15]}..."
 
-    analysis = Rails.cache.fetch(analysis_cache_key, expires_in: 18.hours) do
-      get_ai_analysis(@question_id, analysis["contextPrompt"], choices)
+    out_analysis = Rails.cache.read(analysis_cache_key)
+
+    if out_analysis.nil? || out_analysis.empty?
+      temp_analysis = get_ai_analysis(@question_id, analysis["contextPrompt"], choices)
+
+      if temp_analysis && temp_analysis.length > 7
+        Rails.cache.write(analysis_cache_key, temp_analysis, expires_in: 18.hours)
+        out_analysis = temp_analysis
+      end
     end
 
     respond_to do |format|
       format.html
       format.json { render :json => {
         ideaRowsFromServer: choices,
-        analysis: analysis }.to_json
+        analysis: out_analysis }.to_json
       }
     end
   end

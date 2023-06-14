@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
     @question = @earl.question
     @question_id = @question.id
 
-    choices_count = @question.choices_count
+    choices_count = @question.active_choices
 
     unless (@question.user_can_view_results?(current_user, @earl))
       logger.info("Current user is: #{current_user.inspect}")
@@ -75,13 +75,23 @@ class QuestionsController < ApplicationController
     analysis = analysis_idea_config["analysisTypes"][typeIndex]
 
     per_page = ideasIdsRange.abs
+    logger.info "Per page: #{per_page}"
+
     offset = ideasIdsRange < 0 ? [choices_count - per_page, 0].max : 0
+    logger.info "Offset: #{offset}"
+
+    logger.info "Choices count: #{choices_count}"
+    logger.info "Ideas Ids Range: #{ideasIdsRange}"
 
     choices = Choice.find(:all, :params => {:question_id => @question_id,
       :limit => per_page,
       :offset => offset})
 
+    logger.info "Number of choices fetched: #{choices.length}"
+
     sorted_choices = choices.sort_by { |choice| choice.id }
+    logger.info "Sorted choice IDs: #{sorted_choices.map(&:id)}"
+
     choice_ids = sorted_choices.map { |choice| "#{choice.id}" }.join("-")
 
     prompt_hash = Digest::SHA256.hexdigest(analysis["contextPrompt"])[0...8]

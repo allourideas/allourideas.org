@@ -5,4 +5,5 @@ Bugsnag.configure do |config|
       report.ignore!
     end
   })
+  config.auto_capture_sessions = false
 end

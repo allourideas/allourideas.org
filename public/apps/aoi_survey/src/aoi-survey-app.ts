@@ -183,6 +183,7 @@ export class AoiSurveyApp extends YpBaseElement {
   }
 
   async getEarl() {
+    window.appGlobals.activity('Survey - fetch start');
     const earlResponse = await window.aoiServerApi.getEarl(this.earlName);
     this.earl = earlResponse.earlContainer.earl;
     this.question = earlResponse.question;
@@ -231,6 +232,8 @@ export class AoiSurveyApp extends YpBaseElement {
       questionId: this.question.id,
       promptId: this.prompt.id,
     });
+
+    window.appGlobals.activity('Survey - fetch end');
   }
 
   disconnectedCallback() {

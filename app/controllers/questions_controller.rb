@@ -1030,11 +1030,15 @@ class QuestionsController < ApplicationController
         if flagged
           @choice.active = false
           @choice.save
+          puts "----------------------------------"
+          puts "Flagged BY OPENAI: #{flagged}"
+          puts "----------------------------------"
+        else
+          puts "Not flagged BY OPENAI: #{flagged}"
         end
       else
         flagged = false
       end
-
 
       #TODO: Get emails working
       if @choice.active?

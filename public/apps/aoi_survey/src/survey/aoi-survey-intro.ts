@@ -188,7 +188,7 @@ export class AoiSurveyIntro extends YpBaseElement {
             class="fab"
             @click="${this.clickStart}"
             .label="${this.t('Start Voting')}"
-          ><md-icon slot="icon">thumbs_up_down</md-fab>
+          ><md-icon slot="icon">thumbs_up_down</md-icon></md-fab>
         `
           : html`
           <md-fab
@@ -197,7 +197,7 @@ export class AoiSurveyIntro extends YpBaseElement {
             class="fab"
             @click="${this.clickResults}"
             .label="${this.t('Open Results')}"
-          ><md-icon slot="icon">grading</md-fab>
+          ><md-icon slot="icon">grading</md-icon></md-fab>
         `}
         <div class="description">${this.formattedDescription}</div>
         ${!this.wide

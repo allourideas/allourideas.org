@@ -36,4 +36,10 @@ class Choice < ActiveResource::Base
   def user_created
     attributes["user_created"]
   end
+
+  def votes(utm_source=nil)
+    params = { valid_record: true }
+    params[:utm_source] = utm_source if utm_source
+    get(:show_votes, params)
+  end
 end

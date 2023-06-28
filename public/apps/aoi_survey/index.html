@@ -37,7 +37,11 @@
   </style>
 
   <title>OG_REPLACE_QUESTION_NAME</title>
-
+  <script type="module">
+    if (!window.ElementInternals) {
+      import('./node_modules/element-internals-polyfill/dist/index.js');
+    }
+  </script>
 </head>
 
 <body>

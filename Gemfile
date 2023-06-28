@@ -13,6 +13,7 @@ gem "puma"
 gem "passenger"
 gem "iconv"
 gem 'http'
+gem 'spreadsheet'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem "bugsnag", "~> 6.25.2"

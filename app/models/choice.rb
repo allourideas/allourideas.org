@@ -17,6 +17,10 @@ class Choice < ActiveResource::Base
     attributes["created_at"]
   end
 
+  def elo_rating
+    attributes["elo_rating"]
+  end
+
   def activate!
     puts "about to activate choice, #{self.inspect}"
     self.active = true

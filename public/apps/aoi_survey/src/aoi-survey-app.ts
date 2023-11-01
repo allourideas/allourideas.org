@@ -137,6 +137,7 @@ export class AoiSurveyApp extends YpBaseElement {
 
     window.aoiServerApi = new AoiServerApi();
     window.appGlobals = new AoiAppGlobals(window.aoiServerApi);
+    window.appGlobals.setupTranslationSystem();
     window.appUser = new AoiAppUser(window.aoiServerApi);
     this.earlName = window.appGlobals.earlName;
 

@@ -21,7 +21,7 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
       target: 'http://localhost:4242/',
     }),*/
     proxy('/api/', {
-      target: 'http://localhost:3000/',
+      target: 'https://all-our-ideas.citizens.is/',
       changeOrigin: true
     }),
   ],

@@ -137,6 +137,11 @@ export class AoiSurveyApp extends YpBaseElement {
 
     window.aoiServerApi = new AoiServerApi();
     window.appGlobals = new AoiAppGlobals(window.aoiServerApi);
+    if (window.location.href.indexOf('localhost') > -1) {
+      window.appGlobals.setupTranslationSystem();
+    } else {
+      window.appGlobals.setupTranslationSystem('/apps/aoi_survey/dist');
+    }
     window.appGlobals.setupTranslationSystem();
     window.appUser = new AoiAppUser(window.aoiServerApi);
     this.earlName = window.appGlobals.earlName;

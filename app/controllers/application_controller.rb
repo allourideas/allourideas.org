@@ -238,11 +238,13 @@ class ApplicationController < ActionController::Base
     I18n.load_path.concat Dir[Rails.root.join("config", "locales", "rails", "*.{rb,yml}")]
     I18n.reload!
 
-    if params[:locale].blank?
-      I18n.locale = I18n.default_locale
-    else
-      I18n.locale = params[:locale]
-    end
+    #TODO: Look into this back end locale functions
+    I18n.locale = "en"
+    #if params[:locale].blank?
+    #  I18n.locale = I18n.default_locale
+    #else
+    #  I18n.locale = params[:locale]
+    #end
   end
 =begin
   def default_url_options(options = {})

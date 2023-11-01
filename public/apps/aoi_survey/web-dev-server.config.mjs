@@ -19,10 +19,14 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   middleware: [
     /*proxy('/api/', {
       target: 'http://localhost:4242/',
-    }),*/
+    }),
     proxy('/api/', {
       target: 'https://all-our-ideas.citizens.is/',
       changeOrigin: true
+    }),*/
+    proxy('/api/', {
+      target: 'http://localhost:3000/',
+      changeOrigin: false
     }),
   ],
 });

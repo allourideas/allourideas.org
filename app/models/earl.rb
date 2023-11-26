@@ -30,6 +30,7 @@ class Earl < ActiveRecord::Base
   store_accessor :configuration, :theme_tertiary_color
   store_accessor :configuration, :theme_neutral_color
   store_accessor :configuration, :theme_font_css
+  store_accessor :configuration, :hide_results
 
   store_accessor :configuration, :analysis_config
 
@@ -81,7 +82,8 @@ class Earl < ActiveRecord::Base
   def as_json(options = {})
     modified_configuration = self.configuration.clone
     modified_configuration.delete('analysis_config')
-    super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo, :logo_updated_at, :welcome_message, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
+    super(only: [:id, :name, :question_id, :created_at, :updated_at, :user_id, :active, :pass, :logo, :logo_updated_at, :welcome_message,
+                 :show_results, :default_lang, :logo_size, :flag_enabled, :ga_code, :photocracy, :accept_new_ideas, :verify_code, :show_cant_decide, :show_add_new_idea]).tap do |json|
       json["earl"]["configuration"] = modified_configuration
       json["earl"]["configuration"]["analysis_config"] = analysis_config_without_prompts
       json["earl"]["logo_url"] = get_logo_url(logo) if logo.attached?
@@ -149,11 +151,11 @@ class Earl < ActiveRecord::Base
     @question ||= Question.find(self.question_id)
   end
 
-  def hide_results
+  def hide_results_old
     !question.show_results?
   end
 
-  def hide_results=(value)
+  def hide_results_old=(value)
     question.show_results = !ActiveModel::Type::Boolean.new.cast(value)
     question.save
   end

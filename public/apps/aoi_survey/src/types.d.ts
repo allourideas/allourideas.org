@@ -68,6 +68,7 @@ interface AoiEarlConfigurationData {
   external_goal_trigger_url?: string;
   welcome_html?: string;
   target_votes: number;
+  hide_results: string;
   lock_results_until_target_votes: boolean;
   theme_color?: string;
   welcome_html: string;

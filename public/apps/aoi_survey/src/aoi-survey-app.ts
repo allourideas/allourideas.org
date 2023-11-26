@@ -755,51 +755,53 @@ export class AoiSurveyApp extends YpBaseElement {
 
           <md-list>
             <md-list-item
+              ?hidden="${this.surveyClosed}"
+              class="${this.pageIndex == PagesTypes.Voting &&
+              'selectedContainer'}"
+              @click="${() => this.changeTabTo(1)}"
+              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(1); } }}"
+              headline="${this.t('Participate Now!')}"
+              supportingText="${this.t('Select answers')}"
+            >
+              <md-list-item-icon slot="start"
+                ><md-icon>thumb_up</md-icon></md-list-item-icon
+              ></md-list-item
+            >
+            <md-list-item
               class="${this.pageIndex == PagesTypes.Introduction &&
               'selectedContainer'}"
-              headline="${this.t('Introduction')}"
+              headline="${this.t('Why Participate')}"
               @click="${() => this.changeTabTo(0)}"
               @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(0); } }}"
-              supportingText="${this.t('Why you should participate')}"
+              supportingText="${this.t('About this project')}"
             >
               <md-list-item-icon slot="start">
                 <md-icon>info</md-icon>
               </md-list-item-icon></md-list-item
             >
             <md-list-divider></md-list-divider>
-            <md-list-item
-              ?hidden="${this.surveyClosed}"
-              class="${this.pageIndex == PagesTypes.Voting &&
-              'selectedContainer'}"
-              @click="${() => this.changeTabTo(1)}"
-              @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(1); } }}"
-              headline="${this.t('Pairwise Voting')}"
-              supportingText="${this.t('Vote on pairs of ideas')}"
-            >
-              <md-list-item-icon slot="start"
-                ><md-icon>thumb_up</md-icon></md-list-item-icon
-              ></md-list-item
-            >
             <md-list-divider></md-list-divider>
             <md-list-item
+              ?hidden="${this.earl?.configuration.hide_results=="1"}"
               class="${this.pageIndex == PagesTypes.Results &&
               'selectedContainer'}"
               @click="${() => this.changeTabTo(2)}"
               @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(2); } }}"
-              headline="${this.t('Voting Results')}"
-              supportingText="${this.t('Voting results from all')}"
+              headline="${this.t('Results')}"
+              supportingText="${this.t('Rank-ordered list')}"
             >
               <md-list-item-icon slot="start"
                 ><md-icon>grading</md-icon></md-list-item-icon
               ></md-list-item
             >
             <md-list-item
+              ?hidden="${this.earl?.configuration.hide_results=="1"}"
               class="${this.pageIndex == PagesTypes.Analysis &&
               'selectedContainer'}"
               @click="${() => this.changeTabTo(3)}"
               @keydown="${(e: KeyboardEvent) => { if (e.key === 'Enter') { this.changeTabTo(3); } }}"
-              headline="${this.t('Vote Analysis')}"
-              supportingText="${this.t('Analysis of the voting results')}"
+              headline="${this.t('Analysis of Results')}"
+              supportingText="${this.t('AI-generated analysis')}"
             >
               <md-list-item-icon slot="start"
                 ><md-icon>insights</md-icon></md-list-item-icon
@@ -855,11 +857,17 @@ export class AoiSurveyApp extends YpBaseElement {
               <md-icon slot="activeIcon">thumb_up</md-icon>
               <md-icon slot="inactiveIcon">thumb_up</md-icon>
             </md-navigation-tab>
-            <md-navigation-tab .label="${this.t('Results')}">
+            <md-navigation-tab
+              .label="${this.t('Results')}"
+              ?hidden="${this.earl?.configuration.hide_results=="1"}"
+            >
               <md-icon slot="activeIcon">grading</md-icon>
               <md-icon slot="inactiveIcon">grading</md-icon>
             </md-navigation-tab>
-            <md-navigation-tab .label="${this.t('Analysis')}">
+            <md-navigation-tab
+              .label="${this.t('Analysis')}"
+               ?hidden="${this.earl?.configuration.hide_results=="1"}"
+            >
               <md-icon slot="activeIcon">insights</md-icon>
               <md-icon slot="inactiveIcon">insights</md-icon>
             </md-navigation-tab>

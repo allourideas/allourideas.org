@@ -344,7 +344,7 @@ class QuestionsController < ApplicationController
     puts "question = #{@earl.inspect} #{@the_id}"
     @partial_results_url = "#{@earl.name}/results"
 
-    @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true})
+    @choices = Choice.find(:all, :params => {:question_id => @question.id, :include_inactive => true, :show_all => true})
   end
 
   def word_cloud

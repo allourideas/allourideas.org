@@ -1,6 +1,0 @@
-<p><%= t('items.email.hello') %></p>
-
-<p>The <%= @type %> CSV export you requested on <%= @date_requested.to_formatted_s(:long) %> (UTC) from the <%= @photocracy ? 'Photocracy' : 'All Our Ideas'%> site has failed.  We've been notified of the problem and will be working on a fix.</p>
-
-<p><%= t('items.email.thanks') %></p>
-<%= render :partial => 'idea_mailer/signature' %>

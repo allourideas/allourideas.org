@@ -1,0 +1,63 @@
+doctype html
+html(lang="en")
+    head
+        title= title
+        meta(property="og:url" content= url)
+        meta(property="og:title" content= title)
+        meta(property="og:description" content= descriptionText)
+        meta(property="og:image" content= imageUrl)
+        meta(property="og:type" content="website")
+        meta(property="og:image:width" content="864")
+        meta(property="og:image:height" content="486")
+        meta(name="twitter:card" content="summary_large_image")
+        meta(name="twitter:url" content= url)
+        meta(name="twitter:title" content= title)
+        meta(name="twitter:description" content= descriptionText)
+        meta(name="twitter:image" content= imageUrl)
+        meta(name="twitter:image:alt" content= title)
+
+    body
+        h1= title
+        img(src= imageUrl alt= title)
+        p= descriptionText
+        div
+            h2= subItemContainerName
+            each val in subItemIds
+                div
+                    a(href != subItemsUrlbase+val.id)
+                        p
+                            != val.name
+        div
+            each val in subItemPoints
+                div
+                    p= val.content
+        if moreUrl
+            p
+                b
+                    a(href != moreUrl)
+                        div
+                            p= moreText
+        p
+            b
+                a(href != backUrl)
+                    div
+                        p= backText
+        p
+            small
+                = "This content is created by the open source Your Priorities citizen engagement platform designed by the non profit Citizens Foundation"
+        p
+            small
+                a(href != "https://github.com/CitizensFoundation/your-priorities-app")
+                    div
+                        = "Your Priorities on GitHub"
+        p
+            small
+                a(href != "https://citizens.is")
+                    div
+                        = "Check out the Citizens Foundation website for more information"
+
+
+
+
+
+

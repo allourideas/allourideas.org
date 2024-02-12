@@ -1,1 +1,0 @@
-This is a Lit (Web Components) port of the [Plausible Dashboard](https://github.com/plausible/analytics/tree/master/assets/js/dashboard).

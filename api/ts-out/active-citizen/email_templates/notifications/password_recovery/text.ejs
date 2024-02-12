@@ -1,0 +1,10 @@
+<%- include('../header.text.ejs') %>
+
+<%= t('notification.email.reset_password_1') %>
+
+<%- linkTo("https://"+community.hostname+'.'+domain.domain_name+"/user/reset_password/"+token) %>
+
+<%= t('notification.email.reset_password_2') %>
+<%= t('notification.email.reset_password_3') %>
+
+<%- include('../footer.text.ejs') %>

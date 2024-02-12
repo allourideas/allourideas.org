@@ -1,0 +1,32 @@
+doctype html
+html(lang='en')
+    head
+        title Faceook Login Success
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    body
+        p
+            button.close(onclick='window.location = "/"') You have been logged in,press here to continue / Þú hefur verið innskráð/ur - Smelltu hér til að halda áfram
+        script(type='text/javascript').
+          var iInApp = /iPad|iPhone|Android|android|iPod/.test(navigator.userAgent) && !window.MSStream && (/FBAN/.test(navigator.userAgent) || /FBAV/.test(navigator.userAgent) || /Instagram/.test(navigator.userAgent));
+          if (iInApp) {
+            var cookieValue = document.cookie.match('(^|[^;]+)\\s*' + "ypRedirectCookie" + '\\s*=\\s*([^;]+)');
+            var redirectUrl = null;
+            if (cookieValue) {
+              cookieValue = cookieValue.pop();
+              redirectUrl = decodeURI(cookieValue);
+            }
+            if (redirectUrl!=null && redirectUrl!=="null") {
+              window.location = redirectUrl;
+            } else {
+              window.location = "/";
+            }
+          } else {
+            try {
+              window.opener.postMessage("facebookLogin", "*");
+              window.close();
+            } catch (err) {
+              window.close();
+            }
+          }
+

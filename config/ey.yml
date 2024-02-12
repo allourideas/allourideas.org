@@ -1,8 +1,0 @@
-environments:
-  CGCSI:
-    migrate: false
-    bundle_without: "test development cucumber"
-    branch: master
-  Staging_CGCSI:
-    migrate: false
-    bundle_without: "test development cucumber"

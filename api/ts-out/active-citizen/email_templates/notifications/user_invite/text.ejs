@@ -1,0 +1,14 @@
+<%- include('../header.text.ejs') %>
+
+<%= t('notification.email.user_invite_1') %>
+<% if (group) { %>
+  <%= group.name %>
+<% } else { %>
+  <%= community.name %>
+<% } %>
+
+<%= "https://"+community.hostname+'.'+domain.domain_name+"/user/accept/invite/"+token %>
+<%= t('notification.email.user_invite_2') %>
+<%= t('notification.email.user_invite_3') %> <%= sender_name %>
+
+<%- include('../footer.text.ejs') %>

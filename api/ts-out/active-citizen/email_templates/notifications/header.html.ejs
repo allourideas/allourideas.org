@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Your Priorities email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin: 0 auto;font-family: Helvetica, Arial, sans-serif;font-size: 16px;line-height: 1.5em;color: #656565;background-color: #edeeef;">
+  <div id="wrapper" style="margin: 16px;">
+    <div id="header" style="height: 91px;padding: 4px 10px 0 10px;background: #edeeef !important;">
+        <h1>
+            <%=envValues%>
+        </h1>
+      <div id="left-top" style="float: left;">
+        <% if (envValues!=null && envValues.banner_image != null) { %>
+          <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;height:74px;" alt="<%= envValues.emailName %>" src="<%= envValues.banner_image %>" />
+        <% } else { %>
+            <% if (domain.domain_name == 'betrireykjavik.is') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Betri Reykjavík" src="https://s3.amazonaws.com/yrpri-direct-asset/yrpri6_emails/BR_email.png" />
+            <% } %>
+            <% if (domain.domain_name == 'betraisland.is') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Betra Ísland" src="https://s3.amazonaws.com/yrpri-direct-asset/yrpri6_emails/bi_email.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'yrpri.org') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Your Priorities" src="https://s3.amazonaws.com/yrpri-direct-asset/yrpri6_emails/yp_email.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'staging-yp.is') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Your Priorities" src="https://s3.amazonaws.com/yrpri-direct-asset/yrpri6_emails/yp_email.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'ypus.org') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Your Priorities US" src="https://s3.amazonaws.com/yrpri-direct-asset/yrpri6_emails/yp_email.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'tarsalgo.net') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;height: 74px" alt="társalgó" src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/tarsargo_email_banner.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'junges.wien') { %>
+                <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="wienXtra" src="https://www.junges.wien/minio.yrpri.production/WIENXTRA-logo.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'forbrukerradet.no') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Mine idéer Forbrukerrådet" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/forbrukerradet_logo_small.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'multicitychallenge.org') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Multi City Challenge" src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/cityChallengeEmailBanner2.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'engagebritain.org') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" height="76" width="354" alt="Engage Britain" src="https://yrpri-eu-direct-assets.s3.eu-west-1.amazonaws.com/eb_email.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'mycitychallenge.org') { %>
+                <img style="margin: 0;padding-bottom: 10px;padding-top: 14px;" alt="My City Challenge" src="https://yrpri-direct-asset.s3.amazonaws.com/Oakland_logo_email+(1).png" />
+            <% } %>
+            <% if (domain.domain_name  == 'idea-synergy.com') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" height="75" width="75" alt="Idea Synergy" src="https://www.idea-synergy.com/wp-content/uploads/2018/06/IdeaSynergy_Bulb_OrangeCircle_105x105.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'smarter.nj.gov') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" alt="Smarter NJ" src="https://s3.amazonaws.com/yrpri-usa-production-direct-assets/smnj_email_header.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'parliament.scot') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" height="74" alt="Scottish Parliament" src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/Scottish_Parliament_emblem_2.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'engage-southampton.ac.uk') { %>
+              <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" height="74" alt="Scottish Parliament" src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/sccaLogo.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'puttingcommunitiesfirst.org.uk') { %>
+                <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" height="76" alt="Putting Communities First Logo" src="https://yrpri-eu-direct-assets.s3.eu-west-1.amazonaws.com/communityFund/communityFundYrpriEmailBanner.png" />
+            <% } %>
+            <% if (domain.domain_name  == 'openmontana.org') { %>
+                <img style="margin: 0;padding-bottom: 10px;padding-top: 16px;" height="76" alt="Open Montana Logo" src="https://yrpri-eu-direct-assets.s3.eu-west-1.amazonaws.com/openMontanaEmailHeader.png" />
+            <% } %>
+        <% } %>
+      </div>
+
+      <div id="right-top" style="float: right;text-align: right;font-size: 10pt;vertical-align: bottom;">
+        <p class="br" style="margin-top: 5px;text-align: center;font-size: 12pt;margin: 10px;margin-right: -10px;line-height: 90%;vertical-align: bottom;position: relative;top: 30px;">
+          <% if (community.name) { %>
+           <%= community.name %>
+          <% } %>
+          <% if (!community.name) { %>
+            <%= domain.name %>
+          <% } %>
+        </p>
+      </div>
+    </div>
+
+    <div id="header-image" style="display: none;">
+      <img src="<%= headerImageUrl %>" style="margin: 0;width: 100% !important;"/>
+    </div>
+
+    <div id="content" style="padding: 8px;margin: 8px;">
+      <p><%= t('notification.email.dear') %> <%= user.name %></p>

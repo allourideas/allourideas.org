@@ -1,0 +1,32 @@
+<%- include('../header.text.ejs') %>
+
+<% if (activity.type == 'activity.post.new') { %>
+  <%= post.id == user.id ? t('notification.email.postNewsSelf') : t('notification.email.postNew') %>
+    <%= post.name %>
+    <%= post.description %>
+<% } if (activity.type == 'activity.post.endorsement.new') { %>
+  <%= post.id == user.id ? t('notification.email.postEndorsementSelf') : t('notification.email.postEndorsement') %>
+<% } if (activity.type == 'activity.post.opposition.new') { %>
+   <%= post.id == user.id ? t('notification.email.postOppositionSelf') : t('notification.email.postOpposition') %>
+<% } if (activity.type == 'activity.report.content') { %>
+    <%= t('notification.email.postReport') %>
+    <%= post.name %>
+    <%= post.description %>
+<% } %>
+
+<% if (isReportingContent && isAutomated && !isAutomatedVision) { %>
+    <%= t('notification.email.automaticToxicityDetection') %>
+    <%= t('notification.email.automaticToxicityDetectionDisclaimer') %>
+    <%= t('notification.email.automaticToxicityHowLikely') %>: <%= moderation.toxicityScorePercent %>
+    <%= t('notification.email.automaticToxicityEnglishText') %>:
+    <%= moderation.textUsedForScore %>
+<% } %>
+
+<% if (isReportingContent && isAutomatedVision) { %>
+  <%= t('notification.email.automaticToxicityDetectionVision') %>
+  <%= t('notification.email.automaticToxicityDetectionDisclaimer') %><
+<% } %>
+
+<%= "https://"+community.hostname+"."+domain.domain_name+"/post/"+post.id %>
+
+<%- include('../footer.text.ejs') %>

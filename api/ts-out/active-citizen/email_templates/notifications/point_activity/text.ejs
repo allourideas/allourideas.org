@@ -1,0 +1,56 @@
+<%- include('../header.text.ejs') %>
+
+<% if (post && activity.type == 'activity.point.new') { %>
+<%= post.user_id == user.id ? t('notification.email.pointNewSelf') : t('notification.email.pointNew') %>
+<% } %>
+<% if (post && activity.type == 'activity.point.unhelpful') { %>
+<%= post.user_id == user.id ? t('notification.email.pointUnhelpfulSelf') : t('notification.email.pointUnhelpful') %>
+<% } %>
+<% if (post && activity.type == 'activity.point.helpful') { %>
+<%= post.user_id == user.id ? t('notification.email.pointHelpfulSelf') : t('notification.email.pointHelpful') %>
+<% } %>
+<% if (post && activity.type == 'activity.report.content') { %>
+<%= t('notification.email.pointReport') %>
+<% } %>
+
+<% if (isReportingContent && isAutomated && !isAutomatedVision) { %>
+    <%= t('notification.email.automaticToxicityDetection') %>
+    <%= t('notification.email.automaticToxicityDetectionDisclaimer') %>
+    <%= t('notification.email.automaticToxicityHowLikely') %>: <%= moderation.toxicityScorePercent %>
+    <%= t('notification.email.automaticToxicityEnglishText') %>:
+    <%= moderation.textUsedForScore %>
+<% } %>
+
+<% if (isReportingContent && isAutomatedVision) { %>
+    <%= t('notification.email.automaticToxicityDetectionVision') %>
+    <%= t('notification.email.automaticToxicityDetectionDisclaimer') %><
+<% } %>
+
+<% if (post) { %>
+<%= t('notification.email.newPointedAddedToThisIdea') %>:
+<%= post.name %>
+<% } %>
+
+<%= point.content %>
+<% if (point.User) { %>
+   <%= t('notification.email.writtenByUser') %> <%= point.User.name %>
+<% } %>
+
+<%= t('notification.email.youCanViewItHere') %>:
+<% if (post) { %>
+<%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/post/"+post.id+"/"+point.id) %>
+<% } %>
+<% if (!post && point.Post) { %>
+<%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/post/"+point.Post.id+"/news/"+activity.id) %>
+<% } %>
+<% if (!post && !point.Post && point.Group) { %>
+<%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/group/"+point.Group.id+"/news/"+activity.id) %>
+<% } %>
+<% if (!post && !point.Post && !point.Group && point.community) { %>
+<%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/community/"+point.Community.id+"/news/"+activity.id) %>
+<% } %>
+<% if (!post && !point.Post && !point.Group && !point.community) { %>
+<%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/domain/"+point.Domain.id+"/news/"+activity.id) %>
+<% } %>
+
+<%- include('../footer.text.ejs') %>

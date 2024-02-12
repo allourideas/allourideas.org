@@ -1,0 +1,105 @@
+      </div>
+      <div id="footer" style="padding: 10px;padding-left:16px;padding-top: 20px;text-align: left;background: #edeeef !important;">
+        <div style="padding-bottom: 8px;"><%=t('notification.email.withKindRegards')%></div>
+
+        <% if (envValues!=null) { %>
+          <a style="color: #0083e8;" href="<%= envValues.url %>"><%= envValues.emailName %></a> |
+          <a style="color: #0083e8;" href="mailto:<%= envValues.email %>"><%= envValues.email %></a> |
+          <a style="color: #0083e8;" href="<%= envValues.url %>/user/open_notification_settings"><%= t('notification.email.settings') %></a>
+        <% } else { %>
+          <% if (domain.domain_name == 'betrireykjavik.is') { %>
+            <a style="color: #0083e8;" href="https://www.betrireykjavik.is/">Betri Reykjavik</a> |
+            <a style="color: #0083e8;" href="mailto:betrireykjavik@ibuar.is">betrireykjavik@ibuar.is</a> |
+            <a style="color: #0083e8;" href="https://www.betrireykjavik.is/user/open_notification_settings">Tölvupóststillingar</a>
+          <% } %>
+          <% if (domain.domain_name == 'betraisland.is') { %>
+            <a style="color: #0083e8;" href="https://betraisland.is/">Betra Ísland</a> |
+            <a style="color: #0083e8;" href="mailto:betraisland@ibuar.is">betraisland@ibuar.is</a> |
+            <a style="color: #0083e8;" href="https://www.betraisland.is/user/open_notification_settings">Tölvupóststillingar</a>
+          <% } %>
+          <% if (domain.domain_name  == 'yrpri.org') { %>
+            <a style="color: #0083e8;" href="https://yrpri.org/">Your Priorities</a> |
+            <a style="color: #0083e8;" href="mailto:admin@yrpri.org">admin@yrpri.org</a> |
+            <a style="color: #0083e8;" href="https://yrpri.org/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'staging-yp.is') { %>
+            <a style="color: #0083e8;" href="https://yrpri.org/">Your Priorities</a> |
+            <a style="color: #0083e8;" href="mailto:admin@yrpri.org">admin@yrpri.org</a> |
+            <a style="color: #0083e8;" href="https://yrpri.org/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'ypus.org') { %>
+            <a style="color: #0083e8;" href="https://ypus.org/">Your Priorities US</a> |
+            <a style="color: #0083e8;" href="mailto:admin@yrpri.org">admin@yrpri.org</a> |
+            <a style="color: #0083e8;" href="https://ypus.org/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'tarsalgo.net') { %>
+            <a style="color: #0083e8;" href="https://tarsalgo.net/">társalgó @ köfe</a> |
+            <a style="color: #0083e8;" href="mailto:tarsalgo@kofe.hu">tarsalgo@kofe.hu</a> |
+            <a style="color: #0083e8;" href="https://tarsalgo.net/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'forbrukerradet.no') { %>
+            <a style="color: #0083e8;" href="https://mineideer.forbrukerradet.no">Forbrukerrådet – 'Mine idéer'</a> |
+            <a style="color: #0083e8;" href="mailto:mineideer@forbrukerradet.no">mineideer@forbrukerradet.no</a> |
+            <a style="color: #0083e8;" href="https://mineideer.forbrukerradet.no/user/open_notification_settings">Varselinnstillinger</a>
+          <% } %>
+          <% if (domain.domain_name  == 'multicitychallenge.org' && process.env.US_CLUSTER !=null) { %>
+            <a style="color: #0083e8;" href="https://ideas.multicitychallenge.org">Multi City Challenge</a> |
+            <a style="color: #0083e8;" href="mailto:admins@thegovlab.org">admins@thegovlab.org</a> |
+            <a style="color: #0083e8;" href="https://ideas.multicitychallenge.org/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'multicitychallenge.org' && process.env.US_CLUSTER ==null) { %>
+            <a style="color: #0083e8;" href="https://yp.multicitychallenge.org">Multi City Challenge</a> |
+            <a style="color: #0083e8;" href="mailto:admins@thegovlab.org">admins@thegovlab.org</a> |
+            <a style="color: #0083e8;" href="https://yp.multicitychallenge.org/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'mycitychallenge.org') { %>
+            <a style="color: #0083e8;" href="https://ideas.mycitychallenge.org">City Challenge</a> |
+            <a style="color: #0083e8;" href="mailto:admins@thegovlab.org">admins@thegovlab.org</a> |
+            <a style="color: #0083e8;" href="https://ideas.mycitychallenge.org/user/open_notification_settings">Email Settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'idea-synergy.com') { %>
+            <a style="color: #0083e8;" href="https://app.idea-synergy.com">Idea Synergy</a> |
+            <a style="color: #0083e8;" href="mailto:ideasynergy@idea-synergy.com">ideasynergy@idea-synergy.com</a> |
+            <a style="color: #0083e8;" href="https://app.idea-synergy.com/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'engagebritain.org') { %>
+            <a style="color: #0083e8;" href="https://socialcare.engagebritain.org">Engage Britain</a> |
+            <a style="color: #0083e8;" href="mailto:healthandcare@engagebritain.org">healthandcare@engagebritain.org</a> |
+            <a style="color: #0083e8;" href="https://socialcare.engagebritain.org/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'smarter.nj.gov') { %>
+            <a style="color: #0083e8;" href="https://participate.smarter.nj.gov">Smarter New Jersey</a> |
+            <a style="color: #0083e8;" href="mailto:support@smarter.nj.gov">support@smarter.nj.gov</a> |
+            <a style="color: #0083e8;" href="https://participate.smarter.nj.gov/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'parliament.scot') { %>
+            <a style="color: #0083e8;" href="https://engage.parliament.scot">Engage - Scottish Parliament</a> |
+            <a style="color: #0083e8;" href="mailto:engage@parliament.scot">engage@parliament.scot</a> |
+            <a style="color: #0083e8;" href="https://engage.parliament.scot/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'engage-southampton.ac.uk') { %>
+            <a style="color: #0083e8;" href="https://scca-online.engage-southampton.ac.uk">SCCA Online Platform</a> |
+            <a style="color: #0083e8;" href="mailto:scca@engage-southampton.ac.uk">scca@engage-southampton.ac.uk</a> |
+            <a style="color: #0083e8;" href="https://scca-online.engage-southampton.ac.uk/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'junges.wien') { %>
+            <a style="color: #0083e8;" href="https://junges.wien">Junges Wien</a> |
+            <a style="color: #0083e8;" href="mailto:junges.wien@wienxtra.at">junges.wien@wienxtra.at</a> |
+            <a style="color: #0083e8;" href="https://junges.wien/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'puttingcommunitiesfirst.org.uk') { %>
+            <a style="color: #0083e8;" href="https://discuss.puttingcommunitiesfirst.org.uk/">Community Fund</a> |
+            <a style="color: #0083e8;" href="mailto:share@tnlcommunityfund.org.uk">share@tnlcommunityfund.org.uk</a> |
+            <a style="color: #0083e8;" href="https://discuss.puttingcommunitiesfirst.org.uk/user/open_notification_settings">Email settings</a>
+          <% } %>
+          <% if (domain.domain_name  == 'openmontana.org') { %>
+            <a style="color: #0083e8;" href="https://yrpri-app.openmontana.org/">Open Montana</a> |
+            <a style="color: #0083e8;" href="mailto:openmontana@democracylab.com">openmontana@democracylab.com</a> |
+            <a style="color: #0083e8;" href="https://yrpri-app.openmontana.org/user/open_notification_settings">Email settings</a>
+          <% } %>
+
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

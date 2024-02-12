@@ -1,0 +1,62 @@
+<%- include('../header.html.ejs') %>
+
+<% if (post && activity.type == 'activity.point.new') { %>
+  <h1 style="font-weight: 600;line-height: 1.1em;margin: 0;font-size: 16pt;padding-top: 8px;"><%= post.user_id == user.id ? t('notification.email.pointNewSelf') : t('notification.email.pointNew') %></h1>
+<% } %>
+<% if (post && activity.type == 'activity.point.unhelpful') { %>
+  <h1 style="font-weight: 600;line-height: 1.1em;margin: 0;font-size: 16pt;padding-top: 8px;"><%= post.user_id == user.id ? t('notification.email.pointUnhelpfulSelf') : t('notification.email.pointUnhelpful') %></h1>
+<% } %>
+<% if (post && activity.type == 'activity.point.helpful') { %>
+  <h1 style="font-weight: 600;line-height: 1.1em;margin: 0;font-size: 16pt;padding-top: 8px;"><%= post.user_id == user.id ? t('notification.email.pointHelpfulSelf') : t('notification.email.pointHelpful') %></h1>
+<% } %>
+<% if (post && activity.type == 'activity.report.content') { %>
+  <h1 style="font-weight: 600;line-height: 1.1em;margin: 0;font-size: 16pt;padding-top: 8px;"><%= t('notification.email.pointReport') %></h1>
+<% } %>
+
+<% if (isReportingContent && isAutomated && !isAutomatedVision) { %>
+  <p style="padding-top: 10px;line-height: 1.2em">
+    <b><%= t('notification.email.automaticToxicityDetection') %></b><br>
+    <em><%= t('notification.email.automaticToxicityDetectionDisclaimer') %></em><br><br>
+    <%= t('notification.email.automaticToxicityHowLikely') %>: <b><%= moderation.toxicityScorePercent %></b><br><br>
+    <%= t('notification.email.automaticToxicityEnglishText') %>:<br><b><%= moderation.textUsedForScore %></b>
+  </p>
+<% } %>
+
+<% if (isReportingContent && isAutomatedVision) { %>
+  <p style="padding-top: 10px;line-height: 1.2em">
+    <b><%= t('notification.email.automaticToxicityDetectionVision') %></b><br>
+    <em><%= t('notification.email.automaticToxicityDetectionDisclaimer') %></em><br><br>
+  </p>
+<% } %>
+
+<% if (post) { %>
+  <div style="padding-top: 8px"> <%= t('notification.email.newPointedAddedToThisIdea') %>:<br><b><%= post.name %></b> </div>
+<% } %>
+<div style="padding-left: 20px;padding-top: 4px;">
+  <p>
+      <%= point.content %>
+  </p>
+    <% if (point.User) { %>
+  <p>
+    <i> <%= t('notification.email.writtenByUser') %> <%= point.User.name %> </i>
+  </p>
+    <% } %>
+</div>
+<%= t('notification.email.youCanViewItHere') %>:
+<% if (post) { %>
+  <%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/post/"+post.id+"/"+point.id) %>
+<% } %>
+<% if (!post && point.Post) { %>
+  <%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/post/"+point.Post.id+"/news/"+activity.id) %>
+<% } %>
+<% if (!post && !point.Post && point.Group) { %>
+  <%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/group/"+point.Group.id+"/news/"+activity.id) %>
+<% } %>
+<% if (!post && !point.Post && !point.Group && point.community) { %>
+  <%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/community/"+point.Community.id+"/news/"+activity.id) %>
+<% } %>
+<% if (!post && !point.Post && !point.Group && !point.community) { %>
+  <%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/domain/"+point.Domain.id+"/news/"+activity.id) %>
+<% } %>
+<br>
+<%- include('../footer.html.ejs') %>

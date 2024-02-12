@@ -1,0 +1,6 @@
+startWatchWithEnv.sh
+startWorkerWithEnv.sh
+ts-out/server_api/config/config.json
+config/config.json
+uploads/
+node_modules

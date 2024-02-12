@@ -1,0 +1,13 @@
+<%- include('../header.html.ejs') %>
+
+<h2 style="font-weight: 600;line-height: 1.1em;margin: 0;font-size: 14pt;padding-top: 8px;"><%= t('notification.post.statusChangeSubject') %></h2>
+<h1 style="font-weight: 600;line-height: 1.1em;margin: 0;font-size: 14pt;padding-top: 8px;"><%= post.name %></h1>
+
+<p style="margin-top: 5px;padding-top: 8px;">
+  <%- content.replace(/(\r\n)/g,'<br>') %>
+</p>
+<p style="margin-top: 5px;padding-top: 8px;">
+  <%- linkTo("https://"+community.hostname+"."+domain.domain_name+"/post/"+post.id) %>
+</p>
+
+<%- include('../footer.html.ejs') %>

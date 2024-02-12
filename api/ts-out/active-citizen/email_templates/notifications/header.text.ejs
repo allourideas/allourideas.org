@@ -1,0 +1,8 @@
+<% if (community.name) { %>
+<%= community.name %>
+<% } %>
+<% if (!community.name) { %>
+<%= domain.name %>
+<% } %>
+
+<%= t('notification.email.dear') %> <%= user.name %>

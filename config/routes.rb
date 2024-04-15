@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :passwords, :controller => "clearance/passwords"
 
   map.resources :questions,
+    # no longer allowing new question creations
+    :except => [:create],
     :collection => {
     },
     :member => {

@@ -1046,6 +1046,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   # GET /questions/new.xml
   def new
+    redirect_to "https://all-our-ideas.citizens.is/" and return
     @errors ||= []
     @question = Question.new
 

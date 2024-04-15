@@ -92,6 +92,11 @@
       =javascript_tag "var AUTH_TOKEN = '';"
     .content.container-fluid{:style => white_label_request? ? "overflow:hidden": ""}
       .body{:class => white_label_request? ? 'noborder' : ''}
+        .row-fluid
+          .alert.alert-block.well
+            %p.lead
+              %strong In the next few months,
+              allourideas.org will be reborn at <a href="https://all-our-ideas.citizen.is">all-our-ideas.citizen.is</a>. Read <a href="https://blog.allourideas.org/post/747830324389691392/allourideasorg-is-being-reborn-as">our announcement</a> to learn more.
         - if flash.length > 0 || session[:standard_flash] || (session[:has_voted] && session[:welcome_msg])
           .row-fluid
             .span12

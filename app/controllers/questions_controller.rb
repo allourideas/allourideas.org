@@ -1141,7 +1141,9 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       old_lang = @earl.default_lang
-      if @earl.update_attributes(params[:earl].slice(:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea))
+      allowed_attributes = [:pass, :logo, :welcome_message, :default_lang, :flag_enabled, :ga_code, :question_should_autoactivate_ideas, :hide_results, :active, :show_cant_decide, :show_add_new_idea]
+      allowed_attributes << :prompt_algorithm if current_user.admin?
+      if @earl.update_attributes(params[:earl].slice(*allowed_attributes))
         flash[:notice] = 'Question settings saved successfully!'
         # redirect to new lang if lang was changed
         if old_lang != @earl.default_lang
